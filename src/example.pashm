@@ -1,0 +1,13 @@
+
+
+
+mem 'hello world\n'; out ^;
+
+
+mem './lib.pashm'; include ^;
+
+
+call say_hello;
+
+
+
