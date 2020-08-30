@@ -7,15 +7,16 @@ class Program(commands.Commands):
     def __init__(self):
         self.variables = {}
         self.aliases = {}
-        self.runed_operations = []
         self.operations = []
         self.sections = {}
         self.mem = None
 
     def set_operations(self , operations):
+        # get list of operations and set it on program object
         self.operations = operations
 
     def parse_op(self , op_str):
+        # parse a operation from string to the object
         op = {}
         op['str'] = op_str
         op_parts = op_str.split(' ')
@@ -30,28 +31,26 @@ class Program(commands.Commands):
         return op
 
     def get_mem(self):
+        # return memory value and after empty that
         mem = self.mem
         self.mem = None
         return mem
 
     def raise_error(self , error_type , message , op):
+        # raise error
         print(error_type + ' in ' + str(op['index']) + ':\n\t' + op['str'] + '\n\t' + message)
         sys.exit(1)
 
-    
-
+    # run once operation
     def run(self , operation_str):
         op = self.parse_op(operation_str)
-        
         op_name = op['command']
-
-        # add operation to the runed operations
-        self.runed_operations.append(operation_str)
 
         if op_name == 'endalias':
             self.run_endalias(op)
             return
 
+        # if a alias is started, append current operation to the alias body
         try:
             tmp = self.current_alias
             self.aliases[self.current_alias].append(operation_str)
@@ -119,12 +118,14 @@ class Program(commands.Commands):
             self.run_gotoif(op)
             return
 
-        print(op['str'])
-
+        self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
 
     def start(self):
+        # start running operations
+
         is_in_alias = False
         self.current_step = 0
+        
         # load the sections
         i = 0
         while i < len(self.operations):
