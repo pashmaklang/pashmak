@@ -33,12 +33,11 @@ class test_set(TestCore):
     def run(self):
         program_vars = self.run_script(script_content)['vars']
 
-        try:
-            self.assert_equals(program_vars['myvar'] , None)
-            self.assert_equals(program_vars['var1'] , None)
-            self.assert_equals(program_vars['var2'] , None)
-            self.assert_equals(program_vars['v3'] , None)
-            self.assert_equals(program_vars['aaa'] , None)
-            self.assert_equals(program_vars['hoho'] , None)
-        except:
-            self.assert_true(False)
+        self.assert_equals(program_vars , {
+            'myvar': None,
+            'var1': None,
+            'var2': None,
+            'v3': None,
+            'aaa': None,
+            'hoho': None,
+        })
