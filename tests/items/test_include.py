@@ -1,4 +1,4 @@
-# test_return.py
+# test_include.py
 #
 # the pashmak project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -23,32 +23,19 @@
 from TestCore import TestCore
 
 script_content = '''
-mem 'first'; out ^;
+mem 'before include\\n'; out ^;
 
-return;
+mem 'examples/will_be_include.pashm'; include ^;
 
-mem 'last'; out ^;
+mem 'after include\\n'; out ^;
+
+call testalias;
 '''
 
-script_content_b = '''
-mem 'first'; out ^;
-
-return 126;
-
-mem 'last'; out ^;
-'''
-
-class test_return(TestCore):
+class test_include(TestCore):
     def run(self):
         program_data = self.run_script(script_content)
 
-        self.assert_equals(program_data['output'] , 'first')
-        self.assert_equals(program_data['exit_code'] , 0)
-
-        # next script
-
-        program_data = self.run_script(script_content_b)
-
-        self.assert_equals(program_data['output'] , 'first')
-        self.assert_equals(program_data['exit_code'] , 126)
+        self.assert_equals(program_data['output'] , 'before include\ni am included\nafter include\ni am included alias\n')
+        self.assert_equals(program_data['vars'] , {'included_var': 'included value'})
 
