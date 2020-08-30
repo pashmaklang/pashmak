@@ -100,6 +100,11 @@ if sys.argv[1] == 'update-headers':
     for f in files_list:
         GetFilesList.set_once_file_header(f)
 
+    # get files list in src/ folder and set header of them
+    files_list = GetFilesList('tests/').files_list
+    for f in files_list:
+        GetFilesList.set_once_file_header(f)
+
     print('Headers updated successfully')
     sys.exit()
 
