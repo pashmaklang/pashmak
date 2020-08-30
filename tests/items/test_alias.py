@@ -36,6 +36,8 @@ call myalias;
 
 mem 'finished\\n'; out ^;
 
+call myalias;
+
 '''
 
 class test_alias(TestCore):
@@ -44,5 +46,5 @@ class test_alias(TestCore):
 
         self.assert_equals(program_data['vars'] , {'somevar': 20})
 
-        self.assert_equals(program_data['output'] , 'starting\nalias runed\nalias finished\nfinished\n')
+        self.assert_equals(program_data['output'] , 'starting\nalias runed\nalias finished\nfinished\nalias runed\nalias finished\n')
 
