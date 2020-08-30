@@ -1,9 +1,9 @@
 import sys
 import os
-import parser
+from syntax import parser
 from core import commands
 
-class Script(commands.Commands):
+class Program(commands.Commands):
     def __init__(self):
         self.variables = {}
         self.aliases = {}

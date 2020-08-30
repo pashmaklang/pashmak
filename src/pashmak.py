@@ -1,8 +1,11 @@
+#!/usr/bin/python3
+
 import sys
 import os
-import parser
-from core import script
+from syntax import parser
+from core import program
 
+# validate arguments
 if len(sys.argv) <= 1:
     print('pashmak: script file name is required: pashmak [filename]')
     sys.exit(1)
@@ -19,8 +22,8 @@ script_f = open(filename , 'r')
 script_content = script_f.read()
 script_operations = parser.parse(script_content)
 
-# make pashmak script object
-script = script.Script()
-script.set_operations(script_operations)
-script.start()
+# make pashmak program object
+prog = program.Program()
+prog.set_operations(script_operations)
+prog.start()
 
