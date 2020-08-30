@@ -1,4 +1,5 @@
 import sys
+from syntax import parser
 
 class Commands:
     def run_set(self , op):
