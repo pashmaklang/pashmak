@@ -11,6 +11,11 @@ mem 'end\\n'; out ^;
 mem 'touch /tmp/pashmak-test-created-file-<rand>'; system ^;
 '''
 
+script_content_b = '''
+set %cmd; mem "touch /tmp/pashmak-test-created-file-<rand>"; copy %cmd;
+system %cmd;
+'''
+
 class test_system(TestCore):
     def run(self):
         rand = time.time()
@@ -20,6 +25,12 @@ class test_system(TestCore):
 
         self.assert_equals(program_data['mem'] , 0)
 
+        self.assert_true(os.path.isfile('/tmp/pashmak-test-created-file-' + str(rand)))
+        os.remove('/tmp/pashmak-test-created-file-' + str(rand))
+
+        # next script
+        rand = time.time()
+        program_data = self.run_script(script_content_b.replace('<rand>' , str(rand)))
         self.assert_true(os.path.isfile('/tmp/pashmak-test-created-file-' + str(rand)))
         os.remove('/tmp/pashmak-test-created-file-' + str(rand))
 
