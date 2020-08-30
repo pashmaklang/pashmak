@@ -25,7 +25,7 @@ from syntax import parser
 from core import commands
 
 class Program(commands.Commands):
-    def __init__(self , is_test=False):
+    def __init__(self , is_test=False , args=[]):
         self.variables = {}
         self.aliases = {}
         self.operations = []
@@ -34,6 +34,13 @@ class Program(commands.Commands):
         self.is_test = is_test
         self.output = ''
         self.runtime_error = None
+
+        # set argument variables
+        i = 0
+        while i < len(args):
+            self.variables['argv_' + str(i)] = args[i]
+        self.variables['argc'] = len(args)
+        
 
     def set_operations(self , operations):
         # get list of operations and set it on program object

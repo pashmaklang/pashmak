@@ -57,6 +57,8 @@ class TestCore:
         except:
             out['exit_code'] = 0
 
+        del out['vars']['argc']
+
         return out
 
     def dump(self , obj):

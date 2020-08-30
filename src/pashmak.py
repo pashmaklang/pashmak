@@ -45,7 +45,7 @@ script_content = script_f.read()
 script_operations = parser.parse(script_content)
 
 # make pashmak program object
-prog = program.Program()
+prog = program.Program(args=sys.argv[2:])
 prog.set_operations(script_operations)
 prog.start()
 
