@@ -38,8 +38,9 @@ class TestRunner:
         test_class_name = test[:len(test)-3]
         loaded_test = __import__('items.' + test_class_name)
         test_obj = eval('loaded_test.' + test_class_name + '.' + test_class_name + '()')
+        print(test_class_name.replace('_' , ' ') + ': ' , end='' , flush=True)
         test_obj.run()
-        print(test_class_name.replace('_' , ' ') + ': ' + tcolor.OKGREEN + 'PASS' + tcolor.ENDC)
+        print(tcolor.OKGREEN + 'PASS' + tcolor.ENDC)
 
     def run(self):
         for test in self.tests:

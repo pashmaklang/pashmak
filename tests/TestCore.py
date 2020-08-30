@@ -34,11 +34,16 @@ class TestCore:
         script_operations = parser.parse(script_content)
         prog = program.Program(is_test=True)
         prog.set_operations(script_operations)
-        prog.start()
+        try:
+            prog.start()
+        except:
+            print(tcolor.FAIL + 'Program runtime error')
+            raise
         
         out = {}
         out['vars'] = prog.variables
         out['output'] = prog.output
+        out['runtime_error'] = prog.runtime_error
 
         return out
 

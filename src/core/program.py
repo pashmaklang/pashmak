@@ -33,6 +33,7 @@ class Program(commands.Commands):
         self.mem = None
         self.is_test = is_test
         self.output = ''
+        self.runtime_error = None
 
     def set_operations(self , operations):
         # get list of operations and set it on program object
@@ -61,6 +62,9 @@ class Program(commands.Commands):
 
     def raise_error(self , error_type , message , op):
         # raise error
+        if self.is_test:
+            self.runtime_error = [error_type , message , op]
+            return
         print(error_type + ' in ' + str(op['index']) + ':\n\t' + op['str'] + '\n\t' + message)
         sys.exit(1)
 
