@@ -45,4 +45,8 @@ def run(self , op):
             except:
                 self.raise_error('TypeError' , 'return command gets integer value' , op)
 
-    sys.exit(exit_code)
+    if not self.is_test:
+        sys.exit(exit_code)
+    else:
+        self.current_step = len(self.operations) * 2
+        self.exit_code = exit_code

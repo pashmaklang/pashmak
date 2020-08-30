@@ -45,6 +45,10 @@ class TestCore:
         out['output'] = prog.output
         out['runtime_error'] = prog.runtime_error
         out['mem'] = prog.mem
+        try:
+            out['exit_code'] = prog.exit_code
+        except:
+            out['exit_code'] = 0
 
         return out
 
