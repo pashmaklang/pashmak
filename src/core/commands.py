@@ -1,132 +1,32 @@
 import sys
 from syntax import parser
 
+# operations imports
+from operations import set as op_set
+from operations import free as op_free
+from operations import copy as op_copy
+from operations import mem as op_mem
+from operations import out as op_out
+from operations import read as op_read
+
 class Commands:
     def run_set(self , op):
-        seted_vars = {}
-        args = op['args_str'].split(' ')
-        for arg in args:
-            if len(arg) > 0:
-                if arg[0] == '%':
-                    varname = arg[1:]
-                    self.variables[varname] = None
-                else:
-                    self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
+        op_set.run(self , op)
 
     def run_free(self , op):
-        args = op['args_str'].split(' ')
-        for arg in args:
-            if arg == '^':
-                self.mem = None
-            else:
-                if len(arg) > 0:
-                    if arg[0] == '%':
-                        varname = arg[1:]
-                        del self.variables[varname]
-                    else:
-                        self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
+        op_free.run(self , op)
 
     def run_copy(self , op):
-        args = op['args_str'].strip().split(' ')
-
-        if len(args) <= 0:
-            self.raise_error('ArgumentError' , 'copy command gets two arguments' , op)
-        
-        if len(args[0]) == 0:
-            self.raise_error('SyntaxError' , 'one or more arguments are empty' , op)
-
-        first_var = args[0]
-
-        if len(args) == 1:
-            mem = self.get_mem()
-            try:
-                self.variables[first_var[1:]] = mem
-                return
-            except:
-                self.raise_error('VariableError' , 'undefined variable "' + first_var + '"' , op)
-
-        if len(args[1]) == 0:
-            self.raise_error('SyntaxError' , 'one or more arguments are empty' , op)
-
-        second_var = args[1]
-
-        try:
-            if first_var == '^':
-                first_var_value = self.get_mem()
-            else:
-                first_var_value = self.variables[first_var[1:]]
-        except:
-            self.raise_error('VariableError' , 'undefined variable "' + first_var + '"' , op)
-
-        try:
-            if second_var == '^':
-                self.mem = first_var_value
-            else:
-                self.variables[second_var[1:]] = first_var_value
-        except:
-            self.raise_error('VariableError' , 'undefined variable "' + second_var + '"' , op)
+        op_copy.run(self , op)
 
     def run_mem(self , op):
-        args = op['args_str']
-
-        code = '(' + args + ')'
-
-        # replace variable names with value of them
-        for k in self.variables:
-            v = self.variables[k]
-            if type(v) == str:
-                v = '"' + v + '"'
-            v = str(v)
-
-            code = code.replace('%' + k , v)
-
-        self.mem = eval(code)
+        op_mem.run(self , op)
 
     def run_out(self , op):
-        arg = op['args_str'].split(' ')[0]
-
-        if len(arg) <= 0:
-            self.raise_error('SyntaxError' , 'out command required argument' , op)
-
-        out = None
-        if arg == '^':
-            out = self.get_mem()
-        else:
-            if arg[0] == '%':
-                try:
-                    out = self.variables[arg[1:]]
-                except:
-                    self.raise_error('VariableError' , 'undefined variable "' + arg + '"' , op)
-            else:
-                self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
-        
-        print(out , end='')
+        op_out.run(self , op)
 
     def run_read(self , op):
-        arg = op['args_str'].split(' ')[0]
-
-        if len(arg) <= 0:
-            self.raise_error('SyntaxError' , 'read command required variable argument' , op)
-
-        out = None
-        if arg == '^':
-            pass
-        else:
-            if arg[0] == '%':
-                try:
-                    tmp = self.variables[arg[1:]]
-                    del tmp
-                except:
-                    self.raise_error('VariableError' , 'undefined variable "' + arg + '"' , op)
-            else:
-                self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
-        
-        readed_data = input()
-
-        if out == '^':
-            self.mem = readed_data
-        else:
-            self.variables[arg[1:]] = readed_data
+        op_read.run(self , op)
 
     def run_return(self , op):
         arg = op['args_str'].strip().split(' ')[0].strip()
@@ -172,7 +72,7 @@ class Commands:
         try:
             del self.current_alias
         except:
-            pass
+            pass # TODO : raise error
 
     def run_call(self , op):
         arg = op['args_str'].split(' ')
