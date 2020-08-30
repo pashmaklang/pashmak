@@ -7,6 +7,7 @@ Commands:
     test            run tests
     make-test       create new test
     update-headers  update files copyright headers
+    build           build program with pyinstaller
 '''
 
 header_text = '''#
@@ -117,7 +118,11 @@ class TestMaker:
         f.write(content)
         f.close()
         return 0
-    
+
+class Builder:
+    @staticmethod
+    def build():
+        return os.system('python3 $(which pyinstaller) ./src/pashmak.py --onefile')
 
 
 if sys.argv[1] == 'update-headers':
@@ -145,6 +150,9 @@ if sys.argv[1] == 'make-test':
 if sys.argv[1] == 'test':
     os.system('python3 ./tests/run.py')
     sys.exit()
+
+if sys.argv[1] == 'build':
+    sys.exit(Builder.build())
 
 print('Unknow command "' + sys.argv[1] + '"')
 sys.exit(1)
