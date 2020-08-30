@@ -30,6 +30,12 @@ class TestCore:
     def __init__(self):
         pass
 
+    def run_script_file(self , file_path , read_inputs=[]):
+        f = open(file_path , 'r')
+        content = f.read()
+        f.close()
+        return self.run_script(content , read_inputs)
+
     def run_script(self , script_content , read_inputs=[]):
         script_operations = parser.parse(script_content)
         prog = program.Program(is_test=True)
