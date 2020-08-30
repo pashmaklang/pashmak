@@ -29,7 +29,18 @@ header_text = '''#
 # along with cati.  If not, see <https://www.gnu.org/licenses/>.
 '''
 
+test_content = '''
+from tests.TestCore import TestCore
+
+class <tstname>(TestCore):
+    def run(self):
+        self.assert_true(True)
+
+'''
+
 import sys, os
+
+from tests import tcolor
 
 if len(sys.argv) <= 1:
     print(help_msg)
@@ -90,8 +101,41 @@ class GetFilesList:
         f.close()
 
 
+class TestMaker:
+    @staticmethod
+    def make(test_name):
+        if os.path.isfile('tests/items/' + test_name + '.py'):
+            print('test "' + test_name + '" already exists')
+            return 1
+        
+        f = open('tests/items/' + test_name + '.py' , 'w')
 
+        global test_content
+
+        content = test_content.replace('<tstname>' , test_name)
+
+        f.write(content)
+        f.close()
+        return 0
     
+class TestRunner:
+    def __init__(self):
+        files = os.listdir('tests/items')
+        self.tests = []
+        for f in files:
+            if f[len(f)-3:] == '.py':
+                self.tests.append(f)
+
+    def run_once(self , test):
+        test_class_name = test[:len(test)-3]
+        loaded_test = __import__('tests.items.' + test_class_name)
+        test_obj = eval('loaded_test.items.' + test_class_name + '.' + test_class_name + '()')
+        test_obj.run()
+        print(test_class_name.replace('_' , ' ') + ': ' + tcolor.OKGREEN + 'PASS' + tcolor.ENDC)
+
+    def run(self):
+        for test in self.tests:
+            self.run_once(test)
 
 
 if sys.argv[1] == 'update-headers':
@@ -109,4 +153,17 @@ if sys.argv[1] == 'update-headers':
     sys.exit()
 
 
+if sys.argv[1] == 'make-test':
+    if len(sys.argv) <= 2:
+        print('make-test: test name argument is required')
+        sys.exit(1)
+
+    sys.exit(TestMaker.make(sys.argv[2]))
+
+if sys.argv[1] == 'test':
+    test_runner = TestRunner()
+    test_runner.run()
+    sys.exit()
+
 print('Unknow command "' + sys.argv[1] + '"')
+sys.exit(1)

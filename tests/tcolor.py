@@ -1,4 +1,4 @@
-# test_set.py
+# tcolor.py
 #
 # the pashmak project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -19,3 +19,12 @@
 # along with cati.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+
+HEADER = '\033[95m'
+OKBLUE = '\033[94m'
+OKGREEN = '\033[92m'
+WARNING = '\033[93m'
+FAIL = '\033[91m'
+ENDC = '\033[0m'
+BOLD = '\033[1m'
+UNDERLINE = '\033[4m'
