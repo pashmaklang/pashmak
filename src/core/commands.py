@@ -1,6 +1,3 @@
-import sys
-from syntax import parser
-
 # operations imports
 from operations import set as op_set
 from operations import free as op_free
@@ -8,6 +5,16 @@ from operations import copy as op_copy
 from operations import mem as op_mem
 from operations import out as op_out
 from operations import read as op_read
+from operations import returnop as op_return
+from operations import alias as op_alias
+from operations import endalias as op_endalias
+from operations import call as op_call
+from operations import required as op_required
+from operations import typeof as op_typeof
+from operations import system as op_system
+from operations import include as op_include
+from operations import goto as op_goto
+from operations import gotoif as op_gotoif
 
 class Commands:
     def run_set(self , op):
@@ -29,203 +36,31 @@ class Commands:
         op_read.run(self , op)
 
     def run_return(self , op):
-        arg = op['args_str'].strip().split(' ')[0].strip()
-
-        exit_code = 0
-        tmp = None
-
-        if arg != '':
-            if arg[0] == '%':
-                try:
-                    tmp = self.variables[arg[1:]]
-
-                    try:
-                        tmp = int(tmp)
-                        exit_code = tmp
-                    except:
-                        self.raise_error('TypeError' , 'return command gets integer value' , op)
-                except:
-                    self.raise_error('VariableError' , 'undefined variable "' + arg + '"' , op)
-            else:
-                try:
-                    exit_code = int(arg)
-                except:
-                    self.raise_error('TypeError' , 'return command gets integer value' , op)
-
-        sys.exit(exit_code)
+        op_return.run(self , op)
 
     def run_alias(self , op):
-        arg = op['args_str'].split(' ')
-
-        if len(arg) <= 0:
-            self.raise_error('SyntaxError' , 'alias command required alias name argument' , op)
-    
-        arg = arg[0]
-
-        if arg != '':
-            self.current_alias = arg
-            self.aliases[self.current_alias] = []
-        else:
-            self.raise_error('SyntaxError' , 'alias command required alias name argument' , op)
+        op_alias.run(self , op)
 
     def run_endalias(self , op):
-        try:
-            del self.current_alias
-        except:
-            pass # TODO : raise error
+        op_endalias.run(self , op)
 
     def run_call(self , op):
-        arg = op['args_str'].split(' ')
-
-        if len(arg) <= 0:
-            self.raise_error('SyntaxError' , 'call command required alias name argument' , op)
-    
-        arg = arg[0]
-
-        if arg != '':
-            if arg[0] == '%':
-                try:
-                    arg = self.variables[arg[1:]]
-                except:
-                    self.raise_error('VariableError' , 'undefined variable "' + arg + '"' , op)
-            try:
-                alias_body = self.aliases[arg]
-            except:
-                self.raise_error('AliasError' , 'undefined alias "' + arg + '"' , op)
-        else:
-            self.raise_error('SyntaxError' , 'alias command required alias name argument' , op)
-
-        i = int(self.current_step)
-        for alias_op in alias_body:
-            alias_op_parsed = self.parse_op(alias_op)
-            if alias_op_parsed['command'] == 'section':
-                section_name = alias_op_parsed['args_str'].strip().split(' ')[0].strip()
-                self.sections[section_name] = i+1
-            else:
-                #print(str(i) + ':' + alias_op) ####
-                self.operations.insert(i+1 , alias_op)
-                i += 1
-
-        '''
-        import pprint
-        print(self.current_step)
-        tmp_i = 0
-        for tmp_op in self.operations:
-            print(str(tmp_i) + ':' + tmp_op)
-            tmp_i += 1
-        pprint.pprint(self.sections)
-        sys.exit()
-        '''
-
-
-        
-
+        op_call.run(self , op)
 
     def run_required(self , op):
-        args = op['args_str'].split(' ')
-        for arg in args:
-            if len(arg) > 0:
-                if arg[0] == '%':
-                    try:
-                        tmp = self.variables[arg[1:]]
-                    except:
-                        self.raise_error('RequireError' , 'undefined variable "' + arg + '"' , op)
-                else:
-                    self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
+        op_required.run(self , op)
 
     def run_typeof(self , op):
-        args = op['args_str'].split(' ')
-        for arg in args:
-            if len(arg) > 0:
-                if arg[0] == '%':
-                    try:
-                        var = self.variables[arg[1:]]
-                        var_type = str(type(var))
-                        var_type = var_type[8:]
-                        var_type = var_type[:len(var_type)-2]
-                        self.mem = var_type
-                    except:
-                        self.raise_error('RequireError' , 'undefined variable "' + arg + '"' , op)
-                else:
-                    self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
+        op_typeof.run(self , op)
 
     def run_system(self , op):
-        args = op['args_str'].strip().split(' ')
-
-        if len(args) <= 0:
-            self.raise_error('SyntaxError' , 'system command gets a parameter' , op)
-
-        arg = args[0]
-
-        if arg != '':
-            if arg == '^':
-                cmd = self.get_mem()
-            else:
-                if arg[0] == '%':
-                    try:
-                        cmd = self.variables[arg[1:]]
-                    except:
-                        self.raise_error('VariableError' , 'undefined variable "' + arg + '"' , op)
-                else:
-                    self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
-            
-            self.mem = os.system(cmd)
-        else:
-            self.raise_error('SyntaxError' , 'system command gets a parameter' , op)
+        op_system.run(self , op)
 
     def run_include(self , op):
-        args = op['args_str'].strip().split(' ')
-
-        if len(args) <= 0:
-            self.raise_error('SyntaxError' , 'include command gets a parameter' , op)
-
-        arg = args[0]
-
-        if arg != '':
-            if arg == '^':
-                path = self.get_mem()
-            else:
-                if arg[0] == '%':
-                    try:
-                        path = self.variables[arg[1:]]
-                    except:
-                        self.raise_error('VariableError' , 'undefined variable "' + arg + '"' , op)
-                else:
-                    self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
-            
-            try:
-                content = open(path , 'r').read()
-                operations = parser.parse(content)
-                for operation in operations:
-                    self.run(operation)
-            except Exception as ex:
-                self.raise_error('FileError' , str(ex) , op)
-        else:
-            self.raise_error('SyntaxError' , 'include command gets a parameter' , op)
+        op_include.run(self , op)
 
     def run_goto(self , op):
-        arg = op['args_str'].strip().split(' ')[0].strip()
-
-        if arg == '':
-            self.raise_error('SyntaxError' , 'goto command gets section name argument' , op)
-        
-        try:
-            section_index = self.sections[arg]
-        except:
-            self.raise_error('SectionError' , 'undefined section "' + str(arg) + '"' , op)
-
-        self.current_step = section_index-1
+        op_goto.run(self , op)
 
     def run_gotoif(self , op):
-        arg = op['args_str'].strip().split(' ')[0].strip()
-
-        if arg == '':
-            self.raise_error('SyntaxError' , 'goto command gets section name argument' , op)
-        
-        try:
-            section_index = self.sections[arg]
-        except:
-            self.raise_error('SectionError' , 'undefined section "' + str(arg) + '"' , op)
-
-        if self.mem:
-            self.current_step = section_index-1
+        op_gotoif.run(self , op)
