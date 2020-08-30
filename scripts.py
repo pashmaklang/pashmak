@@ -30,7 +30,7 @@ header_text = '''#
 '''
 
 test_content = '''
-from tests.TestCore import TestCore
+from TestCore import TestCore
 
 class <tstname>(TestCore):
     def run(self):
@@ -118,24 +118,6 @@ class TestMaker:
         f.close()
         return 0
     
-class TestRunner:
-    def __init__(self):
-        files = os.listdir('tests/items')
-        self.tests = []
-        for f in files:
-            if f[len(f)-3:] == '.py':
-                self.tests.append(f)
-
-    def run_once(self , test):
-        test_class_name = test[:len(test)-3]
-        loaded_test = __import__('tests.items.' + test_class_name)
-        test_obj = eval('loaded_test.items.' + test_class_name + '.' + test_class_name + '()')
-        test_obj.run()
-        print(test_class_name.replace('_' , ' ') + ': ' + tcolor.OKGREEN + 'PASS' + tcolor.ENDC)
-
-    def run(self):
-        for test in self.tests:
-            self.run_once(test)
 
 
 if sys.argv[1] == 'update-headers':
@@ -161,8 +143,7 @@ if sys.argv[1] == 'make-test':
     sys.exit(TestMaker.make(sys.argv[2]))
 
 if sys.argv[1] == 'test':
-    test_runner = TestRunner()
-    test_runner.run()
+    os.system('python3 ./tests/run.py')
     sys.exit()
 
 print('Unknow command "' + sys.argv[1] + '"')

@@ -19,11 +19,32 @@
 # along with cati.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-from tests import tcolor
+import sys
+
+import tcolor
+
+from syntax import parser
+from core import program
 
 class TestCore:
     def __init__(self):
         pass
+
+    def run_script(self , script_content):
+        script_operations = parser.parse(script_content)
+        prog = program.Program()
+        prog.set_operations(script_operations)
+        prog.start()
+        
+        out = {}
+        out['vars'] = prog.variables
+
+        return out
+
+    def dump(self , obj):
+        import pprint
+        pprint.pprint(obj)
+        sys.exit()
 
     def do_assert(self , value , error=''):
         try:
@@ -31,6 +52,7 @@ class TestCore:
         except:
             print(tcolor.FAIL + '\nAssert Error: ' + error)
             raise
+            sys.exit(1)
 
     def assert_true(self , value):
         self.do_assert(value , 'asserting that false is true')
@@ -42,4 +64,4 @@ class TestCore:
         self.do_assert((first == last) , '"' + str(first) + '" is not equals "' + str(last) + '"')
 
     def assert_not_equals(self , first , last):
-        self.do_assert((not first == last) , '"' + str(first) + '" is not equals "' + str(last) + '"')
+        self.do_assert((not first == last) , '"' + str(first) + '" is equals "' + str(last) + '"')

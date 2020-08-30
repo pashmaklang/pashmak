@@ -26,6 +26,6 @@ def run(self , op):
         if len(arg) > 0:
             if arg[0] == '%':
                 varname = arg[1:]
-                self.variables[varname] = None
+                del self.variables[varname]
             else:
                 self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
