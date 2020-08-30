@@ -32,12 +32,13 @@ class TestCore:
 
     def run_script(self , script_content):
         script_operations = parser.parse(script_content)
-        prog = program.Program()
+        prog = program.Program(is_test=True)
         prog.set_operations(script_operations)
         prog.start()
         
         out = {}
         out['vars'] = prog.variables
+        out['output'] = prog.output
 
         return out
 

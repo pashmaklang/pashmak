@@ -36,5 +36,8 @@ def run(self , op):
                 self.raise_error('VariableError' , 'undefined variable "' + arg + '"' , op)
         else:
             self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
-        
-    print(out , end='')
+    
+    if not self.is_test:
+        print(out , end='')
+    else:
+        self.output += out

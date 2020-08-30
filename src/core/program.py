@@ -25,12 +25,14 @@ from syntax import parser
 from core import commands
 
 class Program(commands.Commands):
-    def __init__(self):
+    def __init__(self , is_test=False):
         self.variables = {}
         self.aliases = {}
         self.operations = []
         self.sections = {}
         self.mem = None
+        self.is_test = is_test
+        self.output = ''
 
     def set_operations(self , operations):
         # get list of operations and set it on program object
