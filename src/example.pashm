@@ -1,13 +1,24 @@
 
 
 
-mem 'hello world\n'; out ^;
+alias myfunc;
+    mem 'starting...\n'; out ^;
+
+    set %i; mem 1; copy %i;
+    section 5;
+        mem str(%i) + '\n'; out ^;
+        mem %i + 1; copy %i;
+    mem %i < 100; gotoif 5;
+
+    mem 'finished\n'; out ^;
+endalias;
 
 
-mem './lib.pashm'; include ^;
+call myfunc;
 
 
-call say_hello;
+call myfunc;
+
 
 
 

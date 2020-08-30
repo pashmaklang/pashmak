@@ -1,7 +1,7 @@
 import sys
 import os
 import parser
-import script
+from core import script
 
 if len(sys.argv) <= 1:
     print('pashmak: script file name is required: pashmak [filename]')
@@ -21,6 +21,6 @@ script_operations = parser.parse(script_content)
 
 # make pashmak script object
 script = script.Script()
-for operation in script_operations:
-    script.run(operation)
+script.set_operations(script_operations)
+script.start()
 

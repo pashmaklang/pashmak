@@ -1,38 +1,6 @@
 import sys
-import os
-import parser
 
-class Script:
-    def __init__(self):
-        self.variables = {}
-        self.aliases = {}
-        self.runed_operations = []
-        self.sections = {}
-        self.mem = None
-
-    def parse_op(self , op_str):
-        op = {}
-        op['str'] = op_str
-        op_parts = op_str.split(' ')
-        op['command'] = op_parts[0]
-        op_parts.pop(0)
-        op['args_str'] = ''
-        for op_part in op_parts:
-            for ch in op_part:
-                op['args_str'] += ch
-            op['args_str'] += ' '
-        op['index'] = len(self.runed_operations) + 1
-        return op
-
-    def get_mem(self):
-        mem = self.mem
-        self.mem = None
-        return mem
-
-    def raise_error(self , error_type , message , op):
-        print(error_type + ' in ' + op['str'] + ':\n\t' + message)
-        sys.exit(1)
-
+class Commands:
     def run_set(self , op):
         seted_vars = {}
         args = op['args_str'].split(' ')
@@ -200,7 +168,10 @@ class Script:
             self.raise_error('SyntaxError' , 'alias command required alias name argument' , op)
 
     def run_endalias(self , op):
-        del self.current_alias
+        try:
+            del self.current_alias
+        except:
+            pass
 
     def run_call(self , op):
         arg = op['args_str'].split(' ')
@@ -223,8 +194,31 @@ class Script:
         else:
             self.raise_error('SyntaxError' , 'alias command required alias name argument' , op)
 
+        i = int(self.current_step)
         for alias_op in alias_body:
-            self.run(alias_op)
+            alias_op_parsed = self.parse_op(alias_op)
+            if alias_op_parsed['command'] == 'section':
+                section_name = alias_op_parsed['args_str'].strip().split(' ')[0].strip()
+                self.sections[section_name] = i+1
+            else:
+                #print(str(i) + ':' + alias_op) ####
+                self.operations.insert(i+1 , alias_op)
+                i += 1
+
+        '''
+        import pprint
+        print(self.current_step)
+        tmp_i = 0
+        for tmp_op in self.operations:
+            print(str(tmp_i) + ':' + tmp_op)
+            tmp_i += 1
+        pprint.pprint(self.sections)
+        sys.exit()
+        '''
+
+
+        
+
 
     def run_required(self , op):
         args = op['args_str'].split(' ')
@@ -308,76 +302,29 @@ class Script:
         else:
             self.raise_error('SyntaxError' , 'include command gets a parameter' , op)
 
-    def run(self , operation_str):
-        op = self.parse_op(operation_str)
+    def run_goto(self , op):
+        arg = op['args_str'].strip().split(' ')[0].strip()
+
+        if arg == '':
+            self.raise_error('SyntaxError' , 'goto command gets section name argument' , op)
         
-        op_name = op['command']
-
-        # add operation to the runed operations
-        self.runed_operations.append(operation_str)
-
-        if op_name == 'endalias':
-            self.run_endalias(op)
-            return
-
         try:
-            tmp = self.current_alias
-            self.aliases[self.current_alias].append(operation_str)
-            return
+            section_index = self.sections[arg]
         except:
-            pass
+            self.raise_error('SectionError' , 'undefined section "' + str(arg) + '"' , op)
 
-        if op_name == 'set':
-            self.run_set(op)
-            return
+        self.current_step = section_index-1
 
-        if op_name == 'free':
-            self.run_free(op)
-            return
+    def run_gotoif(self , op):
+        arg = op['args_str'].strip().split(' ')[0].strip()
 
-        if op_name == 'copy':
-            self.run_copy(op)
-            return
+        if arg == '':
+            self.raise_error('SyntaxError' , 'goto command gets section name argument' , op)
+        
+        try:
+            section_index = self.sections[arg]
+        except:
+            self.raise_error('SectionError' , 'undefined section "' + str(arg) + '"' , op)
 
-        if op_name == 'mem':
-            self.run_mem(op)
-            return
-
-        if op_name == 'out':
-            self.run_out(op)
-            return
-
-        if op_name == 'read':
-            self.run_read(op)
-            return
-
-        if op_name == 'return':
-            self.run_return(op)
-            return
-
-        if op_name == 'alias':
-            self.run_alias(op)
-            return
-
-        if op_name == 'call':
-            self.run_call(op)
-            return
-
-        if op_name == 'required':
-            self.run_required(op)
-            return
-
-        if op_name == 'typeof':
-            self.run_typeof(op)
-            return
-
-        if op_name == 'system':
-            self.run_system(op)
-            return
-
-        if op_name == 'include':
-            self.run_include(op)
-            return
-
-        print(op['str'])
-
+        if self.mem:
+            self.current_step = section_index-1
