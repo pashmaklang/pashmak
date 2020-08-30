@@ -44,6 +44,7 @@ class TestCore:
         out['vars'] = prog.variables
         out['output'] = prog.output
         out['runtime_error'] = prog.runtime_error
+        out['mem'] = prog.mem
 
         return out
 
