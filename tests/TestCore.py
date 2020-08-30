@@ -30,9 +30,10 @@ class TestCore:
     def __init__(self):
         pass
 
-    def run_script(self , script_content):
+    def run_script(self , script_content , read_inputs=[]):
         script_operations = parser.parse(script_content)
         prog = program.Program(is_test=True)
+        prog.read_data = read_inputs
         prog.set_operations(script_operations)
         try:
             prog.start()

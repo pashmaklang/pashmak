@@ -37,8 +37,12 @@ def run(self , op):
                 self.raise_error('VariableError' , 'undefined variable "' + arg + '"' , op)
         else:
             self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
-        
-    readed_data = input()
+    
+    if not self.is_test:
+        readed_data = input()
+    else:
+        readed_data = self.read_data[0]
+        self.read_data.pop(0)
 
     if out == '^':
         self.mem = readed_data

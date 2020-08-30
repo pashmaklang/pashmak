@@ -40,4 +40,4 @@ def run(self , op):
     if not self.is_test:
         print(out , end='')
     else:
-        self.output += out
+        self.output += str(out)
