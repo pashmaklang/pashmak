@@ -39,6 +39,7 @@ class Program(commands.Commands):
         i = 0
         while i < len(args):
             self.variables['argv_' + str(i)] = args[i]
+            i += 1
         self.variables['argc'] = len(args)
         
 

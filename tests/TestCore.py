@@ -36,9 +36,9 @@ class TestCore:
         f.close()
         return self.run_script(content , read_inputs)
 
-    def run_script(self , script_content , read_inputs=[]):
+    def run_script(self , script_content , read_inputs=[] , args=[]):
         script_operations = parser.parse(script_content)
-        prog = program.Program(is_test=True)
+        prog = program.Program(is_test=True , args=args)
         prog.read_data = read_inputs
         prog.set_operations(script_operations)
         try:
