@@ -161,6 +161,10 @@ class Program(commands.Commands):
             self.run_fwrite(op)
             return
 
+        if op_name == 'chdir':
+            self.run_chdir(op)
+            return
+
         self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
 
     def start(self):
