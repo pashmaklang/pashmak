@@ -36,7 +36,7 @@ def run(self , op):
             self.variables[first_var[1:]] = mem
             return
         except:
-            self.raise_error('VariableError' , 'undefined variable "' + first_var + '"' , op)
+            self.raise_variable_error(first_var , op)
 
     if len(args[1]) == 0:
         self.raise_error('SyntaxError' , 'one or more arguments are empty' , op)
@@ -49,7 +49,7 @@ def run(self , op):
         else:
             first_var_value = self.variables[first_var[1:]]
     except:
-        self.raise_error('VariableError' , 'undefined variable "' + first_var + '"' , op)
+        self.raise_variable_error(first_var , op)
 
     try:
         if second_var == '^':
@@ -57,4 +57,4 @@ def run(self , op):
         else:
             self.variables[second_var[1:]] = first_var_value
     except:
-        self.raise_error('VariableError' , 'undefined variable "' + second_var + '"' , op)
+        self.raise_variable_error(second_var , op)

@@ -45,7 +45,7 @@ def run(self , op):
         else:
             filepath_value = self.variables[filepath[1:]]
     except:
-        self.raise_error('VariableError' , 'undefined variable "' + filepath + '"' , op)
+        self.raise_variable_error(filepath , op)
 
     try:
         if content == '^':
@@ -53,7 +53,7 @@ def run(self , op):
         else:
             content_value = self.variables[content[1:]]
     except:
-        self.raise_error('VariableError' , 'undefined variable "' + content + '"' , op)
+        self.raise_variable_error(content , op)
 
     try:
         f = open(filepath_value , 'w')

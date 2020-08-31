@@ -26,7 +26,7 @@ def run(self , op):
         try:
             arg = self.variables[arg[1:]]
         except:
-            self.raise_error('VariableError' , 'undefined variable "' + arg + '"' , op)
+            self.raise_variable_error(arg , op)
     try:
         alias_body = self.aliases[arg]
     except:

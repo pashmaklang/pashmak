@@ -38,7 +38,7 @@ def run(self , op):
                 except:
                     self.raise_error('TypeError' , 'return command gets integer value' , op)
             except:
-                self.raise_error('VariableError' , 'undefined variable "' + arg + '"' , op)
+                self.raise_variable_error(arg , op)
         else:
             try:
                 exit_code = int(arg)

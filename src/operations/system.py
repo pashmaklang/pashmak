@@ -31,7 +31,7 @@ def run(self , op):
             try:
                 cmd = self.variables[arg[1:]]
             except:
-                self.raise_error('VariableError' , 'undefined variable "' + arg + '"' , op)
+                self.raise_variable_error(arg , op)
         else:
             self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
             

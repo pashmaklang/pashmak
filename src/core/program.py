@@ -88,6 +88,9 @@ class Program(commands.Commands):
         print(error_type + ' in ' + str(op['index']) + ':\n\t' + op['str'] + '\n\t' + message)
         sys.exit(1)
 
+    def raise_variable_error(self , varname):
+        return self.raise_error('VariableError' , 'undefined variable "' + str(varname) + '"')
+
     # run once operation
     def run(self , operation_str):
         op = self.parse_op(operation_str)
