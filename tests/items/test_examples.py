@@ -250,4 +250,7 @@ starting...
 99
 finished
 ''')
+        
+        array_data = self.run_script_file('examples/array.pashm')
+        self.assert_equals(array_data['output'] , 'parsa\npashmak\nsomething\n')
 

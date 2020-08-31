@@ -1,0 +1,9 @@
+
+set %names; mem ['parsa', 'pashmak', 'something']; copy %names;
+
+set %i; mem 0; copy %i;
+
+section 10;
+    mem %names[%i] + '\n'; out ^;
+    mem %i + 1; copy %i;
+mem %i < len(%names); gotoif 10;
