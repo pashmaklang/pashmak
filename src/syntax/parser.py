@@ -19,6 +19,18 @@
 # along with cati.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+import time
+
+# handle \; as a clean text semicolon
+def handle_backslash_semicolon(op_str):
+    str_to_replace_with_semicolon = '<semicolon' + str(time.time()) + '>'
+
+    while str_to_replace_with_semicolon in op_str:
+        str_to_replace_with_semicolon = '<semicolon' + str(time.time()) + '>'
+
+    op_str = op_str.replace('\;' , str_to_replace_with_semicolon)
+
+    return [op_str , str_to_replace_with_semicolon]
 
 # remove comments from code line
 def ignore_comment(op_str):
@@ -34,11 +46,15 @@ def parse(content):
         # clean line, remove comments from that
         line = line.strip()
         line = ignore_comment(line)
+        tmp = handle_backslash_semicolon(line)
+        line = tmp[0]
+        clean_semicolon = tmp[1]
 
         # get operations by spliting line by ;
         ops = line.split(';')
         for op in ops:
             op = op.strip()
+            op = op.replace(clean_semicolon , ';')
             if op != '':
                 operations.append(op)
     return operations
