@@ -153,6 +153,10 @@ class Program(commands.Commands):
             self.run_gotoif(op)
             return
 
+        if op_name == 'fread':
+            self.run_fread(op)
+            return
+
         self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
 
     def start(self):
