@@ -38,7 +38,7 @@ class TestRunner:
         test_class_name = test[:len(test)-3]
         loaded_test = __import__('items.' + test_class_name)
         test_obj = eval('loaded_test.' + test_class_name + '.' + test_class_name + '()')
-        print(test_class_name.replace('_' , ' ') , end='' , flush=True)
+        print(test_class_name.replace('_' , ' ') + ' ' , end='' , flush=True)
         test_obj.run()
         whitespace = (' ') * (test_name_max_length - len(test_class_name) + 1)
         print(tcolor.OKGREEN + whitespace + 'PASS' + tcolor.ENDC)

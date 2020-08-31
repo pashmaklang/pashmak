@@ -28,7 +28,10 @@ from core import program
 
 class TestCore:
     def __init__(self):
-        pass
+        self.is_test = True
+
+    def with_program_errors(self):
+        self.is_test = False
 
     def run_script_file(self , file_path , read_inputs=[]):
         f = open(file_path , 'r')
@@ -38,7 +41,7 @@ class TestCore:
 
     def run_script(self , script_content , read_inputs=[] , args=[]):
         script_operations = parser.parse(script_content)
-        prog = program.Program(is_test=True , args=args)
+        prog = program.Program(is_test=self.is_test , args=args)
         prog.read_data = read_inputs
         prog.set_operations(script_operations)
         try:
