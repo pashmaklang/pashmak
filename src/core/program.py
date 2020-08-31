@@ -41,7 +41,19 @@ class Program(commands.Commands):
             self.variables['argv_' + str(i)] = args[i]
             i += 1
         self.variables['argc'] = len(args)
+
+    def one_arg_required(self , error_message , op):
+        arg = op['args_str'].split(' ')
+
+        if len(arg) <= 0:
+            self.raise_error('SyntaxError' , error_message , op)
+    
+        arg = arg[0]
+
+        if arg == '':
+            self.raise_error('SyntaxError' , error_message , op)
         
+        return arg
 
     def set_operations(self , operations):
         # get list of operations and set it on program object

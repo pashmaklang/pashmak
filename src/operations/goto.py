@@ -20,10 +20,7 @@
 ##################################################
 
 def run(self , op):
-    arg = op['args_str'].strip().split(' ')[0].strip()
-
-    if arg == '':
-        self.raise_error('SyntaxError' , 'goto command gets section name argument' , op)
+    arg = self.one_arg_required('goto command gets section name argument' , op)
         
     try:
         section_index = self.sections[arg]

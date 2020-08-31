@@ -20,14 +20,11 @@
 ##################################################
 
 def run(self , op):
-    arg = op['args_str'].split(' ')[0]
-
-    if len(arg) <= 0:
-        self.raise_error('SyntaxError' , 'read command required variable argument' , op)
+    arg = self.one_arg_required('read command required variable argument' , op)
 
     out = None
     if arg == '^':
-        pass
+        out = '^'
     else:
         if arg[0] == '%':
             try:

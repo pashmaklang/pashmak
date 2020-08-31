@@ -20,10 +20,7 @@
 ##################################################
 
 def run(self , op):
-    arg = op['args_str'].split(' ')[0]
-
-    if len(arg) <= 0:
-        self.raise_error('SyntaxError' , 'out command required argument' , op)
+    arg = self.one_arg_required('out command required argument' , op)
 
     out = None
     if arg == '^':

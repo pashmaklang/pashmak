@@ -22,25 +22,17 @@
 import os
 
 def run(self , op):
-    args = op['args_str'].strip().split(' ')
+    arg = self.one_arg_required('chdir command gets a parameter' , op)
 
-    if len(args) <= 0:
-        self.raise_error('SyntaxError' , 'chdir command gets a parameter' , op)
-
-    arg = args[0]
-
-    if arg != '':
-        if arg == '^':
-            path = self.get_mem()
-        else:
-            if arg[0] == '%':
-                try:
-                    path = self.variables[arg[1:]]
-                except:
-                    self.raise_error('VariableError' , 'undefined variable "' + arg + '"' , op)
-            else:
-                self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
-            
-        os.chdir(path)
+    if arg == '^':
+        path = self.get_mem()
     else:
-        self.raise_error('SyntaxError' , 'chdir command gets a parameter' , op)
+        if arg[0] == '%':
+            try:
+                path = self.variables[arg[1:]]
+            except:
+                self.raise_error('VariableError' , 'undefined variable "' + arg + '"' , op)
+        else:
+            self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
+            
+    os.chdir(path)
