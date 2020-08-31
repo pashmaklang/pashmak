@@ -34,17 +34,25 @@ class TestRunner:
             if f[len(f)-3:] == '.py':
                 self.tests.append(f)
 
-    def run_once(self , test):
+    def run_once(self , test , test_name_max_length):
         test_class_name = test[:len(test)-3]
         loaded_test = __import__('items.' + test_class_name)
         test_obj = eval('loaded_test.' + test_class_name + '.' + test_class_name + '()')
-        print(test_class_name.replace('_' , ' ') + ': ' , end='' , flush=True)
+        print(test_class_name.replace('_' , ' ') , end='' , flush=True)
         test_obj.run()
-        print(tcolor.OKGREEN + 'PASS' + tcolor.ENDC)
+        whitespace = (' ') * (test_name_max_length - len(test_class_name) + 1)
+        print(tcolor.OKGREEN + whitespace + 'PASS' + tcolor.ENDC)
 
     def run(self):
+        test_name_max_length = 0
+        for tmp_test in self.tests:
+            test_class_name = tmp_test[:len(tmp_test)-3]
+            tmp_test_length = len(tmp_test)
+            if tmp_test_length > test_name_max_length:
+                test_name_max_length = tmp_test_length
+        
         for test in self.tests:
-            self.run_once(test)
+            self.run_once(test , test_name_max_length)
 
 
 
