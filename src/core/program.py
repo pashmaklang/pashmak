@@ -178,5 +178,8 @@ class Program(commands.Commands):
 
         self.current_step = 0
         while self.current_step < len(self.operations):
-            self.run(self.operations[self.current_step])
+            try:
+                self.run(self.operations[self.current_step])
+            except Exception as ex:
+                self.raise_error('RuntimeError' , str(ex) , self.parse_op(self.operations[self.current_step]))
             self.current_step += 1
