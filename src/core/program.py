@@ -157,6 +157,10 @@ class Program(commands.Commands):
             self.run_fread(op)
             return
 
+        if op_name == 'fwrite':
+            self.run_fwrite(op)
+            return
+
         self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
 
     def start(self):

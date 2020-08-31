@@ -37,9 +37,7 @@ from operations import include as op_include
 from operations import goto as op_goto
 from operations import gotoif as op_gotoif
 from operations import fread as op_fread
-'''from operations import fclose as op_fclose
-from operations import fread as op_fread
-from operations import fwrite as op_fwrite'''
+from operations import fwrite as op_fwrite
 
 class Commands:
     def run_set(self , op):
@@ -93,11 +91,5 @@ class Commands:
     def run_fread(self , op):
         op_fread.run(self , op)
 
-    '''def fclose(self , op):
-        op_fclose(self , op)
-    
-    def fread(self , op):
-        op_fread(self , op)
-
-    def fwrite(self , op):
-        op_fwrite(self , op)'''
+    def run_fwrite(self , op):
+        op_fwrite.run(self , op)
