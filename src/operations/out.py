@@ -38,6 +38,6 @@ def run(self , op):
             self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
     
     if not self.is_test:
-        print(out , end='')
+        print(out , end='' , flush=True)
     else:
         self.output += str(out)
