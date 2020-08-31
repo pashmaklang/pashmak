@@ -39,6 +39,7 @@ from operations import gotoif as op_gotoif
 from operations import fread as op_fread
 from operations import fwrite as op_fwrite
 from operations import chdir as op_chdir
+from operations import cwd as op_cwd
 
 class Commands:
     def run_set(self , op):
@@ -97,3 +98,6 @@ class Commands:
 
     def run_chdir(self , op):
         op_chdir.run(self , op)
+
+    def run_cwd(self , op):
+        op_cwd.run(self , op)

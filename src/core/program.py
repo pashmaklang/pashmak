@@ -165,6 +165,10 @@ class Program(commands.Commands):
             self.run_chdir(op)
             return
 
+        if op_name == 'cwd':
+            self.run_cwd(op)
+            return
+
         self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
 
     def start(self):
