@@ -44,6 +44,7 @@ from operations import isset as op_isset
 from operations import tryop as op_try
 from operations import endtry as op_endtry
 from operations import eval as op_eval
+from operations import arraypush as op_arraypush
 
 class Commands:
     def run_set(self , op):
@@ -117,3 +118,6 @@ class Commands:
 
     def run_eval(self , op):
         op_eval.run(self , op)
+
+    def run_arraypush(self , op):
+        op_arraypush.run(self , op)
