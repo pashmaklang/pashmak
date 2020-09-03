@@ -216,6 +216,10 @@ class Program(commands.Commands):
             self.run_arraypop(op)
             return
 
+        if op_name == 'python':
+            self.run_python(op)
+            return
+
         self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
 
     def start(self):
