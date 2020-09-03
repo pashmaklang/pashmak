@@ -37,11 +37,8 @@ class Program(commands.Commands):
         self.is_in_try = None
 
         # set argument variables
-        i = 0
-        while i < len(args):
-            self.variables['argv_' + str(i)] = args[i]
-            i += 1
-        self.variables['argc'] = len(args)
+        self.variables['argv'] = args
+        self.variables['argc'] = len(self.variables['argv'])
 
     def one_arg_required(self , error_message , op):
         arg = op['args_str'].split(' ')

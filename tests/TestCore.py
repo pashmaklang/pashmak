@@ -39,7 +39,7 @@ class TestCore:
         f.close()
         return self.run_script(content , read_inputs)
 
-    def run_script(self , script_content , read_inputs=[] , args=[]):
+    def run_script(self , script_content , read_inputs=[] , args=[] , want_argv=False):
         script_operations = parser.parse(script_content)
         prog = program.Program(is_test=self.is_test , args=args)
         prog.read_data = read_inputs
@@ -61,6 +61,9 @@ class TestCore:
             out['exit_code'] = 0
 
         del out['vars']['argc']
+
+        if not want_argv:
+            del out['vars']['argv']
 
         return out
 

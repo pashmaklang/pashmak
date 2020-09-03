@@ -23,15 +23,15 @@
 from TestCore import TestCore
 
 script_content = '''
-out %argv_0;
-out %argv_1;
+mem %argv[0]; out ^;
+mem %argv[1]; out ^;
 out %argc;
 '''
 
 class test_args(TestCore):
     def run(self):
-        program_data = self.run_script(script_content , [] , ['hi' , 'bye'])
-        self.assert_equals(program_data['vars']['argv_0'] , 'hi')
-        self.assert_equals(program_data['vars']['argv_1'] , 'bye')
+        program_data = self.run_script(script_content , [] , ['hi' , 'bye'] , True)
+        self.assert_equals(program_data['vars']['argv'][0] , 'hi')
+        self.assert_equals(program_data['vars']['argv'][1] , 'bye')
         self.assert_equals(program_data['output'] , 'hibye2')
 
