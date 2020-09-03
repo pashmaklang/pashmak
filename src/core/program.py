@@ -212,6 +212,10 @@ class Program(commands.Commands):
             self.run_arraypush(op)
             return
 
+        if op_name == 'arraypop':
+            self.run_arraypop(op)
+            return
+
         self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
 
     def start(self):

@@ -45,6 +45,7 @@ from operations import tryop as op_try
 from operations import endtry as op_endtry
 from operations import eval as op_eval
 from operations import arraypush as op_arraypush
+from operations import arraypop as op_arraypop
 
 class Commands:
     def run_set(self , op):
@@ -121,3 +122,6 @@ class Commands:
 
     def run_arraypush(self , op):
         op_arraypush.run(self , op)
+
+    def run_arraypop(self , op):
+        op_arraypop.run(self , op)
