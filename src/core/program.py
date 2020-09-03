@@ -34,6 +34,7 @@ class Program(commands.Commands):
         self.is_test = is_test
         self.output = ''
         self.runtime_error = None
+        self.is_in_try = None
 
         # set argument variables
         i = 0
@@ -81,6 +82,13 @@ class Program(commands.Commands):
         return mem
 
     def raise_error(self , error_type , message , op):
+        # check is in try
+        if self.is_in_try != None:
+            section_index = self.is_in_try
+            self.is_in_try = None
+            new_step = self.sections[str(section_index)]
+            self.current_step = new_step-1
+            return
         # raise error
         if self.is_test:
             self.runtime_error = [error_type , message , op]
@@ -186,6 +194,14 @@ class Program(commands.Commands):
 
         if op_name == 'isset':
             self.run_isset(op)
+            return
+
+        if op_name == 'try':
+            self.run_try(op)
+            return
+
+        if op_name == 'endtry':
+            self.run_endtry(op)
             return
 
         self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)

@@ -41,6 +41,8 @@ from operations import fwrite as op_fwrite
 from operations import chdir as op_chdir
 from operations import cwd as op_cwd
 from operations import isset as op_isset
+from operations import tryop as op_try
+from operations import endtry as op_endtry
 
 class Commands:
     def run_set(self , op):
@@ -105,3 +107,9 @@ class Commands:
 
     def run_isset(self , op):
         op_isset.run(self , op)
+
+    def run_try(self , op):
+        op_try.run(self , op)
+
+    def run_endtry(self , op):
+        op_endtry.run(self , op)
