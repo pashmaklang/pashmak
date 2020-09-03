@@ -184,6 +184,10 @@ class Program(commands.Commands):
             self.run_cwd(op)
             return
 
+        if op_name == 'isset':
+            self.run_isset(op)
+            return
+
         self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
 
     def start(self):
