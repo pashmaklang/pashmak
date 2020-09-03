@@ -204,6 +204,10 @@ class Program(commands.Commands):
             self.run_endtry(op)
             return
 
+        if op_name == 'eval':
+            self.run_eval(op)
+            return
+
         self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
 
     def start(self):

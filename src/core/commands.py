@@ -43,6 +43,7 @@ from operations import cwd as op_cwd
 from operations import isset as op_isset
 from operations import tryop as op_try
 from operations import endtry as op_endtry
+from operations import eval as op_eval
 
 class Commands:
     def run_set(self , op):
@@ -113,3 +114,6 @@ class Commands:
 
     def run_endtry(self , op):
         op_endtry.run(self , op)
+
+    def run_eval(self , op):
+        op_eval.run(self , op)
