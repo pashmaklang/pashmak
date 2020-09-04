@@ -1,5 +1,4 @@
-
-
+# This is a simple loop printing numbers from 1 to 99
 
 alias myfunc;
     mem 'starting...\n'; out ^;
@@ -15,10 +14,3 @@ endalias;
 
 
 call myfunc;
-
-
-call myfunc;
-
-
-
-

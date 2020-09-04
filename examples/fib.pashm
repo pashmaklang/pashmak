@@ -1,3 +1,4 @@
+# Printing the fibonacci pattern
 
 alias fib;
     set %a %b;
