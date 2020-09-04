@@ -14,3 +14,6 @@ test:
 
 docs:
 	$(PYTHON) ./scripts.py build-doc
+
+all: update-headers docs test
+	git status
