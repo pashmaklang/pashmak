@@ -8,6 +8,7 @@ Commands:
     make-test       create new test
     update-headers  update files copyright headers
     build           build program with pyinstaller
+    build-doc       build documentation in README.md from doc/ folder
 '''
 
 header_text = '''#
@@ -125,6 +126,40 @@ class Builder:
         return os.system('python3 $(which pyinstaller) ./src/pashmak.py --onefile')
 
 
+
+
+class DocBuilder:
+    @staticmethod
+    def build():
+        # load .md files from doc/ folder
+        doc_parts = os.listdir('doc')
+        doc_parts = [part for part in doc_parts if part[len(part)-3:] == '.md' and part != 'README.HEADER.md']
+        doc_parts.sort()
+        
+        total_content = ''
+
+        # add README.HEADER.md to the first of content
+        readme_header_f = open('doc/README.HEADER.md' , 'r')
+        total_content += readme_header_f.read() + '\n\n\n'
+        readme_header_f.close()
+
+        # append content of doc parts to total_content one by one
+        for doc_part in doc_parts:
+            doc_part_f = open('doc/' + doc_part , 'r')
+            doc_part_content = doc_part_f.read()
+            total_content += doc_part_content + '\n\n\n'
+            doc_part_f.close()
+
+        # write generated content to the README.md file
+        readme_f = open('README.md' , 'w')
+        readme_f.write(total_content)
+        readme_f.close()
+
+        print('Documentation built successfully and README.md generated.')
+
+
+
+
 if sys.argv[1] == 'update-headers':
     # get files list in src/ folder and set header of them
     files_list = GetFilesList('src/').files_list
@@ -153,6 +188,9 @@ if sys.argv[1] == 'test':
 
 if sys.argv[1] == 'build':
     sys.exit(Builder.build())
+
+if sys.argv[1] == 'build-doc':
+    sys.exit(DocBuilder.build())
 
 print('Unknow command "' + sys.argv[1] + '"')
 sys.exit(1)

@@ -11,3 +11,6 @@ update-headers:
 
 test:
 	$(PYTHON) ./scripts.py test
+
+docs:
+	$(PYTHON) ./scripts.py build-doc
