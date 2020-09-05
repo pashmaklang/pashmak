@@ -95,7 +95,7 @@ class GetFilesList:
         only_file_name = fname.split('/')[-1]
         new_content = '# ' + only_file_name + '\n' + new_content
 
-        if fname == 'src/pashmak.py':
+        if fname == 'src/pashmak.py' or fname == 'tests/run.py':
             new_content = '#!/usr/bin/env python3\n' + new_content
 
         f = open(fname , 'w')
