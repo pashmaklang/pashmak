@@ -154,7 +154,7 @@ the `mem` command is very very important and you need to use it every where
 
 variables are like a put where you can save a data on them
 
-to set and handle variables in pashmak, we work with tree commands: `set`, `copy`, `free`
+to set and handle variables in pashmak, we work with three commands: `set`, `copy`, `free`
 
 ```bash
 set %myvar; # set a variables named %myvar
@@ -199,7 +199,7 @@ you can use variables in mem like that example
 
 
 ### free variables
-when you seta variable, that var is in memory. you can delete that var with `free` command:
+when you set a variable, that var is in memory. you can delete that var with `free` command:
 
 ```bash
 set %somevar;
@@ -218,7 +218,7 @@ also you can free more than one variable with `free` command:
 free %var1 %var2 %var3; # ...
 ```
 
-#NOTE: in that example, we used `copy` command like this:
+###### NOTE: in that example, we used `copy` command like this:
 
 ```bash
 mem 'some value';
