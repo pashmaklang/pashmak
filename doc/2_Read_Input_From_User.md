@@ -1,4 +1,4 @@
-# Read Input From User
+## Read Input From User
 
 you can read a input from user in stdin
 
