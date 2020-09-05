@@ -1,5 +1,5 @@
 # Pashmak programming language
-hi there. this is pashmak programming language. pashmak is a interpreter writed in python.
+hi there. this is pashmak programming language. pashmak is a interpreter wrote in python.
 the pashmak scripts has a cool syntax.
 
 ### hello world!
