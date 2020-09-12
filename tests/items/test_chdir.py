@@ -28,8 +28,8 @@ mem '/tmp'; chdir ^;
 '''
 
 script_content_b = '''
-set %path; mem '/tmp'; copy %path;
-chdir %path;
+set $path; mem '/tmp'; copy $path;
+chdir $path;
 '''
 
 script_content_c = '''

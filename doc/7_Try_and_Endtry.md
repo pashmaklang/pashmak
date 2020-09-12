@@ -3,14 +3,14 @@
 we may get some errors in some places in program. for example:
 
 ```bash
-out %this_var_not_found;
+out $this_var_not_found;
 ```
 
 output:
 
 ```
 VariableError:
-    undefined variable %this_var_not_found
+    undefined variable $this_var_not_found
 ```
 
 or:
@@ -37,7 +37,7 @@ look at this example:
 
 ```bash
 try handle_error;
-    out %somevar;
+    out $somevar;
 endtry;
 
 goto after_error;
@@ -59,15 +59,15 @@ when error is raised in try statement, error data will put in mem (^):
 
 ```bash
 try handle_error;
-    out %somevar;
+    out $somevar;
 endtry;
 
 goto after_error;
 
 section handle_error;
 
-set %ex; copy %ex;
-out %ex; # output: {"type": "VariableError" , "message": "undefined variable %somevar"}...
+set $ex; copy $ex;
+out $ex; # output: {"type": "VariableError" , "message": "undefined variable $somevar"}...
 
 section after_error;
 ```

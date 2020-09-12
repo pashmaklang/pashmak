@@ -23,10 +23,10 @@
 from TestCore import TestCore
 
 script_content = '''
-set %somevar %v1;
-set %hoho;
+set $somevar $v1;
+set $hoho;
 
-free %v1 %hoho;
+free $v1 $hoho;
 '''
 
 class test_free(TestCore):

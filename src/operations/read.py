@@ -26,7 +26,7 @@ def run(self , op):
     if arg == '^':
         out = '^'
     else:
-        if arg[0] == '%':
+        if arg[0] == '$':
             try:
                 tmp = self.variables[arg[1:]]
                 del tmp

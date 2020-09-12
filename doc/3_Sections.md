@@ -17,12 +17,12 @@ actually when my code starts, prints hello world and then `goto` commands direct
 look at this example:
 
 ```bash
-set %i; mem 1; copy %i;
+set $i; mem 1; copy $i;
 
 section loop;
-    mem str(%i) + '\n'; out ^; # print %i
-    mem %i + 1; copy %i; # add 1 to %i
-mem %i < 10; gotoif loop; # check the condition in `mem` and use gotoif command
+    mem str($i) + '\n'; out ^; # print $i
+    mem $i + 1; copy $i; # add 1 to $i
+mem $i < 10; gotoif loop; # check the condition in `mem` and use gotoif command
 ```
 
 the output of this code is
@@ -58,11 +58,11 @@ look at this example:
 ```bash
 # read age from user
 mem 'enter your age: '; out ^;
-set %age;
-read %age;
-mem int(%age); copy %age;
+set $age;
+read $age;
+mem int($age); copy $age;
 
-mem %age > 18; gotoif age_is_more_than_18; # if age is more than 18, goto age_is_more_than_18 section
+mem $age > 18; gotoif age_is_more_than_18; # if age is more than 18, goto age_is_more_than_18 section
 
 # if not, this line will run and program goes to age_is_less_than_18
 goto age_is_less_than_18;

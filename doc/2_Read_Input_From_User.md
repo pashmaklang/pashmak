@@ -5,10 +5,10 @@ you can read a input from user in stdin
 look at this example:
 
 ```bash
-set %name; # set the name variabl
+set $name; # set the name variabl
 mem 'what is your name? '; out ^; # print
-read %name; # read a input and copy this in %name variable
-mem 'hello ' + %name + '\n'; out ^; # say hello to %name :)
+read $name; # read a input and copy this in $name variable
+mem 'hello ' + $name + '\n'; out ^; # say hello to $name :)
 ```
 
 when we run this code, output is this:
@@ -28,23 +28,23 @@ we can get input from user like this example
 also look at this example:
 
 ```bash
-set %num1 %num2;
+set $num1 $num2;
 
 mem 'enter first number: '; out ^;
-read %num1;
+read $num1;
 
 mem 'enter second number: '; out ^;
-read %num2;
+read $num2;
 
-# now, %num1 and %num2 are string. we convert string to int:
-mem int(%num1); copy %num1;
-mem int(%num2); copy %num2;
+# now, $num1 and $num2 are string. we convert string to int:
+mem int($num1); copy $num1;
+mem int($num2); copy $num2;
 
 # now we want to plus them
-set %sum;
-mem %num1 + %num2; copy %sum;
+set $sum;
+mem $num1 + $num2; copy $sum;
 
-mem str(%sum) + '\n'; out ^;
+mem str($sum) + '\n'; out ^;
 ```
 
 program output:

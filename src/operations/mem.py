@@ -31,6 +31,6 @@ def run(self , op):
             v = '"' + v + '"'
         v = str(v)
 
-        code = code.replace('%' + k , v)
+        code = code.replace('$' + k , v)
 
     self.mem = eval(code)

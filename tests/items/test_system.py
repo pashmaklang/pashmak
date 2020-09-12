@@ -33,8 +33,8 @@ mem 'touch /tmp/pashmak-test-created-file-<rand>'; system ^;
 '''
 
 script_content_b = '''
-set %cmd; mem "touch /tmp/pashmak-test-created-file-<rand>"; copy %cmd;
-system %cmd;
+set $cmd; mem "touch /tmp/pashmak-test-created-file-<rand>"; copy $cmd;
+system $cmd;
 '''
 
 class test_system(TestCore):

@@ -23,20 +23,20 @@
 from TestCore import TestCore
 
 script_content = '''
-set %mystr %myint %mybool;
+set $mystr $myint $mybool;
 
-mem 'the string'; copy %mystr;
-mem 17; copy %myint;
-mem True; copy %mybool;
+mem 'the string'; copy $mystr;
+mem 17; copy $myint;
+mem True; copy $mybool;
 
-set %type_str;
-typeof %mystr; copy %type_str;
+set $type_str;
+typeof $mystr; copy $type_str;
 
-set %type_int;
-typeof %myint; copy %type_int;
+set $type_int;
+typeof $myint; copy $type_int;
 
-set %type_bool;
-typeof %mybool; copy %type_bool;
+set $type_bool;
+typeof $mybool; copy $type_bool;
 '''
 
 class test_typeof(TestCore):

@@ -26,7 +26,7 @@ def run(self , op):
     if arg == '^':
         out = self.get_mem()
     else:
-        if arg[0] == '%':
+        if arg[0] == '$':
             try:
                 out = self.variables[arg[1:]]
             except:

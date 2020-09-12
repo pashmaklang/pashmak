@@ -22,8 +22,8 @@
 from TestCore import TestCore
 
 script_content = '''
-set %one;
-isset %one; gotoif 1;
+set $one;
+isset $one; gotoif 1;
 
 goto 2;
 
@@ -36,7 +36,7 @@ section 2;
 '''
 
 script_content_b = '''
-isset %one; gotoif 1;
+isset $one; gotoif 1;
 
 goto 2;
 
@@ -51,8 +51,8 @@ mem 'no, one is not set\\n'; out ^;
 '''
 
 script_content_c = '''
-set %two;
-isset %two %one; gotoif 1;
+set $two;
+isset $two $one; gotoif 1;
 
 goto 2;
 

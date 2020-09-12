@@ -25,8 +25,8 @@ import time, os
 from TestCore import TestCore
 
 script_content = '''
-set %value; mem 'hello world'; copy %value;
-mem '/tmp/pashmak-test-file-<rand>'; fwrite ^ %value;
+set $value; mem 'hello world'; copy $value;
+mem '/tmp/pashmak-test-file-<rand>'; fwrite ^ $value;
 '''
 
 class test_fwrite(TestCore):

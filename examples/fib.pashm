@@ -1,21 +1,21 @@
 # Printing the fibonacci pattern
 
 alias fib;
-    set %a %b;
-    mem 1; copy %a;
-    mem 1; copy %b;
+    set $a $b;
+    mem 1; copy $a;
+    mem 1; copy $b;
 
     section 10;
-        mem str(%b) + '\n'; out ^;
+        mem str($b) + '\n'; out ^;
 
-        set %tmp_a %tmp_b;
-        copy %a %tmp_a;
-        copy %b %tmp_b;
+        set $tmp_a $tmp_b;
+        copy $a $tmp_a;
+        copy $b $tmp_b;
 
-        copy %tmp_b %a;
+        copy $tmp_b $a;
 
-        mem %tmp_a + %tmp_b; copy %b;
-    mem %b < 10000; gotoif 10;
+        mem $tmp_a + $tmp_b; copy $b;
+    mem $b < 10000; gotoif 10;
 endalias;
 
 call fib;

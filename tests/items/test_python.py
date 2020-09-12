@@ -22,16 +22,16 @@
 from TestCore import TestCore
 
 script_content = '''
-set %myvar; mem 'hello'; copy %myvar;
+set $myvar; mem 'hello'; copy $myvar;
 mem "self.variables['myvar']"; python ^;
 out ^;
 '''
 
 script_content_b = '''
-set %myvar; mem 'hello'; copy %myvar;
-set %code;
-mem "self.variables['myvar']"; copy %code;
-python %code;
+set $myvar; mem 'hello'; copy $myvar;
+set $code;
+mem "self.variables['myvar']"; copy $code;
+python $code;
 out ^;
 '''
 

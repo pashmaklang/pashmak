@@ -23,10 +23,10 @@
 from TestCore import TestCore
 
 script_content = '''
-set %myvar;
-set %var1 %var2;
-set %v3 %aaa %hoho
-set %var1;
+set $myvar;
+set $var1 $var2;
+set $v3 $aaa $hoho
+set $var1;
 '''
 
 class test_set(TestCore):

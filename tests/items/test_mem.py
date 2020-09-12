@@ -39,8 +39,8 @@ mem 100 > 50;
 '''
 
 script_content_e = '''
-set %var; mem 'value'; copy %var;
-mem %var + 'new';
+set $var; mem 'value'; copy $var;
+mem $var + 'new';
 '''
 
 script_content_f = '''

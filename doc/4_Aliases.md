@@ -41,12 +41,12 @@ look at this smarter alias:
 ```bash
 mem 'program started\n'; out ^;
 
-alias say_hello; required %say_hello_name; # declare alias and require variable %say_hello_name
-    mem 'hello ' + %say_hello_name + '\n'; out ^;
-    free %say_hello_name;
+alias say_hello; required $say_hello_name; # declare alias and require variable $say_hello_name
+    mem 'hello ' + $say_hello_name + '\n'; out ^;
+    free $say_hello_name;
 endalias;
 
-set %say_hello_name; mem 'parsa'; copy %say_hello_name;
+set $say_hello_name; mem 'parsa'; copy $say_hello_name;
 call say_hello;
 ```
 

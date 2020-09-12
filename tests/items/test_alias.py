@@ -28,7 +28,7 @@ mem 'starting\\n'; out ^;
 
 alias myalias;
     mem 'alias runed\\n'; out ^;
-    set %somevar; mem 20; copy %somevar;
+    set $somevar; mem 20; copy $somevar;
     mem 'alias finished\\n'; out ^;
 endalias;
 

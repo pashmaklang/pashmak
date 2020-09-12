@@ -157,19 +157,19 @@ variables are like a put where you can save a data on them
 to set and handle variables in pashmak, we work with three commands: `set`, `copy`, `free`
 
 ```bash
-set %myvar; # set a variables named %myvar
+set $myvar; # set a variables named $myvar
 mem 'this is data'; # bring string 'this is data' to mem
-copy ^ %myvar; # copy mem (^) to %myvar
+copy ^ $myvar; # copy mem (^) to $myvar
 
-out %myvar; # output: this is data
+out $myvar; # output: this is data
 ```
 
-###### NOTE: always put % before name of variable every where
+###### NOTE: always put $ before name of variable every where
 
 also you can set more than one variables with `set` command:
 
 ```bash
-set %var1 %var2 %var3;
+set $var1 $var2 $var3;
 ```
 
 ### use variables in mem
@@ -177,23 +177,23 @@ set %var1 %var2 %var3;
 look at this example:
 
 ```bash
-set %name; # set name variable
-mem 'parsa'; copy ^ %name; # copy 'parsa' string to name variable
+set $name; # set name variable
+mem 'parsa'; copy ^ $name; # copy 'parsa' string to name variable
 
-mem 'hello ' + %name + '\n'; out ^; # output: hello parsa
+mem 'hello ' + $name + '\n'; out ^; # output: hello parsa
 
-set %num; mem 12; copy ^ %num;
-mem %num*5; out ^; # output: 60
+set $num; mem 12; copy ^ $num;
+mem $num*5; out ^; # output: 60
 
-set %num2; mem 4; copy ^ %num2;
+set $num2; mem 4; copy ^ $num2;
 
-mem %num * %num2 + 1; out ^; # output: 49
+mem $num * $num2 + 1; out ^; # output: 49
 ```
 
 #### how it works?
-we declared a %name variable and put `'parsa'` string in that
+we declared a $name variable and put `'parsa'` string in that
 
-next, in mem we maked a string and paste %name variable value to `'hello '` with a \n in end of that, and we printed that mem
+next, in mem we maked a string and paste $name variable value to `'hello '` with a \n in end of that, and we printed that mem
 
 you can use variables in mem like that example
 
@@ -202,29 +202,29 @@ you can use variables in mem like that example
 when you set a variable, that var is in memory. you can delete that var with `free` command:
 
 ```bash
-set %somevar;
-mem 'some value'; copy %somevar;
+set $somevar;
+mem 'some value'; copy $somevar;
 
-out %somevar; # output: some value
+out $somevar; # output: some value
 
-free %somevar;
+free $somevar;
 
-out %somevar; # you will get VariableError: undefined variable %somevar (because it is deleted by free command)
+out $somevar; # you will get VariableError: undefined variable $somevar (because it is deleted by free command)
 ```
 
 also you can free more than one variable with `free` command:
 
 ```bash
-free %var1 %var2 %var3; # ...
+free $var1 $var2 $var3; # ...
 ```
 
 ###### NOTE: in that example, we used `copy` command like this:
 
 ```bash
 mem 'some value';
-copy %somevar;
+copy $somevar;
 # that is alias of
-copy ^ %somevar;
+copy ^ $somevar;
 ```
 
 when you give just a variable to copy command, the mem will be copy in that variable
@@ -232,18 +232,18 @@ when you give just a variable to copy command, the mem will be copy in that vari
 look at this example:
 
 ```bash
-set %var1 %var2;
+set $var1 $var2;
 
-mem 'hi'; copy %var1;
-mem 'bye'; copy %var2; # this is alias of `copy ^ %var2`
+mem 'hi'; copy $var1;
+mem 'bye'; copy $var2; # this is alias of `copy ^ $var2`
 
-out %var1; # output: hi
-out %var2; # output: bye
+out $var1; # output: hi
+out $var2; # output: bye
 
-copy %var1 %var2; # copy a variable in variable
+copy $var1 $var2; # copy a variable in variable
 
-out %var1; # output: hi
-out %var2; # output: hi
+out $var1; # output: hi
+out $var2; # output: hi
 
 ```
 
@@ -253,12 +253,12 @@ you can check a variable exists with `isset` command
 look at this example:
 
 ```bash
-set %somevar %v;
+set $somevar $v;
 
-isset %somevar; out ^; # output: True
-isset %this_var_not_found; out ^; # output: False
-isset %somevar %sassadffgdty; out ^; # output: False
-isset %somevar %v; out ^; # output: True
+isset $somevar; out ^; # output: True
+isset $this_var_not_found; out ^; # output: False
+isset $somevar $sassadffgdty; out ^; # output: False
+isset $somevar $v; out ^; # output: True
 ```
 
 #### how it works?
@@ -272,17 +272,17 @@ you can get the data type of a variable with `typeof` command
 look at this example:
 
 ```bash
-set %mystr %myint %myfloat %mybool;
+set $mystr $myint $myfloat $mybool;
 
-mem 'hi'; copy %mystr;
-mem 20; copy %myint;
-mem 15.32; copy %myfloat;
-mem False; copy %mybool;
+mem 'hi'; copy $mystr;
+mem 20; copy $myint;
+mem 15.32; copy $myfloat;
+mem False; copy $mybool;
 
-typeof %mystr; out ^;   # output: str
-typeof %myint; out ^;   # output: int
-typeof %myfloat; out ^; # output: float
-typeof %mybool; out ^;  # output: bool
+typeof $mystr; out ^;   # output: str
+typeof $myint; out ^;   # output: int
+typeof $myfloat; out ^; # output: float
+typeof $mybool; out ^;  # output: bool
 ```
 
 this command puts the typeof variable in mem
@@ -295,9 +295,9 @@ the required command requiring an variable existing.
 look at this example:
 
 ```bash
-set %name;
+set $name;
 
-required %name;
+required $name;
 ```
 
 when we run this code, program will run successful.
@@ -305,15 +305,15 @@ when we run this code, program will run successful.
 but now we comment the first line:
 
 ```bash
-#set %name;
-required %name;
+#set $name;
+required $name;
 ```
 
 now name variable is not set, and you will get this error:
 
 ```
 RequireError:
-    undefined variable %name
+    undefined variable $name
 ```
 
 the required command checks a variable is exists, if no, raising RequireError
@@ -329,10 +329,10 @@ you can read a input from user in stdin
 look at this example:
 
 ```bash
-set %name; # set the name variabl
+set $name; # set the name variabl
 mem 'what is your name? '; out ^; # print
-read %name; # read a input and copy this in %name variable
-mem 'hello ' + %name + '\n'; out ^; # say hello to %name :)
+read $name; # read a input and copy this in $name variable
+mem 'hello ' + $name + '\n'; out ^; # say hello to $name :)
 ```
 
 when we run this code, output is this:
@@ -352,23 +352,23 @@ we can get input from user like this example
 also look at this example:
 
 ```bash
-set %num1 %num2;
+set $num1 $num2;
 
 mem 'enter first number: '; out ^;
-read %num1;
+read $num1;
 
 mem 'enter second number: '; out ^;
-read %num2;
+read $num2;
 
-# now, %num1 and %num2 are string. we convert string to int:
-mem int(%num1); copy %num1;
-mem int(%num2); copy %num2;
+# now, $num1 and $num2 are string. we convert string to int:
+mem int($num1); copy $num1;
+mem int($num2); copy $num2;
 
 # now we want to plus them
-set %sum;
-mem %num1 + %num2; copy %sum;
+set $sum;
+mem $num1 + $num2; copy $sum;
 
-mem str(%sum) + '\n'; out ^;
+mem str($sum) + '\n'; out ^;
 ```
 
 program output:
@@ -402,12 +402,12 @@ actually when my code starts, prints hello world and then `goto` commands direct
 look at this example:
 
 ```bash
-set %i; mem 1; copy %i;
+set $i; mem 1; copy $i;
 
 section loop;
-    mem str(%i) + '\n'; out ^; # print %i
-    mem %i + 1; copy %i; # add 1 to %i
-mem %i < 10; gotoif loop; # check the condition in `mem` and use gotoif command
+    mem str($i) + '\n'; out ^; # print $i
+    mem $i + 1; copy $i; # add 1 to $i
+mem $i < 10; gotoif loop; # check the condition in `mem` and use gotoif command
 ```
 
 the output of this code is
@@ -443,11 +443,11 @@ look at this example:
 ```bash
 # read age from user
 mem 'enter your age: '; out ^;
-set %age;
-read %age;
-mem int(%age); copy %age;
+set $age;
+read $age;
+mem int($age); copy $age;
 
-mem %age > 18; gotoif age_is_more_than_18; # if age is more than 18, goto age_is_more_than_18 section
+mem $age > 18; gotoif age_is_more_than_18; # if age is more than 18, goto age_is_more_than_18 section
 
 # if not, this line will run and program goes to age_is_less_than_18
 goto age_is_less_than_18;
@@ -524,12 +524,12 @@ look at this smarter alias:
 ```bash
 mem 'program started\n'; out ^;
 
-alias say_hello; required %say_hello_name; # declare alias and require variable %say_hello_name
-    mem 'hello ' + %say_hello_name + '\n'; out ^;
-    free %say_hello_name;
+alias say_hello; required $say_hello_name; # declare alias and require variable $say_hello_name
+    mem 'hello ' + $say_hello_name + '\n'; out ^;
+    free $say_hello_name;
 endalias;
 
-set %say_hello_name; mem 'parsa'; copy %say_hello_name;
+set $say_hello_name; mem 'parsa'; copy $say_hello_name;
 call say_hello;
 ```
 
@@ -548,8 +548,8 @@ to work with files in pashmak, is simple operations
 ### read a file
 ```bash
 mem '/path/to/file.txt'; fread ^;
-set %content; copy %content;
-mem 'content of file is: ' + %content; out ^;
+set $content; copy $content;
+mem 'content of file is: ' + $content; out ^;
 ```
 
 the content of `/path/to/file.txt'` is:
@@ -571,10 +571,10 @@ after fread command, content of readed file will put in the mem and you can acce
 
 ### write on file
 ```bash
-set %filepath; mem '/path/to/file.txt'; copy %filepath;
+set $filepath; mem '/path/to/file.txt'; copy $filepath;
 
 mem 'content of file';
-fwrite %filepath ^; # write mem (^) on the %filepath (/path/to/file.txt)
+fwrite $filepath ^; # write mem (^) on the $filepath (/path/to/file.txt)
 ```
 
 
@@ -585,29 +585,29 @@ arrays are a list from variables
 look at this example:
 
 ```bash
-set %names;
+set $names;
 mem ['parsa' , 'pashmak' , 'jack'];
-copy %names;
+copy $names;
 
-out %names; # output: ['parsa' , 'pashmak' , 'jack']
-mem %names[0]; out ^; # output: parsa
-mem %names[1]; out ^; # output: pashmak
-mem %names[2]; out ^; # output: jack
+out $names; # output: ['parsa' , 'pashmak' , 'jack']
+mem $names[0]; out ^; # output: parsa
+mem $names[1]; out ^; # output: pashmak
+mem $names[2]; out ^; # output: jack
 ```
 
 this is a example about array and loop:
 
 ```bash
-set %names;
+set $names;
 mem ['parsa' , 'pashmak' , 'jack'];
-copy %names;
+copy $names;
 
-set %i; mem 0; copy %i;
+set $i; mem 0; copy $i;
 
 section loop;
-    mem %names[%i] + '\n'; out ^;
-    mem %i + 1; copy %i;
-mem %i < len(%names); gotoif loop;
+    mem $names[$i] + '\n'; out ^;
+    mem $i + 1; copy $i;
+mem $i < len($names); gotoif loop;
 ```
 
 output:
@@ -624,22 +624,22 @@ that prints names one by one
 you can add a item to array:
 
 ```bash
-set %myarray; mem ['red' , 'green' , 'blue']; copy %myarray;
-out %myarray; # output: ['red' , 'green' , 'blue']
+set $myarray; mem ['red' , 'green' , 'blue']; copy $myarray;
+out $myarray; # output: ['red' , 'green' , 'blue']
 
-mem 'yellow'; arraypush %myarray ^; # add mem (^) to the %myarray
-out %myarray; # output: ['red' , 'green' , 'blue' , 'yellow']
+mem 'yellow'; arraypush $myarray ^; # add mem (^) to the $myarray
+out $myarray; # output: ['red' , 'green' , 'blue' , 'yellow']
 ```
 
 ### arraypop
 you can delete a item from array:
 
 ```bash
-set %myarray; mem ['red' , 'green' , 'blue']; copy %myarray;
-out %myarray; # output: ['red' , 'green' , 'blue']
+set $myarray; mem ['red' , 'green' , 'blue']; copy $myarray;
+out $myarray; # output: ['red' , 'green' , 'blue']
 
-mem 1; arraypop %myarray ^; # remove index mem (^) from %myarray
-out %myarray; # output: ['red' , 'blue']
+mem 1; arraypop $myarray ^; # remove index mem (^) from $myarray
+out $myarray; # output: ['red' , 'blue']
 ```
 
 
@@ -649,14 +649,14 @@ out %myarray; # output: ['red' , 'blue']
 we may get some errors in some places in program. for example:
 
 ```bash
-out %this_var_not_found;
+out $this_var_not_found;
 ```
 
 output:
 
 ```
 VariableError:
-    undefined variable %this_var_not_found
+    undefined variable $this_var_not_found
 ```
 
 or:
@@ -683,7 +683,7 @@ look at this example:
 
 ```bash
 try handle_error;
-    out %somevar;
+    out $somevar;
 endtry;
 
 goto after_error;
@@ -705,15 +705,15 @@ when error is raised in try statement, error data will put in mem (^):
 
 ```bash
 try handle_error;
-    out %somevar;
+    out $somevar;
 endtry;
 
 goto after_error;
 
 section handle_error;
 
-set %ex; copy %ex;
-out %ex; # output: {"type": "VariableError" , "message": "undefined variable %somevar"}...
+set $ex; copy $ex;
+out $ex; # output: {"type": "VariableError" , "message": "undefined variable $somevar"}...
 
 section after_error;
 ```

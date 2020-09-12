@@ -27,9 +27,9 @@ mem 'hi there'; out ^;
 
 mem 'hello world\\n'; out ^;
 
-set %name; mem 'pashmak'; copy %name;
+set $name; mem 'pashmak'; copy $name;
 
-out %name;
+out $name;
 '''
 
 class test_out(TestCore):

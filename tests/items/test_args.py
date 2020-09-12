@@ -23,9 +23,9 @@
 from TestCore import TestCore
 
 script_content = '''
-mem %argv[0]; out ^;
-mem %argv[1]; out ^;
-out %argc;
+mem $argv[0]; out ^;
+mem $argv[1]; out ^;
+out $argc;
 '''
 
 class test_args(TestCore):

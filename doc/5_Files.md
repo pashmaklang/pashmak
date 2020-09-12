@@ -4,8 +4,8 @@ to work with files in pashmak, is simple operations
 ### read a file
 ```bash
 mem '/path/to/file.txt'; fread ^;
-set %content; copy %content;
-mem 'content of file is: ' + %content; out ^;
+set $content; copy $content;
+mem 'content of file is: ' + $content; out ^;
 ```
 
 the content of `/path/to/file.txt'` is:
@@ -27,8 +27,8 @@ after fread command, content of readed file will put in the mem and you can acce
 
 ### write on file
 ```bash
-set %filepath; mem '/path/to/file.txt'; copy %filepath;
+set $filepath; mem '/path/to/file.txt'; copy $filepath;
 
 mem 'content of file';
-fwrite %filepath ^; # write mem (^) on the %filepath (/path/to/file.txt)
+fwrite $filepath ^; # write mem (^) on the $filepath (/path/to/file.txt)
 ```

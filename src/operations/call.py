@@ -22,7 +22,7 @@
 def run(self , op):
     arg = self.one_arg_required('call command required alias name argument' , op)
 
-    if arg[0] == '%':
+    if arg[0] == '$':
         try:
             arg = self.variables[arg[1:]]
         except:

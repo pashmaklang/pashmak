@@ -23,17 +23,17 @@
 from TestCore import TestCore
 
 script_content_a = '''
-set %v1 %name %n;
+set $v1 $name $n;
 
-required %v1 %name;
-required %n;
+required $v1 $name;
+required $n;
 '''
 
 script_content_b = '''
-set %v1 %name;
+set $v1 $name;
 
-required %v1 %name;
-required %n;
+required $v1 $name;
+required $n;
 '''
 
 class test_required(TestCore):

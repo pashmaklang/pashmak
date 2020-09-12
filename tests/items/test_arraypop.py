@@ -22,20 +22,20 @@
 from TestCore import TestCore
 
 script_content = '''
-set %names;
-mem ['pashmak' , 'parsa']; copy %names;
+set $names;
+mem ['pashmak' , 'parsa']; copy $names;
 
-mem 1; arraypop %names ^;
+mem 1; arraypop $names ^;
 '''
 
 script_content_b = '''
-set %names;
-mem ['pashmak' , 'parsa']; copy %names;
+set $names;
+mem ['pashmak' , 'parsa']; copy $names;
 
-set %index; mem 1; copy %index;
-arraypop %names %index;
+set $index; mem 1; copy $index;
+arraypop $names $index;
 
-free %index;
+free $index;
 '''
 
 class test_arraypop(TestCore):

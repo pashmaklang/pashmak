@@ -23,11 +23,11 @@
 from TestCore import TestCore
 
 script_content = '''
-set %name %family %age;
+set $name $family $age;
 
-mem 'parsa'; copy %name;
+mem 'parsa'; copy $name;
 
-copy %name %family;
+copy $name $family;
 '''
 
 class test_copy(TestCore):

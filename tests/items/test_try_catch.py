@@ -22,11 +22,11 @@
 from TestCore import TestCore
 
 script_content = '''
-set %name; mem 'pashmak'; copy %name;
+set $name; mem 'pashmak'; copy $name;
 
 try 10;
 # a code without error
-mem 'hello ' + %name; out ^;
+mem 'hello ' + $name; out ^;
 endtry;
 
 goto 20;

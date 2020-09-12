@@ -23,19 +23,19 @@
 from TestCore import TestCore
 
 script_content = '''
-set %input;
-read %input;
-out %input;
+set $input;
+read $input;
+out $input;
 '''
 
 script_content_b = '''
-set %input;
-read %input;
-out %input;
+set $input;
+read $input;
+out $input;
 
-set %input_1;
-read %input_1;
-out %input_1;
+set $input_1;
+read $input_1;
+out $input_1;
 '''
 
 class test_read(TestCore):

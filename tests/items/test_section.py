@@ -37,15 +37,15 @@ mem 'this is end\\n'; out ^;
 script_content_b = '''
 mem 'before start\\n'; out ^;
 
-set %i; mem 0; copy %i;
+set $i; mem 0; copy $i;
 
 section 10;
 
-mem str(%i); out ^;
+mem str($i); out ^;
 
-mem %i + 1; copy %i;
+mem $i + 1; copy $i;
 
-mem %i < 100; gotoif 10;
+mem $i < 100; gotoif 10;
 
 mem 'after start\\n'; out ^;
 '''
