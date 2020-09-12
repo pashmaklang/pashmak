@@ -148,6 +148,19 @@ mem str(7*7) + ' is sum'; out ^; # output: 49 is sum
 
 the `mem` command is very very important and you need to use it every where
 
+#### print ;
+for print `;` character, put a `\` before semicolon:
+
+```bash
+mem 'this is \; semicolon\n'; out ^;
+```
+
+output:
+
+```
+this is ; semicolon
+```
+
 
 
 ## Variables
