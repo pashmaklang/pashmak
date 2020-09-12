@@ -85,6 +85,9 @@ class Program(commands.Commands):
             self.is_in_try = None
             new_step = self.sections[str(section_index)]
             self.current_step = new_step-1
+
+            # put error data in mem
+            self.mem = {'type': error_type , 'message': message , 'index': op['index']}
             return
         # raise error
         if self.is_test:

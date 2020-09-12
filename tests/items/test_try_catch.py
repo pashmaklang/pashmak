@@ -58,6 +58,27 @@ mem 'without error'; out ^;
 section 30;
 '''
 
+script_content_c = '''
+try 10;
+# a code with error
+mmdgfgdhgfhjh;
+endtry;
+
+goto 20;
+
+section 10;
+
+set $ex; copy $ex;
+mem $ex['type'] + ':' + $ex['message']; out ^;
+goto 30;
+
+section 20;
+
+mem 'without error'; out ^;
+
+section 30;
+'''
+
 class test_try_catch(TestCore):
     def run(self):
         program_output = self.run_script(script_content)['output']
@@ -65,4 +86,7 @@ class test_try_catch(TestCore):
 
         program_output = self.run_script(script_content_b)['output']
         self.assert_equals(program_output , 'the Error')
+
+        program_output = self.run_script(script_content_c)['output']
+        self.assert_equals(program_output , 'SyntaxError:undefined operation "mmdgfgdhgfhjh"')
 
