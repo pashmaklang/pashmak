@@ -28,7 +28,7 @@ header_text = '''#
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with cati.  If not, see <https://www.gnu.org/licenses/>.
+# along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 '''
 
 test_content = '''
