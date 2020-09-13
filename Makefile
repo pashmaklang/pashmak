@@ -17,3 +17,7 @@ docs:
 
 all: update-headers docs test
 	git status
+
+install:
+	cp ./dist/pashmak /usr/bin/pashmak
+
