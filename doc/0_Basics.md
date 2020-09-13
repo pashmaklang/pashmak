@@ -1,6 +1,6 @@
 ## Basics
 
-a simple printing in screen in pashmak:
+a simple printing in pashmak on screen:
 
 ```bash
 mem 'some thing to print\n'; out ^;
@@ -8,8 +8,8 @@ mem 'some thing to print\n'; out ^;
 
 #### how it works?
 
-before every thing, we'll browse about pashmak syntax structure.
-the base structure of pashmak syntax, is this:
+first, we browse about pashmak syntax structure.
+the base structure of pashmak syntax is this:
 
 ```bash
 <operation> [arguments];
@@ -17,17 +17,17 @@ the base structure of pashmak syntax, is this:
 <operation> [arguments]; <operation> [arguments];
 ```
 
-some thing like this. in this example, we have two operations:
+in this example, we have two operations:
 
 ```bash
 mem 'some thing to print\n'; # first operation
 out ^; # second operation
 ```
 
-in here, mem is a operation and `'something to print\n'` is argument of that, and
+here, mem is a operation and `'something to print\n'` is argument of that, and
 out is a operation and `^` is argument of that.
 
-but this code doing what?
+but what is the function of this code?
 
 when you run the script in terminal:
 
@@ -44,7 +44,7 @@ something to print
 this code, prints `'some thing to print'` on the stdout.
 but how?
 
-first, `mem` command brings the string `'some thing to print'` on the memory, and next `out` command prints the memory value on screen.
+first, `mem` command brings the string `'some thing to print'` in memory, and next `out` command prints the memory value on screen.
 
 ### what is `mem`?
 you cannot print any thing like this:
@@ -54,15 +54,15 @@ out 'hello world\n';
 ```
 
 because commands in pashmak never gets a value directly.
-if you wanna pass a value to the commands, need to use `mem` command to load that value.
-in this example, we first loading the `'some thing to print'` with mem command, and next pass value of mem to the out command:
+if you want to pass a value to the commands, you need to use `mem` command to load that value.
+in this example, first, `mem` command loads the `'some thing to print'`, and next, we pass value of mem to the `out` command:
 
 ```bash
 mem 'hello world';
-out ^; # the ^ is pointer to value of mem
+out ^; # the ^ is pointer of mem
 ```
 
-the ^ is pointer to value of mem
+the ^ is pointer of mem
 
 you can also write the code like this to have shorter code:
 
@@ -70,7 +70,7 @@ you can also write the code like this to have shorter code:
 mem 'hello world\n'; out ^;
 ```
 
-###### NOTE: remember to put \n when you want to go next line
+###### NOTE: remember to put \n when you want to go to the next line
 
 #### mem is temp
 
@@ -84,9 +84,9 @@ out ^; # output: some thing
 out ^; # output: None
 ```
 
-why in the first time while reading mem value, the value correctly printed on screen, but in the second time the None value printed?
+why in the first time when mem value was read, the value correctly was printed on screen, but in the second time, the `None` was printed?
 
-because memory is temporary. when you read the memory, that will be empty automatic after read.
+because memory is temporary. when you read the memory, that will be empty after read automaticly.
 
 look at this example:
 
@@ -105,13 +105,13 @@ first value
 second value
 ```
 
-###### NOTE: the # is comment operation. you can put comment in your code after # character
+###### NOTE: the # character is comment operation. you can put comment in your code after # character
 
 
 ### more about mem
 you can calculate every thing in mem
 
-for know this, look at the following examples:
+for undrestanding, look at the following examples:
 
 ```bash
 mem 'hi there'; out ^; # output: hi there
@@ -129,10 +129,10 @@ mem str(7*7) + ' is sum'; out ^; # output: 49 is sum
 # in here you can not paste number to string. first need to convert num to str with str()
 ```
 
-the `mem` command is very very important and you need to use it every where
+the `mem` command is absolutely important and you need to use it everywhere
 
-#### print ;
-for print `;` character, put a `\` before semicolon:
+#### print `;`
+for printing `;` character, put a `\` before semicolon:
 
 ```bash
 mem 'this is \; semicolon\n'; out ^;
