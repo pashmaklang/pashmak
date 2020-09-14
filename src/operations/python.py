@@ -34,4 +34,4 @@ def run(self , op):
             self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
 
     # run the code
-    self.mem = eval(code)
+    exec(code)

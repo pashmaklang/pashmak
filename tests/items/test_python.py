@@ -22,24 +22,20 @@
 from TestCore import TestCore
 
 script_content = '''
-set $myvar; mem 'hello'; copy $myvar;
-mem "self.variables['myvar']"; python ^;
-out ^;
+mem "self.variables['myvar'] = 'the value'"; python ^;
 '''
 
 script_content_b = '''
-set $myvar; mem 'hello'; copy $myvar;
 set $code;
-mem "self.variables['myvar']"; copy $code;
+mem "self.variables['myvar'] = 'the value'"; copy $code;
 python $code;
-out ^;
 '''
 
 class test_python(TestCore):
     def run(self):
-        program_output = self.run_script(script_content)['output']
-        self.assert_equals(program_output , 'hello')
+        program_data = self.run_script(script_content)
+        self.assert_equals(program_data['vars']['myvar'] , 'the value')
 
-        program_output = self.run_script(script_content_b)['output']
-        self.assert_equals(program_output , 'hello')
+        program_data = self.run_script(script_content_b)
+        self.assert_equals(program_data['vars']['myvar'] , 'the value')
 
