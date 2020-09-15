@@ -37,6 +37,19 @@ def ignore_comment(op_str):
     parts = op_str.split('#')
     return parts[0]
 
+def parse_op(op_str):
+    op = {}
+    op['str'] = op_str
+    op_parts = op_str.split(' ')
+    op['command'] = op_parts[0]
+    op_parts.pop(0)
+    op['args_str'] = ''
+    for op_part in op_parts:
+        for ch in op_part:
+            op['args_str'] += ch
+        op['args_str'] += ' '
+    return op
+
 # parse content of the file to the operations list
 def parse(content):
     # split the lines
@@ -56,5 +69,6 @@ def parse(content):
             op = op.strip()
             op = op.replace(clean_semicolon , ';')
             if op != '':
+                op = parse_op(op)
                 operations.append(op)
     return operations

@@ -57,18 +57,8 @@ class Program(commands.Commands):
         # get list of operations and set it on program object
         self.operations = operations
 
-    def parse_op(self , op_str):
+    def parse_op(self , op):
         # parse a operation from string to the object
-        op = {}
-        op['str'] = op_str
-        op_parts = op_str.split(' ')
-        op['command'] = op_parts[0]
-        op_parts.pop(0)
-        op['args_str'] = ''
-        for op_part in op_parts:
-            for ch in op_part:
-                op['args_str'] += ch
-            op['args_str'] += ' '
         op['index'] = self.current_step
         return op
 
@@ -100,8 +90,8 @@ class Program(commands.Commands):
         return self.raise_error('VariableError' , 'undefined variable "' + str(varname) + '"' , op)
 
     # run once operation
-    def run(self , operation_str):
-        op = self.parse_op(operation_str)
+    def run(self , op):
+        op = self.parse_op(op)
         op_name = op['command']
 
         if op_name == 'endalias':
@@ -111,7 +101,7 @@ class Program(commands.Commands):
         # if a alias is started, append current operation to the alias body
         try:
             tmp = self.current_alias
-            self.aliases[self.current_alias].append(operation_str)
+            self.aliases[self.current_alias].append(op)
             return
         except:
             pass
