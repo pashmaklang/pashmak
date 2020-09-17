@@ -22,18 +22,15 @@
 from syntax import parser
 
 def run(self , op):
-    arg = self.one_arg_required('eval command gets a parameter' , op)
+    self.require_one_argument(op , 'eval operation requires argument')
+    arg = op['args'][0]
+    self.arg_should_be_variable_or_mem(arg , op)
 
     if arg == '^':
         code = self.get_mem()
     else:
-        if arg[0] == '$':
-            try:
-                code = self.variables[arg[1:]]
-            except:
-                self.raise_variable_error(arg , op)
-        else:
-            self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
+        self.variable_required(arg[1:] , op)
+        code = self.variables[arg[1:]]
 
     # run the code
     code_operations = parser.parse(code)
