@@ -32,10 +32,32 @@ mem 'after include\\n'; out ^;
 call testalias;
 '''
 
+script_content_b = '''
+set $path;
+mem 'examples/will_be_include.pashm'; copy $path;
+include $path;
+'''
+
+script_content_c = '''
+include $not_found;
+'''
+
+script_content_d = '''
+include hhghgjghj;
+'''
+
 class test_include(TestCore):
     def run(self):
         program_data = self.run_script(script_content)
-
         self.assert_equals(program_data['output'] , 'before include\ni am included\nafter include\ni am included alias\n')
         self.assert_equals(program_data['vars'] , {'included_var': 'included value'})
+
+        program_data = self.run_script(script_content_b)
+        self.assert_equals(program_data['output'] , 'i am included\n')
+
+        program_error = self.run_script(script_content_c)['runtime_error']
+        self.assert_not_equals(program_error , None)
+
+        program_error = self.run_script(script_content_d)['runtime_error']
+        self.assert_not_equals(program_error , None)
 

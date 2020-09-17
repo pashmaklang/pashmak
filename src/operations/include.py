@@ -22,19 +22,15 @@
 from syntax import parser
 
 def run(self , op):
-    arg = self.one_arg_required('include command gets a parameter' , op)
+    self.require_one_argument(op , 'include operation requires argument')
+    arg = op['args'][0]
 
     if arg == '^':
         path = self.get_mem()
     else:
-        if arg[0] == '$':
-            try:
-                path = self.variables[arg[1:]]
-            except:
-                self.raise_variable_error(arg , op)
-        else:
-            self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
-            
+        self.variable_required(arg[1:] , op)
+        path = self.variables[arg[1:]]
+
     try:
         content = open(path , 'r').read()
         operations = parser.parse(content)
