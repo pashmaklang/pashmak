@@ -19,7 +19,6 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-
 from TestCore import TestCore
 
 script_content = '''
@@ -32,9 +31,29 @@ set $name; mem 'pashmak'; copy $name;
 out $name;
 '''
 
+script_content_b = '''
+out $not_found_var;
+'''
+
+script_content_c = '''
+out;
+'''
+
+script_content_d = '''
+out gdhfyyuy;
+'''
+
 class test_out(TestCore):
     def run(self):
         program_output = self.run_script(script_content)['output']
-
         self.assert_equals(program_output , 'hi therehello world\npashmak')
+
+        program_error = self.run_script(script_content_b)['runtime_error']
+        self.assert_not_equals(program_error , None)
+
+        program_error = self.run_script(script_content_c)['runtime_error']
+        self.assert_not_equals(program_error , None)
+
+        program_error = self.run_script(script_content_d)['runtime_error']
+        self.assert_not_equals(program_error , None)
 

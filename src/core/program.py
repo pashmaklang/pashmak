@@ -120,6 +120,10 @@ class Program(commands.Commands):
         if not self.variable_exists(varname):
             self.raise_variable_error(varname , op)
 
+    def require_one_argument(self , op , error_message):
+        if len(op['args']) <= 0:
+            self.raise_error('ArgumentError' , error_message , op)
+
     def run(self , op):
         ''' Run once operation '''
 

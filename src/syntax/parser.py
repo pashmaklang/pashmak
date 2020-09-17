@@ -54,7 +54,7 @@ def parse_op(op_str):
             for ch in op_part:
                 op['args_str'] += ch
             op['args_str'] += ' '
-    op['args_str'] = op['args_str'].strip()
+    op['args_str'] = op['args_str'].strip()    
     return op
 
 

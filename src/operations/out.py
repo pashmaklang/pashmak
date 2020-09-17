@@ -20,19 +20,16 @@
 ##################################################
 
 def run(self , op):
-    arg = self.one_arg_required('out command required argument' , op)
+    self.require_one_argument(op , 'out operation required argument')
+    arg = op['args'][0]
+    self.arg_should_be_variable_or_mem(arg , op)
 
     out = None
     if arg == '^':
         out = self.get_mem()
     else:
-        if arg[0] == '$':
-            try:
-                out = self.variables[arg[1:]]
-            except:
-                self.raise_variable_error(arg , op)
-        else:
-            self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
+        self.variable_required(arg[1:] , op)
+        out = self.variables[arg[1:]]
     
     if not self.is_test:
         print(out , end='' , flush=True)
