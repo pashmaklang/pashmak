@@ -31,8 +31,7 @@ header_text = '''#
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 '''
 
-test_content = '''
-from TestCore import TestCore
+test_content = '''from TestCore import TestCore
 
 class <tstname>(TestCore):
     def run(self):

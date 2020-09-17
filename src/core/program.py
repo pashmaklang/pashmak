@@ -115,6 +115,11 @@ class Program(commands.Commands):
         except:
             return False
 
+    def variable_required(self , varname , op):
+        ''' Raises variable error if variable not exists '''
+        if not self.variable_exists(varname):
+            self.raise_variable_error(varname , op)
+
     def run(self , op):
         ''' Run once operation '''
 

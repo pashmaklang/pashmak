@@ -19,7 +19,6 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-
 from TestCore import TestCore
 
 script_content = '''
@@ -39,15 +38,27 @@ set $type_bool;
 typeof $mybool; copy $type_bool;
 '''
 
+script_content_b = '''
+typeof $notfound;
+'''
+
+script_content_c = '''
+typeof gfgfhfh;
+'''
+
 class test_typeof(TestCore):
     def run(self):
         program_vars = self.run_script(script_content)['vars']
-
         self.assert_equals(type(program_vars['mystr']) , str)
         self.assert_equals(type(program_vars['myint']) , int)
         self.assert_equals(type(program_vars['mybool']) , bool)
-
         self.assert_equals(program_vars['type_str'] , 'str')
         self.assert_equals(program_vars['type_int'] , 'int')
         self.assert_equals(program_vars['type_bool'] , 'bool')
+
+        program_error = self.run_script(script_content_b)['runtime_error']
+        self.assert_not_equals(program_error , None)
+
+        program_error = self.run_script(script_content_c)['runtime_error']
+        self.assert_not_equals(program_error , None)
 
