@@ -9,6 +9,7 @@ Commands:
     update-headers  update files copyright headers
     build           build program with pyinstaller
     build-doc       build documentation in README.md from doc/ folder
+    build-modules   build modules from modules/ folder in src/core/modules.py
 '''
 
 header_text = '''#
@@ -157,7 +158,27 @@ class DocBuilder:
         print('Documentation built successfully and README.md generated.')
 
 
+class ModuleBuilder:
+    @staticmethod
+    def build():
+        # get list of modules
+        modules = {}
+        module_files = os.listdir('modules')
+        for module in module_files:
+            file_content = open('modules/' + module , 'r').read()
+            modules[module[:len(module)-6]] = file_content
 
+        pycode = '''
+import hashlib
+modules = {}
+'''
+        # write modules as python dictonary in src/core/modules.py file
+        for k in modules:
+            pycode += '\nmodules["' + k + '"] = """' + modules[k] + '"""'
+        
+        f = open('src/core/modules.py' , 'w')
+        f.write(pycode)
+        f.close()
 
 if sys.argv[1] == 'update-headers':
     # get files list in src/ folder and set header of them
@@ -190,6 +211,9 @@ if sys.argv[1] == 'build':
 
 if sys.argv[1] == 'build-doc':
     sys.exit(DocBuilder.build())
+
+if sys.argv[1] == 'build-modules':
+    sys.exit(ModuleBuilder.build())
 
 print('Unknow command "' + sys.argv[1] + '"')
 sys.exit(1)
