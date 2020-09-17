@@ -19,6 +19,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+import hashlib
+
 def run(self , op):
     ''' Runs python code from string '''
 

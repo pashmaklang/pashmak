@@ -20,6 +20,7 @@
 ##################################################
 
 from syntax import parser
+from core import modules
 
 def run(self , op):
     ''' Includes another script file to program '''
@@ -27,16 +28,26 @@ def run(self , op):
     self.require_one_argument(op , 'include operation requires argument')
     arg = op['args'][0]
 
+    content = ''
+
     if arg == '^':
         path = self.get_mem()
     else:
         self.variable_required(arg[1:] , op)
         path = self.variables[arg[1:]]
 
-    try:
-        content = open(path , 'r').read()
-        operations = parser.parse(content)
-        for operation in operations:
-            self.run(operation)
-    except Exception as ex:
-        self.raise_error('FileError' , str(ex) , op)
+    if path[0] == '@':
+        module_name = path[1:]
+        try:
+            content = modules.modules[module_name]
+        except:
+            self.raise_error('ModuleError' , 'undefined module "' + module_name + '"' , op)
+    else:
+        try:
+            content = open(path , 'r').read()
+        except Exception as ex:
+            self.raise_error('FileError' , str(ex) , op)
+
+    operations = parser.parse(content)
+    for operation in operations:
+        self.run(operation)

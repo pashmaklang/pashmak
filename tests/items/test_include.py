@@ -19,8 +19,9 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-
 from TestCore import TestCore
+
+import hashlib
 
 script_content = '''
 mem 'before include\\n'; out ^;
@@ -46,6 +47,16 @@ script_content_d = '''
 include hhghgjghj;
 '''
 
+script_content_e = '''
+mem '@hash'; include ^;
+
+mem 'hello'; call hash_sha256; out ^;
+'''
+
+script_content_f = '''
+mem '@notfound233445'; include ^;
+'''
+
 class test_include(TestCore):
     def run(self):
         program_data = self.run_script(script_content)
@@ -59,5 +70,11 @@ class test_include(TestCore):
         self.assert_not_equals(program_error , None)
 
         program_error = self.run_script(script_content_d)['runtime_error']
+        self.assert_not_equals(program_error , None)
+
+        program_data = self.run_script(script_content_e)
+        self.assert_equals(program_data['output'] , hashlib.sha256('hello'.encode()).hexdigest())
+
+        program_error = self.run_script(script_content_f)['runtime_error']
         self.assert_not_equals(program_error , None)
 

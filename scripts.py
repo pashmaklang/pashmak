@@ -169,7 +169,6 @@ class ModuleBuilder:
             modules[module[:len(module)-6]] = file_content
 
         pycode = '''
-import hashlib
 modules = {}
 '''
         # write modules as python dictonary in src/core/modules.py file
