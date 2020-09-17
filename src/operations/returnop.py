@@ -22,23 +22,25 @@
 import sys
 
 def run(self , op):
-    arg = op['args_str'].strip().split(' ')[0].strip()
+    args = op['args']
 
     exit_code = 0
     tmp = None
 
-    if arg != '':
+    if len(args) > 0:
+        arg = args[0]
+        
         if arg[0] == '$':
+            self.variable_required(arg[1:] , op)
             try:
-                tmp = self.variables[arg[1:]]
-
-                try:
-                    tmp = int(tmp)
-                    exit_code = tmp
-                except:
-                    self.raise_error('TypeError' , 'return command gets integer value' , op)
+                exit_code = int(self.variables[arg[1:]])
             except:
-                self.raise_variable_error(arg , op)
+                self.raise_error('TypeError' , 'return operation gets integer value' , op)
+        elif arg == '^':
+            try:
+                exit_code = int(self.get_mem())
+            except:
+                self.raise_error('TypeError' , 'return operation gets integer value' , op)
         else:
             try:
                 exit_code = int(arg)

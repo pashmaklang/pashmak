@@ -19,7 +19,6 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-
 from TestCore import TestCore
 
 script_content = '''
@@ -38,17 +37,42 @@ return 126;
 mem 'last'; out ^;
 '''
 
+script_content_c = '''
+mem 126; return ^;
+'''
+
+script_content_d = '''
+set $exitcode; mem 126; copy $exitcode;
+return $exitcode;
+'''
+
+script_content_e = '''
+return $notfound;
+'''
+
+script_content_f = '''
+return fgfdgdg;
+'''
+
 class test_return(TestCore):
     def run(self):
         program_data = self.run_script(script_content)
-
         self.assert_equals(program_data['output'] , 'first')
         self.assert_equals(program_data['exit_code'] , 0)
 
-        # next script
-
         program_data = self.run_script(script_content_b)
-
         self.assert_equals(program_data['output'] , 'first')
         self.assert_equals(program_data['exit_code'] , 126)
+
+        program_data = self.run_script(script_content_c)
+        self.assert_equals(program_data['exit_code'] , 126)
+
+        program_data = self.run_script(script_content_d)
+        self.assert_equals(program_data['exit_code'] , 126)
+
+        program_data = self.run_script(script_content_e)
+        self.assert_not_equals(program_data['runtime_error'] , None)
+
+        program_data = self.run_script(script_content_f)
+        self.assert_not_equals(program_data['runtime_error'] , None)
 
