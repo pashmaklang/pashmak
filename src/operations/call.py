@@ -34,7 +34,7 @@ def run(self , op):
 
     i = int(self.current_step)
     for alias_op in alias_body:
-        alias_op_parsed = self.parse_op(alias_op)
+        alias_op_parsed = self.set_operation_index(alias_op)
         if alias_op_parsed['command'] == 'section':
             section_name = alias_op_parsed['args_str'].strip().split(' ')[0].strip()
             self.sections[section_name] = i+1

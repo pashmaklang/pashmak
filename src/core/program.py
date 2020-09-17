@@ -57,7 +57,7 @@ class Program(commands.Commands):
         # get list of operations and set it on program object
         self.operations = operations
 
-    def parse_op(self , op):
+    def set_operation_index(self , op):
         # parse a operation from string to the object
         op['index'] = self.current_step
         return op
@@ -91,7 +91,7 @@ class Program(commands.Commands):
 
     # run once operation
     def run(self , op):
-        op = self.parse_op(op)
+        op = self.set_operation_index(op)
         op_name = op['command']
 
         if op_name == 'endalias':
@@ -221,7 +221,7 @@ class Program(commands.Commands):
         # load the sections
         i = 0
         while i < len(self.operations):
-            current_op = self.parse_op(self.operations[i])
+            current_op = self.set_operation_index(self.operations[i])
             if current_op['command'] == 'section':
                 if not is_in_alias:
                     arg = current_op['args_str'].strip().split(' ')[0].strip()
@@ -238,5 +238,5 @@ class Program(commands.Commands):
             try:
                 self.run(self.operations[self.current_step])
             except Exception as ex:
-                self.raise_error('RuntimeError' , str(ex) , self.parse_op(self.operations[self.current_step]))
+                self.raise_error('RuntimeError' , str(ex) , self.set_operation_index(self.operations[self.current_step]))
             self.current_step += 1
