@@ -50,6 +50,14 @@ mem $i < 100; gotoif 10;
 mem 'after start\\n'; out ^;
 '''
 
+script_content_c = '''
+goto not_found;
+'''
+
+script_content_d = '''
+gotoif not_found;
+'''
+
 class test_section(TestCore):
     def run(self):
         program_data = self.run_script(script_content)
@@ -63,4 +71,10 @@ class test_section(TestCore):
         expected_output += 'after start\n'
         program_data = self.run_script(script_content_b)
         self.assert_equals(program_data['output'] , expected_output)
+
+        program_error = self.run_script(script_content_c)['runtime_error']
+        self.assert_not_equals(program_error , None)
+
+        program_error = self.run_script(script_content_d)['runtime_error']
+        self.assert_not_equals(program_error , None)
 

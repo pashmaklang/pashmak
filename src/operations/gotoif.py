@@ -20,8 +20,9 @@
 ##################################################
 
 def run(self , op):
-    arg = self.one_arg_required('goto command gets section name argument' , op)
-        
+    self.require_one_argument(op , 'gotoif operation requires section name argument')
+    arg = op['args'][0]
+
     try:
         section_index = self.sections[arg]
     except:
