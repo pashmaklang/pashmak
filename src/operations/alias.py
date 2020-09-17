@@ -20,7 +20,8 @@
 ##################################################
 
 def run(self , op):
-    arg = self.one_arg_required('alias command required alias name argument' , op)
+    self.require_one_argument(op , 'alias operation requires alias name argument')
+    arg = op['args'][0]
 
     self.current_alias = arg
     self.aliases[self.current_alias] = []

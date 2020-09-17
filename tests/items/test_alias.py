@@ -36,15 +36,30 @@ call myalias;
 
 mem 'finished\\n'; out ^;
 
-call myalias;
+set $alias_name; mem 'myalias'; copy $alias_name;
+call $alias_name;
 
+mem 'myalias'; call ^;
+
+'''
+
+script_content_b = '''
+call undefined_alias;
+'''
+
+script_content_c = '''
+call $not_found;
 '''
 
 class test_alias(TestCore):
     def run(self):
         program_data = self.run_script(script_content)
+        self.assert_equals(program_data['vars'] , {'somevar': 20 , 'alias_name': 'myalias'})
+        self.assert_equals(program_data['output'] , 'starting\nalias runed\nalias finished\nfinished\nalias runed\nalias finished\nalias runed\nalias finished\n')
 
-        self.assert_equals(program_data['vars'] , {'somevar': 20})
+        program_error = self.run_script(script_content_b)['runtime_error']
+        self.assert_not_equals(program_error , None)
 
-        self.assert_equals(program_data['output'] , 'starting\nalias runed\nalias finished\nfinished\nalias runed\nalias finished\n')
+        program_error = self.run_script(script_content_c)['runtime_error']
+        self.assert_not_equals(program_error , None)
 

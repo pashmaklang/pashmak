@@ -20,13 +20,15 @@
 ##################################################
 
 def run(self , op):
-    arg = self.one_arg_required('call command required alias name argument' , op)
+    self.require_one_argument(op , 'call operation requires alias name argument')
+    arg = op['args'][0]
 
     if arg[0] == '$':
-        try:
-            arg = self.variables[arg[1:]]
-        except:
-            self.raise_variable_error(arg , op)
+        self.variable_required(arg[1:] , op)
+        arg = self.variables[arg[1:]]
+    elif arg == '^':
+        arg = self.get_mem()
+
     try:
         alias_body = self.aliases[arg]
     except:
