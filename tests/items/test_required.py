@@ -19,10 +19,9 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-
 from TestCore import TestCore
 
-script_content_a = '''
+script_content = '''
 set $v1 $name $n;
 
 required $v1 $name;
@@ -36,9 +35,17 @@ required $v1 $name;
 required $n;
 '''
 
+script_content_c = '''
+required ffdggd $sgdfg;
+'''
+
 class test_required(TestCore):
     def run(self):
-        self.run_script(script_content_a)
+        program_error = self.run_script(script_content)['runtime_error']
+        self.assert_equals(program_error , None)
 
-        program_data = self.run_script(script_content_b)
-        self.assert_not_equals(program_data['runtime_error'] , None)
+        program_error = self.run_script(script_content_b)['runtime_error']
+        self.assert_not_equals(program_error , None)
+
+        program_error = self.run_script(script_content_c)['runtime_error']
+        self.assert_not_equals(program_error , None)

@@ -20,13 +20,8 @@
 ##################################################
 
 def run(self , op):
-    args = op['args_str'].split(' ')
+    args = op['args']
     for arg in args:
-        if len(arg) > 0:
-            if arg[0] == '$':
-                try:
-                    tmp = self.variables[arg[1:]]
-                except:
-                    self.raise_error('RequireError' , 'undefined variable "' + arg + '"' , op)
-            else:
-                self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
+        self.arg_should_be_variable(arg , op)
+        if not self.variable_exists(arg[1:]):
+            self.raise_variable_error(arg , op)
