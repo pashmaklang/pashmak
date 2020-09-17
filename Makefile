@@ -18,7 +18,7 @@ docs:
 module:
 	$(PYTHON) ./scripts.py build-modules
 
-all: update-headers docs module test
+all: module update-headers docs test
 	git status
 
 install:
