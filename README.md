@@ -10,7 +10,7 @@ mem 'hello world\n'; out ^;
 ```
 
 ## Authors
-pashmak is writed by [parsampsh](https://gitlab.com/parsampsh) and (contributors)[https://gitlab.com/parsampsh/pashmak/-/graphs/master]
+pashmak is writed by [parsampsh](https://gitlab.com/parsampsh) and [contributors](https://gitlab.com/parsampsh/pashmak/-/graphs/master)
 
 # Documentation
 read the following Documentation to learn pashmak
