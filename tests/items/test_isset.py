@@ -22,58 +22,35 @@
 from TestCore import TestCore
 
 script_content = '''
-set $one;
-isset $one; gotoif 1;
-
-goto 2;
-
-section 1;
-
-mem 'yes, one isset\\n'; out ^;
-
-section 2;
-
+set $var;
+isset $var;
 '''
 
 script_content_b = '''
-isset $one; gotoif 1;
-
-goto 2;
-
-section 1;
-
-mem 'yes, one isset\\n'; out ^;
-return;
-
-section 2;
-mem 'no, one is not set\\n'; out ^;
-
+isset $var;
 '''
 
 script_content_c = '''
 set $two;
-isset $two $one; gotoif 1;
+isset $two $one;
+'''
 
-goto 2;
-
-section 1;
-
-mem 'yes, one and two isset\\n'; out ^;
-return;
-
-section 2;
-mem 'no, one or two is not set\\n'; out ^;
-
+script_content_d = '''
+set $two $one;
+isset $two $one;
 '''
 
 class test_isset(TestCore):
     def run(self):
-        program_output = self.run_script(script_content)['output']
-        self.assert_equals(program_output , 'yes, one isset\n')
+        program_mem = self.run_script(script_content)['mem']
+        self.assert_equals(program_mem , True)
 
-        program_output = self.run_script(script_content_b)['output']
-        self.assert_equals(program_output , 'no, one is not set\n')
+        program_mem = self.run_script(script_content_b)['mem']
+        self.assert_equals(program_mem , False)
 
-        program_output = self.run_script(script_content_c)['output']
-        self.assert_equals(program_output , 'no, one or two is not set\n')
+        program_mem = self.run_script(script_content_c)['mem']
+        self.assert_equals(program_mem , False)
+
+        program_mem = self.run_script(script_content_d)['mem']
+        self.assert_equals(program_mem , True)
 
