@@ -23,9 +23,9 @@
 
 import sys, os
 from syntax import parser
-from core import commands
+from core import helpers
 
-class Program(commands.Commands):
+class Program(helpers.Helpers):
     ''' Pashmak program object '''
 
     def __init__(self , is_test=False , args=[]):
@@ -90,41 +90,6 @@ class Program(commands.Commands):
         print(error_type + ' in ' + str(op['index']) + ':\n\t' + op['str'] + '\n\t' + message)
         sys.exit(1)
 
-    def raise_variable_error(self , varname , op):
-        ''' Raise variable not found error '''
-        return self.raise_error('VariableError' , 'undefined variable "' + str(varname) + '"' , op)
-
-    def raise_syntax_error(self , string , op):
-        ''' Raises syntax error '''
-        return self.raise_error('SyntaxError' , 'unexpected "' + string + '"' , op)
-
-    def arg_should_be_variable(self , arg , op):
-        ''' Checks argument syntax is variable name '''
-        if arg[0] != '$':
-            self.raise_syntax_error(arg[0] , op)
-
-    def arg_should_be_variable_or_mem(self , arg , op):
-        ''' Checks argument syntax is variable name or mem '''
-        if arg[0] != '$' and arg != '^':
-            self.raise_syntax_error(arg[0] , op)
-
-    def variable_exists(self , varname):
-        ''' Checks a variable is exists or not '''
-        try:
-            tmp = self.variables[varname]
-            return True
-        except:
-            return False
-
-    def variable_required(self , varname , op):
-        ''' Raises variable error if variable not exists '''
-        if not self.variable_exists(varname):
-            self.raise_variable_error(varname , op)
-
-    def require_one_argument(self , op , error_message):
-        if len(op['args']) <= 0:
-            self.raise_error('ArgumentError' , error_message , op)
-
     def run(self , op):
         ''' Run once operation '''
 
@@ -146,104 +111,79 @@ class Program(commands.Commands):
         if op_name == 'set':
             self.run_set(op)
             return
-
-        if op_name == 'free':
+        elif op_name == 'free':
             self.run_free(op)
             return
-
-        if op_name == 'copy':
+        elif op_name == 'copy':
             self.run_copy(op)
             return
-
-        if op_name == 'mem':
+        elif op_name == 'mem':
             self.run_mem(op)
             return
-
-        if op_name == 'out':
+        elif op_name == 'out':
             self.run_out(op)
             return
-
-        if op_name == 'read':
+        elif op_name == 'read':
             self.run_read(op)
             return
-
-        if op_name == 'return':
+        elif op_name == 'return':
             self.run_return(op)
             return
-
-        if op_name == 'alias':
+        elif op_name == 'alias':
             self.run_alias(op)
             return
-
-        if op_name == 'call':
+        elif op_name == 'call':
             self.run_call(op)
             return
-
-        if op_name == 'required':
+        elif op_name == 'required':
             self.run_required(op)
             return
-
-        if op_name == 'typeof':
+        elif op_name == 'typeof':
             self.run_typeof(op)
             return
-
-        if op_name == 'system':
+        elif op_name == 'system':
             self.run_system(op)
             return
-
-        if op_name == 'include':
+        elif op_name == 'include':
             self.run_include(op)
             return
-
-        if op_name == 'goto':
+        elif op_name == 'goto':
             self.run_goto(op)
             return
-
-        if op_name == 'gotoif':
+        elif op_name == 'gotoif':
             self.run_gotoif(op)
             return
-
-        if op_name == 'fread':
+        elif op_name == 'fread':
             self.run_fread(op)
             return
-
-        if op_name == 'fwrite':
+        elif op_name == 'fwrite':
             self.run_fwrite(op)
             return
-
-        if op_name == 'chdir':
+        elif op_name == 'chdir':
             self.run_chdir(op)
             return
-
-        if op_name == 'cwd':
+        elif op_name == 'cwd':
             self.run_cwd(op)
             return
-
-        if op_name == 'isset':
+        elif op_name == 'isset':
             self.run_isset(op)
             return
-
-        if op_name == 'try':
+        elif op_name == 'try':
             self.run_try(op)
             return
-
-        if op_name == 'endtry':
+        elif op_name == 'endtry':
             self.run_endtry(op)
             return
-
-        if op_name == 'eval':
+        elif op_name == 'eval':
             self.run_eval(op)
             return
-
-        if op_name == 'arraypush':
+        elif op_name == 'arraypush':
             self.run_arraypush(op)
             return
-
-        if op_name == 'arraypop':
+        elif op_name == 'arraypop':
             self.run_arraypop(op)
             return
-
-        if op_name == 'python':
+        elif op_name == 'python':
             self.run_python(op)
             return
 
