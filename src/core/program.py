@@ -94,6 +94,22 @@ class Program(commands.Commands):
         ''' Raise variable not found error '''
         return self.raise_error('VariableError' , 'undefined variable "' + str(varname) + '"' , op)
 
+    def raise_syntax_error(self , string , op):
+        return self.raise_error('SyntaxError' , 'unexpected "' + string + '"' , op)
+
+    def arg_should_be_variable(self , arg , op):
+        ''' Checks argument syntax is variable name '''
+        if arg[0] != '$':
+            self.raise_syntax_error(arg[0] , op)
+
+    def variable_exists(self , varname):
+        ''' Checks a variable is exists or not '''
+        try:
+            tmp = self.variables[varname]
+            return True
+        except:
+            return False
+
     def run(self , op):
         ''' Run once operation '''
 

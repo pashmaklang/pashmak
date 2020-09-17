@@ -20,12 +20,8 @@
 ##################################################
 
 def run(self , op):
-    seted_vars = {}
-    args = op['args_str'].split(' ')
+    args = op['args']
     for arg in args:
-        if len(arg) > 0:
-            if arg[0] == '$':
-                varname = arg[1:]
-                self.variables[varname] = None
-            else:
-                self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
+        self.arg_should_be_variable(arg , op)
+        if not self.variable_exists(arg[1:]):
+            self.variables[arg[1:]] = None

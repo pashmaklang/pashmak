@@ -47,10 +47,14 @@ def parse_op(op_str):
     op['command'] = op_parts[0]
     op_parts.pop(0)
     op['args_str'] = ''
+    op['args'] = []
     for op_part in op_parts:
-        for ch in op_part:
-            op['args_str'] += ch
-        op['args_str'] += ' '
+        if op_part != '':
+            op['args'].append(op_part)
+            for ch in op_part:
+                op['args_str'] += ch
+            op['args_str'] += ' '
+    op['args_str'] = op['args_str'].strip()
     return op
 
 

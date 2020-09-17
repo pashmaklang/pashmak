@@ -25,8 +25,23 @@ from TestCore import TestCore
 script_content = '''
 set $myvar;
 set $var1 $var2;
-set $v3 $aaa $hoho
+set $v3 $aaa $hoho;
 set $var1;
+'''
+
+script_content_b = '''
+set $myvar; mem 'hello'; copy $myvar;
+
+out $myvar;
+
+set $myvar;
+
+out $myvar;
+'''
+
+script_content_c = '''
+# syntax error
+set $aaa gghg;
 '''
 
 class test_set(TestCore):
@@ -41,3 +56,9 @@ class test_set(TestCore):
             'aaa': None,
             'hoho': None,
         })
+
+        program_output = self.run_script(script_content_b)['output']
+        self.assert_equals(program_output , 'hellohello')
+
+        program_error = self.run_script(script_content_c)['runtime_error']
+        self.assert_not_equals(program_error , None)
