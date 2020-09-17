@@ -1,6 +1,6 @@
 # Pashmak programming language
-hi there. this is pashmak programming language. pashmak is a interpreter wrote in python.
-the pashmak scripts has a cool syntax.
+hi there. this is pashmak programming language. pashmak is an interpreter wrote in python.
+the pashmak scripts has cool and fucking syntax.
 
 ### hello world!
 this is a simple hello world script in pashmak:
@@ -10,5 +10,8 @@ mem 'hello world\n'; out ^;
 ```
 
 read the following Documentation to learn pashmak
+
+## Authors
+pashmak is writed by [parsampsh](https://gitlab.com/parsampsh) and (contributors)[https://gitlab.com/parsampsh/pashmak/-/graphs/master]
 
 # Documentation
