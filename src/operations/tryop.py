@@ -20,11 +20,12 @@
 ##################################################
 
 def run(self , op):
-    arg = self.one_arg_required('try command gets section name argument' , op)
+    self.require_one_argument(op , 'try operation requires section name argument')
+    arg = op['args'][0]
     
     try:
-        section_index = arg
+        tmp = self.sections[arg]
     except:
         self.raise_error('SectionError' , 'undefined section "' + str(arg) + '"' , op)
 
-    self.is_in_try = section_index
+    self.is_in_try = arg
