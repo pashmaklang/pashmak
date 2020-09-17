@@ -25,10 +25,21 @@
 import sys, os
 from syntax import parser
 from core import program
+from core import version
 
 # validate arguments
 if len(sys.argv) <= 1:
     print('pashmak: script file name is required: pashmak [filename]')
+    sys.exit(1)
+
+if sys.argv[1] == '--info':
+    print('Pashmak Version: ' + version.version)
+    print('Python Version: ' , end='')
+    print(sys.version.replace('\n' , ''))
+    sys.exit(1)
+
+if sys.argv[1] == '--version' or sys.argv[1] == '-v':
+    print(version.version)
     sys.exit(1)
 
 filename = sys.argv[1]
