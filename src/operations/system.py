@@ -22,17 +22,14 @@
 import os
 
 def run(self , op):
-    arg = self.one_arg_required('system command gets a parameter' , op)
+    self.require_one_argument(op , 'system operation requires argument')
+    arg = op['args'][0]
+    self.arg_should_be_variable_or_mem(arg , op)
 
     if arg == '^':
         cmd = self.get_mem()
     else:
-        if arg[0] == '$':
-            try:
-                cmd = self.variables[arg[1:]]
-            except:
-                self.raise_variable_error(arg , op)
-        else:
-            self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
-            
+        self.variable_required(arg[1:] , op)
+        cmd = self.variables[arg[1:]]
+
     self.mem = os.system(cmd)
