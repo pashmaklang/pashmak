@@ -19,10 +19,12 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Pashmak syntax parser '''
+
 import time
 
-# handle \; as a clean text semicolon
 def handle_backslash_semicolon(op_str):
+    ''' Handle \; as clean text semicolon '''
     str_to_replace_with_semicolon = '<semicolon' + str(time.time()) + '>'
 
     while str_to_replace_with_semicolon in op_str:
@@ -32,12 +34,13 @@ def handle_backslash_semicolon(op_str):
 
     return [op_str , str_to_replace_with_semicolon]
 
-# remove comments from code line
 def ignore_comment(op_str):
+    ''' Remove comments from code line '''
     parts = op_str.split('#')
     return parts[0]
 
 def parse_op(op_str):
+    ''' Parse a operation from text to object '''
     op = {}
     op['str'] = op_str
     op_parts = op_str.split(' ')
@@ -50,8 +53,9 @@ def parse_op(op_str):
         op['args_str'] += ' '
     return op
 
-# parse content of the file to the operations list
+
 def parse(content):
+    ''' Parse code from text and return list of operations '''
     # split the lines
     lines = content.split('\n')
     operations = []

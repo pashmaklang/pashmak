@@ -20,10 +20,9 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-#!/usr/bin/python3
+''' Pashmak cli entry point '''
 
-import sys
-import os
+import sys, os
 from syntax import parser
 from core import program
 

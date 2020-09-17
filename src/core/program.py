@@ -19,12 +19,15 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-import sys
-import os
+''' Pashmak program object '''
+
+import sys, os
 from syntax import parser
 from core import commands
 
 class Program(commands.Commands):
+    ''' Pashmak program object '''
+
     def __init__(self , is_test=False , args=[]):
         self.variables = {}
         self.aliases = {}
@@ -58,17 +61,18 @@ class Program(commands.Commands):
         self.operations = operations
 
     def set_operation_index(self , op):
-        # parse a operation from string to the object
+        ''' Add operation index to operation dictonary '''
         op['index'] = self.current_step
         return op
 
     def get_mem(self):
-        # return memory value and after empty that
+        ''' Return memory value and empty that '''
         mem = self.mem
         self.mem = None
         return mem
 
     def raise_error(self , error_type , message , op):
+        ''' Raise error in program '''
         # check is in try
         if self.is_in_try != None:
             section_index = self.is_in_try
@@ -87,10 +91,12 @@ class Program(commands.Commands):
         sys.exit(1)
 
     def raise_variable_error(self , varname , op):
+        ''' Raise variable not found error '''
         return self.raise_error('VariableError' , 'undefined variable "' + str(varname) + '"' , op)
 
-    # run once operation
     def run(self , op):
+        ''' Run once operation '''
+
         op = self.set_operation_index(op)
         op_name = op['command']
 
@@ -213,7 +219,7 @@ class Program(commands.Commands):
         self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
 
     def start(self):
-        # start running operations
+        ''' Start running the program '''
 
         is_in_alias = False
         self.current_step = 0
