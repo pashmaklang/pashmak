@@ -22,6 +22,8 @@
 from syntax import parser
 
 def run(self , op):
+    ''' Runs pashmak code from string '''
+
     self.require_one_argument(op , 'eval operation requires argument')
     arg = op['args'][0]
     self.arg_should_be_variable_or_mem(arg , op)

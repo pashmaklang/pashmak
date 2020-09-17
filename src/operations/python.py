@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Runs python code from string '''
+
     self.require_one_argument(op , 'python operation requires argument')
     arg = op['args'][0]
     self.arg_should_be_variable_or_mem(arg , op)

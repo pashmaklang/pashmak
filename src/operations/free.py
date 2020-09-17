@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Deletes variables '''
+
     args = op['args']
     for arg in args:
         self.arg_should_be_variable_or_mem(arg , op)

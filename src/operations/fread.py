@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Reads file content '''
+
     arg = self.one_arg_required('fread command gets a parameter' , op)
 
     if arg == '^':

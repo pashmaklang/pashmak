@@ -20,7 +20,9 @@
 ##################################################
 
 def run(self , op):
-    args = op['args_str'].strip().split(' ')
+    ''' Copies a variable or mem into another variable '''
+
+    args = op['args']
 
     if len(args) <= 0:
         self.raise_error('ArgumentError' , 'copy command gets two arguments' , op)

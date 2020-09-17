@@ -22,6 +22,8 @@
 import sys
 
 def run(self , op):
+    ''' Exits program with exit code '''
+
     args = op['args']
 
     exit_code = 0

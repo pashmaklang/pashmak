@@ -22,6 +22,8 @@
 from syntax import parser
 
 def run(self , op):
+    ''' Includes another script file to program '''
+
     self.require_one_argument(op , 'include operation requires argument')
     arg = op['args'][0]
 

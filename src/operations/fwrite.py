@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Writes on a file '''
+
     args = op['args_str'].strip().split(' ')
 
     if len(args) <= 0:

@@ -22,4 +22,6 @@
 import os
 
 def run(self , op):
+    ''' Puts program current working directory in mem '''
+
     self.mem = os.getcwd()

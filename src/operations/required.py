@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Checks variables and raise error when they are not exists '''
+
     args = op['args']
     for arg in args:
         self.arg_should_be_variable(arg , op)

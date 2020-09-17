@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Puts type of a variable in mem '''
+
     args = op['args']
     for arg in args:
         self.arg_should_be_variable(arg , op)

@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Changes program step to a section '''
+
     self.require_one_argument(op , 'goto operation requires section name argument')
     arg = op['args'][0]
 

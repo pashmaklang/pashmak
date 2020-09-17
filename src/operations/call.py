@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Calls a alias '''
+
     self.require_one_argument(op , 'call operation requires alias name argument')
     arg = op['args'][0]
 

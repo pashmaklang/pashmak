@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Calculates a value in temporary place named `mem` '''
+
     args = op['args_str']
 
     code = '(' + args + ')'

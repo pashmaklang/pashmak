@@ -20,4 +20,6 @@
 ##################################################
 
 def run(self , op):
+    ''' Closes try block '''
+
     self.is_in_try = None

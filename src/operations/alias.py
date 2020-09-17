@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Starts alias block '''
+
     self.require_one_argument(op , 'alias operation requires alias name argument')
     arg = op['args'][0]
 

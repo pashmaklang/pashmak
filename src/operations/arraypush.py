@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Pushes new item to array '''
+
     args = op['args_str'].strip().split(' ')
 
     if len(args) <= 1:

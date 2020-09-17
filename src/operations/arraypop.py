@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Pops a index from array '''
+
     args = op['args_str'].strip().split(' ')
 
     if len(args) <= 1:

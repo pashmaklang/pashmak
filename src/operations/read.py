@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Reads a input from stdin '''
+
     for arg in op['args']:
         self.arg_should_be_variable_or_mem(arg , op)
         if arg[0] == '$':

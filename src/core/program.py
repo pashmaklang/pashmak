@@ -95,6 +95,7 @@ class Program(commands.Commands):
         return self.raise_error('VariableError' , 'undefined variable "' + str(varname) + '"' , op)
 
     def raise_syntax_error(self , string , op):
+        ''' Raises syntax error '''
         return self.raise_error('SyntaxError' , 'unexpected "' + string + '"' , op)
 
     def arg_should_be_variable(self , arg , op):

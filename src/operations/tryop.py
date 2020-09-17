@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Opens try-endtry block '''
+
     self.require_one_argument(op , 'try operation requires section name argument')
     arg = op['args'][0]
     

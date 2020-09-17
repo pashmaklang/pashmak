@@ -20,7 +20,9 @@
 ##################################################
 
 def run(self , op):
+    ''' Closes alias block '''
+
     try:
         del self.current_alias
     except:
-        pass # TODO : raise error
+        pass

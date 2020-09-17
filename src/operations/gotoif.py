@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Changes program step to a section if mem is true '''
+
     self.require_one_argument(op , 'gotoif operation requires section name argument')
     arg = op['args'][0]
 

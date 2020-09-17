@@ -20,6 +20,8 @@
 ##################################################
 
 def run(self , op):
+    ''' Sets variables '''
+
     args = op['args']
     for arg in args:
         self.arg_should_be_variable(arg , op)
