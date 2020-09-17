@@ -38,6 +38,32 @@ read $input_1;
 out $input_1;
 '''
 
+script_content_c = '''
+set $a $b;
+read $a $b;
+'''
+
+script_content_d = '''
+read ^;
+'''
+
+script_content_e = '''
+set $var;
+read ^ $var;
+'''
+
+script_content_f = '''
+read;
+'''
+
+script_content_g = '''
+read $notfound;
+'''
+
+script_content_h = '''
+read hgfjgky;
+'''
+
 class test_read(TestCore):
     def run(self):
         program_data = self.run_script(script_content , ['pashmak'])
@@ -47,4 +73,23 @@ class test_read(TestCore):
         program_data = self.run_script(script_content_b , ['pashmak' , 'parsa'])
         self.assert_equals(program_data['output'] , 'pashmakparsa')
         self.assert_equals(program_data['vars'] , {'input': 'pashmak' , 'input_1': 'parsa'})
+
+        program_data = self.run_script(script_content_c , ['pashmak' , 'parsa'])
+        self.assert_equals(program_data['vars'] , {'a': 'pashmak' , 'b': 'parsa'})
+
+        program_mem = self.run_script(script_content_d , ['pashmak'])['mem']
+        self.assert_equals(program_mem , 'pashmak')
+
+        program_data = self.run_script(script_content_e , ['themem' , 'pashmak'])
+        self.assert_equals(program_data['mem'] , 'themem')
+        self.assert_equals(program_data['vars']['var'] , 'pashmak')
+
+        program_data = self.run_script(script_content_f , ['temp'])
+        self.assert_equals(program_data['runtime_error'] , None)
+
+        program_data = self.run_script(script_content_g , ['temp'])
+        self.assert_not_equals(program_data['runtime_error'] , None)
+
+        program_data = self.run_script(script_content_h , ['temp'])
+        self.assert_not_equals(program_data['runtime_error'] , None)
 

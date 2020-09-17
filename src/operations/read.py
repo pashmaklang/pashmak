@@ -20,28 +20,26 @@
 ##################################################
 
 def run(self , op):
-    arg = self.one_arg_required('read command required variable argument' , op)
-
-    out = None
-    if arg == '^':
-        out = '^'
-    else:
+    for arg in op['args']:
+        self.arg_should_be_variable_or_mem(arg , op)
         if arg[0] == '$':
-            try:
-                tmp = self.variables[arg[1:]]
-                del tmp
-            except:
-                self.raise_variable_error(arg , op)
-        else:
-            self.raise_error('SyntaxError' , 'unexpected "' + arg[0] + '"' , op)
-    
-    if not self.is_test:
-        readed_data = input()
-    else:
-        readed_data = self.read_data[0]
-        self.read_data.pop(0)
+            self.variable_required(arg[1:] , op)
 
-    if out == '^':
-        self.mem = readed_data
-    else:
-        self.variables[arg[1:]] = readed_data
+    if len(op['args']) <= 0:
+        if not self.is_test:
+            input()
+        else:
+            self.read_data.pop(0)
+        return
+
+    for arg in op['args']:    
+        if not self.is_test:
+            readed_data = input()
+        else:
+            readed_data = self.read_data[0]
+            self.read_data.pop(0)
+
+        if arg == '^':
+            self.mem = readed_data
+        else:
+            self.variables[arg[1:]] = readed_data
