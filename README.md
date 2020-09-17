@@ -9,13 +9,11 @@ this is a simple hello world script in pashmak:
 mem 'hello world\n'; out ^;
 ```
 
-read the following Documentation to learn pashmak
-
 ## Authors
 pashmak is writed by [parsampsh](https://gitlab.com/parsampsh) and (contributors)[https://gitlab.com/parsampsh/pashmak/-/graphs/master]
 
 # Documentation
-
+read the following Documentation to learn pashmak
 
 
 ## Basics
