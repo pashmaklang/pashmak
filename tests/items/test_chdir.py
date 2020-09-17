@@ -36,6 +36,14 @@ script_content_c = '''
 mem '/gdghfjuyjfjhgjghjghj'; chdir ^;
 '''
 
+script_content_d = '''
+chdir $notfound;
+'''
+
+script_content_e = '''
+chdir gfhhhrtryru;
+'''
+
 class test_chdir(TestCore):
     def run(self):
         current_wd = os.getcwd()
@@ -51,4 +59,10 @@ class test_chdir(TestCore):
         program_data = self.run_script(script_content_c)
         self.assert_not_equals(program_data['runtime_error'] , None)
         os.chdir(current_wd)
+
+        program_data = self.run_script(script_content_d)
+        self.assert_not_equals(program_data['runtime_error'] , None)
+
+        program_data = self.run_script(script_content_e)
+        self.assert_not_equals(program_data['runtime_error'] , None)
 

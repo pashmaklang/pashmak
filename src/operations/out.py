@@ -20,7 +20,7 @@
 ##################################################
 
 def run(self , op):
-    self.require_one_argument(op , 'out operation required argument')
+    self.require_one_argument(op , 'out operation requires argument')
     arg = op['args'][0]
     self.arg_should_be_variable_or_mem(arg , op)
 
