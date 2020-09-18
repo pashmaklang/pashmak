@@ -50,7 +50,7 @@ include hhghgjghj;
 script_content_e = '''
 mem '@hash'; include ^;
 
-mem 'hello'; call hash_sha256; out ^;
+mem 'hello'; call hash.sha256; out ^;
 '''
 
 script_content_f = '''
