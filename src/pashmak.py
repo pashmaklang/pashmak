@@ -44,14 +44,20 @@ if sys.argv[1] == '--version' or sys.argv[1] == '-v':
 
 filename = sys.argv[1]
 
-if not os.path.isfile(filename):
+
+if sys.argv[1] == '-':
+    script_content = ''
+    for line in sys.stdin.readlines():
+        script_content += line
+elif not os.path.isfile(filename):
     print('pashmak: file "' + filename + '" not found')
     sys.exit(1)
+else:
+    # read content of file and parse it with the parser
+    script_f = open(filename , 'r')
+    script_content = script_f.read()
 
 
-# read content of file and parse it with the parser
-script_f = open(filename , 'r')
-script_content = script_f.read()
 script_operations = parser.parse(script_content)
 
 # make pashmak program object
