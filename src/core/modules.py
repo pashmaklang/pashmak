@@ -22,6 +22,15 @@
 
 modules = {}
 
+modules["time"] = """alias time.time;
+    mem 'self.mem = time.time()'; python ^;
+endalias;
+
+alias time.sleep;
+    set $tmp_time_sleep_for; copy $tmp_time_sleep_for;
+    mem 'self.mem = time.sleep(' + str($tmp_time_sleep_for) + ')'; python ^;
+endalias;
+"""
 modules["hash"] = """
 alias hash.sha256;
 	set $tmp_hash_sha256_value; copy $tmp_hash_sha256_value;

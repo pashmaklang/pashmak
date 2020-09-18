@@ -1,0 +1,8 @@
+alias time.time;
+    mem 'self.mem = time.time()'; python ^;
+endalias;
+
+alias time.sleep;
+    set $tmp_time_sleep_for; copy $tmp_time_sleep_for;
+    mem 'self.mem = time.sleep(' + str($tmp_time_sleep_for) + ')'; python ^;
+endalias;

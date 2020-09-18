@@ -19,7 +19,7 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-import hashlib
+import hashlib, time
 
 def run(self , op):
     ''' Runs python code from string '''
