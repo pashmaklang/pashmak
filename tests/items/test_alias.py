@@ -51,6 +51,14 @@ script_content_c = '''
 call $not_found;
 '''
 
+script_content_d = '''
+alias myalias;
+    mem 'alias runed\\n'; out ^;
+endalias;
+
+myalias;
+'''
+
 class test_alias(TestCore):
     def run(self):
         program_data = self.run_script(script_content)
@@ -62,4 +70,7 @@ class test_alias(TestCore):
 
         program_error = self.run_script(script_content_c)['runtime_error']
         self.assert_not_equals(program_error , None)
+
+        program_output = self.run_script(script_content_d)['output']
+        self.assert_equals(program_output , 'alias runed\n')
 

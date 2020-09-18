@@ -90,6 +90,17 @@ class Program(helpers.Helpers):
         print(error_type + ' in ' + str(op['index']) + ':\n\t' + op['str'] + '\n\t' + message)
         sys.exit(1)
 
+    def exec_alias(self , alias_body):
+        i = int(self.current_step)
+        for alias_op in alias_body:
+            alias_op_parsed = self.set_operation_index(alias_op)
+            if alias_op_parsed['command'] == 'section':
+                section_name = alias_op_parsed['args_str'].strip().split(' ')[0].strip()
+                self.sections[section_name] = i+1
+            else:
+                self.operations.insert(i+1 , alias_op)
+                i += 1
+
     def run(self , op):
         ''' Run once operation '''
 
@@ -186,6 +197,14 @@ class Program(helpers.Helpers):
         elif op_name == 'python':
             self.run_python(op)
             return
+
+
+        try:
+            alias_body = self.aliases[op_name]
+            self.exec_alias(alias_body)
+            return
+        except:
+            pass
 
         self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
 
