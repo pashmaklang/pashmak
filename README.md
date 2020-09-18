@@ -554,6 +554,13 @@ program started
 hello parsa
 ```
 
+also you can call alias without writing `call` operation:
+
+```bash
+#call somealias;
+somealias; # this is shorter code for `call somealias;`
+```
+
 
 
 # Work with files
