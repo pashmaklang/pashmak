@@ -36,7 +36,7 @@ def handle_backslash_semicolon(op_str):
 
 def ignore_comment(op_str):
     ''' Remove comments from code line '''
-    parts = op_str.split('#')
+    parts = op_str.split('#' , 1)
     return parts[0]
 
 def parse_op(op_str):
