@@ -1,8 +1,8 @@
 ## Variables
 
-variables are like a put where you can save a data on them
+variables are like a pot where you can save data in it
 
-to set and handle variables in pashmak, we work with three commands: `set`, `copy`, `free`
+we work with three commands: `set`, `copy`, `free`, to set and handle variables in pashmak
 
 ```bash
 set $myvar; # set a variables named $myvar
@@ -12,9 +12,9 @@ copy ^ $myvar; # copy mem (^) to $myvar
 out $myvar; # output: this is data
 ```
 
-###### NOTE: always put $ before name of variable every where
+###### NOTE: always put $ before name of variable everywhere
 
-also you can set more than one variables with `set` command:
+also you can set more than one variable with `set` command:
 
 ```bash
 set $var1 $var2 $var3;
@@ -39,11 +39,11 @@ mem $num * $num2 + 1; out ^; # output: 49
 ```
 
 #### how it works?
-we declared a $name variable and put `'parsa'` string in that
+we declare $name variable and put `'parsa'` string in that
 
-next, in mem we maked a string and paste $name variable value to `'hello '` with a \n in end of that, and we printed that mem
+next, in mem we maked a string and paste $name variable value to `'hello '` with a \n at the end of it, and we print that mem
 
-you can use variables in mem like that example
+you can use variables in mem like example above
 
 
 ### free variables
@@ -57,16 +57,16 @@ out $somevar; # output: some value
 
 free $somevar;
 
-out $somevar; # you will get VariableError: undefined variable $somevar (because it is deleted by free command)
+out $somevar; # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
 ```
 
-also you can free more than one variable with `free` command:
+also you can make free more than one variable with `free` command:
 
 ```bash
 free $var1 $var2 $var3; # ...
 ```
 
-###### NOTE: in that example, we used `copy` command like this:
+###### NOTE: in above example, we used `copy` command like this:
 
 ```bash
 mem 'some value';
@@ -75,7 +75,7 @@ copy $somevar;
 copy ^ $somevar;
 ```
 
-when you give just a variable to copy command, the mem will be copy in that variable
+if you give just one variable to copy command, the mem will be copy in that variable
 
 look at this example:
 
@@ -96,7 +96,7 @@ out $var2; # output: hi
 ```
 
 ### checking a variable isset
-you can check a variable exists with `isset` command
+you can check a variable existens with `isset` command
 
 look at this example:
 
@@ -111,7 +111,7 @@ isset $somevar $v; out ^; # output: True
 
 #### how it works?
 
-the isset command gets one or more variable names and if all of that vars exists, put `True` in  memory and if all or one/more of them are not exists, put `False` in memory
+the isset command gets one or more variable names and if all of that vars exist, it will put `True` in  memory and if all or one/more of them are not exists, it will put `False` in memory
 
 ### typeof command
 
@@ -138,7 +138,7 @@ this command puts the typeof variable in mem
 
 ### required command
 
-the required command requiring an variable existing.
+the required command requiring an variable existens.
 
 look at this example:
 
@@ -157,13 +157,13 @@ but now we comment the first line:
 required $name;
 ```
 
-now name variable is not set, and you will get this error:
+now $name variable is not set, and you will get this error:
 
 ```
 RequireError:
     undefined variable $name
 ```
 
-the required command checks a variable is exists, if no, raising RequireError
+the `required` command checks a variable is exists, if no, raising RequireError
 
 you will know why this command is usable in the aliases section
