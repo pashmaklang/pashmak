@@ -49,7 +49,7 @@ def parse_op(op_str):
     op['args_str'] = ''
     op['args'] = []
     for op_part in op_parts:
-        if op_part != '':
+        if op_part != '' or op['command'] == 'mem':
             op['args'].append(op_part)
             for ch in op_part:
                 op['args_str'] += ch
