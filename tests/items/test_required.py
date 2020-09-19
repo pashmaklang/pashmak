@@ -24,7 +24,7 @@ from TestCore import TestCore
 
 class test_required(TestCore):
     def run(self):
-        self.run_script_without_error('''
+        self.run_without_error('''
             set $v1 $name $n;
             required $v1 $name;
             required $n;

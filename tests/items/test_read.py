@@ -24,11 +24,11 @@ from TestCore import TestCore
 
 class test_read(TestCore):
     def run(self):
-        program = self.run_script_without_error(''' set $input; read $input; out $input; ''' , ['pashmak'])
+        program = self.run_without_error(''' set $input; read $input; out $input; ''' , ['pashmak'])
         self.assert_output(program , 'pashmak')
         self.assert_vars(program , {'input': 'pashmak'})
 
-        program = self.run_script_without_error('''
+        program = self.run_without_error('''
             set $input;
             read $input;
             out $input;
@@ -40,11 +40,11 @@ class test_read(TestCore):
         self.assert_output(program , 'pashmakparsa')
         self.assert_vars(program , {'input': 'pashmak' , 'input_1': 'parsa'})
 
-        self.assert_vars(self.run_script_without_error(''' set $a $b; read $a $b; ''' , ['pashmak' , 'parsa']) , {'a': 'pashmak' , 'b': 'parsa'})
+        self.assert_vars(self.run_without_error(''' set $a $b; read $a $b; ''' , ['pashmak' , 'parsa']) , {'a': 'pashmak' , 'b': 'parsa'})
 
-        self.assert_mem(self.run_script_without_error(''' read ^; ''' , ['pashmak']) , 'pashmak')
+        self.assert_mem(self.run_without_error(''' read ^; ''' , ['pashmak']) , 'pashmak')
 
-        program = self.run_script_without_error(''' set $var; read ^ $var; ''' , ['themem' , 'pashmak'])
+        program = self.run_without_error(''' set $var; read ^ $var; ''' , ['themem' , 'pashmak'])
         self.assert_mem(program , 'themem')
         self.assert_equals(program['vars']['var'] , 'pashmak')
 

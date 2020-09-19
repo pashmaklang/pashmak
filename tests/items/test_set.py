@@ -24,7 +24,7 @@ from TestCore import TestCore
 
 class test_set(TestCore):
     def run(self):
-        self.assert_vars(self.run_script_without_error('''
+        self.assert_vars(self.run_without_error('''
             set $myvar;
             set $var1 $var2;
             set $v3 $aaa $hoho;
@@ -38,7 +38,7 @@ class test_set(TestCore):
             'hoho': None,
         })
 
-        self.assert_output(self.run_script_without_error('''
+        self.assert_output(self.run_without_error('''
             set $myvar; mem 'hello'; copy $myvar;
             out $myvar; set $myvar; out $myvar;
         ''') , 'hellohello')

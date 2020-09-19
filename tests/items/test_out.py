@@ -24,7 +24,7 @@ from TestCore import TestCore
 
 class test_out(TestCore):
     def run(self):
-        self.assert_output(self.run_script_without_error('''
+        self.assert_output(self.run_without_error('''
             mem 'hi there'; out ^;
             mem 'hello world\\n'; out ^;
             set $name; mem 'pashmak'; copy $name;

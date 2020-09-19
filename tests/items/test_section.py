@@ -24,7 +24,7 @@ from TestCore import TestCore
 
 class test_section(TestCore):
     def run(self):
-        self.assert_output(self.run_script_without_error('''
+        self.assert_output(self.run_without_error('''
             mem 'before start\\n'; out ^;
             goto 10;
             mem 'it will not show'; out ^;
@@ -38,7 +38,7 @@ class test_section(TestCore):
             expected_output += str(i)
             i += 1
         expected_output += 'after start\n'
-        self.assert_output(self.run_script_without_error('''
+        self.assert_output(self.run_without_error('''
             mem 'before start\\n'; out ^;
             set $i; mem 0; copy $i;
             section 10;

@@ -26,4 +26,4 @@ from TestCore import TestCore
 
 class test_cwd(TestCore):
     def run(self):
-        self.assert_output(self.run_script_without_error(''' cwd; out ^; ''') , os.getcwd())
+        self.assert_output(self.run_without_error(''' cwd; out ^; ''') , os.getcwd())

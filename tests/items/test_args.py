@@ -24,7 +24,7 @@ from TestCore import TestCore
 
 class test_args(TestCore):
     def run(self):
-        program = self.run_script_without_error('''
+        program = self.run_without_error('''
             mem $argv[0]; out ^;
             mem $argv[1]; out ^;
             out $argc;

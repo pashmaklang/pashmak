@@ -27,7 +27,7 @@ from TestCore import TestCore
 class test_system(TestCore):
     def run(self):
         rand = time.time()
-        program = self.run_script_without_error('''
+        program = self.run_without_error('''
             mem 'start\\n'; out ^;
             mem 'touch /tmp/pashmak-test-created-file-<rand>'; system ^;
         '''.replace('<rand>' , str(rand)))
@@ -37,7 +37,7 @@ class test_system(TestCore):
         os.remove('/tmp/pashmak-test-created-file-' + str(rand))
 
         rand = time.time()
-        self.run_script_without_error(''' set $cmd; mem "touch /tmp/pashmak-test-created-file-<rand>"; copy $cmd; system $cmd; '''.replace('<rand>' , str(rand)))
+        self.run_without_error(''' set $cmd; mem "touch /tmp/pashmak-test-created-file-<rand>"; copy $cmd; system $cmd; '''.replace('<rand>' , str(rand)))
         self.assert_true(os.path.isfile('/tmp/pashmak-test-created-file-' + str(rand)))
         os.remove('/tmp/pashmak-test-created-file-' + str(rand))
 

@@ -24,9 +24,9 @@ from TestCore import TestCore
 
 class test_eval(TestCore):
     def run(self):
-        self.assert_output(self.run_script_without_error(''' mem 'mem "hello from eval"\; out ^\;'; eval ^; ''') , 'hello from eval')
+        self.assert_output(self.run_without_error(''' mem 'mem "hello from eval"\; out ^\;'; eval ^; ''') , 'hello from eval')
 
-        self.assert_output(self.run_script_without_error('''
+        self.assert_output(self.run_without_error('''
             set $code;
             mem 'mem "hello from eval"\; out ^\;'; copy $code;
             eval $code;

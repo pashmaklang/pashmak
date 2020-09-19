@@ -26,7 +26,7 @@ import hashlib
 
 class test_include(TestCore):
     def run(self):
-        program = self.run_script_without_error('''
+        program = self.run_without_error('''
             mem 'before include\\n'; out ^;
             mem 'examples/will_be_include.pashm'; include ^;
             mem 'after include\\n'; out ^;
@@ -35,7 +35,7 @@ class test_include(TestCore):
         self.assert_output(program , 'before include\ni am included\nafter include\ni am included alias\n')
         self.assert_vars(program , {'included_var': 'included value'})
 
-        self.assert_output(self.run_script_without_error('''
+        self.assert_output(self.run_without_error('''
             set $path;
             mem 'examples/will_be_include.pashm'; copy $path;
             include $path;
@@ -45,7 +45,7 @@ class test_include(TestCore):
 
         self.assert_has_error(self.run_script(''' include hhghgjghj; '''))
 
-        self.assert_output(self.run_script_without_error('''
+        self.assert_output(self.run_without_error('''
             mem '@hash'; include ^;
             mem 'hello'; call hash.sha256; out ^;
         ''') , hashlib.sha256('hello'.encode()).hexdigest())

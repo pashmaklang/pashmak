@@ -24,7 +24,7 @@ from TestCore import TestCore
 
 class test_copy(TestCore):
     def run(self):
-        self.assert_vars(self.run_script_without_error('''
+        self.assert_vars(self.run_without_error('''
             set $name $family $age;
             mem 'parsa'; copy $name;
             copy $name $family;

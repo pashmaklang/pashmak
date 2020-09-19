@@ -34,13 +34,13 @@ class TestCore:
     def with_program_errors(self):
         self.is_test = False
 
-    def run_script_file(self , file_path , read_inputs=[]):
+    def run_file(self , file_path , read_inputs=[]):
         f = open(file_path , 'r')
         content = f.read()
         f.close()
         return self.run_script(content , read_inputs)
 
-    def run_script_without_error(self , script_content , read_inputs=[] , args=[] , want_argv=False):
+    def run_without_error(self , script_content , read_inputs=[] , args=[] , want_argv=False):
         program = self.run_script(script_content , read_inputs , args , want_argv)
         self.assert_has_not_error(program)
         return program

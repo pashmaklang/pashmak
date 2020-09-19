@@ -27,7 +27,7 @@ from TestCore import TestCore
 class test_fwrite(TestCore):
     def run(self):
         rand = str(time.time())
-        self.run_script_without_error('''
+        self.run_without_error('''
             set $value; mem 'hello world'; copy $value;
             mem '/tmp/pashmak-test-file-<rand>'; fwrite ^ $value;
         '''.replace('<rand>' , rand))

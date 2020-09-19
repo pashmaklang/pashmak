@@ -24,7 +24,7 @@ from TestCore import TestCore
 
 class test_typeof(TestCore):
     def run(self):
-        program_vars = self.run_script_without_error('''
+        program_vars = self.run_without_error('''
             set $mystr $myint $mybool;
 
             mem 'the string'; copy $mystr;

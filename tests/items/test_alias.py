@@ -24,7 +24,7 @@ from TestCore import TestCore
 
 class test_alias(TestCore):
     def run(self):
-        program = self.run_script_without_error('''
+        program = self.run_without_error('''
             mem 'starting\\n'; out ^;
 
             alias myalias;
@@ -49,7 +49,7 @@ class test_alias(TestCore):
 
         self.assert_has_error(self.run_script(''' call $not_found; '''))
 
-        self.assert_output(self.run_script_without_error('''
+        self.assert_output(self.run_without_error('''
             alias myalias;
             mem 'alias runed\\n'; out ^;
             endalias;

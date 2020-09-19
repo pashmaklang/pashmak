@@ -24,7 +24,7 @@ from TestCore import TestCore
 
 class test_python(TestCore):
     def run(self):
-        self.assert_equals(self.run_script_without_error('''
+        self.assert_equals(self.run_without_error('''
             mem "self.variables['myvar'] = 'the value'"; python ^;
         ''')['vars']['myvar'] , 'the value')
 

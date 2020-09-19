@@ -24,7 +24,7 @@ from TestCore import TestCore
 
 class test_return(TestCore):
     def run(self):
-        program = self.run_script_without_error('''
+        program = self.run_without_error('''
             mem 'first'; out ^;
             return;
             mem 'last'; out ^;
@@ -32,7 +32,7 @@ class test_return(TestCore):
         self.assert_output(program , 'first')
         self.assert_exit_code(program , 0)
 
-        program = self.run_script_without_error('''
+        program = self.run_without_error('''
             mem 'first'; out ^;
             return 126;
             mem 'last'; out ^;
@@ -40,9 +40,9 @@ class test_return(TestCore):
         self.assert_output(program , 'first')
         self.assert_exit_code(program , 126)
 
-        self.assert_exit_code(self.run_script_without_error(''' mem 126; return ^; ''') , 126)
+        self.assert_exit_code(self.run_without_error(''' mem 126; return ^; ''') , 126)
 
-        self.assert_exit_code(self.run_script_without_error(''' set $exitcode; mem 126; copy $exitcode; return $exitcode; ''') , 126)
+        self.assert_exit_code(self.run_without_error(''' set $exitcode; mem 126; copy $exitcode; return $exitcode; ''') , 126)
 
         self.assert_has_error(self.run_script(''' return $notfound; '''))
 
