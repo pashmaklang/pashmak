@@ -22,8 +22,8 @@
 
 def run(self , op):
     ''' Reads file content '''
-
-    arg = self.one_arg_required('fread command gets a parameter' , op)
+    self.require_one_argument(op , 'fread operation requires argument')
+    arg = op['args'][0]
 
     if arg == '^':
         path = self.get_mem()

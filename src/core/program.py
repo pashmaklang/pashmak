@@ -44,19 +44,6 @@ class Program(helpers.Helpers):
         self.variables['argv'] = args
         self.variables['argc'] = len(self.variables['argv'])
 
-    def one_arg_required(self , error_message , op):
-        arg = op['args_str'].split(' ')
-
-        if len(arg) <= 0:
-            self.raise_error('SyntaxError' , error_message , op)
-    
-        arg = arg[0]
-
-        if arg == '':
-            self.raise_error('SyntaxError' , error_message , op)
-        
-        return arg
-
     def set_operations(self , operations):
         # get list of operations and set it on program object
         self.operations = operations
