@@ -19,23 +19,19 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-
 import time, os
 
 from TestCore import TestCore
 
-script_content = '''
-set $value; mem 'hello world'; copy $value;
-mem '/tmp/pashmak-test-file-<rand>'; fwrite ^ $value;
-'''
-
 class test_fwrite(TestCore):
     def run(self):
         rand = str(time.time())
-        program_output = self.run_script(script_content.replace('<rand>' , rand))['output']
+        self.run_script_without_error('''
+            set $value; mem 'hello world'; copy $value;
+            mem '/tmp/pashmak-test-file-<rand>'; fwrite ^ $value;
+        '''.replace('<rand>' , rand))
 
         f_content = open('/tmp/pashmak-test-file-' + rand , 'r').read()
         self.assert_equals(f_content , 'hello world')
 
         os.remove('/tmp/pashmak-test-file-' + rand)
-

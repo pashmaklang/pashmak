@@ -23,58 +23,30 @@ from TestCore import TestCore
 
 import hashlib
 
-script_content = '''
-mem 'before include\\n'; out ^;
-
-mem 'examples/will_be_include.pashm'; include ^;
-
-mem 'after include\\n'; out ^;
-
-call testalias;
-'''
-
-script_content_b = '''
-set $path;
-mem 'examples/will_be_include.pashm'; copy $path;
-include $path;
-'''
-
-script_content_c = '''
-include $not_found;
-'''
-
-script_content_d = '''
-include hhghgjghj;
-'''
-
-script_content_e = '''
-mem '@hash'; include ^;
-
-mem 'hello'; call hash.sha256; out ^;
-'''
-
-script_content_f = '''
-mem '@notfound233445'; include ^;
-'''
-
 class test_include(TestCore):
     def run(self):
-        program_data = self.run_script(script_content)
-        self.assert_equals(program_data['output'] , 'before include\ni am included\nafter include\ni am included alias\n')
-        self.assert_equals(program_data['vars'] , {'included_var': 'included value'})
+        program = self.run_script_without_error('''
+            mem 'before include\\n'; out ^;
+            mem 'examples/will_be_include.pashm'; include ^;
+            mem 'after include\\n'; out ^;
+            call testalias;
+        ''')
+        self.assert_output(program , 'before include\ni am included\nafter include\ni am included alias\n')
+        self.assert_vars(program , {'included_var': 'included value'})
 
-        program_data = self.run_script(script_content_b)
-        self.assert_equals(program_data['output'] , 'i am included\n')
+        self.assert_output(self.run_script_without_error('''
+            set $path;
+            mem 'examples/will_be_include.pashm'; copy $path;
+            include $path;
+        ''') , 'i am included\n')
 
-        program_error = self.run_script(script_content_c)['runtime_error']
-        self.assert_not_equals(program_error , None)
+        self.assert_has_error(self.run_script(''' include $not_found; '''))
 
-        program_error = self.run_script(script_content_d)['runtime_error']
-        self.assert_not_equals(program_error , None)
+        self.assert_has_error(self.run_script(''' include hhghgjghj; '''))
 
-        program_data = self.run_script(script_content_e)
-        self.assert_equals(program_data['output'] , hashlib.sha256('hello'.encode()).hexdigest())
+        self.assert_output(self.run_script_without_error('''
+            mem '@hash'; include ^;
+            mem 'hello'; call hash.sha256; out ^;
+        ''') , hashlib.sha256('hello'.encode()).hexdigest())
 
-        program_error = self.run_script(script_content_f)['runtime_error']
-        self.assert_not_equals(program_error , None)
-
+        self.assert_has_error(self.run_script(''' mem '@notfound233445'; include ^; '''))

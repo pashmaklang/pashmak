@@ -21,32 +21,25 @@
 
 from TestCore import TestCore
 
-script_content = '''
-set $names;
-mem ['pashmak' , 'parsa']; copy $names;
-
-mem 'newname'; arraypush $names ^;
-'''
-
-script_content_b = '''
-set $names;
-mem ['pashmak' , 'parsa']; copy $names;
-
-set $new_item; mem 'newname'; copy $new_item;
-arraypush $names $new_item;
-
-free $new_item;
-'''
-
 class test_arraypush(TestCore):
     def run(self):
-        program_data = self.run_script(script_content)
-        self.assert_equals(program_data['vars'] , {'names': [
+        self.assert_vars(self.run_script_without_error('''
+            set $names;
+            mem ['pashmak' , 'parsa']; copy $names;
+
+            mem 'newname'; arraypush $names ^;
+        ''') , {'names': [
             'pashmak' , 'parsa' , 'newname'
         ]})
 
-        program_data = self.run_script(script_content_b)
-        self.assert_equals(program_data['vars'] , {'names': [
+        self.assert_vars(self.run_script_without_error('''
+            set $names;
+            mem ['pashmak' , 'parsa']; copy $names;
+
+            set $new_item; mem 'newname'; copy $new_item;
+            arraypush $names $new_item;
+
+            free $new_item;
+        ''') , {'names': [
             'pashmak' , 'parsa' , 'newname'
         ]})
-

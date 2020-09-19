@@ -19,22 +19,15 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-
 from TestCore import TestCore
-
-script_content = '''
-set $name $family $age;
-
-mem 'parsa'; copy $name;
-
-copy $name $family;
-'''
 
 class test_copy(TestCore):
     def run(self):
-        program_vars = self.run_script(script_content)['vars']
-
-        self.assert_equals(program_vars , {
+        self.assert_vars(self.run_script_without_error('''
+            set $name $family $age;
+            mem 'parsa'; copy $name;
+            copy $name $family;
+        ''') , {
             'name': 'parsa',
             'family': 'parsa',
             'age': None

@@ -19,15 +19,12 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-
 import time, os
 
 from TestCore import TestCore
 
 script_content = '''
-mem '/tmp/pashmak-test-file-<rand>'; fread ^;
 
-out ^;
 '''
 
 class test_fread(TestCore):
@@ -36,9 +33,7 @@ class test_fread(TestCore):
         f = open('/tmp/pashmak-test-file-' + rand , 'w')
         f.write('hello world')
         f.close()
-        program_output = self.run_script(script_content.replace('<rand>' , rand))['output']
         
-        self.assert_equals(program_output , 'hello world')
+        self.assert_output(self.run_script_without_error(''' mem '/tmp/pashmak-test-file-<rand>'; fread ^; out ^; '''.replace('<rand>' , rand)) , 'hello world')
 
         os.remove('/tmp/pashmak-test-file-' + rand)
-

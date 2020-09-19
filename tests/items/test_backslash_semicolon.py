@@ -19,22 +19,10 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-
 from TestCore import TestCore
-
-script_content = '''
-mem 'this is \; semicolon'; out ^;
-'''
-
-script_content_b = '''
-mem 'this is \\\; semicolon'; out ^;
-'''
 
 class test_backslash_semicolon(TestCore):
     def run(self):
-        program_output = self.run_script(script_content)['output']
-        self.assert_equals(program_output , 'this is ; semicolon')
+        self.assert_output(self.run_script(''' mem 'this is \; semicolon'; out ^; ''') , 'this is ; semicolon')
 
-        program_output = self.run_script(script_content_b)['output']
-        self.assert_equals(program_output , 'this is \; semicolon')
-
+        self.assert_output(self.run_script(''' mem 'this is \\\; semicolon'; out ^; ''') , 'this is \; semicolon')

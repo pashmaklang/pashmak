@@ -39,6 +39,11 @@ class TestCore:
         f.close()
         return self.run_script(content , read_inputs)
 
+    def run_script_without_error(self , script_content , read_inputs=[] , args=[] , want_argv=False):
+        program = self.run_script(script_content , read_inputs , args , want_argv)
+        self.assert_has_not_error(program)
+        return program
+
     def run_script(self , script_content , read_inputs=[] , args=[] , want_argv=False):
         script_operations = parser.parse(script_content)
         prog = program.Program(is_test=self.is_test , args=args)
@@ -91,3 +96,18 @@ class TestCore:
 
     def assert_not_equals(self , first , last):
         self.do_assert((not first == last) , '"' + str(first) + '" is equals "' + str(last) + '"')
+
+    def assert_vars(self , program , vars):
+        self.assert_equals(program['vars'] , vars)
+
+    def assert_mem(self , program , mem):
+        self.assert_equals(program['mem'] , mem)
+
+    def assert_output(self , program , output):
+        self.assert_equals(program['output'] , output)
+
+    def assert_has_error(self , program):
+        self.assert_not_equals(program['runtime_error'] , None)
+
+    def assert_has_not_error(self , program):
+        self.assert_equals(program['runtime_error'] , None)

@@ -21,37 +21,16 @@
 
 from TestCore import TestCore
 
-script_content = '''
-set $somevar $v1;
-set $hoho;
-
-free $v1 $hoho;
-'''
-
-script_content_b = '''
-mem 'some thing';
-free ^;
-'''
-
-script_content_c = '''
-free $not_found_var;
-'''
-
-script_content_d = '''
-free $somevar gdhfg ^;
-'''
-
 class test_free(TestCore):
     def run(self):
-        program_vars = self.run_script(script_content)['vars']
-        self.assert_equals(program_vars , {'somevar':None})
+        self.assert_vars(self.run_script_without_error('''
+            set $somevar $v1;
+            set $hoho;
+            free $v1 $hoho;
+        ''') , {'somevar':None})
 
-        program_mem = self.run_script(script_content_b)['mem']
-        self.assert_equals(program_mem , None)
+        self.assert_mem(self.run_script_without_error(''' mem 'some thing'; free ^; ''') , None)
 
-        program_vars = self.run_script(script_content_c)['vars']
-        self.assert_equals(program_vars , {})
+        self.assert_vars(self.run_script_without_error(''' free $not_found_var; ''') , {})
 
-        program_error = self.run_script(script_content_d)['runtime_error']
-        self.assert_not_equals(program_error , None)
-
+        self.assert_has_error(self.run_script(''' free $somevar gdhfg ^; '''))

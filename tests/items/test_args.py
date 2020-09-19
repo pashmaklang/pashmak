@@ -19,19 +19,16 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-
 from TestCore import TestCore
-
-script_content = '''
-mem $argv[0]; out ^;
-mem $argv[1]; out ^;
-out $argc;
-'''
 
 class test_args(TestCore):
     def run(self):
-        program_data = self.run_script(script_content , [] , ['hi' , 'bye'] , True)
-        self.assert_equals(program_data['vars']['argv'][0] , 'hi')
-        self.assert_equals(program_data['vars']['argv'][1] , 'bye')
-        self.assert_equals(program_data['output'] , 'hibye2')
+        program = self.run_script_without_error('''
+            mem $argv[0]; out ^;
+            mem $argv[1]; out ^;
+            out $argc;
+        ''' , [] , ['hi' , 'bye'] , True)
+        self.assert_equals(program['vars']['argv'][0] , 'hi')
+        self.assert_equals(program['vars']['argv'][1] , 'bye')
+        self.assert_output(program , 'hibye2')
 

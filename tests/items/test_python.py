@@ -21,35 +21,18 @@
 
 from TestCore import TestCore
 
-script_content = '''
-mem "self.variables['myvar'] = 'the value'"; python ^;
-'''
-
-script_content_b = '''
-set $code;
-mem "self.variables['myvar'] = 'the value'"; copy $code;
-python $code;
-'''
-
-script_content_c = '''
-python $not_found;
-'''
-
-script_content_d = '''
-python ffgdhfghf;
-'''
-
 class test_python(TestCore):
     def run(self):
-        program_data = self.run_script(script_content)
-        self.assert_equals(program_data['vars']['myvar'] , 'the value')
+        self.assert_equals(self.run_script_without_error('''
+            mem "self.variables['myvar'] = 'the value'"; python ^;
+        ''')['vars']['myvar'] , 'the value')
 
-        program_data = self.run_script(script_content_b)
-        self.assert_equals(program_data['vars']['myvar'] , 'the value')
+        self.assert_equals(self.run_script('''
+            set $code;
+            mem "self.variables['myvar'] = 'the value'"; copy $code;
+            python $code;
+        ''')['vars']['myvar'] , 'the value')
 
-        program_error = self.run_script(script_content_c)['runtime_error']
-        self.assert_not_equals(program_error , None)
+        self.assert_has_error(self.run_script(''' python $not_found; '''))
 
-        program_error = self.run_script(script_content_d)['runtime_error']
-        self.assert_not_equals(program_error , None)
-
+        self.assert_has_error(self.run_script(''' python ffgdhfghf; '''))

@@ -19,58 +19,40 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-
 from TestCore import TestCore
-
-script_content = '''
-
-mem 'starting\\n'; out ^;
-
-alias myalias;
-    mem 'alias runed\\n'; out ^;
-    set $somevar; mem 20; copy $somevar;
-    mem 'alias finished\\n'; out ^;
-endalias;
-
-call myalias;
-
-mem 'finished\\n'; out ^;
-
-set $alias_name; mem 'myalias'; copy $alias_name;
-call $alias_name;
-
-mem 'myalias'; call ^;
-
-'''
-
-script_content_b = '''
-call undefined_alias;
-'''
-
-script_content_c = '''
-call $not_found;
-'''
-
-script_content_d = '''
-alias myalias;
-    mem 'alias runed\\n'; out ^;
-endalias;
-
-myalias;
-'''
 
 class test_alias(TestCore):
     def run(self):
-        program_data = self.run_script(script_content)
-        self.assert_equals(program_data['vars'] , {'somevar': 20 , 'alias_name': 'myalias'})
-        self.assert_equals(program_data['output'] , 'starting\nalias runed\nalias finished\nfinished\nalias runed\nalias finished\nalias runed\nalias finished\n')
+        program = self.run_script_without_error('''
+            mem 'starting\\n'; out ^;
 
-        program_error = self.run_script(script_content_b)['runtime_error']
-        self.assert_not_equals(program_error , None)
+            alias myalias;
+                mem 'alias runed\\n'; out ^;
+                set $somevar; mem 20; copy $somevar;
+                mem 'alias finished\\n'; out ^;
+            endalias;
 
-        program_error = self.run_script(script_content_c)['runtime_error']
-        self.assert_not_equals(program_error , None)
+            call myalias;
 
-        program_output = self.run_script(script_content_d)['output']
-        self.assert_equals(program_output , 'alias runed\n')
+            mem 'finished\\n'; out ^;
+
+            set $alias_name; mem 'myalias'; copy $alias_name;
+            call $alias_name;
+
+            mem 'myalias'; call ^;
+        ''')
+        self.assert_vars(program , {'somevar': 20 , 'alias_name': 'myalias'})
+        self.assert_output(program , 'starting\nalias runed\nalias finished\nfinished\nalias runed\nalias finished\nalias runed\nalias finished\n')
+
+        self.assert_has_error(self.run_script(''' call undefined_alias; '''))
+
+        self.assert_has_error(self.run_script(''' call $not_found; '''))
+
+        self.assert_output(self.run_script_without_error('''
+            alias myalias;
+            mem 'alias runed\\n'; out ^;
+            endalias;
+            
+            myalias;
+        ''') , 'alias runed\n')
 

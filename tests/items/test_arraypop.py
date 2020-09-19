@@ -21,32 +21,27 @@
 
 from TestCore import TestCore
 
-script_content = '''
-set $names;
-mem ['pashmak' , 'parsa']; copy $names;
-
-mem 1; arraypop $names ^;
-'''
-
-script_content_b = '''
-set $names;
-mem ['pashmak' , 'parsa']; copy $names;
-
-set $index; mem 1; copy $index;
-arraypop $names $index;
-
-free $index;
-'''
-
 class test_arraypop(TestCore):
     def run(self):
-        program_data = self.run_script(script_content)
-        self.assert_equals(program_data['vars'] , {'names': [
+        self.assert_vars(self.run_script_without_error('''
+            set $names;
+            mem ['pashmak' , 'parsa']; copy $names;
+
+            mem 1; arraypop $names ^;
+        '''),
+        {'names': [
             'pashmak'
         ]})
 
-        program_data = self.run_script(script_content_b)
-        self.assert_equals(program_data['vars'] , {'names': [
+        self.assert_vars(self.run_script_without_error('''
+            set $names;
+            mem ['pashmak' , 'parsa']; copy $names;
+
+            set $index; mem 1; copy $index;
+            arraypop $names $index;
+
+            free $index;
+        '''),
+        {'names': [
             'pashmak'
         ]})
-

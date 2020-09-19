@@ -23,12 +23,6 @@ import os
 
 from TestCore import TestCore
 
-script_content = '''
-cwd; out ^;
-'''
-
 class test_cwd(TestCore):
     def run(self):
-        program_output = self.run_script(script_content)['output']
-        self.assert_equals(program_output , os.getcwd())
-
+        self.assert_output(self.run_script_without_error(''' cwd; out ^; ''') , os.getcwd())

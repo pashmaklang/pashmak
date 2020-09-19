@@ -21,36 +21,12 @@
 
 from TestCore import TestCore
 
-script_content = '''
-set $var;
-isset $var;
-'''
-
-script_content_b = '''
-isset $var;
-'''
-
-script_content_c = '''
-set $two;
-isset $two $one;
-'''
-
-script_content_d = '''
-set $two $one;
-isset $two $one;
-'''
-
 class test_isset(TestCore):
     def run(self):
-        program_mem = self.run_script(script_content)['mem']
-        self.assert_equals(program_mem , True)
+        self.assert_mem(self.run_script_without_error(''' set $var; isset $var; ''') , True)
 
-        program_mem = self.run_script(script_content_b)['mem']
-        self.assert_equals(program_mem , False)
+        self.assert_mem(self.run_script_without_error(''' isset $var; ''') , False)
 
-        program_mem = self.run_script(script_content_c)['mem']
-        self.assert_equals(program_mem , False)
+        self.assert_mem(self.run_script_without_error(''' set $two; isset $two $one; ''') , False)
 
-        program_mem = self.run_script(script_content_d)['mem']
-        self.assert_equals(program_mem , True)
-
+        self.assert_mem(self.run_script_without_error(''' set $two $one; isset $two $one; ''') , True)

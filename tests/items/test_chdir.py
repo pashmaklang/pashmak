@@ -23,46 +23,24 @@ import os
 
 from TestCore import TestCore
 
-script_content = '''
-mem '/tmp'; chdir ^;
-'''
-
-script_content_b = '''
-set $path; mem '/tmp'; copy $path;
-chdir $path;
-'''
-
-script_content_c = '''
-mem '/gdghfjuyjfjhgjghjghj'; chdir ^;
-'''
-
-script_content_d = '''
-chdir $notfound;
-'''
-
-script_content_e = '''
-chdir gfhhhrtryru;
-'''
-
 class test_chdir(TestCore):
     def run(self):
         current_wd = os.getcwd()
 
-        self.run_script(script_content)
+        self.run_script_without_error(''' mem '/tmp'; chdir ^; ''')
         self.assert_equals(os.getcwd() , '/tmp')
         os.chdir(current_wd)
 
-        self.run_script(script_content_b)
+        self.run_script_without_error('''
+            set $path; mem '/tmp'; copy $path;
+            chdir $path;
+        ''')
         self.assert_equals(os.getcwd() , '/tmp')
         os.chdir(current_wd)
 
-        program_data = self.run_script(script_content_c)
-        self.assert_not_equals(program_data['runtime_error'] , None)
+        self.assert_has_error(self.run_script(''' mem '/gdghfjuyjfjhgjghjghj'; chdir ^; '''))
         os.chdir(current_wd)
 
-        program_data = self.run_script(script_content_d)
-        self.assert_not_equals(program_data['runtime_error'] , None)
+        self.assert_has_error(self.run_script(''' chdir $notfound; '''))
 
-        program_data = self.run_script(script_content_e)
-        self.assert_not_equals(program_data['runtime_error'] , None)
-
+        self.assert_has_error(self.run_script(''' chdir gfhhhrtryru; '''))
