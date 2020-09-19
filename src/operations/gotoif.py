@@ -1,3 +1,4 @@
+#
 # gotoif.py
 #
 # the pashmak project

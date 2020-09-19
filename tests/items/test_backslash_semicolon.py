@@ -1,3 +1,4 @@
+#
 # test_backslash_semicolon.py
 #
 # the pashmak project

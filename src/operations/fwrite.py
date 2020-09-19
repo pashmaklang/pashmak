@@ -1,3 +1,4 @@
+#
 # fwrite.py
 #
 # the pashmak project

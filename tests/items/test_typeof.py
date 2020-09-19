@@ -1,3 +1,4 @@
+#
 # test_typeof.py
 #
 # the pashmak project

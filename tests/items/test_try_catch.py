@@ -1,3 +1,4 @@
+#
 # test_try_catch.py
 #
 # the pashmak project

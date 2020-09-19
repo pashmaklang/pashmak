@@ -1,3 +1,4 @@
+#
 # TestCore.py
 #
 # the pashmak project

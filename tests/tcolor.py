@@ -1,3 +1,4 @@
+#
 # tcolor.py
 #
 # the pashmak project

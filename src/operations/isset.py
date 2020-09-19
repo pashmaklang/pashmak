@@ -1,3 +1,4 @@
+#
 # isset.py
 #
 # the pashmak project

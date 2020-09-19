@@ -1,3 +1,4 @@
+#
 # goto.py
 #
 # the pashmak project

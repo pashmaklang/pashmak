@@ -1,3 +1,4 @@
+#
 # test_alias.py
 #
 # the pashmak project

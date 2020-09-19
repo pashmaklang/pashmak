@@ -1,3 +1,4 @@
+#
 # test_syntax.py
 #
 # the pashmak project

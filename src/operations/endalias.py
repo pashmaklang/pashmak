@@ -1,3 +1,4 @@
+#
 # endalias.py
 #
 # the pashmak project

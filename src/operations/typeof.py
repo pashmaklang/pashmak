@@ -1,3 +1,4 @@
+#
 # typeof.py
 #
 # the pashmak project
