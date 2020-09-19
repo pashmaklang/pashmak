@@ -326,7 +326,7 @@ required $name;
 now $name variable is not set, and you will get this error:
 
 ```
-RequireError:
+VariableError:
     undefined variable $name
 ```
 
