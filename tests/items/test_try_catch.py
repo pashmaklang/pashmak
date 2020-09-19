@@ -79,32 +79,14 @@ mem 'without error'; out ^;
 section 30;
 '''
 
-script_content_d = '''
-try;
-    gfdhghgfhf;
-endtry;
-'''
-
-script_content_e = '''
-try somesection;
-    gfdhghgfhf;
-endtry;
-'''
-
 class test_try_catch(TestCore):
     def run(self):
-        program_output = self.run_script(script_content)['output']
-        self.assert_equals(program_output , 'hello pashmak')
+        self.assert_output(self.run_script(script_content) , 'hello pashmak')
 
-        program_output = self.run_script(script_content_b)['output']
-        self.assert_equals(program_output , 'the Error')
+        self.assert_output(self.run_script(script_content_b) , 'the Error')
 
-        program_output = self.run_script(script_content_c)['output']
-        self.assert_equals(program_output , 'SyntaxError:undefined operation "mmdgfgdhgfhjh"')
+        self.assert_output(self.run_script(script_content_c) , 'SyntaxError:undefined operation "mmdgfgdhgfhjh"')
 
-        program_error = self.run_script(script_content_d)['runtime_error']
-        self.assert_not_equals(program_error , None)
+        self.assert_has_error(self.run_script(''' try; gfdhghgfhf; endtry; '''))
 
-        program_error = self.run_script(script_content_e)['runtime_error']
-        self.assert_not_equals(program_error , None)
-
+        self.assert_has_error(self.run_script(''' try somesection; gfdhghgfhf; endtry; '''))

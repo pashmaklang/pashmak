@@ -21,34 +21,24 @@
 
 from TestCore import TestCore
 
-script_content = '''
-set $mystr $myint $mybool;
-
-mem 'the string'; copy $mystr;
-mem 17; copy $myint;
-mem True; copy $mybool;
-
-set $type_str;
-typeof $mystr; copy $type_str;
-
-set $type_int;
-typeof $myint; copy $type_int;
-
-set $type_bool;
-typeof $mybool; copy $type_bool;
-'''
-
-script_content_b = '''
-typeof $notfound;
-'''
-
-script_content_c = '''
-typeof gfgfhfh;
-'''
-
 class test_typeof(TestCore):
     def run(self):
-        program_vars = self.run_script(script_content)['vars']
+        program_vars = self.run_script_without_error('''
+            set $mystr $myint $mybool;
+
+            mem 'the string'; copy $mystr;
+            mem 17; copy $myint;
+            mem True; copy $mybool;
+
+            set $type_str;
+            typeof $mystr; copy $type_str;
+
+            set $type_int;
+            typeof $myint; copy $type_int;
+
+            set $type_bool;
+            typeof $mybool; copy $type_bool;
+        ''')['vars']
         self.assert_equals(type(program_vars['mystr']) , str)
         self.assert_equals(type(program_vars['myint']) , int)
         self.assert_equals(type(program_vars['mybool']) , bool)
@@ -56,9 +46,6 @@ class test_typeof(TestCore):
         self.assert_equals(program_vars['type_int'] , 'int')
         self.assert_equals(program_vars['type_bool'] , 'bool')
 
-        program_error = self.run_script(script_content_b)['runtime_error']
-        self.assert_not_equals(program_error , None)
+        self.assert_has_error(self.run_script(''' typeof $notfound; '''))
 
-        program_error = self.run_script(script_content_c)['runtime_error']
-        self.assert_not_equals(program_error , None)
-
+        self.assert_has_error(self.run_script(''' typeof gfgfhfh; '''))

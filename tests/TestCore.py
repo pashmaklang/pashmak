@@ -106,6 +106,9 @@ class TestCore:
     def assert_output(self , program , output):
         self.assert_equals(program['output'] , output)
 
+    def assert_exit_code(self , program , exit_code):
+        self.assert_equals(program['exit_code'] , exit_code)
+
     def assert_has_error(self , program):
         self.assert_not_equals(program['runtime_error'] , None)
 

@@ -19,36 +19,16 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-
 from TestCore import TestCore
-
-script_content = '''
-set $myvar;
-set $var1 $var2;
-set $v3 $aaa $hoho;
-set $var1;
-'''
-
-script_content_b = '''
-set $myvar; mem 'hello'; copy $myvar;
-
-out $myvar;
-
-set $myvar;
-
-out $myvar;
-'''
-
-script_content_c = '''
-# syntax error
-set $aaa gghg;
-'''
 
 class test_set(TestCore):
     def run(self):
-        program_vars = self.run_script(script_content)['vars']
-
-        self.assert_equals(program_vars , {
+        self.assert_vars(self.run_script_without_error('''
+            set $myvar;
+            set $var1 $var2;
+            set $v3 $aaa $hoho;
+            set $var1;
+        ''') , {
             'myvar': None,
             'var1': None,
             'var2': None,
@@ -57,8 +37,9 @@ class test_set(TestCore):
             'hoho': None,
         })
 
-        program_output = self.run_script(script_content_b)['output']
-        self.assert_equals(program_output , 'hellohello')
+        self.assert_output(self.run_script_without_error('''
+            set $myvar; mem 'hello'; copy $myvar;
+            out $myvar; set $myvar; out $myvar;
+        ''') , 'hellohello')
 
-        program_error = self.run_script(script_content_c)['runtime_error']
-        self.assert_not_equals(program_error , None)
+        self.assert_has_error(self.run_script(''' set $aaa gghg; '''))

@@ -23,44 +23,23 @@ import time, os
 
 from TestCore import TestCore
 
-script_content = '''
-mem 'start\\n'; out ^;
-mem 'touch /tmp/pashmak-test-created-file-<rand>'; system ^;
-'''
-
-script_content_b = '''
-set $cmd; mem "touch /tmp/pashmak-test-created-file-<rand>"; copy $cmd;
-system $cmd;
-'''
-
-script_content_c = '''
-system $notfound;
-'''
-
-script_content_d = '''
-system fgfdtyjgh;
-'''
-
 class test_system(TestCore):
     def run(self):
         rand = time.time()
-        program_data = self.run_script(script_content.replace('<rand>' , str(rand)))
-        self.assert_equals(program_data['output'] , 'start\n')
-        self.assert_equals(program_data['mem'] , 0)
+        program = self.run_script_without_error('''
+            mem 'start\\n'; out ^;
+            mem 'touch /tmp/pashmak-test-created-file-<rand>'; system ^;
+        '''.replace('<rand>' , str(rand)))
+        self.assert_output(program , 'start\n')
+        self.assert_mem(program , 0)
         self.assert_true(os.path.isfile('/tmp/pashmak-test-created-file-' + str(rand)))
         os.remove('/tmp/pashmak-test-created-file-' + str(rand))
 
         rand = time.time()
-        program_data = self.run_script(script_content_b.replace('<rand>' , str(rand)))
+        self.run_script_without_error(''' set $cmd; mem "touch /tmp/pashmak-test-created-file-<rand>"; copy $cmd; system $cmd; '''.replace('<rand>' , str(rand)))
         self.assert_true(os.path.isfile('/tmp/pashmak-test-created-file-' + str(rand)))
         os.remove('/tmp/pashmak-test-created-file-' + str(rand))
 
-        program_data = self.run_script(script_content_c)
-        self.assert_not_equals(program_data['runtime_error'] , None)
+        self.assert_has_error(self.run_script(''' system $notfound; '''))
 
-        program_data = self.run_script(script_content_d)
-        self.assert_not_equals(program_data['runtime_error'] , None)
-
-
-
-
+        self.assert_has_error(self.run_script(''' system fgfdtyjgh; '''))

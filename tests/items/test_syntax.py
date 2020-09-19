@@ -21,12 +21,6 @@
 
 from TestCore import TestCore
 
-script_content = '''
-mem 'hello  world'; out  ^;
-'''
-
 class test_syntax(TestCore):
     def run(self):
-        program_output = self.run_script(script_content)['output']
-        self.assert_equals(program_output , 'hello  world')
-
+        self.assert_output(self.run_script(''' mem 'hello  world'; out  ^; ''') , 'hello  world')
