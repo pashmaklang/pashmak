@@ -1,6 +1,6 @@
 # Try and Endtry statement
 
-we may get some errors in some places in program. for example:
+we may recive some errors in our program. for example:
 
 ```bash
 out $this_var_not_found;
@@ -49,7 +49,7 @@ mem 'some errors raised\n'; out ^;
 section after_error;
 ```
 
-when you write code between `try <section-name> ... endtry`, if there is some errors, error will not raised and the section passed to try command will run.
+when you write code between `try <section-name> ... endtry`, errors will not raised in them and if an error is raised, that section where passed to try operation will run.
 
 this is helpful.
 
@@ -66,7 +66,7 @@ goto after_error;
 
 section handle_error;
 
-set $ex; copy $ex;
+set $ex; copy $ex; # copy mem (^) to $ex variable (this includes information about raised error)
 out $ex; # output: {"type": "VariableError" , "message": "undefined variable $somevar"}...
 
 section after_error;

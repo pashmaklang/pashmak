@@ -1,5 +1,5 @@
 # Sections
-section is a system to make a pointer to a part of code. it will use for create loop, if and...
+section is a system to make pointer to a part of code. this is useful to create loop, if and...
 
 look at this example:
 ```bash
@@ -8,11 +8,11 @@ section my_loop;
 goto my_loop;
 ```
 
-this code prints `hello world` non stop
+this code prints `hello world` non-stop
 
-actually when my code starts, prints hello world and then `goto` commands direct program step to the `my_loop` section and it will repeat again and again.
+actually when my code starts, prints hello world and then `goto` commands directs program step to the `my_loop` section and it will repeat again and again.
 
-###### NOTE: that <TAB> before `mem 'hello world'...` line is not required. this wrote only to have beautiful code
+###### NOTE: that TAB before `mem 'hello world'...` line is not required. this is writen only to have beautiful code
 
 look at this example:
 
@@ -44,13 +44,13 @@ we have 3 operations about section system:
 - gotoif
 
 ### section
-this command gets a name of section as parameter like that examples. this is for declare the section
+this command gets name of section as parameter like above examples. this is for declare the section
 
 ### goto
 goto gets a name as section name and goto to that section.
 
 ### gotoif
-gotoif checks `mem` and if mem is True, will goto to wanted section. if not, do nothing and continue
+gotoif checks `mem` and if mem is True, will go to wanted section. if not, do nothing and continue
 
 
 look at this example:

@@ -37,10 +37,10 @@ pashmak
 jack
 ```
 
-that prints names one by one
+the above code prints names one by one
 
 ### arraypush
-you can add a item to array:
+you can add new item to a array:
 
 ```bash
 set $myarray; mem ['red' , 'green' , 'blue']; copy $myarray;
@@ -49,6 +49,8 @@ out $myarray; # output: ['red' , 'green' , 'blue']
 mem 'yellow'; arraypush $myarray ^; # add mem (^) to the $myarray
 out $myarray; # output: ['red' , 'green' , 'blue' , 'yellow']
 ```
+
+`arraypush` operation gets two argument: array and new item you want to add to the array
 
 ### arraypop
 you can delete a item from array:
@@ -60,3 +62,5 @@ out $myarray; # output: ['red' , 'green' , 'blue']
 mem 1; arraypop $myarray ^; # remove index mem (^) from $myarray
 out $myarray; # output: ['red' , 'blue']
 ```
+
+`arraypop` operation gets two argument: array and index of that item you want to be remove from array

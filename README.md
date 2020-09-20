@@ -436,7 +436,7 @@ this example gets two numbers from user and shows sum of them
 
 
 # Sections
-section is a system to make a pointer to a part of code. it will use for create loop, if and...
+section is a system to make pointer to a part of code. this is useful to create loop, if and...
 
 look at this example:
 ```bash
@@ -445,11 +445,11 @@ section my_loop;
 goto my_loop;
 ```
 
-this code prints `hello world` non stop
+this code prints `hello world` non-stop
 
-actually when my code starts, prints hello world and then `goto` commands direct program step to the `my_loop` section and it will repeat again and again.
+actually when my code starts, prints hello world and then `goto` commands directs program step to the `my_loop` section and it will repeat again and again.
 
-###### NOTE: that <TAB> before `mem 'hello world'...` line is not required. this wrote only to have beautiful code
+###### NOTE: that TAB before `mem 'hello world'...` line is not required. this is writen only to have beautiful code
 
 look at this example:
 
@@ -481,13 +481,13 @@ we have 3 operations about section system:
 - gotoif
 
 ### section
-this command gets a name of section as parameter like that examples. this is for declare the section
+this command gets name of section as parameter like above examples. this is for declare the section
 
 ### goto
 goto gets a name as section name and goto to that section.
 
 ### gotoif
-gotoif checks `mem` and if mem is True, will goto to wanted section. if not, do nothing and continue
+gotoif checks `mem` and if mem is True, will go to wanted section. if not, do nothing and continue
 
 
 look at this example:
@@ -534,7 +534,7 @@ program ends
 
 
 # Aliases
-alias is a system to make alias for some codes.
+alias is a system to make alias for some codes (function).
 
 look at this example:
 ```bash
@@ -568,7 +568,7 @@ hello world
 ```
 
 
-you can declare a alias and call it from every where. when you call a alias, all of codes inside that alias will run
+you can declare a alias and call it from everywhere. when you call a alias, all of codes inside that alias will run
 
 for declare a alias you have to write `alias <name-of-alias>`. and write codes. then for close alias write `endalias` after codes
 
@@ -576,13 +576,13 @@ look at this smarter alias:
 ```bash
 mem 'program started\n'; out ^;
 
-alias say_hello; required $say_hello_name; # declare alias and require variable $say_hello_name
+alias say_hello;
+    set $say_hello_name; copy $say_hello_name
     mem 'hello ' + $say_hello_name + '\n'; out ^;
     free $say_hello_name;
 endalias;
 
-set $say_hello_name; mem 'parsa'; copy $say_hello_name;
-call say_hello;
+mem 'parsa'; call say_hello;
 ```
 
 program output:
@@ -602,7 +602,7 @@ somealias; # this is shorter code for `call somealias;`
 
 
 # Work with files
-to work with files in pashmak, is simple operations
+there is two operations for working with files in pashmak: `fread`, `fwrite`
 
 ### read a file
 ```bash
@@ -614,17 +614,17 @@ mem 'content of file is: ' + $content; out ^;
 the content of `/path/to/file.txt'` is:
 ```
 hello world. this is my content
-by
+bye
 ```
 
 output of the program:
 
 ```
 content of file is: hello world. this is my content
-by
+bye
 ```
 
-you can put a variable instead ^ in `fread ^` as path of file to read
+you can put a variable instead `^` in `fread ^` as path of file to read
 
 after fread command, content of readed file will put in the mem and you can access that
 
@@ -635,6 +635,8 @@ set $filepath; mem '/path/to/file.txt'; copy $filepath;
 mem 'content of file';
 fwrite $filepath ^; # write mem (^) on the $filepath (/path/to/file.txt)
 ```
+
+the `fwrite` operation gets two argument: file path and new content of file
 
 
 
@@ -677,10 +679,10 @@ pashmak
 jack
 ```
 
-that prints names one by one
+the above code prints names one by one
 
 ### arraypush
-you can add a item to array:
+you can add new item to a array:
 
 ```bash
 set $myarray; mem ['red' , 'green' , 'blue']; copy $myarray;
@@ -689,6 +691,8 @@ out $myarray; # output: ['red' , 'green' , 'blue']
 mem 'yellow'; arraypush $myarray ^; # add mem (^) to the $myarray
 out $myarray; # output: ['red' , 'green' , 'blue' , 'yellow']
 ```
+
+`arraypush` operation gets two argument: array and new item you want to add to the array
 
 ### arraypop
 you can delete a item from array:
@@ -701,11 +705,13 @@ mem 1; arraypop $myarray ^; # remove index mem (^) from $myarray
 out $myarray; # output: ['red' , 'blue']
 ```
 
+`arraypop` operation gets two argument: array and index of that item you want to be remove from array
+
 
 
 # Try and Endtry statement
 
-we may get some errors in some places in program. for example:
+we may recive some errors in our program. for example:
 
 ```bash
 out $this_var_not_found;
@@ -754,7 +760,7 @@ mem 'some errors raised\n'; out ^;
 section after_error;
 ```
 
-when you write code between `try <section-name> ... endtry`, if there is some errors, error will not raised and the section passed to try command will run.
+when you write code between `try <section-name> ... endtry`, errors will not raised in them and if an error is raised, that section where passed to try operation will run.
 
 this is helpful.
 
@@ -771,7 +777,7 @@ goto after_error;
 
 section handle_error;
 
-set $ex; copy $ex;
+set $ex; copy $ex; # copy mem (^) to $ex variable (this includes information about raised error)
 out $ex; # output: {"type": "VariableError" , "message": "undefined variable $somevar"}...
 
 section after_error;
@@ -781,7 +787,7 @@ section after_error;
 
 # OS Commands
 
-some commands is related to os.
+here is some commands about OS
 
 ### chdir
 change directory. with this command you can change program working directory:
@@ -856,7 +862,7 @@ exit code of program will be `1`
 # Include scripts
 you can distribute your code in more than 1 files.
 
-for example we have 2 files: `app.pashm` , `fib.pashm`.
+for example, we have 2 files: `app.pashm` , `fib.pashm`.
 `app.pashm` is main file. `fib.pashm` contains a alias to show fibonaccy algo.
 
 ###### fib.pashm:
@@ -887,7 +893,7 @@ mem 'fib.pashm'; include ^;
 call fib;
 ```
 
-when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example in here we uses a alias in the `fib.pashm` file.
+when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example, here we used a alias from the `fib.pashm` file.
 
 this is very useful.
 

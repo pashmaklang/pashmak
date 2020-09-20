@@ -1,5 +1,5 @@
 # Work with files
-to work with files in pashmak, is simple operations
+there is two operations for working with files in pashmak: `fread`, `fwrite`
 
 ### read a file
 ```bash
@@ -11,17 +11,17 @@ mem 'content of file is: ' + $content; out ^;
 the content of `/path/to/file.txt'` is:
 ```
 hello world. this is my content
-by
+bye
 ```
 
 output of the program:
 
 ```
 content of file is: hello world. this is my content
-by
+bye
 ```
 
-you can put a variable instead ^ in `fread ^` as path of file to read
+you can put a variable instead `^` in `fread ^` as path of file to read
 
 after fread command, content of readed file will put in the mem and you can access that
 
@@ -32,3 +32,5 @@ set $filepath; mem '/path/to/file.txt'; copy $filepath;
 mem 'content of file';
 fwrite $filepath ^; # write mem (^) on the $filepath (/path/to/file.txt)
 ```
+
+the `fwrite` operation gets two argument: file path and new content of file

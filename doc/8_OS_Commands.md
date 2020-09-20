@@ -1,6 +1,6 @@
 # OS Commands
 
-some commands is related to os.
+here is some commands about OS
 
 ### chdir
 change directory. with this command you can change program working directory:

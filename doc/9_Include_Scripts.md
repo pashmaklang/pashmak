@@ -1,7 +1,7 @@
 # Include scripts
 you can distribute your code in more than 1 files.
 
-for example we have 2 files: `app.pashm` , `fib.pashm`.
+for example, we have 2 files: `app.pashm` , `fib.pashm`.
 `app.pashm` is main file. `fib.pashm` contains a alias to show fibonaccy algo.
 
 ###### fib.pashm:
@@ -32,6 +32,6 @@ mem 'fib.pashm'; include ^;
 call fib;
 ```
 
-when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example in here we uses a alias in the `fib.pashm` file.
+when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example, here we used a alias from the `fib.pashm` file.
 
 this is very useful.
