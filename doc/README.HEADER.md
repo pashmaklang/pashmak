@@ -46,5 +46,8 @@ windows users can use this way.
 ## Authors
 pashmak is writed by [parsampsh](https://gitlab.com/parsampsh) and [contributors](https://gitlab.com/parsampsh/pashmak/-/graphs/master)
 
+## Contributing
+if you want to contribute to this project, read [Contributing Guide](CONTRIBUTING.md)
+
 # Documentation
 read the following Documentation to learn pashmak
