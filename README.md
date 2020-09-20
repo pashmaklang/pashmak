@@ -376,14 +376,14 @@ you will know why this command is usable in the aliases section
 
 ## Read Input From User
 
-you can read a input from user in stdin
+you can read input from user in stdin
 
 look at this example:
 
 ```bash
-set $name; # set the name variabl
+set $name; # set the name variable
 mem 'what is your name? '; out ^; # print
-read $name; # read a input and copy this in $name variable
+read $name; # read a input and copy that in $name variable
 mem 'hello ' + $name + '\n'; out ^; # say hello to $name :)
 ```
 
@@ -394,11 +394,11 @@ what is your name? <input>parsa
 hello parsa
 ```
 
-after print `what is your name? ` program waits for a input, and when you type some thing and press enter, program says `hello <your-input>`
+after print `what is your name? ` program waits for input, and when you type something and press enter, program prints `hello <your-input>`
 
-for example in here i entered `parsa` as input and program says `hello parsa`
+for example here I entered `parsa` as input and program printed `hello parsa`
 
-we can get input from user like this example
+we can get input from user like above example
 
 
 also look at this example:
@@ -431,7 +431,7 @@ enter second number: <input>2
 14
 ```
 
-this example gets two number from user and shows sum of them
+this example gets two numbers from user and shows sum of them
 
 
 
