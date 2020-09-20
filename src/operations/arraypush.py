@@ -22,14 +22,10 @@
 
 def run(self , op):
     ''' Pushes new item to array '''
-
-    args = op['args_str'].strip().split(' ')
+    args = op['args']
 
     if len(args) <= 1:
         self.raise_error('ArgumentError' , 'arraypush command gets two arguments' , op)
-        
-    if len(args[0]) == 0:
-        self.raise_error('SyntaxError' , 'one or more arguments are empty' , op)
 
     first_var = args[0]
     second_var = args[1]

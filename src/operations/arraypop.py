@@ -22,14 +22,10 @@
 
 def run(self , op):
     ''' Pops a index from array '''
-
-    args = op['args_str'].strip().split(' ')
+    args = op['args']
 
     if len(args) <= 1:
         self.raise_error('ArgumentError' , 'arraypop command gets two arguments' , op)
-        
-    if len(args[0]) == 0:
-        self.raise_error('SyntaxError' , 'one or more arguments are empty' , op)
 
     first_var = args[0]
     second_var = args[1]
@@ -37,7 +33,7 @@ def run(self , op):
     try:
         first_var_value = self.variables[first_var[1:]]
         if type(first_var_value) != list:
-            self.raise_error('TypeError' , 'arraypop command first argument should be a array' , op)
+            self.raise_error('TypeError' , 'arraypop operation first argument should be a array' , op)
     except:
         self.raise_variable_error(first_var , op)
 

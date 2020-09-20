@@ -22,14 +22,10 @@
 
 def run(self , op):
     ''' Copies a variable or mem into another variable '''
-
     args = op['args']
 
     if len(args) <= 0:
         self.raise_error('ArgumentError' , 'copy command gets two arguments' , op)
-        
-    if len(args[0]) == 0:
-        self.raise_error('SyntaxError' , 'one or more arguments are empty' , op)
 
     first_var = args[0]
 

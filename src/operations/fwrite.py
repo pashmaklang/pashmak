@@ -22,14 +22,10 @@
 
 def run(self , op):
     ''' Writes on a file '''
-
-    args = op['args_str'].strip().split(' ')
+    args = op['args']
 
     if len(args) <= 0:
-        self.raise_error('ArgumentError' , 'fwrite command gets two arguments' , op)
-        
-    if len(args[0]) == 0:
-        self.raise_error('SyntaxError' , 'one or more arguments are empty' , op)
+        self.raise_error('ArgumentError' , 'fwrite operation gets two arguments' , op)
 
     mem = self.mem
     
@@ -38,9 +34,10 @@ def run(self , op):
     if len(args) == 1:
         content = self.get_mem()
     else:
-        if len(args[1]) == 0:
-            self.raise_error('SyntaxError' , 'one or more arguments are empty' , op)
         content = args[1]
+
+    self.arg_should_be_variable_or_mem(filepath , op)
+    self.arg_should_be_variable_or_mem(content , op)
 
     try:
         if filepath == '^':
