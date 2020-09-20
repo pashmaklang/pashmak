@@ -53,7 +53,19 @@ make all
 ```
 
 ## Testing
+you can run pashmak project tests via 5 ways:
 
+```bash
+make test
+# OR
+./scripts.py test
+# OR
+python3 scripts.py test
+# OR
+./tests/run.py
+# OR
+python3 /tests/run.py
+```
 
 
 
