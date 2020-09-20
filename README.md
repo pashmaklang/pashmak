@@ -934,6 +934,8 @@ enter some code: <input>mem 'hi\n'; out ^;
 hi
 ```
 
+the above code gets a string from user and runs that as pashmak code.
+
 ## run python code
 you can run python code like `eval` with `python` command:
 
@@ -947,6 +949,7 @@ output:
 ```
 hello world from python
 ```
+
 
 
 # General Modules
@@ -977,7 +980,7 @@ out ^; # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b982
 ```
 
 ###### how it works?
-first, you have to put the value into the mem. next, call `hash.sha256` alias to calculate sha256 hash. then, this alias calculates hash sum and puts that into the mem. now you can access sum of that from mem.
+first, you have to put the value into the mem. next, call `hash.sha256` alias to calculate sha256 hash. then, this alias calculates hash sum of mem value and puts that into the mem. now you can access sum of that from mem.
 
 also you can use `hash.md5` aliases and...
 
@@ -985,7 +988,7 @@ also you can use `hash.md5` aliases and...
 with this module, you can work with time.
 
 ###### time.time
-this alias gives you current UNIX time:
+this alias gives you current UNIX timestamp:
 
 ```bash
 mem '@time'; include ^;
@@ -994,7 +997,7 @@ time.time; # this is shorter of `call time.time`
 out ^; # output is some thing like this: `1600416438.687201`
 ```
 
-when you call this alias, this alias puts the current unix time into mem and you can access and use that from mem.
+when you call this alias, this alias puts the unix timestamp into mem and you can access and use that.
 
 ###### time.sleep
 this alias sleeps for secounds:
@@ -1006,13 +1009,13 @@ mem 2; time.sleep; # sleepss for 2 secounds
 # mem 2.4; time.sleep; # sleepss for 2.4 secounds
 ```
 
-when you run this script, program waits for 2 secounds and then will finished
+when you run this script, program waits for 2 secounds and then will continued
 
 with this alias, you can wait for secounds.
 
 you have to put a int or float into mem and next call `time.sleep` alias, then program will sleep for value of `mem` as secounds
 
-### more modules comming soon...
+###### more modules comming soon...
 
 
 

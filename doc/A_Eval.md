@@ -33,6 +33,8 @@ enter some code: <input>mem 'hi\n'; out ^;
 hi
 ```
 
+the above code gets a string from user and runs that as pashmak code.
+
 ## run python code
 you can run python code like `eval` with `python` command:
 
