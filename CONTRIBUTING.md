@@ -67,6 +67,29 @@ python3 scripts.py test
 python3 /tests/run.py
 ```
 
+#### create new test
+to create new test, run this command:
 
+```bash
+python3 scripts.py make-test test_something
+```
+
+alwasy put `test_` before name of test.
+
+now the test script is created in `tests/items/test_something.py`
+
+this is content of that:
+
+```python
+from TestCore import TestCore
+
+class test_something(TestCore):
+    def run(self):
+        self.assert_true(True)
+```
+
+you can do your test in `run` function in `test_something` class.
+
+if you adding a feature or changing feature, change/add test for that feature
 
 
