@@ -83,7 +83,7 @@ class Program(helpers.Helpers):
         for alias_op in alias_body:
             alias_op_parsed = self.set_operation_index(alias_op)
             if alias_op_parsed['command'] == 'section':
-                section_name = alias_op_parsed['args_str'].strip().split(' ')[0].strip()
+                section_name = alias_op_parsed['args'][0]
                 self.sections[section_name] = i+1
             else:
                 self.operations.insert(i+1 , alias_op)
@@ -198,16 +198,15 @@ class Program(helpers.Helpers):
         # run alias
         try:
             # put argument in the mem
-            args_str = op['args_str']
-            if args_str != '':
+            if op['args_str'] != '':
+                args = op['args_str']
+                code = '(' + args + ')'
+                # replace variable names with value of them
                 for k in self.variables:
-                    v = self.variables[k]
-                    if type(v) == str:
-                        v = '"' + v + '"'
-                    v = str(v)
-                    args_str = args_str.replace('$' + k , v)
-                
-                self.mem = eval(args_str)
+                    code = code.replace('$' + k , 'self.variables["' + k + '"]')
+                self.mem = eval(code)
+            else:
+                self.mem = ''
             
             # execute alias body
             self.exec_alias(alias_body)

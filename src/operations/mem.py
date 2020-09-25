@@ -24,11 +24,8 @@ def run(self , op):
     ''' Calculates a value in temporary place named `mem` '''
 
     args = op['args_str']
-
     code = '(' + args + ')'
-
     # replace variable names with value of them
     for k in self.variables:
         code = code.replace('$' + k , 'self.variables["' + k + '"]')
-
     self.mem = eval(code)
