@@ -63,3 +63,40 @@ also you can call alias without writing `call` operation:
 #call somealias;
 somealias; # this is shorter code for `call somealias;`
 ```
+
+### passing argument to aliases
+for pass argument to the aliases, you can put value after name of alias:
+
+```bash
+alias myalias;
+    out ^;
+endalias;
+
+myalias "hello";
+```
+
+output:
+
+```
+hello
+```
+
+##### how it works?
+you can put a value after name of alias. this value will put in mem and you can access this argument from mem.
+
+look at this example:
+
+```bash
+alias say_hello;
+    set $say_hello_name_tmp; copy ^ $say_hello_name_tmp;
+    mem 'hello ' + $say_hello_name_tmp + '\n'; out ^;
+endalias;
+
+say_hello 'parsa';
+```
+
+output:
+
+```
+hello parsa
+```
