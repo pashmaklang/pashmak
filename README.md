@@ -52,7 +52,7 @@ if you want to contribute to this project, read [Contributing Guide](CONTRIBUTIN
 # Documentation
 read the following Documentation to learn pashmak.
 
-#### NOTE: the pashmak syntax is hard, surely read [STDLIB](#Stdlib) document to learn very better and easier syntax
+#### NOTE: the pashmak syntax is hard, surely read [STDLIB](#stdlib) document to learn very better and easier syntax
 
 
 
