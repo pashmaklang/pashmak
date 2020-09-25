@@ -50,7 +50,9 @@ pashmak is writed by [parsampsh](https://gitlab.com/parsampsh) and [contributors
 if you want to contribute to this project, read [Contributing Guide](CONTRIBUTING.md)
 
 # Documentation
-read the following Documentation to learn pashmak
+read the following Documentation to learn pashmak.
+
+#### NOTE: the pashmak syntax is hard, surely read [STDLIB](#Stdlib) document to learn very better and easier syntax
 
 
 
@@ -1058,6 +1060,25 @@ with this alias, you can wait for secounds.
 you have to put a int or float into mem or pass as argument and next call `time.sleep` alias, then program will sleep for value of `mem` as secounds
 
 ###### more modules comming soon...
+
+
+
+# Stdlib
+`stdlib` is a very important and useful module.
+this module make the pashmak syntax easy.
+
+look at this example:
+
+```bash
+mem '@stdlib'; include ^;
+
+# print
+print "hello world"; # INSTEAD OF `mem 'hello world'; out ^;`
+
+# import
+import 'somefile.pashm';
+import '@hash'; # INSTEAD OF `mem '@hash'; include ^`
+```
 
 
 

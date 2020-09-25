@@ -50,4 +50,6 @@ pashmak is writed by [parsampsh](https://gitlab.com/parsampsh) and [contributors
 if you want to contribute to this project, read [Contributing Guide](CONTRIBUTING.md)
 
 # Documentation
-read the following Documentation to learn pashmak
+read the following Documentation to learn pashmak.
+
+#### NOTE: the pashmak syntax is hard, surely read [STDLIB](#Stdlib) document to learn very better and easier syntax
