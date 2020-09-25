@@ -1059,6 +1059,27 @@ with this alias, you can wait for secounds.
 
 you have to put a int or float into mem or pass as argument and next call `time.sleep` alias, then program will sleep for value of `mem` as secounds
 
+## random module
+this module makes random numbers
+
+###### random.randint
+```bash
+mem '@random'; include ^;
+
+random.randint [1, 10]; # generates a random int between 1 and 10
+
+out ^; # and puts generated random number in mem and you can access that
+```
+
+###### random.random
+```bash
+mem '@random'; include ^;
+
+random.random; # generates a random float less that 1
+
+out ^; # and puts generated random number in mem and you can access that
+```
+
 ###### more modules comming soon...
 
 

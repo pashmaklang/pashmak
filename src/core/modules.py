@@ -23,6 +23,18 @@
 
 modules = {}
 
+modules["random"] = """alias random.randint;
+    set $random.randint.temp;
+    copy $random.randint.temp;
+    mem 'self.mem = random.randint(' + $random.randint.temp[0] + ',' + $random.randint.temp[1] + ')';
+    python ^;
+endalias;
+
+alias random.random;
+    mem 'self.mem = random.random()';
+    python ^;
+endalias;
+"""
 modules["time"] = """alias time.time;
     mem 'self.mem = time.time()'; python ^;
 endalias;
