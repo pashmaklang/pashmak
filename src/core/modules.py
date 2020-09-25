@@ -26,7 +26,7 @@ modules = {}
 modules["random"] = """alias random.randint;
     set $random.randint.temp;
     copy $random.randint.temp;
-    mem 'self.mem = random.randint(' + $random.randint.temp[0] + ',' + $random.randint.temp[1] + ')';
+    mem 'self.mem = random.randint(' + str($random.randint.temp[0]) + ',' + str($random.randint.temp[1]) + ')';
     python ^;
 endalias;
 
