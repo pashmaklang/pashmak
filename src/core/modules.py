@@ -45,3 +45,12 @@ alias hash.md5;
 	free $tmp_hash_md5_value;
 endalias;
 """
+modules["stdlib"] = """
+alias print;
+    out ^;
+endalias;
+
+alias import;
+    include ^;
+endalias;
+"""

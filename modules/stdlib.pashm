@@ -1,0 +1,8 @@
+
+alias print;
+    out ^;
+endalias;
+
+alias import;
+    include ^;
+endalias;

@@ -1,0 +1,12 @@
+mem '@stdlib'; include ^;
+
+
+print "hello world\n";
+
+import "@hash";
+
+hash.sha256 "hi"; print;
+
+print "\n";
+
+
