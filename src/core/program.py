@@ -187,14 +187,35 @@ class Program(helpers.Helpers):
             return
 
 
+
+        # check alias exists
         try:
             alias_body = self.aliases[op_name]
+        except:
+            self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
+            return
+
+        # run alias
+        try:
+            # put argument in the mem
+            args_str = op['args_str']
+            if args_str != '':
+                for k in self.variables:
+                    v = self.variables[k]
+                    if type(v) == str:
+                        v = '"' + v + '"'
+                    v = str(v)
+                    args_str = args_str.replace('$' + k , v)
+                
+                self.mem = eval(args_str)
+            
+            # execute alias body
             self.exec_alias(alias_body)
             return
-        except:
-            pass
+        except Exception as ex:
+            self.raise_error('RuntimeError' , str(ex) , op)
 
-        self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
+        
 
     def start(self):
         ''' Start running the program '''

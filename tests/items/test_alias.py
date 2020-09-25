@@ -57,3 +57,38 @@ class test_alias(TestCore):
             myalias;
         ''') , 'alias runed\n')
 
+        self.assert_output(self.run_without_error('''
+            alias myalias;
+                out ^;
+            endalias;
+            
+            myalias "hello world";
+        ''') , 'hello world')
+
+        self.assert_output(self.run_without_error('''
+            alias myalias;
+                out ^;
+            endalias;
+            
+            myalias 2*3;
+        ''') , '6')
+
+        self.assert_output(self.run_without_error('''
+            alias myalias;
+                out ^;
+            endalias;
+
+            set $var;
+            mem 'test'; copy $var;
+            
+            myalias 'this is ' + $var;
+        ''') , 'this is test')
+
+        self.assert_has_error(self.run_script('''
+            alias myalias;
+                out ^;
+            endalias;
+            
+            myalias hello world;
+        '''))
+
