@@ -39,6 +39,7 @@ class Program(helpers.Helpers):
         self.output = ''
         self.runtime_error = None
         self.is_in_try = None
+        self.runed_aliases = []
 
         # set argument variables
         self.variables['argv'] = args
@@ -79,6 +80,9 @@ class Program(helpers.Helpers):
         sys.exit(1)
 
     def exec_alias(self , alias_body):
+        if self.current_step in self.runed_aliases:
+            return
+        self.runed_aliases.append(self.current_step)
         i = int(self.current_step)
         for alias_op in alias_body:
             alias_op_parsed = self.set_operation_index(alias_op)
