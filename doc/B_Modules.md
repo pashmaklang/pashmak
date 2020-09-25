@@ -10,6 +10,11 @@ look at this example:
 mem '@hash'; include ^;
 mem '@time'; include ^;
 mem '@module_name'; include ^;
+
+# or using stdlib
+mem '@stdlib'; include ^;
+import '@hash';
+
 # ...
 ```
 
@@ -21,12 +26,12 @@ with hash module, you can calculate hash sum of values:
 ```bash
 mem '@hash'; include ^;
 
-mem 'hello'; call hash.sha256; # also you can use hash.md5 and...
+hash.sha256 "hello"; # also you can use hash.md5 and...
 out ^; # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 ```
 
 ###### how it works?
-first, you have to put the value into the mem. next, call `hash.sha256` alias to calculate sha256 hash. then, this alias calculates hash sum of mem value and puts that into the mem. now you can access sum of that from mem.
+first, we call `hash.sha256` and pass `hello` string as argument (or put it in mem) to calculate sha256 hash. then, this alias calculates hash sum of mem value and puts that into the mem. now you can access sum of that from mem.
 
 also you can use `hash.md5` aliases and...
 
@@ -51,7 +56,7 @@ this alias sleeps for secounds:
 ```bash
 mem '@time'; include ^;
 
-mem 2; time.sleep; # sleepss for 2 secounds
+time.sleep 2; # sleeps for 2 secounds
 # mem 2.4; time.sleep; # sleepss for 2.4 secounds
 ```
 
@@ -59,6 +64,6 @@ when you run this script, program waits for 2 secounds and then will continued
 
 with this alias, you can wait for secounds.
 
-you have to put a int or float into mem and next call `time.sleep` alias, then program will sleep for value of `mem` as secounds
+you have to put a int or float into mem or pass as argument and next call `time.sleep` alias, then program will sleep for value of `mem` as secounds
 
 ###### more modules comming soon...
