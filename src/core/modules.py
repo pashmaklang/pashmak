@@ -65,4 +65,24 @@ endalias;
 alias import;
     include ^;
 endalias;
+
+alias exit;
+    return ^;
+endalias;
+
+alias py;
+    python ^;
+endalias;
+
+alias sys;
+    system ^;
+endalias;
+
+alias std.chdir;
+    chdir ^;
+endalias;
+
+alias std.eval;
+    eval ^;
+endalias;
 """

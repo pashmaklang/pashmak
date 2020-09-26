@@ -1099,7 +1099,26 @@ print "hello world"; # INSTEAD OF `mem 'hello world'; out ^;`
 # import
 import 'somefile.pashm';
 import '@hash'; # INSTEAD OF `mem '@hash'; include ^`
+
+# exit
+exit; # exits program
+exit 2; # exits with exit code
+# INSTEAD OF `return;` and `return 2;`
+
+# py
+py "print('hello world from python')"; # INSTEAD OF `mem "print('hello world from python')"; python ^`
+
+# sys
+sys 'ls /tmp'; # INSTEAD OF `mem 'ls /tmp'; system ^;`
+
+# std.chdir
+std.chdir "/tmp"; # INSTEAD OF `mem '/tmp'; chdir ^;`
+
+# std.eval
+std.eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
 ```
+
+this module includes some aliases to make the pashmak syntax better.
 
 
 
