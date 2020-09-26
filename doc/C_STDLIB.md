@@ -2,11 +2,11 @@
 `stdlib` is a very important and useful module.
 this module make the pashmak syntax easy.
 
+this module not need to be import because it will import automaticaly.
+
 look at this example:
 
 ```bash
-mem '@stdlib'; include ^;
-
 # print
 print "hello world"; # INSTEAD OF `mem 'hello world'; out ^;`
 
@@ -33,3 +33,13 @@ std.eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
 ```
 
 this module includes some aliases to make the pashmak syntax better.
+
+also look at this example:
+
+```bash
+print 'enter your name: ';
+set $name; read $name;
+
+print 'hello ' + $name + '\n';
+
+```

@@ -27,52 +27,42 @@ from TestCore import TestCore
 class test_stdlib(TestCore):
     def run(self):
         self.assert_output(self.run_without_error('''
-        mem "@stdlib"; include ^;
         print "hello world";
         ''') , 'hello world')
 
         self.assert_output(self.run_without_error('''
-        mem "@stdlib"; include ^;
         import "examples/will_be_include.pashm";
         ''') , 'i am included\n')
 
         self.assert_exit_code(self.run_without_error('''
-        mem "@stdlib"; include ^;
         exit 5;
         ''') , 5)
 
         self.assert_mem(self.run_without_error('''
-        mem "@stdlib"; include ^;
         py "self.mem = 'hi'";
         ''') , 'hi')
 
         cwd = os.getcwd()
         self.run_without_error('''
-        mem "@stdlib"; include ^;
         std.chdir "/tmp";
         ''')
         self.assert_equals(os.getcwd() , '/tmp')
         os.chdir(cwd)
 
         self.assert_output(self.run_without_error('''
-        mem "@stdlib"; include ^;
         std.eval "mem 'output from eval'\; out ^\;";
         ''') , 'output from eval')
 
         self.assert_output(self.run_without_error('''
-        mem "@stdlib"; include ^;
         set $name;
         mem 'parsa'; copy $name;
         print 'hello ' + $name;
         ''') , 'hello parsa')
 
         self.assert_output(self.run_without_error('''
-        mem "@stdlib"; include ^;
         print str(2*2) + ' is sum';
         ''') , '4 is sum')
 
         self.assert_has_error(self.run_script('''
-        mem "@stdlib"; include ^;
         print 'hello ' + $name;
         '''))
-        

@@ -12,7 +12,6 @@ mem '@time'; include ^;
 mem '@module_name'; include ^;
 
 # or using stdlib
-mem '@stdlib'; include ^;
 import '@hash';
 
 # ...

@@ -46,6 +46,9 @@ class Program(helpers.Helpers):
         self.variables['argc'] = len(self.variables['argv'])
 
     def set_operations(self , operations):
+        # include stdlib before everything
+        operations.insert(0 , parser.parse('mem "@stdlib"; include ^;')[0])
+        operations.insert(1 , parser.parse('mem "@stdlib"; include ^;')[1])
         # get list of operations and set it on program object
         self.operations = operations
 
