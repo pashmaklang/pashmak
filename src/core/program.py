@@ -47,8 +47,9 @@ class Program(helpers.Helpers):
 
     def set_operations(self , operations):
         # include stdlib before everything
-        operations.insert(0 , parser.parse('mem "@stdlib"; include ^;')[0])
-        operations.insert(1 , parser.parse('mem "@stdlib"; include ^;')[1])
+        tmp = parser.parse('mem "@stdlib"; include ^;')
+        operations.insert(0 , tmp[0])
+        operations.insert(1 , tmp[1])
         # get list of operations and set it on program object
         self.operations = operations
 
