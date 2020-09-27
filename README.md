@@ -1072,6 +1072,77 @@ random.random; # generates a random float less that 1
 out ^; # and puts generated random number in mem and you can access that
 ```
 
+## file module
+with this module, you can work with files smarter.
+
+###### file.open
+with this alias, you can open a file:
+
+```bash
+import '@file';
+
+file.open ['/path/to/file.txt' , 'r']; # first argument is file path, and second argument is open type. here is `r` means `read`
+
+# now, opened file is in the mem. we can copy it in a variable
+
+set $f;
+copy $f;
+```
+
+###### file.read
+wtih this alias, you can read opened file:
+
+```bash
+import '@file';
+
+file.open ['/path/to/file.txt' , 'r'];
+set $f; copy $f;
+
+file.read $f; # now, content of file is in the mem
+out ^; # output is content of file
+```
+
+###### file.write
+with this alias, you can write on opened file:
+
+```bash
+import '@file';
+
+file.open ['/path/to/file.txt' , 'w']; # open type is `w` (write)
+set $f; copy $f;
+
+file.write [$f , 'new content']; # first arg is opened file and second arg is content.
+```
+
+now file is changed
+
+###### file.close
+with this alias you can close file after your work:
+
+```bash
+import '@file';
+
+file.open ['/path/to/file.txt' , 'r'];
+set $f; copy $f;
+
+# work with file
+
+file.close $f; # close file after work
+```
+
+##### example:
+
+```bash
+import '@file';
+
+file.open ['/path/to/file.txt' , 'r']; set $file; copy $file;
+
+set $content;
+file.read $file; copy $content;
+
+mem 'content of file is: ' + $content; out ^;
+```
+
 ###### more modules comming soon...
 
 
