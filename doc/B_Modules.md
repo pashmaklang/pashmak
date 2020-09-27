@@ -43,7 +43,7 @@ this alias gives you current UNIX timestamp:
 ```bash
 mem '@time'; include ^;
 
-time.time; # this is shorter of `call time.time`
+time.time;
 out ^; # output is some thing like this: `1600416438.687201`
 ```
 

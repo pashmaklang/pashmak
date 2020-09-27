@@ -13,4 +13,4 @@ alias myfunc;
 endalias;
 
 
-call myfunc;
+myfunc;

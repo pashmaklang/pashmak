@@ -544,7 +544,7 @@ alias say_hello;
     mem 'hello world\n'; out ^;
 endalias;
 
-call say_hello;
+say_hello;
 ```
 
 output:
@@ -558,8 +558,8 @@ alias say_hello;
     mem 'hello world\n'; out ^;
 endalias;
 
-call say_hello;
-call say_hello;
+say_hello;
+say_hello;
 ```
 
 output:
@@ -584,7 +584,7 @@ alias say_hello;
     free $say_hello_name;
 endalias;
 
-mem 'parsa'; call say_hello;
+mem 'parsa'; say_hello;
 ```
 
 program output:
@@ -592,13 +592,6 @@ program output:
 ```
 program started
 hello parsa
-```
-
-also you can call alias without writing `call` operation:
-
-```bash
-#call somealias;
-somealias; # this is shorter code for `call somealias;`
 ```
 
 ### passing argument to aliases
@@ -929,7 +922,7 @@ endalias;
 ```bash
 mem 'fib.pashm'; include ^;
 
-call fib;
+fib;
 ```
 
 when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example, here we used a alias from the `fib.pashm` file.
@@ -1036,7 +1029,7 @@ this alias gives you current UNIX timestamp:
 ```bash
 mem '@time'; include ^;
 
-time.time; # this is shorter of `call time.time`
+time.time;
 out ^; # output is some thing like this: `1600416438.687201`
 ```
 

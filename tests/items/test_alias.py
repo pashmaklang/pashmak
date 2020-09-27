@@ -33,21 +33,14 @@ class test_alias(TestCore):
                 mem 'alias finished\\n'; out ^;
             endalias;
 
-            call myalias;
+            myalias;
 
             mem 'finished\\n'; out ^;
-
-            set $alias_name; mem 'myalias'; copy $alias_name;
-            call $alias_name;
-
-            mem 'myalias'; call ^;
         ''')
-        self.assert_vars(program , {'somevar': 20 , 'alias_name': 'myalias'})
-        self.assert_output(program , 'starting\nalias runed\nalias finished\nfinished\nalias runed\nalias finished\nalias runed\nalias finished\n')
+        self.assert_vars(program , {'somevar': 20})
+        self.assert_output(program , 'starting\nalias runed\nalias finished\nfinished\n')
 
-        self.assert_has_error(self.run_script(''' call undefined_alias; '''))
-
-        self.assert_has_error(self.run_script(''' call $not_found; '''))
+        self.assert_has_error(self.run_script(''' undefined_alias; '''))
 
         self.assert_output(self.run_without_error('''
             alias myalias;

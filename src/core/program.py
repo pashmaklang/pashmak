@@ -139,9 +139,6 @@ class Program(helpers.Helpers):
         elif op_name == 'alias':
             self.run_alias(op)
             return
-        elif op_name == 'call':
-            self.run_call(op)
-            return
         elif op_name == 'required':
             self.run_required(op)
             return

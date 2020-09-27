@@ -18,4 +18,4 @@ alias fib;
     mem $b < 10000; gotoif 10;
 endalias;
 
-call fib;
+fib;

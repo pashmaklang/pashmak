@@ -29,7 +29,7 @@ endalias;
 ```bash
 mem 'fib.pashm'; include ^;
 
-call fib;
+fib;
 ```
 
 when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example, here we used a alias from the `fib.pashm` file.
