@@ -24,36 +24,34 @@
 modules = {}
 
 modules["random"] = """alias random.randint;
-    set $random.randint.temp;
-    copy $random.randint.temp;
-    mem 'self.mem = random.randint(' + str($random.randint.temp[0]) + ',' + str($random.randint.temp[1]) + ')';
-    python ^;
+    set $tmp_random.randint;
+    copy $tmp_random.randint;
+    py 'self.mem = random.randint(' + str($tmp_random.randint[0]) + ',' + str($tmp_random.randint[1]) + ')';
 endalias;
 
 alias random.random;
-    mem 'self.mem = random.random()';
-    python ^;
+    py 'self.mem = random.random()';
 endalias;
 """
 modules["time"] = """alias time.time;
-    mem 'self.mem = time.time()'; python ^;
+    py 'self.mem = time.time()';
 endalias;
 
 alias time.sleep;
     set $tmp_time_sleep_for; copy $tmp_time_sleep_for;
-    mem 'self.mem = time.sleep(' + str($tmp_time_sleep_for) + ')'; python ^;
+    py 'self.mem = time.sleep(' + str($tmp_time_sleep_for) + ')';
 endalias;
 """
 modules["hash"] = """
 alias hash.sha256;
 	set $tmp_hash_sha256_value; copy $tmp_hash_sha256_value;
-	mem 'self.mem = hashlib.sha256("' + $tmp_hash_sha256_value + '".encode()).hexdigest()'; python ^;
+	py 'self.mem = hashlib.sha256("' + $tmp_hash_sha256_value + '".encode()).hexdigest()';
 	free $tmp_hash_sha256_value;
 endalias;
 
 alias hash.md5;
 	set $tmp_hash_md5_value; copy $tmp_hash_md5_value;
-	mem 'self.mem = hashlib.md5("' + $tmp_hash_md5_value + '".encode()).hexdigest()'; python ^;
+	py 'self.mem = hashlib.md5("' + $tmp_hash_md5_value + '".encode()).hexdigest()';
 	free $tmp_hash_md5_value;
 endalias;
 """
