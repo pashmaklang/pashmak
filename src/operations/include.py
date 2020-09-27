@@ -37,6 +37,9 @@ def run(self , op):
         self.variable_required(arg[1:] , op)
         path = self.variables[arg[1:]]
 
+    if path == None:
+        return
+
     if path[0] == '@':
         module_name = path[1:]
         try:
