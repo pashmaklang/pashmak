@@ -190,6 +190,8 @@ class Program(helpers.Helpers):
         elif op_name == 'python':
             self.run_python(op)
             return
+        elif op_name == 'pass':
+            return
 
 
 
