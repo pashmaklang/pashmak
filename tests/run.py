@@ -21,7 +21,6 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-
 import sys, os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/src')
@@ -46,6 +45,9 @@ class TestRunner:
         print(tcolor.OKGREEN + whitespace + 'PASS' + tcolor.ENDC)
 
     def run(self):
+        print()
+        print('Starting testing system...')
+        print('--------------------------')
         test_name_max_length = 0
         for tmp_test in self.tests:
             test_class_name = tmp_test[:len(tmp_test)-3]
@@ -55,6 +57,10 @@ class TestRunner:
         
         for test in self.tests:
             self.run_once(test , test_name_max_length)
+
+        print()
+        print(tcolor.OKGREEN + 'All ' + str(len(self.tests)) + ' tests passed successfuly' + tcolor.ENDC)
+        print()
 
 
 
