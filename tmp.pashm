@@ -1,8 +1,0 @@
-import '@file';
-
-set $file;
-file.open ['/home/parsa/Desktop/test.txt' , 'w']; copy $file;
-
-file.write [$file , 'new content'];
-
-file.close $file;
