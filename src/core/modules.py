@@ -108,4 +108,9 @@ endalias;
 alias std.eval;
     eval ^;
 endalias;
+
+alias raise;
+	set $tmp_stdlib_raise_exdata; copy $tmp_stdlib_raise_exdata;
+	py "self.raise_error('" + $tmp_stdlib_raise_exdata[0] + "' , '" + $tmp_stdlib_raise_exdata[1] + "' , op)";
+endalias;
 """
