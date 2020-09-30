@@ -235,9 +235,9 @@ class Program(helpers.Helpers):
             current_op = self.set_operation_index(self.operations[i])
             if current_op['command'] == 'section':
                 if not is_in_alias:
-                    arg = current_op['args_str'].strip().split(' ')[0].strip()
-                    self.sections[arg] = i
-                    self.operations.pop(i)
+                    arg = current_op['args'][0]
+                    self.sections[arg] = i+1
+                    self.operations[i] = parser.parse('pass')[0]
             elif current_op['command'] == 'alias':
                 is_in_alias = True
             elif current_op['command'] == 'endalias':
