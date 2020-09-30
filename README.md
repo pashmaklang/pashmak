@@ -1200,6 +1200,8 @@ MyError:
 
 the `raise` alias can raise errors in program
 
+first argument `'TheError'` is error type and second error `'this is my error'` is error message.
+
 ##### finish
 
 this module includes some aliases to make the pashmak syntax better.
