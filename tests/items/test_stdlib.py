@@ -66,3 +66,10 @@ class test_stdlib(TestCore):
         self.assert_has_error(self.run_script('''
         print 'hello ' + $name;
         '''))
+
+        program = self.run_script('''
+        raise ['SomeError' , 'this is error'];
+        ''')
+        self.assert_has_error(program)
+        self.assert_equals(program['runtime_error'][0] , 'SomeError')
+        self.assert_equals(program['runtime_error'][1] , 'this is error')

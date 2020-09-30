@@ -1181,9 +1181,30 @@ std.chdir "/tmp"; # INSTEAD OF `mem '/tmp'; chdir ^;`
 std.eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
 ```
 
+##### raising errors
+```bash
+print 'program started\n';
+
+raise ['MyError' , 'this is my error'];
+
+print 'this will not print\n';
+```
+
+output:
+
+```
+progrma started
+MyError:
+	this is my error
+```
+
+the `raise` alias can raise errors in program
+
+##### finish
+
 this module includes some aliases to make the pashmak syntax better.
 
-also look at this example:
+also look at this example about print:
 
 ```bash
 print 'enter your name: ';
