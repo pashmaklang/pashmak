@@ -236,7 +236,7 @@ class Program(helpers.Helpers):
             if current_op['command'] == 'section':
                 if not is_in_alias:
                     arg = current_op['args'][0]
-                    self.sections[arg] = i
+                    self.sections[arg] = i+1
                     self.operations[i] = parser.parse('pass')[0]
             elif current_op['command'] == 'alias':
                 is_in_alias = True
