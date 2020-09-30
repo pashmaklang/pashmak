@@ -46,6 +46,10 @@ class Program(helpers.Helpers):
         self.variables['argc'] = len(self.variables['argv'])
 
     def set_operations(self , operations):
+        # include stdlib before everything
+        tmp = parser.parse('mem "@stdlib"; include ^;')
+        operations.insert(0 , tmp[0])
+        operations.insert(1 , tmp[1])
         # get list of operations and set it on program object
         self.operations = operations
 
@@ -135,9 +139,6 @@ class Program(helpers.Helpers):
         elif op_name == 'alias':
             self.run_alias(op)
             return
-        elif op_name == 'call':
-            self.run_call(op)
-            return
         elif op_name == 'required':
             self.run_required(op)
             return
@@ -189,6 +190,8 @@ class Program(helpers.Helpers):
         elif op_name == 'python':
             self.run_python(op)
             return
+        elif op_name == 'pass':
+            return
 
 
 
@@ -232,9 +235,9 @@ class Program(helpers.Helpers):
             current_op = self.set_operation_index(self.operations[i])
             if current_op['command'] == 'section':
                 if not is_in_alias:
-                    arg = current_op['args_str'].strip().split(' ')[0].strip()
-                    self.sections[arg] = i
-                    self.operations.pop(i)
+                    arg = current_op['args'][0]
+                    self.sections[arg] = i+1
+                    self.operations[i] = parser.parse('pass')[0]
             elif current_op['command'] == 'alias':
                 is_in_alias = True
             elif current_op['command'] == 'endalias':

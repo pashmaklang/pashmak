@@ -30,7 +30,6 @@ from operations import read as op_read
 from operations import returnop as op_return
 from operations import alias as op_alias
 from operations import endalias as op_endalias
-from operations import call as op_call
 from operations import required as op_required
 from operations import typeof as op_typeof
 from operations import system as op_system
@@ -76,9 +75,6 @@ class Commands:
 
     def run_endalias(self , op):
         op_endalias.run(self , op)
-
-    def run_call(self , op):
-        op_call.run(self , op)
 
     def run_required(self , op):
         op_required.run(self , op)

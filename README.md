@@ -544,7 +544,7 @@ alias say_hello;
     mem 'hello world\n'; out ^;
 endalias;
 
-call say_hello;
+say_hello;
 ```
 
 output:
@@ -558,8 +558,8 @@ alias say_hello;
     mem 'hello world\n'; out ^;
 endalias;
 
-call say_hello;
-call say_hello;
+say_hello;
+say_hello;
 ```
 
 output:
@@ -584,7 +584,7 @@ alias say_hello;
     free $say_hello_name;
 endalias;
 
-mem 'parsa'; call say_hello;
+mem 'parsa'; say_hello;
 ```
 
 program output:
@@ -592,13 +592,6 @@ program output:
 ```
 program started
 hello parsa
-```
-
-also you can call alias without writing `call` operation:
-
-```bash
-#call somealias;
-somealias; # this is shorter code for `call somealias;`
 ```
 
 ### passing argument to aliases
@@ -929,7 +922,7 @@ endalias;
 ```bash
 mem 'fib.pashm'; include ^;
 
-call fib;
+fib;
 ```
 
 when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example, here we used a alias from the `fib.pashm` file.
@@ -1005,7 +998,6 @@ mem '@time'; include ^;
 mem '@module_name'; include ^;
 
 # or using stdlib
-mem '@stdlib'; include ^;
 import '@hash';
 
 # ...
@@ -1037,7 +1029,7 @@ this alias gives you current UNIX timestamp:
 ```bash
 mem '@time'; include ^;
 
-time.time; # this is shorter of `call time.time`
+time.time;
 out ^; # output is some thing like this: `1600416438.687201`
 ```
 
@@ -1080,6 +1072,77 @@ random.random; # generates a random float less that 1
 out ^; # and puts generated random number in mem and you can access that
 ```
 
+## file module
+with this module, you can work with files smarter.
+
+###### file.open
+with this alias, you can open a file:
+
+```bash
+import '@file';
+
+file.open ['/path/to/file.txt' , 'r']; # first argument is file path, and second argument is open type. here is `r` means `read`
+
+# now, opened file is in the mem. we can copy it in a variable
+
+set $f;
+copy $f;
+```
+
+###### file.read
+wtih this alias, you can read opened file:
+
+```bash
+import '@file';
+
+file.open ['/path/to/file.txt' , 'r'];
+set $f; copy $f;
+
+file.read $f; # now, content of file is in the mem
+out ^; # output is content of file
+```
+
+###### file.write
+with this alias, you can write on opened file:
+
+```bash
+import '@file';
+
+file.open ['/path/to/file.txt' , 'w']; # open type is `w` (write)
+set $f; copy $f;
+
+file.write [$f , 'new content']; # first arg is opened file and second arg is content.
+```
+
+now file is changed
+
+###### file.close
+with this alias you can close file after your work:
+
+```bash
+import '@file';
+
+file.open ['/path/to/file.txt' , 'r'];
+set $f; copy $f;
+
+# work with file
+
+file.close $f; # close file after work
+```
+
+##### example:
+
+```bash
+import '@file';
+
+file.open ['/path/to/file.txt' , 'r']; set $file; copy $file;
+
+set $content;
+file.read $file; copy $content;
+
+mem 'content of file is: ' + $content; out ^;
+```
+
 ###### more modules comming soon...
 
 
@@ -1088,17 +1151,46 @@ out ^; # and puts generated random number in mem and you can access that
 `stdlib` is a very important and useful module.
 this module make the pashmak syntax easy.
 
+this module not need to be import because it will import automaticaly.
+
 look at this example:
 
 ```bash
-mem '@stdlib'; include ^;
-
 # print
 print "hello world"; # INSTEAD OF `mem 'hello world'; out ^;`
 
 # import
 import 'somefile.pashm';
 import '@hash'; # INSTEAD OF `mem '@hash'; include ^`
+
+# exit
+exit; # exits program
+exit 2; # exits with exit code
+# INSTEAD OF `return;` and `return 2;`
+
+# py
+py "print('hello world from python')"; # INSTEAD OF `mem "print('hello world from python')"; python ^`
+
+# sys
+sys 'ls /tmp'; # INSTEAD OF `mem 'ls /tmp'; system ^;`
+
+# std.chdir
+std.chdir "/tmp"; # INSTEAD OF `mem '/tmp'; chdir ^;`
+
+# std.eval
+std.eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
+```
+
+this module includes some aliases to make the pashmak syntax better.
+
+also look at this example:
+
+```bash
+print 'enter your name: ';
+set $name; read $name;
+
+print 'hello ' + $name + '\n';
+
 ```
 
 
