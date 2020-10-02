@@ -45,7 +45,7 @@ class Program(helpers.Helpers):
         self.variables['argv'] = args
         self.variables['argc'] = len(self.variables['argv'])
 
-    def set_operations(self , operations):
+    def set_operations(self , operations: list):
         # include stdlib before everything
         tmp = parser.parse('mem "@stdlib"; include ^;')
         operations.insert(0 , tmp[0])
@@ -53,7 +53,7 @@ class Program(helpers.Helpers):
         # get list of operations and set it on program object
         self.operations = operations
 
-    def set_operation_index(self , op):
+    def set_operation_index(self , op: dict) -> dict:
         ''' Add operation index to operation dictonary '''
         op['index'] = self.current_step
         return op
@@ -64,7 +64,7 @@ class Program(helpers.Helpers):
         self.mem = None
         return mem
 
-    def raise_error(self , error_type , message , op):
+    def raise_error(self , error_type: str , message: str , op: dict):
         ''' Raise error in program '''
         # check is in try
         if self.is_in_try != None:
@@ -83,7 +83,7 @@ class Program(helpers.Helpers):
         print(error_type + ' in ' + str(op['index']) + ':\n\t' + op['str'] + '\n\t' + message)
         sys.exit(1)
 
-    def exec_alias(self , alias_body):
+    def exec_alias(self , alias_body: list):
         if self.current_step in self.runed_aliases:
             return
         self.runed_aliases.append(self.current_step)
@@ -97,7 +97,7 @@ class Program(helpers.Helpers):
                 self.operations.insert(i+1 , alias_op)
                 i += 1
 
-    def run(self , op):
+    def run(self , op: dict):
         ''' Run once operation '''
 
         op = self.set_operation_index(op)
