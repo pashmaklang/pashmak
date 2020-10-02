@@ -43,6 +43,15 @@ python3 src/pashmak.py
 
 windows users can use this way.
 
+#### uninstallation
+to uninstall pashmak, run this make command in terminal:
+
+```bash
+sudo make uninstall
+```
+
+pashmak will be remove from your system.s
+
 ## Authors
 pashmak is writed by [parsampsh](https://gitlab.com/parsampsh) and [contributors](https://gitlab.com/parsampsh/pashmak/-/graphs/master)
 
