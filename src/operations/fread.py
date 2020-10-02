@@ -20,7 +20,7 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op):
+def run(self , op: dict):
     ''' Reads file content '''
     self.require_one_argument(op , 'fread operation requires argument')
     arg = op['args'][0]

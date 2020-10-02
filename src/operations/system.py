@@ -22,7 +22,7 @@
 
 import os
 
-def run(self , op):
+def run(self , op: dict):
     ''' Runs system shell commands '''
 
     self.require_one_argument(op , 'system operation requires argument')

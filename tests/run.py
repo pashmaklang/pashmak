@@ -23,6 +23,7 @@
 
 import sys, os
 
+# add `src/` folder to python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/src')
 
 import tcolor
@@ -35,7 +36,7 @@ class TestRunner:
             if f[len(f)-3:] == '.py':
                 self.tests.append(f)
 
-    def run_once(self , test , test_name_max_length):
+    def run_once(self , test: str , test_name_max_length: int):
         test_class_name = test[:len(test)-3]
         loaded_test = __import__('items.' + test_class_name)
         test_obj = eval('loaded_test.' + test_class_name + '.' + test_class_name + '()')
@@ -62,12 +63,5 @@ class TestRunner:
         print(tcolor.OKGREEN + 'All ' + str(len(self.tests)) + ' tests passed successfuly' + tcolor.ENDC)
         print()
 
-
-
-
-
 test_runner = TestRunner()
 test_runner.run()
-
-
-

@@ -22,7 +22,7 @@
 
 from syntax import parser
 
-def run(self , op):
+def run(self , op: dict):
     ''' Runs pashmak code from string '''
 
     self.require_one_argument(op , 'eval operation requires argument')

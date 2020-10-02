@@ -20,7 +20,7 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op):
+def run(self , op: dict):
     ''' Checks variables exists and put result in mem '''
 
     args = op['args']

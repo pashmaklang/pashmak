@@ -22,7 +22,7 @@
 
 import sys
 
-def run(self , op):
+def run(self , op: dict):
     ''' Exits program with exit code '''
 
     args = op['args']
