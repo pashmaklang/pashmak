@@ -12,7 +12,7 @@ endif
 
 PYINSTALLER_IS_INSTALLED = 0
 ifneq ("",$(shell command -v pyinstaller))
-PYINSTALLER_IS_INSTALLED = 1
+PYINSTALLER_IS_INSTALLED = 0
 endif
 
 main: compile
@@ -21,7 +21,7 @@ compile:
 ifeq (1,$(PYINSTALLER_IS_INSTALLED))
 	@$(MANAGE_SCRIPT) build
 else
-	@echo error: the pyinstaller for python is required for compile the program. run \"pip3 install -r requirements.txt\" to install it
+	@echo error: the pyinstaller for python is required for compile the program. run \"pip3 install pyinstaller\" to install it
 endif
 
 clean:
