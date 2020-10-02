@@ -12,7 +12,7 @@ endif
 
 PYINSTALLER_IS_INSTALLED = 0
 ifneq ("",$(shell command -v pyinstaller))
-PYINSTALLER_IS_INSTALLED = 0
+PYINSTALLER_IS_INSTALLED = 1
 endif
 
 main: compile
