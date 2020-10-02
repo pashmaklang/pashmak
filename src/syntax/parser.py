@@ -24,7 +24,7 @@
 
 import time
 
-def handle_backslash_semicolon(op_str):
+def handle_backslash_semicolon(op_str: str) -> list:
     ''' Handle \; as clean text semicolon '''
     str_to_replace_with_semicolon = '<semicolon' + str(time.time()) + '>'
 
@@ -35,12 +35,12 @@ def handle_backslash_semicolon(op_str):
 
     return [op_str , str_to_replace_with_semicolon]
 
-def ignore_comment(op_str):
+def ignore_comment(op_str: str) -> str:
     ''' Remove comments from code line '''
     parts = op_str.split('#' , 1)
     return parts[0]
 
-def parse_op(op_str):
+def parse_op(op_str: str) -> dict:
     ''' Parse a operation from text to object '''
     op = {}
     op['str'] = op_str
@@ -59,7 +59,7 @@ def parse_op(op_str):
     return op
 
 
-def parse(content):
+def parse(content: str) -> list:
     ''' Parse code from text and return list of operations '''
     # split the lines
     lines = content.split('\n')
