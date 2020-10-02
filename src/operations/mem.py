@@ -20,7 +20,7 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op):
+def run(self , op: dict):
     ''' Calculates a value in temporary place named `mem` '''
 
     args = op['args_str']

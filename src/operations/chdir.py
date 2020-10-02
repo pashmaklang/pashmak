@@ -22,7 +22,7 @@
 
 import os
 
-def run(self , op):
+def run(self , op: dict):
     ''' Changes program working directory '''
 
     self.require_one_argument(op , 'chdir operation requires argument')

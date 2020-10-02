@@ -20,7 +20,7 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op):
+def run(self , op: dict):
     ''' Prints a value on screen '''
 
     self.require_one_argument(op , 'out operation requires argument')

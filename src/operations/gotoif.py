@@ -20,7 +20,7 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op):
+def run(self , op: dict):
     ''' Changes program step to a section if mem is true '''
 
     self.require_one_argument(op , 'gotoif operation requires section name argument')

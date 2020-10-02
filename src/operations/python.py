@@ -22,7 +22,7 @@
 
 import hashlib, time, random
 
-def run(self , op):
+def run(self , op: dict):
     ''' Runs python code from string '''
 
     self.require_one_argument(op , 'python operation requires argument')
