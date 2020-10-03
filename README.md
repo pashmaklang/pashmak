@@ -1211,6 +1211,36 @@ the `raise` alias can raise errors in program
 
 first argument `'TheError'` is error type and second error `'this is my error'` is error message.
 
+##### asserting
+the stdlib has a alias named `assert`. this alias is for testing and asserting
+
+look at this example:
+
+```bash
+assert 2 == 3;
+```
+
+output:
+
+```
+AssertError:
+	asserting that false is true
+```
+
+you can pass a condition or boolean value to assert alias. if that is True, this alias do nothing:
+
+```bash
+assert 2 == 2;
+assert True;
+
+set $age; mem 18; copy $age;
+assert $age > 10;
+```
+
+the above code do nothing, because all of values passed to assert are True.
+
+but if that value is false, program raises `AssertError`. this is helpful for testing.
+
 ##### finish
 
 this module includes some aliases to make the pashmak syntax better.

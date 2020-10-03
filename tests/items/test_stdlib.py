@@ -73,3 +73,37 @@ class test_stdlib(TestCore):
         self.assert_has_error(program)
         self.assert_equals(program['runtime_error'][0] , 'SomeError')
         self.assert_equals(program['runtime_error'][1] , 'this is error')
+
+        self.assert_has_error(self.run_script('''
+        assert 2 == 3;
+        '''))
+
+        self.assert_has_error(self.run_script('''
+        assert 1 > 10;
+        '''))
+
+        self.assert_has_error(self.run_script('''
+        assert False;
+        '''))
+
+        self.assert_has_error(self.run_script('''
+        set $age; mem 18; copy $age;
+        assert $age > 30;
+        '''))
+
+        self.run_without_error('''
+        assert True;
+        ''')
+
+        self.run_without_error('''
+        assert 2 == 2;
+        ''')
+
+        self.run_without_error('''
+        assert 10 > 5;
+        ''')
+
+        self.run_without_error('''
+        set $age; mem 40; copy $age;
+        assert $age > 30;
+        ''')
