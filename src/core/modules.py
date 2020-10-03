@@ -115,4 +115,10 @@ alias raise;
     python ^;
     free $tmp_stdlib_raise_exdata;
 endalias;
+
+alias assert;
+    gotoif tmp_assert_after_section;
+    raise ['AssertError' , 'asserting that false is true'];
+    section tmp_assert_after_section;
+endalias;
 """
