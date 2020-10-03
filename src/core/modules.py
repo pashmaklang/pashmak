@@ -118,7 +118,7 @@ endalias;
 
 alias assert;
     gotoif tmp_assert_after_section;
-    raise ['AssertError , 'asserting that false is true'];
+    raise ['AssertError' , 'asserting that false is true'];
     section tmp_assert_after_section;
 endalias;
 """
