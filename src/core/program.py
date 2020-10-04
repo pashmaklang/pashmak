@@ -42,8 +42,8 @@ class Program(helpers.Helpers):
         self.runed_aliases = []
 
         # set argument variables
-        self.variables['argv'] = args
-        self.variables['argc'] = len(self.variables['argv'])
+        self.set_var('argv' , args)
+        self.set_var('argc' , len(self.get_var('argv')))
 
     def set_operations(self , operations: list):
         # include stdlib before everything
@@ -209,8 +209,8 @@ class Program(helpers.Helpers):
                 args = op['args_str']
                 code = '(' + args + ')'
                 # replace variable names with value of them
-                for k in self.variables:
-                    code = code.replace('$' + k , 'self.variables["' + k + '"]')
+                for k in self.all_vars():
+                    code = code.replace('$' + k , 'self.all_vars()["' + k + '"]')
                 self.mem = eval(code)
             else:
                 self.mem = ''

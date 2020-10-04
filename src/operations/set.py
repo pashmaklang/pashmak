@@ -27,4 +27,4 @@ def run(self , op: dict):
     for arg in args:
         self.arg_should_be_variable(arg , op)
         if not self.variable_exists(arg[1:]):
-            self.variables[arg[1:]] = None
+            self.set_var(arg[1:] , None)
