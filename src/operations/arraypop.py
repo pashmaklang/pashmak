@@ -46,4 +46,4 @@ def run(self , op: dict):
         self.raise_variable_error(second_var , op)
 
     # pop from array
-    self.variables[first_var[1:]].pop(second_var_value) # TODO : handle this with refactors
+    self.all_vars()[first_var[1:]].pop(second_var_value)

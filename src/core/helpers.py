@@ -69,3 +69,7 @@ class Helpers(commands.Commands):
     def set_var(self , varname: str , value):
         ''' Gets name of a variable and sets value on that '''
         self.variables[varname] = value
+
+    def all_vars(self):
+        ''' Returns list of all of variables '''
+        return self.variables

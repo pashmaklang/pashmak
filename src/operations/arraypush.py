@@ -46,4 +46,4 @@ def run(self , op: dict):
         self.raise_variable_error(second_var , op)
 
     # push to array
-    self.variables[first_var[1:]].append(second_var_value) # TODO : handle this with refactors
+    self.all_vars()[first_var[1:]].append(second_var_value)

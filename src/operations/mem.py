@@ -26,6 +26,6 @@ def run(self , op: dict):
     args = op['args_str']
     code = '(' + args + ')'
     # replace variable names with value of them
-    for k in self.variables: # TODO : handle this with refactors
-        code = code.replace('$' + k , 'self.variables["' + k + '"]') # TODO : handle this with refactors
+    for k in self.all_vars():
+        code = code.replace('$' + k , 'self.all_vars()["' + k + '"]')
     self.mem = eval(code)

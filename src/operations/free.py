@@ -30,6 +30,6 @@ def run(self , op: dict):
             self.mem = None
         else:
             try:
-                del self.variables[arg[1:]] # TODO : handle this with refactors
+                del self.all_vars()[arg[1:]]
             except:
                 pass

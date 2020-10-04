@@ -7,18 +7,18 @@ endalias;
 
 alias file.close;
     set $tmp_file.open.file; copy $tmp_file.open.file;
-    py 'self.variables["tmp_file.open.file"].close()';
+    py 'self.all_vars()["tmp_file.open.file"].close()';
     free $tmp_file.open.file;
 endalias;
 
 alias file.read;
     set $tmp_file.read.file; copy $tmp_file.read.file;
-    py 'self.mem = self.variables["tmp_file.read.file"].read()';
+    py 'self.mem = self.all_vars()["tmp_file.read.file"].read()';
     free $tmp_file.read.file;
 endalias;
 
 alias file.write;
     set $tmp_file_write_args; copy $tmp_file_write_args;
-    py 'self.variables["tmp_file_write_args"][0].write(self.variables["tmp_file_write_args"][1])';
+    py 'self.all_vars()["tmp_file_write_args"][0].write(self.all_vars()["tmp_file_write_args"][1])';
     free $tmp_file_write_args;
 endalias;
