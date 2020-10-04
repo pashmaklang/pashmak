@@ -107,3 +107,17 @@ class test_stdlib(TestCore):
         set $age; mem 40; copy $age;
         assert $age > 30;
         ''')
+
+        self.assert_output(self.run_without_error('''
+        set $name; mem 'parsa\\n'; copy $name;
+
+        alias myfunc;
+        	out $name;
+        	gset ['name' , 'pashmak\\n'];
+        endalias;
+
+        myfunc;
+
+        out $name;
+
+        ''') , 'parsa\npashmak\n')

@@ -30,6 +30,9 @@ std.chdir "/tmp"; # INSTEAD OF `mem '/tmp'; chdir ^;`
 
 # std.eval
 std.eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
+
+# gset
+gset ['somevar' , 'new global value']; # you learned this command in aliases section
 ```
 
 ##### raising errors

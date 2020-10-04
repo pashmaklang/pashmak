@@ -39,3 +39,9 @@ alias assert;
     raise ['AssertError' , 'asserting that false is true'];
     section tmp_assert_after_section;
 endalias;
+
+alias gset;
+	set $args; copy $args;
+	mem 'self.variables["' + $args[0] + '"] = self.get_var("args")[1]';
+	python ^;
+endalias;

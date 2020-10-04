@@ -93,3 +93,71 @@ output:
 ```
 hello parsa
 ```
+
+
+### local variables & global variables
+
+look at this example:
+
+```bash
+alias myalias;
+    mem 'new name'; copy $name;
+    mem $name + '\n'; out ^;
+endalias;
+
+set $name; mem 'parsa'; copy $name;
+mem $name + '\n'; out ^;
+
+myalias;
+
+mem $name + '\n'; out ^;
+```
+
+output:
+
+```
+parsa
+new name
+parsa
+```
+
+there is a note. why when we changed `$name` variable in `myalias` alias, this was the old value after alias?
+
+the `$name` where was set in `myalias`, is local. means that do not points to global `$name` in out program.
+
+the seted variables in aliases, are local. also aliases cannot change global variables
+
+the variable environment in aliases are isolated.
+
+so, how to change a global variable from a alias?
+
+the answer is in `gset`:
+
+```bash
+alias myalias;
+    set $name; mem 'new name'; copy $name;
+    gset ['name' , $name];
+    mem $name + '\n'; out ^;
+endalias;
+
+set $name; mem 'parsa'; copy $name;
+mem $name + '\n'; out ^;
+
+myalias;
+
+mem $name + '\n'; out ^;
+```
+
+output:
+
+```
+parsa
+new name
+new name
+```
+
+here, `gset` command (from stdlib) gets two parameters: first, global variable name and second, new value for that
+
+this command sets value of that variable globaly.
+
+##### NOTE: after running gset, new value will set for global variable but it will not set also localy. so, after use gset, also use copy to update value localy (if you want)
