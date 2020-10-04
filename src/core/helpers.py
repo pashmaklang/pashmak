@@ -72,4 +72,7 @@ class Helpers(commands.Commands):
 
     def all_vars(self):
         ''' Returns list of all of variables '''
-        return self.variables
+        if len(self.states) == 0:
+            return self.variables
+        
+        return self.states[-1]['vars']

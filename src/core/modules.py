@@ -44,27 +44,27 @@ endalias;
 """
 modules["file"] = """
 alias file.open;
-    set $tmp_file.open.args; copy $tmp_file.open.args;
-    py 'self.mem = open("' + $tmp_file.open.args[0] + '" , "' + $tmp_file.open.args[1] + '")';
-    free $tmp_file.open.args;
+    set $args; copy $args;
+    mem open("' + $args[0] + '" , "' + $args[1] + '");
+    free $args;
 endalias;
 
 alias file.close;
-    set $tmp_file.open.file; copy $tmp_file.open.file;
-    py 'self.all_vars()["tmp_file.open.file"].close()';
-    free $tmp_file.open.file;
+    set $file; copy $file;
+    mem $file.close();
+    free $file;
 endalias;
 
 alias file.read;
-    set $tmp_file.read.file; copy $tmp_file.read.file;
-    py 'self.mem = self.all_vars()["tmp_file.read.file"].read()';
-    free $tmp_file.read.file;
+    set $file; copy $file;
+    mem $file.read();
+    free $file;
 endalias;
 
 alias file.write;
-    set $tmp_file_write_args; copy $tmp_file_write_args;
-    py 'self.all_vars()["tmp_file_write_args"][0].write(self.all_vars()["tmp_file_write_args"][1])';
-    free $tmp_file_write_args;
+    set $args; copy $args;
+    mem $args[0].write(self.get_var("args")[1]);
+    free $args;
 endalias;
 """
 modules["hash"] = """

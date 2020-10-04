@@ -29,7 +29,6 @@ class test_alias(TestCore):
 
             alias myalias;
                 mem 'alias runed\\n'; out ^;
-                set $somevar; mem 20; copy $somevar;
                 mem 'alias finished\\n'; out ^;
             endalias;
 
@@ -37,7 +36,6 @@ class test_alias(TestCore):
 
             mem 'finished\\n'; out ^;
         ''')
-        self.assert_vars(program , {'somevar': 20})
         self.assert_output(program , 'starting\nalias runed\nalias finished\nfinished\n')
 
         self.assert_has_error(self.run_script(''' undefined_alias; '''))
@@ -84,4 +82,25 @@ class test_alias(TestCore):
             
             myalias hello world;
         '''))
+
+        self.assert_output(self.run_without_error('''
+        set $n; mem 'parsa\\n'; copy $n;
+
+        alias myalias;
+            out $n;
+            set $n; mem 'myalias\\n'; copy $n;
+            out $n;
+        endalias;
+
+        alias tststs;
+            out $n;
+            set $n; mem 'tststs\\n'; copy $n;
+            myalias;
+            out $n;
+        endalias;
+
+        out $n;
+        tststs;
+        out $n;
+        ''') , 'parsa\nparsa\nparsa\nmyalias\ntststs\nparsa\n')
 

@@ -31,6 +31,7 @@ class Program(helpers.Helpers):
 
     def __init__(self , is_test=False , args=[]):
         self.variables = {}
+        self.states = []
         self.aliases = {}
         self.operations = []
         self.sections = {}
@@ -84,9 +85,19 @@ class Program(helpers.Helpers):
         sys.exit(1)
 
     def exec_alias(self , alias_body: list):
+        # create new state for this call
+        self.states.append({
+            'vars': dict(self.variables),
+        })
+
+        # check alias already called in this point
         if self.current_step in self.runed_aliases:
             return
+        
+        # add this point to runed aliases (for stop repeating call in loops)
         self.runed_aliases.append(self.current_step)
+
+        # run alias
         i = int(self.current_step)
         for alias_op in alias_body:
             alias_op_parsed = self.set_operation_index(alias_op)
@@ -96,6 +107,8 @@ class Program(helpers.Helpers):
             else:
                 self.operations.insert(i+1 , alias_op)
                 i += 1
+        
+        self.operations.insert(i+1 , parser.parse('popstate')[0])
 
     def run(self , op: dict):
         ''' Run once operation '''
@@ -105,6 +118,10 @@ class Program(helpers.Helpers):
 
         if op_name == 'endalias':
             self.run_endalias(op)
+            return
+
+        if op_name == 'popstate':
+            self.states.pop()
             return
 
         # if a alias is started, append current operation to the alias body
