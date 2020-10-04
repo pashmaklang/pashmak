@@ -48,7 +48,7 @@ class Helpers(commands.Commands):
     def variable_exists(self , varname: str) -> bool:
         ''' Checks a variable is exists or not '''
         try:
-            tmp = self.variables[varname]
+            tmp = self.all_vars()[varname]
             return True
         except:
             return False
@@ -64,11 +64,11 @@ class Helpers(commands.Commands):
 
     def get_var(self , varname: str):
         ''' Gets a variable name and returns value of that '''
-        return self.variables[varname]
+        return self.all_vars()[varname]
 
     def set_var(self , varname: str , value):
         ''' Gets name of a variable and sets value on that '''
-        self.variables[varname] = value
+        self.all_vars()[varname] = value
 
     def all_vars(self):
         ''' Returns list of all of variables '''
