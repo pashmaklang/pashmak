@@ -33,6 +33,6 @@ def run(self , op: dict):
         cmd = self.get_mem()
     else:
         self.variable_required(arg[1:] , op)
-        cmd = self.variables[arg[1:]]
+        cmd = self.get_var(arg[1:])
 
     self.mem = os.system(cmd)

@@ -35,7 +35,7 @@ def run(self , op: dict):
         path = self.get_mem()
     else:
         self.variable_required(arg[1:] , op)
-        path = self.variables[arg[1:]]
+        path = self.get_var(arg[1:])
 
     if path == None:
         return

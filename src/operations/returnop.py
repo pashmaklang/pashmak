@@ -36,7 +36,7 @@ def run(self , op: dict):
         if arg[0] == '$':
             self.variable_required(arg[1:] , op)
             try:
-                exit_code = int(self.variables[arg[1:]])
+                exit_code = int(self.get_var(arg[1:]))
             except:
                 self.raise_error('TypeError' , 'return operation gets integer value' , op)
         elif arg == '^':

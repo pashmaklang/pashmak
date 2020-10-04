@@ -209,7 +209,7 @@ class Program(helpers.Helpers):
                 args = op['args_str']
                 code = '(' + args + ')'
                 # replace variable names with value of them
-                for k in self.variables:
+                for k in self.variables: # TODO : handle this with refactors
                     code = code.replace('$' + k , 'self.variables["' + k + '"]')
                 self.mem = eval(code)
             else:

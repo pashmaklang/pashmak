@@ -32,7 +32,7 @@ def run(self , op: dict):
     if len(args) == 1:
         mem = self.get_mem()
         try:
-            self.variables[first_var[1:]] = mem
+            self.set_var(first_var[1:] , mem)
             return
         except:
             self.raise_variable_error(first_var , op)
@@ -46,7 +46,7 @@ def run(self , op: dict):
         if first_var == '^':
             first_var_value = self.get_mem()
         else:
-            first_var_value = self.variables[first_var[1:]]
+            first_var_value = self.get_var(first_var[1:])
     except:
         self.raise_variable_error(first_var , op)
 
@@ -54,6 +54,6 @@ def run(self , op: dict):
         if second_var == '^':
             self.mem = first_var_value
         else:
-            self.variables[second_var[1:]] = first_var_value
+            self.set_var(second_var[1:] , first_var_value)
     except:
         self.raise_variable_error(second_var , op)

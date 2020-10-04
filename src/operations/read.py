@@ -45,4 +45,4 @@ def run(self , op: dict):
         if arg == '^':
             self.mem = readed_data
         else:
-            self.variables[arg[1:]] = readed_data
+            self.set_var(arg[1:] , readed_data)

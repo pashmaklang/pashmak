@@ -61,3 +61,11 @@ class Helpers(commands.Commands):
     def require_one_argument(self , op: dict , error_message: str):
         if len(op['args']) <= 0:
             self.raise_error('ArgumentError' , error_message , op)
+
+    def get_var(self , varname: str):
+        ''' Gets a variable name and returns value of that '''
+        return self.variables[varname]
+
+    def set_var(self , varname: str , value):
+        ''' Gets name of a variable and sets value on that '''
+        self.variables[varname] = value

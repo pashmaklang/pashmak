@@ -31,7 +31,7 @@ def run(self , op: dict):
     second_var = args[1]
 
     try:
-        first_var_value = self.variables[first_var[1:]]
+        first_var_value = self.get_var(first_var[1:])
         if type(first_var_value) != list:
             self.raise_error('TypeError' , 'arraypop operation first argument should be a array' , op)
     except:
@@ -41,9 +41,9 @@ def run(self , op: dict):
         if second_var == '^':
             second_var_value = self.get_mem()
         else:
-            second_var_value = self.variables[second_var[1:]]
+            second_var_value = self.get_var(second_var[1:])
     except:
         self.raise_variable_error(second_var , op)
 
     # pop from array
-    self.variables[first_var[1:]].pop(second_var_value)
+    self.variables[first_var[1:]].pop(second_var_value) # TODO : handle this with refactors
