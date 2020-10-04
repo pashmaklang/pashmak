@@ -53,7 +53,7 @@ sudo make uninstall
 pashmak will be remove from your system.
 
 ## Authors
-pashmak is writed by [parsampsh](https://gitlab.com/parsampsh) and [contributors](https://gitlab.com/parsampsh/pashmak/-/graphs/master)
+pashmak is writed by [parsampsh](https://github.com/parsampsh) and [contributors](https://github.com/parsampsh/pashmak/graphs/contributors)
 
 ## Contributing
 if you want to contribute to this project, read [Contributing Guide](CONTRIBUTING.md)
