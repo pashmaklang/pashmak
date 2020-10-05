@@ -22,7 +22,7 @@
 
 ''' Pashmak program object '''
 
-import sys, os
+import sys, os, signal
 from syntax import parser
 from core import helpers
 
@@ -249,10 +249,13 @@ class Program(helpers.Helpers):
         except Exception as ex:
             self.raise_error('RuntimeError' , str(ex) , op)
 
-        
+    def signal_handler(self , signal , frame):
+        self.raise_error('Signal' , str(signal) , self.operations[self.current_step])
 
     def start(self):
         ''' Start running the program '''
+            
+        signal.signal(signal.SIGINT, self.signal_handler)
 
         is_in_func = False
         self.current_step = 0
