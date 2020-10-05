@@ -104,3 +104,13 @@ class test_function(TestCore):
         out $n;
         ''') , 'parsa\nparsa\nparsa\nmyfunc\ntststs\nparsa\n')
 
+        self.assert_has_error(self.run_script('''
+        func myfunc;
+            print 'hello\n';
+        endfunc;
+
+        func myfunc;
+            print 'something\n';
+        endfunc;
+        '''))
+

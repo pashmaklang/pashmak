@@ -254,7 +254,7 @@ class Program(helpers.Helpers):
 
     def start(self):
         ''' Start running the program '''
-            
+        
         signal.signal(signal.SIGINT, self.signal_handler)
 
         is_in_func = False

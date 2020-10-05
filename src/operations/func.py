@@ -26,5 +26,12 @@ def run(self , op: dict):
     self.require_one_argument(op , 'func operation requires function name argument')
     arg = op['args'][0]
 
+    # check function already declared
+    try:
+        self.functions[self.current_namespace + arg]
+        self.raise_error('FunctionError' , 'function "' + self.current_namespace + arg + '" already declared' , op)
+    except:
+        pass
+
     self.current_func = self.current_namespace + arg
     self.functions[self.current_func] = []
