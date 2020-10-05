@@ -607,9 +607,9 @@ look at this smarter alias:
 mem 'program started\n'; out ^;
 
 alias say_hello;
-    set $say_hello_name; copy $say_hello_name
-    mem 'hello ' + $say_hello_name + '\n'; out ^;
-    free $say_hello_name;
+    set $name; copy $name
+    mem 'hello ' + $name + '\n'; out ^;
+    free $name;
 endalias;
 
 mem 'parsa'; say_hello;
