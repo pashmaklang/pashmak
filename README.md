@@ -24,7 +24,7 @@ make all
 make
 sudo make install
 
-# back to master branch and delete instaaltion branch
+# back to master branch and delete installation branch
 git checkout master
 git branch -D installation
 ```
