@@ -1,5 +1,5 @@
 #
-# func.py
+# endnamespace.py
 #
 # the pashmak project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -21,10 +21,5 @@
 ##################################################
 
 def run(self , op: dict):
-    ''' Starts function block '''
-
-    self.require_one_argument(op , 'func operation requires function name argument')
-    arg = op['args'][0]
-
-    self.current_func = self.current_namespace + arg
-    self.functions[self.current_func] = []
+    ''' Closes namespace prefix '''
+    self.current_namespace = ''

@@ -47,6 +47,8 @@ from operations import eval as op_eval
 from operations import arraypush as op_arraypush
 from operations import arraypop as op_arraypop
 from operations import python as op_python
+from operations import namespace as op_namespace
+from operations import endnamespace as op_endnamespace
 
 class Commands:
     def run_set(self , op: dict):
@@ -126,3 +128,9 @@ class Commands:
 
     def run_python(self , op: dict):
         op_python.run(self , op)
+
+    def run_namespace(self , op: dict):
+        op_namespace.run(self , op)
+
+    def run_endnamespace(self , op: dict):
+        op_endnamespace.run(self , op)

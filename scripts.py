@@ -35,7 +35,6 @@ test_content = '''from TestCore import TestCore
 class <tstname>(TestCore):
     def run(self):
         self.assert_true(True)
-
 '''
 
 import sys, os

@@ -1,5 +1,5 @@
 #
-# func.py
+# namespace.py
 #
 # the pashmak project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -21,10 +21,8 @@
 ##################################################
 
 def run(self , op: dict):
-    ''' Starts function block '''
-
-    self.require_one_argument(op , 'func operation requires function name argument')
+    ''' Sets namespace prefix '''
+    self.require_one_argument(op , 'namespace operation requires namespace argument')
     arg = op['args'][0]
 
-    self.current_func = self.current_namespace + arg
-    self.functions[self.current_func] = []
+    self.current_namespace = arg + '.'

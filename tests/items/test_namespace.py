@@ -1,5 +1,5 @@
 #
-# func.py
+# test_namespace.py
 #
 # the pashmak project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -20,11 +20,19 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
-    ''' Starts function block '''
+from TestCore import TestCore
 
-    self.require_one_argument(op , 'func operation requires function name argument')
-    arg = op['args'][0]
+class test_namespace(TestCore):
+    def run(self):
+        self.assert_output(self.run_without_error('''
+        namespace MySpace;
+            func dosomething;
+                print 'hello world\\n';
+            endfunc;
 
-    self.current_func = self.current_namespace + arg
-    self.functions[self.current_func] = []
+            MySpace.dosomething;
+            dosomething;
+        endnamespace;
+
+        MySpace.dosomething;
+        ''') , 'hello world\nhello world\nhello world\n')

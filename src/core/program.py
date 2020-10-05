@@ -42,6 +42,8 @@ class Program(helpers.Helpers):
         self.is_in_try = None
         self.runed_functions = []
 
+        self.current_namespace = ''
+
         # set argument variables
         self.set_var('argv' , args)
         self.set_var('argc' , len(self.get_var('argv')))
@@ -207,6 +209,12 @@ class Program(helpers.Helpers):
         elif op_name == 'python':
             self.run_python(op)
             return
+        elif op_name == 'namespace':
+            self.run_namespace(op)
+            return
+        elif op_name == 'endnamespace':
+            self.run_endnamespace(op)
+            return
         elif op_name == 'pass':
             return
 
@@ -214,10 +222,13 @@ class Program(helpers.Helpers):
 
         # check function exists
         try:
-            func_body = self.functions[op_name]
+            func_body = self.functions[self.current_namespace + op_name]
         except:
-            self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
-            return
+            try:
+                func_body = self.functions[op_name]
+            except:
+                self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
+                return
 
         # run function
         try:
