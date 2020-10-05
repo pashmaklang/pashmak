@@ -1,12 +1,12 @@
 
-alias hash.sha256;
+func hash.sha256;
 	set $tmp_hash_sha256_value; copy $tmp_hash_sha256_value;
 	py 'self.mem = hashlib.sha256("' + $tmp_hash_sha256_value + '".encode()).hexdigest()';
 	free $tmp_hash_sha256_value;
-endalias;
+endfunc;
 
-alias hash.md5;
+func hash.md5;
 	set $tmp_hash_md5_value; copy $tmp_hash_md5_value;
 	py 'self.mem = hashlib.md5("' + $tmp_hash_md5_value + '".encode()).hexdigest()';
 	free $tmp_hash_md5_value;
-endalias;
+endfunc;

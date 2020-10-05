@@ -1,5 +1,5 @@
 #
-# endalias.py
+# endfunc.py
 #
 # the pashmak project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -21,9 +21,9 @@
 ##################################################
 
 def run(self , op: dict):
-    ''' Closes alias block '''
+    ''' Closes function block '''
 
     try:
-        del self.current_alias
+        del self.current_func
     except:
         pass

@@ -1,47 +1,47 @@
 
-alias print;
+func print;
     out ^;
-endalias;
+endfunc;
 
-alias import;
+func import;
     include ^;
-endalias;
+endfunc;
 
-alias exit;
+func exit;
     return ^;
-endalias;
+endfunc;
 
-alias py;
+func py;
     python ^;
-endalias;
+endfunc;
 
-alias sys;
+func sys;
     system ^;
-endalias;
+endfunc;
 
-alias std.chdir;
+func std.chdir;
     chdir ^;
-endalias;
+endfunc;
 
-alias std.eval;
+func std.eval;
     eval ^;
-endalias;
+endfunc;
 
-alias raise;
+func raise;
 	set $tmp_stdlib_raise_exdata; copy $tmp_stdlib_raise_exdata;
 	mem "self.raise_error('" + $tmp_stdlib_raise_exdata[0] + "' , '" + $tmp_stdlib_raise_exdata[1] + "' , op)";
     python ^;
     free $tmp_stdlib_raise_exdata;
-endalias;
+endfunc;
 
-alias assert;
+func assert;
     gotoif tmp_assert_after_section;
     raise ['AssertError' , 'asserting that false is true'];
     section tmp_assert_after_section;
-endalias;
+endfunc;
 
-alias gset;
+func gset;
 	set $args; copy $args;
 	mem 'self.variables["' + $args[0] + '"] = self.get_var("args")[1]';
 	python ^;
-endalias;
+endfunc;

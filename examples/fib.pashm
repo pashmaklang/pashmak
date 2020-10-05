@@ -1,6 +1,6 @@
 # Printing the fibonacci pattern
 
-alias fib;
+func fib;
     set $a $b;
     mem 1; copy $a;
     mem 1; copy $b;
@@ -16,6 +16,6 @@ alias fib;
 
         mem $tmp_a + $tmp_b; copy $b;
     mem $b < 10000; gotoif 10;
-endalias;
+endfunc;
 
 fib;

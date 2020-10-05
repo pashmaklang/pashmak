@@ -1,5 +1,5 @@
 #
-# alias.py
+# func.py
 #
 # the pashmak project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -21,10 +21,10 @@
 ##################################################
 
 def run(self , op: dict):
-    ''' Starts alias block '''
+    ''' Starts function block '''
 
-    self.require_one_argument(op , 'alias operation requires alias name argument')
+    self.require_one_argument(op , 'func operation requires function name argument')
     arg = op['args'][0]
 
-    self.current_alias = arg
-    self.aliases[self.current_alias] = []
+    self.current_func = arg
+    self.functions[self.current_func] = []

@@ -400,8 +400,6 @@ VariableError:
 
 the `required` command checks a variable is exists, if no, raising RequireError
 
-you will know why this command is usable in the aliases section
-
 
 
 ## Read Input From User
@@ -563,14 +561,14 @@ program ends
 
 
 
-# Aliases
-alias is a system to make alias for some codes (function).
+# Functions
+function is a system to make alias for some codes (function).
 
 look at this example:
 ```bash
-alias say_hello;
+func say_hello;
     mem 'hello world\n'; out ^;
-endalias;
+endfunc;
 
 say_hello;
 ```
@@ -582,9 +580,9 @@ hello world
 ```
 
 ```bash
-alias say_hello;
+func say_hello;
     mem 'hello world\n'; out ^;
-endalias;
+endfunc;
 
 say_hello;
 say_hello;
@@ -598,19 +596,19 @@ hello world
 ```
 
 
-you can declare a alias and call it from everywhere. when you call a alias, all of codes inside that alias will run
+you can declare a function and call it from everywhere. when you call a function, all of codes inside that function will run
 
-for declare a alias you have to write `alias <name-of-alias>`. and write codes. then for close alias write `endalias` after codes
+for declare a function you have to write `func <name-of-function>;`. and write codes. then for close function write `endfunc;` after codes
 
-look at this smarter alias:
+look at this smarter function:
 ```bash
 mem 'program started\n'; out ^;
 
-alias say_hello;
+func say_hello;
     set $name; copy $name
     mem 'hello ' + $name + '\n'; out ^;
     free $name;
-endalias;
+endfunc;
 
 mem 'parsa'; say_hello;
 ```
@@ -622,15 +620,15 @@ program started
 hello parsa
 ```
 
-### passing argument to aliases
-for pass argument to the aliases, you can put value after name of alias:
+### passing argument to Functions
+for pass argument to the Functions, you can put value after name of function:
 
 ```bash
-alias myalias;
+func myfunc;
     out ^;
-endalias;
+endfunc;
 
-myalias "hello";
+myfunc "hello";
 ```
 
 output:
@@ -640,15 +638,15 @@ hello
 ```
 
 ##### how it works?
-you can put a value after name of alias. this value will put in mem and you can access this argument from mem.
+you can put a value after name of function. this value will put in mem and you can access this argument from mem.
 
 look at this example:
 
 ```bash
-alias say_hello;
-    set $say_hello_name_tmp; copy ^ $say_hello_name_tmp;
-    mem 'hello ' + $say_hello_name_tmp + '\n'; out ^;
-endalias;
+func say_hello;
+    set $name; copy ^ $name;
+    mem 'hello ' + $name + '\n'; out ^;
+endfunc;
 
 say_hello 'parsa';
 ```
@@ -665,15 +663,15 @@ hello parsa
 look at this example:
 
 ```bash
-alias myalias;
+func myfunc;
     mem 'new name'; copy $name;
     mem $name + '\n'; out ^;
-endalias;
+endfunc;
 
 set $name; mem 'parsa'; copy $name;
 mem $name + '\n'; out ^;
 
-myalias;
+myfunc;
 
 mem $name + '\n'; out ^;
 ```
@@ -686,29 +684,29 @@ new name
 parsa
 ```
 
-there is a note. why when we changed `$name` variable in `myalias` alias, this was the old value after alias?
+there is a note. why when we changed `$name` variable in `myfunc` function, this was the old value after function?
 
-the `$name` where was set in `myalias`, is local. means that do not points to global `$name` in out program.
+the `$name` where was set in `myfunc`, is local. means that do not points to global `$name` in out program.
 
-the seted variables in aliases, are local. also aliases cannot change global variables
+the seted variables in Functions, are local. also Functions cannot change global variables
 
-the variable environment in aliases are isolated.
+the variable environment in Functions are isolated.
 
-so, how to change a global variable from a alias?
+so, how to change a global variable from a function?
 
 the answer is in `gset`:
 
 ```bash
-alias myalias;
+func myfunc;
     set $name; mem 'new name'; copy $name;
     gset ['name' , $name];
     mem $name + '\n'; out ^;
-endalias;
+endfunc;
 
 set $name; mem 'parsa'; copy $name;
 mem $name + '\n'; out ^;
 
-myalias;
+myfunc;
 
 mem $name + '\n'; out ^;
 ```
@@ -991,11 +989,11 @@ exit code of program will be `1`
 you can distribute your code in more than 1 files.
 
 for example, we have 2 files: `app.pashm` , `fib.pashm`.
-`app.pashm` is main file. `fib.pashm` contains a alias to show fibonaccy algo.
+`app.pashm` is main file. `fib.pashm` contains a function to show fibonaccy algo.
 
 ###### fib.pashm:
 ```bash
-alias fib;
+func fib;
     set $a $b;
     mem 1; copy $a;
     mem 1; copy $b;
@@ -1011,7 +1009,7 @@ alias fib;
 
         mem $tmp_a + $tmp_b; copy $b;
     mem $b < 10000; gotoif 10;
-endalias;
+endfunc;
 ```
 
 ###### app.pashm:
@@ -1021,7 +1019,7 @@ mem 'fib.pashm'; include ^;
 fib;
 ```
 
-when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example, here we used a alias from the `fib.pashm` file.
+when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example, here we used a function from the `fib.pashm` file.
 
 this is very useful.
 
@@ -1112,15 +1110,15 @@ out ^; # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b982
 ```
 
 ###### how it works?
-first, we call `hash.sha256` and pass `hello` string as argument (or put it in mem) to calculate sha256 hash. then, this alias calculates hash sum of mem value and puts that into the mem. now you can access sum of that from mem.
+first, we call `hash.sha256` and pass `hello` string as argument (or put it in mem) to calculate sha256 hash. then, this function calculates hash sum of mem value and puts that into the mem. now you can access sum of that from mem.
 
-also you can use `hash.md5` aliases and...
+also you can use `hash.md5` functions and...
 
 ### time module
 with this module, you can work with time.
 
 ###### time.time
-this alias gives you current UNIX timestamp:
+this function gives you current UNIX timestamp:
 
 ```bash
 mem '@time'; include ^;
@@ -1129,10 +1127,10 @@ time.time;
 out ^; # output is some thing like this: `1600416438.687201`
 ```
 
-when you call this alias, this alias puts the unix timestamp into mem and you can access and use that.
+when you call this function, this function puts the unix timestamp into mem and you can access and use that.
 
 ###### time.sleep
-this alias sleeps for secounds:
+this function sleeps for secounds:
 
 ```bash
 mem '@time'; include ^;
@@ -1143,9 +1141,9 @@ time.sleep 2; # sleeps for 2 secounds
 
 when you run this script, program waits for 2 secounds and then will continued
 
-with this alias, you can wait for secounds.
+with this function, you can wait for secounds.
 
-you have to put a int or float into mem or pass as argument and next call `time.sleep` alias, then program will sleep for value of `mem` as secounds
+you have to put a int or float into mem or pass as argument and next call `time.sleep` function, then program will sleep for value of `mem` as secounds
 
 ## random module
 this module makes random numbers
@@ -1172,7 +1170,7 @@ out ^; # and puts generated random number in mem and you can access that
 with this module, you can work with files smarter.
 
 ###### file.open
-with this alias, you can open a file:
+with this function, you can open a file:
 
 ```bash
 import '@file';
@@ -1186,7 +1184,7 @@ copy $f;
 ```
 
 ###### file.read
-wtih this alias, you can read opened file:
+wtih this function, you can read opened file:
 
 ```bash
 import '@file';
@@ -1199,7 +1197,7 @@ out ^; # output is content of file
 ```
 
 ###### file.write
-with this alias, you can write on opened file:
+with this function, you can write on opened file:
 
 ```bash
 import '@file';
@@ -1213,7 +1211,7 @@ file.write [$f , 'new content']; # first arg is opened file and second arg is co
 now file is changed
 
 ###### file.close
-with this alias you can close file after your work:
+with this function you can close file after your work:
 
 ```bash
 import '@file';
@@ -1277,7 +1275,7 @@ std.chdir "/tmp"; # INSTEAD OF `mem '/tmp'; chdir ^;`
 std.eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
 
 # gset
-gset ['somevar' , 'new global value']; # you learned this command in aliases section
+gset ['somevar' , 'new global value']; # you learned this command in functions section
 ```
 
 ##### raising errors
@@ -1297,12 +1295,12 @@ MyError:
 	this is my error
 ```
 
-the `raise` alias can raise errors in program
+the `raise` function can raise errors in program
 
 first argument `'TheError'` is error type and second error `'this is my error'` is error message.
 
 ##### asserting
-the stdlib has a alias named `assert`. this alias is for testing and asserting
+the stdlib has a function named `assert`. this function is for testing and asserting
 
 look at this example:
 
@@ -1317,7 +1315,7 @@ AssertError:
 	asserting that false is true
 ```
 
-you can pass a condition or boolean value to assert alias. if that is True, this alias do nothing:
+you can pass a condition or boolean value to assert function. if that is True, this function do nothing:
 
 ```bash
 assert 2 == 2;
@@ -1333,7 +1331,7 @@ but if that value is false, program raises `AssertError`. this is helpful for te
 
 ##### finish
 
-this module includes some aliases to make the pashmak syntax better.
+this module includes some functions to make the pashmak syntax better.
 
 also look at this example about print:
 

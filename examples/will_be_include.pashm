@@ -3,6 +3,6 @@ mem 'i am included\n'; out ^;
 
 set $included_var; mem 'included value'; copy $included_var;
 
-alias testalias;
-mem 'i am included alias\n'; out ^;
-endalias;
+func testfunc;
+mem 'i am included func\n'; out ^;
+endfunc;

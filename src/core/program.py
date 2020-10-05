@@ -32,7 +32,7 @@ class Program(helpers.Helpers):
     def __init__(self , is_test=False , args=[]):
         self.variables = {}
         self.states = []
-        self.aliases = {}
+        self.functions = {}
         self.operations = []
         self.sections = {}
         self.mem = None
@@ -40,7 +40,7 @@ class Program(helpers.Helpers):
         self.output = ''
         self.runtime_error = None
         self.is_in_try = None
-        self.runed_aliases = []
+        self.runed_functions = []
 
         # set argument variables
         self.set_var('argv' , args)
@@ -84,28 +84,28 @@ class Program(helpers.Helpers):
         print(error_type + ' in ' + str(op['index']) + ':\n\t' + op['str'] + '\n\t' + message)
         sys.exit(1)
 
-    def exec_alias(self , alias_body: list):
+    def exec_func(self , func_body: list):
         # create new state for this call
         self.states.append({
             'vars': dict(self.variables),
         })
 
-        # check alias already called in this point
-        if self.current_step in self.runed_aliases:
+        # check function already called in this point
+        if self.current_step in self.runed_functions:
             return
         
-        # add this point to runed aliases (for stop repeating call in loops)
-        self.runed_aliases.append(self.current_step)
+        # add this point to runed functions (for stop repeating call in loops)
+        self.runed_functions.append(self.current_step)
 
-        # run alias
+        # run function
         i = int(self.current_step)
-        for alias_op in alias_body:
-            alias_op_parsed = self.set_operation_index(alias_op)
-            if alias_op_parsed['command'] == 'section':
-                section_name = alias_op_parsed['args'][0]
+        for func_op in func_body:
+            func_op_parsed = self.set_operation_index(func_op)
+            if func_op_parsed['command'] == 'section':
+                section_name = func_op_parsed['args'][0]
                 self.sections[section_name] = i+1
             else:
-                self.operations.insert(i+1 , alias_op)
+                self.operations.insert(i+1 , func_op)
                 i += 1
         
         self.operations.insert(i+1 , parser.parse('popstate')[0])
@@ -116,18 +116,18 @@ class Program(helpers.Helpers):
         op = self.set_operation_index(op)
         op_name = op['command']
 
-        if op_name == 'endalias':
-            self.run_endalias(op)
+        if op_name == 'endfunc':
+            self.run_endfunc(op)
             return
 
         if op_name == 'popstate':
             self.states.pop()
             return
 
-        # if a alias is started, append current operation to the alias body
+        # if a function is started, append current operation to the function body
         try:
-            tmp = self.current_alias
-            self.aliases[self.current_alias].append(op)
+            tmp = self.current_func
+            self.functions[self.current_func].append(op)
             return
         except:
             pass
@@ -153,8 +153,8 @@ class Program(helpers.Helpers):
         elif op_name == 'return':
             self.run_return(op)
             return
-        elif op_name == 'alias':
-            self.run_alias(op)
+        elif op_name == 'func':
+            self.run_func(op)
             return
         elif op_name == 'required':
             self.run_required(op)
@@ -212,14 +212,14 @@ class Program(helpers.Helpers):
 
 
 
-        # check alias exists
+        # check function exists
         try:
-            alias_body = self.aliases[op_name]
+            func_body = self.functions[op_name]
         except:
             self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
             return
 
-        # run alias
+        # run function
         try:
             # put argument in the mem
             if op['args_str'] != '':
@@ -232,8 +232,8 @@ class Program(helpers.Helpers):
             else:
                 self.mem = ''
             
-            # execute alias body
-            self.exec_alias(alias_body)
+            # execute function body
+            self.exec_func(func_body)
             return
         except Exception as ex:
             self.raise_error('RuntimeError' , str(ex) , op)
@@ -243,7 +243,7 @@ class Program(helpers.Helpers):
     def start(self):
         ''' Start running the program '''
 
-        is_in_alias = False
+        is_in_func = False
         self.current_step = 0
         
         # load the sections
@@ -251,14 +251,14 @@ class Program(helpers.Helpers):
         while i < len(self.operations):
             current_op = self.set_operation_index(self.operations[i])
             if current_op['command'] == 'section':
-                if not is_in_alias:
+                if not is_in_func:
                     arg = current_op['args'][0]
                     self.sections[arg] = i+1
                     self.operations[i] = parser.parse('pass')[0]
-            elif current_op['command'] == 'alias':
-                is_in_alias = True
-            elif current_op['command'] == 'endalias':
-                is_in_alias = False
+            elif current_op['command'] == 'func':
+                is_in_func = True
+            elif current_op['command'] == 'endfunc':
+                is_in_func = False
             i += 1
 
         self.current_step = 0

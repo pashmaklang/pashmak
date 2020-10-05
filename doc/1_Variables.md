@@ -165,5 +165,3 @@ VariableError:
 ```
 
 the `required` command checks a variable is exists, if no, raising RequireError
-
-you will know why this command is usable in the aliases section

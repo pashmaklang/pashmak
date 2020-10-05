@@ -23,108 +23,108 @@
 
 modules = {}
 
-modules["random"] = """alias random.randint;
+modules["random"] = """func random.randint;
     set $tmp_random.randint;
     copy $tmp_random.randint;
     py 'self.mem = random.randint(' + str($tmp_random.randint[0]) + ',' + str($tmp_random.randint[1]) + ')';
-endalias;
+endfunc;
 
-alias random.random;
+func random.random;
     py 'self.mem = random.random()';
-endalias;
+endfunc;
 """
-modules["time"] = """alias time.time;
+modules["time"] = """func time.time;
     py 'self.mem = time.time()';
-endalias;
+endfunc;
 
-alias time.sleep;
+func time.sleep;
     set $tmp_time_sleep_for; copy $tmp_time_sleep_for;
     py 'self.mem = time.sleep(' + str($tmp_time_sleep_for) + ')';
-endalias;
+endfunc;
 """
 modules["file"] = """
-alias file.open;
+func file.open;
     set $args; copy $args;
     mem open($args[0] , $args[1]);
     free $args;
-endalias;
+endfunc;
 
-alias file.close;
+func file.close;
     set $file; copy $file;
     mem $file.close();
     free $file;
-endalias;
+endfunc;
 
-alias file.read;
+func file.read;
     set $file; copy $file;
     mem $file.read();
     free $file;
-endalias;
+endfunc;
 
-alias file.write;
+func file.write;
     set $args; copy $args;
     mem $args[0].write($args[1]);
     free $args;
-endalias;
+endfunc;
 """
 modules["hash"] = """
-alias hash.sha256;
+func hash.sha256;
 	set $tmp_hash_sha256_value; copy $tmp_hash_sha256_value;
 	py 'self.mem = hashlib.sha256("' + $tmp_hash_sha256_value + '".encode()).hexdigest()';
 	free $tmp_hash_sha256_value;
-endalias;
+endfunc;
 
-alias hash.md5;
+func hash.md5;
 	set $tmp_hash_md5_value; copy $tmp_hash_md5_value;
 	py 'self.mem = hashlib.md5("' + $tmp_hash_md5_value + '".encode()).hexdigest()';
 	free $tmp_hash_md5_value;
-endalias;
+endfunc;
 """
 modules["stdlib"] = """
-alias print;
+func print;
     out ^;
-endalias;
+endfunc;
 
-alias import;
+func import;
     include ^;
-endalias;
+endfunc;
 
-alias exit;
+func exit;
     return ^;
-endalias;
+endfunc;
 
-alias py;
+func py;
     python ^;
-endalias;
+endfunc;
 
-alias sys;
+func sys;
     system ^;
-endalias;
+endfunc;
 
-alias std.chdir;
+func std.chdir;
     chdir ^;
-endalias;
+endfunc;
 
-alias std.eval;
+func std.eval;
     eval ^;
-endalias;
+endfunc;
 
-alias raise;
+func raise;
 	set $tmp_stdlib_raise_exdata; copy $tmp_stdlib_raise_exdata;
 	mem "self.raise_error('" + $tmp_stdlib_raise_exdata[0] + "' , '" + $tmp_stdlib_raise_exdata[1] + "' , op)";
     python ^;
     free $tmp_stdlib_raise_exdata;
-endalias;
+endfunc;
 
-alias assert;
+func assert;
     gotoif tmp_assert_after_section;
     raise ['AssertError' , 'asserting that false is true'];
     section tmp_assert_after_section;
-endalias;
+endfunc;
 
-alias gset;
+func gset;
 	set $args; copy $args;
 	mem 'self.variables["' + $args[0] + '"] = self.get_var("args")[1]';
 	python ^;
-endalias;
+endfunc;
 """

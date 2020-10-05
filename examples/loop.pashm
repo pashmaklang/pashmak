@@ -1,6 +1,6 @@
 # This is a simple loop printing numbers from 1 to 99
 
-alias myfunc;
+func myfunc;
     mem 'starting...\n'; out ^;
 
     set $i; mem 1; copy $i;
@@ -10,7 +10,7 @@ alias myfunc;
     mem $i < 100; gotoif 5;
 
     mem 'finished\n'; out ^;
-endalias;
+endfunc;
 
 
 myfunc;

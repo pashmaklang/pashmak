@@ -111,10 +111,10 @@ class test_stdlib(TestCore):
         self.assert_output(self.run_without_error('''
         set $name; mem 'parsa\\n'; copy $name;
 
-        alias myfunc;
+        func myfunc;
         	out $name;
         	gset ['name' , 'pashmak\\n'];
-        endalias;
+        endfunc;
 
         myfunc;
 

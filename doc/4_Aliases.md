@@ -1,11 +1,11 @@
-# Aliases
-alias is a system to make alias for some codes (function).
+# Functions
+function is a system to make alias for some codes (function).
 
 look at this example:
 ```bash
-alias say_hello;
+func say_hello;
     mem 'hello world\n'; out ^;
-endalias;
+endfunc;
 
 say_hello;
 ```
@@ -17,9 +17,9 @@ hello world
 ```
 
 ```bash
-alias say_hello;
+func say_hello;
     mem 'hello world\n'; out ^;
-endalias;
+endfunc;
 
 say_hello;
 say_hello;
@@ -33,19 +33,19 @@ hello world
 ```
 
 
-you can declare a alias and call it from everywhere. when you call a alias, all of codes inside that alias will run
+you can declare a function and call it from everywhere. when you call a function, all of codes inside that function will run
 
-for declare a alias you have to write `alias <name-of-alias>`. and write codes. then for close alias write `endalias` after codes
+for declare a function you have to write `func <name-of-function>;`. and write codes. then for close function write `endfunc;` after codes
 
-look at this smarter alias:
+look at this smarter function:
 ```bash
 mem 'program started\n'; out ^;
 
-alias say_hello;
+func say_hello;
     set $name; copy $name
     mem 'hello ' + $name + '\n'; out ^;
     free $name;
-endalias;
+endfunc;
 
 mem 'parsa'; say_hello;
 ```
@@ -57,15 +57,15 @@ program started
 hello parsa
 ```
 
-### passing argument to aliases
-for pass argument to the aliases, you can put value after name of alias:
+### passing argument to Functions
+for pass argument to the Functions, you can put value after name of function:
 
 ```bash
-alias myalias;
+func myfunc;
     out ^;
-endalias;
+endfunc;
 
-myalias "hello";
+myfunc "hello";
 ```
 
 output:
@@ -75,15 +75,15 @@ hello
 ```
 
 ##### how it works?
-you can put a value after name of alias. this value will put in mem and you can access this argument from mem.
+you can put a value after name of function. this value will put in mem and you can access this argument from mem.
 
 look at this example:
 
 ```bash
-alias say_hello;
-    set $say_hello_name_tmp; copy ^ $say_hello_name_tmp;
-    mem 'hello ' + $say_hello_name_tmp + '\n'; out ^;
-endalias;
+func say_hello;
+    set $name; copy ^ $name;
+    mem 'hello ' + $name + '\n'; out ^;
+endfunc;
 
 say_hello 'parsa';
 ```
@@ -100,15 +100,15 @@ hello parsa
 look at this example:
 
 ```bash
-alias myalias;
+func myfunc;
     mem 'new name'; copy $name;
     mem $name + '\n'; out ^;
-endalias;
+endfunc;
 
 set $name; mem 'parsa'; copy $name;
 mem $name + '\n'; out ^;
 
-myalias;
+myfunc;
 
 mem $name + '\n'; out ^;
 ```
@@ -121,29 +121,29 @@ new name
 parsa
 ```
 
-there is a note. why when we changed `$name` variable in `myalias` alias, this was the old value after alias?
+there is a note. why when we changed `$name` variable in `myfunc` function, this was the old value after function?
 
-the `$name` where was set in `myalias`, is local. means that do not points to global `$name` in out program.
+the `$name` where was set in `myfunc`, is local. means that do not points to global `$name` in out program.
 
-the seted variables in aliases, are local. also aliases cannot change global variables
+the seted variables in Functions, are local. also Functions cannot change global variables
 
-the variable environment in aliases are isolated.
+the variable environment in Functions are isolated.
 
-so, how to change a global variable from a alias?
+so, how to change a global variable from a function?
 
 the answer is in `gset`:
 
 ```bash
-alias myalias;
+func myfunc;
     set $name; mem 'new name'; copy $name;
     gset ['name' , $name];
     mem $name + '\n'; out ^;
-endalias;
+endfunc;
 
 set $name; mem 'parsa'; copy $name;
 mem $name + '\n'; out ^;
 
-myalias;
+myfunc;
 
 mem $name + '\n'; out ^;
 ```

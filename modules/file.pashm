@@ -1,24 +1,24 @@
 
-alias file.open;
+func file.open;
     set $args; copy $args;
     mem open($args[0] , $args[1]);
     free $args;
-endalias;
+endfunc;
 
-alias file.close;
+func file.close;
     set $file; copy $file;
     mem $file.close();
     free $file;
-endalias;
+endfunc;
 
-alias file.read;
+func file.read;
     set $file; copy $file;
     mem $file.read();
     free $file;
-endalias;
+endfunc;
 
-alias file.write;
+func file.write;
     set $args; copy $args;
     mem $args[0].write($args[1]);
     free $args;
-endalias;
+endfunc;
