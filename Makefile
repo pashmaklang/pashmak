@@ -20,27 +20,27 @@ main: compile
 
 compile:
 ifeq (1,$(PYINSTALLER_IS_INSTALLED))
-	@$(MANAGE_SCRIPT) build
+	@$(PYTHON) $(shell which pyinstaller) ./src/pashmak.py --onefile
 else
-	@echo error: the pyinstaller for python is required for compile the program. run \"pip3 install pyinstaller\" to install it
+	@echo -e "\033[31merror: the pyinstaller for python is required for compile the program. run \"pip3 install pyinstaller\" to install it\033[0m"
 endif
 
 clean:
 	@rm build/ dist/ pashmak.spec -rf
-	@echo all of build files cleaned successfuly
+	@echo -e "\033[32mall of build files cleaned successfuly\033[0m"
 
 update-headers:
 	@$(MANAGE_SCRIPT) update-headers
 
 test:
-	@$(MANAGE_SCRIPT) test
+	@$(PYTHON) ./tests/run.py
 
 docs:
 	@$(MANAGE_SCRIPT) build-doc
 
 module:
 	@$(MANAGE_SCRIPT) build-modules
-	@echo all of modules mixed in 'src/core/modules.py' successfuly
+	@echo -e "\033[32mall of modules mixed in 'src/core/modules.py' successfuly\033[0m"
 
 all: module update-headers docs test
 ifeq ($(GIT_IS_INSTALLED),1)
@@ -49,12 +49,8 @@ endif
 
 install: ./dist/pashmak
 	@cp ./dist/pashmak $(INSTALLATION_PATH)
-	@echo Pashmak installed successfuly in '$(INSTALLATION_PATH)'. now you can run it in terminal: '$ pashmak'
+	@echo -e "\033[32mPashmak installed successfuly in '$(INSTALLATION_PATH)'. now you can run it in terminal: pashmak\033[0m"
 
-uninstall:
-ifneq (,$(wildcard INSTALLATION_PATH))
+uninstall: $(INSTALLATION_PATH)
 	@rm $(INSTALLATION_PATH)
-	@echo pashmak has been removed from your system successfuly
-else
-	@echo The pashmak is not installed on your system to be remove
-endif
+	@echo -e "\033[32mpashmak has been removed from your system successfuly\033[0m"
