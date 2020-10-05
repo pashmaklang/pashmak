@@ -30,19 +30,18 @@ class Program(helpers.Helpers):
     ''' Pashmak program object '''
 
     def __init__(self , is_test=False , args=[]):
-        self.variables = {}
-        self.states = []
-        self.functions = {}
-        self.operations = []
-        self.sections = {}
-        self.mem = None
-        self.is_test = is_test
-        self.output = ''
-        self.runtime_error = None
-        self.is_in_try = None
-        self.runed_functions = []
-
-        self.current_namespace = ''
+        self.variables = {} # main state variables
+        self.states = [] # list of states
+        self.functions = {} # declared functions <function-name>:[<list-of-body-operations>]
+        self.operations = [] # list of operations
+        self.sections = {} # list of declared sections <section-name>:<index-of-operation-to-jump>
+        self.mem = None # memory temp value
+        self.is_test = is_test # program is in testing state
+        self.output = '' # program output (for testing state)
+        self.runtime_error = None # program raised error (for testing state)
+        self.is_in_try = None # says program is in try-endtry block
+        self.runed_functions = [] # runed functions for stop function multi calling in one operation
+        self.current_namespace = '' # current namespace prefix to add it before name of functions
 
         # set argument variables
         self.set_var('argv' , args)
@@ -53,7 +52,8 @@ class Program(helpers.Helpers):
         tmp = parser.parse('mem "@stdlib"; include ^;')
         operations.insert(0 , tmp[0])
         operations.insert(1 , tmp[1])
-        # get list of operations and set it on program object
+
+        # set operations on program object
         self.operations = operations
 
     def set_operation_index(self , op: dict) -> dict:
