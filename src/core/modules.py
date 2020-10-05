@@ -45,7 +45,7 @@ endalias;
 modules["file"] = """
 alias file.open;
     set $args; copy $args;
-    mem open("' + $args[0] + '" , "' + $args[1] + '");
+    mem open($args[0] , $args[1]);
     free $args;
 endalias;
 
@@ -63,7 +63,7 @@ endalias;
 
 alias file.write;
     set $args; copy $args;
-    mem $args[0].write(self.get_var("args")[1]);
+    mem $args[0].write($args[1]);
     free $args;
 endalias;
 """
