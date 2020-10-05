@@ -36,3 +36,16 @@ class test_namespace(TestCore):
 
         MySpace.dosomething;
         ''') , 'hello world\nhello world\nhello world\n')
+
+        self.assert_output(self.run_without_error('''
+        namespace MySpace;
+            func dosomething;
+                print 'hello world\\n';
+            endfunc;
+
+            MySpace.dosomething;
+            dosomething;
+        endns;
+
+        MySpace.dosomething;
+        ''') , 'hello world\nhello world\nhello world\n')

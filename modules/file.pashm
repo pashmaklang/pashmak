@@ -1,24 +1,28 @@
 
-func file.open;
-    set $args; copy $args;
-    mem open($args[0] , $args[1]);
-    free $args;
-endfunc;
+namespace file;
 
-func file.close;
-    set $file; copy $file;
-    mem $file.close();
-    free $file;
-endfunc;
+    func open;
+        set $args; copy $args;
+        mem open($args[0] , $args[1]);
+        free $args;
+    endfunc;
 
-func file.read;
-    set $file; copy $file;
-    mem $file.read();
-    free $file;
-endfunc;
+    func close;
+        set $file; copy $file;
+        mem $file.close();
+        free $file;
+    endfunc;
 
-func file.write;
-    set $args; copy $args;
-    mem $args[0].write($args[1]);
-    free $args;
-endfunc;
+    func read;
+        set $file; copy $file;
+        mem $file.read();
+        free $file;
+    endfunc;
+
+    func write;
+        set $args; copy $args;
+        mem $args[0].write($args[1]);
+        free $args;
+    endfunc;
+
+endnamespace;

@@ -1,8 +1,13 @@
-func time.time;
-    py 'self.mem = time.time()';
-endfunc;
 
-func time.sleep;
-    set $tmp_time_sleep_for; copy $tmp_time_sleep_for;
-    py 'self.mem = time.sleep(' + str($tmp_time_sleep_for) + ')';
-endfunc;
+namespace time;
+
+    func time;
+        py 'self.mem = time.time()';
+    endfunc;
+
+    func sleep;
+        set $tmp_time_sleep_for; copy $tmp_time_sleep_for;
+        py 'self.mem = time.sleep(' + str($tmp_time_sleep_for) + ')';
+    endfunc;
+
+endnamespace;

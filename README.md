@@ -1086,6 +1086,20 @@ i am from First
 i am from Last
 ```
 
+also you can use `endns` keyword insted of `endnamespace` (this is from stdlib):
+
+```bash
+namespace App;
+    func say_hello;
+        mem 'hello world\n'; out ^;
+    endfunc;
+
+    say_hello;
+endns;
+
+App.say_hello;
+```
+
 this system is very useful.
 
 

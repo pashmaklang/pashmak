@@ -23,62 +23,79 @@
 
 modules = {}
 
-modules["random"] = """func random.randint;
-    set $tmp_random.randint;
-    copy $tmp_random.randint;
-    py 'self.mem = random.randint(' + str($tmp_random.randint[0]) + ',' + str($tmp_random.randint[1]) + ')';
-endfunc;
+modules["random"] = """
+namespace random;
 
-func random.random;
-    py 'self.mem = random.random()';
-endfunc;
+    func randint;
+        set $args; copy $args;
+        py 'self.mem = random.randint(' + str($args[0]) + ',' + str($args[1]) + ')';
+    endfunc;
+
+    func random;
+        py 'self.mem = random.random()';
+    endfunc;
+
+endnamespace;
 """
-modules["time"] = """func time.time;
-    py 'self.mem = time.time()';
-endfunc;
+modules["time"] = """
+namespace time;
 
-func time.sleep;
-    set $tmp_time_sleep_for; copy $tmp_time_sleep_for;
-    py 'self.mem = time.sleep(' + str($tmp_time_sleep_for) + ')';
-endfunc;
+    func time;
+        py 'self.mem = time.time()';
+    endfunc;
+
+    func sleep;
+        set $tmp_time_sleep_for; copy $tmp_time_sleep_for;
+        py 'self.mem = time.sleep(' + str($tmp_time_sleep_for) + ')';
+    endfunc;
+
+endnamespace;
 """
 modules["file"] = """
-func file.open;
-    set $args; copy $args;
-    mem open($args[0] , $args[1]);
-    free $args;
-endfunc;
+namespace file;
 
-func file.close;
-    set $file; copy $file;
-    mem $file.close();
-    free $file;
-endfunc;
+    func open;
+        set $args; copy $args;
+        mem open($args[0] , $args[1]);
+        free $args;
+    endfunc;
 
-func file.read;
-    set $file; copy $file;
-    mem $file.read();
-    free $file;
-endfunc;
+    func close;
+        set $file; copy $file;
+        mem $file.close();
+        free $file;
+    endfunc;
 
-func file.write;
-    set $args; copy $args;
-    mem $args[0].write($args[1]);
-    free $args;
-endfunc;
+    func read;
+        set $file; copy $file;
+        mem $file.read();
+        free $file;
+    endfunc;
+
+    func write;
+        set $args; copy $args;
+        mem $args[0].write($args[1]);
+        free $args;
+    endfunc;
+
+endnamespace;
 """
 modules["hash"] = """
-func hash.sha256;
-	set $tmp_hash_sha256_value; copy $tmp_hash_sha256_value;
-	py 'self.mem = hashlib.sha256("' + $tmp_hash_sha256_value + '".encode()).hexdigest()';
-	free $tmp_hash_sha256_value;
-endfunc;
+namespace hash;
 
-func hash.md5;
-	set $tmp_hash_md5_value; copy $tmp_hash_md5_value;
-	py 'self.mem = hashlib.md5("' + $tmp_hash_md5_value + '".encode()).hexdigest()';
-	free $tmp_hash_md5_value;
-endfunc;
+	func sha256;
+		set $value; copy $value;
+		py 'self.mem = hashlib.sha256("' + $value + '".encode()).hexdigest()';
+		free $value;
+	endfunc;
+
+	func md5;
+		set $value; copy $value;
+		py 'self.mem = hashlib.md5("' + $value + '".encode()).hexdigest()';
+		free $value;
+	endfunc;
+
+endnamespace;
 """
 modules["stdlib"] = """
 func print;
@@ -109,11 +126,15 @@ func std.eval;
     eval ^;
 endfunc;
 
+func endns;
+    endnamespace;
+endfunc;
+
 func raise;
-	set $tmp_stdlib_raise_exdata; copy $tmp_stdlib_raise_exdata;
-	mem "self.raise_error('" + $tmp_stdlib_raise_exdata[0] + "' , '" + $tmp_stdlib_raise_exdata[1] + "' , op)";
+	set $exdata; copy $exdata;
+	mem "self.raise_error('" + $exdata[0] + "' , '" + $exdata[1] + "' , op)";
     python ^;
-    free $tmp_stdlib_raise_exdata;
+    free $exdata;
 endfunc;
 
 func assert;
