@@ -133,3 +133,33 @@ class test_something(TestCore):
 you can do your test in `run` function in `test_something` class.
 
 if you adding a feature or changing feature, change/add test for that feature
+
+#### test core functions
+- assert_true(Value): gets a value and asserts that is True
+- assert_false(Value): gets a value and asserts that is False
+- assert_equals(first, last): gets two value and asserts they are equals
+- assert_not_equals(first, last): gets two value and asserts they are NOT equals
+- run_script(code): gets a code and run that then returns program result
+- run_without_error(code): gets a code and run that then returns program result and auto assert program has not error
+- assert_vars(program_result, vars): gets a program result and asserts variables equals `vars`
+- assert_mem(program_result, mem): gets a program result and asserts mem equals `mem`
+- assert_output(program_result, output): gets a program result and asserts output equals `output`
+- assert_exit_code(program_result, exit_code): gets a program result and asserts exit code equals `exit_code`
+- assert_has_error(program_result): gets a program result and asserts program has error
+- assert_has_not_error(program_result): gets a program result and asserts program has NOT error
+- dump(object): gets a object and dumps that object
+
+
+example:
+
+```python
+from TestCore import TestCore
+
+class test_something(TestCore):
+    def run(self):
+        self.assert_output(self.run_without_error('''
+        mem 'hello world'; out ^;
+        ''') , 'hello world')
+
+        # my code prints `hello world` and i'm asserting the output is `hello world`
+```
