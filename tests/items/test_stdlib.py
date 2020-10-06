@@ -38,6 +38,10 @@ class test_stdlib(TestCore):
         exit 5;
         ''') , 5)
 
+        self.assert_exit_code(self.run_without_error('''
+        exit;
+        ''') , 0)
+
         self.assert_mem(self.run_without_error('''
         py "self.mem = 'hi'";
         ''') , 'hi')

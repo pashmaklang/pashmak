@@ -8,7 +8,11 @@ func import;
 endfunc;
 
 func exit;
-    return ^;
+    set $code; copy $code;
+    mem type($code) != int; gotoif stdlib_exit_default_exit_with_zero_code;
+    return $code;
+    section stdlib_exit_default_exit_with_zero_code;
+    return 0;
 endfunc;
 
 func py;
