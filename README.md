@@ -1102,6 +1102,56 @@ App.say_hello;
 
 this system is very useful.
 
+### use operation
+the `use` operation is a command to use content of a namespace.
+
+look at this example:
+
+```bash
+namespace App;
+    func dosomething;
+        print 'hello world\n';
+    endfunc;
+endns;
+
+App.dosomething;
+```
+
+output:
+
+```
+hello world
+```
+
+we have to put `App.` before `dosomething` to run this function.
+but i want to don't use namespace prefix and just type name of function to call this. what i have to do?
+
+look at this example:
+
+```bash
+namespace App;
+    func dosomething;
+        print 'hello world\n';
+    endfunc;
+endns;
+
+use App;
+
+App.dosomething;
+dosomething;
+```
+
+output:
+
+```
+hello world
+hello world
+```
+
+when i use `use` operation and give a namespace as argument to that, i can call all of that namespace members without namespace prefix.
+
+for example if there is a namespace named `App` and have a function named `dosomething`, for call that function i have to write `App.dosomething`. but if i run `use App;`, after that i can call this function just by typing `dosomething;`
+
 
 
 # Eval

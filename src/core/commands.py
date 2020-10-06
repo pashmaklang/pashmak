@@ -49,6 +49,7 @@ from operations import arraypop as op_arraypop
 from operations import python as op_python
 from operations import namespace as op_namespace
 from operations import endnamespace as op_endnamespace
+from operations import use as op_use
 
 class Commands:
     def run_set(self , op: dict):
@@ -134,3 +135,6 @@ class Commands:
 
     def run_endnamespace(self , op: dict):
         op_endnamespace.run(self , op)
+
+    def run_use(self , op: dict):
+        op_use.run(self , op)
