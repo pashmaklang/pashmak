@@ -80,8 +80,6 @@ if you want to contribute to this project, read [Contributing Guide](CONTRIBUTIN
 # Documentation
 read the following Documentation to learn pashmak.
 
-#### NOTE: the pashmak syntax is hard, surely read [STDLIB](#stdlib) document to learn very better and easier syntax
-
 
 
 ## Basics
@@ -89,7 +87,13 @@ read the following Documentation to learn pashmak.
 a simple printing in pashmak on screen:
 
 ```bash
-mem 'some thing to print\n'; out ^;
+mem 'something to print\n'; out ^;
+```
+
+or
+
+```bash
+print 'something to print\n';
 ```
 
 #### how it works?
@@ -106,7 +110,7 @@ the base structure of pashmak syntax is this:
 in this example, we have two operations:
 
 ```bash
-mem 'some thing to print\n'; # first operation
+mem 'something to print\n'; # first operation
 out ^; # second operation
 ```
 
@@ -230,6 +234,16 @@ output:
 this is ; semicolon
 ```
 
+### printing without using mem
+this is a easier syntax for printing:
+
+```bash
+mem 'hello world\n'; out ^;
+
+# this is easier
+print 'hello world\n';
+```
+
 
 
 ## Variables
@@ -243,7 +257,7 @@ set $myvar; # set a variables named $myvar
 mem 'this is data'; # bring string 'this is data' to mem
 copy ^ $myvar; # copy mem (^) to $myvar
 
-out $myvar; # output: this is data
+print $myvar + '\n'; # output: this is data
 ```
 
 ###### NOTE: always put $ before name of variable everywhere
@@ -412,7 +426,7 @@ look at this example:
 set $name; # set the name variable
 mem 'what is your name? '; out ^; # print
 read $name; # read a input and copy that in $name variable
-mem 'hello ' + $name + '\n'; out ^; # say hello to $name :)
+print 'hello ' + $name + '\n'; # say hello to $name :)
 ```
 
 when we run this code, output is this:
@@ -448,7 +462,7 @@ mem int($num2); copy $num2;
 set $sum;
 mem $num1 + $num2; copy $sum;
 
-mem str($sum) + '\n'; out ^;
+print str($sum) + '\n';
 ```
 
 program output:
@@ -469,7 +483,7 @@ section is a system to make pointer to a part of code. this is useful to create 
 look at this example:
 ```bash
 section my_loop;
-    mem 'hello world\n'; out ^;
+    print 'hello world\n';
 goto my_loop;
 ```
 
@@ -485,7 +499,7 @@ look at this example:
 set $i; mem 1; copy $i;
 
 section loop;
-    mem str($i) + '\n'; out ^; # print $i
+    print str($i) + '\n'; # print $i
     mem $i + 1; copy $i; # add 1 to $i
 mem $i < 10; gotoif loop; # check the condition in `mem` and use gotoif command
 ```
@@ -567,7 +581,7 @@ function is a system to make alias for some codes (function).
 look at this example:
 ```bash
 func say_hello;
-    mem 'hello world\n'; out ^;
+    print 'hello world\n';
 endfunc;
 
 say_hello;
@@ -581,7 +595,7 @@ hello world
 
 ```bash
 func say_hello;
-    mem 'hello world\n'; out ^;
+    print 'hello world\n';
 endfunc;
 
 say_hello;
@@ -606,7 +620,7 @@ mem 'program started\n'; out ^;
 
 func say_hello;
     set $name; copy $name
-    mem 'hello ' + $name + '\n'; out ^;
+    mem 'hello ' + $name + '\n'; out ^; # or using `print`
     free $name;
 endfunc;
 
@@ -645,7 +659,7 @@ look at this example:
 ```bash
 func say_hello;
     set $name; copy ^ $name;
-    mem 'hello ' + $name + '\n'; out ^;
+    print 'hello ' + $name + '\n';
 endfunc;
 
 say_hello 'parsa';
@@ -731,6 +745,7 @@ this command sets value of that variable globaly.
 there is two operations for working with files in pashmak: `fread`, `fwrite`
 
 ### read a file
+
 ```bash
 mem '/path/to/file.txt'; fread ^;
 set $content; copy $content;
@@ -776,7 +791,7 @@ set $names;
 mem ['parsa' , 'pashmak' , 'jack'];
 copy $names;
 
-out $names; # output: ['parsa' , 'pashmak' , 'jack']
+print $names; # output: ['parsa' , 'pashmak' , 'jack']
 mem $names[0]; out ^; # output: parsa
 mem $names[1]; out ^; # output: pashmak
 mem $names[2]; out ^; # output: jack
@@ -792,7 +807,7 @@ copy $names;
 set $i; mem 0; copy $i;
 
 section loop;
-    mem $names[$i] + '\n'; out ^;
+    print $names[$i] + '\n';
     mem $i + 1; copy $i;
 mem $i < len($names); gotoif loop;
 ```
@@ -909,6 +924,27 @@ out $ex; # output: {"type": "VariableError" , "message": "undefined variable $so
 section after_error;
 ```
 
+#### raising errors
+```bash
+print 'program started\n';
+
+raise 'MyError' , 'this is my error';
+
+print 'this will not print\n';
+```
+
+output:
+
+```
+progrma started
+MyError:
+	this is my error
+```
+
+the `raise` function can raise errors in program
+
+first argument `'TheError'` is error type and second error `'this is my error'` is error message.
+
 
 
 # OS Commands
@@ -925,6 +961,17 @@ mem '/tmp'; chdir ^;
 
 set $path; mem '/tmp'; copy $path;
 chdir $path; # use variable
+```
+
+also you can use `std.chdir` function:
+
+```bash
+# in this function you can pass path directly and not need to set path in mem before it
+std.chdir '/tmp';
+# or
+std.chdir $path;
+# or
+std.chdir $path + '/path';
 ```
 
 ### cwd
@@ -955,6 +1002,16 @@ set $cmd; mem 'ls /tmp'; copy $cmd;
 system $cmd; # use variable
 ```
 
+also you can use `sys` function to have easier function:
+
+```bash
+sys 'ls /tmp';
+# or
+sys $cmd;
+```
+
+you can pass value directly to `sys`
+
 ### return
 this command exits program
 
@@ -982,6 +1039,13 @@ return 1;
 ```
 
 exit code of program will be `1`
+
+or you can use `exit` command:
+
+```bash
+exit; # with 0 default exit code
+exit 10; # with 10
+```
 
 
 
@@ -1021,6 +1085,13 @@ fib;
 
 when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example, here we used a function from the `fib.pashm` file.
 
+also you can use `import` function to have easier syntax:
+
+```bash
+# you can pass value directly to this
+import 'fib.pashm';
+```
+
 this is very useful.
 
 
@@ -1034,7 +1105,7 @@ look at this example:
 ```bash
 namespace App;
     func say_hello;
-        mem 'hello world\n'; out ^;
+        print 'hello world\n';
     endfunc;
 
     say_hello;
@@ -1065,13 +1136,13 @@ also look at this example:
 ```bash
 namespace First;
     func dosomething;
-        mem 'i am from First\n'; out ^;
+        print 'i am from First\n';
     endfunc;
 endnamespace;
 
 namespace Last;
     func dosomething;
-        mem 'i am from Last\n'; out ^;
+        print 'i am from Last\n';
     endfunc;
 endnamespace;
 
@@ -1091,7 +1162,7 @@ also you can use `endns` keyword insted of `endnamespace` (this is from stdlib):
 ```bash
 namespace App;
     func say_hello;
-        mem 'hello world\n'; out ^;
+        print 'hello world\n';
     endfunc;
 
     say_hello;
@@ -1191,6 +1262,13 @@ hi
 
 the above code gets a string from user and runs that as pashmak code.
 
+also you can use `std.eval` function to have easier syntax:
+
+```bash
+# you can pass value directly
+std.eval '<some-code>';
+```
+
 ## run python code
 you can run python code like `eval` with `python` command:
 
@@ -1205,6 +1283,12 @@ output:
 hello world from python
 ```
 
+also you can use `py` function to pass value directly:
+
+```bash
+py 'print("hello world")';
+```
+
 
 
 # General Modules
@@ -1217,11 +1301,9 @@ look at this example:
 
 ```bash
 mem '@hash'; include ^;
-mem '@time'; include ^;
-mem '@module_name'; include ^;
-
-# or using stdlib
+# or using import to have easier syntax
 import '@hash';
+import '@module_name';
 
 # ...
 ```
@@ -1232,7 +1314,7 @@ you have to give name of module with a `@` before that to the include operation.
 with hash module, you can calculate hash sum of values:
 
 ```bash
-mem '@hash'; include ^;
+import '@hash';
 
 hash.sha256 "hello"; # also you can use hash.md5 and...
 out ^; # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
@@ -1250,7 +1332,7 @@ with this module, you can work with time.
 this function gives you current UNIX timestamp:
 
 ```bash
-mem '@time'; include ^;
+import '@time';
 
 time.time;
 out ^; # output is some thing like this: `1600416438.687201`
@@ -1262,7 +1344,7 @@ when you call this function, this function puts the unix timestamp into mem and 
 this function sleeps for secounds:
 
 ```bash
-mem '@time'; include ^;
+import '@time';
 
 time.sleep 2; # sleeps for 2 secounds
 # mem 2.4; time.sleep; # sleepss for 2.4 secounds
@@ -1279,7 +1361,7 @@ this module makes random numbers
 
 ###### random.randint
 ```bash
-mem '@random'; include ^;
+import '@random';
 
 random.randint 1, 10; # generates a random int between 1 and 10
 
@@ -1288,7 +1370,7 @@ out ^; # and puts generated random number in mem and you can access that
 
 ###### random.random
 ```bash
-mem '@random'; include ^;
+import '@random';
 
 random.random; # generates a random float less that 1
 
@@ -1363,7 +1445,7 @@ file.open '/path/to/file.txt' , 'r'; set $file; copy $file;
 set $content;
 file.read $file; copy $content;
 
-mem 'content of file is: ' + $content; out ^;
+print 'content of file is: ' + $content;
 ```
 
 ###### more modules comming soon...

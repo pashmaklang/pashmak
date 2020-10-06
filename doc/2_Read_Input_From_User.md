@@ -8,7 +8,7 @@ look at this example:
 set $name; # set the name variable
 mem 'what is your name? '; out ^; # print
 read $name; # read a input and copy that in $name variable
-mem 'hello ' + $name + '\n'; out ^; # say hello to $name :)
+print 'hello ' + $name + '\n'; # say hello to $name :)
 ```
 
 when we run this code, output is this:
@@ -44,7 +44,7 @@ mem int($num2); copy $num2;
 set $sum;
 mem $num1 + $num2; copy $sum;
 
-mem str($sum) + '\n'; out ^;
+print str($sum) + '\n';
 ```
 
 program output:

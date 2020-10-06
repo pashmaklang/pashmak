@@ -3,7 +3,13 @@
 a simple printing in pashmak on screen:
 
 ```bash
-mem 'some thing to print\n'; out ^;
+mem 'something to print\n'; out ^;
+```
+
+or
+
+```bash
+print 'something to print\n';
 ```
 
 #### how it works?
@@ -20,7 +26,7 @@ the base structure of pashmak syntax is this:
 in this example, we have two operations:
 
 ```bash
-mem 'some thing to print\n'; # first operation
+mem 'something to print\n'; # first operation
 out ^; # second operation
 ```
 
@@ -142,4 +148,14 @@ output:
 
 ```
 this is ; semicolon
+```
+
+### printing without using mem
+this is a easier syntax for printing:
+
+```bash
+mem 'hello world\n'; out ^;
+
+# this is easier
+print 'hello world\n';
 ```

@@ -4,7 +4,7 @@ function is a system to make alias for some codes (function).
 look at this example:
 ```bash
 func say_hello;
-    mem 'hello world\n'; out ^;
+    print 'hello world\n';
 endfunc;
 
 say_hello;
@@ -18,7 +18,7 @@ hello world
 
 ```bash
 func say_hello;
-    mem 'hello world\n'; out ^;
+    print 'hello world\n';
 endfunc;
 
 say_hello;
@@ -43,7 +43,7 @@ mem 'program started\n'; out ^;
 
 func say_hello;
     set $name; copy $name
-    mem 'hello ' + $name + '\n'; out ^;
+    mem 'hello ' + $name + '\n'; out ^; # or using `print`
     free $name;
 endfunc;
 
@@ -82,7 +82,7 @@ look at this example:
 ```bash
 func say_hello;
     set $name; copy ^ $name;
-    mem 'hello ' + $name + '\n'; out ^;
+    print 'hello ' + $name + '\n';
 endfunc;
 
 say_hello 'parsa';

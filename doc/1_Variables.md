@@ -9,7 +9,7 @@ set $myvar; # set a variables named $myvar
 mem 'this is data'; # bring string 'this is data' to mem
 copy ^ $myvar; # copy mem (^) to $myvar
 
-out $myvar; # output: this is data
+print $myvar + '\n'; # output: this is data
 ```
 
 ###### NOTE: always put $ before name of variable everywhere

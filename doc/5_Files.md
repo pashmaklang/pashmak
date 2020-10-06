@@ -2,6 +2,7 @@
 there is two operations for working with files in pashmak: `fread`, `fwrite`
 
 ### read a file
+
 ```bash
 mem '/path/to/file.txt'; fread ^;
 set $content; copy $content;

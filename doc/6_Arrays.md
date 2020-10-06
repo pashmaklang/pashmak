@@ -8,7 +8,7 @@ set $names;
 mem ['parsa' , 'pashmak' , 'jack'];
 copy $names;
 
-out $names; # output: ['parsa' , 'pashmak' , 'jack']
+print $names; # output: ['parsa' , 'pashmak' , 'jack']
 mem $names[0]; out ^; # output: parsa
 mem $names[1]; out ^; # output: pashmak
 mem $names[2]; out ^; # output: jack
@@ -24,7 +24,7 @@ copy $names;
 set $i; mem 0; copy $i;
 
 section loop;
-    mem $names[$i] + '\n'; out ^;
+    print $names[$i] + '\n';
     mem $i + 1; copy $i;
 mem $i < len($names); gotoif loop;
 ```

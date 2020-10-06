@@ -34,4 +34,11 @@ fib;
 
 when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example, here we used a function from the `fib.pashm` file.
 
+also you can use `import` function to have easier syntax:
+
+```bash
+# you can pass value directly to this
+import 'fib.pashm';
+```
+
 this is very useful.
