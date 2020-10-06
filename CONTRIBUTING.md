@@ -106,7 +106,7 @@ python3 scripts.py test
 # OR
 ./tests/run.py
 # OR
-python3 /tests/run.py
+python3 ./tests/run.py
 ```
 
 #### create new test
