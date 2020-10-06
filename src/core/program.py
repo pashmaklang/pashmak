@@ -42,6 +42,7 @@ class Program(helpers.Helpers):
         self.is_in_try = None # says program is in try-endtry block
         self.runed_functions = [] # runed functions for stop function multi calling in one operation
         self.current_namespace = '' # current namespace prefix to add it before name of functions
+        self.used_namespaces = [] # list of used namespaces
 
         # set argument variables
         self.set_var('argv' , args)
@@ -215,6 +216,9 @@ class Program(helpers.Helpers):
         elif op_name == 'endnamespace':
             self.run_endnamespace(op)
             return
+        elif op_name == 'use':
+            self.run_use(op)
+            return
         elif op_name == 'pass':
             return
 
@@ -224,11 +228,18 @@ class Program(helpers.Helpers):
         try:
             func_body = self.functions[self.current_namespace + op_name]
         except:
-            try:
-                func_body = self.functions[op_name]
-            except:
-                self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
-                return
+            func_body = None
+            for used_namespace in self.used_namespaces:
+                try:
+                    func_body = self.functions[used_namespace + '.' + op_name]
+                except:
+                    pass
+            if func_body == None:
+                try:
+                    func_body = self.functions[op_name]
+                except:
+                    self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
+                    return
 
         # run function
         try:

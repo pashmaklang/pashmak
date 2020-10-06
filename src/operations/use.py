@@ -1,5 +1,5 @@
 #
-# version.py
+# use.py
 #
 # the pashmak project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -20,5 +20,10 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-# pashmak version
-version = 'v1.1'
+def run(self , op: dict):
+    ''' Adds a namespace to used namespaces '''
+
+    self.require_one_argument(op , 'use operation requires namespace argument')
+    arg = op['args'][0]
+
+    self.used_namespaces.append(arg)

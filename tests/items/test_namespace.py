@@ -54,3 +54,29 @@ class test_namespace(TestCore):
         namespace Test;
         namespace New;
         '''))
+
+        self.assert_output(self.run_without_error('''
+        namespace App;
+            func dosomething;
+                print 'hello world\\n';
+            endfunc;
+        endns;
+
+        namespace Second;
+            func hello;
+                print 'hello\\n';
+            endfunc;
+        endns;
+
+        App.dosomething;
+        Second.hello;
+
+        use App;
+        use Second;
+
+        App.dosomething;
+        dosomething;
+        Second.hello;
+        hello;
+
+        ''') , 'hello world\nhello\nhello world\nhello world\nhello\nhello\n')
