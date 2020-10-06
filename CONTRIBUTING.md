@@ -1,6 +1,47 @@
 # Contributing
 if you want to contribute to the pashmak project, this contributing guide is helpful.
 
+### run/build
+to run program, do following steps:
+
+```bash
+cd /path/to/project/folder
+./src/pashmak.py # this is pashmak interpreter main executable file
+```
+
+also you can compile program with `pyinstaller`:
+
+```bash
+make all
+make
+```
+
+then run built executable:
+
+```bash
+./dist/pashmak
+```
+
+### start contributing
+to start contributing:
+- fork this project
+- clone your fork
+- create a branch
+- make changes and commit
+- push your code
+- send pull request
+
+```bash
+git clone <your-fork-repo-url>
+cd pashmak
+git branch some-name-for-branch master
+# make changes and commit
+make all # after run this, if something changed, commit again
+git push origin some-name-for-branch
+```
+
+and then make pull request from your branch to `master`
+
 ### Branch
 alwasy send your merge requests to `master` branch.
 
@@ -91,5 +132,3 @@ class test_something(TestCore):
 you can do your test in `run` function in `test_something` class.
 
 if you adding a feature or changing feature, change/add test for that feature
-
-
