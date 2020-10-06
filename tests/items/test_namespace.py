@@ -49,3 +49,8 @@ class test_namespace(TestCore):
 
         MySpace.dosomething;
         ''') , 'hello world\nhello world\nhello world\n')
+
+        self.assert_has_error(self.run_script('''
+        namespace Test;
+        namespace New;
+        '''))
