@@ -699,7 +699,7 @@ the answer is in `gset`:
 ```bash
 func myfunc;
     set $name; mem 'new name'; copy $name;
-    gset ['name' , $name];
+    gset 'name' , $name;
     mem $name + '\n'; out ^;
 endfunc;
 
@@ -1281,7 +1281,7 @@ this module makes random numbers
 ```bash
 mem '@random'; include ^;
 
-random.randint [1, 10]; # generates a random int between 1 and 10
+random.randint 1, 10; # generates a random int between 1 and 10
 
 out ^; # and puts generated random number in mem and you can access that
 ```
@@ -1304,7 +1304,7 @@ with this function, you can open a file:
 ```bash
 import '@file';
 
-file.open ['/path/to/file.txt' , 'r']; # first argument is file path, and second argument is open type. here is `r` means `read`
+file.open '/path/to/file.txt' , 'r'; # first argument is file path, and second argument is open type. here is `r` means `read`
 
 # now, opened file is in the mem. we can copy it in a variable
 
@@ -1318,7 +1318,7 @@ wtih this function, you can read opened file:
 ```bash
 import '@file';
 
-file.open ['/path/to/file.txt' , 'r'];
+file.open '/path/to/file.txt' , 'r';
 set $f; copy $f;
 
 file.read $f; # now, content of file is in the mem
@@ -1331,10 +1331,10 @@ with this function, you can write on opened file:
 ```bash
 import '@file';
 
-file.open ['/path/to/file.txt' , 'w']; # open type is `w` (write)
+file.open '/path/to/file.txt' , 'w'; # open type is `w` (write)
 set $f; copy $f;
 
-file.write [$f , 'new content']; # first arg is opened file and second arg is content.
+file.write $f , 'new content'; # first arg is opened file and second arg is content.
 ```
 
 now file is changed
@@ -1345,7 +1345,7 @@ with this function you can close file after your work:
 ```bash
 import '@file';
 
-file.open ['/path/to/file.txt' , 'r'];
+file.open '/path/to/file.txt' , 'r';
 set $f; copy $f;
 
 # work with file
@@ -1358,7 +1358,7 @@ file.close $f; # close file after work
 ```bash
 import '@file';
 
-file.open ['/path/to/file.txt' , 'r']; set $file; copy $file;
+file.open '/path/to/file.txt' , 'r'; set $file; copy $file;
 
 set $content;
 file.read $file; copy $content;
@@ -1404,14 +1404,14 @@ std.chdir "/tmp"; # INSTEAD OF `mem '/tmp'; chdir ^;`
 std.eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
 
 # gset
-gset ['somevar' , 'new global value']; # you learned this command in functions section
+gset 'somevar' , 'new global value'; # you learned this command in functions section
 ```
 
 ##### raising errors
 ```bash
 print 'program started\n';
 
-raise ['MyError' , 'this is my error'];
+raise 'MyError' , 'this is my error';
 
 print 'this will not print\n';
 ```
