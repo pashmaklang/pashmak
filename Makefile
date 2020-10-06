@@ -7,12 +7,12 @@ INSTALLATION_PATH = /usr/bin/pashmak
 .PHONY := main compile clean update-headers test docs module all install
 
 GIT_IS_INSTALLED = 0
-ifneq ("",$(shell command -v git))
+ifneq (,$(shell command -v git))
 GIT_IS_INSTALLED = 1
 endif
 
 PYINSTALLER_IS_INSTALLED = 0
-ifneq ("",$(shell command -v pyinstaller))
+ifneq (,$(shell command -v pyinstaller))
 PYINSTALLER_IS_INSTALLED = 1
 endif
 
