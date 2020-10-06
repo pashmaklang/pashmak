@@ -1,5 +1,5 @@
 #
-# test_syntax.py
+# namespace.py
 #
 # the pashmak project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -20,12 +20,9 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-from TestCore import TestCore
+def run(self , op: dict):
+    ''' Sets namespace prefix '''
+    self.require_one_argument(op , 'namespace operation requires namespace argument')
+    arg = op['args'][0]
 
-class test_syntax(TestCore):
-    def run(self):
-        self.assert_output(self.run_script(''' mem 'hello  world'; out  ^; ''') , 'hello  world')
-        self.assert_output(self.run_script('''
-        # some comment
-        mem 'hello world'; out ^; # another comment
-        ''') , 'hello world')
+    self.current_namespace = arg + '.'

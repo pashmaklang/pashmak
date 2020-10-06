@@ -33,7 +33,7 @@ def run(self , op: dict):
         code = self.get_mem()
     else:
         self.variable_required(arg[1:] , op)
-        code = self.variables[arg[1:]]
+        code = self.get_var(arg[1:])
 
     # run the code
     code_operations = parser.parse(code)

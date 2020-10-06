@@ -22,7 +22,7 @@
 
 ''' Pashmak program object '''
 
-import sys, os
+import sys, os, signal
 from syntax import parser
 from core import helpers
 
@@ -30,27 +30,30 @@ class Program(helpers.Helpers):
     ''' Pashmak program object '''
 
     def __init__(self , is_test=False , args=[]):
-        self.variables = {}
-        self.aliases = {}
-        self.operations = []
-        self.sections = {}
-        self.mem = None
-        self.is_test = is_test
-        self.output = ''
-        self.runtime_error = None
-        self.is_in_try = None
-        self.runed_aliases = []
+        self.variables = {} # main state variables
+        self.states = [] # list of states
+        self.functions = {} # declared functions <function-name>:[<list-of-body-operations>]
+        self.operations = [] # list of operations
+        self.sections = {} # list of declared sections <section-name>:<index-of-operation-to-jump>
+        self.mem = None # memory temp value
+        self.is_test = is_test # program is in testing state
+        self.output = '' # program output (for testing state)
+        self.runtime_error = None # program raised error (for testing state)
+        self.is_in_try = None # says program is in try-endtry block
+        self.runed_functions = [] # runed functions for stop function multi calling in one operation
+        self.current_namespace = '' # current namespace prefix to add it before name of functions
 
         # set argument variables
-        self.variables['argv'] = args
-        self.variables['argc'] = len(self.variables['argv'])
+        self.set_var('argv' , args)
+        self.set_var('argc' , len(self.get_var('argv')))
 
     def set_operations(self , operations: list):
         # include stdlib before everything
         tmp = parser.parse('mem "@stdlib"; include ^;')
         operations.insert(0 , tmp[0])
         operations.insert(1 , tmp[1])
-        # get list of operations and set it on program object
+
+        # set operations on program object
         self.operations = operations
 
     def set_operation_index(self , op: dict) -> dict:
@@ -83,19 +86,31 @@ class Program(helpers.Helpers):
         print(error_type + ' in ' + str(op['index']) + ':\n\t' + op['str'] + '\n\t' + message)
         sys.exit(1)
 
-    def exec_alias(self , alias_body: list):
-        if self.current_step in self.runed_aliases:
+    def exec_func(self , func_body: list):
+        # create new state for this call
+        self.states.append({
+            'vars': dict(self.variables),
+        })
+
+        # check function already called in this point
+        if self.current_step in self.runed_functions:
             return
-        self.runed_aliases.append(self.current_step)
+        
+        # add this point to runed functions (for stop repeating call in loops)
+        self.runed_functions.append(self.current_step)
+
+        # run function
         i = int(self.current_step)
-        for alias_op in alias_body:
-            alias_op_parsed = self.set_operation_index(alias_op)
-            if alias_op_parsed['command'] == 'section':
-                section_name = alias_op_parsed['args'][0]
+        for func_op in func_body:
+            func_op_parsed = self.set_operation_index(func_op)
+            if func_op_parsed['command'] == 'section':
+                section_name = func_op_parsed['args'][0]
                 self.sections[section_name] = i+1
             else:
-                self.operations.insert(i+1 , alias_op)
+                self.operations.insert(i+1 , func_op)
                 i += 1
+        
+        self.operations.insert(i+1 , parser.parse('popstate')[0])
 
     def run(self , op: dict):
         ''' Run once operation '''
@@ -103,14 +118,18 @@ class Program(helpers.Helpers):
         op = self.set_operation_index(op)
         op_name = op['command']
 
-        if op_name == 'endalias':
-            self.run_endalias(op)
+        if op_name == 'endfunc':
+            self.run_endfunc(op)
             return
 
-        # if a alias is started, append current operation to the alias body
+        if op_name == 'popstate':
+            self.states.pop()
+            return
+
+        # if a function is started, append current operation to the function body
         try:
-            tmp = self.current_alias
-            self.aliases[self.current_alias].append(op)
+            tmp = self.current_func
+            self.functions[self.current_func].append(op)
             return
         except:
             pass
@@ -136,8 +155,8 @@ class Program(helpers.Helpers):
         elif op_name == 'return':
             self.run_return(op)
             return
-        elif op_name == 'alias':
-            self.run_alias(op)
+        elif op_name == 'func':
+            self.run_func(op)
             return
         elif op_name == 'required':
             self.run_required(op)
@@ -190,43 +209,55 @@ class Program(helpers.Helpers):
         elif op_name == 'python':
             self.run_python(op)
             return
+        elif op_name == 'namespace':
+            self.run_namespace(op)
+            return
+        elif op_name == 'endnamespace':
+            self.run_endnamespace(op)
+            return
         elif op_name == 'pass':
             return
 
 
 
-        # check alias exists
+        # check function exists
         try:
-            alias_body = self.aliases[op_name]
+            func_body = self.functions[self.current_namespace + op_name]
         except:
-            self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
-            return
+            try:
+                func_body = self.functions[op_name]
+            except:
+                self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
+                return
 
-        # run alias
+        # run function
         try:
             # put argument in the mem
             if op['args_str'] != '':
                 args = op['args_str']
                 code = '(' + args + ')'
                 # replace variable names with value of them
-                for k in self.variables:
-                    code = code.replace('$' + k , 'self.variables["' + k + '"]')
+                for k in self.all_vars():
+                    code = code.replace('$' + k , 'self.all_vars()["' + k + '"]')
                 self.mem = eval(code)
             else:
                 self.mem = ''
             
-            # execute alias body
-            self.exec_alias(alias_body)
+            # execute function body
+            self.exec_func(func_body)
             return
         except Exception as ex:
             self.raise_error('RuntimeError' , str(ex) , op)
 
-        
+    def signal_handler(self , signal , frame):
+        self.raise_error('Signal' , str(signal) , self.operations[self.current_step])
 
     def start(self):
         ''' Start running the program '''
+        
+        signal.signal(signal.SIGINT, self.signal_handler)
 
-        is_in_alias = False
+        is_in_func = False
         self.current_step = 0
         
         # load the sections
@@ -234,14 +265,14 @@ class Program(helpers.Helpers):
         while i < len(self.operations):
             current_op = self.set_operation_index(self.operations[i])
             if current_op['command'] == 'section':
-                if not is_in_alias:
+                if not is_in_func:
                     arg = current_op['args'][0]
                     self.sections[arg] = i+1
                     self.operations[i] = parser.parse('pass')[0]
-            elif current_op['command'] == 'alias':
-                is_in_alias = True
-            elif current_op['command'] == 'endalias':
-                is_in_alias = False
+            elif current_op['command'] == 'func':
+                is_in_func = True
+            elif current_op['command'] == 'endfunc':
+                is_in_func = False
             i += 1
 
         self.current_step = 0

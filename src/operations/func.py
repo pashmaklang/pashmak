@@ -1,5 +1,5 @@
 #
-# test_syntax.py
+# func.py
 #
 # the pashmak project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -20,12 +20,18 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-from TestCore import TestCore
+def run(self , op: dict):
+    ''' Starts function block '''
 
-class test_syntax(TestCore):
-    def run(self):
-        self.assert_output(self.run_script(''' mem 'hello  world'; out  ^; ''') , 'hello  world')
-        self.assert_output(self.run_script('''
-        # some comment
-        mem 'hello world'; out ^; # another comment
-        ''') , 'hello world')
+    self.require_one_argument(op , 'func operation requires function name argument')
+    arg = op['args'][0]
+
+    # check function already declared
+    try:
+        self.functions[self.current_namespace + arg]
+        self.raise_error('FunctionError' , 'function "' + self.current_namespace + arg + '" already declared' , op)
+    except:
+        pass
+
+    self.current_func = self.current_namespace + arg
+    self.functions[self.current_func] = []

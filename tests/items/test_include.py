@@ -30,9 +30,9 @@ class test_include(TestCore):
             mem 'before include\\n'; out ^;
             mem 'examples/will_be_include.pashm'; include ^;
             mem 'after include\\n'; out ^;
-            testalias;
+            testfunc;
         ''')
-        self.assert_output(program , 'before include\ni am included\nafter include\ni am included alias\n')
+        self.assert_output(program , 'before include\ni am included\nafter include\ni am included func\n')
         self.assert_vars(program , {'included_var': 'included value'})
 
         self.assert_output(self.run_without_error('''

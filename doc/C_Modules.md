@@ -30,15 +30,15 @@ out ^; # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b982
 ```
 
 ###### how it works?
-first, we call `hash.sha256` and pass `hello` string as argument (or put it in mem) to calculate sha256 hash. then, this alias calculates hash sum of mem value and puts that into the mem. now you can access sum of that from mem.
+first, we call `hash.sha256` and pass `hello` string as argument (or put it in mem) to calculate sha256 hash. then, this function calculates hash sum of mem value and puts that into the mem. now you can access sum of that from mem.
 
-also you can use `hash.md5` aliases and...
+also you can use `hash.md5` functions and...
 
 ### time module
 with this module, you can work with time.
 
 ###### time.time
-this alias gives you current UNIX timestamp:
+this function gives you current UNIX timestamp:
 
 ```bash
 mem '@time'; include ^;
@@ -47,10 +47,10 @@ time.time;
 out ^; # output is some thing like this: `1600416438.687201`
 ```
 
-when you call this alias, this alias puts the unix timestamp into mem and you can access and use that.
+when you call this function, this function puts the unix timestamp into mem and you can access and use that.
 
 ###### time.sleep
-this alias sleeps for secounds:
+this function sleeps for secounds:
 
 ```bash
 mem '@time'; include ^;
@@ -61,9 +61,9 @@ time.sleep 2; # sleeps for 2 secounds
 
 when you run this script, program waits for 2 secounds and then will continued
 
-with this alias, you can wait for secounds.
+with this function, you can wait for secounds.
 
-you have to put a int or float into mem or pass as argument and next call `time.sleep` alias, then program will sleep for value of `mem` as secounds
+you have to put a int or float into mem or pass as argument and next call `time.sleep` function, then program will sleep for value of `mem` as secounds
 
 ## random module
 this module makes random numbers
@@ -90,7 +90,7 @@ out ^; # and puts generated random number in mem and you can access that
 with this module, you can work with files smarter.
 
 ###### file.open
-with this alias, you can open a file:
+with this function, you can open a file:
 
 ```bash
 import '@file';
@@ -104,7 +104,7 @@ copy $f;
 ```
 
 ###### file.read
-wtih this alias, you can read opened file:
+wtih this function, you can read opened file:
 
 ```bash
 import '@file';
@@ -117,7 +117,7 @@ out ^; # output is content of file
 ```
 
 ###### file.write
-with this alias, you can write on opened file:
+with this function, you can write on opened file:
 
 ```bash
 import '@file';
@@ -131,7 +131,7 @@ file.write [$f , 'new content']; # first arg is opened file and second arg is co
 now file is changed
 
 ###### file.close
-with this alias you can close file after your work:
+with this function you can close file after your work:
 
 ```bash
 import '@file';

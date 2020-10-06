@@ -48,7 +48,7 @@ class Helpers(commands.Commands):
     def variable_exists(self , varname: str) -> bool:
         ''' Checks a variable is exists or not '''
         try:
-            tmp = self.variables[varname]
+            tmp = self.all_vars()[varname]
             return True
         except:
             return False
@@ -61,3 +61,18 @@ class Helpers(commands.Commands):
     def require_one_argument(self , op: dict , error_message: str):
         if len(op['args']) <= 0:
             self.raise_error('ArgumentError' , error_message , op)
+
+    def get_var(self , varname: str):
+        ''' Gets a variable name and returns value of that '''
+        return self.all_vars()[varname]
+
+    def set_var(self , varname: str , value):
+        ''' Gets name of a variable and sets value on that '''
+        self.all_vars()[varname] = value
+
+    def all_vars(self):
+        ''' Returns list of all of variables '''
+        if len(self.states) == 0:
+            return self.variables
+        
+        return self.states[-1]['vars']

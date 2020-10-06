@@ -1,9 +1,13 @@
-alias random.randint;
-    set $tmp_random.randint;
-    copy $tmp_random.randint;
-    py 'self.mem = random.randint(' + str($tmp_random.randint[0]) + ',' + str($tmp_random.randint[1]) + ')';
-endalias;
 
-alias random.random;
-    py 'self.mem = random.random()';
-endalias;
+namespace random;
+
+    func randint;
+        set $args; copy $args;
+        py 'self.mem = random.randint(' + str($args[0]) + ',' + str($args[1]) + ')';
+    endfunc;
+
+    func random;
+        py 'self.mem = random.random()';
+    endfunc;
+
+endnamespace;

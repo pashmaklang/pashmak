@@ -1,5 +1,5 @@
 #
-# test_alias.py
+# test_function.py
 #
 # the pashmak project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -22,66 +22,95 @@
 
 from TestCore import TestCore
 
-class test_alias(TestCore):
+class test_function(TestCore):
     def run(self):
         program = self.run_without_error('''
             mem 'starting\\n'; out ^;
 
-            alias myalias;
-                mem 'alias runed\\n'; out ^;
-                set $somevar; mem 20; copy $somevar;
-                mem 'alias finished\\n'; out ^;
-            endalias;
+            func myfunc;
+                mem 'func runed\\n'; out ^;
+                mem 'func finished\\n'; out ^;
+            endfunc;
 
-            myalias;
+            myfunc;
 
             mem 'finished\\n'; out ^;
         ''')
-        self.assert_vars(program , {'somevar': 20})
-        self.assert_output(program , 'starting\nalias runed\nalias finished\nfinished\n')
+        self.assert_output(program , 'starting\nfunc runed\nfunc finished\nfinished\n')
 
-        self.assert_has_error(self.run_script(''' undefined_alias; '''))
+        self.assert_has_error(self.run_script(''' undefined_func; '''))
 
         self.assert_output(self.run_without_error('''
-            alias myalias;
-            mem 'alias runed\\n'; out ^;
-            endalias;
+            func myfunc;
+                mem 'func runed\\n'; out ^;
+            endfunc;
             
-            myalias;
-        ''') , 'alias runed\n')
+            myfunc;
+        ''') , 'func runed\n')
 
         self.assert_output(self.run_without_error('''
-            alias myalias;
+            func myfunc;
                 out ^;
-            endalias;
+            endfunc;
             
-            myalias "hello world";
+            myfunc "hello world";
         ''') , 'hello world')
 
         self.assert_output(self.run_without_error('''
-            alias myalias;
+            func myfunc;
                 out ^;
-            endalias;
+            endfunc;
             
-            myalias 2*3;
+            myfunc 2*3;
         ''') , '6')
 
         self.assert_output(self.run_without_error('''
-            alias myalias;
+            func myfunc;
                 out ^;
-            endalias;
+            endfunc;
 
             set $var;
             mem 'test'; copy $var;
             
-            myalias 'this is ' + $var;
+            myfunc 'this is ' + $var;
         ''') , 'this is test')
 
         self.assert_has_error(self.run_script('''
-            alias myalias;
+            func myfunc;
                 out ^;
-            endalias;
+            endfunc;
             
-            myalias hello world;
+            myfunc hello world;
+        '''))
+
+        self.assert_output(self.run_without_error('''
+        set $n; mem 'parsa\\n'; copy $n;
+
+        func myfunc;
+            out $n;
+            set $n; mem 'myfunc\\n'; copy $n;
+            out $n;
+        endfunc;
+
+        func tststs;
+            out $n;
+            set $n; mem 'tststs\\n'; copy $n;
+            myfunc;
+            out $n;
+        endfunc;
+
+        out $n;
+        tststs;
+        out $n;
+        ''') , 'parsa\nparsa\nparsa\nmyfunc\ntststs\nparsa\n')
+
+        self.assert_has_error(self.run_script('''
+        func myfunc;
+            print 'hello\n';
+        endfunc;
+
+        func myfunc;
+            print 'something\n';
+        endfunc;
         '''))
 

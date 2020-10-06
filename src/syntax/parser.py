@@ -22,14 +22,17 @@
 
 ''' Pashmak syntax parser '''
 
-import time
+import random
 
 def handle_backslash_semicolon(op_str: str) -> list:
     ''' Handle \; as clean text semicolon '''
-    str_to_replace_with_semicolon = '<semicolon' + str(time.time()) + '>'
 
+    # replace \; with a random string to replace it after argument parsing
+    str_to_replace_with_semicolon = '<semicolon' + str(random.random()) + '>'
+
+    # make sure generated random string is not currently in this line
     while str_to_replace_with_semicolon in op_str:
-        str_to_replace_with_semicolon = '<semicolon' + str(time.time()) + '>'
+        str_to_replace_with_semicolon = '<semicolon' + str(random.random()) + '>'
 
     op_str = op_str.replace('\;' , str_to_replace_with_semicolon)
 
@@ -37,18 +40,19 @@ def handle_backslash_semicolon(op_str: str) -> list:
 
 def ignore_comment(op_str: str) -> str:
     ''' Remove comments from code line '''
-    parts = op_str.split('#' , 1)
+    parts = op_str.split('#' , 1) # just part of before `#` is the code and after that is comment
     return parts[0]
 
 def parse_op(op_str: str) -> dict:
     ''' Parse a operation from text to object '''
     op = {}
-    op['str'] = op_str
+    op['str'] = op_str # operation plain string
     op_parts = op_str.split(' ')
     op['command'] = op_parts[0]
     op_parts.pop(0)
     op['args_str'] = ''
     op['args'] = []
+    # set operation arguments
     for op_part in op_parts:
         if op_part != '' or op['command'] == 'mem':
             op['args'].append(op_part)
@@ -78,6 +82,7 @@ def parse(content: str) -> list:
             op = op.strip()
             op = op.replace(clean_semicolon , ';')
             if op != '':
+                # parse once operation and append it to the list
                 op = parse_op(op)
                 operations.append(op)
     return operations

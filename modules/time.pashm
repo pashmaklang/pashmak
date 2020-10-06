@@ -1,8 +1,13 @@
-alias time.time;
-    py 'self.mem = time.time()';
-endalias;
 
-alias time.sleep;
-    set $tmp_time_sleep_for; copy $tmp_time_sleep_for;
-    py 'self.mem = time.sleep(' + str($tmp_time_sleep_for) + ')';
-endalias;
+namespace time;
+
+    func time;
+        py 'self.mem = time.time()';
+    endfunc;
+
+    func sleep;
+        set $tmp_time_sleep_for; copy $tmp_time_sleep_for;
+        py 'self.mem = time.sleep(' + str($tmp_time_sleep_for) + ')';
+    endfunc;
+
+endnamespace;

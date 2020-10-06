@@ -1,24 +1,28 @@
 
-alias file.open;
-    set $tmp_file.open.args; copy $tmp_file.open.args;
-    py 'self.mem = open("' + $tmp_file.open.args[0] + '" , "' + $tmp_file.open.args[1] + '")';
-    free $tmp_file.open.args;
-endalias;
+namespace file;
 
-alias file.close;
-    set $tmp_file.open.file; copy $tmp_file.open.file;
-    py 'self.variables["tmp_file.open.file"].close()';
-    free $tmp_file.open.file;
-endalias;
+    func open;
+        set $args; copy $args;
+        mem open($args[0] , $args[1]);
+        free $args;
+    endfunc;
 
-alias file.read;
-    set $tmp_file.read.file; copy $tmp_file.read.file;
-    py 'self.mem = self.variables["tmp_file.read.file"].read()';
-    free $tmp_file.read.file;
-endalias;
+    func close;
+        set $file; copy $file;
+        mem $file.close();
+        free $file;
+    endfunc;
 
-alias file.write;
-    set $tmp_file_write_args; copy $tmp_file_write_args;
-    py 'self.variables["tmp_file_write_args"][0].write(self.variables["tmp_file_write_args"][1])';
-    free $tmp_file_write_args;
-endalias;
+    func read;
+        set $file; copy $file;
+        mem $file.read();
+        free $file;
+    endfunc;
+
+    func write;
+        set $args; copy $args;
+        mem $args[0].write($args[1]);
+        free $args;
+    endfunc;
+
+endnamespace;

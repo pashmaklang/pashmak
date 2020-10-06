@@ -4,10 +4,8 @@ help_msg = '''
 this is a script to manage pashmak project
 
 Commands:
-    test            run tests
     make-test       create new test
     update-headers  update files copyright headers
-    build           build program with pyinstaller
     build-doc       build documentation in README.md from doc/ folder
     build-modules   build modules from modules/ folder in src/core/modules.py
 '''
@@ -37,7 +35,6 @@ test_content = '''from TestCore import TestCore
 class <tstname>(TestCore):
     def run(self):
         self.assert_true(True)
-
 '''
 
 import sys, os
@@ -120,13 +117,6 @@ class TestMaker:
         f.close()
         return 0
 
-class Builder:
-    @staticmethod
-    def build():
-        return os.system('python3 $(which pyinstaller) ./src/pashmak.py --onefile')
-
-
-
 
 class DocBuilder:
     @staticmethod
@@ -155,7 +145,7 @@ class DocBuilder:
         readme_f.write(total_content)
         readme_f.close()
 
-        print('Documentation built successfully and README.md generated.')
+        print('\033[32mDocumentation built successfully and README.md generated.\033[0m')
 
 
 class ModuleBuilder:
@@ -190,7 +180,7 @@ if sys.argv[1] == 'update-headers':
     for f in files_list:
         GetFilesList.set_once_file_header(f)
 
-    print('Headers updated successfully')
+    print('\033[32mHeaders updated successfully\033[0m')
     sys.exit()
 
 
@@ -200,13 +190,6 @@ if sys.argv[1] == 'make-test':
         sys.exit(1)
 
     sys.exit(TestMaker.make(sys.argv[2]))
-
-if sys.argv[1] == 'test':
-    os.system('python3 ./tests/run.py')
-    sys.exit()
-
-if sys.argv[1] == 'build':
-    sys.exit(Builder.build())
 
 if sys.argv[1] == 'build-doc':
     sys.exit(DocBuilder.build())

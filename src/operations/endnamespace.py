@@ -1,5 +1,5 @@
 #
-# test_syntax.py
+# endnamespace.py
 #
 # the pashmak project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -20,12 +20,6 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-from TestCore import TestCore
-
-class test_syntax(TestCore):
-    def run(self):
-        self.assert_output(self.run_script(''' mem 'hello  world'; out  ^; ''') , 'hello  world')
-        self.assert_output(self.run_script('''
-        # some comment
-        mem 'hello world'; out ^; # another comment
-        ''') , 'hello world')
+def run(self , op: dict):
+    ''' Closes namespace prefix '''
+    self.current_namespace = ''

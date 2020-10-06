@@ -25,12 +25,12 @@ from TestCore import TestCore
 class test_python(TestCore):
     def run(self):
         self.assert_equals(self.run_without_error('''
-            mem "self.variables['myvar'] = 'the value'"; python ^;
+            mem "self.all_vars()['myvar'] = 'the value'"; python ^;
         ''')['vars']['myvar'] , 'the value')
 
         self.assert_equals(self.run_script('''
             set $code;
-            mem "self.variables['myvar'] = 'the value'"; copy $code;
+            mem "self.all_vars()['myvar'] = 'the value'"; copy $code;
             python $code;
         ''')['vars']['myvar'] , 'the value')
 

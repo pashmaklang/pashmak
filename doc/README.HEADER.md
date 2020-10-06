@@ -15,12 +15,31 @@ this installation guide is for GNU/Linux/UNIX systems. if you are windows user, 
 compile & install:
 
 ```bash
+# checkout to latest release
+git branch installation v1.0
+git checkout installation
+
+# compile and install
+make all
+make
+sudo make install
+
+# back to master branch and delete installation branch
+git checkout master
+git branch -D installation
+```
+
+run above commands in terminal to install pashmak interpreter on your GNU/Linux/UNIX system.
+
+also if you want install latest version (in development), do not run above git commands and just run it:
+
+```bash
 make all
 make
 sudo make install
 ```
 
-run above commands in terminal to install pashmak interpreter on your GNU/Linux/UNIX system.
+above commands installs latest (development) state of program
 
 now you can run interpreter in terminal:
 
@@ -53,7 +72,7 @@ sudo make uninstall
 pashmak will be remove from your system.
 
 ## Authors
-pashmak is writed by [parsampsh](https://gitlab.com/parsampsh) and [contributors](https://gitlab.com/parsampsh/pashmak/-/graphs/master)
+pashmak is writed by [parsampsh](https://github.com/parsampsh) and [contributors](https://github.com/parsampsh/pashmak/graphs/contributors)
 
 ## Contributing
 if you want to contribute to this project, read [Contributing Guide](CONTRIBUTING.md)

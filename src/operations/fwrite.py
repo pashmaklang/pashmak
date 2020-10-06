@@ -43,7 +43,7 @@ def run(self , op: dict):
         if filepath == '^':
             filepath_value = self.get_mem()
         else:
-            filepath_value = self.variables[filepath[1:]]
+            filepath_value = self.get_var(filepath[1:])
     except:
         self.raise_variable_error(filepath , op)
 
@@ -51,7 +51,7 @@ def run(self , op: dict):
         if content == '^':
             content_value = mem
         else:
-            content_value = self.variables[content[1:]]
+            content_value = self.get_var(content[1:])
     except:
         self.raise_variable_error(content , op)
 

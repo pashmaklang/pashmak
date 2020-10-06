@@ -30,6 +30,6 @@ def run(self , op: dict):
             self.mem = None
         else:
             try:
-                del self.variables[arg[1:]]
+                del self.all_vars()[arg[1:]]
             except:
                 pass
