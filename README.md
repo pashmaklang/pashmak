@@ -361,10 +361,10 @@ mem 20; copy $myint;
 mem 15.32; copy $myfloat;
 mem False; copy $mybool;
 
-typeof $mystr; out ^;   # output: str
-typeof $myint; out ^;   # output: int
-typeof $myfloat; out ^; # output: float
-typeof $mybool; out ^;  # output: bool
+typeof $mystr; out ^;   # output: <class 'str'>
+typeof $myint; out ^;   # output: <class 'int'>
+typeof $myfloat; out ^; # output: <class 'float'>
+typeof $mybool; out ^;  # output: <class 'bool'>
 ```
 
 this command puts the typeof variable in mem
