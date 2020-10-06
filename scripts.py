@@ -163,7 +163,7 @@ modules = {}
 '''
         # write modules as python dictonary in src/core/modules.py file
         for k in modules:
-            pycode += '\nmodules["' + k + '"] = """' + modules[k] + '"""'
+            pycode += '\nmodules["' + k + '"] = """' + modules[k].replace('\n\n' , '\n') + '"""'
         
         f = open('src/core/modules.py' , 'w')
         f.write(pycode)

@@ -16,7 +16,7 @@ compile & install:
 
 ```bash
 # checkout to latest release
-git branch installation v1.1
+git branch installation v1.2
 git checkout installation
 
 # compile and install
@@ -79,5 +79,3 @@ if you want to contribute to this project, read [Contributing Guide](CONTRIBUTIN
 
 # Documentation
 read the following Documentation to learn pashmak.
-
-#### NOTE: the pashmak syntax is hard, surely read [STDLIB](#stdlib) document to learn very better and easier syntax

@@ -28,7 +28,4 @@ def run(self , op: dict):
         self.arg_should_be_variable(arg , op)
         self.variable_required(arg[1:] , op)
         var = self.get_var(arg[1:])
-        var_type = str(type(var))
-        var_type = var_type[8:]
-        var_type = var_type[:len(var_type)-2]
-        self.mem = var_type
+        self.mem = type(var)

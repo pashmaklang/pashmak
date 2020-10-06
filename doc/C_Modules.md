@@ -8,11 +8,9 @@ look at this example:
 
 ```bash
 mem '@hash'; include ^;
-mem '@time'; include ^;
-mem '@module_name'; include ^;
-
-# or using stdlib
+# or using import to have easier syntax
 import '@hash';
+import '@module_name';
 
 # ...
 ```
@@ -23,7 +21,7 @@ you have to give name of module with a `@` before that to the include operation.
 with hash module, you can calculate hash sum of values:
 
 ```bash
-mem '@hash'; include ^;
+import '@hash';
 
 hash.sha256 "hello"; # also you can use hash.md5 and...
 out ^; # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
@@ -41,7 +39,7 @@ with this module, you can work with time.
 this function gives you current UNIX timestamp:
 
 ```bash
-mem '@time'; include ^;
+import '@time';
 
 time.time;
 out ^; # output is some thing like this: `1600416438.687201`
@@ -53,7 +51,7 @@ when you call this function, this function puts the unix timestamp into mem and 
 this function sleeps for secounds:
 
 ```bash
-mem '@time'; include ^;
+import '@time';
 
 time.sleep 2; # sleeps for 2 secounds
 # mem 2.4; time.sleep; # sleepss for 2.4 secounds
@@ -70,16 +68,16 @@ this module makes random numbers
 
 ###### random.randint
 ```bash
-mem '@random'; include ^;
+import '@random';
 
-random.randint [1, 10]; # generates a random int between 1 and 10
+random.randint 1, 10; # generates a random int between 1 and 10
 
 out ^; # and puts generated random number in mem and you can access that
 ```
 
 ###### random.random
 ```bash
-mem '@random'; include ^;
+import '@random';
 
 random.random; # generates a random float less that 1
 
@@ -95,7 +93,7 @@ with this function, you can open a file:
 ```bash
 import '@file';
 
-file.open ['/path/to/file.txt' , 'r']; # first argument is file path, and second argument is open type. here is `r` means `read`
+file.open '/path/to/file.txt' , 'r'; # first argument is file path, and second argument is open type. here is `r` means `read`
 
 # now, opened file is in the mem. we can copy it in a variable
 
@@ -109,7 +107,7 @@ wtih this function, you can read opened file:
 ```bash
 import '@file';
 
-file.open ['/path/to/file.txt' , 'r'];
+file.open '/path/to/file.txt' , 'r';
 set $f; copy $f;
 
 file.read $f; # now, content of file is in the mem
@@ -122,10 +120,10 @@ with this function, you can write on opened file:
 ```bash
 import '@file';
 
-file.open ['/path/to/file.txt' , 'w']; # open type is `w` (write)
+file.open '/path/to/file.txt' , 'w'; # open type is `w` (write)
 set $f; copy $f;
 
-file.write [$f , 'new content']; # first arg is opened file and second arg is content.
+file.write $f , 'new content'; # first arg is opened file and second arg is content.
 ```
 
 now file is changed
@@ -136,7 +134,7 @@ with this function you can close file after your work:
 ```bash
 import '@file';
 
-file.open ['/path/to/file.txt' , 'r'];
+file.open '/path/to/file.txt' , 'r';
 set $f; copy $f;
 
 # work with file
@@ -149,12 +147,12 @@ file.close $f; # close file after work
 ```bash
 import '@file';
 
-file.open ['/path/to/file.txt' , 'r']; set $file; copy $file;
+file.open '/path/to/file.txt' , 'r'; set $file; copy $file;
 
 set $content;
 file.read $file; copy $content;
 
-mem 'content of file is: ' + $content; out ^;
+print 'content of file is: ' + $content;
 ```
 
 ###### more modules comming soon...

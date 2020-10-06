@@ -7,7 +7,7 @@ look at this example:
 ```bash
 namespace App;
     func say_hello;
-        mem 'hello world\n'; out ^;
+        print 'hello world\n';
     endfunc;
 
     say_hello;
@@ -38,13 +38,13 @@ also look at this example:
 ```bash
 namespace First;
     func dosomething;
-        mem 'i am from First\n'; out ^;
+        print 'i am from First\n';
     endfunc;
 endnamespace;
 
 namespace Last;
     func dosomething;
-        mem 'i am from Last\n'; out ^;
+        print 'i am from Last\n';
     endfunc;
 endnamespace;
 
@@ -64,7 +64,7 @@ also you can use `endns` keyword insted of `endnamespace` (this is from stdlib):
 ```bash
 namespace App;
     func say_hello;
-        mem 'hello world\n'; out ^;
+        print 'hello world\n';
     endfunc;
 
     say_hello;

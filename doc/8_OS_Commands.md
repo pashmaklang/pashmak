@@ -14,6 +14,17 @@ set $path; mem '/tmp'; copy $path;
 chdir $path; # use variable
 ```
 
+also you can use `std.chdir` function:
+
+```bash
+# in this function you can pass path directly and not need to set path in mem before it
+std.chdir '/tmp';
+# or
+std.chdir $path;
+# or
+std.chdir $path + '/path';
+```
+
 ### cwd
 get current working directory.
 
@@ -42,6 +53,16 @@ set $cmd; mem 'ls /tmp'; copy $cmd;
 system $cmd; # use variable
 ```
 
+also you can use `sys` function to have easier function:
+
+```bash
+sys 'ls /tmp';
+# or
+sys $cmd;
+```
+
+you can pass value directly to `sys`
+
 ### return
 this command exits program
 
@@ -69,3 +90,10 @@ return 1;
 ```
 
 exit code of program will be `1`
+
+or you can use `exit` command:
+
+```bash
+exit; # with 0 default exit code
+exit 10; # with 10
+```

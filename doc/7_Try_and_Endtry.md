@@ -71,3 +71,24 @@ out $ex; # output: {"type": "VariableError" , "message": "undefined variable $so
 
 section after_error;
 ```
+
+#### raising errors
+```bash
+print 'program started\n';
+
+raise 'MyError' , 'this is my error';
+
+print 'this will not print\n';
+```
+
+output:
+
+```
+progrma started
+MyError:
+	this is my error
+```
+
+the `raise` function can raise errors in program
+
+first argument `'TheError'` is error type and second error `'this is my error'` is error message.
