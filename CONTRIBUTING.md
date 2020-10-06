@@ -35,6 +35,7 @@ to start contributing:
 git clone <your-fork-repo-url>
 cd pashmak
 git branch some-name-for-branch master
+git checkout some-name-for-branch
 # make changes and commit
 make all # after run this, if something changed, commit again
 git push origin some-name-for-branch
