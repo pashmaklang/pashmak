@@ -1,4 +1,4 @@
-# Pashmak programming language
+# Pashmak Programming Language
 hi there. this is pashmak programming language. pashmak is an interpreter wrote in python.
 the pashmak scripts has cool and fucking syntax.
 
