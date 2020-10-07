@@ -80,6 +80,22 @@ if you want to contribute to this project, read [Contributing Guide](CONTRIBUTIN
 # Documentation
 read the following Documentation to learn pashmak.
 
+### Table of contents
+1.  [Basics](#basics)
+2.  [Variables](#variables)
+3.  [Read Input From User](#read-input-from-user)
+4.  [Sections](#sections)
+5.  [Functions](#functions)
+6.  [Work With Files](#work-with-files)
+7.  [Arrays](#arrays)
+8.  [Try-Endtry statement](#try-and-endtry-statement)
+9.  [OS Commands](#os-commands)
+10. [Importing scripts](#include-scripts)
+11. [Namespaces](#namespaces)
+12. [Eval](#eval)
+13. [Modules](#general-modules)
+14. [stdlib](#stdlib)
+
 
 
 ## Basics
