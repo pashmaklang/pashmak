@@ -424,7 +424,7 @@ look at this example:
 
 ```bash
 set $name; # set the name variable
-mem 'what is your name? '; out ^; # print
+print 'what is your name? ';
 read $name; # read a input and copy that in $name variable
 print 'hello ' + $name + '\n'; # say hello to $name :)
 ```
@@ -448,10 +448,10 @@ also look at this example:
 ```bash
 set $num1 $num2;
 
-mem 'enter first number: '; out ^;
+print 'enter first number: ';
 read $num1;
 
-mem 'enter second number: '; out ^;
+print 'enter second number: ';
 read $num2;
 
 # now, $num1 and $num2 are string. we convert string to int:
@@ -536,7 +536,7 @@ look at this example:
 
 ```bash
 # read age from user
-mem 'enter your age: '; out ^;
+print 'enter your age: ';
 set $age;
 read $age;
 mem int($age); copy $age;
@@ -547,15 +547,17 @@ mem $age > 18; gotoif age_is_more_than_18; # if age is more than 18, goto age_is
 goto age_is_less_than_18;
 
 section age_is_more_than_18;
-    mem 'you are more than 18\n'; out ^;
+
+    print 'you are more than 18\n';
     goto after_if;
 
 section age_is_less_than_18;
-    mem 'you are less than 18\n'; out ^;
+
+    print 'you are less than 18\n';
 
 section after_if;
 
-mem 'program ends\n'; out ^;
+print 'program ends\n';
 ```
 
 we run the program:
@@ -620,7 +622,7 @@ mem 'program started\n'; out ^;
 
 func say_hello;
     set $name; copy $name
-    mem 'hello ' + $name + '\n'; out ^; # or using `print`
+    print 'hello ' + $name + '\n';
     free $name;
 endfunc;
 
@@ -671,7 +673,6 @@ output:
 hello parsa
 ```
 
-
 ### local variables & global variables
 
 look at this example:
@@ -679,15 +680,15 @@ look at this example:
 ```bash
 func myfunc;
     mem 'new name'; copy $name;
-    mem $name + '\n'; out ^;
+    print $name + '\n';
 endfunc;
 
 set $name; mem 'parsa'; copy $name;
-mem $name + '\n'; out ^;
+print $name + '\n';
 
 myfunc;
 
-mem $name + '\n'; out ^;
+print $name + '\n';
 ```
 
 output:
@@ -714,15 +715,15 @@ the answer is in `gset`:
 func myfunc;
     set $name; mem 'new name'; copy $name;
     gset 'name' , $name;
-    mem $name + '\n'; out ^;
+    print $name + '\n';
 endfunc;
 
 set $name; mem 'parsa'; copy $name;
-mem $name + '\n'; out ^;
+print $name + '\n';
 
 myfunc;
 
-mem $name + '\n'; out ^;
+print $name + '\n';
 ```
 
 output:
@@ -753,6 +754,7 @@ mem 'content of file is: ' + $content; out ^;
 ```
 
 the content of `/path/to/file.txt'` is:
+
 ```
 hello world. this is my content
 bye
@@ -792,9 +794,9 @@ mem ['parsa' , 'pashmak' , 'jack'];
 copy $names;
 
 print $names; # output: ['parsa' , 'pashmak' , 'jack']
-mem $names[0]; out ^; # output: parsa
-mem $names[1]; out ^; # output: pashmak
-mem $names[2]; out ^; # output: jack
+print $names[0]; # output: parsa
+print $names[1]; # output: pashmak
+print $names[2]; # output: jack
 ```
 
 this is a example about array and loop:
@@ -827,10 +829,10 @@ you can add new item to a array:
 
 ```bash
 set $myarray; mem ['red' , 'green' , 'blue']; copy $myarray;
-out $myarray; # output: ['red' , 'green' , 'blue']
+print $myarray; # output: ['red' , 'green' , 'blue']
 
 mem 'yellow'; arraypush $myarray ^; # add mem (^) to the $myarray
-out $myarray; # output: ['red' , 'green' , 'blue' , 'yellow']
+print $myarray; # output: ['red' , 'green' , 'blue' , 'yellow']
 ```
 
 `arraypush` operation gets two argument: array and new item you want to add to the array
@@ -843,7 +845,7 @@ set $myarray; mem ['red' , 'green' , 'blue']; copy $myarray;
 out $myarray; # output: ['red' , 'green' , 'blue']
 
 mem 1; arraypop $myarray ^; # remove index mem (^) from $myarray
-out $myarray; # output: ['red' , 'blue']
+print $myarray; # output: ['red' , 'blue']
 ```
 
 `arraypop` operation gets two argument: array and index of that item you want to be remove from array
@@ -919,7 +921,7 @@ goto after_error;
 section handle_error;
 
 set $ex; copy $ex; # copy mem (^) to $ex variable (this includes information about raised error)
-out $ex; # output: {"type": "VariableError" , "message": "undefined variable $somevar"}...
+print $ex; # output: {"type": "VariableError" , "message": "undefined variable $somevar"}...
 
 section after_error;
 ```
@@ -1063,7 +1065,7 @@ func fib;
     mem 1; copy $b;
 
     section 10;
-        mem str($b) + '\n'; out ^;
+        print str($b) + '\n';
 
         set $tmp_a $tmp_b;
         copy $a $tmp_a;
@@ -1090,6 +1092,8 @@ also you can use `import` function to have easier syntax:
 ```bash
 # you can pass value directly to this
 import 'fib.pashm';
+
+fib;
 ```
 
 this is very useful.
@@ -1287,6 +1291,12 @@ also you can use `py` function to pass value directly:
 
 ```bash
 py 'print("hello world")';
+```
+
+output:
+
+```
+hello world
 ```
 
 

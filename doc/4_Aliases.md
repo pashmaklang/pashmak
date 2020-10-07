@@ -43,7 +43,7 @@ mem 'program started\n'; out ^;
 
 func say_hello;
     set $name; copy $name
-    mem 'hello ' + $name + '\n'; out ^; # or using `print`
+    print 'hello ' + $name + '\n';
     free $name;
 endfunc;
 
@@ -94,7 +94,6 @@ output:
 hello parsa
 ```
 
-
 ### local variables & global variables
 
 look at this example:
@@ -102,15 +101,15 @@ look at this example:
 ```bash
 func myfunc;
     mem 'new name'; copy $name;
-    mem $name + '\n'; out ^;
+    print $name + '\n';
 endfunc;
 
 set $name; mem 'parsa'; copy $name;
-mem $name + '\n'; out ^;
+print $name + '\n';
 
 myfunc;
 
-mem $name + '\n'; out ^;
+print $name + '\n';
 ```
 
 output:
@@ -137,15 +136,15 @@ the answer is in `gset`:
 func myfunc;
     set $name; mem 'new name'; copy $name;
     gset 'name' , $name;
-    mem $name + '\n'; out ^;
+    print $name + '\n';
 endfunc;
 
 set $name; mem 'parsa'; copy $name;
-mem $name + '\n'; out ^;
+print $name + '\n';
 
 myfunc;
 
-mem $name + '\n'; out ^;
+print $name + '\n';
 ```
 
 output:

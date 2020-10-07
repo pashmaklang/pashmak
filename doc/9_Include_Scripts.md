@@ -12,7 +12,7 @@ func fib;
     mem 1; copy $b;
 
     section 10;
-        mem str($b) + '\n'; out ^;
+        print str($b) + '\n';
 
         set $tmp_a $tmp_b;
         copy $a $tmp_a;
@@ -39,6 +39,8 @@ also you can use `import` function to have easier syntax:
 ```bash
 # you can pass value directly to this
 import 'fib.pashm';
+
+fib;
 ```
 
 this is very useful.

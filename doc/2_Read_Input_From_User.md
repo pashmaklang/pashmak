@@ -6,7 +6,7 @@ look at this example:
 
 ```bash
 set $name; # set the name variable
-mem 'what is your name? '; out ^; # print
+print 'what is your name? ';
 read $name; # read a input and copy that in $name variable
 print 'hello ' + $name + '\n'; # say hello to $name :)
 ```
@@ -30,10 +30,10 @@ also look at this example:
 ```bash
 set $num1 $num2;
 
-mem 'enter first number: '; out ^;
+print 'enter first number: ';
 read $num1;
 
-mem 'enter second number: '; out ^;
+print 'enter second number: ';
 read $num2;
 
 # now, $num1 and $num2 are string. we convert string to int:

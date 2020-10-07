@@ -10,6 +10,7 @@ mem 'content of file is: ' + $content; out ^;
 ```
 
 the content of `/path/to/file.txt'` is:
+
 ```
 hello world. this is my content
 bye
