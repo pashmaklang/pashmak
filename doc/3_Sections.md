@@ -57,7 +57,7 @@ look at this example:
 
 ```bash
 # read age from user
-mem 'enter your age: '; out ^;
+print 'enter your age: ';
 set $age;
 read $age;
 mem int($age); copy $age;
@@ -68,15 +68,17 @@ mem $age > 18; gotoif age_is_more_than_18; # if age is more than 18, goto age_is
 goto age_is_less_than_18;
 
 section age_is_more_than_18;
-    mem 'you are more than 18\n'; out ^;
+
+    print 'you are more than 18\n';
     goto after_if;
 
 section age_is_less_than_18;
-    mem 'you are less than 18\n'; out ^;
+
+    print 'you are less than 18\n';
 
 section after_if;
 
-mem 'program ends\n'; out ^;
+print 'program ends\n';
 ```
 
 we run the program:
