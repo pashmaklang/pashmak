@@ -5,7 +5,7 @@ you can run pashmak code from string.
 look at this example:
 
 ```bash
-mem 'mem "hello world from string\n"; out ^;'; eval ^;
+mem 'mem "hello world from string\n"\; out ^;'\; eval ^;
 ```
 
 output:
