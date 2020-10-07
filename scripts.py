@@ -123,13 +123,13 @@ class DocBuilder:
     def build():
         # load .md files from doc/ folder
         doc_parts = os.listdir('doc')
-        doc_parts = [part for part in doc_parts if part[len(part)-3:] == '.md' and part != 'README.HEADER.md']
+        doc_parts = [part for part in doc_parts if part[len(part)-3:] == '.md' and part != 'README.md']
         doc_parts.sort()
         
         total_content = ''
 
-        # add README.HEADER.md to the first of content
-        readme_header_f = open('doc/README.HEADER.md' , 'r')
+        # add README.md to the first of content
+        readme_header_f = open('doc/README.md' , 'r')
         total_content += readme_header_f.read() + '\n\n\n'
         readme_header_f.close()
 
