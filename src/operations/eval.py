@@ -39,3 +39,4 @@ def run(self , op: dict):
     code_operations = parser.parse(code)
     for code_op in list(reversed(code_operations)):
         self.operations.insert(self.current_step+1 , code_op)
+        self.update_section_indexes(self.current_step+1)

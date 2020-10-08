@@ -43,6 +43,7 @@ class Program(helpers.Helpers):
         self.runed_functions = [] # runed functions for stop function multi calling in one operation
         self.current_namespace = '' # current namespace prefix to add it before name of functions
         self.used_namespaces = [] # list of used namespaces
+        self.included_modules = [] # list of included modules to stop repeating imports
 
         # set argument variables
         self.set_var('argv' , args)
@@ -67,6 +68,16 @@ class Program(helpers.Helpers):
         mem = self.mem
         self.mem = None
         return mem
+
+    def update_section_indexes(self , after_index):
+        '''
+        When a new operation inserted in operations list,
+        this function add 1 to section indexes to be
+        sync with new operations list
+        '''
+        for k in self.sections:
+            if self.sections[k] > after_index:
+                self.sections[k] = self.sections[k] + 1
 
     def raise_error(self , error_type: str , message: str , op: dict):
         ''' Raise error in program '''
@@ -109,9 +120,11 @@ class Program(helpers.Helpers):
                 self.sections[section_name] = i+1
             else:
                 self.operations.insert(i+1 , func_op)
+                self.update_section_indexes(i+1)
                 i += 1
         
         self.operations.insert(i+1 , parser.parse('popstate')[0])
+        self.update_section_indexes(i+1)
 
     def run(self , op: dict):
         ''' Run once operation '''
@@ -124,7 +137,8 @@ class Program(helpers.Helpers):
             return
 
         if op_name == 'popstate':
-            self.states.pop()
+            if len(self.states) > 0:
+                self.states.pop()
             return
 
         # if a function is started, append current operation to the function body

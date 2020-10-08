@@ -44,7 +44,7 @@ compile & install:
 
 ```bash
 # checkout to latest release
-git branch installation v1.2.2
+git branch installation v1.2.3
 git checkout installation
 
 # compile and install
@@ -1255,7 +1255,7 @@ you can run pashmak code from string.
 look at this example:
 
 ```bash
-mem 'mem "hello world from string\n"; out ^;'; eval ^;
+mem 'mem "hello world from string\n"\; out ^;'\; eval ^;
 ```
 
 output:

@@ -30,7 +30,7 @@ from core import version
 
 # validate arguments
 if len(sys.argv) <= 1:
-    print('pashmak: script file name is required: pashmak [filename]')
+    print(sys.argv[0] + ': script file name is required: pashmak [filename]')
     sys.exit(1)
 
 if sys.argv[1] == '--info':
@@ -51,7 +51,7 @@ if sys.argv[1] == '-':
     for line in sys.stdin.readlines():
         script_content += line
 elif not os.path.isfile(filename):
-    print('pashmak: file "' + filename + '" not found')
+    print(sys.argv[0] + ': file "' + filename + '" not found')
     sys.exit(1)
 else:
     # read content of file and parse it with the parser
