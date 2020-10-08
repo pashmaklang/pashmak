@@ -69,6 +69,16 @@ class Program(helpers.Helpers):
         self.mem = None
         return mem
 
+    def update_section_indexes(self , after_index):
+        '''
+        When a new operation inserted in operations list,
+        this function add 1 to section indexes to be
+        sync with new operations list
+        '''
+        for k in self.sections:
+            if self.sections[k] > after_index:
+                self.sections[k] = self.sections[k] + 1
+
     def raise_error(self , error_type: str , message: str , op: dict):
         ''' Raise error in program '''
         # check is in try
@@ -110,9 +120,11 @@ class Program(helpers.Helpers):
                 self.sections[section_name] = i+1
             else:
                 self.operations.insert(i+1 , func_op)
+                self.update_section_indexes(i+1)
                 i += 1
         
         self.operations.insert(i+1 , parser.parse('popstate')[0])
+        self.update_section_indexes(i+1)
 
     def run(self , op: dict):
         ''' Run once operation '''
