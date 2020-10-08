@@ -124,7 +124,8 @@ class Program(helpers.Helpers):
             return
 
         if op_name == 'popstate':
-            self.states.pop()
+            if len(self.states) > 0:
+                self.states.pop()
             return
 
         # if a function is started, append current operation to the function body
