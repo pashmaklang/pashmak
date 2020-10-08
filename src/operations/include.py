@@ -43,7 +43,12 @@ def run(self , op: dict):
     if path[0] == '@':
         module_name = path[1:]
         try:
-            content = modules.modules[module_name]
+            if not module_name in self.included_modules:
+                content = modules.modules[module_name]
+                # add this module to imported modules
+                self.included_modules.append(module_name)
+            else:
+                return
         except:
             self.raise_error('ModuleError' , 'undefined module "' + module_name + '"' , op)
     else:

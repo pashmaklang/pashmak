@@ -43,6 +43,7 @@ class Program(helpers.Helpers):
         self.runed_functions = [] # runed functions for stop function multi calling in one operation
         self.current_namespace = '' # current namespace prefix to add it before name of functions
         self.used_namespaces = [] # list of used namespaces
+        self.included_modules = [] # list of included modules to stop repeating imports
 
         # set argument variables
         self.set_var('argv' , args)
