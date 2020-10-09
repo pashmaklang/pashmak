@@ -87,6 +87,13 @@ this command runs tests
 make test
 ```
 
+###### make pylint
+this command runs pylint on `src/` folder and saves pylint output to `pylint.out` file
+
+```bash
+make pylint
+```
+
 ###### make all
 this is very useful. this commands runs `module`, `update-headers`, `docs`, `test` scripts one by one and you don't need to run them manualy.
 
