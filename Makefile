@@ -31,7 +31,7 @@ else
 endif
 
 clean:
-	@rm build/ dist/ pashmak.spec -rf
+	@rm build/ dist/ pashmak.spec pylint.out -rf
 	@echo -e "\033[32mall of build files cleaned successfuly\033[0m"
 
 update-headers:

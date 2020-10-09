@@ -30,7 +30,7 @@ def run(self, op: dict):
 
     try:
         section_index = self.sections[arg]
-    except:
+    except KeyError:
         self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
 
     if self.mem:

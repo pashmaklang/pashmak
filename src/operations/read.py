@@ -37,7 +37,7 @@ def run(self, op: dict):
             self.read_data.pop(0)
         return
 
-    for arg in op['args']:    
+    for arg in op['args']:
         if not self.is_test:
             readed_data = input()
         else:

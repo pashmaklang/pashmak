@@ -33,5 +33,5 @@ def run(self, op: dict):
         else:
             try:
                 del self.all_vars()[arg[1:]]
-            except:
+            except KeyError:
                 pass

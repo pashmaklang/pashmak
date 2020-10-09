@@ -39,7 +39,7 @@ def run(self, op: dict):
         except:
             self.raise_variable_error(first_var, op)
 
-    if len(args[1]) == 0:
+    if not args[1]:
         self.raise_error('SyntaxError', 'one or more arguments are empty', op)
 
     second_var = args[1]
@@ -49,7 +49,7 @@ def run(self, op: dict):
             first_var_value = self.get_mem()
         else:
             first_var_value = self.get_var(first_var[1:])
-    except:
+    except KeyError:
         self.raise_variable_error(first_var, op)
 
     try:

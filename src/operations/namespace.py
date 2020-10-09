@@ -29,7 +29,11 @@ def run(self, op: dict):
 
     # check currently program is in namespace block
     if self.current_namespace != '':
-        self.raise_error('NamespaceError', 'already is in namespace block. you cannot declare namespace-in-namespace', op)
+        self.raise_error(
+            'NamespaceError',
+            'already is in namespace block. you cannot declare namespace-in-namespace',
+            op
+        )
         return
 
     self.current_namespace = arg + '.'

@@ -33,10 +33,12 @@ def run(self, op: dict):
     else:
         self.variable_required(arg[1:])
         path = self.get_var[arg[1:]]
-            
+
     try:
         f = open(path, 'r')
         self.mem = f.read()
         f.close()
-    except Exception as ex:
+    except FileNotFoundError as ex:
+        self.raise_error('FileError', str(ex), op)
+    except PermissionError as ex:
         self.raise_error('FileError', str(ex), op)
