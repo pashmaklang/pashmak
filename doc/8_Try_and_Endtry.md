@@ -67,7 +67,7 @@ goto after_error;
 section handle_error;
 
 set $ex; copy $ex; # copy mem (^) to $ex variable (this includes information about raised error)
-print $ex; # output: {"type": "VariableError" , "message": "undefined variable $somevar"}...
+print $ex; # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
 
 section after_error;
 ```
@@ -76,7 +76,7 @@ section after_error;
 ```bash
 print 'program started\n';
 
-raise 'MyError' , 'this is my error';
+raise 'MyError', 'this is my error';
 
 print 'this will not print\n';
 ```

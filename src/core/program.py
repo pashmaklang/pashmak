@@ -29,10 +29,12 @@ from core import helpers
 class Program(helpers.Helpers):
     ''' Pashmak program object '''
 
-    def __init__(self , is_test=False , args=[]):
+    def __init__(self, is_test=False, args=[]):
         self.variables = {} # main state variables
         self.states = [] # list of states
-        self.functions = {} # declared functions <function-name>:[<list-of-body-operations>]
+        self.functions = {
+            "mem": [] # mem is a empty function just for save mem in code
+        } # declared functions <function-name>:[<list-of-body-operations>]
         self.operations = [] # list of operations
         self.sections = {} # list of declared sections <section-name>:<index-of-operation-to-jump>
         self.mem = None # memory temp value
@@ -45,20 +47,22 @@ class Program(helpers.Helpers):
         self.used_namespaces = [] # list of used namespaces
         self.included_modules = [] # list of included modules to stop repeating imports
 
-        # set argument variables
-        self.set_var('argv' , args)
-        self.set_var('argc' , len(self.get_var('argv')))
+        self.main_filename = os.getcwd() + '/a'
 
-    def set_operations(self , operations: list):
+        # set argument variables
+        self.set_var('argv', args)
+        self.set_var('argc', len(self.get_var('argv')))
+
+    def set_operations(self, operations: list):
         # include stdlib before everything
         tmp = parser.parse('mem "@stdlib"; include ^;')
-        operations.insert(0 , tmp[0])
-        operations.insert(1 , tmp[1])
+        operations.insert(0, tmp[0])
+        operations.insert(1, tmp[1])
 
         # set operations on program object
         self.operations = operations
 
-    def set_operation_index(self , op: dict) -> dict:
+    def set_operation_index(self, op: dict) -> dict:
         ''' Add operation index to operation dictonary '''
         op['index'] = self.current_step
         return op
@@ -69,7 +73,7 @@ class Program(helpers.Helpers):
         self.mem = None
         return mem
 
-    def update_section_indexes(self , after_index):
+    def update_section_indexes(self, after_index):
         '''
         When a new operation inserted in operations list,
         this function add 1 to section indexes to be
@@ -79,7 +83,7 @@ class Program(helpers.Helpers):
             if self.sections[k] > after_index:
                 self.sections[k] = self.sections[k] + 1
 
-    def raise_error(self , error_type: str , message: str , op: dict):
+    def raise_error(self, error_type: str, message: str, op: dict):
         ''' Raise error in program '''
         # check is in try
         if self.is_in_try != None:
@@ -89,44 +93,62 @@ class Program(helpers.Helpers):
             self.current_step = new_step-1
 
             # put error data in mem
-            self.mem = {'type': error_type , 'message': message , 'index': op['index']}
+            self.mem = {'type': error_type, 'message': message, 'index': op['index']}
             return
         # raise error
         if self.is_test:
-            self.runtime_error = [error_type , message , op]
+            self.runtime_error = [error_type, message, op]
             return
-        print(error_type + ' in ' + str(op['index']) + ':\n\t' + op['str'] + '\n\t' + message)
+
+        # render error
+        print(error_type + ': ' + message + ':')
+        for state in self.states:
+            try:
+                tmp_op = self.operations[state['entry_point']]
+                print('\tin ' + str(tmp_op['index']) + ': ' + tmp_op['str'])
+            except:
+                pass
+        print('\tin ' + str(op['index']) + ': ' + op['str'])
         sys.exit(1)
 
-    def exec_func(self , func_body: list):
+    def exec_func(self, func_body: list, with_state=True):
         # create new state for this call
-        self.states.append({
-            'vars': dict(self.variables),
-        })
+        if with_state:
+            self.states.append({
+                'entry_point': self.current_step,
+                'vars': dict(self.variables),
+            })
 
         # check function already called in this point
-        if self.current_step in self.runed_functions:
+        if self.current_step in self.runed_functions and with_state:
             return
         
         # add this point to runed functions (for stop repeating call in loops)
-        self.runed_functions.append(self.current_step)
+        if with_state:
+            self.runed_functions.append(self.current_step)
 
         # run function
         i = int(self.current_step)
+        is_in_func = False
         for func_op in func_body:
             func_op_parsed = self.set_operation_index(func_op)
-            if func_op_parsed['command'] == 'section':
+            if func_op_parsed['command'] == 'section' and is_in_func == False:
                 section_name = func_op_parsed['args'][0]
                 self.sections[section_name] = i+1
             else:
-                self.operations.insert(i+1 , func_op)
+                if func_op_parsed['command'] == 'func':
+                    is_in_func = True
+                elif func_op_parsed['command'] == 'endfunc':
+                    is_in_func = False
+                self.operations.insert(i+1, func_op)
                 self.update_section_indexes(i+1)
                 i += 1
         
-        self.operations.insert(i+1 , parser.parse('popstate')[0])
-        self.update_section_indexes(i+1)
+        if with_state:
+            self.operations.insert(i+1, parser.parse('popstate')[0])
+            self.update_section_indexes(i+1)
 
-    def run(self , op: dict):
+    def run(self, op: dict):
         ''' Run once operation '''
 
         op = self.set_operation_index(op)
@@ -157,9 +179,6 @@ class Program(helpers.Helpers):
             return
         elif op_name == 'copy':
             self.run_copy(op)
-            return
-        elif op_name == 'mem':
-            self.run_mem(op)
             return
         elif op_name == 'out':
             self.run_out(op)
@@ -252,7 +271,7 @@ class Program(helpers.Helpers):
                 try:
                     func_body = self.functions[op_name]
                 except:
-                    self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
+                    self.raise_error('SyntaxError', 'undefined operation "' + op_name + '"', op)
                     return
 
         # run function
@@ -263,7 +282,11 @@ class Program(helpers.Helpers):
                 code = '(' + args + ')'
                 # replace variable names with value of them
                 for k in self.all_vars():
-                    code = code.replace('$' + k , 'self.all_vars()["' + k + '"]')
+                    code = code.replace('$' + k, 'self.get_var("' + k + '")')
+                    for used_namespace in self.used_namespaces:
+                        if k[:len(used_namespace)+1] == used_namespace + '.':
+                            code = code.replace('$' + k[len(used_namespace)+1:], 'self.get_var("' + k + '")')
+
                 self.mem = eval(code)
             else:
                 self.mem = ''
@@ -272,10 +295,10 @@ class Program(helpers.Helpers):
             self.exec_func(func_body)
             return
         except Exception as ex:
-            self.raise_error('RuntimeError' , str(ex) , op)
+            self.raise_error('RuntimeError', str(ex), op)
 
-    def signal_handler(self , signal , frame):
-        self.raise_error('Signal' , str(signal) , self.operations[self.current_step])
+    def signal_handler(self, signal, frame):
+        self.raise_error('Signal', str(signal), self.operations[self.current_step])
 
     def start(self):
         ''' Start running the program '''
@@ -305,5 +328,5 @@ class Program(helpers.Helpers):
             try:
                 self.run(self.operations[self.current_step])
             except Exception as ex:
-                self.raise_error('RuntimeError' , str(ex) , self.set_operation_index(self.operations[self.current_step]))
+                self.raise_error('RuntimeError', str(ex), self.set_operation_index(self.operations[self.current_step]))
             self.current_step += 1

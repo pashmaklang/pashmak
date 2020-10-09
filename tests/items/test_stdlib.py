@@ -28,55 +28,55 @@ class test_stdlib(TestCore):
     def run(self):
         self.assert_output(self.run_without_error('''
         print "hello world";
-        ''') , 'hello world')
+        '''), 'hello world')
 
         self.assert_output(self.run_without_error('''
         import "examples/will_be_include.pashm";
-        ''') , 'i am included\n')
+        '''), 'i am included\n')
 
         self.assert_exit_code(self.run_without_error('''
         exit 5;
-        ''') , 5)
+        '''), 5)
 
         self.assert_exit_code(self.run_without_error('''
         exit;
-        ''') , 0)
+        '''), 0)
 
         self.assert_mem(self.run_without_error('''
         py "self.mem = 'hi'";
-        ''') , 'hi')
+        '''), 'hi')
 
         cwd = os.getcwd()
         self.run_without_error('''
         std.chdir "/tmp";
         ''')
-        self.assert_equals(os.getcwd() , '/tmp')
+        self.assert_equals(os.getcwd(), '/tmp')
         os.chdir(cwd)
 
         self.assert_output(self.run_without_error('''
         std.eval "mem 'output from eval'\; out ^\;";
-        ''') , 'output from eval')
+        '''), 'output from eval')
 
         self.assert_output(self.run_without_error('''
         set $name;
         mem 'parsa'; copy $name;
         print 'hello ' + $name;
-        ''') , 'hello parsa')
+        '''), 'hello parsa')
 
         self.assert_output(self.run_without_error('''
         print str(2*2) + ' is sum';
-        ''') , '4 is sum')
+        '''), '4 is sum')
 
         self.assert_has_error(self.run_script('''
         print 'hello ' + $name;
         '''))
 
         program = self.run_script('''
-        raise ['SomeError' , 'this is error'];
+        raise ['SomeError', 'this is error'];
         ''')
         self.assert_has_error(program)
-        self.assert_equals(program['runtime_error'][0] , 'SomeError')
-        self.assert_equals(program['runtime_error'][1] , 'this is error')
+        self.assert_equals(program['runtime_error'][0], 'SomeError')
+        self.assert_equals(program['runtime_error'][1], 'this is error')
 
         self.assert_has_error(self.run_script('''
         assert 2 == 3;
@@ -117,11 +117,11 @@ class test_stdlib(TestCore):
 
         func myfunc;
         	out $name;
-        	gset ['name' , 'pashmak\\n'];
+        	gset ['name', 'pashmak\\n'];
         endfunc;
 
         myfunc;
 
         out $name;
 
-        ''') , 'parsa\npashmak\n')
+        '''), 'parsa\npashmak\n')

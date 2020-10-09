@@ -20,11 +20,11 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Checks variables and raise error when they are not exists '''
 
     args = op['args']
     for arg in args:
-        self.arg_should_be_variable(arg , op)
+        self.arg_should_be_variable(arg, op)
         if not self.variable_exists(arg[1:]):
-            self.raise_variable_error(arg , op)
+            self.raise_variable_error(arg, op)

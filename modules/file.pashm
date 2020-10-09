@@ -3,7 +3,7 @@ namespace file;
 
     func open;
         set $args; copy $args;
-        mem open($args[0] , $args[1]);
+        mem open($args[0], $args[1]);
         free $args;
     endfunc;
 

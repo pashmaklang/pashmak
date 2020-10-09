@@ -26,7 +26,7 @@ from TestCore import TestCore
 class test_examples(TestCore):
     def run(self):
         fib_data = self.run_file('examples/fib.pashm')
-        self.assert_equals(fib_data['output'] , '''1
+        self.assert_equals(fib_data['output'], '''1
 2
 3
 5
@@ -48,7 +48,7 @@ class test_examples(TestCore):
 ''')
 
         loop_data = self.run_file('examples/loop.pashm')
-        self.assert_equals(loop_data['output'] , '''starting...
+        self.assert_equals(loop_data['output'], '''starting...
 1
 2
 3
@@ -152,5 +152,5 @@ finished
 ''')
         
         array_data = self.run_file('examples/array.pashm')
-        self.assert_equals(array_data['output'] , 'parsa\npashmak\nsomething\n')
+        self.assert_equals(array_data['output'], 'parsa\npashmak\nsomething\n')
 

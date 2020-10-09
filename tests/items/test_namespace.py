@@ -35,7 +35,7 @@ class test_namespace(TestCore):
         endnamespace;
 
         MySpace.dosomething;
-        ''') , 'hello world\nhello world\nhello world\n')
+        '''), 'hello world\nhello world\nhello world\n')
 
         self.assert_output(self.run_without_error('''
         namespace MySpace;
@@ -48,7 +48,7 @@ class test_namespace(TestCore):
         endns;
 
         MySpace.dosomething;
-        ''') , 'hello world\nhello world\nhello world\n')
+        '''), 'hello world\nhello world\nhello world\n')
 
         self.assert_has_error(self.run_script('''
         namespace Test;
@@ -60,16 +60,23 @@ class test_namespace(TestCore):
             func dosomething;
                 print 'hello world\\n';
             endfunc;
+
+            set $name; mem 'the app'; copy $name;
         endns;
 
         namespace Second;
             func hello;
                 print 'hello\\n';
             endfunc;
+
+            set $test; mem 'the second'; copy $test;
         endns;
 
         App.dosomething;
         Second.hello;
+
+        out $App.name;
+        out $Second.test;
 
         use App;
         use Second;
@@ -79,4 +86,37 @@ class test_namespace(TestCore):
         Second.hello;
         hello;
 
-        ''') , 'hello world\nhello\nhello world\nhello world\nhello\nhello\n')
+        out $App.name;
+        out $Second.test;
+
+        out $name;
+        out $test;
+
+        '''), 'hello world\nhello\nthe appthe secondhello world\nhello world\nhello\nhello\nthe appthe secondthe appthe second')
+
+        self.assert_output(self.run_without_error('''
+        namespace App;
+            set $name; mem 'parsa'; copy $name;
+            out $name;
+        endns;
+
+        out $App.name
+        '''), 'parsaparsa')
+
+        self.assert_output(self.run_without_error('''
+        namespace App;
+            set $name; mem 'parsa'; copy $name;
+            out $name;
+            out $App.name;
+        endns;
+
+        out $App.name;
+        '''), 'parsaparsaparsa')
+
+        self.assert_has_error(self.run_script('''
+        namespace App;
+            set $name; mem 'parsa'; copy $name;
+        endns;
+
+        out $name;
+        '''))

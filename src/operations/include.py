@@ -20,13 +20,14 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+import os
 from syntax import parser
 from core import modules
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Includes another script file to program '''
 
-    self.require_one_argument(op , 'include operation requires argument')
+    self.require_one_argument(op, 'include operation requires argument')
     arg = op['args'][0]
 
     content = ''
@@ -34,7 +35,7 @@ def run(self , op: dict):
     if arg == '^':
         path = self.get_mem()
     else:
-        self.variable_required(arg[1:] , op)
+        self.variable_required(arg[1:], op)
         path = self.get_var(arg[1:])
 
     if path == None:
@@ -50,13 +51,14 @@ def run(self , op: dict):
             else:
                 return
         except:
-            self.raise_error('ModuleError' , 'undefined module "' + module_name + '"' , op)
+            self.raise_error('ModuleError', 'undefined module "' + module_name + '"', op)
     else:
+        if path[0] != '/':
+            path = os.path.dirname(self.main_filename) + '/' + path
         try:
-            content = open(path , 'r').read()
+            content = open(path, 'r').read()
         except Exception as ex:
-            self.raise_error('FileError' , str(ex) , op)
+            self.raise_error('FileError', str(ex), op)
 
     operations = parser.parse(content)
-    for operation in operations:
-        self.run(operation)
+    self.exec_func(operations, False)

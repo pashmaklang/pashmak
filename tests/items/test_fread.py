@@ -31,10 +31,10 @@ script_content = '''
 class test_fread(TestCore):
     def run(self):
         rand = str(time.time())
-        f = open('/tmp/pashmak-test-file-' + rand , 'w')
+        f = open('/tmp/pashmak-test-file-' + rand, 'w')
         f.write('hello world')
         f.close()
         
-        self.assert_output(self.run_without_error(''' mem '/tmp/pashmak-test-file-<rand>'; fread ^; out ^; '''.replace('<rand>' , rand)) , 'hello world')
+        self.assert_output(self.run_without_error(''' mem '/tmp/pashmak-test-file-<rand>'; fread ^; out ^; '''.replace('<rand>', rand)), 'hello world')
 
         os.remove('/tmp/pashmak-test-file-' + rand)

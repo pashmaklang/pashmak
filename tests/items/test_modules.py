@@ -33,7 +33,7 @@ class test_modules(TestCore):
         print '\\n';
 
         hash.md5 'hello'; out ^;
-        ''') , '2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824\n5d41402abc4b2a76b9719d911017c592')
+        '''), '2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824\n5d41402abc4b2a76b9719d911017c592')
 
         mem = self.run_without_error('''
         import "@random";
@@ -52,13 +52,13 @@ class test_modules(TestCore):
         self.assert_output(self.run_without_error('''
         import '@file';
 
-        file.open ["''' + tmp_file + '''" , 'w'];
+        file.open ["''' + tmp_file + '''", 'w'];
         set $file; copy $file;
-        file.write [$file , "content of file"];
+        file.write [$file, "content of file"];
         file.close $file;
 
-        file.open ["''' + tmp_file + '''" , 'r'];
+        file.open ["''' + tmp_file + '''", 'r'];
         copy $file;
         file.read $file; out ^;
-        ''') , 'content of file')
+        '''), 'content of file')
         os.remove(tmp_file)

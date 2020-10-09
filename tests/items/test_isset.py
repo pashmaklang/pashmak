@@ -24,10 +24,10 @@ from TestCore import TestCore
 
 class test_isset(TestCore):
     def run(self):
-        self.assert_mem(self.run_without_error(''' set $var; isset $var; ''') , True)
+        self.assert_mem(self.run_without_error(''' set $var; isset $var; '''), True)
 
-        self.assert_mem(self.run_without_error(''' isset $var; ''') , False)
+        self.assert_mem(self.run_without_error(''' isset $var; '''), False)
 
-        self.assert_mem(self.run_without_error(''' set $two; isset $two $one; ''') , False)
+        self.assert_mem(self.run_without_error(''' set $two; isset $two $one; '''), False)
 
-        self.assert_mem(self.run_without_error(''' set $two $one; isset $two $one; ''') , True)
+        self.assert_mem(self.run_without_error(''' set $two $one; isset $two $one; '''), True)

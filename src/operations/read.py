@@ -20,13 +20,13 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Reads a input from stdin '''
 
     for arg in op['args']:
-        self.arg_should_be_variable_or_mem(arg , op)
+        self.arg_should_be_variable_or_mem(arg, op)
         if arg[0] == '$':
-            self.variable_required(arg[1:] , op)
+            self.variable_required(arg[1:], op)
 
     if len(op['args']) <= 0:
         if not self.is_test:
@@ -45,4 +45,4 @@ def run(self , op: dict):
         if arg == '^':
             self.mem = readed_data
         else:
-            self.set_var(arg[1:] , readed_data)
+            self.set_var(arg[1:], readed_data)

@@ -34,20 +34,20 @@ class TestCore:
     def with_program_errors(self):
         self.is_test = False
 
-    def run_file(self , file_path: str , read_inputs=[]) -> dict:
-        f = open(file_path , 'r')
+    def run_file(self, file_path: str, read_inputs=[]) -> dict:
+        f = open(file_path, 'r')
         content = f.read()
         f.close()
-        return self.run_script(content , read_inputs)
+        return self.run_script(content, read_inputs)
 
-    def run_without_error(self , script_content: str , read_inputs=[] , args=[] , want_argv=False) -> dict:
-        program = self.run_script(script_content , read_inputs , args , want_argv)
+    def run_without_error(self, script_content: str, read_inputs=[], args=[], want_argv=False) -> dict:
+        program = self.run_script(script_content, read_inputs, args, want_argv)
         self.assert_has_not_error(program)
         return program
 
-    def run_script(self , script_content: str , read_inputs=[] , args=[] , want_argv=False) -> dict:
+    def run_script(self, script_content: str, read_inputs=[], args=[], want_argv=False) -> dict:
         script_operations = parser.parse(script_content)
-        prog = program.Program(is_test=self.is_test , args=args)
+        prog = program.Program(is_test=self.is_test, args=args)
         prog.read_data = read_inputs
         prog.set_operations(script_operations)
         try:
@@ -73,12 +73,12 @@ class TestCore:
 
         return out
 
-    def dump(self , obj):
+    def dump(self, obj):
         import pprint
         pprint.pprint(obj)
         sys.exit()
 
-    def do_assert(self , value , error=''):
+    def do_assert(self, value, error=''):
         try:
             assert value
         except:
@@ -86,32 +86,32 @@ class TestCore:
             raise
             sys.exit(1)
 
-    def assert_true(self , value):
-        self.do_assert(value , 'asserting that false is true')
+    def assert_true(self, value):
+        self.do_assert(value, 'asserting that false is true')
 
-    def assert_false(self , value):
-        self.do_assert((not value) , 'asserting that true is false')
+    def assert_false(self, value):
+        self.do_assert((not value), 'asserting that true is false')
 
-    def assert_equals(self , first , last):
-        self.do_assert((first == last) , '"' + str(first) + '" is not equals "' + str(last) + '"')
+    def assert_equals(self, first, last):
+        self.do_assert((first == last), '"' + str(first) + '" is not equals "' + str(last) + '"')
 
-    def assert_not_equals(self , first , last):
-        self.do_assert((not first == last) , '"' + str(first) + '" is equals "' + str(last) + '"')
+    def assert_not_equals(self, first, last):
+        self.do_assert((not first == last), '"' + str(first) + '" is equals "' + str(last) + '"')
 
-    def assert_vars(self , program , vars):
-        self.assert_equals(program['vars'] , vars)
+    def assert_vars(self, program, vars):
+        self.assert_equals(program['vars'], vars)
 
-    def assert_mem(self , program , mem):
-        self.assert_equals(program['mem'] , mem)
+    def assert_mem(self, program, mem):
+        self.assert_equals(program['mem'], mem)
 
-    def assert_output(self , program , output):
-        self.assert_equals(program['output'] , output)
+    def assert_output(self, program, output):
+        self.assert_equals(program['output'], output)
 
-    def assert_exit_code(self , program , exit_code):
-        self.assert_equals(program['exit_code'] , exit_code)
+    def assert_exit_code(self, program, exit_code):
+        self.assert_equals(program['exit_code'], exit_code)
 
-    def assert_has_error(self , program):
-        self.assert_not_equals(program['runtime_error'] , None)
+    def assert_has_error(self, program):
+        self.assert_not_equals(program['runtime_error'], None)
 
-    def assert_has_not_error(self , program):
-        self.assert_equals(program['runtime_error'] , None)
+    def assert_has_not_error(self, program):
+        self.assert_equals(program['runtime_error'], None)

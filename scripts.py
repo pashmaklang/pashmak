@@ -50,11 +50,11 @@ if len(sys.argv) <= 1:
 
 class GetFilesList:
     # get list of all of .py files in src/ folder
-    def __init__(self , path='src/'):
+    def __init__(self, path='src/'):
         self.files_list = []
         self.get(path)
     
-    def get(self , path='src/'):
+    def get(self, path='src/'):
         # load and return list
         for f in os.listdir(path):
             if os.path.isdir(path + '/' + f):
@@ -62,12 +62,12 @@ class GetFilesList:
             elif os.path.isfile(path + '/' + f):
                 self.add_once(path + '/' + f)
 
-    def add_once(self , f):
+    def add_once(self, f):
         # add on file to the list
         # check if file is .py
         if f[len(f)-3:] == '.py':
             # replace // with /
-            f = f.replace('//' , '/')
+            f = f.replace('//', '/')
             self.files_list.append(f)
     
     @staticmethod
@@ -76,7 +76,7 @@ class GetFilesList:
         spliter = ('#' * 50) + '\n\n'
     
         # open file and add header
-        content = open(fname , 'r').read()
+        content = open(fname, 'r').read()
         new_content = ''
 
         parts = content.split(spliter)
@@ -95,7 +95,7 @@ class GetFilesList:
         if fname == 'src/pashmak.py' or fname == 'tests/run.py':
             new_content = '#!/usr/bin/env python3\n' + new_content
 
-        f = open(fname , 'w')
+        f = open(fname, 'w')
         f.write(new_content)
         f.close()
 
@@ -107,11 +107,11 @@ class TestMaker:
             print('test "' + test_name + '" already exists')
             return 1
         
-        f = open('tests/items/' + test_name + '.py' , 'w')
+        f = open('tests/items/' + test_name + '.py', 'w')
 
         global test_content
 
-        content = test_content.replace('<tstname>' , test_name)
+        content = test_content.replace('<tstname>', test_name)
 
         f.write(content)
         f.close()
@@ -129,19 +129,19 @@ class DocBuilder:
         total_content = ''
 
         # add README.md to the first of content
-        readme_header_f = open('doc/README.md' , 'r')
+        readme_header_f = open('doc/README.md', 'r')
         total_content += readme_header_f.read() + '\n\n\n'
         readme_header_f.close()
 
         # append content of doc parts to total_content one by one
         for doc_part in doc_parts:
-            doc_part_f = open('doc/' + doc_part , 'r')
+            doc_part_f = open('doc/' + doc_part, 'r')
             doc_part_content = doc_part_f.read()
             total_content += doc_part_content + '\n\n\n'
             doc_part_f.close()
 
         # write generated content to the README.md file
-        readme_f = open('README.md' , 'w')
+        readme_f = open('README.md', 'w')
         readme_f.write(total_content)
         readme_f.close()
 
@@ -155,7 +155,7 @@ class ModuleBuilder:
         modules = {}
         module_files = os.listdir('modules')
         for module in module_files:
-            file_content = open('modules/' + module , 'r').read()
+            file_content = open('modules/' + module, 'r').read()
             modules[module[:len(module)-6]] = file_content
 
         pycode = '''
@@ -163,9 +163,9 @@ modules = {}
 '''
         # write modules as python dictonary in src/core/modules.py file
         for k in modules:
-            pycode += '\nmodules["' + k + '"] = """' + modules[k].replace('\n\n' , '\n') + '"""'
+            pycode += '\nmodules["' + k + '"] = """' + modules[k].replace('\n\n', '\n') + '"""'
         
-        f = open('src/core/modules.py' , 'w')
+        f = open('src/core/modules.py', 'w')
         f.write(pycode)
         f.close()
 

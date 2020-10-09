@@ -20,14 +20,14 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Sets namespace prefix '''
-    self.require_one_argument(op , 'namespace operation requires namespace argument')
+    self.require_one_argument(op, 'namespace operation requires namespace argument')
     arg = op['args'][0]
 
     # check currently program is in namespace block
     if self.current_namespace != '':
-        self.raise_error('NamespaceError' , 'already is in namespace block. you cannot declare namespace-in-namespace' , op)
+        self.raise_error('NamespaceError', 'already is in namespace block. you cannot declare namespace-in-namespace', op)
         return
 
     self.current_namespace = arg + '.'

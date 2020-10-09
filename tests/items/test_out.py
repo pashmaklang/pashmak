@@ -29,7 +29,7 @@ class test_out(TestCore):
             mem 'hello world\\n'; out ^;
             set $name; mem 'pashmak'; copy $name;
             out $name;
-        ''') , 'hi therehello world\npashmak')
+        '''), 'hi therehello world\npashmak')
 
         self.assert_has_error(self.run_script(''' out $not_found_var; '''))
 

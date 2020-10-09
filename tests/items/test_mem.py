@@ -24,17 +24,17 @@ from TestCore import TestCore
 
 class test_mem(TestCore):
     def run(self):
-        self.assert_mem(self.run_without_error(''' mem 'some thing'; ''') , 'some thing')
+        self.assert_mem(self.run_without_error(''' mem 'some thing'; '''), 'some thing')
 
-        self.assert_mem(self.run_without_error(''' mem 155; ''') , 155)
+        self.assert_mem(self.run_without_error(''' mem 155; '''), 155)
 
-        self.assert_mem(self.run_without_error(''' mem 'first' + 'last'; ''') , 'firstlast')
+        self.assert_mem(self.run_without_error(''' mem 'first' + 'last'; '''), 'firstlast')
 
-        self.assert_mem(self.run_without_error(''' mem 100 > 50; ''') , True)
+        self.assert_mem(self.run_without_error(''' mem 100 > 50; '''), True)
 
         self.assert_mem(self.run_without_error('''
             set $var; mem 'value'; copy $var;
             mem $var + 'new';
-        ''') , 'valuenew')
+        '''), 'valuenew')
 
-        self.assert_mem(self.run_without_error(''' mem (10 * 5) + 9; ''') , 59)
+        self.assert_mem(self.run_without_error(''' mem (10 * 5) + 9; '''), 59)

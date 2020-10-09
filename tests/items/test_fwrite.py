@@ -30,9 +30,9 @@ class test_fwrite(TestCore):
         self.run_without_error('''
             set $value; mem 'hello world'; copy $value;
             mem '/tmp/pashmak-test-file-<rand>'; fwrite ^ $value;
-        '''.replace('<rand>' , rand))
+        '''.replace('<rand>', rand))
 
-        f_content = open('/tmp/pashmak-test-file-' + rand , 'r').read()
-        self.assert_equals(f_content , 'hello world')
+        f_content = open('/tmp/pashmak-test-file-' + rand, 'r').read()
+        self.assert_equals(f_content, 'hello world')
 
         os.remove('/tmp/pashmak-test-file-' + rand)

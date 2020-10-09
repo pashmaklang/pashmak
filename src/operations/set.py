@@ -20,11 +20,11 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Sets variables '''
 
     args = op['args']
     for arg in args:
-        self.arg_should_be_variable(arg , op)
+        self.arg_should_be_variable(arg, op)
         if not self.variable_exists(arg[1:]):
-            self.set_var(arg[1:] , None)
+            self.set_var(arg[1:], None)

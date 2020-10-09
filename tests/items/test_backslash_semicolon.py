@@ -24,6 +24,6 @@ from TestCore import TestCore
 
 class test_backslash_semicolon(TestCore):
     def run(self):
-        self.assert_output(self.run_script(''' mem 'this is \; semicolon'; out ^; ''') , 'this is ; semicolon')
+        self.assert_output(self.run_script(''' mem 'this is \; semicolon'; out ^; '''), 'this is ; semicolon')
 
-        self.assert_output(self.run_script(''' mem 'this is \\\; semicolon'; out ^; ''') , 'this is \; semicolon')
+        self.assert_output(self.run_script(''' mem 'this is \\\; semicolon'; out ^; '''), 'this is \; semicolon')

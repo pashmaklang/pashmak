@@ -20,7 +20,7 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Closes try block '''
 
     self.is_in_try = None

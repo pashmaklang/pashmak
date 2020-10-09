@@ -28,8 +28,8 @@ class test_args(TestCore):
             mem $argv[0]; out ^;
             mem $argv[1]; out ^;
             out $argc;
-        ''' , [] , ['hi' , 'bye'] , True)
-        self.assert_equals(program['vars']['argv'][0] , 'hi')
-        self.assert_equals(program['vars']['argv'][1] , 'bye')
-        self.assert_output(program , 'hibye2')
+        ''', [], ['hi', 'bye'], True)
+        self.assert_equals(program['vars']['argv'][0], 'hi')
+        self.assert_equals(program['vars']['argv'][1], 'bye')
+        self.assert_output(program, 'hibye2')
 

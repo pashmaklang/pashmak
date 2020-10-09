@@ -24,7 +24,6 @@
 from operations import set as op_set
 from operations import free as op_free
 from operations import copy as op_copy
-from operations import mem as op_mem
 from operations import out as op_out
 from operations import read as op_read
 from operations import returnop as op_return
@@ -52,89 +51,86 @@ from operations import endnamespace as op_endnamespace
 from operations import use as op_use
 
 class Commands:
-    def run_set(self , op: dict):
-        op_set.run(self , op)
+    def run_set(self, op: dict):
+        op_set.run(self, op)
 
-    def run_free(self , op: dict):
-        op_free.run(self , op)
+    def run_free(self, op: dict):
+        op_free.run(self, op)
 
-    def run_copy(self , op: dict):
-        op_copy.run(self , op)
+    def run_copy(self, op: dict):
+        op_copy.run(self, op)
 
-    def run_mem(self , op: dict):
-        op_mem.run(self , op)
+    def run_out(self, op: dict):
+        op_out.run(self, op)
 
-    def run_out(self , op: dict):
-        op_out.run(self , op)
+    def run_read(self, op: dict):
+        op_read.run(self, op)
 
-    def run_read(self , op: dict):
-        op_read.run(self , op)
+    def run_return(self, op: dict):
+        op_return.run(self, op)
 
-    def run_return(self , op: dict):
-        op_return.run(self , op)
+    def run_func(self, op: dict):
+        op_func.run(self, op)
 
-    def run_func(self , op: dict):
-        op_func.run(self , op)
+    def run_endfunc(self, op: dict):
+        op_endfunc.run(self, op)
 
-    def run_endfunc(self , op: dict):
-        op_endfunc.run(self , op)
+    def run_required(self, op: dict):
+        op_required.run(self, op)
 
-    def run_required(self , op: dict):
-        op_required.run(self , op)
+    def run_typeof(self, op: dict):
+        op_typeof.run(self, op)
 
-    def run_typeof(self , op: dict):
-        op_typeof.run(self , op)
+    def run_system(self, op: dict):
+        op_system.run(self, op)
 
-    def run_system(self , op: dict):
-        op_system.run(self , op)
+    def run_include(self, op: dict):
+        op_include.run(self, op)
 
-    def run_include(self , op: dict):
-        op_include.run(self , op)
+    def run_goto(self, op: dict):
+        op_goto.run(self, op)
 
-    def run_goto(self , op: dict):
-        op_goto.run(self , op)
+    def run_gotoif(self, op: dict):
+        op_gotoif.run(self, op)
 
-    def run_gotoif(self , op: dict):
-        op_gotoif.run(self , op)
+    def run_fread(self, op: dict):
+        op_fread.run(self, op)
 
-    def run_fread(self , op: dict):
-        op_fread.run(self , op)
+    def run_fwrite(self, op: dict):
+        op_fwrite.run(self, op)
 
-    def run_fwrite(self , op: dict):
-        op_fwrite.run(self , op)
+    def run_chdir(self, op: dict):
+        op_chdir.run(self, op)
 
-    def run_chdir(self , op: dict):
-        op_chdir.run(self , op)
+    def run_cwd(self, op: dict):
+        op_cwd.run(self, op)
 
-    def run_cwd(self , op: dict):
-        op_cwd.run(self , op)
+    def run_isset(self, op: dict):
+        op_isset.run(self, op)
 
-    def run_isset(self , op: dict):
-        op_isset.run(self , op)
+    def run_try(self, op: dict):
+        op_try.run(self, op)
 
-    def run_try(self , op: dict):
-        op_try.run(self , op)
+    def run_endtry(self, op: dict):
+        op_endtry.run(self, op)
 
-    def run_endtry(self , op: dict):
-        op_endtry.run(self , op)
+    def run_eval(self, op: dict):
+        op_eval.run(self, op)
 
-    def run_eval(self , op: dict):
-        op_eval.run(self , op)
+    def run_arraypush(self, op: dict):
+        op_arraypush.run(self, op)
 
-    def run_arraypush(self , op: dict):
-        op_arraypush.run(self , op)
+    def run_arraypop(self, op: dict):
+        op_arraypop.run(self, op)
 
-    def run_arraypop(self , op: dict):
-        op_arraypop.run(self , op)
+    def run_python(self, op: dict):
+        op_python.run(self, op)
 
-    def run_python(self , op: dict):
-        op_python.run(self , op)
+    def run_namespace(self, op: dict):
+        op_namespace.run(self, op)
 
-    def run_namespace(self , op: dict):
-        op_namespace.run(self , op)
+    def run_endnamespace(self, op: dict):
+        op_endnamespace.run(self, op)
 
-    def run_endnamespace(self , op: dict):
-        op_endnamespace.run(self , op)
-
-    def run_use(self , op: dict):
-        op_use.run(self , op)
+    def run_use(self, op: dict):
+        op_use.run(self, op)

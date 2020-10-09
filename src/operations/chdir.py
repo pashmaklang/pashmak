@@ -22,17 +22,17 @@
 
 import os
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Changes program working directory '''
 
-    self.require_one_argument(op , 'chdir operation requires argument')
+    self.require_one_argument(op, 'chdir operation requires argument')
     arg = op['args'][0]
-    self.arg_should_be_variable_or_mem(arg , op)
+    self.arg_should_be_variable_or_mem(arg, op)
 
     if arg == '^':
         path = self.get_mem()
     else:
-        self.variable_required(arg[1:] , op)
+        self.variable_required(arg[1:], op)
         path = self.get_var(arg[1:])
 
     os.chdir(path)

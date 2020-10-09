@@ -20,16 +20,16 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Changes program step to a section if mem is true '''
 
-    self.require_one_argument(op , 'gotoif operation requires section name argument')
+    self.require_one_argument(op, 'gotoif operation requires section name argument')
     arg = op['args'][0]
 
     try:
         section_index = self.sections[arg]
     except:
-        self.raise_error('SectionError' , 'undefined section "' + str(arg) + '"' , op)
+        self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
 
     if self.mem:
         self.current_step = section_index-1

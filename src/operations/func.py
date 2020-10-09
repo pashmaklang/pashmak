@@ -20,16 +20,16 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Starts function block '''
 
-    self.require_one_argument(op , 'func operation requires function name argument')
+    self.require_one_argument(op, 'func operation requires function name argument')
     arg = op['args'][0]
 
     # check function already declared
     try:
         self.functions[self.current_namespace + arg]
-        self.raise_error('FunctionError' , 'function "' + self.current_namespace + arg + '" already declared' , op)
+        self.raise_error('FunctionError', 'function "' + self.current_namespace + arg + '" already declared', op)
     except:
         pass
 

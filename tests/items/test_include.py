@@ -32,14 +32,14 @@ class test_include(TestCore):
             mem 'after include\\n'; out ^;
             testfunc;
         ''')
-        self.assert_output(program , 'before include\ni am included\nafter include\ni am included func\n')
-        self.assert_vars(program , {'included_var': 'included value'})
+        self.assert_output(program, 'before include\ni am included\nafter include\ni am included func\n')
+        self.assert_vars(program, {'included_var': 'included value'})
 
         self.assert_output(self.run_without_error('''
             set $path;
             mem 'examples/will_be_include.pashm'; copy $path;
             include $path;
-        ''') , 'i am included\n')
+        '''), 'i am included\n')
 
         self.assert_has_error(self.run_script(''' include $not_found; '''))
 
@@ -48,6 +48,6 @@ class test_include(TestCore):
         self.assert_output(self.run_without_error('''
             mem '@hash'; include ^;
             hash.sha256 'hello'; out ^;
-        ''') , hashlib.sha256('hello'.encode()).hexdigest())
+        '''), hashlib.sha256('hello'.encode()).hexdigest())
 
         self.assert_has_error(self.run_script(''' mem '@notfound233445'; include ^; '''))

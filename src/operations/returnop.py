@@ -22,7 +22,7 @@
 
 import sys
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Exits program with exit code '''
 
     args = op['args']
@@ -34,21 +34,21 @@ def run(self , op: dict):
         arg = args[0]
         
         if arg[0] == '$':
-            self.variable_required(arg[1:] , op)
+            self.variable_required(arg[1:], op)
             try:
                 exit_code = int(self.get_var(arg[1:]))
             except:
-                self.raise_error('TypeError' , 'return operation gets integer value' , op)
+                self.raise_error('TypeError', 'return operation gets integer value', op)
         elif arg == '^':
             try:
                 exit_code = int(self.get_mem())
             except:
-                self.raise_error('TypeError' , 'return operation gets integer value' , op)
+                self.raise_error('TypeError', 'return operation gets integer value', op)
         else:
             try:
                 exit_code = int(arg)
             except:
-                self.raise_error('TypeError' , 'return command gets integer value' , op)
+                self.raise_error('TypeError', 'return command gets integer value', op)
 
     if not self.is_test:
         sys.exit(exit_code)

@@ -26,21 +26,21 @@ class test_arraypush(TestCore):
     def run(self):
         self.assert_vars(self.run_without_error('''
             set $names;
-            mem ['pashmak' , 'parsa']; copy $names;
+            mem ['pashmak', 'parsa']; copy $names;
 
             mem 'newname'; arraypush $names ^;
-        ''') , {'names': [
-            'pashmak' , 'parsa' , 'newname'
+        '''), {'names': [
+            'pashmak', 'parsa', 'newname'
         ]})
 
         self.assert_vars(self.run_without_error('''
             set $names;
-            mem ['pashmak' , 'parsa']; copy $names;
+            mem ['pashmak', 'parsa']; copy $names;
 
             set $new_item; mem 'newname'; copy $new_item;
             arraypush $names $new_item;
 
             free $new_item;
-        ''') , {'names': [
-            'pashmak' , 'parsa' , 'newname'
+        '''), {'names': [
+            'pashmak', 'parsa', 'newname'
         ]})

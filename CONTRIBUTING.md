@@ -159,7 +159,7 @@ class test_something(TestCore):
     def run(self):
         self.assert_output(self.run_without_error('''
         mem 'hello world'; out ^;
-        ''') , 'hello world')
+        '''), 'hello world')
 
         # my code prints `hello world` and i'm asserting the output is `hello world`
 ```

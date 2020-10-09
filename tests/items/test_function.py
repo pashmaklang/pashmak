@@ -36,7 +36,7 @@ class test_function(TestCore):
 
             mem 'finished\\n'; out ^;
         ''')
-        self.assert_output(program , 'starting\nfunc runed\nfunc finished\nfinished\n')
+        self.assert_output(program, 'starting\nfunc runed\nfunc finished\nfinished\n')
 
         self.assert_has_error(self.run_script(''' undefined_func; '''))
 
@@ -46,7 +46,7 @@ class test_function(TestCore):
             endfunc;
             
             myfunc;
-        ''') , 'func runed\n')
+        '''), 'func runed\n')
 
         self.assert_output(self.run_without_error('''
             func myfunc;
@@ -54,7 +54,7 @@ class test_function(TestCore):
             endfunc;
             
             myfunc "hello world";
-        ''') , 'hello world')
+        '''), 'hello world')
 
         self.assert_output(self.run_without_error('''
             func myfunc;
@@ -62,7 +62,7 @@ class test_function(TestCore):
             endfunc;
             
             myfunc 2*3;
-        ''') , '6')
+        '''), '6')
 
         self.assert_output(self.run_without_error('''
             func myfunc;
@@ -73,7 +73,7 @@ class test_function(TestCore):
             mem 'test'; copy $var;
             
             myfunc 'this is ' + $var;
-        ''') , 'this is test')
+        '''), 'this is test')
 
         self.assert_has_error(self.run_script('''
             func myfunc;
@@ -102,7 +102,7 @@ class test_function(TestCore):
         out $n;
         tststs;
         out $n;
-        ''') , 'parsa\nparsa\nparsa\nmyfunc\ntststs\nparsa\n')
+        '''), 'parsa\nparsa\nparsa\nmyfunc\ntststs\nparsa\n')
 
         self.assert_has_error(self.run_script('''
         func myfunc;

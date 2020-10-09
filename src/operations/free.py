@@ -20,12 +20,12 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Deletes variables '''
 
     args = op['args']
     for arg in args:
-        self.arg_should_be_variable_or_mem(arg , op)
+        self.arg_should_be_variable_or_mem(arg, op)
         if arg == '^':
             self.mem = None
         else:

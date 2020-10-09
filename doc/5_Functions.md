@@ -135,7 +135,7 @@ the answer is in `gset`:
 ```bash
 func myfunc;
     set $name; mem 'new name'; copy $name;
-    gset 'name' , $name;
+    gset 'name', $name;
     print $name + '\n';
 endfunc;
 

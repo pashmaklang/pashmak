@@ -20,15 +20,15 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Opens try-endtry block '''
 
-    self.require_one_argument(op , 'try operation requires section name argument')
+    self.require_one_argument(op, 'try operation requires section name argument')
     arg = op['args'][0]
     
     try:
         tmp = self.sections[arg]
     except:
-        self.raise_error('SectionError' , 'undefined section "' + str(arg) + '"' , op)
+        self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
 
     self.is_in_try = arg

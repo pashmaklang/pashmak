@@ -22,17 +22,17 @@
 
 import os
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Runs system shell commands '''
 
-    self.require_one_argument(op , 'system operation requires argument')
+    self.require_one_argument(op, 'system operation requires argument')
     arg = op['args'][0]
-    self.arg_should_be_variable_or_mem(arg , op)
+    self.arg_should_be_variable_or_mem(arg, op)
 
     if arg == '^':
         cmd = self.get_mem()
     else:
-        self.variable_required(arg[1:] , op)
+        self.variable_required(arg[1:], op)
         cmd = self.get_var(arg[1:])
 
     self.mem = os.system(cmd)

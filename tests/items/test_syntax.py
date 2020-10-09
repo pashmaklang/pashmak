@@ -24,8 +24,8 @@ from TestCore import TestCore
 
 class test_syntax(TestCore):
     def run(self):
-        self.assert_output(self.run_script(''' mem 'hello  world'; out  ^; ''') , 'hello  world')
+        self.assert_output(self.run_script(''' mem 'hello  world'; out  ^; '''), 'hello  world')
         self.assert_output(self.run_script('''
         # some comment
         mem 'hello world'; out ^; # another comment
-        ''') , 'hello world')
+        '''), 'hello world')

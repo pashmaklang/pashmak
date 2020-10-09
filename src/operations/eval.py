@@ -22,21 +22,21 @@
 
 from syntax import parser
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Runs pashmak code from string '''
 
-    self.require_one_argument(op , 'eval operation requires argument')
+    self.require_one_argument(op, 'eval operation requires argument')
     arg = op['args'][0]
-    self.arg_should_be_variable_or_mem(arg , op)
+    self.arg_should_be_variable_or_mem(arg, op)
 
     if arg == '^':
         code = self.get_mem()
     else:
-        self.variable_required(arg[1:] , op)
+        self.variable_required(arg[1:], op)
         code = self.get_var(arg[1:])
 
     # run the code
     code_operations = parser.parse(code)
     for code_op in list(reversed(code_operations)):
-        self.operations.insert(self.current_step+1 , code_op)
+        self.operations.insert(self.current_step+1, code_op)
         self.update_section_indexes(self.current_step+1)

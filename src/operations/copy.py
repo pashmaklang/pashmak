@@ -20,25 +20,25 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Copies a variable or mem into another variable '''
     args = op['args']
 
     if len(args) <= 0:
-        self.raise_error('ArgumentError' , 'copy command gets two arguments' , op)
+        self.raise_error('ArgumentError', 'copy command gets two arguments', op)
 
     first_var = args[0]
 
     if len(args) == 1:
         mem = self.get_mem()
         try:
-            self.set_var(first_var[1:] , mem)
+            self.set_var(first_var[1:], mem)
             return
         except:
-            self.raise_variable_error(first_var , op)
+            self.raise_variable_error(first_var, op)
 
     if len(args[1]) == 0:
-        self.raise_error('SyntaxError' , 'one or more arguments are empty' , op)
+        self.raise_error('SyntaxError', 'one or more arguments are empty', op)
 
     second_var = args[1]
 
@@ -48,12 +48,12 @@ def run(self , op: dict):
         else:
             first_var_value = self.get_var(first_var[1:])
     except:
-        self.raise_variable_error(first_var , op)
+        self.raise_variable_error(first_var, op)
 
     try:
         if second_var == '^':
             self.mem = first_var_value
         else:
-            self.set_var(second_var[1:] , first_var_value)
+            self.set_var(second_var[1:], first_var_value)
     except:
-        self.raise_variable_error(second_var , op)
+        self.raise_variable_error(second_var, op)

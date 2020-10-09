@@ -5,7 +5,7 @@ compile & install:
 
 ```bash
 # checkout to latest release
-git branch installation v1.2.3
+git branch installation v1.3
 git checkout installation
 
 # compile and install
@@ -34,7 +34,7 @@ now you can run interpreter in terminal:
 
 ```bash
 pashmak --info # shows info about pashmak
-pashmak -v # --version , shows version of pashmak
+pashmak -v # --version, shows version of pashmak
 pashmak app.pashm
 pashmak /path/to/script.pashm # runs file
 pashmak - # gets code from stdin and run that

@@ -25,8 +25,7 @@
 
 import sys, os
 from syntax import parser
-from core import program
-from core import version
+from core import program, version
 
 # validate arguments
 if len(sys.argv) <= 1:
@@ -35,8 +34,8 @@ if len(sys.argv) <= 1:
 
 if sys.argv[1] == '--info':
     print('Pashmak Version: ' + version.version)
-    print('Python Version: ' , end='')
-    print(sys.version.replace('\n' , ''))
+    print('Python Version: ', end='')
+    print(sys.version.replace('\n', ''))
     sys.exit(1)
 
 if sys.argv[1] == '--version' or sys.argv[1] == '-v':
@@ -44,7 +43,6 @@ if sys.argv[1] == '--version' or sys.argv[1] == '-v':
     sys.exit(1)
 
 filename = sys.argv[1]
-
 
 if sys.argv[1] == '-':
     script_content = ''
@@ -55,14 +53,13 @@ elif not os.path.isfile(filename):
     sys.exit(1)
 else:
     # read content of file and parse it with the parser
-    script_f = open(filename , 'r')
+    script_f = open(filename, 'r')
     script_content = script_f.read()
-
 
 script_operations = parser.parse(script_content)
 
 # make pashmak program object
 prog = program.Program(args=sys.argv[1:])
+prog.main_filename = filename
 prog.set_operations(script_operations)
 prog.start()
-

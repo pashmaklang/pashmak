@@ -20,12 +20,12 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Checks variables exists and put result in mem '''
 
     args = op['args']
     for arg in args:
-        self.arg_should_be_variable(arg , op)
+        self.arg_should_be_variable(arg, op)
         if not self.variable_exists(arg[1:]):
             self.mem = False
             return

@@ -20,12 +20,12 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Puts type of a variable in mem '''
 
     args = op['args']
     for arg in args:
-        self.arg_should_be_variable(arg , op)
-        self.variable_required(arg[1:] , op)
+        self.arg_should_be_variable(arg, op)
+        self.variable_required(arg[1:], op)
         var = self.get_var(arg[1:])
         self.mem = type(var)
