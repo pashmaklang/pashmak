@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Includes another script file to program '''
+
 import os
 from syntax import parser
 from core import modules

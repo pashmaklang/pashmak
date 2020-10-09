@@ -16,6 +16,11 @@ ifneq (,$(shell command -v pyinstaller))
 PYINSTALLER_IS_INSTALLED = 1
 endif
 
+PYLINT_IS_INSTALLED = 0
+ifneq (,$(shell command -v pylint3))
+PYLINT_IS_INSTALLED = 1
+endif
+
 main: compile
 
 compile:
@@ -54,3 +59,11 @@ install: ./dist/pashmak
 uninstall: $(INSTALLATION_PATH)
 	@rm $(INSTALLATION_PATH)
 	@echo -e "\033[32mpashmak has been removed from your system successfuly\033[0m"
+
+pylint:
+ifeq (1,$(PYLINT_IS_INSTALLED))
+	@pylint3 $(shell find src -type f -name '*.py') | grep -v '(invalid-name)' | grep -v '(no-name-in-module)' > pylint.out
+	@echo -e "\033[32mpylint saved output in pylint.out\033[0m"
+else
+	@echo -e "\033[31merror: pylint3 is not installed\033[0m"
+endif

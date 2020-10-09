@@ -26,7 +26,7 @@ from core import commands
 
 class Helpers(commands.Commands):
     ''' Partial of program object functions '''
-    
+
     def raise_variable_error(self, varname: str, op: dict):
         ''' Raise variable not found error '''
         return self.raise_error('VariableError', 'undefined variable "' + str(varname) + '"', op)
@@ -82,5 +82,5 @@ class Helpers(commands.Commands):
         ''' Returns list of all of variables '''
         if len(self.states) == 0:
             return self.variables
-        
+
         return self.states[-1]['vars']

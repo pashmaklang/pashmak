@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Copies a variable or mem into another variable '''
+
 def run(self, op: dict):
     ''' Copies a variable or mem into another variable '''
     args = op['args']

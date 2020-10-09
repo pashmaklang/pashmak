@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Starts function block '''
+
 def run(self, op: dict):
     ''' Starts function block '''
 

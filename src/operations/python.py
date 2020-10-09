@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Runs python code from string '''
+
 import hashlib, time, random
 
 def run(self, op: dict):

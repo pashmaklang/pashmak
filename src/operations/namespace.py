@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Sets namespace prefix '''
+
 def run(self, op: dict):
     ''' Sets namespace prefix '''
     self.require_one_argument(op, 'namespace operation requires namespace argument')

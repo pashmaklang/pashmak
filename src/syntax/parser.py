@@ -25,7 +25,7 @@
 import random
 
 def handle_backslash_semicolon(op_str: str) -> list:
-    ''' Handle \; as clean text semicolon '''
+    ''' Handle \\; as clean text semicolon '''
 
     # replace \; with a random string to replace it after argument parsing
     str_to_replace_with_semicolon = '<semicolon' + str(random.random()) + '>'
@@ -34,7 +34,7 @@ def handle_backslash_semicolon(op_str: str) -> list:
     while str_to_replace_with_semicolon in op_str:
         str_to_replace_with_semicolon = '<semicolon' + str(random.random()) + '>'
 
-    op_str = op_str.replace('\;', str_to_replace_with_semicolon)
+    op_str = op_str.replace('\\;', str_to_replace_with_semicolon)
 
     return [op_str, str_to_replace_with_semicolon]
 
@@ -59,9 +59,8 @@ def parse_op(op_str: str) -> dict:
             for ch in op_part:
                 op['args_str'] += ch
             op['args_str'] += ' '
-    op['args_str'] = op['args_str'].strip()    
+    op['args_str'] = op['args_str'].strip()
     return op
-
 
 def parse(content: str) -> list:
     ''' Parse code from text and return list of operations '''

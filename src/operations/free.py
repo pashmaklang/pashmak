@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Deletes variables '''
+
 def run(self, op: dict):
     ''' Deletes variables '''
 

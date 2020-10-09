@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Checks variables exists and put result in mem '''
+
 def run(self, op: dict):
     ''' Checks variables exists and put result in mem '''
 

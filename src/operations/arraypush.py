@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Pushes new item to array '''
+
 def run(self, op: dict):
     ''' Pushes new item to array '''
     args = op['args']

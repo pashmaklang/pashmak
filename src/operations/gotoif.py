@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Changes program step to a section if mem is true '''
+
 def run(self, op: dict):
     ''' Changes program step to a section if mem is true '''
 
