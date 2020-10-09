@@ -58,5 +58,6 @@ def run(self , op: dict):
             self.raise_error('FileError' , str(ex) , op)
 
     operations = parser.parse(content)
-    for operation in operations:
-        self.run(operation)
+    #for operation in operations:
+        #self.run(operation)
+    self.exec_func(operations , False)

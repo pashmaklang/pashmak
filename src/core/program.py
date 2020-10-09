@@ -98,33 +98,41 @@ class Program(helpers.Helpers):
         print(error_type + ' in ' + str(op['index']) + ':\n\t' + op['str'] + '\n\t' + message)
         sys.exit(1)
 
-    def exec_func(self , func_body: list):
+    def exec_func(self , func_body: list , with_state=True):
         # create new state for this call
-        self.states.append({
-            'vars': dict(self.variables),
-        })
+        if with_state:
+            self.states.append({
+                'vars': dict(self.variables),
+            })
 
         # check function already called in this point
-        if self.current_step in self.runed_functions:
+        if self.current_step in self.runed_functions and with_state:
             return
         
         # add this point to runed functions (for stop repeating call in loops)
-        self.runed_functions.append(self.current_step)
+        if with_state:
+            self.runed_functions.append(self.current_step)
 
         # run function
         i = int(self.current_step)
+        is_in_func = False
         for func_op in func_body:
             func_op_parsed = self.set_operation_index(func_op)
-            if func_op_parsed['command'] == 'section':
+            if func_op_parsed['command'] == 'section' and is_in_func == False:
                 section_name = func_op_parsed['args'][0]
                 self.sections[section_name] = i+1
             else:
+                if func_op_parsed['command'] == 'func':
+                    is_in_func = True
+                elif func_op_parsed['command'] == 'endfunc':
+                    is_in_func = False
                 self.operations.insert(i+1 , func_op)
                 self.update_section_indexes(i+1)
                 i += 1
         
-        self.operations.insert(i+1 , parser.parse('popstate')[0])
-        self.update_section_indexes(i+1)
+        if with_state:
+            self.operations.insert(i+1 , parser.parse('popstate')[0])
+            self.update_section_indexes(i+1)
 
     def run(self , op: dict):
         ''' Run once operation '''

@@ -26,6 +26,7 @@ from TestCore import TestCore
 
 class test_stdlib(TestCore):
     def run(self):
+        pass
         self.assert_output(self.run_without_error('''
         print "hello world";
         ''') , 'hello world')
