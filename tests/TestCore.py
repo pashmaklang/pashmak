@@ -40,22 +40,19 @@ class TestCore:
         f.close()
         return self.run_script(content, read_inputs)
 
-    def run_without_error(self, script_content: str, read_inputs=[], args=[], want_argv=False) -> dict:
-        program = self.run_script(script_content, read_inputs, args, want_argv)
+    def run_without_error(self, script_content: str, read_inputs=[], args=[], want_argv=False, stop_after_error=True) -> dict:
+        program = self.run_script(script_content, read_inputs, args, want_argv, stop_after_error)
         self.assert_has_not_error(program)
         return program
 
-    def run_script(self, script_content: str, read_inputs=[], args=[], want_argv=False) -> dict:
+    def run_script(self, script_content: str, read_inputs=[], args=[], want_argv=False, stop_after_error=True) -> dict:
         script_operations = parser.parse(script_content)
         prog = program.Program(is_test=self.is_test, args=args)
+        prog.stop_after_error = stop_after_error
         prog.read_data = read_inputs
         prog.set_operations(script_operations)
-        try:
-            prog.start()
-        except:
-            print(tcolor.FAIL + 'Program runtime error')
-            raise
-        
+        prog.start()
+
         out = {}
         out['vars'] = prog.variables
         out['output'] = prog.output
@@ -110,8 +107,10 @@ class TestCore:
     def assert_exit_code(self, program, exit_code):
         self.assert_equals(program['exit_code'], exit_code)
 
-    def assert_has_error(self, program):
+    def assert_has_error(self, program, error_type=None):
         self.assert_not_equals(program['runtime_error'], None)
+        if error_type:
+            self.assert_equals(program['runtime_error']['type'], error_type)
 
     def assert_has_not_error(self, program):
         self.assert_equals(program['runtime_error'], None)

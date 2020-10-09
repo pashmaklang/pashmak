@@ -34,6 +34,6 @@ class test_python(TestCore):
             python $code;
         ''')['vars']['myvar'], 'the value')
 
-        self.assert_has_error(self.run_script(''' python $not_found; '''))
+        self.assert_has_error(self.run_script(''' python $not_found; '''), 'VariableError')
 
         self.assert_has_error(self.run_script(''' python ffgdhfghf; '''))

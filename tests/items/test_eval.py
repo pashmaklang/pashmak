@@ -32,6 +32,7 @@ class test_eval(TestCore):
             eval $code;
         '''), 'hello from eval')
 
-        self.assert_has_error(self.run_script(''' eval $not_found; '''))
-
         self.assert_has_error(self.run_script(''' eval hfgjhjhg; '''))
+
+        self.assert_has_error(self.run_script(''' eval $not_found; '''), 'VariableError')
+

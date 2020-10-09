@@ -50,6 +50,7 @@ class Program(helpers.Helpers):
         self.included_modules = [] # list of included modules to stop repeating imports
 
         self.current_step = 0
+        self.stop_after_error = True
         self.main_filename = os.getcwd() + '/a'
 
         # set argument variables
@@ -101,7 +102,9 @@ class Program(helpers.Helpers):
             return
         # raise error
         if self.is_test:
-            self.runtime_error = [error_type, message, op]
+            self.runtime_error = {'type': error_type, 'message': message, 'index': op['index']}
+            if self.stop_after_error:
+                self.current_step = len(self.operations)*2
             return
 
         # render error
@@ -339,6 +342,10 @@ class Program(helpers.Helpers):
             try:
                 self.run(self.operations[self.current_step])
             except Exception as ex:
+                try:
+                    self.set_operation_index(self.operations[self.current_step])
+                except:
+                    break
                 self.raise_error(
                     'RuntimeError',
                     str(ex),

@@ -39,9 +39,9 @@ class test_chdir(TestCore):
         self.assert_equals(os.getcwd(), '/tmp')
         os.chdir(current_wd)
 
-        self.assert_has_error(self.run_script(''' mem '/gdghfjuyjfjhgjghjghj'; chdir ^; '''))
+        self.assert_has_error(self.run_script(''' mem '/gdghfjuyjfjhgjghjghj'; chdir ^; '''), 'RuntimeError')
         os.chdir(current_wd)
 
-        self.assert_has_error(self.run_script(''' chdir $notfound; '''))
+        self.assert_has_error(self.run_script(''' chdir $notfound; '''), 'VariableError')
 
-        self.assert_has_error(self.run_script(''' chdir gfhhhrtryru; '''))
+        self.assert_has_error(self.run_script(''' chdir gfhhhrtryru; '''), 'VariableError')

@@ -34,4 +34,4 @@ class test_free(TestCore):
 
         self.assert_vars(self.run_without_error(''' free $not_found_var; '''), {})
 
-        self.assert_has_error(self.run_script(''' free $somevar gdhfg ^; '''))
+        self.assert_has_error(self.run_script(''' free $somevar gdhfg ^; '''), 'SyntaxError')

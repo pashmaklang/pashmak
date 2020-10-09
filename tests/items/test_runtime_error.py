@@ -24,4 +24,4 @@ from TestCore import TestCore
 
 class test_runtime_error(TestCore):
     def run(self):
-        self.assert_has_error(self.run_script(''' mem 'hello world; out ^; '''))
+        self.assert_has_error(self.run_script(''' mem 'hello world; out ^; '''), 'RuntimeError')

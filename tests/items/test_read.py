@@ -50,6 +50,6 @@ class test_read(TestCore):
 
         self.assert_has_not_error(self.run_script(''' read; ''', ['temp']))
 
-        self.assert_has_error(self.run_script(''' read $notfound; ''', ['temp']))
+        self.assert_has_error(self.run_script(''' read $notfound; ''', ['temp']), 'VariableError')
 
-        self.assert_has_error(self.run_script(''' read hgfjgky; ''', ['temp']))
+        self.assert_has_error(self.run_script(''' read hgfjgky; ''', ['temp']), 'SyntaxError')
