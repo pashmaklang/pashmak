@@ -99,13 +99,23 @@ class Program(helpers.Helpers):
         if self.is_test:
             self.runtime_error = [error_type , message , op]
             return
-        print(error_type + ' in ' + str(op['index']) + ':\n\t' + op['str'] + '\n\t' + message)
+
+        # render error
+        print(error_type + ': ' + message + ':')
+        for state in self.states:
+            try:
+                tmp_op = self.operations[state['entry_point']]
+                print('\tin ' + str(tmp_op['index']) + ': ' + tmp_op['str'])
+            except:
+                pass
+        print('\tin ' + str(op['index']) + ': ' + op['str'])
         sys.exit(1)
 
     def exec_func(self , func_body: list , with_state=True):
         # create new state for this call
         if with_state:
             self.states.append({
+                'entry_point': self.current_step,
                 'vars': dict(self.variables),
             })
 
