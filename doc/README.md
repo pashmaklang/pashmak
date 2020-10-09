@@ -15,6 +15,9 @@ pashmak is writed by [parsampsh](https://github.com/parsampsh) and [contributors
 ## Contributing
 if you want to contribute to this project, read [Contributing Guide](CONTRIBUTING.md)
 
+## Changelog
+to see pashmak versions changelog, read [Changelog](CHANGELOG.md)
+
 # Documentation
 read the following Documentation to learn pashmak.
 
