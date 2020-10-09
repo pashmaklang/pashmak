@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Adds a namespace to used namespaces '''
+
 def run(self, op: dict):
     ''' Adds a namespace to used namespaces '''
 

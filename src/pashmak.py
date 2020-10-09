@@ -23,7 +23,8 @@
 
 ''' Pashmak cli entry point '''
 
-import sys, os
+import sys
+import os
 from syntax import parser
 from core import program, version
 

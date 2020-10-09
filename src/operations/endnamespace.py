@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Closes namespace prefix '''
+
 def run(self, op: dict):
     ''' Closes namespace prefix '''
     self.current_namespace = ''

@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Pops a index from array '''
+
 def run(self, op: dict):
     ''' Pops a index from array '''
     args = op['args']

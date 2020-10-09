@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Sets variables '''
+
 def run(self, op: dict):
     ''' Sets variables '''
 

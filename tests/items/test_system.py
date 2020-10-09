@@ -41,6 +41,6 @@ class test_system(TestCore):
         self.assert_true(os.path.isfile('/tmp/pashmak-test-created-file-' + str(rand)))
         os.remove('/tmp/pashmak-test-created-file-' + str(rand))
 
-        self.assert_has_error(self.run_script(''' system $notfound; '''))
+        self.assert_has_error(self.run_script(''' system $notfound; '''), 'VariableError')
 
         self.assert_has_error(self.run_script(''' system fgfdtyjgh; '''))

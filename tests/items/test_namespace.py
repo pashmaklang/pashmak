@@ -53,7 +53,7 @@ class test_namespace(TestCore):
         self.assert_has_error(self.run_script('''
         namespace Test;
         namespace New;
-        '''))
+        '''), 'NamespaceError')
 
         self.assert_output(self.run_without_error('''
         namespace App;
@@ -119,4 +119,4 @@ class test_namespace(TestCore):
         endns;
 
         out $name;
-        '''))
+        '''), 'VariableError')

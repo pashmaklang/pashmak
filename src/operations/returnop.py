@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Exits program with exit code '''
+
 import sys
 
 def run(self, op: dict):

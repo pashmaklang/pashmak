@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Puts program current working directory in mem '''
+
 import os
 
 def run(self, op: dict):

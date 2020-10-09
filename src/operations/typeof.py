@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Puts type of a variable in mem '''
+
 def run(self, op: dict):
     ''' Puts type of a variable in mem '''
 

@@ -31,8 +31,8 @@ class test_out(TestCore):
             out $name;
         '''), 'hi therehello world\npashmak')
 
-        self.assert_has_error(self.run_script(''' out $not_found_var; '''))
+        self.assert_has_error(self.run_script(''' out $not_found_var; '''), 'VariableError')
 
-        self.assert_has_error(self.run_script(''' out; '''))
+        self.assert_has_error(self.run_script(''' out; '''), 'ArgumentError')
 
         self.assert_has_error(self.run_script(''' out gdhfyyuy; '''))

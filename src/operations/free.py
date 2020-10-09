@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Deletes variables '''
+
 def run(self, op: dict):
     ''' Deletes variables '''
 
@@ -31,5 +33,5 @@ def run(self, op: dict):
         else:
             try:
                 del self.all_vars()[arg[1:]]
-            except:
+            except KeyError:
                 pass

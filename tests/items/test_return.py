@@ -44,6 +44,6 @@ class test_return(TestCore):
 
         self.assert_exit_code(self.run_without_error(''' set $exitcode; mem 126; copy $exitcode; return $exitcode; '''), 126)
 
-        self.assert_has_error(self.run_script(''' return $notfound; '''))
+        self.assert_has_error(self.run_script(''' return $notfound; '''), 'TypeError')
 
-        self.assert_has_error(self.run_script(''' return fgfdgdg; '''))
+        self.assert_has_error(self.run_script(''' return fgfdgdg; '''), 'TypeError')

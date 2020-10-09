@@ -47,6 +47,6 @@ class test_typeof(TestCore):
         self.assert_equals(program_vars['type_int'], int)
         self.assert_equals(program_vars['type_bool'], bool)
 
-        self.assert_has_error(self.run_script(''' typeof $notfound; '''))
+        self.assert_has_error(self.run_script(''' typeof $notfound; '''), 'VariableError')
 
         self.assert_has_error(self.run_script(''' typeof gfgfhfh; '''))

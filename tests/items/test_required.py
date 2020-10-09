@@ -34,6 +34,6 @@ class test_required(TestCore):
             set $v1 $name;
             required $v1 $name;
             required $n;
-        '''))
+        '''), 'VariableError')
 
-        self.assert_has_error(self.run_script(''' required ffdggd $sgdfg; '''))
+        self.assert_has_error(self.run_script(''' required ffdggd $sgdfg; '''), 'VariableError')
