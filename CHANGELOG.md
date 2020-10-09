@@ -16,3 +16,36 @@
 #### Feature
 - sync variable system with namespace system [(e9f48a17)](https://github.com/parsampsh/pashmak/commit/e9f48a17646873d3ccaa574e6bf11911908ea3c6)
 - make better error rendering [(0115448a)](https://github.com/parsampsh/pashmak/commit/0115448a95b02621d2e51009e41a18b268bd7729)
+
+## v1.2.3
+
+#### Fixed
+- fixed section bug after include
+- some changes in cli error showing
+
+## v1.2.2
+
+#### Feature
+- add Table of contents to documentation and clean up
+
+## v1.2.1
+
+#### Fixed
+- clean up documentation
+
+## v1.2
+
+#### Fixed
+- big clean up in documentation
+- fix `typeof` operation bug
+
+## v1.1
+
+#### Feature
+- added operation `use` for namespace system
+
+## v1.0.1
+
+#### Fixed
+- fixed namespace-in-namespace bug
+
