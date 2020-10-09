@@ -1194,6 +1194,21 @@ endns;
 App.say_hello;
 ```
 
+also namespace system is sync with variables:
+
+```bash
+namespace App;
+    set $name; mem 'parsa'; copy $name;
+    print $name + '\n'; # output: parsa
+    print $App.name; # output: parsa
+endns;
+
+print $App.name; # output: parsa
+
+# but this has error:
+print $name; # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
+```
+
 this system is very useful.
 
 ### use operation
@@ -1206,15 +1221,19 @@ namespace App;
     func dosomething;
         print 'hello world\n';
     endfunc;
+
+    set $name; mem 'parsa'; copy $name;
 endns;
 
 App.dosomething;
+print $App.name + '\n';
 ```
 
 output:
 
 ```
 hello world
+parsa
 ```
 
 we have to put `App.` before `dosomething` to run this function.
@@ -1227,12 +1246,17 @@ namespace App;
     func dosomething;
         print 'hello world\n';
     endfunc;
+
+    set $name; mem 'parsa\n'; copy $name;
 endns;
 
 use App;
 
 App.dosomething;
 dosomething;
+
+out $App.name;
+out $name;
 ```
 
 output:
@@ -1240,6 +1264,8 @@ output:
 ```
 hello world
 hello world
+parsa
+parsa
 ```
 
 when i use `use` operation and give a namespace as argument to that, i can call all of that namespace members without namespace prefix.

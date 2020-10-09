@@ -48,7 +48,7 @@ class Helpers(commands.Commands):
     def variable_exists(self , varname: str) -> bool:
         ''' Checks a variable is exists or not '''
         try:
-            tmp = self.all_vars()[varname]
+            self.get_var(varname)
             return True
         except:
             return False
@@ -64,11 +64,19 @@ class Helpers(commands.Commands):
 
     def get_var(self , varname: str):
         ''' Gets a variable name and returns value of that '''
-        return self.all_vars()[varname]
+        try:
+            return self.all_vars()[self.current_namespace + varname]
+        except:
+            for used_namespace in self.used_namespaces:
+                try:
+                    return self.all_vars()[used_namespace + '.' + varname]
+                except:
+                    pass
+            return self.all_vars()[varname]
 
     def set_var(self , varname: str , value):
         ''' Gets name of a variable and sets value on that '''
-        self.all_vars()[varname] = value
+        self.all_vars()[self.current_namespace + varname] = value
 
     def all_vars(self):
         ''' Returns list of all of variables '''

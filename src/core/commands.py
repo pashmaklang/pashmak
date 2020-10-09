@@ -24,7 +24,6 @@
 from operations import set as op_set
 from operations import free as op_free
 from operations import copy as op_copy
-from operations import mem as op_mem
 from operations import out as op_out
 from operations import read as op_read
 from operations import returnop as op_return
@@ -60,9 +59,6 @@ class Commands:
 
     def run_copy(self , op: dict):
         op_copy.run(self , op)
-
-    def run_mem(self , op: dict):
-        op_mem.run(self , op)
 
     def run_out(self , op: dict):
         op_out.run(self , op)

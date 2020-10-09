@@ -32,7 +32,9 @@ class Program(helpers.Helpers):
     def __init__(self , is_test=False , args=[]):
         self.variables = {} # main state variables
         self.states = [] # list of states
-        self.functions = {} # declared functions <function-name>:[<list-of-body-operations>]
+        self.functions = {
+            "mem": [] # mem is a empty function just for save mem in code
+        } # declared functions <function-name>:[<list-of-body-operations>]
         self.operations = [] # list of operations
         self.sections = {} # list of declared sections <section-name>:<index-of-operation-to-jump>
         self.mem = None # memory temp value
@@ -168,9 +170,6 @@ class Program(helpers.Helpers):
         elif op_name == 'copy':
             self.run_copy(op)
             return
-        elif op_name == 'mem':
-            self.run_mem(op)
-            return
         elif op_name == 'out':
             self.run_out(op)
             return
@@ -273,7 +272,11 @@ class Program(helpers.Helpers):
                 code = '(' + args + ')'
                 # replace variable names with value of them
                 for k in self.all_vars():
-                    code = code.replace('$' + k , 'self.all_vars()["' + k + '"]')
+                    code = code.replace('$' + k , 'self.get_var("' + k + '")')
+                    for used_namespace in self.used_namespaces:
+                        if k[:len(used_namespace)+1] == used_namespace + '.':
+                            code = code.replace('$' + k[len(used_namespace)+1:] , 'self.get_var("' + k + '")')
+
                 self.mem = eval(code)
             else:
                 self.mem = ''
