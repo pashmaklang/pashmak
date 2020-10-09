@@ -45,6 +45,8 @@ class Program(helpers.Helpers):
         self.used_namespaces = [] # list of used namespaces
         self.included_modules = [] # list of included modules to stop repeating imports
 
+        self.main_filename = os.getcwd() + '/a'
+
         # set argument variables
         self.set_var('argv' , args)
         self.set_var('argc' , len(self.get_var('argv')))

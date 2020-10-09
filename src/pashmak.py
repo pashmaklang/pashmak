@@ -63,6 +63,7 @@ script_operations = parser.parse(script_content)
 
 # make pashmak program object
 prog = program.Program(args=sys.argv[1:])
+prog.main_filename = filename
 prog.set_operations(script_operations)
 prog.start()
 
