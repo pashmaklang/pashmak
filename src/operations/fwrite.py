@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Writes on a file '''
+
 def run(self, op: dict):
     ''' Writes on a file '''
     args = op['args']

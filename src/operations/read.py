@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Reads a input from stdin '''
+
 def run(self, op: dict):
     ''' Reads a input from stdin '''
 
@@ -35,7 +37,7 @@ def run(self, op: dict):
             self.read_data.pop(0)
         return
 
-    for arg in op['args']:    
+    for arg in op['args']:
         if not self.is_test:
             readed_data = input()
         else:

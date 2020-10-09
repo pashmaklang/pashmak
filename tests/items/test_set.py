@@ -43,4 +43,4 @@ class test_set(TestCore):
             out $myvar; set $myvar; out $myvar;
         '''), 'hellohello')
 
-        self.assert_has_error(self.run_script(''' set $aaa gghg; '''))
+        self.assert_has_error(self.run_script(''' set $aaa gghg; '''), 'SyntaxError')

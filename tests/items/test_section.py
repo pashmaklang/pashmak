@@ -48,6 +48,6 @@ class test_section(TestCore):
             mem 'after start\\n'; out ^;
         '''), expected_output)
 
-        self.assert_has_error(self.run_script(''' goto not_found; '''))
+        self.assert_has_error(self.run_script(''' goto not_found; '''), 'SectionError')
 
-        self.assert_has_error(self.run_script(''' gotoif not_found; '''))
+        self.assert_has_error(self.run_script(''' gotoif not_found; '''), 'SectionError')

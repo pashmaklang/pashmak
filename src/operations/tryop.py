@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Opens try-endtry block '''
+
 def run(self, op: dict):
     ''' Opens try-endtry block '''
 

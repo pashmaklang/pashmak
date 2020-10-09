@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Prints a value on screen '''
+
 def run(self, op: dict):
     ''' Prints a value on screen '''
 

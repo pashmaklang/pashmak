@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Runs pashmak code from string '''
+
 from syntax import parser
 
 def run(self, op: dict):

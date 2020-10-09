@@ -38,7 +38,7 @@ class test_function(TestCore):
         ''')
         self.assert_output(program, 'starting\nfunc runed\nfunc finished\nfinished\n')
 
-        self.assert_has_error(self.run_script(''' undefined_func; '''))
+        self.assert_has_error(self.run_script(''' undefined_func; '''), 'SyntaxError')
 
         self.assert_output(self.run_without_error('''
             func myfunc;
@@ -81,7 +81,7 @@ class test_function(TestCore):
             endfunc;
             
             myfunc hello world;
-        '''))
+        '''), 'RuntimeError')
 
         self.assert_output(self.run_without_error('''
         set $n; mem 'parsa\\n'; copy $n;
@@ -112,5 +112,5 @@ class test_function(TestCore):
         func myfunc;
             print 'something\n';
         endfunc;
-        '''))
+        '''), 'FunctionError')
 

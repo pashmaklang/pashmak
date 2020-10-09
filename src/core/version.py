@@ -20,5 +20,7 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Version of pashmak '''
+
 # pashmak version
 version = 'v1.3'

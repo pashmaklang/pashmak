@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Checks variables and raise error when they are not exists '''
+
 def run(self, op: dict):
     ''' Checks variables and raise error when they are not exists '''
 

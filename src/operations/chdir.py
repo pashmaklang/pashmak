@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Changes program working directory '''
+
 import os
 
 def run(self, op: dict):

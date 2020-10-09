@@ -41,7 +41,7 @@ class test_include(TestCore):
             include $path;
         '''), 'i am included\n')
 
-        self.assert_has_error(self.run_script(''' include $not_found; '''))
+        self.assert_has_error(self.run_script(''' include $not_found; '''), 'VariableError')
 
         self.assert_has_error(self.run_script(''' include hhghgjghj; '''))
 
@@ -50,4 +50,4 @@ class test_include(TestCore):
             hash.sha256 'hello'; out ^;
         '''), hashlib.sha256('hello'.encode()).hexdigest())
 
-        self.assert_has_error(self.run_script(''' mem '@notfound233445'; include ^; '''))
+        self.assert_has_error(self.run_script(''' mem '@notfound233445'; include ^; '''), 'ModuleError')

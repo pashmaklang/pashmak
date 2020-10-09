@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Closes function block '''
+
 def run(self, op: dict):
     ''' Closes function block '''
 
