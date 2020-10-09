@@ -30,14 +30,14 @@ class test_system(TestCore):
         program = self.run_without_error('''
             mem 'start\\n'; out ^;
             mem 'touch /tmp/pashmak-test-created-file-<rand>'; system ^;
-        '''.replace('<rand>' , str(rand)))
-        self.assert_output(program , 'start\n')
-        self.assert_mem(program , 0)
+        '''.replace('<rand>', str(rand)))
+        self.assert_output(program, 'start\n')
+        self.assert_mem(program, 0)
         self.assert_true(os.path.isfile('/tmp/pashmak-test-created-file-' + str(rand)))
         os.remove('/tmp/pashmak-test-created-file-' + str(rand))
 
         rand = time.time()
-        self.run_without_error(''' set $cmd; mem "touch /tmp/pashmak-test-created-file-<rand>"; copy $cmd; system $cmd; '''.replace('<rand>' , str(rand)))
+        self.run_without_error(''' set $cmd; mem "touch /tmp/pashmak-test-created-file-<rand>"; copy $cmd; system $cmd; '''.replace('<rand>', str(rand)))
         self.assert_true(os.path.isfile('/tmp/pashmak-test-created-file-' + str(rand)))
         os.remove('/tmp/pashmak-test-created-file-' + str(rand))
 

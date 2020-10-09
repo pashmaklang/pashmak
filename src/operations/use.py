@@ -20,10 +20,10 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Adds a namespace to used namespaces '''
 
-    self.require_one_argument(op , 'use operation requires namespace argument')
+    self.require_one_argument(op, 'use operation requires namespace argument')
     arg = op['args'][0]
 
     self.used_namespaces.append(arg)

@@ -24,9 +24,9 @@ from TestCore import TestCore
 
 class test_read(TestCore):
     def run(self):
-        program = self.run_without_error(''' set $input; read $input; out $input; ''' , ['pashmak'])
-        self.assert_output(program , 'pashmak')
-        self.assert_vars(program , {'input': 'pashmak'})
+        program = self.run_without_error(''' set $input; read $input; out $input; ''', ['pashmak'])
+        self.assert_output(program, 'pashmak')
+        self.assert_vars(program, {'input': 'pashmak'})
 
         program = self.run_without_error('''
             set $input;
@@ -36,20 +36,20 @@ class test_read(TestCore):
             set $input_1;
             read $input_1;
             out $input_1;
-        ''' , ['pashmak' , 'parsa'])
-        self.assert_output(program , 'pashmakparsa')
-        self.assert_vars(program , {'input': 'pashmak' , 'input_1': 'parsa'})
+        ''', ['pashmak', 'parsa'])
+        self.assert_output(program, 'pashmakparsa')
+        self.assert_vars(program, {'input': 'pashmak', 'input_1': 'parsa'})
 
-        self.assert_vars(self.run_without_error(''' set $a $b; read $a $b; ''' , ['pashmak' , 'parsa']) , {'a': 'pashmak' , 'b': 'parsa'})
+        self.assert_vars(self.run_without_error(''' set $a $b; read $a $b; ''', ['pashmak', 'parsa']), {'a': 'pashmak', 'b': 'parsa'})
 
-        self.assert_mem(self.run_without_error(''' read ^; ''' , ['pashmak']) , 'pashmak')
+        self.assert_mem(self.run_without_error(''' read ^; ''', ['pashmak']), 'pashmak')
 
-        program = self.run_without_error(''' set $var; read ^ $var; ''' , ['themem' , 'pashmak'])
-        self.assert_mem(program , 'themem')
-        self.assert_equals(program['vars']['var'] , 'pashmak')
+        program = self.run_without_error(''' set $var; read ^ $var; ''', ['themem', 'pashmak'])
+        self.assert_mem(program, 'themem')
+        self.assert_equals(program['vars']['var'], 'pashmak')
 
-        self.assert_has_not_error(self.run_script(''' read; ''' , ['temp']))
+        self.assert_has_not_error(self.run_script(''' read; ''', ['temp']))
 
-        self.assert_has_error(self.run_script(''' read $notfound; ''' , ['temp']))
+        self.assert_has_error(self.run_script(''' read $notfound; ''', ['temp']))
 
-        self.assert_has_error(self.run_script(''' read hgfjgky; ''' , ['temp']))
+        self.assert_has_error(self.run_script(''' read hgfjgky; ''', ['temp']))

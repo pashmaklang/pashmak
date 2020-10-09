@@ -40,12 +40,12 @@ class test_typeof(TestCore):
             set $type_bool;
             typeof $mybool; copy $type_bool;
         ''')['vars']
-        self.assert_equals(type(program_vars['mystr']) , str)
-        self.assert_equals(type(program_vars['myint']) , int)
-        self.assert_equals(type(program_vars['mybool']) , bool)
-        self.assert_equals(program_vars['type_str'] , str)
-        self.assert_equals(program_vars['type_int'] , int)
-        self.assert_equals(program_vars['type_bool'] , bool)
+        self.assert_equals(type(program_vars['mystr']), str)
+        self.assert_equals(type(program_vars['myint']), int)
+        self.assert_equals(type(program_vars['mybool']), bool)
+        self.assert_equals(program_vars['type_str'], str)
+        self.assert_equals(program_vars['type_int'], int)
+        self.assert_equals(program_vars['type_bool'], bool)
 
         self.assert_has_error(self.run_script(''' typeof $notfound; '''))
 

@@ -22,7 +22,7 @@
 
 import os
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Puts program current working directory in mem '''
 
     self.mem = os.getcwd()

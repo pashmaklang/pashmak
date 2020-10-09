@@ -37,14 +37,14 @@ endfunc;
 
 func raise;
 	set $exdata; copy $exdata;
-	mem "self.raise_error('" + $exdata[0] + "' , '" + $exdata[1] + "' , op)";
+	mem "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', op)";
     python ^;
     free $exdata;
 endfunc;
 
 func assert;
     gotoif tmp_assert_after_section;
-    raise ['AssertError' , 'asserting that false is true'];
+    raise ['AssertError', 'asserting that false is true'];
     section tmp_assert_after_section;
 endfunc;
 

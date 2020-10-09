@@ -28,7 +28,7 @@ class test_copy(TestCore):
             set $name $family $age;
             mem 'parsa'; copy $name;
             copy $name $family;
-        ''') , {
+        '''), {
             'name': 'parsa',
             'family': 'parsa',
             'age': None

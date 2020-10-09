@@ -29,7 +29,7 @@ class test_set(TestCore):
             set $var1 $var2;
             set $v3 $aaa $hoho;
             set $var1;
-        ''') , {
+        '''), {
             'myvar': None,
             'var1': None,
             'var2': None,
@@ -41,6 +41,6 @@ class test_set(TestCore):
         self.assert_output(self.run_without_error('''
             set $myvar; mem 'hello'; copy $myvar;
             out $myvar; set $myvar; out $myvar;
-        ''') , 'hellohello')
+        '''), 'hellohello')
 
         self.assert_has_error(self.run_script(''' set $aaa gghg; '''))

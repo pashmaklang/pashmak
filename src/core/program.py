@@ -29,7 +29,7 @@ from core import helpers
 class Program(helpers.Helpers):
     ''' Pashmak program object '''
 
-    def __init__(self , is_test=False , args=[]):
+    def __init__(self, is_test=False, args=[]):
         self.variables = {} # main state variables
         self.states = [] # list of states
         self.functions = {
@@ -50,19 +50,19 @@ class Program(helpers.Helpers):
         self.main_filename = os.getcwd() + '/a'
 
         # set argument variables
-        self.set_var('argv' , args)
-        self.set_var('argc' , len(self.get_var('argv')))
+        self.set_var('argv', args)
+        self.set_var('argc', len(self.get_var('argv')))
 
-    def set_operations(self , operations: list):
+    def set_operations(self, operations: list):
         # include stdlib before everything
         tmp = parser.parse('mem "@stdlib"; include ^;')
-        operations.insert(0 , tmp[0])
-        operations.insert(1 , tmp[1])
+        operations.insert(0, tmp[0])
+        operations.insert(1, tmp[1])
 
         # set operations on program object
         self.operations = operations
 
-    def set_operation_index(self , op: dict) -> dict:
+    def set_operation_index(self, op: dict) -> dict:
         ''' Add operation index to operation dictonary '''
         op['index'] = self.current_step
         return op
@@ -73,7 +73,7 @@ class Program(helpers.Helpers):
         self.mem = None
         return mem
 
-    def update_section_indexes(self , after_index):
+    def update_section_indexes(self, after_index):
         '''
         When a new operation inserted in operations list,
         this function add 1 to section indexes to be
@@ -83,7 +83,7 @@ class Program(helpers.Helpers):
             if self.sections[k] > after_index:
                 self.sections[k] = self.sections[k] + 1
 
-    def raise_error(self , error_type: str , message: str , op: dict):
+    def raise_error(self, error_type: str, message: str, op: dict):
         ''' Raise error in program '''
         # check is in try
         if self.is_in_try != None:
@@ -93,11 +93,11 @@ class Program(helpers.Helpers):
             self.current_step = new_step-1
 
             # put error data in mem
-            self.mem = {'type': error_type , 'message': message , 'index': op['index']}
+            self.mem = {'type': error_type, 'message': message, 'index': op['index']}
             return
         # raise error
         if self.is_test:
-            self.runtime_error = [error_type , message , op]
+            self.runtime_error = [error_type, message, op]
             return
 
         # render error
@@ -111,7 +111,7 @@ class Program(helpers.Helpers):
         print('\tin ' + str(op['index']) + ': ' + op['str'])
         sys.exit(1)
 
-    def exec_func(self , func_body: list , with_state=True):
+    def exec_func(self, func_body: list, with_state=True):
         # create new state for this call
         if with_state:
             self.states.append({
@@ -140,15 +140,15 @@ class Program(helpers.Helpers):
                     is_in_func = True
                 elif func_op_parsed['command'] == 'endfunc':
                     is_in_func = False
-                self.operations.insert(i+1 , func_op)
+                self.operations.insert(i+1, func_op)
                 self.update_section_indexes(i+1)
                 i += 1
         
         if with_state:
-            self.operations.insert(i+1 , parser.parse('popstate')[0])
+            self.operations.insert(i+1, parser.parse('popstate')[0])
             self.update_section_indexes(i+1)
 
-    def run(self , op: dict):
+    def run(self, op: dict):
         ''' Run once operation '''
 
         op = self.set_operation_index(op)
@@ -271,7 +271,7 @@ class Program(helpers.Helpers):
                 try:
                     func_body = self.functions[op_name]
                 except:
-                    self.raise_error('SyntaxError' , 'undefined operation "' + op_name + '"' , op)
+                    self.raise_error('SyntaxError', 'undefined operation "' + op_name + '"', op)
                     return
 
         # run function
@@ -282,10 +282,10 @@ class Program(helpers.Helpers):
                 code = '(' + args + ')'
                 # replace variable names with value of them
                 for k in self.all_vars():
-                    code = code.replace('$' + k , 'self.get_var("' + k + '")')
+                    code = code.replace('$' + k, 'self.get_var("' + k + '")')
                     for used_namespace in self.used_namespaces:
                         if k[:len(used_namespace)+1] == used_namespace + '.':
-                            code = code.replace('$' + k[len(used_namespace)+1:] , 'self.get_var("' + k + '")')
+                            code = code.replace('$' + k[len(used_namespace)+1:], 'self.get_var("' + k + '")')
 
                 self.mem = eval(code)
             else:
@@ -295,10 +295,10 @@ class Program(helpers.Helpers):
             self.exec_func(func_body)
             return
         except Exception as ex:
-            self.raise_error('RuntimeError' , str(ex) , op)
+            self.raise_error('RuntimeError', str(ex), op)
 
-    def signal_handler(self , signal , frame):
-        self.raise_error('Signal' , str(signal) , self.operations[self.current_step])
+    def signal_handler(self, signal, frame):
+        self.raise_error('Signal', str(signal), self.operations[self.current_step])
 
     def start(self):
         ''' Start running the program '''
@@ -328,5 +328,5 @@ class Program(helpers.Helpers):
             try:
                 self.run(self.operations[self.current_step])
             except Exception as ex:
-                self.raise_error('RuntimeError' , str(ex) , self.set_operation_index(self.operations[self.current_step]))
+                self.raise_error('RuntimeError', str(ex), self.set_operation_index(self.operations[self.current_step]))
             self.current_step += 1

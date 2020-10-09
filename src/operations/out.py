@@ -20,21 +20,21 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Prints a value on screen '''
 
-    self.require_one_argument(op , 'out operation requires argument')
+    self.require_one_argument(op, 'out operation requires argument')
     arg = op['args'][0]
-    self.arg_should_be_variable_or_mem(arg , op)
+    self.arg_should_be_variable_or_mem(arg, op)
 
     out = None
     if arg == '^':
         out = self.get_mem()
     else:
-        self.variable_required(arg[1:] , op)
+        self.variable_required(arg[1:], op)
         out = self.get_var(arg[1:])
     
     if not self.is_test:
-        print(out , end='' , flush=True)
+        print(out, end='', flush=True)
     else:
         self.output += str(out)

@@ -26,7 +26,7 @@ class test_arraypop(TestCore):
     def run(self):
         self.assert_vars(self.run_without_error('''
             set $names;
-            mem ['pashmak' , 'parsa']; copy $names;
+            mem ['pashmak', 'parsa']; copy $names;
 
             mem 1; arraypop $names ^;
         '''),
@@ -36,7 +36,7 @@ class test_arraypop(TestCore):
 
         self.assert_vars(self.run_without_error('''
             set $names;
-            mem ['pashmak' , 'parsa']; copy $names;
+            mem ['pashmak', 'parsa']; copy $names;
 
             set $index; mem 1; copy $index;
             arraypop $names $index;

@@ -82,11 +82,11 @@ section 30;
 
 class test_try_catch(TestCore):
     def run(self):
-        self.assert_output(self.run_script(script_content) , 'hello pashmak')
+        self.assert_output(self.run_script(script_content), 'hello pashmak')
 
-        self.assert_output(self.run_script(script_content_b) , 'the Error')
+        self.assert_output(self.run_script(script_content_b), 'the Error')
 
-        self.assert_output(self.run_script(script_content_c) , 'SyntaxError:undefined operation "mmdgfgdhgfhjh"')
+        self.assert_output(self.run_script(script_content_c), 'SyntaxError:undefined operation "mmdgfgdhgfhjh"')
 
         self.assert_has_error(self.run_script(''' try; gfdhghgfhf; endtry; '''))
 

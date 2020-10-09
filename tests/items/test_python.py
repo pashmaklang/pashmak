@@ -26,13 +26,13 @@ class test_python(TestCore):
     def run(self):
         self.assert_equals(self.run_without_error('''
             mem "self.all_vars()['myvar'] = 'the value'"; python ^;
-        ''')['vars']['myvar'] , 'the value')
+        ''')['vars']['myvar'], 'the value')
 
         self.assert_equals(self.run_script('''
             set $code;
             mem "self.all_vars()['myvar'] = 'the value'"; copy $code;
             python $code;
-        ''')['vars']['myvar'] , 'the value')
+        ''')['vars']['myvar'], 'the value')
 
         self.assert_has_error(self.run_script(''' python $not_found; '''))
 

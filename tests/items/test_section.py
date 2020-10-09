@@ -30,7 +30,7 @@ class test_section(TestCore):
             mem 'it will not show'; out ^;
             section 10;
             mem 'this is end\\n'; out ^;
-        ''') , 'before start\nthis is end\n')
+        '''), 'before start\nthis is end\n')
 
         expected_output = 'before start\n'
         i = 0
@@ -46,7 +46,7 @@ class test_section(TestCore):
             mem $i + 1; copy $i;
             mem $i < 100; gotoif 10;
             mem 'after start\\n'; out ^;
-        ''') , expected_output)
+        '''), expected_output)
 
         self.assert_has_error(self.run_script(''' goto not_found; '''))
 

@@ -35,7 +35,7 @@ class test_namespace(TestCore):
         endnamespace;
 
         MySpace.dosomething;
-        ''') , 'hello world\nhello world\nhello world\n')
+        '''), 'hello world\nhello world\nhello world\n')
 
         self.assert_output(self.run_without_error('''
         namespace MySpace;
@@ -48,7 +48,7 @@ class test_namespace(TestCore):
         endns;
 
         MySpace.dosomething;
-        ''') , 'hello world\nhello world\nhello world\n')
+        '''), 'hello world\nhello world\nhello world\n')
 
         self.assert_has_error(self.run_script('''
         namespace Test;
@@ -92,7 +92,7 @@ class test_namespace(TestCore):
         out $name;
         out $test;
 
-        ''') , 'hello world\nhello\nthe appthe secondhello world\nhello world\nhello\nhello\nthe appthe secondthe appthe second')
+        '''), 'hello world\nhello\nthe appthe secondhello world\nhello world\nhello\nhello\nthe appthe secondthe appthe second')
 
         self.assert_output(self.run_without_error('''
         namespace App;
@@ -101,7 +101,7 @@ class test_namespace(TestCore):
         endns;
 
         out $App.name
-        ''') , 'parsaparsa')
+        '''), 'parsaparsa')
 
         self.assert_output(self.run_without_error('''
         namespace App;
@@ -111,7 +111,7 @@ class test_namespace(TestCore):
         endns;
 
         out $App.name;
-        ''') , 'parsaparsaparsa')
+        '''), 'parsaparsaparsa')
 
         self.assert_has_error(self.run_script('''
         namespace App;

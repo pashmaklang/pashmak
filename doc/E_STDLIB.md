@@ -32,14 +32,14 @@ std.chdir "/tmp"; # INSTEAD OF `mem '/tmp'; chdir ^;`
 std.eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
 
 # gset
-gset 'somevar' , 'new global value'; # you learned this command in functions section
+gset 'somevar', 'new global value'; # you learned this command in functions section
 ```
 
 ##### raising errors
 ```bash
 print 'program started\n';
 
-raise 'MyError' , 'this is my error';
+raise 'MyError', 'this is my error';
 
 print 'this will not print\n';
 ```

@@ -28,10 +28,10 @@ class test_free(TestCore):
             set $somevar $v1;
             set $hoho;
             free $v1 $hoho;
-        ''') , {'somevar':None})
+        '''), {'somevar':None})
 
-        self.assert_mem(self.run_without_error(''' mem 'some thing'; free ^; ''') , None)
+        self.assert_mem(self.run_without_error(''' mem 'some thing'; free ^; '''), None)
 
-        self.assert_vars(self.run_without_error(''' free $not_found_var; ''') , {})
+        self.assert_vars(self.run_without_error(''' free $not_found_var; '''), {})
 
         self.assert_has_error(self.run_script(''' free $somevar gdhfg ^; '''))

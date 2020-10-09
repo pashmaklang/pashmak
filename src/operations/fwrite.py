@@ -20,12 +20,12 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Writes on a file '''
     args = op['args']
 
     if len(args) <= 0:
-        self.raise_error('ArgumentError' , 'fwrite operation gets two arguments' , op)
+        self.raise_error('ArgumentError', 'fwrite operation gets two arguments', op)
 
     mem = self.mem
     
@@ -36,8 +36,8 @@ def run(self , op: dict):
     else:
         content = args[1]
 
-    self.arg_should_be_variable_or_mem(filepath , op)
-    self.arg_should_be_variable_or_mem(content , op)
+    self.arg_should_be_variable_or_mem(filepath, op)
+    self.arg_should_be_variable_or_mem(content, op)
 
     try:
         if filepath == '^':
@@ -45,7 +45,7 @@ def run(self , op: dict):
         else:
             filepath_value = self.get_var(filepath[1:])
     except:
-        self.raise_variable_error(filepath , op)
+        self.raise_variable_error(filepath, op)
 
     try:
         if content == '^':
@@ -53,11 +53,11 @@ def run(self , op: dict):
         else:
             content_value = self.get_var(content[1:])
     except:
-        self.raise_variable_error(content , op)
+        self.raise_variable_error(content, op)
 
     try:
-        f = open(filepath_value , 'w')
+        f = open(filepath_value, 'w')
         f.write(content_value)
         f.close()
     except Exception as ex:
-        self.raise_error('FileError' , str(ex) , op)
+        self.raise_error('FileError', str(ex), op)

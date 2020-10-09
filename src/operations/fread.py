@@ -20,11 +20,11 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-def run(self , op: dict):
+def run(self, op: dict):
     ''' Reads file content '''
-    self.require_one_argument(op , 'fread operation requires argument')
+    self.require_one_argument(op, 'fread operation requires argument')
     arg = op['args'][0]
-    self.arg_should_be_variable_or_mem(arg , op)
+    self.arg_should_be_variable_or_mem(arg, op)
 
     if arg == '^':
         path = self.get_mem()
@@ -33,8 +33,8 @@ def run(self , op: dict):
         path = self.get_var[arg[1:]]
             
     try:
-        f = open(path , 'r')
+        f = open(path, 'r')
         self.mem = f.read()
         f.close()
     except Exception as ex:
-        self.raise_error('FileError' , str(ex) , op)
+        self.raise_error('FileError', str(ex), op)

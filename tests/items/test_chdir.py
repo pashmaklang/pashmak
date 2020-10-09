@@ -29,14 +29,14 @@ class test_chdir(TestCore):
         current_wd = os.getcwd()
 
         self.run_without_error(''' mem '/tmp'; chdir ^; ''')
-        self.assert_equals(os.getcwd() , '/tmp')
+        self.assert_equals(os.getcwd(), '/tmp')
         os.chdir(current_wd)
 
         self.run_without_error('''
             set $path; mem '/tmp'; copy $path;
             chdir $path;
         ''')
-        self.assert_equals(os.getcwd() , '/tmp')
+        self.assert_equals(os.getcwd(), '/tmp')
         os.chdir(current_wd)
 
         self.assert_has_error(self.run_script(''' mem '/gdghfjuyjfjhgjghjghj'; chdir ^; '''))
