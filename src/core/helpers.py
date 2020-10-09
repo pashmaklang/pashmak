@@ -50,7 +50,7 @@ class Helpers(commands.Commands):
         try:
             self.get_var(varname)
             return True
-        except:
+        except KeyError:
             return False
 
     def variable_required(self, varname: str, op: dict):
@@ -59,6 +59,7 @@ class Helpers(commands.Commands):
             self.raise_variable_error(varname, op)
 
     def require_one_argument(self, op: dict, error_message: str):
+        ''' Checks argument syntax to be variable name '''
         if len(op['args']) <= 0:
             self.raise_error('ArgumentError', error_message, op)
 
@@ -66,11 +67,11 @@ class Helpers(commands.Commands):
         ''' Gets a variable name and returns value of that '''
         try:
             return self.all_vars()[self.current_namespace + varname]
-        except:
+        except KeyError:
             for used_namespace in self.used_namespaces:
                 try:
                     return self.all_vars()[used_namespace + '.' + varname]
-                except:
+                except KeyError:
                     pass
             return self.all_vars()[varname]
 
@@ -80,7 +81,7 @@ class Helpers(commands.Commands):
 
     def all_vars(self):
         ''' Returns list of all of variables '''
-        if len(self.states) == 0:
+        if not self.states:
             return self.variables
 
         return self.states[-1]['vars']

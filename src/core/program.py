@@ -22,7 +22,9 @@
 
 ''' Pashmak program object '''
 
-import sys, os, signal
+import sys
+import os
+import signal
 from syntax import parser
 from core import helpers
 
@@ -47,6 +49,7 @@ class Program(helpers.Helpers):
         self.used_namespaces = [] # list of used namespaces
         self.included_modules = [] # list of included modules to stop repeating imports
 
+        self.current_step = 0
         self.main_filename = os.getcwd() + '/a'
 
         # set argument variables
@@ -54,6 +57,7 @@ class Program(helpers.Helpers):
         self.set_var('argc', len(self.get_var('argv')))
 
     def set_operations(self, operations: list):
+        ''' Set operations list '''
         # include stdlib before everything
         tmp = parser.parse('mem "@stdlib"; include ^;')
         operations.insert(0, tmp[0])
@@ -106,12 +110,13 @@ class Program(helpers.Helpers):
             try:
                 tmp_op = self.operations[state['entry_point']]
                 print('\tin ' + str(tmp_op['index']) + ': ' + tmp_op['str'])
-            except:
+            except KeyError:
                 pass
         print('\tin ' + str(op['index']) + ': ' + op['str'])
         sys.exit(1)
 
     def exec_func(self, func_body: list, with_state=True):
+        ''' Gets a list from operations and runs them as function or included script '''
         # create new state for this call
         if with_state:
             self.states.append({
@@ -122,7 +127,7 @@ class Program(helpers.Helpers):
         # check function already called in this point
         if self.current_step in self.runed_functions and with_state:
             return
-        
+
         # add this point to runed functions (for stop repeating call in loops)
         if with_state:
             self.runed_functions.append(self.current_step)
@@ -132,7 +137,7 @@ class Program(helpers.Helpers):
         is_in_func = False
         for func_op in func_body:
             func_op_parsed = self.set_operation_index(func_op)
-            if func_op_parsed['command'] == 'section' and is_in_func == False:
+            if func_op_parsed['command'] == 'section' and not is_in_func:
                 section_name = func_op_parsed['args'][0]
                 self.sections[section_name] = i+1
             else:
@@ -143,7 +148,7 @@ class Program(helpers.Helpers):
                 self.operations.insert(i+1, func_op)
                 self.update_section_indexes(i+1)
                 i += 1
-        
+
         if with_state:
             self.operations.insert(i+1, parser.parse('popstate')[0])
             self.update_section_indexes(i+1)
@@ -159,7 +164,7 @@ class Program(helpers.Helpers):
             return
 
         if op_name == 'popstate':
-            if len(self.states) > 0:
+            if self.states:
                 self.states.pop()
             return
 
@@ -168,7 +173,11 @@ class Program(helpers.Helpers):
             tmp = self.current_func
             self.functions[self.current_func].append(op)
             return
-        except:
+        except NameError:
+            pass
+        except KeyError:
+            pass
+        except AttributeError:
             pass
 
         if op_name == 'set':
@@ -260,17 +269,17 @@ class Program(helpers.Helpers):
         # check function exists
         try:
             func_body = self.functions[self.current_namespace + op_name]
-        except:
+        except KeyError:
             func_body = None
             for used_namespace in self.used_namespaces:
                 try:
                     func_body = self.functions[used_namespace + '.' + op_name]
-                except:
+                except KeyError:
                     pass
-            if func_body == None:
+            if not func_body:
                 try:
                     func_body = self.functions[op_name]
-                except:
+                except KeyError:
                     self.raise_error('SyntaxError', 'undefined operation "' + op_name + '"', op)
                     return
 
@@ -285,12 +294,13 @@ class Program(helpers.Helpers):
                     code = code.replace('$' + k, 'self.get_var("' + k + '")')
                     for used_namespace in self.used_namespaces:
                         if k[:len(used_namespace)+1] == used_namespace + '.':
-                            code = code.replace('$' + k[len(used_namespace)+1:], 'self.get_var("' + k + '")')
+                            tmp = k[len(used_namespace)+1:]
+                            code = code.replace('$' + tmp, 'self.get_var("' + k + '")')
 
                 self.mem = eval(code)
             else:
                 self.mem = ''
-            
+
             # execute function body
             self.exec_func(func_body)
             return
@@ -298,16 +308,17 @@ class Program(helpers.Helpers):
             self.raise_error('RuntimeError', str(ex), op)
 
     def signal_handler(self, signal, frame):
+        ''' Raise error when signal exception raised '''
         self.raise_error('Signal', str(signal), self.operations[self.current_step])
 
     def start(self):
         ''' Start running the program '''
-        
+
         signal.signal(signal.SIGINT, self.signal_handler)
 
         is_in_func = False
         self.current_step = 0
-        
+
         # load the sections
         i = 0
         while i < len(self.operations):
@@ -328,5 +339,9 @@ class Program(helpers.Helpers):
             try:
                 self.run(self.operations[self.current_step])
             except Exception as ex:
-                self.raise_error('RuntimeError', str(ex), self.set_operation_index(self.operations[self.current_step]))
+                self.raise_error(
+                    'RuntimeError',
+                    str(ex),
+                    self.set_operation_index(self.operations[self.current_step])
+                )
             self.current_step += 1
