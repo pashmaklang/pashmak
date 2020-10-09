@@ -54,7 +54,7 @@ def run(self, op: dict):
             self.raise_error('ModuleError', 'undefined module "' + module_name + '"', op)
     else:
         if path[0] != '/':
-            path = os.path.dirname(self.main_filename) + '/' + path
+            path = os.path.dirname(os.path.abspath(self.main_filename)) + '/' + path
         try:
             content = open(path, 'r').read()
         except Exception as ex:
