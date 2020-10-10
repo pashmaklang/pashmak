@@ -97,3 +97,32 @@ or you can use `exit` command:
 exit; # with 0 default exit code
 exit 10; # with 10
 ```
+
+## access to pashmakinfo
+
+if you want to access pashmak interpreter info, look at this example:
+
+```bash
+print $pashmakinfo;
+```
+
+output is something like this:
+
+```
+{'version': 'vx.y.z', 'pythoninfo': 'x.y.z (default, Jul x y, a:b:c) [GCC x.y.x]'}
+```
+
+this variable is a dictonary.
+for example, to access pashmak version:
+
+```bash
+print $pashmakinfo['version'];
+```
+
+output:
+
+```
+v1.x.y
+```
+
+and `$pashmakinfo['pythoninfo']` shows info of python.

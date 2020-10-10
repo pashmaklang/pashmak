@@ -26,7 +26,7 @@ import sys
 import os
 import signal
 from syntax import parser
-from core import helpers
+from core import helpers, version
 
 class Program(helpers.Helpers):
     ''' Pashmak program object '''

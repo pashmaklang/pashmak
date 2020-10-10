@@ -1,5 +1,11 @@
 # Pashmak Changelog
 
+## 1.5 (2020-10-10)
+
+#### Feature
+- added `$pashmakinfo` global variable to access pashmak interpreter info in code
+- added online-interpreter to source code
+
 ## 1.4 (2020-10-10)
 
 #### Fixed

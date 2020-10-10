@@ -9,6 +9,9 @@ this is a simple hello world script in pashmak:
 print 'hello world\n';
 ```
 
+## Online interpreter
+if you want to test pashmak without installing and run codes online, go to [Pashmak online interpreter](https://pashmio-parsampsh.fandogh.cloud/)
+
 ## Authors
 pashmak is writed by [parsampsh](https://github.com/parsampsh) and [contributors](https://github.com/parsampsh/pashmak/graphs/contributors)
 
@@ -47,7 +50,7 @@ compile & install:
 
 ```bash
 # checkout to latest release
-git branch installation v1.4
+git branch installation v1.5
 git checkout installation
 
 # compile and install
@@ -530,6 +533,29 @@ enter second number: <input>2
 ```
 
 this example gets two numbers from user and shows sum of them
+
+### read command line arguments
+to access command line arguments, you can use `$argv` variable.
+
+look at this example:
+
+```bash
+print $argv[1];
+```
+
+we run above code:
+
+```bash
+pashmak mycode.pashm hello
+```
+
+output:
+
+```
+hello
+```
+
+actualy, `$argv` is a array where command line arguments is in that.
 
 
 
@@ -1114,6 +1140,35 @@ or you can use `exit` command:
 exit; # with 0 default exit code
 exit 10; # with 10
 ```
+
+## access to pashmakinfo
+
+if you want to access pashmak interpreter info, look at this example:
+
+```bash
+print $pashmakinfo;
+```
+
+output is something like this:
+
+```
+{'version': 'vx.y.z', 'pythoninfo': 'x.y.z (default, Jul x y, a:b:c) [GCC x.y.x]'}
+```
+
+this variable is a dictonary.
+for example, to access pashmak version:
+
+```bash
+print $pashmakinfo['version'];
+```
+
+output:
+
+```
+v1.x.y
+```
+
+and `$pashmakinfo['pythoninfo']` shows info of python.
 
 
 
