@@ -1,8 +1,8 @@
 
-mem 'i am included\n'; out ^;
+print 'i am included\n';
 
-set $included_var; mem 'included value'; copy $included_var;
+$included_var = 'included value';
 
 func testfunc;
-mem 'i am included func\n'; out ^;
+    print 'i am included func\n';
 endfunc;

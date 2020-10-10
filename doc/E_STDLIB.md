@@ -78,7 +78,7 @@ you can pass a condition or boolean value to assert function. if that is True, t
 assert 2 == 2;
 assert True;
 
-set $age; mem 18; copy $age;
+$age = 18;
 assert $age > 10;
 ```
 
@@ -94,7 +94,7 @@ also look at this example about print:
 
 ```bash
 print 'enter your name: ';
-set $name; read $name;
+$name; read $name;
 
 print 'hello ' + $name + '\n';
 

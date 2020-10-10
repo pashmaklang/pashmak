@@ -31,5 +31,5 @@ def run(self, op: dict):
         if not self.variable_exists(arg[1:]):
             self.mem = False
             return
-            
+
     self.mem = True

@@ -34,7 +34,7 @@ def run(self, op: dict):
 
     try:
         first_var_value = self.get_var(first_var[1:])
-        if type(first_var_value) != list:
+        if not isinstance(first_var_value, list):
             self.raise_error('TypeError', 'arraypush command first argument should be a array', op)
     except:
         self.raise_variable_error(first_var, op)

@@ -156,6 +156,19 @@ class Program(helpers.Helpers):
             self.operations.insert(i+1, parser.parse('popstate')[0])
             self.update_section_indexes(i+1)
 
+    def eval(self, operation):
+        ''' Runs eval on operation '''
+        code = '(' + operation + ')'
+        # replace variable names with value of them
+        for k in self.all_vars():
+            code = code.replace('$' + k, 'self.get_var("' + k + '")')
+            for used_namespace in self.used_namespaces:
+                if k[:len(used_namespace)+1] == used_namespace + '.':
+                    tmp = k[len(used_namespace)+1:]
+                    code = code.replace('$' + tmp, 'self.get_var("' + k + '")')
+
+        return eval(code)
+
     def run(self, op: dict):
         ''' Run once operation '''
 
@@ -173,7 +186,7 @@ class Program(helpers.Helpers):
 
         # if a function is started, append current operation to the function body
         try:
-            tmp = self.current_func
+            self.current_func
             self.functions[self.current_func].append(op)
             return
         except NameError:
@@ -267,7 +280,16 @@ class Program(helpers.Helpers):
         elif op_name == 'pass':
             return
 
-
+        # check operation syntax is variable value setting
+        if op['str'][0] == '$':
+            parts = op['str'].strip().split('=', 1)
+            varname = parts[0].strip()
+            if len(parts) <= 1:
+                self.set_var(varname[1:], None)
+                return
+            value = self.eval(parts[1].strip())
+            self.set_var(varname[1:], value)
+            return
 
         # check function exists
         try:
@@ -290,17 +312,7 @@ class Program(helpers.Helpers):
         try:
             # put argument in the mem
             if op['args_str'] != '':
-                args = op['args_str']
-                code = '(' + args + ')'
-                # replace variable names with value of them
-                for k in self.all_vars():
-                    code = code.replace('$' + k, 'self.get_var("' + k + '")')
-                    for used_namespace in self.used_namespaces:
-                        if k[:len(used_namespace)+1] == used_namespace + '.':
-                            tmp = k[len(used_namespace)+1:]
-                            code = code.replace('$' + tmp, 'self.get_var("' + k + '")')
-
-                self.mem = eval(code)
+                self.mem = self.eval(op['args_str'])
             else:
                 self.mem = ''
 
@@ -310,9 +322,9 @@ class Program(helpers.Helpers):
         except Exception as ex:
             self.raise_error('RuntimeError', str(ex), op)
 
-    def signal_handler(self, signal, frame):
+    def signal_handler(self, signal_code, frame):
         ''' Raise error when signal exception raised '''
-        self.raise_error('Signal', str(signal), self.operations[self.current_step])
+        self.raise_error('Signal', str(signal_code), self.operations[self.current_step])
 
     def start(self):
         ''' Start running the program '''

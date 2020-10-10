@@ -42,9 +42,9 @@ look at this smarter function:
 mem 'program started\n'; out ^;
 
 func say_hello;
-    set $name; copy $name
+    $name; copy $name; # copy mem to $name
     print 'hello ' + $name + '\n';
-    free $name;
+    free $name; # delete $name
 endfunc;
 
 mem 'parsa'; say_hello;
@@ -81,7 +81,7 @@ look at this example:
 
 ```bash
 func say_hello;
-    set $name; copy ^ $name;
+    $name; copy $name; # copy mem(the passed argument to function) to $name
     print 'hello ' + $name + '\n';
 endfunc;
 
@@ -94,17 +94,32 @@ output:
 hello parsa
 ```
 
+also you can pass more than 1 argument to functions:
+
+```bash
+func say_hello;
+    $args; copy $args; # copy mem to $args
+    $first_name = $args[0];
+    $last_name = $args[1];
+    print 'hello ' + $first_name + ' ' + $last_name + '\n';
+endfunc;
+
+say_hello 'parsa', 'shahmaleki';
+```
+
+arguments should be split with `,` and this will make a array in mem and function can access that array and use arguments.
+
 ### local variables & global variables
 
 look at this example:
 
 ```bash
 func myfunc;
-    mem 'new name'; copy $name;
+    $name = 'new name';
     print $name + '\n';
 endfunc;
 
-set $name; mem 'parsa'; copy $name;
+$name = 'parsa';
 print $name + '\n';
 
 myfunc;
@@ -134,12 +149,12 @@ the answer is in `gset`:
 
 ```bash
 func myfunc;
-    set $name; mem 'new name'; copy $name;
+    $name = 'new name';
     gset 'name', $name;
     print $name + '\n';
 endfunc;
 
-set $name; mem 'parsa'; copy $name;
+$name = 'parsa';
 print $name + '\n';
 
 myfunc;

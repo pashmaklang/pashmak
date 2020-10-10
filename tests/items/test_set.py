@@ -44,3 +44,27 @@ class test_set(TestCore):
         '''), 'hellohello')
 
         self.assert_has_error(self.run_script(''' set $aaa gghg; '''), 'SyntaxError')
+
+        # tests for new variable value assigning way
+        self.assert_vars(self.run_without_error('''
+            $myvar = 'the value';
+        '''), {
+            'myvar': 'the value',
+        })
+
+        self.assert_vars(self.run_without_error('''
+            $myvar;
+        '''), {
+            'myvar': None,
+        })
+
+        self.assert_output(self.run_without_error('''
+            $name = 'parsa';
+            $msg = 'hello ' + $name + '\\n';
+            out $msg;
+        '''), 'hello parsa\n')
+
+        self.assert_output(self.run_without_error('''
+            $myvar = 'num is ' + str(2*5);
+            out $myvar;
+        '''), 'num is 10')

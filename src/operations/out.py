@@ -35,7 +35,7 @@ def run(self, op: dict):
     else:
         self.variable_required(arg[1:], op)
         out = self.get_var(arg[1:])
-    
+
     if not self.is_test:
         print(out, end='', flush=True)
     else:

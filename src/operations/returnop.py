@@ -30,11 +30,10 @@ def run(self, op: dict):
     args = op['args']
 
     exit_code = 0
-    tmp = None
 
-    if len(args) > 0:
+    if args:
         arg = args[0]
-        
+
         if arg[0] == '$':
             self.variable_required(arg[1:], op)
             try:

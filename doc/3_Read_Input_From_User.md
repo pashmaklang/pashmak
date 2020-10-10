@@ -5,7 +5,7 @@ you can read input from user in stdin
 look at this example:
 
 ```bash
-set $name; # set the name variable
+$name; # set the name variable
 print 'what is your name? ';
 read $name; # read a input and copy that in $name variable
 print 'hello ' + $name + '\n'; # say hello to $name :)
@@ -28,7 +28,7 @@ we can get input from user like above example
 also look at this example:
 
 ```bash
-set $num1 $num2;
+$num1; $num2;
 
 print 'enter first number: ';
 read $num1;
@@ -37,12 +37,11 @@ print 'enter second number: ';
 read $num2;
 
 # now, $num1 and $num2 are string. we convert string to int:
-mem int($num1); copy $num1;
-mem int($num2); copy $num2;
+$num1 = int($num1);
+$num2 = int($num2);
 
 # now we want to plus them
-set $sum;
-mem $num1 + $num2; copy $sum;
+$sum = $num1 + $num2;
 
 print str($sum) + '\n';
 ```

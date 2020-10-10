@@ -27,10 +27,10 @@ def run(self, op: dict):
 
     self.require_one_argument(op, 'try operation requires section name argument')
     arg = op['args'][0]
-    
+
     try:
-        tmp = self.sections[arg]
-    except:
+        self.sections[arg]
+    except KeyError:
         self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
 
     self.is_in_try = arg

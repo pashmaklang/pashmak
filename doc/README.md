@@ -1,12 +1,12 @@
 # Pashmak Programming Language
 hi there. this is pashmak programming language. pashmak is an interpreter wrote in python.
-the pashmak scripts has cool and fucking syntax.
+the pashmak scripts has cool and pashmaki syntax.
 
 ### hello world!
 this is a simple hello world script in pashmak:
 
 ```bash
-mem 'hello world\n'; out ^;
+print 'hello world\n';
 ```
 
 ## Authors
@@ -14,6 +14,9 @@ pashmak is writed by [parsampsh](https://github.com/parsampsh) and [contributors
 
 ## Contributing
 if you want to contribute to this project, read [Contributing Guide](CONTRIBUTING.md)
+
+## Changelog
+to see pashmak versions changelog, read [Changelog](CHANGELOG.md)
 
 # Documentation
 read the following Documentation to learn pashmak.
