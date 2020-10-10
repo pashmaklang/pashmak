@@ -186,7 +186,7 @@ class Program(helpers.Helpers):
 
         # if a function is started, append current operation to the function body
         try:
-            tmp = self.current_func
+            self.current_func
             self.functions[self.current_func].append(op)
             return
         except NameError:
@@ -282,7 +282,7 @@ class Program(helpers.Helpers):
 
         # check operation syntax is variable value setting
         if op['str'][0] == '$':
-            parts = op['str'].strip().split('=' , 1)
+            parts = op['str'].strip().split('=', 1)
             varname = parts[0].strip()
             if len(parts) <= 1:
                 self.set_var(varname[1:], None)

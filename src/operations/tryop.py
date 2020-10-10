@@ -27,7 +27,7 @@ def run(self, op: dict):
 
     self.require_one_argument(op, 'try operation requires section name argument')
     arg = op['args'][0]
-    
+
     try:
         tmp = self.sections[arg]
     except:

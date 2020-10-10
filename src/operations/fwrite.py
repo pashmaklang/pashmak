@@ -30,7 +30,7 @@ def run(self, op: dict):
         self.raise_error('ArgumentError', 'fwrite operation gets two arguments', op)
 
     mem = self.mem
-    
+
     filepath = args[0]
 
     if len(args) == 1:
