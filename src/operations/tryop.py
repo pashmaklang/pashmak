@@ -29,8 +29,8 @@ def run(self, op: dict):
     arg = op['args'][0]
 
     try:
-        tmp = self.sections[arg]
-    except:
+        self.sections[arg]
+    except KeyError:
         self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
 
     self.is_in_try = arg

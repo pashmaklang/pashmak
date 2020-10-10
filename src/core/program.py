@@ -322,9 +322,9 @@ class Program(helpers.Helpers):
         except Exception as ex:
             self.raise_error('RuntimeError', str(ex), op)
 
-    def signal_handler(self, signal, frame):
+    def signal_handler(self, signal_code, frame):
         ''' Raise error when signal exception raised '''
-        self.raise_error('Signal', str(signal), self.operations[self.current_step])
+        self.raise_error('Signal', str(signal_code), self.operations[self.current_step])
 
     def start(self):
         ''' Start running the program '''

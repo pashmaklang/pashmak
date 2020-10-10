@@ -33,14 +33,8 @@ def run(self, op: dict):
 
     if len(args) == 1:
         mem = self.get_mem()
-        try:
-            self.set_var(first_var[1:], mem)
-            return
-        except:
-            self.raise_variable_error(first_var, op)
-
-    if not args[1]:
-        self.raise_error('SyntaxError', 'one or more arguments are empty', op)
+        self.set_var(first_var[1:], mem)
+        return
 
     second_var = args[1]
 
@@ -52,10 +46,7 @@ def run(self, op: dict):
     except KeyError:
         self.raise_variable_error(first_var, op)
 
-    try:
-        if second_var == '^':
-            self.mem = first_var_value
-        else:
-            self.set_var(second_var[1:], first_var_value)
-    except:
-        self.raise_variable_error(second_var, op)
+    if second_var == '^':
+        self.mem = first_var_value
+    else:
+        self.set_var(second_var[1:], first_var_value)
