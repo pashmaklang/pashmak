@@ -49,7 +49,7 @@ module:
 
 all: module update-headers docs test
 ifeq ($(GIT_IS_INSTALLED),1)
-	@git status
+	-@git status
 endif
 
 install: ./dist/pashmak

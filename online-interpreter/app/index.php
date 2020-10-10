@@ -17,7 +17,7 @@ function run_code($code, $stdin){
     fclose($f);
 
     // run code with `runner` user and put output to temp file
-    $cmd = 'runuser -l runner -c "cat ' . $tmp_path_stdin . ' | pashmak ' . $tmp_path . ' 2> ' . $tmp_path_out . '"';
+    $cmd = 'runuser -l runner -c "cat ' . $tmp_path_stdin . ' | /bin/pashmak ' . $tmp_path . ' 2> ' . $tmp_path_out . '"';
     system($cmd);
 
     // return output
