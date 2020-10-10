@@ -50,7 +50,7 @@ compile & install:
 
 ```bash
 # checkout to latest release
-git branch installation v1.4
+git branch installation v1.5
 git checkout installation
 
 # compile and install
