@@ -5,6 +5,8 @@ RUN echo Y | adduser runner
 
 # copy pashmak interpreter binary
 COPY ./pashmak-binary /bin/pashmak
+RUN chmod +x /bin/pashmak
+RUN pashmak -v
 
 # copy src
 COPY ./app /app
