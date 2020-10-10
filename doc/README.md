@@ -1,6 +1,6 @@
 # Pashmak Programming Language
 hi there. this is pashmak programming language. pashmak is an interpreter wrote in python.
-the pashmak scripts has cool and fucking syntax.
+the pashmak scripts has cool and pashmaki syntax.
 
 ### hello world!
 this is a simple hello world script in pashmak:
