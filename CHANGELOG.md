@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 1.4 (dev)
+## 1.4 (2020-10-10)
 
 #### Fixed
 - optimize and clean up code
@@ -56,4 +56,3 @@
 
 #### Fixed
 - fixed namespace-in-namespace bug
-
