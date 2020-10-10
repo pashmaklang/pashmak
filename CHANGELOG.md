@@ -1,9 +1,12 @@
 # Pashmak Changelog
 
-## 1.4
+## 1.4 (dev)
+
+#### Fixed
+- optimize and clean up code
 
 #### Feature
-- change variable value setting syntax
+- big change in variable syntax
 
 ## v1.3.1 (2020-10-09)
 
