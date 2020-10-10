@@ -9,6 +9,9 @@ this is a simple hello world script in pashmak:
 print 'hello world\n';
 ```
 
+## Online interpreter
+if you want to test pashmak without installing and run codes online, go to [Pashmak online interpreter](https://pashmio-parsampsh.fandogh.cloud/)
+
 ## Authors
 pashmak is writed by [parsampsh](https://github.com/parsampsh) and [contributors](https://github.com/parsampsh/pashmak/graphs/contributors)
 
