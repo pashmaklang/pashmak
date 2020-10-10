@@ -1,8 +1,5 @@
 FROM python:3.6-buster
 
-# install depends
-
-
 # install pyinstaller
 RUN pip3 install pyinstaller
 
