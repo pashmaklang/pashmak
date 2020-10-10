@@ -17,7 +17,7 @@ print $myvar + '\n'; # output: this is data
 also you can set more than one variable with `set` command:
 
 ```bash
-set $var1 $var2 $var3;
+set $var1 $var2 $var3; # default value is null
 ```
 
 ### use variables in mem
@@ -28,14 +28,14 @@ look at this example:
 set $name; # set name variable
 mem 'parsa'; copy ^ $name; # copy 'parsa' string to name variable
 
-mem 'hello ' + $name + '\n'; out ^; # output: hello parsa
+print 'hello ' + $name + '\n'; # output: hello parsa
 
 set $num; mem 12; copy ^ $num;
-mem $num*5; out ^; # output: 60
+print $num * 5; # output: 60
 
-set $num2; mem 4; copy ^ $num2;
+set $num2; mem 4; copy $num2; # alias of `copy ^ $num2`
 
-mem $num * $num2 + 1; out ^; # output: 49
+print $num * $num2 + 1; # output: 49
 ```
 
 #### how it works?
@@ -44,27 +44,6 @@ we declare $name variable and put `'parsa'` string in that
 next, in mem we maked a string and paste $name variable value to `'hello '` with a \n at the end of it, and we print that mem
 
 you can use variables in mem like example above
-
-
-### free variables
-when you set a variable, that var is in memory. you can delete that var with `free` command:
-
-```bash
-set $somevar;
-mem 'some value'; copy $somevar;
-
-out $somevar; # output: some value
-
-free $somevar;
-
-out $somevar; # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
-```
-
-also you can make free more than one variable with `free` command:
-
-```bash
-free $var1 $var2 $var3; # ...
-```
 
 ###### NOTE: in above example, we used `copy` command like this:
 
@@ -95,13 +74,64 @@ out $var2; # output: hi
 
 ```
 
+### a better way to set variables value without using `mem` and `set` commands and with easier syntax
+
+```bash
+$name = 'parsa';
+```
+
+you just need to write name of variable with `$` and next assign value with `=` after this:
+
+```bash
+$name = 'parsa';
+
+$num1 = 10;
+$num2 = 50;
+
+$sum = $num1 + $num2; # use variables in variables
+
+print 'sum is ' + str($sum) + '\n'; # output: sum is 60
+
+$msg = 'hello ' + $name + '\n';
+print $msg; # output: hello parsa
+```
+
+also if you just write something like this:
+
+```bash
+$name; # without `= <value>...`
+out $name; # output: None
+```
+
+variable will set and just get `None` as default value
+
+### free variables
+when you set a variable, that var is in memory. you can delete that var with `free` command:
+
+```bash
+$somevar = 'some value';
+out $somevar; # output: some value
+
+free $somevar;
+
+out $somevar; # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
+```
+
+also you can make free more than one variable with `free` command:
+
+```bash
+free $var1 $var2 $var3; # ...
+```
+
+
+
 ### checking a variable isset
 you can check a variable existens with `isset` command
 
 look at this example:
 
 ```bash
-set $somevar $v;
+$somevar; $v; # set `somevar` and `v` variables
 
 isset $somevar; out ^; # output: True
 isset $this_var_not_found; out ^; # output: False
@@ -120,12 +150,10 @@ you can get the data type of a variable with `typeof` command
 look at this example:
 
 ```bash
-set $mystr $myint $myfloat $mybool;
-
-mem 'hi'; copy $mystr;
-mem 20; copy $myint;
-mem 15.32; copy $myfloat;
-mem False; copy $mybool;
+$mystr = 'hi';
+$myint = 20;
+$myfloat = 15.32;
+$mybool = False;
 
 typeof $mystr; out ^;   # output: <class 'str'>
 typeof $myint; out ^;   # output: <class 'int'>
@@ -135,7 +163,6 @@ typeof $mybool; out ^;  # output: <class 'bool'>
 
 this command puts the typeof variable in mem
 
-
 ### required command
 
 the required command requiring an variable existens.
@@ -143,7 +170,7 @@ the required command requiring an variable existens.
 look at this example:
 
 ```bash
-set $name;
+$name;
 
 required $name;
 ```
@@ -153,7 +180,7 @@ when we run this code, program will run successful.
 but now we comment the first line:
 
 ```bash
-#set $name;
+#$name;
 required $name;
 ```
 

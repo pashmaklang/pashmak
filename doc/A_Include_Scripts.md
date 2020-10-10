@@ -7,20 +7,18 @@ for example, we have 2 files: `app.pashm`, `fib.pashm`.
 ###### fib.pashm:
 ```bash
 func fib;
-    set $a $b;
-    mem 1; copy $a;
-    mem 1; copy $b;
+    $a = 1;
+    $b = 1;
 
     section 10;
         print str($b) + '\n';
 
-        set $tmp_a $tmp_b;
-        copy $a $tmp_a;
-        copy $b $tmp_b;
+        $tmp_a = $a;
+        $tmp_b = $b;
 
-        copy $tmp_b $a;
+        $a = $tmp_b;
 
-        mem $tmp_a + $tmp_b; copy $b;
+        $b = $tmp_a + $tmp_b;
     mem $b < 10000; gotoif 10;
 endfunc;
 ```

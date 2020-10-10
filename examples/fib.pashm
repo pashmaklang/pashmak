@@ -1,7 +1,6 @@
 # Printing the fibonacci pattern
 
 func fib;
-    set $a $b;
     $a = 1;
     $b = 1;
 

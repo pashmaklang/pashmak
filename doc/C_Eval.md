@@ -5,7 +5,7 @@ you can run pashmak code from string.
 look at this example:
 
 ```bash
-mem 'mem "hello world from string\n"\; out ^;'\; eval ^;
+mem 'print "hello world from string\\n"'; eval ^;
 ```
 
 output:
@@ -19,8 +19,8 @@ this code is runed from a string
 look at this example:
 
 ```bash
-set $code;
-mem 'enter some code: '; out ^;
+$code;
+print 'enter some code: ';
 read $code;
 
 eval $code;
@@ -46,7 +46,7 @@ std.eval '<some-code>';
 you can run python code like `eval` with `python` command:
 
 ```bash
-set $code; mem 'print("hello world from python")'; copy $code;
+$code = 'print("hello world from python")';
 python $code;
 ```
 

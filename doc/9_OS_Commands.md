@@ -10,7 +10,7 @@ mem '/tmp'; chdir ^;
 
 # or
 
-set $path; mem '/tmp'; copy $path;
+$path = '/tmp';
 chdir $path; # use variable
 ```
 
@@ -49,7 +49,7 @@ mem 'ls /tmp'; system ^;
 
 # or
 
-set $cmd; mem 'ls /tmp'; copy $cmd;
+$cmd = 'ls /tmp';
 system $cmd; # use variable
 ```
 

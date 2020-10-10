@@ -158,4 +158,12 @@ mem 'hello world\n'; out ^;
 
 # this is easier
 print 'hello world\n';
+
+print str(2*2);
+
+print 'hello ' + 'parsa\n';
+
+print 'num is ' + str(100+7);
 ```
+
+after this, we never use `mem <something>; out ^;` pattern for printing, and we just use `print` command.

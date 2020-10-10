@@ -66,7 +66,7 @@ goto after_error;
 
 section handle_error;
 
-set $ex; copy $ex; # copy mem (^) to $ex variable (this includes information about raised error)
+$ex; copy $ex; # copy mem (^) to $ex variable (this includes information about raised error)
 print $ex; # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
 
 section after_error;
@@ -85,8 +85,7 @@ output:
 
 ```
 progrma started
-MyError:
-	this is my error
+MyError: this is my error
 ```
 
 the `raise` function can raise errors in program
