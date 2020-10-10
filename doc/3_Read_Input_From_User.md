@@ -55,3 +55,26 @@ enter second number: <input>2
 ```
 
 this example gets two numbers from user and shows sum of them
+
+### read command line arguments
+to access command line arguments, you can use `$argv` variable.
+
+look at this example:
+
+```bash
+print $argv[1];
+```
+
+we run above code:
+
+```bash
+pashmak mycode.pashm hello
+```
+
+output:
+
+```
+hello
+```
+
+actualy, `$argv` is a array where command line arguments is in that.

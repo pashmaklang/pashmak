@@ -67,6 +67,7 @@ class TestCore:
 
         if not want_argv:
             del out['vars']['argv']
+        del out['vars']['pashmakinfo']
 
         return out
 
