@@ -5,8 +5,8 @@ there is two operations for working with files in pashmak: `fread`, `fwrite`
 
 ```bash
 mem '/path/to/file.txt'; fread ^;
-set $content; copy $content;
-mem 'content of file is: ' + $content; out ^;
+$content; copy $content;
+print 'content of file is: ' + $content;
 ```
 
 the content of `/path/to/file.txt'` is:
@@ -29,10 +29,12 @@ after fread command, content of readed file will put in the mem and you can acce
 
 ### write on file
 ```bash
-set $filepath; mem '/path/to/file.txt'; copy $filepath;
+$filepath = '/path/to/file.txt';
 
 mem 'content of file';
 fwrite $filepath ^; # write mem (^) on the $filepath (/path/to/file.txt)
 ```
 
 the `fwrite` operation gets two argument: file path and new content of file
+
+you will learn easier work with files in [File general module](#file-module) section.

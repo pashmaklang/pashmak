@@ -6,7 +6,7 @@ the pashmak scripts has cool and fucking syntax.
 this is a simple hello world script in pashmak:
 
 ```bash
-mem 'hello world\n'; out ^;
+print 'hello world\n';
 ```
 
 ## Authors

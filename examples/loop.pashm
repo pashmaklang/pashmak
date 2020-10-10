@@ -1,16 +1,15 @@
 # This is a simple loop printing numbers from 1 to 99
 
 func myfunc;
-    mem 'starting...\n'; out ^;
+    print 'starting...\n';
 
-    set $i; mem 1; copy $i;
+    $i = 1;
     section 5;
-        mem str($i) + '\n'; out ^;
-        mem $i + 1; copy $i;
+        print str($i) + '\n';
+        $i = $i + 1;
     mem $i < 100; gotoif 5;
 
-    mem 'finished\n'; out ^;
+    print 'finished\n';
 endfunc;
-
 
 myfunc;

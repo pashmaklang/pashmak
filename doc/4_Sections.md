@@ -17,11 +17,11 @@ actually when my code starts, prints hello world and then `goto` commands direct
 look at this example:
 
 ```bash
-set $i; mem 1; copy $i;
+$i = 1;
 
 section loop;
     print str($i) + '\n'; # print $i
-    mem $i + 1; copy $i; # add 1 to $i
+    $i = $i + 1; # add 1 to $i
 mem $i < 10; gotoif loop; # check the condition in `mem` and use gotoif command
 ```
 
@@ -52,15 +52,13 @@ goto gets a name as section name and goto to that section.
 ### gotoif
 gotoif checks `mem` and if mem is True, will go to wanted section. if not, do nothing and continue
 
-
 look at this example:
 
 ```bash
 # read age from user
 print 'enter your age: ';
-set $age;
-read $age;
-mem int($age); copy $age;
+$age; read $age;
+$age = int($age);
 
 mem $age > 18; gotoif age_is_more_than_18; # if age is more than 18, goto age_is_more_than_18 section
 

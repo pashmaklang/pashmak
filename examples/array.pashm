@@ -1,12 +1,12 @@
 # We have a array from names. we in here print them one by one
 
 # declare $names array
-set $names; mem ['parsa', 'pashmak', 'something']; copy $names;
+$names = ['parsa', 'pashmak', 'something'];
 
 # set a counter for loop
-set $i; mem 0; copy $i;
+$i = 0;
 
 section my_loop;
-    mem $names[$i] + '\n'; out ^;
-    mem $i + 1; copy $i;
+    print $names[$i] + '\n';
+    $i = $i + 1;
 mem $i < len($names); gotoif my_loop;

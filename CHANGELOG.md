@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## 1.4
+
+#### Feature
+- change variable value setting syntax
+
 ## v1.3.1 (2020-10-09)
 
 #### Fixed

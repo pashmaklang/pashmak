@@ -6,7 +6,7 @@ the pashmak scripts has cool and fucking syntax.
 this is a simple hello world script in pashmak:
 
 ```bash
-mem 'hello world\n'; out ^;
+print 'hello world\n';
 ```
 
 ## Authors
@@ -264,7 +264,15 @@ mem 'hello world\n'; out ^;
 
 # this is easier
 print 'hello world\n';
+
+print str(2*2);
+
+print 'hello ' + 'parsa\n';
+
+print 'num is ' + str(100+7);
 ```
+
+after this, we never use `mem <something>; out ^;` pattern for printing, and we just use `print` command.
 
 
 
@@ -287,7 +295,7 @@ print $myvar + '\n'; # output: this is data
 also you can set more than one variable with `set` command:
 
 ```bash
-set $var1 $var2 $var3;
+set $var1 $var2 $var3; # default value is null
 ```
 
 ### use variables in mem
@@ -298,14 +306,14 @@ look at this example:
 set $name; # set name variable
 mem 'parsa'; copy ^ $name; # copy 'parsa' string to name variable
 
-mem 'hello ' + $name + '\n'; out ^; # output: hello parsa
+print 'hello ' + $name + '\n'; # output: hello parsa
 
 set $num; mem 12; copy ^ $num;
-mem $num*5; out ^; # output: 60
+print $num * 5; # output: 60
 
-set $num2; mem 4; copy ^ $num2;
+set $num2; mem 4; copy $num2; # alias of `copy ^ $num2`
 
-mem $num * $num2 + 1; out ^; # output: 49
+print $num * $num2 + 1; # output: 49
 ```
 
 #### how it works?
@@ -314,27 +322,6 @@ we declare $name variable and put `'parsa'` string in that
 next, in mem we maked a string and paste $name variable value to `'hello '` with a \n at the end of it, and we print that mem
 
 you can use variables in mem like example above
-
-
-### free variables
-when you set a variable, that var is in memory. you can delete that var with `free` command:
-
-```bash
-set $somevar;
-mem 'some value'; copy $somevar;
-
-out $somevar; # output: some value
-
-free $somevar;
-
-out $somevar; # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
-```
-
-also you can make free more than one variable with `free` command:
-
-```bash
-free $var1 $var2 $var3; # ...
-```
 
 ###### NOTE: in above example, we used `copy` command like this:
 
@@ -365,13 +352,64 @@ out $var2; # output: hi
 
 ```
 
+### a better way to set variables value without using `mem` and `set` commands and with easier syntax
+
+```bash
+$name = 'parsa';
+```
+
+you just need to write name of variable with `$` and next assign value with `=` after this:
+
+```bash
+$name = 'parsa';
+
+$num1 = 10;
+$num2 = 50;
+
+$sum = $num1 + $num2; # use variables in variables
+
+print 'sum is ' + str($sum) + '\n'; # output: sum is 60
+
+$msg = 'hello ' + $name + '\n';
+print $msg; # output: hello parsa
+```
+
+also if you just write something like this:
+
+```bash
+$name; # without `= <value>...`
+out $name; # output: None
+```
+
+variable will set and just get `None` as default value
+
+### free variables
+when you set a variable, that var is in memory. you can delete that var with `free` command:
+
+```bash
+$somevar = 'some value';
+out $somevar; # output: some value
+
+free $somevar;
+
+out $somevar; # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
+```
+
+also you can make free more than one variable with `free` command:
+
+```bash
+free $var1 $var2 $var3; # ...
+```
+
+
+
 ### checking a variable isset
 you can check a variable existens with `isset` command
 
 look at this example:
 
 ```bash
-set $somevar $v;
+$somevar; $v; # set `somevar` and `v` variables
 
 isset $somevar; out ^; # output: True
 isset $this_var_not_found; out ^; # output: False
@@ -390,12 +428,10 @@ you can get the data type of a variable with `typeof` command
 look at this example:
 
 ```bash
-set $mystr $myint $myfloat $mybool;
-
-mem 'hi'; copy $mystr;
-mem 20; copy $myint;
-mem 15.32; copy $myfloat;
-mem False; copy $mybool;
+$mystr = 'hi';
+$myint = 20;
+$myfloat = 15.32;
+$mybool = False;
 
 typeof $mystr; out ^;   # output: <class 'str'>
 typeof $myint; out ^;   # output: <class 'int'>
@@ -405,7 +441,6 @@ typeof $mybool; out ^;  # output: <class 'bool'>
 
 this command puts the typeof variable in mem
 
-
 ### required command
 
 the required command requiring an variable existens.
@@ -413,7 +448,7 @@ the required command requiring an variable existens.
 look at this example:
 
 ```bash
-set $name;
+$name;
 
 required $name;
 ```
@@ -423,7 +458,7 @@ when we run this code, program will run successful.
 but now we comment the first line:
 
 ```bash
-#set $name;
+#$name;
 required $name;
 ```
 
@@ -445,7 +480,7 @@ you can read input from user in stdin
 look at this example:
 
 ```bash
-set $name; # set the name variable
+$name; # set the name variable
 print 'what is your name? ';
 read $name; # read a input and copy that in $name variable
 print 'hello ' + $name + '\n'; # say hello to $name :)
@@ -468,7 +503,7 @@ we can get input from user like above example
 also look at this example:
 
 ```bash
-set $num1 $num2;
+$num1; $num2;
 
 print 'enter first number: ';
 read $num1;
@@ -477,12 +512,11 @@ print 'enter second number: ';
 read $num2;
 
 # now, $num1 and $num2 are string. we convert string to int:
-mem int($num1); copy $num1;
-mem int($num2); copy $num2;
+$num1 = int($num1);
+$num2 = int($num2);
 
 # now we want to plus them
-set $sum;
-mem $num1 + $num2; copy $sum;
+$sum = $num1 + $num2;
 
 print str($sum) + '\n';
 ```
@@ -518,11 +552,11 @@ actually when my code starts, prints hello world and then `goto` commands direct
 look at this example:
 
 ```bash
-set $i; mem 1; copy $i;
+$i = 1;
 
 section loop;
     print str($i) + '\n'; # print $i
-    mem $i + 1; copy $i; # add 1 to $i
+    $i = $i + 1; # add 1 to $i
 mem $i < 10; gotoif loop; # check the condition in `mem` and use gotoif command
 ```
 
@@ -553,15 +587,13 @@ goto gets a name as section name and goto to that section.
 ### gotoif
 gotoif checks `mem` and if mem is True, will go to wanted section. if not, do nothing and continue
 
-
 look at this example:
 
 ```bash
 # read age from user
 print 'enter your age: ';
-set $age;
-read $age;
-mem int($age); copy $age;
+$age; read $age;
+$age = int($age);
 
 mem $age > 18; gotoif age_is_more_than_18; # if age is more than 18, goto age_is_more_than_18 section
 
@@ -643,9 +675,9 @@ look at this smarter function:
 mem 'program started\n'; out ^;
 
 func say_hello;
-    set $name; copy $name
+    $name; copy $name; # copy mem to $name
     print 'hello ' + $name + '\n';
-    free $name;
+    free $name; # delete $name
 endfunc;
 
 mem 'parsa'; say_hello;
@@ -682,7 +714,7 @@ look at this example:
 
 ```bash
 func say_hello;
-    set $name; copy ^ $name;
+    $name; copy $name; # copy mem(the passed argument to function) to $name
     print 'hello ' + $name + '\n';
 endfunc;
 
@@ -695,17 +727,32 @@ output:
 hello parsa
 ```
 
+also you can pass more than 1 argument to functions:
+
+```bash
+func say_hello;
+    $args; copy $args; # copy mem to $args
+    $first_name = $args[0];
+    $last_name = $args[1];
+    print 'hello ' + $first_name + ' ' + $last_name + '\n';
+endfunc;
+
+say_hello 'parsa', 'shahmaleki';
+```
+
+arguments should be split with `,` and this will make a array in mem and function can access that array and use arguments.
+
 ### local variables & global variables
 
 look at this example:
 
 ```bash
 func myfunc;
-    mem 'new name'; copy $name;
+    $name = 'new name';
     print $name + '\n';
 endfunc;
 
-set $name; mem 'parsa'; copy $name;
+$name = 'parsa';
 print $name + '\n';
 
 myfunc;
@@ -735,12 +782,12 @@ the answer is in `gset`:
 
 ```bash
 func myfunc;
-    set $name; mem 'new name'; copy $name;
+    $name = 'new name';
     gset 'name', $name;
     print $name + '\n';
 endfunc;
 
-set $name; mem 'parsa'; copy $name;
+$name = 'parsa';
 print $name + '\n';
 
 myfunc;
@@ -771,8 +818,8 @@ there is two operations for working with files in pashmak: `fread`, `fwrite`
 
 ```bash
 mem '/path/to/file.txt'; fread ^;
-set $content; copy $content;
-mem 'content of file is: ' + $content; out ^;
+$content; copy $content;
+print 'content of file is: ' + $content;
 ```
 
 the content of `/path/to/file.txt'` is:
@@ -795,13 +842,15 @@ after fread command, content of readed file will put in the mem and you can acce
 
 ### write on file
 ```bash
-set $filepath; mem '/path/to/file.txt'; copy $filepath;
+$filepath = '/path/to/file.txt';
 
 mem 'content of file';
 fwrite $filepath ^; # write mem (^) on the $filepath (/path/to/file.txt)
 ```
 
 the `fwrite` operation gets two argument: file path and new content of file
+
+you will learn easier work with files in [File general module](#file-module) section.
 
 
 
@@ -811,9 +860,7 @@ arrays are a list from variables
 look at this example:
 
 ```bash
-set $names;
-mem ['parsa', 'pashmak', 'jack'];
-copy $names;
+$names = ['parsa', 'pashmak', 'jack'];
 
 print $names; # output: ['parsa', 'pashmak', 'jack']
 print $names[0]; # output: parsa
@@ -824,15 +871,13 @@ print $names[2]; # output: jack
 this is a example about array and loop:
 
 ```bash
-set $names;
-mem ['parsa', 'pashmak', 'jack'];
-copy $names;
+$names = ['parsa', 'pashmak', 'jack'];
 
-set $i; mem 0; copy $i;
+$i = 0;
 
 section loop;
     print $names[$i] + '\n';
-    mem $i + 1; copy $i;
+    $i = $i + 1;
 mem $i < len($names); gotoif loop;
 ```
 
@@ -850,7 +895,7 @@ the above code prints names one by one
 you can add new item to a array:
 
 ```bash
-set $myarray; mem ['red', 'green', 'blue']; copy $myarray;
+$myarray = ['red', 'green', 'blue'];
 print $myarray; # output: ['red', 'green', 'blue']
 
 mem 'yellow'; arraypush $myarray ^; # add mem (^) to the $myarray
@@ -942,7 +987,7 @@ goto after_error;
 
 section handle_error;
 
-set $ex; copy $ex; # copy mem (^) to $ex variable (this includes information about raised error)
+$ex; copy $ex; # copy mem (^) to $ex variable (this includes information about raised error)
 print $ex; # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
 
 section after_error;
@@ -961,8 +1006,7 @@ output:
 
 ```
 progrma started
-MyError:
-	this is my error
+MyError: this is my error
 ```
 
 the `raise` function can raise errors in program
@@ -983,7 +1027,7 @@ mem '/tmp'; chdir ^;
 
 # or
 
-set $path; mem '/tmp'; copy $path;
+$path = '/tmp';
 chdir $path; # use variable
 ```
 
@@ -1022,7 +1066,7 @@ mem 'ls /tmp'; system ^;
 
 # or
 
-set $cmd; mem 'ls /tmp'; copy $cmd;
+$cmd = 'ls /tmp';
 system $cmd; # use variable
 ```
 
@@ -1082,20 +1126,18 @@ for example, we have 2 files: `app.pashm`, `fib.pashm`.
 ###### fib.pashm:
 ```bash
 func fib;
-    set $a $b;
-    mem 1; copy $a;
-    mem 1; copy $b;
+    $a = 1;
+    $b = 1;
 
     section 10;
         print str($b) + '\n';
 
-        set $tmp_a $tmp_b;
-        copy $a $tmp_a;
-        copy $b $tmp_b;
+        $tmp_a = $a;
+        $tmp_b = $b;
 
-        copy $tmp_b $a;
+        $a = $tmp_b;
 
-        mem $tmp_a + $tmp_b; copy $b;
+        $b = $tmp_a + $tmp_b;
     mem $b < 10000; gotoif 10;
 endfunc;
 ```
@@ -1201,7 +1243,7 @@ also namespace system is sync with variables:
 
 ```bash
 namespace App;
-    set $name; mem 'parsa'; copy $name;
+    $name = 'parsa';
     print $name + '\n'; # output: parsa
     print $App.name; # output: parsa
 endns;
@@ -1225,7 +1267,7 @@ namespace App;
         print 'hello world\n';
     endfunc;
 
-    set $name; mem 'parsa'; copy $name;
+    $name = 'parsa';
 endns;
 
 App.dosomething;
@@ -1250,7 +1292,7 @@ namespace App;
         print 'hello world\n';
     endfunc;
 
-    set $name; mem 'parsa\n'; copy $name;
+    $name = 'parsa\n';
 endns;
 
 use App;
@@ -1284,7 +1326,7 @@ you can run pashmak code from string.
 look at this example:
 
 ```bash
-mem 'mem "hello world from string\n"\; out ^;'\; eval ^;
+mem 'print "hello world from string\\n"'; eval ^;
 ```
 
 output:
@@ -1298,8 +1340,8 @@ this code is runed from a string
 look at this example:
 
 ```bash
-set $code;
-mem 'enter some code: '; out ^;
+$code;
+print 'enter some code: ';
 read $code;
 
 eval $code;
@@ -1325,7 +1367,7 @@ std.eval '<some-code>';
 you can run python code like `eval` with `python` command:
 
 ```bash
-set $code; mem 'print("hello world from python")'; copy $code;
+$code = 'print("hello world from python")';
 python $code;
 ```
 
@@ -1448,8 +1490,7 @@ file.open '/path/to/file.txt', 'r'; # first argument is file path, and second ar
 
 # now, opened file is in the mem. we can copy it in a variable
 
-set $f;
-copy $f;
+$f; copy $f;
 ```
 
 ###### file.read
@@ -1459,7 +1500,7 @@ wtih this function, you can read opened file:
 import '@file';
 
 file.open '/path/to/file.txt', 'r';
-set $f; copy $f;
+$f; copy $f; # copy opened file to $f
 
 file.read $f; # now, content of file is in the mem
 out ^; # output is content of file
@@ -1472,7 +1513,7 @@ with this function, you can write on opened file:
 import '@file';
 
 file.open '/path/to/file.txt', 'w'; # open type is `w` (write)
-set $f; copy $f;
+$f; copy $f;
 
 file.write $f, 'new content'; # first arg is opened file and second arg is content.
 ```
@@ -1486,7 +1527,7 @@ with this function you can close file after your work:
 import '@file';
 
 file.open '/path/to/file.txt', 'r';
-set $f; copy $f;
+$f; copy $f;
 
 # work with file
 
@@ -1498,9 +1539,9 @@ file.close $f; # close file after work
 ```bash
 import '@file';
 
-file.open '/path/to/file.txt', 'r'; set $file; copy $file;
+file.open '/path/to/file.txt', 'r'; $file; copy $file;
 
-set $content;
+$content;
 file.read $file; copy $content;
 
 print 'content of file is: ' + $content;
@@ -1590,7 +1631,7 @@ you can pass a condition or boolean value to assert function. if that is True, t
 assert 2 == 2;
 assert True;
 
-set $age; mem 18; copy $age;
+$age = 18;
 assert $age > 10;
 ```
 
@@ -1606,7 +1647,7 @@ also look at this example about print:
 
 ```bash
 print 'enter your name: ';
-set $name; read $name;
+$name; read $name;
 
 print 'hello ' + $name + '\n';
 

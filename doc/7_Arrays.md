@@ -4,9 +4,7 @@ arrays are a list from variables
 look at this example:
 
 ```bash
-set $names;
-mem ['parsa', 'pashmak', 'jack'];
-copy $names;
+$names = ['parsa', 'pashmak', 'jack'];
 
 print $names; # output: ['parsa', 'pashmak', 'jack']
 print $names[0]; # output: parsa
@@ -17,15 +15,13 @@ print $names[2]; # output: jack
 this is a example about array and loop:
 
 ```bash
-set $names;
-mem ['parsa', 'pashmak', 'jack'];
-copy $names;
+$names = ['parsa', 'pashmak', 'jack'];
 
-set $i; mem 0; copy $i;
+$i = 0;
 
 section loop;
     print $names[$i] + '\n';
-    mem $i + 1; copy $i;
+    $i = $i + 1;
 mem $i < len($names); gotoif loop;
 ```
 
@@ -43,7 +39,7 @@ the above code prints names one by one
 you can add new item to a array:
 
 ```bash
-set $myarray; mem ['red', 'green', 'blue']; copy $myarray;
+$myarray = ['red', 'green', 'blue'];
 print $myarray; # output: ['red', 'green', 'blue']
 
 mem 'yellow'; arraypush $myarray ^; # add mem (^) to the $myarray

@@ -77,7 +77,7 @@ also namespace system is sync with variables:
 
 ```bash
 namespace App;
-    set $name; mem 'parsa'; copy $name;
+    $name = 'parsa';
     print $name + '\n'; # output: parsa
     print $App.name; # output: parsa
 endns;
@@ -101,7 +101,7 @@ namespace App;
         print 'hello world\n';
     endfunc;
 
-    set $name; mem 'parsa'; copy $name;
+    $name = 'parsa';
 endns;
 
 App.dosomething;
@@ -126,7 +126,7 @@ namespace App;
         print 'hello world\n';
     endfunc;
 
-    set $name; mem 'parsa\n'; copy $name;
+    $name = 'parsa\n';
 endns;
 
 use App;
