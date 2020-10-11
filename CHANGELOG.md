@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 1.6 (2020-10-11)
 
 #### Fixed
 - some clean up and optimizations in online interpreter
