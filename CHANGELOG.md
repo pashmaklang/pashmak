@@ -7,6 +7,7 @@
 
 #### Fixed
 - fixed non-stop code bug and added timeout in online interpreter
+- fixed error rendering bootstrap index calculation bug
 
 ## 1.6 (2020-10-11)
 
