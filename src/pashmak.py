@@ -38,11 +38,11 @@ if __name__ == '__main__':
         print('Pashmak Version: ' + version.version)
         print('Python Version: ', end='')
         print(sys.version.replace('\n', ''))
-        sys.exit(1)
+        sys.exit(0)
 
     if sys.argv[1] == '--version' or sys.argv[1] == '-v':
         print(version.version)
-        sys.exit(1)
+        sys.exit(0)
 
     filename = sys.argv[1]
 

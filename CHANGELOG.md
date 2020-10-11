@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## 1.7.1 (2020-10-11)
+
+#### Fixed
+- fixed pashmak cli `--version` and `--info` options exit code bug
+
 ## 1.7 (2020-10-11)
 
 #### Feature
