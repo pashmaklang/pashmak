@@ -25,21 +25,22 @@ to see pashmak versions changelog, read [Changelog](CHANGELOG.md)
 read the following Documentation to learn pashmak.
 
 ### Table of contents
-1.  [Installation](#installation)
-2.  [Basics](#basics)
-3.  [Variables](#variables)
-4.  [Read Input From User](#read-input-from-user)
-5.  [Sections](#sections)
-6.  [Functions](#functions)
-7.  [Work With Files](#work-with-files)
-8.  [Arrays](#arrays)
-9.  [Try-Endtry statement](#try-and-endtry-statement)
-10. [OS Commands](#os-commands)
-11. [Importing scripts](#include-scripts)
-12. [Namespaces](#namespaces)
-13. [Eval](#eval)
-14. [Modules](#general-modules)
-15. [stdlib](#stdlib)
+- [Installation](#installation)
+- [Basics](#basics)
+- [Variables](#variables)
+- [Read Input From User](#read-input-from-user)
+- [Sections](#sections)
+- [Functions](#functions)
+- [Work With Files](#work-with-files)
+- [Arrays](#arrays)
+- [Try-Endtry statement](#try-and-endtry-statement)
+- [OS Commands](#os-commands)
+- [Importing scripts](#include-scripts)
+- [Namespaces](#namespaces)
+- [Eval](#eval)
+- [Modules](#general-modules)
+- [stdlib](#stdlib)
+
 
 
 
@@ -50,7 +51,7 @@ compile & install:
 
 ```bash
 # checkout to latest release
-git branch installation v1.5
+git branch installation v1.6
 git checkout installation
 
 # compile and install
@@ -386,6 +387,25 @@ out $name; # output: None
 
 variable will set and just get `None` as default value
 
+### put `mem` value to variable
+
+we can set value of mem to variables with this legacy way:
+
+```bash
+$myvar; # set myvar
+mem 'something'; # load mem
+copy $myvar; # copy mem to variable
+```
+
+the better way is:
+
+```bash
+mem 'something';
+$myvar = ^;
+```
+
+if you put `^` (mem symbol) as value, memory value will put in the variable
+
 ### free variables
 when you set a variable, that var is in memory. you can delete that var with `free` command:
 
@@ -701,9 +721,8 @@ look at this smarter function:
 mem 'program started\n'; out ^;
 
 func say_hello;
-    $name; copy $name; # copy mem to $name
+    $name = ^; # copy mem to $name
     print 'hello ' + $name + '\n';
-    free $name; # delete $name
 endfunc;
 
 mem 'parsa'; say_hello;
@@ -740,7 +759,7 @@ look at this example:
 
 ```bash
 func say_hello;
-    $name; copy $name; # copy mem(the passed argument to function) to $name
+    $name = ^; # copy mem(the passed argument to function) to $name
     print 'hello ' + $name + '\n';
 endfunc;
 
@@ -757,7 +776,7 @@ also you can pass more than 1 argument to functions:
 
 ```bash
 func say_hello;
-    $args; copy $args; # copy mem to $args
+    $args = ^; # copy mem to $args
     $first_name = $args[0];
     $last_name = $args[1];
     print 'hello ' + $first_name + ' ' + $last_name + '\n';
@@ -844,7 +863,7 @@ there is two operations for working with files in pashmak: `fread`, `fwrite`
 
 ```bash
 mem '/path/to/file.txt'; fread ^;
-$content; copy $content;
+$content = ^;
 print 'content of file is: ' + $content;
 ```
 
@@ -934,7 +953,7 @@ print $myarray; # output: ['red', 'green', 'blue', 'yellow']
 you can delete a item from array:
 
 ```bash
-set $myarray; mem ['red', 'green', 'blue']; copy $myarray;
+$myarray = ['red', 'green', 'blue'];
 out $myarray; # output: ['red', 'green', 'blue']
 
 mem 1; arraypop $myarray ^; # remove index mem (^) from $myarray
@@ -1013,7 +1032,7 @@ goto after_error;
 
 section handle_error;
 
-$ex; copy $ex; # copy mem (^) to $ex variable (this includes information about raised error)
+$ex = ^; # copy mem (^) to $ex variable (this includes information about raised error)
 print $ex; # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
 
 section after_error;
@@ -1105,6 +1124,13 @@ sys $cmd;
 ```
 
 you can pass value directly to `sys`
+
+also after run `system` or `sys`, command exit code will put in `mem`:
+
+```bash
+sys 'ls /';
+out ^; # output: 0
+```
 
 ### return
 this command exits program
@@ -1545,7 +1571,7 @@ file.open '/path/to/file.txt', 'r'; # first argument is file path, and second ar
 
 # now, opened file is in the mem. we can copy it in a variable
 
-$f; copy $f;
+$f = ^;
 ```
 
 ###### file.read
@@ -1555,7 +1581,7 @@ wtih this function, you can read opened file:
 import '@file';
 
 file.open '/path/to/file.txt', 'r';
-$f; copy $f; # copy opened file to $f
+$f = ^; # copy opened file to $f
 
 file.read $f; # now, content of file is in the mem
 out ^; # output is content of file
@@ -1568,7 +1594,7 @@ with this function, you can write on opened file:
 import '@file';
 
 file.open '/path/to/file.txt', 'w'; # open type is `w` (write)
-$f; copy $f;
+$f = ^;
 
 file.write $f, 'new content'; # first arg is opened file and second arg is content.
 ```
@@ -1582,7 +1608,7 @@ with this function you can close file after your work:
 import '@file';
 
 file.open '/path/to/file.txt', 'r';
-$f; copy $f;
+$f = ^;
 
 # work with file
 
@@ -1594,10 +1620,10 @@ file.close $f; # close file after work
 ```bash
 import '@file';
 
-file.open '/path/to/file.txt', 'r'; $file; copy $file;
+file.open '/path/to/file.txt', 'r'; $file = ^;
 
-$content;
-file.read $file; copy $content;
+file.read $file;
+$content = ^;
 
 print 'content of file is: ' + $content;
 ```

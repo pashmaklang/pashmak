@@ -42,9 +42,8 @@ look at this smarter function:
 mem 'program started\n'; out ^;
 
 func say_hello;
-    $name; copy $name; # copy mem to $name
+    $name = ^; # copy mem to $name
     print 'hello ' + $name + '\n';
-    free $name; # delete $name
 endfunc;
 
 mem 'parsa'; say_hello;
@@ -81,7 +80,7 @@ look at this example:
 
 ```bash
 func say_hello;
-    $name; copy $name; # copy mem(the passed argument to function) to $name
+    $name = ^; # copy mem(the passed argument to function) to $name
     print 'hello ' + $name + '\n';
 endfunc;
 
@@ -98,7 +97,7 @@ also you can pass more than 1 argument to functions:
 
 ```bash
 func say_hello;
-    $args; copy $args; # copy mem to $args
+    $args = ^; # copy mem to $args
     $first_name = $args[0];
     $last_name = $args[1];
     print 'hello ' + $first_name + ' ' + $last_name + '\n';

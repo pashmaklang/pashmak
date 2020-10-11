@@ -1,5 +1,14 @@
 # Pashmak Changelog
 
+## 1.6 (2020-10-11)
+
+#### Fixed
+- some clean up and optimizations in online interpreter
+
+#### Feature
+- added syntax `$var = ^` to copy `mem` value to variables without using `copy` command and with better syntax
+- showing total assertions in testing system after running tests
+
 ## 1.5 (2020-10-10)
 
 #### Feature

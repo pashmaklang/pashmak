@@ -97,7 +97,7 @@ file.open '/path/to/file.txt', 'r'; # first argument is file path, and second ar
 
 # now, opened file is in the mem. we can copy it in a variable
 
-$f; copy $f;
+$f = ^;
 ```
 
 ###### file.read
@@ -107,7 +107,7 @@ wtih this function, you can read opened file:
 import '@file';
 
 file.open '/path/to/file.txt', 'r';
-$f; copy $f; # copy opened file to $f
+$f = ^; # copy opened file to $f
 
 file.read $f; # now, content of file is in the mem
 out ^; # output is content of file
@@ -120,7 +120,7 @@ with this function, you can write on opened file:
 import '@file';
 
 file.open '/path/to/file.txt', 'w'; # open type is `w` (write)
-$f; copy $f;
+$f = ^;
 
 file.write $f, 'new content'; # first arg is opened file and second arg is content.
 ```
@@ -134,7 +134,7 @@ with this function you can close file after your work:
 import '@file';
 
 file.open '/path/to/file.txt', 'r';
-$f; copy $f;
+$f = ^;
 
 # work with file
 
@@ -146,10 +146,10 @@ file.close $f; # close file after work
 ```bash
 import '@file';
 
-file.open '/path/to/file.txt', 'r'; $file; copy $file;
+file.open '/path/to/file.txt', 'r'; $file = ^;
 
-$content;
-file.read $file; copy $content;
+file.read $file;
+$content = ^;
 
 print 'content of file is: ' + $content;
 ```

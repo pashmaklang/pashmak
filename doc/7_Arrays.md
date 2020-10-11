@@ -52,7 +52,7 @@ print $myarray; # output: ['red', 'green', 'blue', 'yellow']
 you can delete a item from array:
 
 ```bash
-set $myarray; mem ['red', 'green', 'blue']; copy $myarray;
+$myarray = ['red', 'green', 'blue'];
 out $myarray; # output: ['red', 'green', 'blue']
 
 mem 1; arraypop $myarray ^; # remove index mem (^) from $myarray

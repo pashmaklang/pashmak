@@ -32,6 +32,7 @@ class TestRunner:
     def __init__(self):
         files = os.listdir('tests/items')
         self.tests = []
+        self.total_asserts = 0
         for f in files:
             if f[len(f)-3:] == '.py':
                 self.tests.append(f)
@@ -42,6 +43,7 @@ class TestRunner:
         test_obj = eval('loaded_test.' + test_class_name + '.' + test_class_name + '()')
         print(test_class_name.replace('_', ' ') + ' ', end='', flush=True)
         test_obj.run()
+        self.total_asserts += test_obj.total_asserts
         whitespace = (' ') * (test_name_max_length - len(test_class_name) + 1)
         print(tcolor.OKGREEN + whitespace + 'PASS' + tcolor.ENDC)
 
@@ -60,7 +62,7 @@ class TestRunner:
             self.run_once(test, test_name_max_length)
 
         print()
-        print(tcolor.OKGREEN + 'All ' + str(len(self.tests)) + ' tests passed successfuly' + tcolor.ENDC)
+        print(tcolor.OKGREEN + 'All ' + str(len(self.tests)) + ' tests passed successfuly (' + str(self.total_asserts) + ' assertions)' + tcolor.ENDC)
         print()
 
 test_runner = TestRunner()

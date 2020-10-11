@@ -287,7 +287,11 @@ class Program(helpers.Helpers):
             if len(parts) <= 1:
                 self.set_var(varname[1:], None)
                 return
-            value = self.eval(parts[1].strip())
+            value = None
+            if parts[1].strip() == '^':
+                value = self.get_mem()
+            else:
+                value = self.eval(parts[1].strip())
             self.set_var(varname[1:], value)
             return
 

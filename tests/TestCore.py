@@ -30,6 +30,7 @@ from core import program
 class TestCore:
     def __init__(self):
         self.is_test = True
+        self.total_asserts = 0
 
     def with_program_errors(self):
         self.is_test = False
@@ -77,6 +78,7 @@ class TestCore:
         sys.exit()
 
     def do_assert(self, value, error=''):
+        self.total_asserts += 1
         try:
             assert value
         except:
