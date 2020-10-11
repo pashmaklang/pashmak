@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pashmak programming language online interpreter</title>
+    <title>Pashmak Programming Language Online Interpreter</title>
     <link rel="stylesheet" href="static/css/bootstrap.min.css" />
     <style>
     body{
@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Pashmak programming Language Online Interpreter</h1>
+        <h1>Pashmak Programming Language Online Interpreter</h1>
         <form method="POST" class="form-group">
             <textarea style="background-color: #555; color: #eee; min-height: 300px;" class="form-control code-font" placeholder="write your code..." name="code"><?= htmlspecialchars($code) ?></textarea>
             <textarea style="background-color: #555; color: #eee; min-height: 100px;" class="form-control" placeholder="program stdin inputs" name="stdin"><?= htmlspecialchars($stdin) ?></textarea>
