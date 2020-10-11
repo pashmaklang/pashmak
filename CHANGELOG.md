@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## next release
+
+#### Feature
+- changed document building directory structure
+
 ## 1.7.1 (2020-10-11)
 
 #### Fixed
