@@ -74,3 +74,9 @@ class test_set(TestCore):
             $myvar = ^;
             out $myvar;
         '''), 'hello world')
+
+        self.assert_output(self.run_without_error('''
+            mem 'hello world';
+            $myvar =    ^ ;
+            out $myvar;
+        '''), 'hello world')
