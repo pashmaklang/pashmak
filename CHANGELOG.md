@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## next release
+
+#### Fixed
+- fixed non-stop code bug and added timeout in online interpreter
+
 ## 1.6 (2020-10-11)
 
 #### Fixed
