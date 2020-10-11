@@ -1,7 +1,7 @@
 # This is a simple loop printing numbers from 1 to 99
 
 func myfunc;
-    print 'starting...\n';
+    println 'starting...';
 
     $i = 1;
     section 5;
@@ -9,7 +9,7 @@ func myfunc;
         $i = $i + 1;
     mem $i < 100; gotoif 5;
 
-    print 'finished\n';
+    println 'finished';
 endfunc;
 
 myfunc;

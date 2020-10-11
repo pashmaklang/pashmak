@@ -8,7 +8,7 @@ look at this example:
 $name; # set the name variable
 print 'what is your name? ';
 read $name; # read a input and copy that in $name variable
-print 'hello ' + $name + '\n'; # say hello to $name :)
+println 'hello ' + $name; # say hello to $name :)
 ```
 
 when we run this code, output is this:
@@ -43,7 +43,7 @@ $num2 = int($num2);
 # now we want to plus them
 $sum = $num1 + $num2;
 
-print str($sum) + '\n';
+println str($sum);
 ```
 
 program output:
@@ -62,7 +62,7 @@ to access command line arguments, you can use `$argv` variable.
 look at this example:
 
 ```bash
-print $argv[1];
+println $argv[1];
 ```
 
 we run above code:

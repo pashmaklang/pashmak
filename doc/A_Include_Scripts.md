@@ -11,7 +11,7 @@ func fib;
     $b = 1;
 
     section 10;
-        print str($b) + '\n';
+        println $b;
 
         $tmp_a = $a;
         $tmp_b = $b;

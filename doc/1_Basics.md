@@ -167,3 +167,26 @@ print 'num is ' + str(100+7);
 ```
 
 after this, we never use `mem <something>; out ^;` pattern for printing, and we just use `print` command.
+
+### println
+
+if you want to print something and go next line, you have to put `\n` after your string.
+
+but with `println` command, you don't need to use `\n` and that will put automaticaly:
+
+```bash
+println 'hello world';
+```
+
+output:
+
+```
+hello world<nextline>
+```
+
+also there is a alias for `println`, this is `printl`:
+
+```bash
+#println "hello world";
+printl "hello world";
+```

@@ -51,7 +51,7 @@ compile & install:
 
 ```bash
 # checkout to latest release
-git branch installation v1.6
+git branch installation v1.7
 git checkout installation
 
 # compile and install
@@ -278,6 +278,29 @@ print 'num is ' + str(100+7);
 
 after this, we never use `mem <something>; out ^;` pattern for printing, and we just use `print` command.
 
+### println
+
+if you want to print something and go next line, you have to put `\n` after your string.
+
+but with `println` command, you don't need to use `\n` and that will put automaticaly:
+
+```bash
+println 'hello world';
+```
+
+output:
+
+```
+hello world<nextline>
+```
+
+also there is a alias for `println`, this is `printl`:
+
+```bash
+#println "hello world";
+printl "hello world";
+```
+
 
 
 ## Variables
@@ -291,7 +314,7 @@ set $myvar; # set a variables named $myvar
 mem 'this is data'; # bring string 'this is data' to mem
 copy ^ $myvar; # copy mem (^) to $myvar
 
-print $myvar + '\n'; # output: this is data
+println $myvar; # output: this is data
 ```
 
 ###### NOTE: always put $ before name of variable everywhere
@@ -310,14 +333,14 @@ look at this example:
 set $name; # set name variable
 mem 'parsa'; copy ^ $name; # copy 'parsa' string to name variable
 
-print 'hello ' + $name + '\n'; # output: hello parsa
+println 'hello ' + $name; # output: hello parsa
 
 set $num; mem 12; copy ^ $num;
-print $num * 5; # output: 60
+println $num * 5; # output: 60
 
 set $num2; mem 4; copy $num2; # alias of `copy ^ $num2`
 
-print $num * $num2 + 1; # output: 49
+println $num * $num2 + 1; # output: 49
 ```
 
 #### how it works?
@@ -372,10 +395,10 @@ $num2 = 50;
 
 $sum = $num1 + $num2; # use variables in variables
 
-print 'sum is ' + str($sum) + '\n'; # output: sum is 60
+println 'sum is ' + str($sum); # output: sum is 60
 
-$msg = 'hello ' + $name + '\n';
-print $msg; # output: hello parsa
+$msg = 'hello ' + $name;
+println $msg; # output: hello parsa
 ```
 
 also if you just write something like this:
@@ -506,7 +529,7 @@ look at this example:
 $name; # set the name variable
 print 'what is your name? ';
 read $name; # read a input and copy that in $name variable
-print 'hello ' + $name + '\n'; # say hello to $name :)
+println 'hello ' + $name; # say hello to $name :)
 ```
 
 when we run this code, output is this:
@@ -541,7 +564,7 @@ $num2 = int($num2);
 # now we want to plus them
 $sum = $num1 + $num2;
 
-print str($sum) + '\n';
+println str($sum);
 ```
 
 program output:
@@ -560,7 +583,7 @@ to access command line arguments, you can use `$argv` variable.
 look at this example:
 
 ```bash
-print $argv[1];
+println $argv[1];
 ```
 
 we run above code:
@@ -585,7 +608,7 @@ section is a system to make pointer to a part of code. this is useful to create 
 look at this example:
 ```bash
 section my_loop;
-    print 'hello world\n';
+    println 'hello world';
 goto my_loop;
 ```
 
@@ -601,7 +624,7 @@ look at this example:
 $i = 1;
 
 section loop;
-    print str($i) + '\n'; # print $i
+    println $i; # print $i
     $i = $i + 1; # add 1 to $i
 mem $i < 10; gotoif loop; # check the condition in `mem` and use gotoif command
 ```
@@ -648,16 +671,16 @@ goto age_is_less_than_18;
 
 section age_is_more_than_18;
 
-    print 'you are more than 18\n';
+    println 'you are more than 18';
     goto after_if;
 
 section age_is_less_than_18;
 
-    print 'you are less than 18\n';
+    println 'you are less than 18';
 
 section after_if;
 
-print 'program ends\n';
+println 'program ends';
 ```
 
 we run the program:
@@ -683,7 +706,7 @@ function is a system to make alias for some codes (function).
 look at this example:
 ```bash
 func say_hello;
-    print 'hello world\n';
+    println 'hello world';
 endfunc;
 
 say_hello;
@@ -697,7 +720,7 @@ hello world
 
 ```bash
 func say_hello;
-    print 'hello world\n';
+    println 'hello world';
 endfunc;
 
 say_hello;
@@ -722,7 +745,7 @@ mem 'program started\n'; out ^;
 
 func say_hello;
     $name = ^; # copy mem to $name
-    print 'hello ' + $name + '\n';
+    println 'hello ' + $name;
 endfunc;
 
 mem 'parsa'; say_hello;
@@ -760,7 +783,7 @@ look at this example:
 ```bash
 func say_hello;
     $name = ^; # copy mem(the passed argument to function) to $name
-    print 'hello ' + $name + '\n';
+    println 'hello ' + $name;
 endfunc;
 
 say_hello 'parsa';
@@ -779,7 +802,7 @@ func say_hello;
     $args = ^; # copy mem to $args
     $first_name = $args[0];
     $last_name = $args[1];
-    print 'hello ' + $first_name + ' ' + $last_name + '\n';
+    println 'hello ' + $first_name + ' ' + $last_name;
 endfunc;
 
 say_hello 'parsa', 'shahmaleki';
@@ -794,15 +817,15 @@ look at this example:
 ```bash
 func myfunc;
     $name = 'new name';
-    print $name + '\n';
+    println $name;
 endfunc;
 
 $name = 'parsa';
-print $name + '\n';
+println $name;
 
 myfunc;
 
-print $name + '\n';
+println $name;
 ```
 
 output:
@@ -829,15 +852,15 @@ the answer is in `gset`:
 func myfunc;
     $name = 'new name';
     gset 'name', $name;
-    print $name + '\n';
+    println $name;
 endfunc;
 
 $name = 'parsa';
-print $name + '\n';
+println $name;
 
 myfunc;
 
-print $name + '\n';
+println $name;
 ```
 
 output:
@@ -907,10 +930,10 @@ look at this example:
 ```bash
 $names = ['parsa', 'pashmak', 'jack'];
 
-print $names; # output: ['parsa', 'pashmak', 'jack']
-print $names[0]; # output: parsa
-print $names[1]; # output: pashmak
-print $names[2]; # output: jack
+println $names; # output: ['parsa', 'pashmak', 'jack']
+println $names[0]; # output: parsa
+println $names[1]; # output: pashmak
+println $names[2]; # output: jack
 ```
 
 this is a example about array and loop:
@@ -921,7 +944,7 @@ $names = ['parsa', 'pashmak', 'jack'];
 $i = 0;
 
 section loop;
-    print $names[$i] + '\n';
+    println $names[$i];
     $i = $i + 1;
 mem $i < len($names); gotoif loop;
 ```
@@ -941,10 +964,10 @@ you can add new item to a array:
 
 ```bash
 $myarray = ['red', 'green', 'blue'];
-print $myarray; # output: ['red', 'green', 'blue']
+println $myarray; # output: ['red', 'green', 'blue']
 
 mem 'yellow'; arraypush $myarray ^; # add mem (^) to the $myarray
-print $myarray; # output: ['red', 'green', 'blue', 'yellow']
+println $myarray; # output: ['red', 'green', 'blue', 'yellow']
 ```
 
 `arraypush` operation gets two argument: array and new item you want to add to the array
@@ -957,7 +980,7 @@ $myarray = ['red', 'green', 'blue'];
 out $myarray; # output: ['red', 'green', 'blue']
 
 mem 1; arraypop $myarray ^; # remove index mem (^) from $myarray
-print $myarray; # output: ['red', 'blue']
+println $myarray; # output: ['red', 'blue']
 ```
 
 `arraypop` operation gets two argument: array and index of that item you want to be remove from array
@@ -1033,18 +1056,18 @@ goto after_error;
 section handle_error;
 
 $ex = ^; # copy mem (^) to $ex variable (this includes information about raised error)
-print $ex; # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
+println $ex; # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
 
 section after_error;
 ```
 
 #### raising errors
 ```bash
-print 'program started\n';
+println 'program started';
 
 raise 'MyError', 'this is my error';
 
-print 'this will not print\n';
+println 'this will not print';
 ```
 
 output:
@@ -1172,7 +1195,7 @@ exit 10; # with 10
 if you want to access pashmak interpreter info, look at this example:
 
 ```bash
-print $pashmakinfo;
+println $pashmakinfo;
 ```
 
 output is something like this:
@@ -1185,7 +1208,7 @@ this variable is a dictonary.
 for example, to access pashmak version:
 
 ```bash
-print $pashmakinfo['version'];
+println $pashmakinfo['version'];
 ```
 
 output:
@@ -1211,7 +1234,7 @@ func fib;
     $b = 1;
 
     section 10;
-        print str($b) + '\n';
+        println $b;
 
         $tmp_a = $a;
         $tmp_b = $b;
@@ -1254,7 +1277,7 @@ look at this example:
 ```bash
 namespace App;
     func say_hello;
-        print 'hello world\n';
+        println 'hello world';
     endfunc;
 
     say_hello;
@@ -1285,13 +1308,13 @@ also look at this example:
 ```bash
 namespace First;
     func dosomething;
-        print 'i am from First\n';
+        println 'i am from First';
     endfunc;
 endnamespace;
 
 namespace Last;
     func dosomething;
-        print 'i am from Last\n';
+        println 'i am from Last';
     endfunc;
 endnamespace;
 
@@ -1311,7 +1334,7 @@ also you can use `endns` keyword insted of `endnamespace` (this is from stdlib):
 ```bash
 namespace App;
     func say_hello;
-        print 'hello world\n';
+        println 'hello world';
     endfunc;
 
     say_hello;
@@ -1325,14 +1348,14 @@ also namespace system is sync with variables:
 ```bash
 namespace App;
     $name = 'parsa';
-    print $name + '\n'; # output: parsa
-    print $App.name; # output: parsa
+    println $name; # output: parsa
+    println $App.name; # output: parsa
 endns;
 
-print $App.name; # output: parsa
+println $App.name; # output: parsa
 
 # but this has error:
-print $name; # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
+println $name; # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
 ```
 
 this system is very useful.
@@ -1345,14 +1368,14 @@ look at this example:
 ```bash
 namespace App;
     func dosomething;
-        print 'hello world\n';
+        println 'hello world';
     endfunc;
 
     $name = 'parsa';
 endns;
 
 App.dosomething;
-print $App.name + '\n';
+println $App.name;
 ```
 
 output:
@@ -1370,7 +1393,7 @@ look at this example:
 ```bash
 namespace App;
     func dosomething;
-        print 'hello world\n';
+        println 'hello world';
     endfunc;
 
     $name = 'parsa\n';
@@ -1407,7 +1430,7 @@ you can run pashmak code from string.
 look at this example:
 
 ```bash
-mem 'print "hello world from string\\n"'; eval ^;
+mem 'println "hello world from string"'; eval ^;
 ```
 
 output:
@@ -1642,7 +1665,10 @@ look at this example:
 
 ```bash
 # print
-print "hello world"; # INSTEAD OF `mem 'hello world'; out ^;`
+print "hello world\n"; # INSTEAD OF `mem 'hello world\n'; out ^;`
+
+# println
+println "hello world"; # without using `\n` in the end of string
 
 # import
 import 'somefile.pashm';

@@ -7,6 +7,6 @@ $names = ['parsa', 'pashmak', 'something'];
 $i = 0;
 
 section my_loop;
-    print $names[$i] + '\n';
+    println $names[$i];
     $i = $i + 1;
 mem $i < len($names); gotoif my_loop;

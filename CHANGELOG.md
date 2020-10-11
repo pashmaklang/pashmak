@@ -1,5 +1,14 @@
 # Pashmak Changelog
 
+## 1.7 (2020-10-11)
+
+#### Feature
+- added function `println` to stdlib
+
+#### Fixed
+- fixed non-stop code bug and added timeout in online interpreter
+- fixed error rendering bootstrap index calculation bug
+
 ## 1.6 (2020-10-11)
 
 #### Fixed

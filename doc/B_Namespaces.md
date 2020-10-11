@@ -7,7 +7,7 @@ look at this example:
 ```bash
 namespace App;
     func say_hello;
-        print 'hello world\n';
+        println 'hello world';
     endfunc;
 
     say_hello;
@@ -38,13 +38,13 @@ also look at this example:
 ```bash
 namespace First;
     func dosomething;
-        print 'i am from First\n';
+        println 'i am from First';
     endfunc;
 endnamespace;
 
 namespace Last;
     func dosomething;
-        print 'i am from Last\n';
+        println 'i am from Last';
     endfunc;
 endnamespace;
 
@@ -64,7 +64,7 @@ also you can use `endns` keyword insted of `endnamespace` (this is from stdlib):
 ```bash
 namespace App;
     func say_hello;
-        print 'hello world\n';
+        println 'hello world';
     endfunc;
 
     say_hello;
@@ -78,14 +78,14 @@ also namespace system is sync with variables:
 ```bash
 namespace App;
     $name = 'parsa';
-    print $name + '\n'; # output: parsa
-    print $App.name; # output: parsa
+    println $name; # output: parsa
+    println $App.name; # output: parsa
 endns;
 
-print $App.name; # output: parsa
+println $App.name; # output: parsa
 
 # but this has error:
-print $name; # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
+println $name; # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
 ```
 
 this system is very useful.
@@ -98,14 +98,14 @@ look at this example:
 ```bash
 namespace App;
     func dosomething;
-        print 'hello world\n';
+        println 'hello world';
     endfunc;
 
     $name = 'parsa';
 endns;
 
 App.dosomething;
-print $App.name + '\n';
+println $App.name;
 ```
 
 output:
@@ -123,7 +123,7 @@ look at this example:
 ```bash
 namespace App;
     func dosomething;
-        print 'hello world\n';
+        println 'hello world';
     endfunc;
 
     $name = 'parsa\n';
