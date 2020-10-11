@@ -3,21 +3,21 @@
 ## next release
 
 #### Feature
-- changed document building directory structure
+- changed document building directory structure [(311ff15c)](https://github.com/parsampsh/pashmak/commit/311ff15cada48af17dd869bcd5d0d6ef013a12d0)
 
 ## 1.7.1 (2020-10-11)
 
 #### Fixed
-- fixed pashmak cli `--version` and `--info` options exit code bug
+- fixed pashmak cli `--version` and `--info` options exit code bug [(95d9d0d6)](https://github.com/parsampsh/pashmak/commit/95d9d0d6c3a51b54a5a587fb73a1b2134423e715)
 
 ## 1.7 (2020-10-11)
 
 #### Feature
-- added function `println` to stdlib
+- added function `println` to stdlib [(8ebb4c8e)](https://github.com/parsampsh/pashmak/commit/8ebb4c8e31692d0e74e0d1b25ab4ead77db6d70c)
 
 #### Fixed
-- fixed non-stop code bug and added timeout in online interpreter
-- fixed error rendering bootstrap index calculation bug
+- fixed non-stop code bug and added timeout in online interpreter [(941a1467)](https://github.com/parsampsh/pashmak/commit/941a1467c3c21bc124a72018e0ea355e751ab903)
+- fixed error rendering bootstrap index calculation bug [(fa5d54d8)](https://github.com/parsampsh/pashmak/commit/fa5d54d8f4ac662253cd918ef9d9f039d66758c9)
 
 ## 1.6 (2020-10-11)
 
