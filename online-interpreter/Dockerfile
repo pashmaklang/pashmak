@@ -8,7 +8,7 @@ RUN mkdir /tmp/pashmak-src
 WORKDIR /tmp/pashmak-src
 RUN git clone https://github.com/parsampsh/pashmak.git src
 WORKDIR /tmp/pashmak-src/src
-RUN git branch installation v1.6
+RUN git branch installation $(git describe --abbrev=0)
 RUN git checkout installation
 RUN make all
 RUN make
