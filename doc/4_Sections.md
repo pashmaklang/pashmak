@@ -4,7 +4,7 @@ section is a system to make pointer to a part of code. this is useful to create 
 look at this example:
 ```bash
 section my_loop;
-    print 'hello world\n';
+    println 'hello world';
 goto my_loop;
 ```
 
@@ -20,7 +20,7 @@ look at this example:
 $i = 1;
 
 section loop;
-    print str($i) + '\n'; # print $i
+    println $i; # print $i
     $i = $i + 1; # add 1 to $i
 mem $i < 10; gotoif loop; # check the condition in `mem` and use gotoif command
 ```
@@ -67,16 +67,16 @@ goto age_is_less_than_18;
 
 section age_is_more_than_18;
 
-    print 'you are more than 18\n';
+    println 'you are more than 18';
     goto after_if;
 
 section age_is_less_than_18;
 
-    print 'you are less than 18\n';
+    println 'you are less than 18';
 
 section after_if;
 
-print 'program ends\n';
+println 'program ends';
 ```
 
 we run the program:

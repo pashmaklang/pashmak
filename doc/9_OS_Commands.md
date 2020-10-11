@@ -110,7 +110,7 @@ exit 10; # with 10
 if you want to access pashmak interpreter info, look at this example:
 
 ```bash
-print $pashmakinfo;
+println $pashmakinfo;
 ```
 
 output is something like this:
@@ -123,7 +123,7 @@ this variable is a dictonary.
 for example, to access pashmak version:
 
 ```bash
-print $pashmakinfo['version'];
+println $pashmakinfo['version'];
 ```
 
 output:
