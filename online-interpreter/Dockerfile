@@ -6,10 +6,10 @@ RUN pip3 install pyinstaller
 # compile program
 RUN mkdir /tmp/pashmak-src
 WORKDIR /tmp/pashmak-src
-RUN wget https://github.com/parsampsh/pashmak/archive/v1.5.zip -O src.zip
-RUN unzip src.zip
-WORKDIR /tmp/pashmak-src/pashmak-1.5
-RUN git init
+RUN git clone https://github.com/parsampsh/pashmak.git src
+WORKDIR /tmp/pashmak-src/src
+RUN git branch installation v1.5
+RUN git checkout installation
 RUN make all
 RUN make
 RUN cp ./dist/pashmak /pashmak
