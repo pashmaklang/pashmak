@@ -2,6 +2,9 @@
 
 ## next release
 
+#### Feature
+- added function `println` to stdlib
+
 #### Fixed
 - fixed non-stop code bug and added timeout in online interpreter
 

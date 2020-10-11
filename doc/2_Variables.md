@@ -9,7 +9,7 @@ set $myvar; # set a variables named $myvar
 mem 'this is data'; # bring string 'this is data' to mem
 copy ^ $myvar; # copy mem (^) to $myvar
 
-print $myvar + '\n'; # output: this is data
+println $myvar; # output: this is data
 ```
 
 ###### NOTE: always put $ before name of variable everywhere
@@ -28,14 +28,14 @@ look at this example:
 set $name; # set name variable
 mem 'parsa'; copy ^ $name; # copy 'parsa' string to name variable
 
-print 'hello ' + $name + '\n'; # output: hello parsa
+println 'hello ' + $name; # output: hello parsa
 
 set $num; mem 12; copy ^ $num;
-print $num * 5; # output: 60
+println $num * 5; # output: 60
 
 set $num2; mem 4; copy $num2; # alias of `copy ^ $num2`
 
-print $num * $num2 + 1; # output: 49
+println $num * $num2 + 1; # output: 49
 ```
 
 #### how it works?
@@ -90,10 +90,10 @@ $num2 = 50;
 
 $sum = $num1 + $num2; # use variables in variables
 
-print 'sum is ' + str($sum) + '\n'; # output: sum is 60
+println 'sum is ' + str($sum); # output: sum is 60
 
-$msg = 'hello ' + $name + '\n';
-print $msg; # output: hello parsa
+$msg = 'hello ' + $name;
+println $msg; # output: hello parsa
 ```
 
 also if you just write something like this:

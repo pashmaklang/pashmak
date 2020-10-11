@@ -31,6 +31,14 @@ class test_stdlib(TestCore):
         '''), 'hello world')
 
         self.assert_output(self.run_without_error('''
+        println "hello world";
+        '''), 'hello world\n')
+
+        self.assert_output(self.run_without_error('''
+        printl "hello world";
+        '''), 'hello world\n')
+
+        self.assert_output(self.run_without_error('''
         import "examples/will_be_include.pashm";
         '''), 'i am included\n')
 

@@ -121,5 +121,13 @@ func gset;
 	mem 'self.variables["' + $args[0] + '"] = self.get_var("args")[1]';
 	python ^;
 endfunc;
+func println;
+    $value = ^;
+    print str($value) + '\\n';
+endfunc;
+func printl;
+    $value = ^;
+    println $value;
+endfunc;
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")};
 """

@@ -8,7 +8,10 @@ look at this example:
 
 ```bash
 # print
-print "hello world"; # INSTEAD OF `mem 'hello world'; out ^;`
+print "hello world\n"; # INSTEAD OF `mem 'hello world\n'; out ^;`
+
+# println
+println "hello world"; # without using `\n` in the end of string
 
 # import
 import 'somefile.pashm';

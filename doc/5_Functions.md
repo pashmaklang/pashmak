@@ -4,7 +4,7 @@ function is a system to make alias for some codes (function).
 look at this example:
 ```bash
 func say_hello;
-    print 'hello world\n';
+    println 'hello world';
 endfunc;
 
 say_hello;
@@ -18,7 +18,7 @@ hello world
 
 ```bash
 func say_hello;
-    print 'hello world\n';
+    println 'hello world';
 endfunc;
 
 say_hello;
@@ -43,7 +43,7 @@ mem 'program started\n'; out ^;
 
 func say_hello;
     $name = ^; # copy mem to $name
-    print 'hello ' + $name + '\n';
+    println 'hello ' + $name;
 endfunc;
 
 mem 'parsa'; say_hello;
@@ -81,7 +81,7 @@ look at this example:
 ```bash
 func say_hello;
     $name = ^; # copy mem(the passed argument to function) to $name
-    print 'hello ' + $name + '\n';
+    println 'hello ' + $name;
 endfunc;
 
 say_hello 'parsa';
@@ -100,7 +100,7 @@ func say_hello;
     $args = ^; # copy mem to $args
     $first_name = $args[0];
     $last_name = $args[1];
-    print 'hello ' + $first_name + ' ' + $last_name + '\n';
+    println 'hello ' + $first_name + ' ' + $last_name;
 endfunc;
 
 say_hello 'parsa', 'shahmaleki';
@@ -115,15 +115,15 @@ look at this example:
 ```bash
 func myfunc;
     $name = 'new name';
-    print $name + '\n';
+    println $name;
 endfunc;
 
 $name = 'parsa';
-print $name + '\n';
+println $name;
 
 myfunc;
 
-print $name + '\n';
+println $name;
 ```
 
 output:
@@ -150,15 +150,15 @@ the answer is in `gset`:
 func myfunc;
     $name = 'new name';
     gset 'name', $name;
-    print $name + '\n';
+    println $name;
 endfunc;
 
 $name = 'parsa';
-print $name + '\n';
+println $name;
 
 myfunc;
 
-print $name + '\n';
+println $name;
 ```
 
 output:
