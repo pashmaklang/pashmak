@@ -105,6 +105,25 @@ out $name; # output: None
 
 variable will set and just get `None` as default value
 
+### put `mem` value to variable
+
+we can set value of mem to variables with this legacy way:
+
+```bash
+$myvar; # set myvar
+mem 'something'; # load mem
+copy $myvar; # copy mem to variable
+```
+
+the better way is:
+
+```bash
+mem 'something';
+$myvar = ^;
+```
+
+if you put `^` (mem symbol) as value, memory value will put in the variable
+
 ### free variables
 when you set a variable, that var is in memory. you can delete that var with `free` command:
 

@@ -6,8 +6,8 @@ namespace time;
     endfunc;
 
     func sleep;
-        set $tmp_time_sleep_for; copy $tmp_time_sleep_for;
-        py 'self.mem = time.sleep(' + str($tmp_time_sleep_for) + ')';
+        $tome_to_sleep = ^;
+        py 'self.mem = time.sleep(' + str($tome_to_sleep) + ')';
     endfunc;
 
 endnamespace;

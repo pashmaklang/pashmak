@@ -68,3 +68,9 @@ class test_set(TestCore):
             $myvar = 'num is ' + str(2*5);
             out $myvar;
         '''), 'num is 10')
+
+        self.assert_output(self.run_without_error('''
+            mem 'hello world';
+            $myvar = ^;
+            out $myvar;
+        '''), 'hello world')

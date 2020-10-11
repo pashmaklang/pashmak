@@ -66,7 +66,7 @@ goto after_error;
 
 section handle_error;
 
-$ex; copy $ex; # copy mem (^) to $ex variable (this includes information about raised error)
+$ex = ^; # copy mem (^) to $ex variable (this includes information about raised error)
 print $ex; # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
 
 section after_error;

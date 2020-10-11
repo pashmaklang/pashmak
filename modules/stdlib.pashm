@@ -8,7 +8,7 @@ func import;
 endfunc;
 
 func exit;
-    set $code; copy $code;
+    $code = ^;
     mem type($code) != int; gotoif stdlib_exit_default_exit_with_zero_code;
     return $code;
     section stdlib_exit_default_exit_with_zero_code;
@@ -36,20 +36,19 @@ func endns;
 endfunc;
 
 func raise;
-	set $exdata; copy $exdata;
+	$exdata = ^;
 	mem "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', op)";
     python ^;
-    free $exdata;
 endfunc;
 
 func assert;
     gotoif tmp_assert_after_section;
-    raise ['AssertError', 'asserting that false is true'];
+    raise 'AssertError', 'asserting that false is true';
     section tmp_assert_after_section;
 endfunc;
 
 func gset;
-	set $args; copy $args;
+	$args = ^;
 	mem 'self.variables["' + $args[0] + '"] = self.get_var("args")[1]';
 	python ^;
 endfunc;

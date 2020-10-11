@@ -5,7 +5,7 @@ there is two operations for working with files in pashmak: `fread`, `fwrite`
 
 ```bash
 mem '/path/to/file.txt'; fread ^;
-$content; copy $content;
+$content = ^;
 print 'content of file is: ' + $content;
 ```
 
