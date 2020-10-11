@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## 1.6 (dev)
+
+#### Feature
+- added syntax `$var = ^` to copy `mem` value to variables without using `copy` command and with better syntax
+
 ## 1.5 (2020-10-10)
 
 #### Feature
