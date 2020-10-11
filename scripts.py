@@ -120,28 +120,31 @@ class TestMaker:
 
 class DocBuilder:
     @staticmethod
-    def build():
+    def build(path):
         # load .md files from doc/ folder
-        doc_parts = os.listdir('doc')
+        doc_parts = os.listdir(path)
         doc_parts = [part for part in doc_parts if part[len(part)-3:] == '.md' and part != 'README.md']
         doc_parts.sort()
         
         total_content = ''
 
         # add README.md to the first of content
-        readme_header_f = open('doc/README.md', 'r')
+        readme_header_f = open(path + '/README.md', 'r')
         total_content += readme_header_f.read() + '\n\n\n'
         readme_header_f.close()
 
         # append content of doc parts to total_content one by one
         for doc_part in doc_parts:
-            doc_part_f = open('doc/' + doc_part, 'r')
+            doc_part_f = open(path + '/' + doc_part, 'r')
             doc_part_content = doc_part_f.read()
             total_content += doc_part_content + '\n\n\n'
             doc_part_f.close()
 
         # write generated content to the README.md file
-        readme_f = open('README.md', 'w')
+        target_file = 'README.md'
+        if path != 'doc/en':
+            target_file = 'README-' + path.split('/')[1] + '.md'
+        readme_f = open(target_file, 'w')
         readme_f.write(total_content)
         readme_f.close()
 
@@ -192,7 +195,8 @@ if sys.argv[1] == 'make-test':
     sys.exit(TestMaker.make(sys.argv[2]))
 
 if sys.argv[1] == 'build-doc':
-    sys.exit(DocBuilder.build())
+    for item in os.listdir('doc'):
+        sys.exit(DocBuilder.build('doc/' + item))
 
 if sys.argv[1] == 'build-modules':
     sys.exit(ModuleBuilder.build())
