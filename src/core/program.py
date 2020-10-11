@@ -48,6 +48,7 @@ class Program(helpers.Helpers):
         self.current_namespace = '' # current namespace prefix to add it before name of functions
         self.used_namespaces = [] # list of used namespaces
         self.included_modules = [] # list of included modules to stop repeating imports
+        self.bootstrap_operations_count = 0
 
         self.current_step = 0
         self.stop_after_error = True
@@ -60,9 +61,10 @@ class Program(helpers.Helpers):
     def set_operations(self, operations: list):
         ''' Set operations list '''
         # include stdlib before everything
-        tmp = parser.parse('mem "@stdlib"; include ^;')
+        tmp = parser.parse('mem "@stdlib"; include ^; py "self.bootstrap_operations_count = len(self.operations)-2";')
         operations.insert(0, tmp[0])
         operations.insert(1, tmp[1])
+        operations.insert(2, tmp[2])
 
         # set operations on program object
         self.operations = operations
@@ -112,10 +114,10 @@ class Program(helpers.Helpers):
         for state in self.states:
             try:
                 tmp_op = self.operations[state['entry_point']]
-                print('\tin ' + str(tmp_op['index']) + ': ' + tmp_op['str'])
+                print('\tin ' + str(tmp_op['index']-self.bootstrap_operations_count) + ': ' + tmp_op['str'])
             except KeyError:
                 pass
-        print('\tin ' + str(op['index']) + ': ' + op['str'])
+        print('\tin ' + str(op['index']-self.bootstrap_operations_count) + ': ' + op['str'])
         sys.exit(1)
 
     def exec_func(self, func_body: list, with_state=True):
