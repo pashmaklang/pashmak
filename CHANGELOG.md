@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 1.7 (2020-10-11)
 
 #### Feature
 - added function `println` to stdlib
