@@ -63,6 +63,13 @@ sys $cmd;
 
 you can pass value directly to `sys`
 
+also after run `system` or `sys`, command exit code will put in `mem`:
+
+```bash
+sys 'ls /';
+out ^; # output: 0
+```
+
 ### return
 this command exits program
 
