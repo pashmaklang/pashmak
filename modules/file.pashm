@@ -2,27 +2,23 @@
 namespace file;
 
     func open;
-        set $args; copy $args;
+        $args = ^;
         mem open($args[0], $args[1]);
-        free $args;
     endfunc;
 
     func close;
-        set $file; copy $file;
+        $file = ^;
         mem $file.close();
-        free $file;
     endfunc;
 
     func read;
-        set $file; copy $file;
+        $file = ^;
         mem $file.read();
-        free $file;
     endfunc;
 
     func write;
-        set $args; copy $args;
+        $args = ^;
         mem $args[0].write($args[1]);
-        free $args;
     endfunc;
 
 endnamespace;
