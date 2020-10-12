@@ -4,10 +4,10 @@
 
 #### Changed
 - changed document building directory structure [(311ff15c)](https://github.com/parsampsh/pashmak/commit/311ff15cada48af17dd869bcd5d0d6ef013a12d0)
-- changed online interpreter code textarea selection style (56d0eb01f18e694ffe47d1b43540b7ded009397c)
+- changed online interpreter code textarea selection style [(56d0eb01)](https://github.com/parsampsh/pashmak/commit/56d0eb01f18e694ffe47d1b43540b7ded009397c)
 
 #### Added
-- added `loop` and `continue` functions to stdlib (af8a4c2e6367ffe56d1970b21f79315d403ddce0)
+- added `loop` and `continue` functions to stdlib [(af8a4c2e)](https://github.com/parsampsh/pashmak/commit/af8a4c2e6367ffe56d1970b21f79315d403ddce0)
 
 ## 1.7.1 (2020-10-11)
 
