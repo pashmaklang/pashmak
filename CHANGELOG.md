@@ -4,6 +4,7 @@
 
 #### Feature
 - changed document building directory structure [(311ff15c)](https://github.com/parsampsh/pashmak/commit/311ff15cada48af17dd869bcd5d0d6ef013a12d0)
+- changed online interpreter code textarea selection style (56d0eb01f18e694ffe47d1b43540b7ded009397c)
 
 ## 1.7.1 (2020-10-11)
 
