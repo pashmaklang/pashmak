@@ -51,7 +51,7 @@ compile & install:
 
 ```bash
 # checkout to latest release
-git branch installation v1.7.1
+git branch installation v1.8
 git checkout installation
 
 # compile and install
@@ -696,6 +696,60 @@ run again:
 enter your age: <input>14
 you are less than 18
 program ends
+```
+
+### an easy way to make loops
+
+the section system is very useful for making loops.
+
+to make loop, we can write this code:
+
+```bash
+$i = 0;
+section loop;
+    println $i;
+    $i = $i + 1;
+mem $i < 10; gotoif loop;
+```
+
+output:
+
+```
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+```
+
+but we can use `loop` and `continue` functions to make loop syntax easy:
+
+```bash
+$i = 0;
+loop;
+    println $i;
+    $i = $i + 1;
+continue $i < 10; # back to loop while condition is True (while $i < 10)
+```
+
+output:
+
+```
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
 ```
 
 

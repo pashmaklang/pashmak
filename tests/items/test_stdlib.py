@@ -133,3 +133,11 @@ class test_stdlib(TestCore):
         out $name;
 
         '''), 'parsa\npashmak\n')
+
+        self.assert_output(self.run_without_error('''
+        $i = 0;
+        loop;
+            println 'hello world';
+            $i = $i + 1;
+        continue $i < 10;
+        '''), 'hello world\n' * 10)

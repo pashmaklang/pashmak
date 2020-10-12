@@ -129,5 +129,11 @@ func printl;
     $value = ^;
     println $value;
 endfunc;
+func loop;
+    section loop;
+endfunc;
+func continue;
+    gotoif loop;
+endfunc;
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")};
 """
