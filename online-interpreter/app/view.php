@@ -13,6 +13,9 @@
     .code-font{
         font-family: "Consolas", "Monaco", "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New";
     }
+    .code-font::selection{
+        background-color: rgba(40,60,255,0.5);
+    }
     </style>
 </head>
 <body>
