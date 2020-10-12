@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 1.8 (2020-10-12)
 
 #### Changed
 - changed document building directory structure [(311ff15c)](https://github.com/parsampsh/pashmak/commit/311ff15cada48af17dd869bcd5d0d6ef013a12d0)
