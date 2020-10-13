@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 1.8.1 (2020-10-13)
 
 #### Fixed
 - fixed file module `file.close` function bug [(a5b801ea)](https://github.com/parsampsh/pashmak/commit/a5b801ea8e8c27ab471a098d425c2996efda1740)
