@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## next release
+
+#### Fixed
+- fixed file module `file.close` function bug (a5b801ea8e8c27ab471a098d425c2996efda1740)
+
 ## 1.8 (2020-10-12)
 
 #### Changed
