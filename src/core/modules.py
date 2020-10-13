@@ -53,7 +53,7 @@ namespace file;
     endfunc;
     func close;
         $file = ^;
-        mem $file.close();
+        mem "self.get_var('file').close()"; python ^;
     endfunc;
     func read;
         $file = ^;
