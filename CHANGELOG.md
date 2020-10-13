@@ -4,6 +4,7 @@
 
 #### Fixed
 - fixed file module `file.close` function bug [(a5b801ea)](https://github.com/parsampsh/pashmak/commit/a5b801ea8e8c27ab471a098d425c2996efda1740)
+- fixed file module `file.read` function bug [(101edd2c)](https://github.com/parsampsh/pashmak/commit/101edd2c39404b11550c4390268cc9bc1502b520)
 
 ## 1.8 (2020-10-12)
 
