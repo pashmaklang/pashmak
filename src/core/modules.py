@@ -57,7 +57,7 @@ namespace file;
     endfunc;
     func read;
         $file = ^;
-        mem $file.read();
+        mem "self.mem = self.get_var('file').read()"; python ^;
     endfunc;
     func write;
         $args = ^;
