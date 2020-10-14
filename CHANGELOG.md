@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 1.8.2 (2020-10-14)
 
 #### Changed
 - optimized program core code [(46f1ec48)](https://github.com/parsampsh/pashmak/commit/46f1ec48cb87e8658061173dd49c2ffc2e32b820)
