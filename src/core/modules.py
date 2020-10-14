@@ -132,7 +132,7 @@ endfunc;
 func loop;
     section loop;
 endfunc;
-func continue;
+func while;
     gotoif loop;
 endfunc;
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")};
