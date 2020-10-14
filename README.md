@@ -931,6 +931,56 @@ this command sets value of that variable globaly.
 
 ##### NOTE: after running gset, new value will set for global variable but it will not set also localy. so, after use gset, also use copy to update value localy (if you want)
 
+### handle functions output
+
+when you calling a function, that function may return a output. this value as output should be save in mem
+
+look at this example:
+
+```bash
+func add_two_nums;
+    $nums = ^; # put function arguments (mem ^) to $nums
+    $sum = $nums[0] + $nums[1]; # add two numbers
+    mem $sum; # put result to mem
+endfunc;
+
+# now we call this function
+add_two_nums 10, 5;
+$result = ^; # function output is in mem and we copy mem to variable $result
+println $result;
+```
+
+output:
+
+```
+15
+```
+
+now, this syntax is ugly. we can write this code like this:
+
+```bash
+func add_two_nums;
+    $nums = ^; # put function arguments (mem ^) to $nums
+    $sum = $nums[0] + $nums[1]; # add two numbers
+    mem $sum; # put result to mem
+endfunc;
+
+# now we call this function
+$result = ^ add_two_nums 10, 5;
+println $result;
+```
+
+we write two operations in one operation to have better syntax. calling function and assigning mem (function output) to `$result`.
+we just have to write variable name and an `=`, and next write `^` and them write our code after this.
+
+like it:
+
+```bash
+$variable = ^ my_command_or_function 'my', 'arguments';
+```
+
+and them this code will run and mem value will put into the variable
+
 
 
 # Work with files
@@ -1031,7 +1081,7 @@ you can delete a item from array:
 
 ```bash
 $myarray = ['red', 'green', 'blue'];
-out $myarray; # output: ['red', 'green', 'blue']
+println $myarray; # output: ['red', 'green', 'blue']
 
 mem 1; arraypop $myarray ^; # remove index mem (^) from $myarray
 println $myarray; # output: ['red', 'blue']
@@ -1176,6 +1226,21 @@ output:
 
 ```
 /tmp
+```
+
+or:
+
+```bash
+cwd;
+$cwd = ^;
+println $cwd;
+```
+
+or:
+
+```bash
+$cwd = ^ cwd;
+println $cwd;
 ```
 
 this command puts current working directory path in mem
@@ -1649,6 +1714,10 @@ file.open '/path/to/file.txt', 'r'; # first argument is file path, and second ar
 # now, opened file is in the mem. we can copy it in a variable
 
 $f = ^;
+
+# or
+
+$f = ^ file.open '/path/to/file.txt', 'r';
 ```
 
 ###### file.read
@@ -1657,8 +1726,7 @@ wtih this function, you can read opened file:
 ```bash
 import '@file';
 
-file.open '/path/to/file.txt', 'r';
-$f = ^; # copy opened file to $f
+$f = ^ file.open '/path/to/file.txt', 'r';
 
 file.read $f; # now, content of file is in the mem
 out ^; # output is content of file
@@ -1670,8 +1738,7 @@ with this function, you can write on opened file:
 ```bash
 import '@file';
 
-file.open '/path/to/file.txt', 'w'; # open type is `w` (write)
-$f = ^;
+$f = ^ file.open '/path/to/file.txt', 'w'; # open type is `w` (write)
 
 file.write $f, 'new content'; # first arg is opened file and second arg is content.
 ```
@@ -1684,8 +1751,7 @@ with this function you can close file after your work:
 ```bash
 import '@file';
 
-file.open '/path/to/file.txt', 'r';
-$f = ^;
+$f = ^ file.open '/path/to/file.txt', 'r';
 
 # work with file
 
@@ -1697,10 +1763,9 @@ file.close $f; # close file after work
 ```bash
 import '@file';
 
-file.open '/path/to/file.txt', 'r'; $file = ^;
+$file = ^ file.open '/path/to/file.txt', 'r';
 
-file.read $file;
-$content = ^;
+$content = ^ file.read $file;
 
 print 'content of file is: ' + $content;
 ```
