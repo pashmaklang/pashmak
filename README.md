@@ -6,7 +6,7 @@ the pashmak scripts has cool and pashmaki syntax.
 this is a simple hello world script in pashmak:
 
 ```bash
-print 'hello world\n';
+println 'hello world';
 ```
 
 ## Online interpreter
@@ -51,7 +51,7 @@ compile & install:
 
 ```bash
 # checkout to latest release
-git branch installation v1.8.1
+git branch installation v1.8.2
 git checkout installation
 
 # compile and install
@@ -727,14 +727,14 @@ output:
 9
 ```
 
-but we can use `loop` and `continue` functions to make loop syntax easy:
+but we can use `loop` and `while` functions to make loop syntax easy:
 
 ```bash
 $i = 0;
 loop;
     println $i;
     $i = $i + 1;
-continue $i < 10; # back to loop while condition is True (while $i < 10)
+while $i < 10; # back to loop while condition is True (while $i < 10)
 ```
 
 output:

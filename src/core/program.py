@@ -198,88 +198,51 @@ class Program(helpers.Helpers):
         except AttributeError:
             pass
 
-        if op_name == 'set':
-            self.run_set(op)
-            return
-        elif op_name == 'free':
-            self.run_free(op)
-            return
-        elif op_name == 'copy':
-            self.run_copy(op)
-            return
-        elif op_name == 'out':
-            self.run_out(op)
-            return
-        elif op_name == 'read':
-            self.run_read(op)
-            return
-        elif op_name == 'return':
-            self.run_return(op)
-            return
-        elif op_name == 'func':
-            self.run_func(op)
-            return
-        elif op_name == 'required':
-            self.run_required(op)
-            return
-        elif op_name == 'typeof':
-            self.run_typeof(op)
-            return
-        elif op_name == 'system':
-            self.run_system(op)
-            return
-        elif op_name == 'include':
-            self.run_include(op)
-            return
-        elif op_name == 'goto':
-            self.run_goto(op)
-            return
-        elif op_name == 'gotoif':
-            self.run_gotoif(op)
-            return
-        elif op_name == 'fread':
-            self.run_fread(op)
-            return
-        elif op_name == 'fwrite':
-            self.run_fwrite(op)
-            return
-        elif op_name == 'chdir':
-            self.run_chdir(op)
-            return
-        elif op_name == 'cwd':
-            self.run_cwd(op)
-            return
-        elif op_name == 'isset':
-            self.run_isset(op)
-            return
-        elif op_name == 'try':
-            self.run_try(op)
-            return
-        elif op_name == 'endtry':
-            self.run_endtry(op)
-            return
-        elif op_name == 'eval':
-            self.run_eval(op)
-            return
-        elif op_name == 'arraypush':
-            self.run_arraypush(op)
-            return
-        elif op_name == 'arraypop':
-            self.run_arraypop(op)
-            return
-        elif op_name == 'python':
-            self.run_python(op)
-            return
-        elif op_name == 'namespace':
-            self.run_namespace(op)
-            return
-        elif op_name == 'endnamespace':
-            self.run_endnamespace(op)
-            return
-        elif op_name == 'use':
-            self.run_use(op)
-            return
-        elif op_name == 'pass':
+        # list of operations
+        operations_dict = {
+            'set': self.run_set,
+            'free': self.run_free,
+            'copy': self.run_copy,
+            'read': self.run_read,
+            'return': self.run_return,
+            'func': self.run_func,
+            'required': self.run_required,
+            'typeof': self.run_typeof,
+            'system': self.run_system,
+            'include': self.run_include,
+            'goto': self.run_goto,
+            'gotoif': self.run_gotoif,
+            'fread': self.run_fread,
+            'fwrite': self.run_fwrite,
+            'chdir': self.run_chdir,
+            'cwd': self.run_cwd,
+            'goto': self.run_goto,
+            'isset': self.run_isset,
+            'out': self.run_out,
+            'try': self.run_try,
+            'endtry': self.run_endtry,
+            'eval': self.run_eval,
+            'arraypush': self.run_arraypush,
+            'arraypop': self.run_arraypop,
+            'python': self.run_python,
+            'namespace': self.run_namespace,
+            'endnamespace': self.run_endnamespace,
+            'use': self.run_use,
+            'isset': self.run_isset,
+            'pass': None,
+        }
+
+        # check op_name is a valid operation
+        op_func = 0
+        try:
+            op_func = operations_dict[op_name]
+        except:
+            pass
+
+        # if op_name is a valid operation, run the function
+        if op_func != 0:
+            if op_func != None:
+                op_func(op)
             return
 
         # check operation syntax is variable value setting

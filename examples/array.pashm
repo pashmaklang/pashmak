@@ -9,4 +9,4 @@ $i = 0;
 loop;
     println $names[$i];
     $i = $i + 1;
-continue $i < len($names);
+while $i < len($names);
