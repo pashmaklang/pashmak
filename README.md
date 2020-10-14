@@ -956,7 +956,7 @@ output:
 15
 ```
 
-now, this syntax is ugly. we can write this code like this:
+now, above syntax is ugly. we can write this code like this:
 
 ```bash
 func add_two_nums;
