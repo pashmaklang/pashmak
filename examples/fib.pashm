@@ -13,7 +13,7 @@ func fib;
         $a = $tmp_b;
 
         $b = $tmp_a + $tmp_b;
-    continue $b < 10000;
+    while $b < 10000;
 endfunc;
 
 fib;

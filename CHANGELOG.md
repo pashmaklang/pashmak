@@ -4,6 +4,7 @@
 
 #### Changed
 - optimized program core code [(46f1ec48)](https://github.com/parsampsh/pashmak/commit/46f1ec48cb87e8658061173dd49c2ffc2e32b820)
+- renamed function `continue` to `while` for make loop in stdlib
 
 ## 1.8.1 (2020-10-13)
 

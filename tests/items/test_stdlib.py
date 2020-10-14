@@ -139,5 +139,5 @@ class test_stdlib(TestCore):
         loop;
             println 'hello world';
             $i = $i + 1;
-        continue $i < 10;
+        while $i < 10;
         '''), 'hello world\n' * 10)

@@ -727,14 +727,14 @@ output:
 9
 ```
 
-but we can use `loop` and `continue` functions to make loop syntax easy:
+but we can use `loop` and `while` functions to make loop syntax easy:
 
 ```bash
 $i = 0;
 loop;
     println $i;
     $i = $i + 1;
-continue $i < 10; # back to loop while condition is True (while $i < 10)
+while $i < 10; # back to loop while condition is True (while $i < 10)
 ```
 
 output:

@@ -7,7 +7,7 @@ func myfunc;
     loop;
         print str($i) + '\n';
         $i = $i + 1;
-    continue $i < 100;
+    while $i < 100;
 
     println 'finished';
 endfunc;
