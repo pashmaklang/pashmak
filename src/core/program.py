@@ -253,7 +253,15 @@ class Program(helpers.Helpers):
                 self.set_var(varname[1:], None)
                 return
             value = None
-            if parts[1].strip() == '^':
+            if parts[1].strip()[0] == '^' and len(parts[1].strip()) > 1:
+                cmd = parts[1].strip()[1:].strip()
+                # insert cmd after current operation
+                self.operations.insert(self.current_step+1, parser.parse(cmd)[0])
+                self.update_section_indexes(self.current_step+1)
+                self.operations.insert(self.current_step+2, parser.parse(varname + ' = ^')[0])
+                self.update_section_indexes(self.current_step+2)
+                return
+            elif parts[1].strip() == '^':
                 value = self.get_mem()
             else:
                 value = self.eval(parts[1].strip())
