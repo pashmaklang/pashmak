@@ -6,7 +6,7 @@ the pashmak scripts has cool and pashmaki syntax.
 this is a simple hello world script in pashmak:
 
 ```bash
-print 'hello world\n';
+println 'hello world';
 ```
 
 ## Online interpreter
