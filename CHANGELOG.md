@@ -3,7 +3,7 @@
 ## 1.9 (2020-10-15)
 
 #### Added
-- added new syntax for variable mem assigning like `$variable = ^ function_name 'arguments';` [(e10632cd19666611001e38985e1536bb35c49184)](https://github.com/parsampsh/pashmak/commit/e10632cd19666611001e38985e1536bb35c49184)
+- added new syntax for variable mem assigning like `$variable = ^ function_name 'arguments';` [(e10632cd)](https://github.com/parsampsh/pashmak/commit/e10632cd19666611001e38985e1536bb35c49184)
 
 ## 1.8.2 (2020-10-14)
 
