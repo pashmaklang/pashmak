@@ -5,7 +5,7 @@ compile & install:
 
 ```bash
 # checkout to latest release
-git branch installation v1.8.2
+git branch installation v1.9
 git checkout installation
 
 # compile and install
