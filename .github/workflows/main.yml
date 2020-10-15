@@ -34,6 +34,7 @@ jobs:
         run: |
           make all
           make
+          sudo make install
       
       - name: run pashmak
-        run: ./dist/pashmak -v
+        run: pashmak -v
