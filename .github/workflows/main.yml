@@ -25,16 +25,13 @@ jobs:
       - name: install python3 and pip3 and make and bash
         run: sudo apt install python3 python3-pip make bash -y
 
-      - name: upgrade pip
+      - name: upgrade pip and install pyinstaller and compile project
         run: |
           pip3 install --upgrade pip
           pip3 install pyinstaller
-      
-      - name: compile project
-        run: |
           make all
           make
           sudo make install
-      
+
       - name: run pashmak
         run: pashmak -v
