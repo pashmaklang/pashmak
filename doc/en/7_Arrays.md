@@ -53,7 +53,7 @@ you can delete a item from array:
 
 ```bash
 $myarray = ['red', 'green', 'blue'];
-out $myarray; # output: ['red', 'green', 'blue']
+println $myarray; # output: ['red', 'green', 'blue']
 
 mem 1; arraypop $myarray ^; # remove index mem (^) from $myarray
 println $myarray; # output: ['red', 'blue']

@@ -80,3 +80,22 @@ class test_set(TestCore):
             $myvar =    ^ ;
             out $myvar;
         '''), 'hello world')
+
+        self.assert_output(self.run_without_error('''
+            func get_data;
+                mem 'hi';
+            endfunc;
+
+            $var = ^ get_data;
+            println $var;
+        '''), 'hi\n')
+
+        self.assert_output(self.run_without_error('''
+            func say_hello;
+                $name = ^;
+                mem 'hello ' + $name;
+            endfunc;
+
+            $msg = ^ say_hello "parsa";
+            println $msg;
+        '''), 'hello parsa\n')

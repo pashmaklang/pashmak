@@ -39,6 +39,21 @@ output:
 /tmp
 ```
 
+or:
+
+```bash
+cwd;
+$cwd = ^;
+println $cwd;
+```
+
+or:
+
+```bash
+$cwd = ^ cwd;
+println $cwd;
+```
+
 this command puts current working directory path in mem
 
 ### system

@@ -40,8 +40,8 @@ namespace time;
         py 'self.mem = time.time()';
     endfunc;
     func sleep;
-        $tome_to_sleep = ^;
-        py 'self.mem = time.sleep(' + str($tome_to_sleep) + ')';
+        $time_to_sleep = ^;
+        py 'self.mem = time.sleep(' + str($time_to_sleep) + ')';
     endfunc;
 endnamespace;
 """
