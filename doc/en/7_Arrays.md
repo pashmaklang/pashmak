@@ -19,10 +19,10 @@ $names = ['parsa', 'pashmak', 'jack'];
 
 $i = 0;
 
-section loop;
+loop
     println $names[$i];
     $i = $i + 1;
-mem $i < len($names); gotoif loop;
+while $i < len($names);
 ```
 
 output:
