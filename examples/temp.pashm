@@ -1,0 +1,5 @@
+func say_hi ($args);
+    println $args;
+endfunc;
+
+say_hi 'hello';

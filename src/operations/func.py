@@ -22,6 +22,8 @@
 
 ''' Starts function block '''
 
+from syntax import parser
+
 def run(self, op: dict):
     ''' Starts function block '''
 
@@ -39,5 +41,12 @@ def run(self, op: dict):
     except:
         pass
 
+    # declare function
     self.current_func = self.current_namespace + arg
     self.functions[self.current_func] = []
+
+    # check for argument variable
+    if len(op['args']) > 1:
+        arg_var = op['args'][1].strip(')').strip('(')
+        self.arg_should_be_variable(arg_var, op)
+        self.functions[self.current_func].append(parser.parse(arg_var + ' = ^')[0])
