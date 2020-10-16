@@ -2,9 +2,9 @@ name: Main
 
 on:
   push:
-    branches: [ parsampsh-create-workflow ]
+    branches: [ master ]
   pull_request:
-    branches: [ parsampsh-create-workflow ]
+    branches: [ master ]
 
 jobs:
   tests:
