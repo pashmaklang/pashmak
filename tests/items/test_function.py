@@ -114,3 +114,18 @@ class test_function(TestCore):
         endfunc;
         '''), 'FunctionError')
 
+        self.assert_output(self.run_without_error('''
+        func say_hi $name;
+            println $name;
+        endfunc;
+
+        say_hi 'parsa';
+        '''), 'parsa\n')
+
+        self.assert_output(self.run_without_error('''
+        func say_hi ($name);
+            println $name;
+        endfunc;
+
+        say_hi 'parsa';
+        '''), 'parsa\n')

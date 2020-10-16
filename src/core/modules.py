@@ -23,58 +23,40 @@
 
 modules = {}
 
-modules["random"] = """
-namespace random;
-    func randint;
-        $args = ^;
-        py 'self.mem = random.randint(' + str($args[0]) + ',' + str($args[1]) + ')';
-    endfunc;
-    func random;
-        py 'self.mem = random.random()';
-    endfunc;
-endnamespace;
-"""
-modules["time"] = """
-namespace time;
-    func time;
-        py 'self.mem = time.time()';
-    endfunc;
-    func sleep;
-        $time_to_sleep = ^;
-        py 'self.mem = time.sleep(' + str($time_to_sleep) + ')';
-    endfunc;
-endnamespace;
-"""
 modules["file"] = """
 namespace file;
-    func open;
-        $args = ^;
+    func open ($args);
         mem open($args[0], $args[1]);
     endfunc;
-    func close;
-        $file = ^;
+    func close ($file);
         mem "self.get_var('file').close()"; python ^;
     endfunc;
-    func read;
-        $file = ^;
+    func read ($file);
         mem "self.mem = self.get_var('file').read()"; python ^;
     endfunc;
-    func write;
-        $args = ^;
+    func write ($args);
         mem $args[0].write($args[1]);
     endfunc;
 endnamespace;
 """
 modules["hash"] = """
 namespace hash;
-	func sha256;
-		$value = ^;
+	func sha256 ($value);
 		py 'self.mem = hashlib.sha256("' + $value + '".encode()).hexdigest()';
 	endfunc;
-	func md5;
-		$value = ^;
+	func md5 ($value);
 		py 'self.mem = hashlib.md5("' + $value + '".encode()).hexdigest()';
 	endfunc;
+endnamespace;
+"""
+modules["random"] = """
+namespace random;
+    func randint ($args);
+        py 'self.mem = random.randint(' + str($args[0]) + ',' + str($args[1]) + ')';
+    endfunc;
+    func random;
+        py 'self.mem = random.random()';
+    endfunc;
 endnamespace;
 """
 modules["stdlib"] = """
@@ -84,8 +66,7 @@ endfunc;
 func import;
     include ^;
 endfunc;
-func exit;
-    $code = ^;
+func exit ($code);
     mem type($code) != int; gotoif stdlib_exit_default_exit_with_zero_code;
     return $code;
     section stdlib_exit_default_exit_with_zero_code;
@@ -106,8 +87,7 @@ endfunc;
 func endns;
     endnamespace;
 endfunc;
-func raise;
-	$exdata = ^;
+func raise ($exdata);
 	mem "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', op)";
     python ^;
 endfunc;
@@ -116,17 +96,14 @@ func assert;
     raise 'AssertError', 'asserting that false is true';
     section tmp_assert_after_section;
 endfunc;
-func gset;
-	$args = ^;
+func gset ($args);
 	mem 'self.variables["' + $args[0] + '"] = self.get_var("args")[1]';
 	python ^;
 endfunc;
-func println;
-    $value = ^;
+func println ($value);
     print str($value) + '\\n';
 endfunc;
-func printl;
-    $value = ^;
+func printl ($value);
     println $value;
 endfunc;
 func loop;
@@ -136,4 +113,14 @@ func while;
     gotoif loop;
 endfunc;
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")};
+"""
+modules["time"] = """
+namespace time;
+    func time;
+        py 'self.mem = time.time()';
+    endfunc;
+    func sleep ($time_to_sleep);
+        py 'self.mem = time.sleep(' + str($time_to_sleep) + ')';
+    endfunc;
+endnamespace;
 """

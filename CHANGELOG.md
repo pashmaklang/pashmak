@@ -1,9 +1,14 @@
 # Pashmak Changelog
 
+## 1.10 (2020-10-16)
+
+#### Added
+- added function argument variable syntax [(97bcaafa)](https://github.com/parsampsh/pashmak/commit/97bcaafaa547e52250896f9cb7edd1b67f3acff2)
+
 ## 1.9 (2020-10-15)
 
 #### Added
-- added new syntax for variable mem assigning like `$variable = ^ function_name 'arguments';` [(e10632cd19666611001e38985e1536bb35c49184)](https://github.com/parsampsh/pashmak/commit/e10632cd19666611001e38985e1536bb35c49184)
+- added new syntax for variable mem assigning like `$variable = ^ function_name 'arguments';` [(e10632cd)](https://github.com/parsampsh/pashmak/commit/e10632cd19666611001e38985e1536bb35c49184)
 
 ## 1.8.2 (2020-10-14)
 
