@@ -5,8 +5,7 @@ namespace time;
         py 'self.mem = time.time()';
     endfunc;
 
-    func sleep;
-        $time_to_sleep = ^;
+    func sleep ($time_to_sleep);
         py 'self.mem = time.sleep(' + str($time_to_sleep) + ')';
     endfunc;
 

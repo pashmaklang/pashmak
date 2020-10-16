@@ -1,13 +1,11 @@
 
 namespace hash;
 
-	func sha256;
-		$value = ^;
+	func sha256 ($value);
 		py 'self.mem = hashlib.sha256("' + $value + '".encode()).hexdigest()';
 	endfunc;
 
-	func md5;
-		$value = ^;
+	func md5 ($value);
 		py 'self.mem = hashlib.md5("' + $value + '".encode()).hexdigest()';
 	endfunc;
 

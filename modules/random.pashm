@@ -1,8 +1,7 @@
 
 namespace random;
 
-    func randint;
-        $args = ^;
+    func randint ($args);
         py 'self.mem = random.randint(' + str($args[0]) + ',' + str($args[1]) + ')';
     endfunc;
 

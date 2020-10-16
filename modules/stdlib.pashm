@@ -7,8 +7,7 @@ func import;
     include ^;
 endfunc;
 
-func exit;
-    $code = ^;
+func exit ($code);
     mem type($code) != int; gotoif stdlib_exit_default_exit_with_zero_code;
     return $code;
     section stdlib_exit_default_exit_with_zero_code;
@@ -35,8 +34,7 @@ func endns;
     endnamespace;
 endfunc;
 
-func raise;
-	$exdata = ^;
+func raise ($exdata);
 	mem "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', op)";
     python ^;
 endfunc;
@@ -47,19 +45,16 @@ func assert;
     section tmp_assert_after_section;
 endfunc;
 
-func gset;
-	$args = ^;
+func gset ($args);
 	mem 'self.variables["' + $args[0] + '"] = self.get_var("args")[1]';
 	python ^;
 endfunc;
 
-func println;
-    $value = ^;
+func println ($value);
     print str($value) + '\\n';
 endfunc;
 
-func printl;
-    $value = ^;
+func printl ($value);
     println $value;
 endfunc;
 
