@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## next release
+
+#### Added
+- added function argument variable syntax [(97bcaafa)](https://github.com/parsampsh/pashmak/commit/97bcaafaa547e52250896f9cb7edd1b67f3acff2)
+
 ## 1.9 (2020-10-15)
 
 #### Added
