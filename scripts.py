@@ -157,6 +157,7 @@ class ModuleBuilder:
         # get list of modules
         modules = {}
         module_files = os.listdir('modules')
+        module_files.sort()
         for module in module_files:
             file_content = open('modules/' + module, 'r').read()
             modules[module[:len(module)-6]] = file_content

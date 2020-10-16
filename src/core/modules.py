@@ -23,28 +23,6 @@
 
 modules = {}
 
-modules["random"] = """
-namespace random;
-    func randint;
-        $args = ^;
-        py 'self.mem = random.randint(' + str($args[0]) + ',' + str($args[1]) + ')';
-    endfunc;
-    func random;
-        py 'self.mem = random.random()';
-    endfunc;
-endnamespace;
-"""
-modules["time"] = """
-namespace time;
-    func time;
-        py 'self.mem = time.time()';
-    endfunc;
-    func sleep;
-        $time_to_sleep = ^;
-        py 'self.mem = time.sleep(' + str($time_to_sleep) + ')';
-    endfunc;
-endnamespace;
-"""
 modules["file"] = """
 namespace file;
     func open;
@@ -75,6 +53,17 @@ namespace hash;
 		$value = ^;
 		py 'self.mem = hashlib.md5("' + $value + '".encode()).hexdigest()';
 	endfunc;
+endnamespace;
+"""
+modules["random"] = """
+namespace random;
+    func randint;
+        $args = ^;
+        py 'self.mem = random.randint(' + str($args[0]) + ',' + str($args[1]) + ')';
+    endfunc;
+    func random;
+        py 'self.mem = random.random()';
+    endfunc;
 endnamespace;
 """
 modules["stdlib"] = """
@@ -136,4 +125,15 @@ func while;
     gotoif loop;
 endfunc;
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")};
+"""
+modules["time"] = """
+namespace time;
+    func time;
+        py 'self.mem = time.time()';
+    endfunc;
+    func sleep;
+        $time_to_sleep = ^;
+        py 'self.mem = time.sleep(' + str($time_to_sleep) + ')';
+    endfunc;
+endnamespace;
 """
