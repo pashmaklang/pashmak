@@ -864,6 +864,38 @@ say_hello 'parsa', 'shahmaleki';
 
 arguments should be split with `,` and this will make a array in mem and function can access that array and use arguments.
 
+we to copy function argument (in mem) to a variable, using this syntax:
+
+```bash
+func say_hello;
+    $name = ^;
+    println 'hello ' + $name;
+endfunc;
+
+say_hello 'parsa';
+```
+
+but also we can use this syntax to copy function argument to variable with better syntax:
+
+```bash
+func say_hello ($name);
+    println 'hello ' + $name;
+endfunc;
+
+say_hello 'parsa';
+```
+
+we can put `($varname)` after name of function (with a space between them) and mem will copy automatic in that variable.
+also you can don't use `()` and you can write above code like this:
+
+```bash
+func say_hello $name; # without ()
+    println 'hello ' + $name;
+endfunc;
+
+say_hello 'parsa';
+```
+
 ### local variables & global variables
 
 look at this example:
@@ -1047,10 +1079,10 @@ $names = ['parsa', 'pashmak', 'jack'];
 
 $i = 0;
 
-section loop;
+loop
     println $names[$i];
     $i = $i + 1;
-mem $i < len($names); gotoif loop;
+while $i < len($names);
 ```
 
 output:
