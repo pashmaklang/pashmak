@@ -70,3 +70,41 @@ jobs:
         python tests\run.py
 
     name: Windows Python 3.6
+
+  Windows_Python_3_7:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+    - name: Run tests
+      run: |
+        python scripts.py build-modules
+        python scripts.py update-headers
+        python scripts.py build-doc
+        python tests\run.py
+
+    name: Windows Python 3.7
+
+  Windows_Python_3_8:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Run tests
+      run: |
+        python scripts.py build-modules
+        python scripts.py update-headers
+        python scripts.py build-doc
+        python tests\run.py
+
+    name: Windows Python 3.8
