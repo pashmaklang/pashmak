@@ -64,9 +64,9 @@ jobs:
         python-version: 3.6
     - name: Run tests
       run: |
-        python3 scripts.py build-modules
-        python3 scripts.py update-headers
-        python3 scripts.py build-doc
-        python3 tests\run.py
+        python scripts.py build-modules
+        python scripts.py update-headers
+        python scripts.py build-doc
+        python tests\run.py
 
     name: Windows Python 3.6
