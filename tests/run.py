@@ -21,16 +21,17 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-import sys, os
+import sys
+import os
 
 # add `src/` folder to python path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/src')
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + os.sep + 'src')
 
 import tcolor
 
 class TestRunner:
     def __init__(self):
-        files = os.listdir('tests/items')
+        files = os.listdir('tests' + os.sep + 'items')
         self.tests = []
         self.total_asserts = 0
         for f in files:

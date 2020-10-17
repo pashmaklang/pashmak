@@ -20,8 +20,9 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-import time, os
-
+import time
+import os
+import tempfile
 from TestCore import TestCore
 
 class test_fwrite(TestCore):
@@ -29,10 +30,10 @@ class test_fwrite(TestCore):
         rand = str(time.time())
         self.run_without_error('''
             set $value; mem 'hello world'; copy $value;
-            mem '/tmp/pashmak-test-file-<rand>'; fwrite ^ $value;
+            mem "''' + tempfile.gettempdir() + os.sep + '''pashmak-test-file-<rand>"; fwrite ^ $value;
         '''.replace('<rand>', rand))
 
-        f_content = open('/tmp/pashmak-test-file-' + rand, 'r').read()
+        f_content = open(tempfile.gettempdir() + os.sep + 'pashmak-test-file-' + rand, 'r').read()
         self.assert_equals(f_content, 'hello world')
 
-        os.remove('/tmp/pashmak-test-file-' + rand)
+        os.remove(tempfile.gettempdir() + os.sep + 'pashmak-test-file-' + rand)

@@ -20,8 +20,9 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-import time, os
-
+import time
+import os
+import tempfile
 from TestCore import TestCore
 
 class test_modules(TestCore):
@@ -48,7 +49,7 @@ class test_modules(TestCore):
         ''')['mem']
         self.assert_true(float(mem) < 1)
 
-        tmp_file = '/tmp/pashmak-test-file-' + str(time.time())
+        tmp_file = tempfile.gettempdir() + os.sep + 'pashmak-test-file-' + str(time.time())
         self.assert_output(self.run_without_error('''
         import '@file';
 

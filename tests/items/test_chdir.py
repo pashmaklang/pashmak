@@ -21,22 +21,21 @@
 ##################################################
 
 import os
-
+import tempfile
 from TestCore import TestCore
 
 class test_chdir(TestCore):
     def run(self):
         current_wd = os.getcwd()
-
-        self.run_without_error(''' mem '/tmp'; chdir ^; ''')
-        self.assert_equals(os.getcwd(), '/tmp')
+        self.run_without_error(''' mem "''' + tempfile.gettempdir() + '''"; chdir ^; ''')
+        self.assert_equals(os.getcwd(), tempfile.gettempdir())
         os.chdir(current_wd)
 
         self.run_without_error('''
-            set $path; mem '/tmp'; copy $path;
+            set $path; mem "''' + tempfile.gettempdir() + '''"; copy $path;
             chdir $path;
         ''')
-        self.assert_equals(os.getcwd(), '/tmp')
+        self.assert_equals(os.getcwd(), tempfile.gettempdir())
         os.chdir(current_wd)
 
         self.assert_has_error(self.run_script(''' mem '/gdghfjuyjfjhgjghjghj'; chdir ^; '''), 'RuntimeError')

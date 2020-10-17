@@ -21,7 +21,6 @@
 ##################################################
 
 import os
-
 from TestCore import TestCore
 
 class test_cwd(TestCore):

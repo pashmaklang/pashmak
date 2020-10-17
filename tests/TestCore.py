@@ -21,9 +21,7 @@
 ##################################################
 
 import sys
-
 import tcolor
-
 from syntax import parser
 from core import program
 
