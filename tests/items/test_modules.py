@@ -66,4 +66,8 @@ class test_modules(TestCore):
         copy $file;
         file.read $file; out ^;
         '''), 'content of file')
-        os.remove(tmp_file)
+
+        try:
+            os.remove(tmp_file)
+        except:
+            pass
