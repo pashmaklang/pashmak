@@ -22,7 +22,7 @@
 
 ''' The test '''
 
-import time
+import random
 import os
 import tempfile
 from TestCore import TestCore
@@ -31,7 +31,7 @@ class test_fwrite(TestCore):
     ''' The test '''
     def run(self):
         ''' Run test '''
-        rand = str(time.time())
+        rand = str(random.random())
         self.run_without_error('''
             set $value; mem 'hello world'; copy $value;
             mem "''' + tempfile.gettempdir().replace('\\', '/') + '/' + '''pashmak-test-file-<rand>"; fwrite ^ $value;

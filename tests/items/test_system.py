@@ -22,7 +22,7 @@
 
 ''' The test '''
 
-import time
+import random
 import os
 import tempfile
 from TestCore import TestCore
@@ -31,7 +31,7 @@ class test_system(TestCore):
     ''' The test '''
     def run(self):
         ''' Run test '''
-        rand = time.time()
+        rand = random.random()
         program = self.run_without_error('''
             mem 'start\\n'; out ^;
             mem 'touch ''' + tempfile.gettempdir().replace('\\', '/') + '/' + '''pashmak-test-created-file-<rand>'; system ^;
@@ -41,7 +41,7 @@ class test_system(TestCore):
         self.assert_true(os.path.isfile(tempfile.gettempdir() + '/' + 'pashmak-test-created-file-' + str(rand)))
         os.remove(tempfile.gettempdir() + '/' + 'pashmak-test-created-file-' + str(rand))
 
-        rand = time.time()
+        rand = random.random()
         self.run_without_error(''' set $cmd; mem "touch ''' + tempfile.gettempdir().replace('\\', '/') + '/' + '''pashmak-test-created-file-<rand>"; copy $cmd; system $cmd; '''.replace('<rand>', str(rand)))
         self.assert_true(os.path.isfile(tempfile.gettempdir() + '/' + 'pashmak-test-created-file-' + str(rand)))
         os.remove(tempfile.gettempdir() + '/' + 'pashmak-test-created-file-' + str(rand))

@@ -22,7 +22,7 @@
 
 ''' The test '''
 
-import time
+import random
 import os
 import tempfile
 from TestCore import TestCore
@@ -31,7 +31,7 @@ class test_fread(TestCore):
     ''' The test '''
     def run(self):
         ''' Run test '''
-        rand = str(time.time())
+        rand = str(random.random())
         f = open(tempfile.gettempdir() + '/' + 'pashmak-test-file-' + rand, 'w')
         f.write('hello world')
         f.close()

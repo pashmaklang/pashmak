@@ -22,7 +22,7 @@
 
 ''' The test '''
 
-import time
+import random
 import os
 import tempfile
 from TestCore import TestCore
@@ -53,7 +53,7 @@ class test_modules(TestCore):
         ''')['mem']
         self.assert_true(float(mem) < 1)
 
-        tmp_file = tempfile.gettempdir().replace('\\', '/') + '/' + 'pashmak-test-file-' + str(time.time())
+        tmp_file = tempfile.gettempdir().replace('\\', '/') + '/' + 'pashmak-test-file-' + str(random.random())
         self.assert_output(self.run_without_error('''
         import '@file';
 
