@@ -129,3 +129,27 @@ jobs:
         python tests\run.py
 
     name: Windows Python 3.8
+
+  Windows_Build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Setup pyinstaller
+      run: |
+        pip install pyinstaller
+    - name: Build
+      run: |
+        python scripts.py build-modules
+        python scripts.py update-headers
+        python scripts.py build-doc
+        python tests\run.py
+        python -m PyInstaller src\pashmak.py --onefile
+        dir dist
+
+    name: Windows Build
