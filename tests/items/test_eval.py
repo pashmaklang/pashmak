@@ -20,10 +20,14 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 from TestCore import TestCore
 
 class test_eval(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         self.assert_output(self.run_without_error(''' mem 'mem "hello from eval"\; out ^\;'; eval ^; '''), 'hello from eval')
 
         self.assert_output(self.run_without_error('''
@@ -35,4 +39,3 @@ class test_eval(TestCore):
         self.assert_has_error(self.run_script(''' eval hfgjhjhg; '''))
 
         self.assert_has_error(self.run_script(''' eval $not_found; '''), 'VariableError')
-

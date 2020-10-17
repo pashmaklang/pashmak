@@ -20,9 +20,13 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 import os
 from TestCore import TestCore
 
 class test_cwd(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         self.assert_output(self.run_without_error(''' cwd; out ^; '''), os.getcwd())

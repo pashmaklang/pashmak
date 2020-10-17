@@ -20,12 +20,16 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 import hashlib
 import os
 from TestCore import TestCore
 
 class test_include(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         program = self.run_without_error('''
             mem 'before include\\n'; out ^;
             mem 'examples''' + os.sep + '''will_be_include.pashm'; include ^;

@@ -20,13 +20,17 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 import time
 import os
 import tempfile
 from TestCore import TestCore
 
 class test_modules(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         self.assert_output(self.run_without_error('''
         import "@hash";
 

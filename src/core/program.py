@@ -216,7 +216,6 @@ class Program(helpers.Helpers):
             'fwrite': self.run_fwrite,
             'chdir': self.run_chdir,
             'cwd': self.run_cwd,
-            'goto': self.run_goto,
             'isset': self.run_isset,
             'out': self.run_out,
             'try': self.run_try,
@@ -228,7 +227,6 @@ class Program(helpers.Helpers):
             'namespace': self.run_namespace,
             'endnamespace': self.run_endnamespace,
             'use': self.run_use,
-            'isset': self.run_isset,
             'pass': None,
         }
 

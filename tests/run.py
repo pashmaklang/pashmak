@@ -21,6 +21,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' Runs tests '''
+
 import sys
 import os
 
@@ -30,6 +32,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + os
 import tcolor
 
 class TestRunner:
+    ''' Test runner '''
     def __init__(self):
         files = os.listdir('tests' + os.sep + 'items')
         self.tests = []
@@ -39,6 +42,7 @@ class TestRunner:
                 self.tests.append(f)
 
     def run_once(self, test: str, test_name_max_length: int):
+        ''' Run once test '''
         test_class_name = test[:len(test)-3]
         loaded_test = __import__('items.' + test_class_name)
         test_obj = eval('loaded_test.' + test_class_name + '.' + test_class_name + '()')
@@ -49,6 +53,7 @@ class TestRunner:
         print(tcolor.OKGREEN + whitespace + 'PASS' + tcolor.ENDC)
 
     def run(self):
+        ''' Start running tests '''
         print()
         print('Starting testing system...')
         print('--------------------------')
@@ -58,7 +63,7 @@ class TestRunner:
             tmp_test_length = len(tmp_test)
             if tmp_test_length > test_name_max_length:
                 test_name_max_length = tmp_test_length
-        
+
         for test in self.tests:
             self.run_once(test, test_name_max_length)
 
@@ -66,5 +71,6 @@ class TestRunner:
         print(tcolor.OKGREEN + 'All ' + str(len(self.tests)) + ' tests passed successfuly (' + str(self.total_asserts) + ' assertions)' + tcolor.ENDC)
         print()
 
-test_runner = TestRunner()
-test_runner.run()
+if __name__ == '__main__':
+    test_runner = TestRunner()
+    test_runner.run()

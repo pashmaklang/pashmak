@@ -20,8 +20,12 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 from TestCore import TestCore
 
 class test_runtime_error(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         self.assert_has_error(self.run_script(''' mem 'hello world; out ^; '''), 'RuntimeError')

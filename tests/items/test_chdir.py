@@ -20,12 +20,16 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 import os
 import tempfile
 from TestCore import TestCore
 
 class test_chdir(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         current_wd = os.getcwd()
         self.run_without_error(''' mem "''' + tempfile.gettempdir() + '''"; chdir ^; ''')
         self.assert_equals(os.getcwd(), tempfile.gettempdir())

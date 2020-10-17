@@ -20,13 +20,17 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 import time
 import os
 import tempfile
 from TestCore import TestCore
 
 class test_system(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         rand = time.time()
         program = self.run_without_error('''
             mem 'start\\n'; out ^;

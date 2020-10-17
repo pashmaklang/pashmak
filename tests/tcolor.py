@@ -20,7 +20,7 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-# Terminal ansi colors
+''' Terminal ansi colors '''
 
 HEADER = '\033[95m'
 OKBLUE = '\033[94m'

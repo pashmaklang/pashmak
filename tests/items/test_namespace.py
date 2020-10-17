@@ -20,10 +20,14 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 from TestCore import TestCore
 
 class test_namespace(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         self.assert_output(self.run_without_error('''
         namespace MySpace;
             func dosomething;

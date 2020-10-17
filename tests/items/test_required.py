@@ -20,10 +20,14 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 from TestCore import TestCore
 
 class test_required(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         self.run_without_error('''
             set $v1 $name $n;
             required $v1 $name;

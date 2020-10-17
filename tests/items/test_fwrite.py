@@ -20,13 +20,17 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 import time
 import os
 import tempfile
 from TestCore import TestCore
 
 class test_fwrite(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         rand = str(time.time())
         self.run_without_error('''
             set $value; mem 'hello world'; copy $value;

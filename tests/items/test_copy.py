@@ -20,10 +20,14 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 from TestCore import TestCore
 
 class test_copy(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         self.assert_vars(self.run_without_error('''
             set $name $family $age;
             mem 'parsa'; copy $name;

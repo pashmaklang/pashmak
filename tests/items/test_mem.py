@@ -20,10 +20,14 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 from TestCore import TestCore
 
 class test_mem(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         self.assert_mem(self.run_without_error(''' mem 'some thing'; '''), 'some thing')
 
         self.assert_mem(self.run_without_error(''' mem 155; '''), 155)

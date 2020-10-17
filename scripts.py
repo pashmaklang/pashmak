@@ -30,10 +30,14 @@ header_text = '''#
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 '''
 
-test_content = '''from TestCore import TestCore
+test_content = '''\'\'\' The test \'\'\'
+
+from TestCore import TestCore
 
 class <tstname>(TestCore):
+    \'\'\' The test \'\'\'
     def run(self):
+        \'\'\' Run test \'\'\'
         self.assert_true(True)
 '''
 
@@ -100,10 +104,10 @@ class CopyrightHeaderUpdater:
 class TestMaker:
     @staticmethod
     def make(test_name):
-        if os.path.isfile('tests' + os.sep + 'items/' + test_name + '.py'):
+        if os.path.isfile('tests' + os.sep + 'items' + os.sep + test_name + '.py'):
             print('test "' + test_name + '" already exists')
             return 1
-        
+
         f = open('tests' + os.sep + 'items' + os.sep + test_name + '.py', 'w')
 
         global test_content
@@ -158,7 +162,8 @@ class ModuleBuilder:
             file_content = open('modules' + os.sep + module, 'r').read()
             modules[module[:len(module)-6]] = file_content
 
-        pycode = '''
+        pycode = '''""" Internal modules """
+
 modules = {}
 '''
         # write modules as python dictonary in src/core/modules.py file
