@@ -20,7 +20,7 @@ jobs:
     - name: Run tests
       run: make all
 
-    name: Python 3.6
+    name: Linux Python 3.6
 
   Python_3_7:
 
@@ -35,7 +35,7 @@ jobs:
     - name: Run tests
       run: make all
 
-    name: Python 3.7
+    name: Linux Python 3.7
 
   Python_3_8:
 
@@ -50,5 +50,5 @@ jobs:
     - name: Run tests
       run: make all
 
-    name: Python 3.8
+    name: Linux Python 3.8
 
