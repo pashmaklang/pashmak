@@ -150,6 +150,6 @@ jobs:
         python scripts.py build-doc
         python tests\run.py
         python -m PyInstaller src\pashmak.py --onefile
-        dir dist
+        dist/pashmak.exe -v
 
     name: Windows Build
