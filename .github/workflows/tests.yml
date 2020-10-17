@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  Python 3.6:
+  Python_3_6:
 
     runs-on: ubuntu-latest
 
@@ -20,7 +20,9 @@ jobs:
     - name: Run tests
       run: make all
 
-  Python 3.7:
+    name: Python 3.6
+
+  Python_3_7:
 
     runs-on: ubuntu-latest
 
@@ -33,7 +35,9 @@ jobs:
     - name: Run tests
       run: make all
 
-  Python 3.8:
+    name: Python 3.7
+
+  Python_3_8:
 
     runs-on: ubuntu-latest
 
@@ -45,4 +49,6 @@ jobs:
         python-version: 3.8
     - name: Run tests
       run: make all
+
+    name: Python 3.8
 
