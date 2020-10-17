@@ -31,12 +31,12 @@ class test_chdir(TestCore):
     def run(self):
         ''' Run test '''
         current_wd = os.getcwd()
-        self.run_without_error(''' mem "''' + tempfile.gettempdir() + '''"; chdir ^; ''')
+        self.run_without_error(''' mem "''' + tempfile.gettempdir().replace('\\', '/') + '''"; chdir ^; ''')
         self.assert_equals(os.getcwd(), tempfile.gettempdir())
         os.chdir(current_wd)
 
         self.run_without_error('''
-            set $path; mem "''' + tempfile.gettempdir() + '''"; copy $path;
+            set $path; mem "''' + tempfile.gettempdir().replace('\\', '/') + '''"; copy $path;
             chdir $path;
         ''')
         self.assert_equals(os.getcwd(), tempfile.gettempdir())

@@ -60,7 +60,7 @@ class test_stdlib(TestCore):
 
         cwd = os.getcwd()
         self.run_without_error('''
-        std.chdir "''' + tempfile.gettempdir() + '''";
+        std.chdir "''' + tempfile.gettempdir().replace('\\', '/') + '''";
         ''')
         self.assert_equals(os.getcwd(), tempfile.gettempdir())
         os.chdir(cwd)
