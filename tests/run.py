@@ -27,14 +27,14 @@ import sys
 import os
 
 # add `src/` folder to python path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + os.sep + 'src')
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/' + 'src')
 
 import tcolor
 
 class TestRunner:
     ''' Test runner '''
     def __init__(self):
-        files = os.listdir('tests' + os.sep + 'items')
+        files = os.listdir('tests' + '/' + 'items')
         self.tests = []
         self.total_asserts = 0
         for f in files:

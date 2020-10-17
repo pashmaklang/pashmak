@@ -53,7 +53,7 @@ class test_modules(TestCore):
         ''')['mem']
         self.assert_true(float(mem) < 1)
 
-        tmp_file = tempfile.gettempdir() + os.sep + 'pashmak-test-file-' + str(time.time())
+        tmp_file = tempfile.gettempdir() + '/' + 'pashmak-test-file-' + str(time.time())
         self.assert_output(self.run_without_error('''
         import '@file';
 

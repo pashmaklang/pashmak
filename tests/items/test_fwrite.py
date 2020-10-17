@@ -34,10 +34,10 @@ class test_fwrite(TestCore):
         rand = str(time.time())
         self.run_without_error('''
             set $value; mem 'hello world'; copy $value;
-            mem "''' + tempfile.gettempdir() + os.sep + '''pashmak-test-file-<rand>"; fwrite ^ $value;
+            mem "''' + tempfile.gettempdir() + '/' + '''pashmak-test-file-<rand>"; fwrite ^ $value;
         '''.replace('<rand>', rand))
 
-        f_content = open(tempfile.gettempdir() + os.sep + 'pashmak-test-file-' + rand, 'r').read()
+        f_content = open(tempfile.gettempdir() + '/' + 'pashmak-test-file-' + rand, 'r').read()
         self.assert_equals(f_content, 'hello world')
 
-        os.remove(tempfile.gettempdir() + os.sep + 'pashmak-test-file-' + rand)
+        os.remove(tempfile.gettempdir() + '/' + 'pashmak-test-file-' + rand)

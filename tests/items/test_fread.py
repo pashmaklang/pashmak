@@ -32,10 +32,10 @@ class test_fread(TestCore):
     def run(self):
         ''' Run test '''
         rand = str(time.time())
-        f = open(tempfile.gettempdir() + os.sep + 'pashmak-test-file-' + rand, 'w')
+        f = open(tempfile.gettempdir() + '/' + 'pashmak-test-file-' + rand, 'w')
         f.write('hello world')
         f.close()
 
-        self.assert_output(self.run_without_error(''' mem "''' + tempfile.gettempdir() + os.sep + '''pashmak-test-file-<rand>"; fread ^; out ^; '''.replace('<rand>', rand)), 'hello world')
+        self.assert_output(self.run_without_error(''' mem "''' + tempfile.gettempdir() + '/' + '''pashmak-test-file-<rand>"; fread ^; out ^; '''.replace('<rand>', rand)), 'hello world')
 
-        os.remove(tempfile.gettempdir() + os.sep + 'pashmak-test-file-' + rand)
+        os.remove(tempfile.gettempdir() + '/' + 'pashmak-test-file-' + rand)
