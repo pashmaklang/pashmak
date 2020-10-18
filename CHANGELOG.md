@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 1.11 (2020-10-18)
 
 #### Added
 - added new hash algos to hash module [(6a3ef2b3)](https://github.com/parsampsh/pashmak/commit/6a3ef2b37e4c32a7b41e874684a73d368062c79c)
