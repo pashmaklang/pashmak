@@ -54,7 +54,7 @@ compile & install:
 
 ```bash
 # checkout to latest release
-git branch installation v1.10
+git branch installation $(git describe --abbrev=0)
 git checkout installation
 
 # compile and install
