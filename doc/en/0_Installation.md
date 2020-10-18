@@ -1,5 +1,8 @@
 ## Installation
-this installation guide is for GNU/Linux/UNIX systems. if you are windows user, you can run program with python. also compile process needs `pyinstaller`.
+
+### GNU/Linux/Unix
+this installation guide is for GNU/Linux/UNIX systems. also compile process needs `pyinstaller`.
+if you don't have pyinstaller, enter `pip3 install pyinstaller` in terminal
 
 compile & install:
 
@@ -49,8 +52,6 @@ python3 src/pashmak.py
 ./src/pashmak.py
 ```
 
-windows users can use this way.
-
 #### uninstallation
 to uninstall pashmak, run this make command in terminal:
 
@@ -59,3 +60,25 @@ sudo make uninstall
 ```
 
 pashmak will be remove from your system.
+
+### Windows
+in windows, you can run program with python interpreter without compiling:
+
+```bash
+cd \path\to\project
+python src\pashmak.py
+```
+
+but also you can compile it with `pyinstaller`. if you don't have pyinstaller, enter `pip install pyinstaller` in command line
+
+compile:
+
+```bash
+python -m PyInstaller src\pashmak.py --onefile
+```
+
+now executable file is created in `dist\pashmak.exe`:
+
+```bash
+dist\pashmak.exe -v
+```

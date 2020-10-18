@@ -11,11 +11,6 @@ ifneq (,$(shell command -v git))
 GIT_IS_INSTALLED = 1
 endif
 
-PYINSTALLER_IS_INSTALLED = 0
-ifneq (,$(shell command -v pyinstaller))
-PYINSTALLER_IS_INSTALLED = 1
-endif
-
 PYLINT_IS_INSTALLED = 0
 ifneq (,$(shell command -v pylint3))
 PYLINT_IS_INSTALLED = 1
@@ -24,11 +19,7 @@ endif
 main: compile
 
 compile:
-ifeq (1,$(PYINSTALLER_IS_INSTALLED))
-	@$(PYTHON) $(shell which pyinstaller) ./src/pashmak.py --onefile
-else
-	@echo -e "\033[31merror: the pyinstaller for python is required for compile the program. run \"pip3 install pyinstaller\" to install it\033[0m"
-endif
+	@$(PYTHON) -m PyInstaller ./src/pashmak.py --onefile
 
 clean:
 	@rm build/ dist/ pashmak.spec pylint.out -rf
