@@ -174,6 +174,8 @@ modules = {}
         f.write(pycode)
         f.close()
 
+        print("\033[32mall of modules mixed in 'src/core/modules.py' successfuly\033[0m")
+
 if sys.argv[1] == 'update-headers':
     # get files list in src/ folder and set header of them
     files_list = CopyrightHeaderUpdater('src' + '/').files_list

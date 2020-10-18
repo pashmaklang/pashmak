@@ -45,7 +45,6 @@ docs:
 
 module:
 	@$(MANAGE_SCRIPT) build-modules
-	@echo -e "\033[32mall of modules mixed in 'src/core/modules.py' successfuly\033[0m"
 
 all: module update-headers docs test
 ifeq ($(GIT_IS_INSTALLED),1)
