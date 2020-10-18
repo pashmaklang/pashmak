@@ -159,5 +159,17 @@ namespace time;
     func sleep ($time_to_sleep);
         py 'self.mem = time.sleep(' + str($time_to_sleep) + ')';
     endfunc;
+    func clock;
+        py 'self.mem = time.clock()';
+    endfunc;
+    func ctime;
+        py 'self.mem = time.ctime()';
+    endfunc;
+    func gmtime;
+        py 'self.mem = time.gmtime()';
+    endfunc;
+    func localtime;
+        py 'self.mem = time.localtime()';
+    endfunc;
 endnamespace;
 """

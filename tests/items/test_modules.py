@@ -81,6 +81,17 @@ b87f88c72702fff1748e58b87e9141a42c0dbedc29a78cb0d4a5cd81
 '''
         )
 
+        self.run_without_error('''
+        import '@time';
+
+        time.time;
+        time.sleep 0.01;
+        time.clock;
+        time.ctime;
+        time.gmtime;
+        time.localtime;
+        ''')
+
         mem = self.run_without_error('''
         import "@random";
 
