@@ -1750,7 +1750,6 @@ with this function, you can wait for secounds.
 you have to put a int or float into mem or pass as argument and next call `time.sleep` function, then program will sleep for value of `mem` as secounds
 
 #### Another time functions
-- time.clock
 - time.ctime
 - time.gmtime
 - time.localtime
