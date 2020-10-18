@@ -11,11 +11,6 @@ ifneq (,$(shell command -v git))
 GIT_IS_INSTALLED = 1
 endif
 
-PYINSTALLER_IS_INSTALLED = 0
-ifneq (,$(shell command -v pyinstaller))
-PYINSTALLER_IS_INSTALLED = 1
-endif
-
 PYLINT_IS_INSTALLED = 0
 ifneq (,$(shell command -v pylint3))
 PYLINT_IS_INSTALLED = 1
@@ -24,11 +19,7 @@ endif
 main: compile
 
 compile:
-ifeq (1,$(PYINSTALLER_IS_INSTALLED))
-	@$(PYTHON) $(shell which pyinstaller) ./src/pashmak.py --onefile
-else
-	@echo -e "\033[31merror: the pyinstaller for python is required for compile the program. run \"pip3 install pyinstaller\" to install it\033[0m"
-endif
+	@$(PYTHON) -m PyInstaller ./src/pashmak.py --onefile
 
 clean:
 	@rm build/ dist/ pashmak.spec pylint.out -rf
@@ -45,7 +36,6 @@ docs:
 
 module:
 	@$(MANAGE_SCRIPT) build-modules
-	@echo -e "\033[32mall of modules mixed in 'src/core/modules.py' successfuly\033[0m"
 
 all: module update-headers docs test
 ifeq ($(GIT_IS_INSTALLED),1)
@@ -62,7 +52,8 @@ uninstall: $(INSTALLATION_PATH)
 
 pylint: all
 ifeq (1,$(PYLINT_IS_INSTALLED))
-	@pylint3 $(shell find src -type f -name '*.py') | grep -v '(invalid-name)' |\
+	@pylint3 $(shell find src -type f -name '*.py') $(shell find tests -type f -name '*.py') |\
+		grep -v '(invalid-name)' |\
 		grep -v "Unused argument 'op' (unused-argument)"|\
 		grep -v "(no-name-in-module)" > pylint.out
 	@echo -e "\033[32mpylint saved output in pylint.out\033[0m"

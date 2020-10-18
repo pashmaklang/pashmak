@@ -20,10 +20,14 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 from TestCore import TestCore
 
 class test_arraypush(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         self.assert_vars(self.run_without_error('''
             set $names;
             mem ['pashmak', 'parsa']; copy $names;

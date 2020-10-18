@@ -20,10 +20,14 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 from TestCore import TestCore
 
 class test_backslash_semicolon(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         self.assert_output(self.run_script(''' mem 'this is \; semicolon'; out ^; '''), 'this is ; semicolon')
 
         self.assert_output(self.run_script(''' mem 'this is \\\; semicolon'; out ^; '''), 'this is \; semicolon')

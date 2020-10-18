@@ -20,21 +20,22 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-import time, os
+''' The test '''
 
+import random
+import os
+import tempfile
 from TestCore import TestCore
 
-script_content = '''
-
-'''
-
 class test_fread(TestCore):
+    ''' The test '''
     def run(self):
-        rand = str(time.time())
-        f = open('/tmp/pashmak-test-file-' + rand, 'w')
+        ''' Run test '''
+        rand = str(random.random())
+        f = open(tempfile.gettempdir() + '/' + 'pashmak-test-file-' + rand, 'w')
         f.write('hello world')
         f.close()
-        
-        self.assert_output(self.run_without_error(''' mem '/tmp/pashmak-test-file-<rand>'; fread ^; out ^; '''.replace('<rand>', rand)), 'hello world')
 
-        os.remove('/tmp/pashmak-test-file-' + rand)
+        self.assert_output(self.run_without_error(''' mem "''' + tempfile.gettempdir().replace('\\', '/') + '/' + '''pashmak-test-file-<rand>"; fread ^; out ^; '''.replace('<rand>', rand)), 'hello world')
+
+        os.remove(tempfile.gettempdir() + '/' + 'pashmak-test-file-' + rand)

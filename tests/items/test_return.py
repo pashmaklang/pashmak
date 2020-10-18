@@ -20,10 +20,14 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 from TestCore import TestCore
 
 class test_return(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         program = self.run_without_error('''
             mem 'first'; out ^;
             return;

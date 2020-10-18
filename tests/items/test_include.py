@@ -20,15 +20,19 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-from TestCore import TestCore
+''' The test '''
 
 import hashlib
+import os
+from TestCore import TestCore
 
 class test_include(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         program = self.run_without_error('''
             mem 'before include\\n'; out ^;
-            mem 'examples/will_be_include.pashm'; include ^;
+            mem 'examples''' + '/' + '''will_be_include.pashm'; include ^;
             mem 'after include\\n'; out ^;
             testfunc;
         ''')
@@ -37,7 +41,7 @@ class test_include(TestCore):
 
         self.assert_output(self.run_without_error('''
             set $path;
-            mem 'examples/will_be_include.pashm'; copy $path;
+            mem 'examples''' + '/' + '''will_be_include.pashm'; copy $path;
             include $path;
         '''), 'i am included\n')
 

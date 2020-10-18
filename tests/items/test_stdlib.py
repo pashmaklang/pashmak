@@ -20,12 +20,16 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-import os
+''' The test '''
 
+import os
+import tempfile
 from TestCore import TestCore
 
 class test_stdlib(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         self.assert_output(self.run_without_error('''
         print "hello world";
         '''), 'hello world')
@@ -39,7 +43,7 @@ class test_stdlib(TestCore):
         '''), 'hello world\n')
 
         self.assert_output(self.run_without_error('''
-        import "examples/will_be_include.pashm";
+        import "examples''' + '/' + '''will_be_include.pashm";
         '''), 'i am included\n')
 
         self.assert_exit_code(self.run_without_error('''
@@ -56,9 +60,9 @@ class test_stdlib(TestCore):
 
         cwd = os.getcwd()
         self.run_without_error('''
-        std.chdir "/tmp";
+        std.chdir "''' + tempfile.gettempdir().replace('\\', '/') + '''";
         ''')
-        self.assert_equals(os.getcwd(), '/tmp')
+        self.assert_equals(os.getcwd(), tempfile.gettempdir())
         os.chdir(cwd)
 
         self.assert_output(self.run_without_error('''

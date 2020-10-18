@@ -20,23 +20,26 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-import os
+''' The test '''
 
+import os
+import tempfile
 from TestCore import TestCore
 
 class test_chdir(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         current_wd = os.getcwd()
-
-        self.run_without_error(''' mem '/tmp'; chdir ^; ''')
-        self.assert_equals(os.getcwd(), '/tmp')
+        self.run_without_error(''' mem "''' + tempfile.gettempdir().replace('\\', '/') + '''"; chdir ^; ''')
+        self.assert_equals(os.getcwd(), tempfile.gettempdir())
         os.chdir(current_wd)
 
         self.run_without_error('''
-            set $path; mem '/tmp'; copy $path;
+            set $path; mem "''' + tempfile.gettempdir().replace('\\', '/') + '''"; copy $path;
             chdir $path;
         ''')
-        self.assert_equals(os.getcwd(), '/tmp')
+        self.assert_equals(os.getcwd(), tempfile.gettempdir())
         os.chdir(current_wd)
 
         self.assert_has_error(self.run_script(''' mem '/gdghfjuyjfjhgjghjghj'; chdir ^; '''), 'RuntimeError')

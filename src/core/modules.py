@@ -20,6 +20,7 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+""" Internal modules """
 
 modules = {}
 
@@ -41,11 +42,47 @@ endnamespace;
 """
 modules["hash"] = """
 namespace hash;
-	func sha256 ($value);
-		py 'self.mem = hashlib.sha256("' + $value + '".encode()).hexdigest()';
+	func blake2b ($value);
+		py 'self.mem = hashlib.blake2b("' + $value + '".encode()).hexdigest()';
+	endfunc;
+	func blake2s ($value);
+		py 'self.mem = hashlib.blake2s("' + $value + '".encode()).hexdigest()';
 	endfunc;
 	func md5 ($value);
 		py 'self.mem = hashlib.md5("' + $value + '".encode()).hexdigest()';
+	endfunc;
+	func sha1 ($value);
+		py 'self.mem = hashlib.sha1("' + $value + '".encode()).hexdigest()';
+	endfunc;
+	func sha224 ($value);
+		py 'self.mem = hashlib.sha224("' + $value + '".encode()).hexdigest()';
+	endfunc;
+	func sha256 ($value);
+		py 'self.mem = hashlib.sha256("' + $value + '".encode()).hexdigest()';
+	endfunc;
+	func sha384 ($value);
+		py 'self.mem = hashlib.sha384("' + $value + '".encode()).hexdigest()';
+	endfunc;
+	func sha3_224 ($value);
+		py 'self.mem = hashlib.sha3_224("' + $value + '".encode()).hexdigest()';
+	endfunc;
+	func sha3_256 ($value);
+		py 'self.mem = hashlib.sha3_256("' + $value + '".encode()).hexdigest()';
+	endfunc;
+	func sha3_384 ($value);
+		py 'self.mem = hashlib.sha3_384("' + $value + '".encode()).hexdigest()';
+	endfunc;
+	func sha3_512 ($value);
+		py 'self.mem = hashlib.sha3_512("' + $value + '".encode()).hexdigest()';
+	endfunc;
+	func sha512 ($value);
+		py 'self.mem = hashlib.sha512("' + $value + '".encode()).hexdigest()';
+	endfunc;
+	func shake_128 ($value);
+		py 'self.mem = hashlib.shake_128("' + str($value[0]) + '".encode()).hexdigest(' + str($value[1]) + ')';
+	endfunc;
+	func shake_256 ($value);
+		py 'self.mem = hashlib.shake_256("' + str($value[0]) + '".encode()).hexdigest(' + str($value[1]) + ')';
 	endfunc;
 endnamespace;
 """
@@ -121,6 +158,15 @@ namespace time;
     endfunc;
     func sleep ($time_to_sleep);
         py 'self.mem = time.sleep(' + str($time_to_sleep) + ')';
+    endfunc;
+    func ctime;
+        py 'self.mem = time.ctime()';
+    endfunc;
+    func gmtime;
+        py 'self.mem = time.gmtime()';
+    endfunc;
+    func localtime;
+        py 'self.mem = time.localtime()';
     endfunc;
 endnamespace;
 """

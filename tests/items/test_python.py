@@ -20,10 +20,14 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 from TestCore import TestCore
 
 class test_python(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         self.assert_equals(self.run_without_error('''
             mem "self.all_vars()['myvar'] = 'the value'"; python ^;
         ''')['vars']['myvar'], 'the value')

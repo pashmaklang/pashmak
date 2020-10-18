@@ -20,12 +20,16 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
 
+import os
 from TestCore import TestCore
 
 class test_examples(TestCore):
+    ''' The test '''
     def run(self):
-        fib_data = self.run_file('examples/fib.pashm')
+        ''' Run test '''
+        fib_data = self.run_file('examples' + '/' + 'fib.pashm')
         self.assert_equals(fib_data['output'], '''1
 2
 3
@@ -47,7 +51,7 @@ class test_examples(TestCore):
 6765
 ''')
 
-        loop_data = self.run_file('examples/loop.pashm')
+        loop_data = self.run_file('examples' + '/' + 'loop.pashm')
         self.assert_equals(loop_data['output'], '''starting...
 1
 2
@@ -150,7 +154,6 @@ class test_examples(TestCore):
 99
 finished
 ''')
-        
-        array_data = self.run_file('examples/array.pashm')
-        self.assert_equals(array_data['output'], 'parsa\npashmak\nsomething\n')
 
+        array_data = self.run_file('examples' + '/' + 'array.pashm')
+        self.assert_equals(array_data['output'], 'parsa\npashmak\nsomething\n')

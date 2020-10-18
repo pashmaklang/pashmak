@@ -45,13 +45,16 @@ read the following Documentation to learn pashmak.
 
 
 ## Installation
-this installation guide is for GNU/Linux/UNIX systems. if you are windows user, you can run program with python. also compile process needs `pyinstaller`.
+
+### GNU/Linux/Unix
+this installation guide is for GNU/Linux/UNIX systems. also compile process needs `pyinstaller`.
+if you don't have pyinstaller, enter `pip3 install pyinstaller` in terminal
 
 compile & install:
 
 ```bash
 # checkout to latest release
-git branch installation v1.10
+git branch installation $(git describe --abbrev=0)
 git checkout installation
 
 # compile and install
@@ -95,8 +98,6 @@ python3 src/pashmak.py
 ./src/pashmak.py
 ```
 
-windows users can use this way.
-
 #### uninstallation
 to uninstall pashmak, run this make command in terminal:
 
@@ -105,6 +106,28 @@ sudo make uninstall
 ```
 
 pashmak will be remove from your system.
+
+### Windows
+in windows, you can run program with python interpreter without compiling:
+
+```bash
+cd \path\to\project
+python src\pashmak.py
+```
+
+but also you can compile it with `pyinstaller`. if you don't have pyinstaller, enter `pip install pyinstaller` in command line
+
+compile:
+
+```bash
+python -m PyInstaller src\pashmak.py --onefile
+```
+
+now executable file is created in `dist\pashmak.exe`:
+
+```bash
+dist\pashmak.exe -v
+```
 
 
 
@@ -1384,7 +1407,7 @@ func fib;
     $a = 1;
     $b = 1;
 
-    section 10;
+    loop;
         println $b;
 
         $tmp_a = $a;
@@ -1393,7 +1416,7 @@ func fib;
         $a = $tmp_b;
 
         $b = $tmp_a + $tmp_b;
-    mem $b < 10000; gotoif 10;
+    while $b < 10000;
 endfunc;
 ```
 
@@ -1678,7 +1701,22 @@ out ^; # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b982
 ###### how it works?
 first, we call `hash.sha256` and pass `hello` string as argument (or put it in mem) to calculate sha256 hash. then, this function calculates hash sum of mem value and puts that into the mem. now you can access sum of that from mem.
 
-also you can use `hash.md5` functions and...
+#### another hash algos
+- hash.blake2b (string)
+- hash.blake2s (string)
+- hash.md5 (string)
+- hash.sha1 (string)
+- hash.sha224 (string)
+- hash.sha256 (string)
+- hash.sha384 (string)
+- hash.sha3_224 (string)
+- hash.sha3_256 (string)
+- hash.sha3_384 (string)
+- hash.sha3_512 (string)
+- hash.sha512 (string)
+- hash.shake_128 (string, length)
+- hash.shake_256 (string, length)
+
 
 ### time module
 with this module, you can work with time.
@@ -1711,7 +1749,12 @@ with this function, you can wait for secounds.
 
 you have to put a int or float into mem or pass as argument and next call `time.sleep` function, then program will sleep for value of `mem` as secounds
 
-## random module
+#### Another time functions
+- time.ctime
+- time.gmtime
+- time.localtime
+
+### random module
 this module makes random numbers
 
 ###### random.randint

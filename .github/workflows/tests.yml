@@ -1,0 +1,155 @@
+name: tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  Linux_Python_3_6:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.6
+    - name: Run tests
+      run: make all
+
+    name: Linux Python 3.6
+
+  Linux_Python_3_7:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+    - name: Run tests
+      run: make all
+
+    name: Linux Python 3.7
+
+  Linux_Python_3_8:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Run tests
+      run: make all
+
+    name: Linux Python 3.8
+
+  Linux_Build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Setup pyinstaller
+      run: |
+        pip3 install pyinstaller
+    - name: Build
+      run: |
+        make all
+        python3 -m PyInstaller src/pashmak.py --onefile
+        ./dist/pashmak -v
+
+    name: Linux Build
+
+  Windows_Python_3_6:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.6
+    - name: Run tests
+      run: |
+        python scripts.py build-modules
+        python scripts.py update-headers
+        python scripts.py build-doc
+        python tests\run.py
+
+    name: Windows Python 3.6
+
+  Windows_Python_3_7:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+    - name: Run tests
+      run: |
+        python scripts.py build-modules
+        python scripts.py update-headers
+        python scripts.py build-doc
+        python tests\run.py
+
+    name: Windows Python 3.7
+
+  Windows_Python_3_8:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Run tests
+      run: |
+        python scripts.py build-modules
+        python scripts.py update-headers
+        python scripts.py build-doc
+        python tests\run.py
+
+    name: Windows Python 3.8
+
+  Windows_Build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Setup pyinstaller
+      run: |
+        pip install pyinstaller
+    - name: Build
+      run: |
+        python scripts.py build-modules
+        python scripts.py update-headers
+        python scripts.py build-doc
+        python tests\run.py
+        python -m PyInstaller src\pashmak.py --onefile
+        dist/pashmak.exe -v
+
+    name: Windows Build

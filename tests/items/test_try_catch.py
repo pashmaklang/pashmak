@@ -20,6 +20,8 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 from TestCore import TestCore
 
 script_content = '''
@@ -81,7 +83,9 @@ section 30;
 '''
 
 class test_try_catch(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         self.assert_output(self.run_script(script_content, stop_after_error=False), 'hello pashmak')
 
         self.assert_output(self.run_script(script_content_b, stop_after_error=False), 'the Error')

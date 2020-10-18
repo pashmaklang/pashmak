@@ -20,10 +20,14 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 from TestCore import TestCore
 
 class test_read(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         program = self.run_without_error(''' set $input; read $input; out $input; ''', ['pashmak'])
         self.assert_output(program, 'pashmak')
         self.assert_vars(program, {'input': 'pashmak'})

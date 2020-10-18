@@ -20,10 +20,14 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
+''' The test '''
+
 from TestCore import TestCore
 
 class test_args(TestCore):
+    ''' The test '''
     def run(self):
+        ''' Run test '''
         program = self.run_without_error('''
             mem $argv[0]; out ^;
             mem $argv[1]; out ^;
@@ -32,4 +36,3 @@ class test_args(TestCore):
         self.assert_equals(program['vars']['argv'][0], 'hi')
         self.assert_equals(program['vars']['argv'][1], 'bye')
         self.assert_output(program, 'hibye2')
-
