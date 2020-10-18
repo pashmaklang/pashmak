@@ -2,8 +2,11 @@
 
 ## next release
 
+#### Added
+- added new hash algos to hash module [(6a3ef2b3)](https://github.com/parsampsh/pashmak/commit/6a3ef2b37e4c32a7b41e874684a73d368062c79c)
+- added new functions to time module [(044b8184)](https://github.com/parsampsh/pashmak/commit/044b81846616cf83cff27271c7234ad609911919)
+
 #### Changed
-- add new hash algos to hash module [(6a3ef2b3)](https://github.com/parsampsh/pashmak/commit/6a3ef2b37e4c32a7b41e874684a73d368062c79c)
 - some optimizations
 
 ## 1.10 (2020-10-16)
