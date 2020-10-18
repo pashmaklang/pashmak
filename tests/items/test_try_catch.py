@@ -90,8 +90,17 @@ class test_try_catch(TestCore):
 
         self.assert_output(self.run_script(script_content_b, stop_after_error=False), 'the Error')
 
-        self.assert_output(self.run_script(script_content_c, stop_after_error=False), 'SyntaxError:undefined operation "mmdgfgdhgfhjh"')
+        self.assert_output(
+            self.run_script(script_content_c, stop_after_error=False),
+            'SyntaxError:undefined operation "mmdgfgdhgfhjh"'
+        )
 
-        self.assert_has_error(self.run_script(''' try; gfdhghgfhf; endtry; ''', stop_after_error=False), 'SyntaxError')
+        self.assert_has_error(
+            self.run_script(''' try; gfdhghgfhf; endtry; ''', stop_after_error=False),
+            'SyntaxError'
+        )
 
-        self.assert_has_error(self.run_script(''' try somesection; gfdhghgfhf; endtry; ''', stop_after_error=False), 'RuntimeError')
+        self.assert_has_error(
+            self.run_script(''' try somesection; gfdhghgfhf; endtry; ''', stop_after_error=False),
+            'RuntimeError'
+        )

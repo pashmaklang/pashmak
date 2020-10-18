@@ -23,7 +23,6 @@
 ''' The test '''
 
 import hashlib
-import os
 from TestCore import TestCore
 
 class test_include(TestCore):
@@ -36,7 +35,10 @@ class test_include(TestCore):
             mem 'after include\\n'; out ^;
             testfunc;
         ''')
-        self.assert_output(program, 'before include\ni am included\nafter include\ni am included func\n')
+        self.assert_output(
+            program,
+            'before include\ni am included\nafter include\ni am included func\n'
+        )
         self.assert_vars(program, {'included_var': 'included value'})
 
         self.assert_output(self.run_without_error('''
@@ -54,4 +56,7 @@ class test_include(TestCore):
             hash.sha256 'hello'; out ^;
         '''), hashlib.sha256('hello'.encode()).hexdigest())
 
-        self.assert_has_error(self.run_script(''' mem '@notfound233445'; include ^; '''), 'ModuleError')
+        self.assert_has_error(
+            self.run_script(''' mem '@notfound233445'; include ^; '''),
+            'ModuleError'
+        )

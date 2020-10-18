@@ -92,7 +92,6 @@ class TestCore:
         except AssertionError:
             print(tcolor.FAIL + '\nAssert Error: ' + error)
             raise
-            sys.exit(1)
 
     def assert_true(self, value):
         ''' Assert true '''
@@ -110,9 +109,9 @@ class TestCore:
         ''' Assert not equals '''
         self.do_assert((not first == last), '"' + str(first) + '" is equals "' + str(last) + '"')
 
-    def assert_vars(self, program_result, vars):
+    def assert_vars(self, program_result, variables):
         ''' Assert vars '''
-        self.assert_equals(program_result['vars'], vars)
+        self.assert_equals(program_result['vars'], variables)
 
     def assert_mem(self, program_result, mem):
         ''' Assert mem '''

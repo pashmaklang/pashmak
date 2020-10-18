@@ -36,7 +36,7 @@ def run(self, op: dict):
         first_var_value = self.get_var(first_var[1:])
         if not isinstance(first_var_value, list):
             self.raise_error('TypeError', 'arraypop operation first argument should be a array', op)
-    except:
+    except KeyError:
         self.raise_variable_error(first_var, op)
 
     try:
@@ -44,7 +44,7 @@ def run(self, op: dict):
             second_var_value = self.get_mem()
         else:
             second_var_value = self.get_var(second_var[1:])
-    except:
+    except KeyError:
         self.raise_variable_error(second_var, op)
 
     # pop from array

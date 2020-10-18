@@ -22,7 +22,6 @@
 
 ''' The test '''
 
-import os
 from TestCore import TestCore
 
 class test_examples(TestCore):

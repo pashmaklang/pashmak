@@ -31,7 +31,9 @@ class test_chdir(TestCore):
     def run(self):
         ''' Run test '''
         current_wd = os.getcwd()
-        self.run_without_error(''' mem "''' + tempfile.gettempdir().replace('\\', '/') + '''"; chdir ^; ''')
+        self.run_without_error(
+            ''' mem "''' + tempfile.gettempdir().replace('\\', '/') + '''"; chdir ^; '''
+        )
         self.assert_equals(os.getcwd(), tempfile.gettempdir())
         os.chdir(current_wd)
 
@@ -42,7 +44,10 @@ class test_chdir(TestCore):
         self.assert_equals(os.getcwd(), tempfile.gettempdir())
         os.chdir(current_wd)
 
-        self.assert_has_error(self.run_script(''' mem '/gdghfjuyjfjhgjghjghj'; chdir ^; '''), 'RuntimeError')
+        self.assert_has_error(
+            self.run_script(''' mem '/gdghfjuyjfjhgjghjghj'; chdir ^; '''),
+            'RuntimeError'
+        )
         os.chdir(current_wd)
 
         self.assert_has_error(self.run_script(''' chdir $notfound; '''), 'VariableError')

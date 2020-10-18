@@ -28,11 +28,16 @@ class test_eval(TestCore):
     ''' The test '''
     def run(self):
         ''' Run test '''
-        self.assert_output(self.run_without_error(''' mem 'mem "hello from eval"\; out ^\;'; eval ^; '''), 'hello from eval')
+        self.assert_output(
+            self.run_without_error(
+                ''' mem 'mem "hello from eval"\\; out ^\\;'; eval ^; '''
+            ),
+            'hello from eval'
+        )
 
         self.assert_output(self.run_without_error('''
             set $code;
-            mem 'mem "hello from eval"\; out ^\;'; copy $code;
+            mem 'mem "hello from eval"\\; out ^\\;'; copy $code;
             eval $code;
         '''), 'hello from eval')
 

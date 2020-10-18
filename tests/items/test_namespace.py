@@ -60,43 +60,44 @@ class test_namespace(TestCore):
         '''), 'NamespaceError')
 
         self.assert_output(self.run_without_error('''
-        namespace App;
-            func dosomething;
-                print 'hello world\\n';
-            endfunc;
+            namespace App;
+                func dosomething;
+                    print 'hello world\\n';
+                endfunc;
+                set $name; mem 'the app'; copy $name;
+            endns;
 
-            set $name; mem 'the app'; copy $name;
-        endns;
+            namespace Second;
+                func hello;
+                    print 'hello\\n';
+                endfunc;
 
-        namespace Second;
-            func hello;
-                print 'hello\\n';
-            endfunc;
+                set $test; mem 'the second'; copy $test;
+            endns;
 
-            set $test; mem 'the second'; copy $test;
-        endns;
+            App.dosomething;
+            Second.hello;
 
-        App.dosomething;
-        Second.hello;
+            out $App.name;
+            out $Second.test;
 
-        out $App.name;
-        out $Second.test;
+            use App;
+            use Second;
 
-        use App;
-        use Second;
+            App.dosomething;
+            dosomething;
+            Second.hello;
+            hello;
 
-        App.dosomething;
-        dosomething;
-        Second.hello;
-        hello;
+            out $App.name;
+            out $Second.test;
 
-        out $App.name;
-        out $Second.test;
+            out $name;
+            out $test;
 
-        out $name;
-        out $test;
-
-        '''), 'hello world\nhello\nthe appthe secondhello world\nhello world\nhello\nhello\nthe appthe secondthe appthe second')
+            '''),
+            'hello world\nhello\nthe appthe secondhello world\nhello world\nhello\nhello\nthe appthe secondthe appthe second'
+        )
 
         self.assert_output(self.run_without_error('''
         namespace App;

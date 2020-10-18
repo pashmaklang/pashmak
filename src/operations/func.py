@@ -38,7 +38,7 @@ def run(self, op: dict):
             'function "' + self.current_namespace + arg + '" already declared',
             op
         )
-    except:
+    except KeyError:
         pass
 
     # declare function

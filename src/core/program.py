@@ -61,7 +61,9 @@ class Program(helpers.Helpers):
     def set_operations(self, operations: list):
         ''' Set operations list '''
         # include stdlib before everything
-        tmp = parser.parse('mem "@stdlib"; include ^; py "self.bootstrap_operations_count = len(self.operations)-2";')
+        tmp = parser.parse(
+        'mem "@stdlib"; include ^; py "self.bootstrap_operations_count = len(self.operations)-2";'
+        )
         operations.insert(0, tmp[0])
         operations.insert(1, tmp[1])
         operations.insert(2, tmp[2])
@@ -114,7 +116,10 @@ class Program(helpers.Helpers):
         for state in self.states:
             try:
                 tmp_op = self.operations[state['entry_point']]
-                print('\tin ' + str(tmp_op['index']-self.bootstrap_operations_count) + ': ' + tmp_op['str'])
+                print(
+                    '\tin ' + str(tmp_op['index']-self.bootstrap_operations_count)\
+                    + ': ' + tmp_op['str']
+                )
             except KeyError:
                 pass
         print('\tin ' + str(op['index']-self.bootstrap_operations_count) + ': ' + op['str'])

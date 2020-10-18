@@ -34,16 +34,32 @@ class test_system(TestCore):
         rand = random.random()
         program = self.run_without_error('''
             mem 'start\\n'; out ^;
-            mem 'touch ''' + tempfile.gettempdir().replace('\\', '/') + '/' + '''pashmak-test-created-file-<rand>'; system ^;
+            mem 'touch ''' +\
+            tempfile.gettempdir().replace('\\', '/') + '/' +\
+            '''pashmak-test-created-file-<rand>'; system ^;
         '''.replace('<rand>', str(rand)))
         self.assert_output(program, 'start\n')
         self.assert_mem(program, 0)
-        self.assert_true(os.path.isfile(tempfile.gettempdir() + '/' + 'pashmak-test-created-file-' + str(rand)))
+        self.assert_true(
+            os.path.isfile(
+                tempfile.gettempdir() + '/' + 'pashmak-test-created-file-' + str(rand)
+            )
+        )
         os.remove(tempfile.gettempdir() + '/' + 'pashmak-test-created-file-' + str(rand))
 
         rand = random.random()
-        self.run_without_error(''' set $cmd; mem "touch ''' + tempfile.gettempdir().replace('\\', '/') + '/' + '''pashmak-test-created-file-<rand>"; copy $cmd; system $cmd; '''.replace('<rand>', str(rand)))
-        self.assert_true(os.path.isfile(tempfile.gettempdir() + '/' + 'pashmak-test-created-file-' + str(rand)))
+        self.run_without_error(
+            ''' set $cmd; mem "touch ''' +\
+            tempfile.gettempdir().replace('\\', '/') + '/' +\
+            '''pashmak-test-created-file-<rand>"; copy $cmd; system $cmd;'''.replace(
+                '<rand>', str(rand)
+            )
+        )
+        self.assert_true(
+            os.path.isfile(
+                tempfile.gettempdir() + '/' + 'pashmak-test-created-file-' + str(rand)
+            )
+        )
         os.remove(tempfile.gettempdir() + '/' + 'pashmak-test-created-file-' + str(rand))
 
         self.assert_has_error(self.run_script(''' system $notfound; '''), 'VariableError')
