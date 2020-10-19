@@ -32,17 +32,17 @@ def run(self, op: dict):
 
     # check function already declared
     try:
-        self.functions[self.current_namespace + arg]
+        self.functions[self.current_namespace() + arg]
         self.raise_error(
             'FunctionError',
-            'function "' + self.current_namespace + arg + '" already declared',
+            'function "' + self.current_namespace() + arg + '" already declared',
             op
         )
     except KeyError:
         pass
 
     # declare function
-    self.current_func = self.current_namespace + arg
+    self.current_func = self.current_namespace() + arg
     self.functions[self.current_func] = []
 
     # check for argument variable
