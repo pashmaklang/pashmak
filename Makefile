@@ -11,11 +11,6 @@ ifneq (,$(shell command -v git))
 GIT_IS_INSTALLED = 1
 endif
 
-PYLINT_IS_INSTALLED = 0
-ifneq (,$(shell command -v pylint3))
-PYLINT_IS_INSTALLED = 1
-endif
-
 main: compile
 
 compile:
@@ -51,12 +46,10 @@ uninstall: $(INSTALLATION_PATH)
 	@echo -e "\033[32mpashmak has been removed from your system successfuly\033[0m"
 
 pylint: all
-ifeq (1,$(PYLINT_IS_INSTALLED))
-	@pylint3 $(shell find src -type f -name '*.py') $(shell find tests -type f -name '*.py') |\
+	@$(PYTHON) -m pylint\
+		$(shell find src -type f -name '*.py') $(shell find tests -type f -name '*.py') |\
 		grep -v '(invalid-name)' |\
 		grep -v "Unused argument 'op' (unused-argument)" |\
+		grep -v "(too-many-public-methods)" |\
 		grep -v "(no-name-in-module)" > pylint.out
 	@echo -e "\033[32mpylint saved output in pylint.out\033[0m"
-else
-	@echo -e "\033[31merror: pylint3 is not installed\033[0m"
-endif
