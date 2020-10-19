@@ -36,6 +36,12 @@ class test_fread(TestCore):
         f.write('hello world')
         f.close()
 
-        self.assert_output(self.run_without_error(''' mem "''' + tempfile.gettempdir().replace('\\', '/') + '/' + '''pashmak-test-file-<rand>"; fread ^; out ^; '''.replace('<rand>', rand)), 'hello world')
+        self.assert_output(
+            self.run_without_error(
+                ''' mem "''' + tempfile.gettempdir().replace('\\', '/') + '/' +\
+                '''pashmak-test-file-<rand>"; fread ^; out ^; '''.replace('<rand>', rand)
+            ),
+            'hello world'
+        )
 
         os.remove(tempfile.gettempdir() + '/' + 'pashmak-test-file-' + rand)

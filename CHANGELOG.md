@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## 1.12 (2020-10-19)
+
+#### Added
+- added namespace-in-namespace system (subnamespace system) [(c8c0bc61)](https://github.com/parsampsh/pashmak/commit/c8c0bc612dfa76128a7ad93a2d637a04a55deae7)
+
 ## 1.11 (2020-10-18)
 
 #### Added

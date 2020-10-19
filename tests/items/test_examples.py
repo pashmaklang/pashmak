@@ -22,7 +22,6 @@
 
 ''' The test '''
 
-import os
 from TestCore import TestCore
 
 class test_examples(TestCore):
@@ -157,3 +156,8 @@ finished
 
         array_data = self.run_file('examples' + '/' + 'array.pashm')
         self.assert_equals(array_data['output'], 'parsa\npashmak\nsomething\n')
+
+        program_result = self.run_file('examples' + '/' + 'get_password.pashm', ['the-invalid-password'])
+        self.assert_equals(program_result['output'], 'enter the password: invalid password\n')
+        program_result = self.run_file('examples' + '/' + 'get_password.pashm', ['123'])
+        self.assert_equals(program_result['output'], 'enter the password: WELCOME!\n')

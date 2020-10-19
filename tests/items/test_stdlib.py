@@ -66,7 +66,7 @@ class test_stdlib(TestCore):
         os.chdir(cwd)
 
         self.assert_output(self.run_without_error('''
-        std.eval "mem 'output from eval'\; out ^\;";
+        std.eval "mem 'output from eval'\\; out ^\\;";
         '''), 'output from eval')
 
         self.assert_output(self.run_without_error('''

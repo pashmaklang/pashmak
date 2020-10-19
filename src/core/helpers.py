@@ -66,7 +66,7 @@ class Helpers(commands.Commands):
     def get_var(self, varname: str):
         ''' Gets a variable name and returns value of that '''
         try:
-            return self.all_vars()[self.current_namespace + varname]
+            return self.all_vars()[self.current_namespace() + varname]
         except KeyError:
             for used_namespace in self.used_namespaces:
                 try:
@@ -77,7 +77,7 @@ class Helpers(commands.Commands):
 
     def set_var(self, varname: str, value):
         ''' Gets name of a variable and sets value on that '''
-        self.all_vars()[self.current_namespace + varname] = value
+        self.all_vars()[self.current_namespace() + varname] = value
 
     def all_vars(self):
         ''' Returns list of all of variables '''

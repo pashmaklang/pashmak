@@ -27,5 +27,5 @@ def run(self, op: dict):
 
     try:
         del self.current_func
-    except:
+    except AttributeError:
         pass

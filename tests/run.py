@@ -68,7 +68,12 @@ class TestRunner:
             self.run_once(test, test_name_max_length)
 
         print()
-        print(tcolor.OKGREEN + 'All ' + str(len(self.tests)) + ' tests passed successfuly (' + str(self.total_asserts) + ' assertions)' + tcolor.ENDC)
+        print(
+            tcolor.OKGREEN +\
+            'All ' + str(len(self.tests)) +\
+            ' tests passed successfuly (' + str(self.total_asserts) + ' assertions)' +\
+            tcolor.ENDC
+        )
         print()
 
 if __name__ == '__main__':

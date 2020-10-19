@@ -44,7 +44,12 @@ class test_read(TestCore):
         self.assert_output(program, 'pashmakparsa')
         self.assert_vars(program, {'input': 'pashmak', 'input_1': 'parsa'})
 
-        self.assert_vars(self.run_without_error(''' set $a $b; read $a $b; ''', ['pashmak', 'parsa']), {'a': 'pashmak', 'b': 'parsa'})
+        self.assert_vars(
+            self.run_without_error(
+                ''' set $a $b; read $a $b; ''', ['pashmak', 'parsa']
+            ),
+            {'a': 'pashmak', 'b': 'parsa'}
+        )
 
         self.assert_mem(self.run_without_error(''' read ^; ''', ['pashmak']), 'pashmak')
 

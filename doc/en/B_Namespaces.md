@@ -150,3 +150,35 @@ parsa
 when i use `use` operation and give a namespace as argument to that, i can call all of that namespace members without namespace prefix.
 
 for example if there is a namespace named `App` and have a function named `dosomething`, for call that function i have to write `App.dosomething`. but if i run `use App;`, after that i can call this function just by typing `dosomething;`
+
+### namespace in namespace (subnamespace)
+you can declare a namespace in a namespace
+
+look at this example:
+
+```bash
+namespace App;
+    func hello;
+        println 'hello world';
+    endfunc;
+
+    # declare namespace `Core` under `App`
+    namespace Core;
+        func run;
+            println 'the core';
+        endfunc;
+    endns;
+endns;
+
+# now we use it
+App.hello;
+
+App.Core.run;
+```
+
+output:
+
+```
+hello world
+the core
+```
