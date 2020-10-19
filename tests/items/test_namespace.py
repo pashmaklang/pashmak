@@ -54,11 +54,6 @@ class test_namespace(TestCore):
         MySpace.dosomething;
         '''), 'hello world\nhello world\nhello world\n')
 
-        self.assert_has_error(self.run_script('''
-        namespace Test;
-        namespace New;
-        '''), 'NamespaceError')
-
         self.assert_output(self.run_without_error('''
             namespace App;
                 func dosomething;
@@ -125,3 +120,31 @@ class test_namespace(TestCore):
 
         out $name;
         '''), 'VariableError')
+
+        self.assert_output(self.run_without_error('''
+        namespace App;
+            $name = 'parsa';
+            out $name;
+            out $App.name;
+
+            func dosomething;
+                print 'doing';
+            endfunc;
+
+            dosomething;
+
+            namespace Core;
+                func run;
+                    print 'thecore';
+                endfunc;
+
+                run;
+            endns;
+
+            Core.run;
+        endns;
+
+        out $App.name;
+
+        App.Core.run;
+        '''), 'parsaparsadoingthecorethecoreparsathecore')

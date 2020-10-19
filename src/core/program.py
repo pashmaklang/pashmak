@@ -45,7 +45,7 @@ class Program(helpers.Helpers):
         self.runtime_error = None # program raised error (for testing state)
         self.is_in_try = None # says program is in try-endtry block
         self.runed_functions = [] # runed functions for stop function multi calling in one operation
-        self.current_namespace = '' # current namespace prefix to add it before name of functions
+        self.namespaces_tree = [] # namespaces tree
         self.used_namespaces = [] # list of used namespaces
         self.included_modules = [] # list of included modules to stop repeating imports
         self.bootstrap_operations_count = 0
@@ -57,6 +57,13 @@ class Program(helpers.Helpers):
         # set argument variables
         self.set_var('argv', args)
         self.set_var('argc', len(self.get_var('argv')))
+
+    def current_namespace(self):
+        ''' Returns current namespace '''
+        namespace_prefix = ''
+        for ns in self.namespaces_tree:
+            namespace_prefix += ns + '.'
+        return namespace_prefix
 
     def set_operations(self, operations: list):
         ''' Set operations list '''
@@ -273,7 +280,7 @@ class Program(helpers.Helpers):
 
         # check function exists
         try:
-            func_body = self.functions[self.current_namespace + op_name]
+            func_body = self.functions[self.current_namespace() + op_name]
         except KeyError:
             func_body = None
             for used_namespace in self.used_namespaces:

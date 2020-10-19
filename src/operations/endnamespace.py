@@ -24,4 +24,5 @@
 
 def run(self, op: dict):
     ''' Closes namespace prefix '''
-    self.current_namespace = ''
+    if self.namespaces_tree:
+        self.namespaces_tree.pop()
