@@ -139,6 +139,9 @@ class test_namespace(TestCore):
                 endfunc;
 
                 run;
+
+                $corevar = 'corevar';
+                out $corevar;
             endns;
 
             Core.run;
@@ -147,4 +150,6 @@ class test_namespace(TestCore):
         out $App.name;
 
         App.Core.run;
-        '''), 'parsaparsadoingthecorethecoreparsathecore')
+
+        out $App.Core.corevar;
+        '''), 'parsaparsadoingthecorecorevarthecoreparsathecorecorevar')
