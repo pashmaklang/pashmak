@@ -8,6 +8,7 @@ Commands:
     update-headers  update files copyright headers
     build-doc       build documentation in README.md from doc/ folder
     build-modules   build modules from modules/ folder in src/core/modules.py
+    release         release new version number
 '''
 
 header_text = '''#
@@ -43,6 +44,7 @@ class <tstname>(TestCore):
 
 import sys
 import os
+from datetime import date
 from tests import tcolor
 
 if len(sys.argv) <= 1:
@@ -178,6 +180,31 @@ modules = {}
 
         print("\033[32mall of modules mixed in 'src/core/modules.py' successfuly\033[0m")
 
+class Releaser:
+    @staticmethod
+    def run(new_version: str):
+        # change version number
+        f = open('src/core/version.py', 'r')
+        content = f.read()
+        content = content.split('version = ')[0]
+        content += 'version = \'v'
+        content += new_version
+        content += '\'\n'
+        f.close()
+        f = open('src/core/version.py', 'w')
+        f.write(content)
+        f.close()
+
+        f = open('CHANGELOG.md', 'r')
+        content = f.read()
+        date_str = date.today()
+        date_str = str(date_str.year) + '-' + str(date_str.month) + '-' + str(date_str.day)
+        content = content.replace('## next release', '## ' + new_version + ' (' + date_str + ')')
+        f.close()
+        f = open('CHANGELOG.md', 'w')
+        f.write(content)
+        f.close()
+
 if sys.argv[1] == 'update-headers':
     # get files list in src/ folder and set header of them
     files_list = CopyrightHeaderUpdater('src' + '/').files_list
@@ -206,6 +233,13 @@ if sys.argv[1] == 'build-doc':
 
 if sys.argv[1] == 'build-modules':
     sys.exit(ModuleBuilder.build())
+
+if sys.argv[1] == 'release':
+    if len(sys.argv) <= 2:
+        print('release: new version name is required')
+        sys.exit(1)
+
+    sys.exit(Releaser.run(sys.argv[2]))
 
 print('Unknow command "' + sys.argv[1] + '"')
 sys.exit(1)
