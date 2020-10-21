@@ -999,7 +999,8 @@ func add_two_nums ($nums);
 endfunc;
 
 # now we call this function
-$result = ^ add_two_nums 10, 5; # function output is in mem and we copy mem to variable $result
+add_two_nums 10, 5
+$result = ^; # function output is in mem and we copy mem to variable $result
 println $result;
 ```
 
