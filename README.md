@@ -1986,3 +1986,5 @@ print 'hello ' + $name + '\n';
 
 
 
+
+##### NOTE: this file is auto generated from `doc` folder. do not change it directly
