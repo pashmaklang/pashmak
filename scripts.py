@@ -8,6 +8,7 @@ Commands:
     update-headers  update files copyright headers
     build-doc       build documentation in README.md from doc/ folder
     build-modules   build modules from modules/ folder in src/core/modules.py
+    release         release new version number
 '''
 
 header_text = '''#
@@ -43,6 +44,7 @@ class <tstname>(TestCore):
 
 import sys
 import os
+from datetime import date
 from tests import tcolor
 
 if len(sys.argv) <= 1:
@@ -51,22 +53,22 @@ if len(sys.argv) <= 1:
 
 class CopyrightHeaderUpdater:
     # get list of all of .py files in src/ folder
-    def __init__(self, path='src' + '/'):
+    def __init__(self, path='src' + '/', file_extension='.py'):
         self.files_list = []
-        self.get(path)
+        self.get(path, file_extension)
     
-    def get(self, path='src' + '/'):
+    def get(self, path='src' + '/', file_extension='.py'):
         # load and return list
         for f in os.listdir(path):
             if os.path.isdir(path + '/' + f):
-                self.get(path + '/' + f + '/')
+                self.get(path + '/' + f + '/', file_extension)
             elif os.path.isfile(path + '/' + f):
-                self.add_once(path + '/' + f)
+                self.add_once(path + '/' + f, file_extension)
 
-    def add_once(self, f):
+    def add_once(self, f, file_extension):
         # add on file to the list
         # check if file is .py
-        if f[len(f)-3:] == '.py':
+        if f[len(f)-len(file_extension):] == file_extension:
             # replace // with /
             f = f.replace('/'*2, '/')
             self.files_list.append(f)
@@ -140,6 +142,9 @@ class DocBuilder:
             total_content += doc_part_content + '\n\n\n'
             doc_part_f.close()
 
+        # add a note to end of content
+        total_content += '\n##### NOTE: this file is auto generated from `doc` folder. do not change it directly\n'
+
         # write generated content to the README.md file
         target_file = 'README.md'
         if path != 'doc' + '/' + 'en':
@@ -178,6 +183,31 @@ modules = {}
 
         print("\033[32mall of modules mixed in 'src/core/modules.py' successfuly\033[0m")
 
+class Releaser:
+    @staticmethod
+    def run(new_version: str):
+        # change version number
+        f = open('src/core/version.py', 'r')
+        content = f.read()
+        content = content.split('version = ')[0]
+        content += 'version = \'v'
+        content += new_version
+        content += '\'\n'
+        f.close()
+        f = open('src/core/version.py', 'w')
+        f.write(content)
+        f.close()
+
+        f = open('CHANGELOG.md', 'r')
+        content = f.read()
+        date_str = date.today()
+        date_str = str(date_str.year) + '-' + str(date_str.month) + '-' + str(date_str.day)
+        content = content.replace('## next release', '## ' + new_version + ' (' + date_str + ')')
+        f.close()
+        f = open('CHANGELOG.md', 'w')
+        f.write(content)
+        f.close()
+
 if sys.argv[1] == 'update-headers':
     # get files list in src/ folder and set header of them
     files_list = CopyrightHeaderUpdater('src' + '/').files_list
@@ -189,9 +219,18 @@ if sys.argv[1] == 'update-headers':
     for f in files_list:
         CopyrightHeaderUpdater.set_once_file_header(f)
 
+    # get files list in modules/ folder and set header of them
+    files_list = CopyrightHeaderUpdater('modules' + '/', '.pashm').files_list
+    for f in files_list:
+        CopyrightHeaderUpdater.set_once_file_header(f)
+
+    # get files list in examples/ folder and set header of them
+    files_list = CopyrightHeaderUpdater('examples' + '/', '.pashm').files_list
+    for f in files_list:
+        CopyrightHeaderUpdater.set_once_file_header(f)
+
     print('\033[32mHeaders updated successfully\033[0m')
     sys.exit()
-
 
 if sys.argv[1] == 'make-test':
     if len(sys.argv) <= 2:
@@ -206,6 +245,13 @@ if sys.argv[1] == 'build-doc':
 
 if sys.argv[1] == 'build-modules':
     sys.exit(ModuleBuilder.build())
+
+if sys.argv[1] == 'release':
+    if len(sys.argv) <= 2:
+        print('release: new version name is required')
+        sys.exit(1)
+
+    sys.exit(Releaser.run(sys.argv[2]))
 
 print('Unknow command "' + sys.argv[1] + '"')
 sys.exit(1)

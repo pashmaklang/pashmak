@@ -214,14 +214,13 @@ when you calling a function, that function may return a output. this value as ou
 look at this example:
 
 ```bash
-func add_two_nums;
-    $nums = ^; # put function arguments (mem ^) to $nums
+func add_two_nums ($nums);
     $sum = $nums[0] + $nums[1]; # add two numbers
     mem $sum; # put result to mem
 endfunc;
 
 # now we call this function
-add_two_nums 10, 5;
+add_two_nums 10, 5
 $result = ^; # function output is in mem and we copy mem to variable $result
 println $result;
 ```
@@ -235,8 +234,7 @@ output:
 now, above syntax is ugly. we can write this code like this:
 
 ```bash
-func add_two_nums;
-    $nums = ^; # put function arguments (mem ^) to $nums
+func add_two_nums ($nums);
     $sum = $nums[0] + $nums[1]; # add two numbers
     mem $sum; # put result to mem
 endfunc;

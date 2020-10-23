@@ -7,50 +7,24 @@ on:
     branches: [ master ]
 
 jobs:
-  Linux_Python_3_6:
+  linux_tests:
 
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python: [3.6, 3.7, 3.8]
 
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.6
+        python-version: ${{ matrix.python }}
     - name: Run tests
       run: make all
 
-    name: Linux Python 3.6
-
-  Linux_Python_3_7:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.7
-    - name: Run tests
-      run: make all
-
-    name: Linux Python 3.7
-
-  Linux_Python_3_8:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-    - name: Run tests
-      run: make all
-
-    name: Linux Python 3.8
+    name: Linux Python ${{ matrix.python }}
 
   Linux_Build:
 
@@ -77,12 +51,16 @@ jobs:
 
     runs-on: windows-latest
 
+    strategy:
+      matrix:
+        python: [3.6, 3.7, 3.8]
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.6
+        python-version: ${{ matrix.python }}
     - name: Run tests
       run: |
         python scripts.py build-modules
@@ -90,45 +68,7 @@ jobs:
         python scripts.py build-doc
         python tests\run.py
 
-    name: Windows Python 3.6
-
-  Windows_Python_3_7:
-
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.7
-    - name: Run tests
-      run: |
-        python scripts.py build-modules
-        python scripts.py update-headers
-        python scripts.py build-doc
-        python tests\run.py
-
-    name: Windows Python 3.7
-
-  Windows_Python_3_8:
-
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-    - name: Run tests
-      run: |
-        python scripts.py build-modules
-        python scripts.py update-headers
-        python scripts.py build-doc
-        python tests\run.py
-
-    name: Windows Python 3.8
+    name: Windows Python ${{ matrix.python }}
 
   Windows_Build:
 
