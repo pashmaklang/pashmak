@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## 1.12.1 (2020-10-23)
+
+#### Changed
+- some changes and optimizations
+
 ## 1.12 (2020-10-19)
 
 #### Added
