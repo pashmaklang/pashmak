@@ -53,22 +53,22 @@ if len(sys.argv) <= 1:
 
 class CopyrightHeaderUpdater:
     # get list of all of .py files in src/ folder
-    def __init__(self, path='src' + '/'):
+    def __init__(self, path='src' + '/', file_extension='.py'):
         self.files_list = []
-        self.get(path)
+        self.get(path, file_extension)
     
-    def get(self, path='src' + '/'):
+    def get(self, path='src' + '/', file_extension='.py'):
         # load and return list
         for f in os.listdir(path):
             if os.path.isdir(path + '/' + f):
-                self.get(path + '/' + f + '/')
+                self.get(path + '/' + f + '/', file_extension)
             elif os.path.isfile(path + '/' + f):
-                self.add_once(path + '/' + f)
+                self.add_once(path + '/' + f, file_extension)
 
-    def add_once(self, f):
+    def add_once(self, f, file_extension):
         # add on file to the list
         # check if file is .py
-        if f[len(f)-3:] == '.py':
+        if f[len(f)-len(file_extension):] == file_extension:
             # replace // with /
             f = f.replace('/'*2, '/')
             self.files_list.append(f)
@@ -216,9 +216,18 @@ if sys.argv[1] == 'update-headers':
     for f in files_list:
         CopyrightHeaderUpdater.set_once_file_header(f)
 
+    # get files list in modules/ folder and set header of them
+    files_list = CopyrightHeaderUpdater('modules' + '/', '.pashm').files_list
+    for f in files_list:
+        CopyrightHeaderUpdater.set_once_file_header(f)
+
+    # get files list in examples/ folder and set header of them
+    files_list = CopyrightHeaderUpdater('examples' + '/', '.pashm').files_list
+    for f in files_list:
+        CopyrightHeaderUpdater.set_once_file_header(f)
+
     print('\033[32mHeaders updated successfully\033[0m')
     sys.exit()
-
 
 if sys.argv[1] == 'make-test':
     if len(sys.argv) <= 2:
