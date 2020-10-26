@@ -26,7 +26,7 @@ jobs:
 
     name: Linux Python ${{ matrix.python }}
 
-  Linux_Build:
+  linux_build:
 
     runs-on: ubuntu-latest
 
@@ -47,7 +47,7 @@ jobs:
 
     name: Linux Build
 
-  Windows_Python_3_6:
+  windows_tests:
 
     runs-on: windows-latest
 
@@ -70,7 +70,7 @@ jobs:
 
     name: Windows Python ${{ matrix.python }}
 
-  Windows_Build:
+  windows_build:
 
     runs-on: windows-latest
 
