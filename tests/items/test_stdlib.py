@@ -24,6 +24,7 @@
 
 import os
 import tempfile
+import platform
 from TestCore import TestCore
 
 class test_stdlib(TestCore):
@@ -62,7 +63,12 @@ class test_stdlib(TestCore):
         self.run_without_error('''
         std.chdir "''' + tempfile.gettempdir().replace('\\', '/') + '''";
         ''')
-        self.assert_equals(os.getcwd(), tempfile.gettempdir())
+        tmp1 = os.getcwd()
+        tmp2 = tempfile.gettempdir()
+        if platform.system() == 'Darwin':
+            if tmp1 == '/private' + tmp2:
+                tmp2 = tmp2[8:]
+        self.assert_equals(tmp1, tmp2)
         os.chdir(cwd)
 
         self.assert_output(self.run_without_error('''
