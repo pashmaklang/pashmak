@@ -52,7 +52,7 @@ jobs:
         pip install pyinstaller
     - name: Test
       run: |
-        start "" /D win-configure.bat
+        start win-configure.bat
         python -m PyInstaller src\pashmak.py --onefile
         dist\pashmak.exe -v
 
