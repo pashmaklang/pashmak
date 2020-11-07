@@ -63,12 +63,7 @@ class test_stdlib(TestCore):
         self.run_without_error('''
         std.chdir "''' + tempfile.gettempdir().replace('\\', '/') + '''";
         ''')
-        tmp1 = os.getcwd()
-        tmp2 = tempfile.gettempdir()
-        if platform.system() == 'Darwin':
-            if tmp1 == '/private' + tmp2:
-                tmp2 = tmp2[8:]
-        self.assert_equals(tmp1, tmp2)
+        self.assert_equals(os.getcwd(), tempfile.gettempdir())
         os.chdir(cwd)
 
         self.assert_output(self.run_without_error('''
