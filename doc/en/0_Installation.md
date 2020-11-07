@@ -74,6 +74,11 @@ but also you can compile it with `pyinstaller`. if you don't have pyinstaller, e
 compile:
 
 ```bash
+# install pyinstaller with pip
+pip install pyinstaller
+
+# configure & compile
+win-configure.bat
 python -m PyInstaller src\pashmak.py --onefile
 ```
 
