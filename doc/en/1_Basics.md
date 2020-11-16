@@ -14,7 +14,7 @@ print 'something to print\n';
 
 #### how it works?
 
-first, we browse about pashmak syntax structure.
+first, we go through pashmak syntax structure.
 the base structure of pashmak syntax is this:
 
 ```bash
@@ -30,8 +30,8 @@ mem 'something to print\n'; # first operation
 out ^; # second operation
 ```
 
-here, mem is a operation and `'something to print\n'` is argument of that, and
-out is a operation and `^` is argument of that.
+here, mem is an operation and `'something to print\n'` is the argument of that, and
+out is an operation and `^` is the argument of that.
 
 but what is the function of this code?
 
