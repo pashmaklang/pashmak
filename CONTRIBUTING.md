@@ -56,7 +56,7 @@ this command loads documentation from `doc/` folder and mix them in `README.md`
 make docs
 ```
 
-file `doc/README.HEADER.md` will put in the first of `README.md`
+file `doc/README.md` will put in the first of `README.md`
 
 another files in `doc/` will sort and append one by one to `README.md`
 
