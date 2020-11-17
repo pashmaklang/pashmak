@@ -644,7 +644,7 @@ this code prints `hello world` non-stop
 
 actually when my code starts, prints hello world and then `goto` commands directs program step to the `my_loop` section and it will repeat again and again.
 
-###### NOTE: that TAB before `mem 'hello world'...` line is not required. this is writen only to have beautiful code
+###### NOTE: that TAB before `println 'hello world'...` line is not required. this is writen only to have beautiful code
 
 look at this example:
 
