@@ -26,6 +26,8 @@ func fib;
     $a = 1;
     $b = 1;
 
+    println $a;
+
     loop;
         println $b;
 
