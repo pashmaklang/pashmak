@@ -30,6 +30,7 @@ class test_examples(TestCore):
         ''' Run test '''
         fib_data = self.run_file('examples' + '/' + 'fib.pashm')
         self.assert_equals(fib_data['output'], '''1
+1
 2
 3
 5
