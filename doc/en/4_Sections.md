@@ -147,3 +147,28 @@ output:
 8
 9
 ```
+
+##### Important note about `loop` and `while` operations:
+you cannot make loops-in-loops with this operations. you can make single loops with this operations.
+
+for example:
+
+```bash
+loop;
+    loop;
+        #
+    while True;
+while True;
+```
+
+the above code not works.
+
+but you can write loop-in-loop with `section` operation:
+
+```bash
+section loop1;
+    section loop2;
+        # your code
+    mem True; gotoif loop2
+mem True; gotoif loop1;
+```
