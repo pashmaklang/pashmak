@@ -6,7 +6,6 @@ function run_code($code, $stdin){
     // write code to a temp file
     $tmp_path = '/tmp/temp-script-' . time() . rand() . '.pashm';
     $tmp_path_stdin = $tmp_path . '.stdin';
-    $tmp_path_out = $tmp_path . '.out';
     $f = fopen($tmp_path, 'w');
     fwrite($f, $code);
     fclose($f);
@@ -17,19 +16,12 @@ function run_code($code, $stdin){
     fclose($f);
 
     // run code with `runner` user and put output to temp file
-    $cmd = 'cat ' . $tmp_path_stdin . ' | timeout 20s /bin/pashmak ' . $tmp_path . ' 2> ' . $tmp_path_out;
+    $cmd = 'cat ' . $tmp_path_stdin . ' | timeout 20s /bin/pashmak ' . $tmp_path;
     system($cmd);
-
-    $f = fopen($tmp_path_out, 'r');
-    $output = fread($f, filesize($tmp_path_out)+1);
-    fclose($f);
 
     // remove temp files
     unlink($tmp_path);
     unlink($tmp_path_stdin);
-    unlink($tmp_path_out);
-
-    return $output;
 }
 
 // check form submited
@@ -44,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 ob_start();
 $output = null;
 if($code !== ''){
-    $output = run_code($code, $stdin);
+    run_code($code, $stdin);
 }
 $output = ob_get_clean();
 

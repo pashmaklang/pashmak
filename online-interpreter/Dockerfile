@@ -29,4 +29,5 @@ RUN echo 'export APACHE_RUN_GROUP=runner' >> /etc/apache2/envvars
 
 # copy src
 COPY ./app /var/www/html
-WORKDIR /var/www/html
+RUN chown -R root:root /var/www
+RUN chmod -R ga-w /var/www
