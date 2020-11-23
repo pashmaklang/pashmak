@@ -168,6 +168,8 @@ mem 'something to print\n'; # first operation
 out ^; # second operation
 ```
 
+##### NOTE: the `;` in the end of lines is not required. you can write your code without `;` IF you don't want to write two or more operations in one line
+
 here, mem is an operation and `'something to print\n'` is the argument of that, and
 out is an operation and `^` is the argument of that.
 
@@ -178,6 +180,8 @@ when you run the script in terminal:
 ```bash
 pashmak myscript.pashm # or any filename you saved code in that
 ```
+
+##### NOTE: the `.pashm` extension for pashmak scripts is not required. you can run any file with any name as pashmak script
 
 you will get this output:
 
