@@ -17,10 +17,9 @@ function run_code($code, $stdin){
     fclose($f);
 
     // run code with `runner` user and put output to temp file
-    $cmd = 'runuser -l runner -c "cat ' . $tmp_path_stdin . ' | timeout 20s /bin/pashmak ' . $tmp_path . ' 2> ' . $tmp_path_out . '"';
+    $cmd = 'cat ' . $tmp_path_stdin . ' | timeout 20s /bin/pashmak ' . $tmp_path . ' 2> ' . $tmp_path_out;
     system($cmd);
 
-    // return output
     $f = fopen($tmp_path_out, 'r');
     $output = fread($f, filesize($tmp_path_out)+1);
     fclose($f);
@@ -46,7 +45,6 @@ ob_start();
 $output = null;
 if($code !== ''){
     $output = run_code($code, $stdin);
-    echo $output;
 }
 $output = ob_get_clean();
 
