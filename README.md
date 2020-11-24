@@ -869,6 +869,8 @@ program started
 hello parsa
 ```
 
+##### NOTE: name of functions should not have `.` character. for example, name `foo.bar` for function is invalid and you will get error `FunctionNameContainsDotError`
+
 ### passing argument to Functions
 for pass argument to the Functions, you can put value after name of function:
 
@@ -1290,15 +1292,15 @@ $path = '/tmp';
 chdir $path; # use variable
 ```
 
-also you can use `std.chdir` function:
+also you can use `std_chdir` function:
 
 ```bash
 # in this function you can pass path directly and not need to set path in mem before it
-std.chdir '/tmp';
+std_chdir '/tmp';
 # or
-std.chdir $path;
+std_chdir $path;
 # or
-std.chdir $path + '/path';
+std_chdir $path + '/path';
 ```
 
 ### cwd
@@ -1396,7 +1398,7 @@ exit; # with 0 default exit code
 exit 10; # with 10
 ```
 
-## access to pashmakinfo
+### access to pashmakinfo
 
 if you want to access pashmak interpreter info, look at this example:
 
@@ -1424,6 +1426,27 @@ v1.x.y
 ```
 
 and `$pashmakinfo['pythoninfo']` shows info of python.
+
+### `$__file__` and `$__dir__` variables
+`$__file__` and `$__dir__` variables are two variables contains self script filepath and dirpath.
+
+for example, if you run an script in `/home/parsa/myscript.pashm` with this content:
+
+```bash
+println $__file__;
+println $__dir__;
+```
+
+output is:
+
+```
+/home/parsa/myscript.pashm
+/home/parsa
+```
+
+The `$__file__` variable contains filepath of current running script.
+
+The `$__dir__` variable contains dirpath of current running script.
 
 
 
@@ -1564,6 +1587,8 @@ println $App.name; # output: parsa
 println $name; # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
 ```
 
+##### NOTE: name of namespace should not have `.` character. if you want to do this, use [subnamespace](#namespace-in-namespace-subnamespace).
+
 this system is very useful.
 
 ### use operation
@@ -1698,11 +1723,11 @@ hi
 
 the above code gets a string from user and runs that as pashmak code.
 
-also you can use `std.eval` function to have easier syntax:
+also you can use `std_eval` function to have easier syntax:
 
 ```bash
 # you can pass value directly
-std.eval '<some-code>';
+std_eval '<some-code>';
 ```
 
 ## run python code
@@ -1762,7 +1787,7 @@ hash.sha256 "hello"; # also you can use hash.md5 and...
 out ^; # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 ```
 
-###### how it works?
+##### how it works?
 first, we call `hash.sha256` and pass `hello` string as argument (or put it in mem) to calculate sha256 hash. then, this function calculates hash sum of mem value and puts that into the mem. now you can access sum of that from mem.
 
 #### another hash algos
@@ -1785,7 +1810,7 @@ first, we call `hash.sha256` and pass `hello` string as argument (or put it in m
 ### time module
 with this module, you can work with time.
 
-###### time.time
+##### time.time
 this function gives you current UNIX timestamp:
 
 ```bash
@@ -1797,7 +1822,7 @@ out ^; # output is some thing like this: `1600416438.687201`
 
 when you call this function, this function puts the unix timestamp into mem and you can access and use that.
 
-###### time.sleep
+##### time.sleep
 this function sleeps for secounds:
 
 ```bash
@@ -1821,7 +1846,7 @@ you have to put a int or float into mem or pass as argument and next call `time.
 ### random module
 this module makes random numbers
 
-###### random.randint
+##### random.randint
 ```bash
 import '@random';
 
@@ -1830,7 +1855,7 @@ random.randint 1, 10; # generates a random int between 1 and 10
 out ^; # and puts generated random number in mem and you can access that
 ```
 
-###### random.random
+##### random.random
 ```bash
 import '@random';
 
@@ -1842,7 +1867,7 @@ out ^; # and puts generated random number in mem and you can access that
 ## file module
 with this module, you can work with files smarter.
 
-###### file.open
+##### file.open
 with this function, you can open a file:
 
 ```bash
@@ -1859,7 +1884,7 @@ $f = ^;
 $f = ^ file.open '/path/to/file.txt', 'r';
 ```
 
-###### file.read
+##### file.read
 wtih this function, you can read opened file:
 
 ```bash
@@ -1871,7 +1896,7 @@ file.read $f; # now, content of file is in the mem
 out ^; # output is content of file
 ```
 
-###### file.write
+##### file.write
 with this function, you can write on opened file:
 
 ```bash
@@ -1884,7 +1909,7 @@ file.write $f, 'new content'; # first arg is opened file and second arg is conte
 
 now file is changed
 
-###### file.close
+##### file.close
 with this function you can close file after your work:
 
 ```bash
@@ -1910,6 +1935,31 @@ print 'content of file is: ' + $content;
 ```
 
 ###### more modules comming soon...
+
+### Module path system
+module path is a system to add pashmak scripts as modules to pashmak. for example, you have an directory named `/var/lib/pashmak_modules` and there is an file named `/var/lib/pashmak_modules/mymodule.pashm`. this file is a pashmak script. now, how to add that pashmak script to pashmak as module?
+
+for example, we want to import that module:
+
+```bash
+import '@mymodule';
+```
+
+to do this, you have to add directory `/var/lib/pashmak_modules` to pashmak path:
+
+```bash
+PASHMAKPATH=/var/lib/pashmak_modules pashmak my_program.pashm
+```
+
+to add an directory to pashmak path, you have to set that directory to environment variable `PASHMAKPATH`:
+
+```
+PASHMAKPATH=/path/to/first/dir:/path/to/another/dir:/another/dir2...
+```
+
+you can seprate paths with `:`.
+
+next, pashmak interpreter loads modules from that directories. how? pashmak loads pashmak files with `.pashm` extension as module. for example, if name of file is `my_module.pashm`, you can import that with `import "@my_module"`.
 
 
 
@@ -1943,11 +1993,11 @@ py "print('hello world from python')"; # INSTEAD OF `mem "print('hello world fro
 # sys
 sys 'ls /tmp'; # INSTEAD OF `mem 'ls /tmp'; system ^;`
 
-# std.chdir
-std.chdir "/tmp"; # INSTEAD OF `mem '/tmp'; chdir ^;`
+# std_chdir
+std_chdir "/tmp"; # INSTEAD OF `mem '/tmp'; chdir ^;`
 
-# std.eval
-std.eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
+# std_eval
+std_eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
 
 # gset
 gset 'somevar', 'new global value'; # you learned this command in functions section
@@ -2003,20 +2053,6 @@ assert $age > 10;
 the above code do nothing, because all of values passed to assert are True.
 
 but if that value is false, program raises `AssertError`. this is helpful for testing.
-
-##### finish
-
-this module includes some functions to make the pashmak syntax better.
-
-also look at this example about print:
-
-```bash
-print 'enter your name: ';
-$name; read $name;
-
-print 'hello ' + $name + '\n';
-
-```
 
 
 

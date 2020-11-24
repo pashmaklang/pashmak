@@ -27,7 +27,7 @@ hash.sha256 "hello"; # also you can use hash.md5 and...
 out ^; # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 ```
 
-###### how it works?
+##### how it works?
 first, we call `hash.sha256` and pass `hello` string as argument (or put it in mem) to calculate sha256 hash. then, this function calculates hash sum of mem value and puts that into the mem. now you can access sum of that from mem.
 
 #### another hash algos
@@ -50,7 +50,7 @@ first, we call `hash.sha256` and pass `hello` string as argument (or put it in m
 ### time module
 with this module, you can work with time.
 
-###### time.time
+##### time.time
 this function gives you current UNIX timestamp:
 
 ```bash
@@ -62,7 +62,7 @@ out ^; # output is some thing like this: `1600416438.687201`
 
 when you call this function, this function puts the unix timestamp into mem and you can access and use that.
 
-###### time.sleep
+##### time.sleep
 this function sleeps for secounds:
 
 ```bash
@@ -86,7 +86,7 @@ you have to put a int or float into mem or pass as argument and next call `time.
 ### random module
 this module makes random numbers
 
-###### random.randint
+##### random.randint
 ```bash
 import '@random';
 
@@ -95,7 +95,7 @@ random.randint 1, 10; # generates a random int between 1 and 10
 out ^; # and puts generated random number in mem and you can access that
 ```
 
-###### random.random
+##### random.random
 ```bash
 import '@random';
 
@@ -107,7 +107,7 @@ out ^; # and puts generated random number in mem and you can access that
 ## file module
 with this module, you can work with files smarter.
 
-###### file.open
+##### file.open
 with this function, you can open a file:
 
 ```bash
@@ -124,7 +124,7 @@ $f = ^;
 $f = ^ file.open '/path/to/file.txt', 'r';
 ```
 
-###### file.read
+##### file.read
 wtih this function, you can read opened file:
 
 ```bash
@@ -136,7 +136,7 @@ file.read $f; # now, content of file is in the mem
 out ^; # output is content of file
 ```
 
-###### file.write
+##### file.write
 with this function, you can write on opened file:
 
 ```bash
@@ -149,7 +149,7 @@ file.write $f, 'new content'; # first arg is opened file and second arg is conte
 
 now file is changed
 
-###### file.close
+##### file.close
 with this function you can close file after your work:
 
 ```bash
@@ -175,3 +175,28 @@ print 'content of file is: ' + $content;
 ```
 
 ###### more modules comming soon...
+
+### Module path system
+module path is a system to add pashmak scripts as modules to pashmak. for example, you have an directory named `/var/lib/pashmak_modules` and there is an file named `/var/lib/pashmak_modules/mymodule.pashm`. this file is a pashmak script. now, how to add that pashmak script to pashmak as module?
+
+for example, we want to import that module:
+
+```bash
+import '@mymodule';
+```
+
+to do this, you have to add directory `/var/lib/pashmak_modules` to pashmak path:
+
+```bash
+PASHMAKPATH=/var/lib/pashmak_modules pashmak my_program.pashm
+```
+
+to add an directory to pashmak path, you have to set that directory to environment variable `PASHMAKPATH`:
+
+```
+PASHMAKPATH=/path/to/first/dir:/path/to/another/dir:/another/dir2...
+```
+
+you can seprate paths with `:`.
+
+next, pashmak interpreter loads modules from that directories. how? pashmak loads pashmak files with `.pashm` extension as module. for example, if name of file is `my_module.pashm`, you can import that with `import "@my_module"`.

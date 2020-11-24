@@ -27,4 +27,9 @@ def run(self, op: dict):
     self.require_one_argument(op, 'namespace operation requires namespace argument')
     arg = op['args'][0]
 
+    if '.' in arg:
+        self.raise_error(
+            'NamespaceContainsDotError', 'name "' + arg + '" for namespace contains `.` character', op['index']
+        )
+
     self.namespaces_tree.append(arg)

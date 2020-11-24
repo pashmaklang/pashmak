@@ -14,15 +14,15 @@ $path = '/tmp';
 chdir $path; # use variable
 ```
 
-also you can use `std.chdir` function:
+also you can use `std_chdir` function:
 
 ```bash
 # in this function you can pass path directly and not need to set path in mem before it
-std.chdir '/tmp';
+std_chdir '/tmp';
 # or
-std.chdir $path;
+std_chdir $path;
 # or
-std.chdir $path + '/path';
+std_chdir $path + '/path';
 ```
 
 ### cwd
@@ -120,7 +120,7 @@ exit; # with 0 default exit code
 exit 10; # with 10
 ```
 
-## access to pashmakinfo
+### access to pashmakinfo
 
 if you want to access pashmak interpreter info, look at this example:
 
@@ -148,3 +148,24 @@ v1.x.y
 ```
 
 and `$pashmakinfo['pythoninfo']` shows info of python.
+
+### `$__file__` and `$__dir__` variables
+`$__file__` and `$__dir__` variables are two variables contains self script filepath and dirpath.
+
+for example, if you run an script in `/home/parsa/myscript.pashm` with this content:
+
+```bash
+println $__file__;
+println $__dir__;
+```
+
+output is:
+
+```
+/home/parsa/myscript.pashm
+/home/parsa
+```
+
+The `$__file__` variable contains filepath of current running script.
+
+The `$__dir__` variable contains dirpath of current running script.

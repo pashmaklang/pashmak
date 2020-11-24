@@ -30,6 +30,11 @@ def run(self, op: dict):
     self.require_one_argument(op, 'func operation requires function name argument')
     arg = op['args'][0]
 
+    if '.' in arg:
+        self.raise_error(
+            'FunctionNameContainsDotError', 'name "' + arg + '" for function contains `.` character', op['index']
+        )
+
     # check function already declared
     try:
         self.functions[self.current_namespace() + arg]

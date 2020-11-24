@@ -35,11 +35,11 @@ hi
 
 the above code gets a string from user and runs that as pashmak code.
 
-also you can use `std.eval` function to have easier syntax:
+also you can use `std_eval` function to have easier syntax:
 
 ```bash
 # you can pass value directly
-std.eval '<some-code>';
+std_eval '<some-code>';
 ```
 
 ## run python code
