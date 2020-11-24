@@ -1,24 +1,24 @@
 #
 # modules.py
 #
-# the pashmak project
+# The Pashmak Project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
 #
-# This file is part of pashmak.
+# This file is part of Pashmak.
 #
-# pashmak is free software: you can redistribute it and/or modify
+# Pashmak is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# pashmak is distributed in the hope that it will be useful,
+# Pashmak is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
-##################################################
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
 
 """ Internal modules """
 
@@ -27,24 +27,24 @@ modules = {}
 modules["file"] = """#
 # file.pashm
 #
-# the pashmak project
+# The Pashmak Project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
 #
-# This file is part of pashmak.
+# This file is part of Pashmak.
 #
-# pashmak is free software: you can redistribute it and/or modify
+# Pashmak is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# pashmak is distributed in the hope that it will be useful,
+# Pashmak is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
-##################################################
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
 namespace file
     func open ($args)
         mem open($args[0], $args[1])
@@ -63,24 +63,24 @@ endns
 modules["hash"] = """#
 # hash.pashm
 #
-# the pashmak project
+# The Pashmak Project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
 #
-# This file is part of pashmak.
+# This file is part of Pashmak.
 #
-# pashmak is free software: you can redistribute it and/or modify
+# Pashmak is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# pashmak is distributed in the hope that it will be useful,
+# Pashmak is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
-##################################################
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
 namespace hash
 	func blake2b ($value)
 		py 'self.mem = hashlib.blake2b("' + $value + '".encode()).hexdigest()'
@@ -129,24 +129,24 @@ endns
 modules["random"] = """#
 # random.pashm
 #
-# the pashmak project
+# The Pashmak Project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
 #
-# This file is part of pashmak.
+# This file is part of Pashmak.
 #
-# pashmak is free software: you can redistribute it and/or modify
+# Pashmak is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# pashmak is distributed in the hope that it will be useful,
+# Pashmak is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
-##################################################
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
 namespace random
     func randint ($args)
         py 'self.mem = random.randint(' + str($args[0]) + ',' + str($args[1]) + ')'
@@ -159,24 +159,24 @@ endns
 modules["stdlib"] = """#
 # stdlib.pashm
 #
-# the pashmak project
+# The Pashmak Project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
 #
-# This file is part of pashmak.
+# This file is part of Pashmak.
 #
-# pashmak is free software: you can redistribute it and/or modify
+# Pashmak is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# pashmak is distributed in the hope that it will be useful,
+# Pashmak is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
-##################################################
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
 func print
     out ^
 endfunc
@@ -234,24 +234,24 @@ $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\
 modules["time"] = """#
 # time.pashm
 #
-# the pashmak project
+# The Pashmak Project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
 #
-# This file is part of pashmak.
+# This file is part of Pashmak.
 #
-# pashmak is free software: you can redistribute it and/or modify
+# Pashmak is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# pashmak is distributed in the hope that it will be useful,
+# Pashmak is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
-##################################################
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
 namespace time
     func time
         py 'self.mem = time.time()'
