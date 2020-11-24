@@ -88,17 +88,3 @@ assert $age > 10;
 the above code do nothing, because all of values passed to assert are True.
 
 but if that value is false, program raises `AssertError`. this is helpful for testing.
-
-##### finish
-
-this module includes some functions to make the pashmak syntax better.
-
-also look at this example about print:
-
-```bash
-print 'enter your name: ';
-$name; read $name;
-
-print 'hello ' + $name + '\n';
-
-```
