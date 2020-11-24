@@ -60,6 +60,7 @@ def run(self, op: dict):
             path = os.path.dirname(os.path.abspath(self.main_filename)) + '/' + path
         try:
             content = open(path, 'r').read()
+            content = '$__file__ = "' + path + '";\n$__dir__ = "' + os.path.dirname(path) + '"\n' + content
         except FileNotFoundError as ex:
             self.raise_error('FileError', str(ex), op)
         except PermissionError as ex:

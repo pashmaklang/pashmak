@@ -54,7 +54,7 @@ class Program(helpers.Helpers):
 
         self.current_step = 0
         self.stop_after_error = True
-        self.main_filename = os.getcwd() + '/a'
+        self.main_filename = os.getcwd() + '/__main__'
 
         # set argument variables
         self.set_var('argv', args)
@@ -70,12 +70,16 @@ class Program(helpers.Helpers):
     def set_operations(self, operations: list):
         ''' Set operations list '''
         # include stdlib before everything
-        tmp = parser.parse(
-        'mem "@stdlib"; include ^; py "self.bootstrap_operations_count = len(self.operations)-2";'
-        )
+        tmp = parser.parse('''
+        $__file__ = "''' + os.path.abspath(self.main_filename) + '''";
+        $__dir__ = "''' + os.path.dirname(os.path.abspath(self.main_filename)) + '''";
+        mem "@stdlib"; include ^; py "self.bootstrap_operations_count = len(self.operations)-4";'
+        ''')
         operations.insert(0, tmp[0])
         operations.insert(1, tmp[1])
         operations.insert(2, tmp[2])
+        operations.insert(3, tmp[3])
+        operations.insert(4, tmp[4])
 
         # set operations on program object
         self.operations = operations
@@ -347,6 +351,7 @@ class Program(helpers.Helpers):
                                 f = open(path + '/' + f, 'r')
                                 content = f.read()
                                 f.close()
+                                content = '$__file__ = "' + os.path.abspath(path + '/' + f) + '";\n$__dir__ = "' + os.path.dirname(os.path.abspath(path + '/' + f)) + '";\n' + content
                                 modules.modules[module_name] = content
                             except:
                                 pass
