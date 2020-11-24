@@ -3,9 +3,9 @@ section is a system to make pointer to a part of code. this is useful to create 
 
 look at this example:
 ```bash
-section my_loop;
-    println 'hello world';
-goto my_loop;
+section my_loop
+    println 'hello world'
+goto my_loop
 ```
 
 this code prints `hello world` non-stop
@@ -17,12 +17,12 @@ actually when my code starts, prints hello world and then `goto` commands direct
 look at this example:
 
 ```bash
-$i = 1;
+$i = 1
 
-section loop;
-    println $i; # print $i
-    $i = $i + 1; # add 1 to $i
-mem $i < 10; gotoif loop; # check the condition in `mem` and use gotoif command
+section loop
+    println $i # print $i
+    $i = $i + 1 # add 1 to $i
+mem $i < 10; gotoif loop # check the condition in `mem` and use gotoif command
 ```
 
 the output of this code is
@@ -56,27 +56,27 @@ look at this example:
 
 ```bash
 # read age from user
-print 'enter your age: ';
-$age; read $age;
-$age = int($age);
+print 'enter your age: '
+$age; read $age
+$age = int($age)
 
-mem $age > 18; gotoif age_is_more_than_18; # if age is more than 18, goto age_is_more_than_18 section
+mem $age > 18; gotoif age_is_more_than_18 # if age is more than 18, goto age_is_more_than_18 section
 
 # if not, this line will run and program goes to age_is_less_than_18
-goto age_is_less_than_18;
+goto age_is_less_than_18
 
-section age_is_more_than_18;
+section age_is_more_than_18
 
-    println 'you are more than 18';
-    goto after_if;
+    println 'you are more than 18'
+    goto after_if
 
-section age_is_less_than_18;
+section age_is_less_than_18
 
-    println 'you are less than 18';
+    println 'you are less than 18'
 
-section after_if;
+section after_if
 
-println 'program ends';
+println 'program ends'
 ```
 
 we run the program:
@@ -101,11 +101,11 @@ the section system is very useful for making loops.
 to make loop, we can write this code:
 
 ```bash
-$i = 0;
-section loop;
-    println $i;
-    $i = $i + 1;
-mem $i < 10; gotoif loop;
+$i = 0
+section loop
+    println $i
+    $i = $i + 1
+mem $i < 10; gotoif loop
 ```
 
 output:
@@ -126,11 +126,11 @@ output:
 but we can use `loop` and `while` functions to make loop syntax easy:
 
 ```bash
-$i = 0;
-loop;
-    println $i;
-    $i = $i + 1;
-while $i < 10; # back to loop while condition is True (while $i < 10)
+$i = 0
+loop
+    println $i
+    $i = $i + 1
+while $i < 10 # back to loop while condition is True (while $i < 10)
 ```
 
 output:
@@ -154,11 +154,11 @@ you cannot make loops-in-loops with this operations. you can make single loops w
 for example:
 
 ```bash
-loop;
-    loop;
+loop
+    loop
         #
-    while True;
-while True;
+    while True
+while True
 ```
 
 the above code not works.
@@ -166,9 +166,9 @@ the above code not works.
 but you can write loop-in-loop with `section` operation:
 
 ```bash
-section loop1;
-    section loop2;
+section loop1
+    section loop2
         # your code
     mem True; gotoif loop2
-mem True; gotoif loop1;
+mem True; gotoif loop1
 ```

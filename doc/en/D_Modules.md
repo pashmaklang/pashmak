@@ -7,10 +7,10 @@ you can import modules with `include` operation.
 look at this example:
 
 ```bash
-mem '@hash'; include ^;
+mem '@hash'; include ^
 # or using import to have easier syntax
-import '@hash';
-import '@module_name';
+import '@hash'
+import '@module_name'
 
 # ...
 ```
@@ -21,10 +21,10 @@ you have to give name of module with a `@` before that to the include operation.
 with hash module, you can calculate hash sum of values:
 
 ```bash
-import '@hash';
+import '@hash'
 
-hash.sha256 "hello"; # also you can use hash.md5 and...
-out ^; # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+hash.sha256 "hello" # also you can use hash.md5 and...
+out ^ # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 ```
 
 ##### how it works?
@@ -54,10 +54,10 @@ with this module, you can work with time.
 this function gives you current UNIX timestamp:
 
 ```bash
-import '@time';
+import '@time'
 
-time.time;
-out ^; # output is some thing like this: `1600416438.687201`
+time.time
+out ^ # output is some thing like this: `1600416438.687201`
 ```
 
 when you call this function, this function puts the unix timestamp into mem and you can access and use that.
@@ -66,9 +66,9 @@ when you call this function, this function puts the unix timestamp into mem and 
 this function sleeps for secounds:
 
 ```bash
-import '@time';
+import '@time'
 
-time.sleep 2; # sleeps for 2 secounds
+time.sleep 2 # sleeps for 2 secounds
 # mem 2.4; time.sleep; # sleepss for 2.4 secounds
 ```
 
@@ -88,20 +88,20 @@ this module makes random numbers
 
 ##### random.randint
 ```bash
-import '@random';
+import '@random'
 
-random.randint 1, 10; # generates a random int between 1 and 10
+random.randint 1, 10 # generates a random int between 1 and 10
 
-out ^; # and puts generated random number in mem and you can access that
+out ^ # and puts generated random number in mem and you can access that
 ```
 
 ##### random.random
 ```bash
-import '@random';
+import '@random'
 
-random.random; # generates a random float less that 1
+random.random # generates a random float less that 1
 
-out ^; # and puts generated random number in mem and you can access that
+out ^ # and puts generated random number in mem and you can access that
 ```
 
 ## file module
@@ -111,40 +111,40 @@ with this module, you can work with files smarter.
 with this function, you can open a file:
 
 ```bash
-import '@file';
+import '@file'
 
-file.open '/path/to/file.txt', 'r'; # first argument is file path, and second argument is open type. here is `r` means `read`
+file.open '/path/to/file.txt', 'r' # first argument is file path, and second argument is open type. here is `r` means `read`
 
 # now, opened file is in the mem. we can copy it in a variable
 
-$f = ^;
+$f = ^
 
 # or
 
-$f = ^ file.open '/path/to/file.txt', 'r';
+$f = ^ file.open '/path/to/file.txt', 'r'
 ```
 
 ##### file.read
 wtih this function, you can read opened file:
 
 ```bash
-import '@file';
+import '@file'
 
-$f = ^ file.open '/path/to/file.txt', 'r';
+$f = ^ file.open '/path/to/file.txt', 'r'
 
-file.read $f; # now, content of file is in the mem
-out ^; # output is content of file
+file.read $f # now, content of file is in the mem
+out ^ # output is content of file
 ```
 
 ##### file.write
 with this function, you can write on opened file:
 
 ```bash
-import '@file';
+import '@file'
 
-$f = ^ file.open '/path/to/file.txt', 'w'; # open type is `w` (write)
+$f = ^ file.open '/path/to/file.txt', 'w' # open type is `w` (write)
 
-file.write $f, 'new content'; # first arg is opened file and second arg is content.
+file.write $f, 'new content' # first arg is opened file and second arg is content.
 ```
 
 now file is changed
@@ -153,25 +153,25 @@ now file is changed
 with this function you can close file after your work:
 
 ```bash
-import '@file';
+import '@file'
 
-$f = ^ file.open '/path/to/file.txt', 'r';
+$f = ^ file.open '/path/to/file.txt', 'r'
 
 # work with file
 
-file.close $f; # close file after work
+file.close $f # close file after work
 ```
 
 ##### example:
 
 ```bash
-import '@file';
+import '@file'
 
-$file = ^ file.open '/path/to/file.txt', 'r';
+$file = ^ file.open '/path/to/file.txt', 'r'
 
-$content = ^ file.read $file;
+$content = ^ file.read $file
 
-print 'content of file is: ' + $content;
+print 'content of file is: ' + $content
 ```
 
 ###### more modules comming soon...
@@ -182,7 +182,7 @@ module path is a system to add pashmak scripts as modules to pashmak. for exampl
 for example, we want to import that module:
 
 ```bash
-import '@mymodule';
+import '@mymodule'
 ```
 
 to do this, you have to add directory `/var/lib/pashmak_modules` to pashmak path:

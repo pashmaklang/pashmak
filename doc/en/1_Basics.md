@@ -3,7 +3,7 @@
 a simple printing in pashmak on screen:
 
 ```bash
-mem 'something to print\n'; out ^;
+mem 'something to print\n'; out ^
 ```
 
 or
@@ -60,7 +60,7 @@ first, `mem` command brings the string `'some thing to print'` in memory, and ne
 you cannot print any thing like this:
 
 ```bash
-out 'hello world\n';
+out 'hello world\n'
 ```
 
 because commands in pashmak never gets a value directly.
@@ -68,16 +68,16 @@ if you want to pass a value to the commands, you need to use `mem` command to lo
 in this example, first, `mem` command loads the `'some thing to print'`, and next, we pass value of mem to the `out` command:
 
 ```bash
-mem 'hello world';
-out ^; # the ^ is pointer of mem
+mem 'hello world'
+out ^ # the ^ is pointer of mem
 ```
 
 the ^ is pointer of mem
 
-you can also write the code like this to have shorter code:
+you can also write the code like this to have shorter code (we have to use `;` to seprate them):
 
 ```bash
-mem 'hello world\n'; out ^;
+mem 'hello world\n'; out ^
 ```
 
 ###### NOTE: remember to put \n when you want to go to the next line
@@ -87,11 +87,11 @@ mem 'hello world\n'; out ^;
 look at this example:
 
 ```bash
-mem 'some thing\n';
+mem 'some thing\n'
 
-out ^; # output: some thing
+out ^ # output: some thing
 
-out ^; # output: None
+out ^ # output: None
 ```
 
 why in the first time when mem value was read, the value correctly was printed on screen, but in the second time, the `None` was printed?
@@ -101,11 +101,11 @@ because memory is temporary. when you read the memory, that will be empty after 
 look at this example:
 
 ```bash
-mem 'first value\n';
-out ^;
+mem 'first value\n'
+out ^
 
-mem 'second value\n';
-out ^;
+mem 'second value\n'
+out ^
 ```
 
 output of this code:
@@ -117,24 +117,23 @@ second value
 
 ###### NOTE: the # character is comment operation. you can put comment in your code after # character
 
-
 ### more about mem
 you can calculate every thing in mem
 
 for undrestanding, look at the following examples:
 
 ```bash
-mem 'hi there'; out ^; # output: hi there
+mem 'hi there'; out ^ # output: hi there
 
 # you can paste strings
-mem 'first string ' + 'last string'; # output: first string last string
+mem 'first string ' + 'last string'; out ^ # output: first string last string
 
 # run math operations
-mem 2*7; out ^; # output: 14
+mem 2*7; out ^ # output: 14
 
-mem 3*(2+1); out ^; # output: 9
+mem 3*(2+1); out ^ # output: 9
 
-mem str(7*7) + ' is sum'; out ^; # output: 49 is sum
+mem str(7*7) + ' is sum'; out ^ # output: 49 is sum
 # the `str` function gets a value and convert it to string.
 # in here you can not paste number to string. first need to convert num to str with str()
 ```
@@ -145,7 +144,7 @@ the `mem` command is absolutely important and you need to use it everywhere
 for printing `;` character, put a `\` before semicolon:
 
 ```bash
-mem 'this is \; semicolon\n'; out ^;
+mem 'this is \; semicolon\n'; out ^
 ```
 
 output:
@@ -158,16 +157,16 @@ this is ; semicolon
 this is a easier syntax for printing:
 
 ```bash
-mem 'hello world\n'; out ^;
+mem 'hello world\n'; out ^
 
 # this is easier
-print 'hello world\n';
+print 'hello world\n'
 
-print str(2*2);
+print str(2*2)
 
-print 'hello ' + 'parsa\n';
+print 'hello ' + 'parsa\n'
 
-print 'num is ' + str(100+7);
+print 'num is ' + str(100+7)
 ```
 
 after this, we never use `mem <something>; out ^;` pattern for printing, and we just use `print` command.
@@ -179,7 +178,7 @@ if you want to print something and go next line, you have to put `\n` after your
 but with `println` command, you don't need to use `\n` and that will put automaticaly:
 
 ```bash
-println 'hello world';
+println 'hello world'
 ```
 
 output:
@@ -191,6 +190,6 @@ hello world<nextline>
 also there is a alias for `println`, this is `printl`:
 
 ```bash
-#println "hello world";
-printl "hello world";
+#println "hello world"
+printl "hello world"
 ```

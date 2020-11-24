@@ -3,7 +3,7 @@
 we may recive some errors in our program. for example:
 
 ```bash
-out $this_var_not_found;
+out $this_var_not_found
 ```
 
 output:
@@ -17,7 +17,7 @@ or:
 
 ```bash
 # undefined operation
-outttt ^;
+outttt ^
 ```
 
 output:
@@ -36,17 +36,17 @@ we can handle errors with `try-endtry` statement.
 look at this example:
 
 ```bash
-try handle_error;
-    out $somevar;
-endtry;
+try handle_error
+    out $somevar
+endtry
 
-goto after_error;
+goto after_error
 
-section handle_error;
+section handle_error
 
-mem 'some errors raised\n'; out ^;
+mem 'some errors raised\n'; out ^
 
-section after_error;
+section after_error
 ```
 
 when you write code between `try <section-name> ... endtry`, errors will not raised in them and if an error is raised, that section where passed to try operation will run.
@@ -58,27 +58,27 @@ this is helpful.
 when error is raised in try statement, error data will put in mem (^):
 
 ```bash
-try handle_error;
-    out $somevar;
-endtry;
+try handle_error
+    out $somevar
+endtry
 
-goto after_error;
+goto after_error
 
-section handle_error;
+section handle_error
 
-$ex = ^; # copy mem (^) to $ex variable (this includes information about raised error)
-println $ex; # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
+$ex = ^ # copy mem (^) to $ex variable (this includes information about raised error)
+println $ex # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
 
-section after_error;
+section after_error
 ```
 
 #### raising errors
 ```bash
-println 'program started';
+println 'program started'
 
-raise 'MyError', 'this is my error';
+raise 'MyError', 'this is my error'
 
-println 'this will not print';
+println 'this will not print'
 ```
 
 output:
