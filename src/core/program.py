@@ -43,7 +43,7 @@ class Program(helpers.Helpers):
         self.is_test = is_test # program is in testing state
         self.output = '' # program output (for testing state)
         self.runtime_error = None # program raised error (for testing state)
-        self.is_in_try = None # says program is in try-endtry block
+        self.try_endtry = [] # says program is in try-endtry block
         self.runed_functions = [] # runed functions for stop function multi calling in one operation
         self.namespaces_tree = [] # namespaces tree
         self.used_namespaces = [] # list of used namespaces
@@ -113,9 +113,9 @@ class Program(helpers.Helpers):
     def raise_error(self, error_type: str, message: str, op: dict):
         ''' Raise error in program '''
         # check is in try
-        if self.is_in_try != None:
-            section_index = self.is_in_try
-            self.is_in_try = None
+        if self.try_endtry:
+            section_index = self.try_endtry[-1]
+            self.try_endtry.pop()
             new_step = self.sections[str(section_index)]
             self.current_step = new_step-1
 

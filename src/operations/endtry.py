@@ -24,5 +24,5 @@
 
 def run(self, op: dict):
     ''' Closes try block '''
-
-    self.is_in_try = None
+    if self.try_endtry:
+        self.try_endtry.pop()
