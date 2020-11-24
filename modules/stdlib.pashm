@@ -43,11 +43,11 @@ func sys;
     system ^;
 endfunc;
 
-func std.chdir;
+func std_chdir;
     chdir ^;
 endfunc;
 
-func std.eval;
+func std_eval;
     eval ^;
 endfunc;
 

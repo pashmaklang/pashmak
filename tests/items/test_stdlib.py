@@ -61,13 +61,13 @@ class test_stdlib(TestCore):
 
         cwd = os.getcwd()
         self.run_without_error('''
-        std.chdir "''' + tempfile.gettempdir().replace('\\', '/') + '''";
+        std_chdir "''' + tempfile.gettempdir().replace('\\', '/') + '''";
         ''')
         self.assert_equals(os.getcwd(), tempfile.gettempdir())
         os.chdir(cwd)
 
         self.assert_output(self.run_without_error('''
-        std.eval "mem 'output from eval'\\; out ^\\;";
+        std_eval "mem 'output from eval'\\; out ^\\;";
         '''), 'output from eval')
 
         self.assert_output(self.run_without_error('''

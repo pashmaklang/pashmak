@@ -14,15 +14,15 @@ $path = '/tmp';
 chdir $path; # use variable
 ```
 
-also you can use `std.chdir` function:
+also you can use `std_chdir` function:
 
 ```bash
 # in this function you can pass path directly and not need to set path in mem before it
-std.chdir '/tmp';
+std_chdir '/tmp';
 # or
-std.chdir $path;
+std_chdir $path;
 # or
-std.chdir $path + '/path';
+std_chdir $path + '/path';
 ```
 
 ### cwd

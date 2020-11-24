@@ -869,6 +869,8 @@ program started
 hello parsa
 ```
 
+##### NOTE: name of functions should not have `.` character. for example, name `foo.bar` for function is invalid and you will get error `FunctionNameContainsDotError`
+
 ### passing argument to Functions
 for pass argument to the Functions, you can put value after name of function:
 
@@ -1290,15 +1292,15 @@ $path = '/tmp';
 chdir $path; # use variable
 ```
 
-also you can use `std.chdir` function:
+also you can use `std_chdir` function:
 
 ```bash
 # in this function you can pass path directly and not need to set path in mem before it
-std.chdir '/tmp';
+std_chdir '/tmp';
 # or
-std.chdir $path;
+std_chdir $path;
 # or
-std.chdir $path + '/path';
+std_chdir $path + '/path';
 ```
 
 ### cwd
@@ -1564,6 +1566,8 @@ println $App.name; # output: parsa
 println $name; # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
 ```
 
+##### NOTE: name of namespace should not have `.` character. if you want to do this, use [subnamespace](#namespace-in-namespace-(subnamespace)).
+
 this system is very useful.
 
 ### use operation
@@ -1698,11 +1702,11 @@ hi
 
 the above code gets a string from user and runs that as pashmak code.
 
-also you can use `std.eval` function to have easier syntax:
+also you can use `std_eval` function to have easier syntax:
 
 ```bash
 # you can pass value directly
-std.eval '<some-code>';
+std_eval '<some-code>';
 ```
 
 ## run python code
@@ -1943,11 +1947,11 @@ py "print('hello world from python')"; # INSTEAD OF `mem "print('hello world fro
 # sys
 sys 'ls /tmp'; # INSTEAD OF `mem 'ls /tmp'; system ^;`
 
-# std.chdir
-std.chdir "/tmp"; # INSTEAD OF `mem '/tmp'; chdir ^;`
+# std_chdir
+std_chdir "/tmp"; # INSTEAD OF `mem '/tmp'; chdir ^;`
 
-# std.eval
-std.eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
+# std_eval
+std_eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
 
 # gset
 gset 'somevar', 'new global value'; # you learned this command in functions section

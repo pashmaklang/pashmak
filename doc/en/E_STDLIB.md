@@ -28,11 +28,11 @@ py "print('hello world from python')"; # INSTEAD OF `mem "print('hello world fro
 # sys
 sys 'ls /tmp'; # INSTEAD OF `mem 'ls /tmp'; system ^;`
 
-# std.chdir
-std.chdir "/tmp"; # INSTEAD OF `mem '/tmp'; chdir ^;`
+# std_chdir
+std_chdir "/tmp"; # INSTEAD OF `mem '/tmp'; chdir ^;`
 
-# std.eval
-std.eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
+# std_eval
+std_eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
 
 # gset
 gset 'somevar', 'new global value'; # you learned this command in functions section
