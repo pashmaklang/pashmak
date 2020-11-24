@@ -6,7 +6,7 @@ Pashmak scripts have cool and pashmaki syntax.
 this is a simple hello world script in pashmak:
 
 ```bash
-println 'hello world';
+println 'hello world'
 ```
 
 ## Online interpreter
@@ -40,7 +40,6 @@ read the following Documentation to learn pashmak.
 - [Eval](#eval)
 - [Modules](#general-modules)
 - [stdlib](#stdlib)
-
 
 
 
@@ -141,7 +140,7 @@ dist\pashmak.exe -v
 a simple printing in pashmak on screen:
 
 ```bash
-mem 'something to print\n'; out ^;
+mem 'something to print\n'; out ^
 ```
 
 or
@@ -198,7 +197,7 @@ first, `mem` command brings the string `'some thing to print'` in memory, and ne
 you cannot print any thing like this:
 
 ```bash
-out 'hello world\n';
+out 'hello world\n'
 ```
 
 because commands in pashmak never gets a value directly.
@@ -206,16 +205,16 @@ if you want to pass a value to the commands, you need to use `mem` command to lo
 in this example, first, `mem` command loads the `'some thing to print'`, and next, we pass value of mem to the `out` command:
 
 ```bash
-mem 'hello world';
-out ^; # the ^ is pointer of mem
+mem 'hello world'
+out ^ # the ^ is pointer of mem
 ```
 
 the ^ is pointer of mem
 
-you can also write the code like this to have shorter code:
+you can also write the code like this to have shorter code (we have to use `;` to seprate them):
 
 ```bash
-mem 'hello world\n'; out ^;
+mem 'hello world\n'; out ^
 ```
 
 ###### NOTE: remember to put \n when you want to go to the next line
@@ -225,11 +224,11 @@ mem 'hello world\n'; out ^;
 look at this example:
 
 ```bash
-mem 'some thing\n';
+mem 'some thing\n'
 
-out ^; # output: some thing
+out ^ # output: some thing
 
-out ^; # output: None
+out ^ # output: None
 ```
 
 why in the first time when mem value was read, the value correctly was printed on screen, but in the second time, the `None` was printed?
@@ -239,11 +238,11 @@ because memory is temporary. when you read the memory, that will be empty after 
 look at this example:
 
 ```bash
-mem 'first value\n';
-out ^;
+mem 'first value\n'
+out ^
 
-mem 'second value\n';
-out ^;
+mem 'second value\n'
+out ^
 ```
 
 output of this code:
@@ -255,24 +254,23 @@ second value
 
 ###### NOTE: the # character is comment operation. you can put comment in your code after # character
 
-
 ### more about mem
 you can calculate every thing in mem
 
 for undrestanding, look at the following examples:
 
 ```bash
-mem 'hi there'; out ^; # output: hi there
+mem 'hi there'; out ^ # output: hi there
 
 # you can paste strings
-mem 'first string ' + 'last string'; # output: first string last string
+mem 'first string ' + 'last string'; out ^ # output: first string last string
 
 # run math operations
-mem 2*7; out ^; # output: 14
+mem 2*7; out ^ # output: 14
 
-mem 3*(2+1); out ^; # output: 9
+mem 3*(2+1); out ^ # output: 9
 
-mem str(7*7) + ' is sum'; out ^; # output: 49 is sum
+mem str(7*7) + ' is sum'; out ^ # output: 49 is sum
 # the `str` function gets a value and convert it to string.
 # in here you can not paste number to string. first need to convert num to str with str()
 ```
@@ -283,7 +281,7 @@ the `mem` command is absolutely important and you need to use it everywhere
 for printing `;` character, put a `\` before semicolon:
 
 ```bash
-mem 'this is \; semicolon\n'; out ^;
+mem 'this is \; semicolon\n'; out ^
 ```
 
 output:
@@ -296,16 +294,16 @@ this is ; semicolon
 this is a easier syntax for printing:
 
 ```bash
-mem 'hello world\n'; out ^;
+mem 'hello world\n'; out ^
 
 # this is easier
-print 'hello world\n';
+print 'hello world\n'
 
-print str(2*2);
+print str(2*2)
 
-print 'hello ' + 'parsa\n';
+print 'hello ' + 'parsa\n'
 
-print 'num is ' + str(100+7);
+print 'num is ' + str(100+7)
 ```
 
 after this, we never use `mem <something>; out ^;` pattern for printing, and we just use `print` command.
@@ -317,7 +315,7 @@ if you want to print something and go next line, you have to put `\n` after your
 but with `println` command, you don't need to use `\n` and that will put automaticaly:
 
 ```bash
-println 'hello world';
+println 'hello world'
 ```
 
 output:
@@ -329,8 +327,8 @@ hello world<nextline>
 also there is a alias for `println`, this is `printl`:
 
 ```bash
-#println "hello world";
-printl "hello world";
+#println "hello world"
+printl "hello world"
 ```
 
 
@@ -342,11 +340,11 @@ variables are like a pot where you can save data in it
 we work with three commands: `set`, `copy`, `free`, to set and handle variables in pashmak
 
 ```bash
-set $myvar; # set a variables named $myvar
-mem 'this is data'; # bring string 'this is data' to mem
-copy ^ $myvar; # copy mem (^) to $myvar
+set $myvar # set a variables named $myvar
+mem 'this is data' # bring string 'this is data' to mem
+copy ^ $myvar # copy mem (^) to $myvar
 
-println $myvar; # output: this is data
+println $myvar # output: this is data
 ```
 
 ###### NOTE: always put $ before name of variable everywhere
@@ -354,7 +352,7 @@ println $myvar; # output: this is data
 also you can set more than one variable with `set` command:
 
 ```bash
-set $var1 $var2 $var3; # default value is null
+set $var1 $var2 $var3 # default value is null
 ```
 
 ### use variables in mem
@@ -362,17 +360,17 @@ set $var1 $var2 $var3; # default value is null
 look at this example:
 
 ```bash
-set $name; # set name variable
-mem 'parsa'; copy ^ $name; # copy 'parsa' string to name variable
+set $name # set name variable
+mem 'parsa'; copy ^ $name # copy 'parsa' string to name variable
 
-println 'hello ' + $name; # output: hello parsa
+println 'hello ' + $name # output: hello parsa
 
-set $num; mem 12; copy ^ $num;
-println $num * 5; # output: 60
+set $num; mem 12; copy ^ $num
+println $num * 5 # output: 60
 
-set $num2; mem 4; copy $num2; # alias of `copy ^ $num2`
+set $num2; mem 4; copy $num2 # alias of `copy ^ $num2`
 
-println $num * $num2 + 1; # output: 49
+println $num * $num2 + 1 # output: 49
 ```
 
 #### how it works?
@@ -385,10 +383,10 @@ you can use variables in mem like example above
 ###### NOTE: in above example, we used `copy` command like this:
 
 ```bash
-mem 'some value';
-copy $somevar;
+mem 'some value'
+copy $somevar
 # that is alias of
-copy ^ $somevar;
+copy ^ $somevar
 ```
 
 if you give just one variable to copy command, the mem will be copy in that variable
@@ -396,48 +394,48 @@ if you give just one variable to copy command, the mem will be copy in that vari
 look at this example:
 
 ```bash
-set $var1 $var2;
+set $var1 $var2
 
-mem 'hi'; copy $var1;
-mem 'bye'; copy $var2; # this is alias of `copy ^ $var2`
+mem 'hi'; copy $var1
+mem 'bye'; copy $var2 # this is alias of `copy ^ $var2`
 
-out $var1; # output: hi
-out $var2; # output: bye
+out $var1 # output: hi
+out $var2 # output: bye
 
-copy $var1 $var2; # copy a variable in variable
+copy $var1 $var2 # copy a variable in variable
 
-out $var1; # output: hi
-out $var2; # output: hi
+out $var1 # output: hi
+out $var2 # output: hi
 
 ```
 
 ### a better way to set variables value without using `mem` and `set` commands and with easier syntax
 
 ```bash
-$name = 'parsa';
+$name = 'parsa'
 ```
 
 you just need to write name of variable with `$` and next assign value with `=` after this:
 
 ```bash
-$name = 'parsa';
+$name = 'parsa'
 
-$num1 = 10;
-$num2 = 50;
+$num1 = 10
+$num2 = 50
 
-$sum = $num1 + $num2; # use variables in variables
+$sum = $num1 + $num2 # use variables in variables
 
-println 'sum is ' + str($sum); # output: sum is 60
+println 'sum is ' + str($sum) # output: sum is 60
 
-$msg = 'hello ' + $name;
-println $msg; # output: hello parsa
+$msg = 'hello ' + $name
+println $msg # output: hello parsa
 ```
 
 also if you just write something like this:
 
 ```bash
-$name; # without `= <value>...`
-out $name; # output: None
+$name # without `= <value>...`
+out $name # output: None
 ```
 
 variable will set and just get `None` as default value
@@ -447,16 +445,16 @@ variable will set and just get `None` as default value
 we can set value of mem to variables with this legacy way:
 
 ```bash
-$myvar; # set myvar
-mem 'something'; # load mem
-copy $myvar; # copy mem to variable
+$myvar # set myvar
+mem 'something' # load mem
+copy $myvar # copy mem to variable
 ```
 
 the better way is:
 
 ```bash
-mem 'something';
-$myvar = ^;
+mem 'something'
+$myvar = ^
 ```
 
 if you put `^` (mem symbol) as value, memory value will put in the variable
@@ -465,21 +463,19 @@ if you put `^` (mem symbol) as value, memory value will put in the variable
 when you set a variable, that var is in memory. you can delete that var with `free` command:
 
 ```bash
-$somevar = 'some value';
-out $somevar; # output: some value
+$somevar = 'some value'
+out $somevar # output: some value
 
-free $somevar;
+free $somevar
 
-out $somevar; # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
+out $somevar # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
 ```
 
 also you can make free more than one variable with `free` command:
 
 ```bash
-free $var1 $var2 $var3; # ...
+free $var1 $var2 $var3 # ...
 ```
-
-
 
 ### checking a variable isset
 you can check a variable existens with `isset` command
@@ -487,12 +483,12 @@ you can check a variable existens with `isset` command
 look at this example:
 
 ```bash
-$somevar; $v; # set `somevar` and `v` variables
+$somevar; $v # set `somevar` and `v` variables
 
-isset $somevar; out ^; # output: True
-isset $this_var_not_found; out ^; # output: False
-isset $somevar $sassadffgdty; out ^; # output: False
-isset $somevar $v; out ^; # output: True
+isset $somevar; out ^ # output: True
+isset $this_var_not_found; out ^ # output: False
+isset $somevar $sassadffgdty; out ^ # output: False
+isset $somevar $v; out ^ # output: True
 ```
 
 #### how it works?
@@ -506,15 +502,15 @@ you can get the data type of a variable with `typeof` command
 look at this example:
 
 ```bash
-$mystr = 'hi';
-$myint = 20;
-$myfloat = 15.32;
-$mybool = False;
+$mystr = 'hi'
+$myint = 20
+$myfloat = 15.32
+$mybool = False
 
-typeof $mystr; out ^;   # output: <class 'str'>
-typeof $myint; out ^;   # output: <class 'int'>
-typeof $myfloat; out ^; # output: <class 'float'>
-typeof $mybool; out ^;  # output: <class 'bool'>
+typeof $mystr; out ^ # output: <class 'str'>
+typeof $myint; out ^ # output: <class 'int'>
+typeof $myfloat; out ^ # output: <class 'float'>
+typeof $mybool; out ^ # output: <class 'bool'>
 ```
 
 this command puts the typeof variable in mem
@@ -526,9 +522,9 @@ the required command requiring an variable existens.
 look at this example:
 
 ```bash
-$name;
+$name
 
-required $name;
+required $name
 ```
 
 when we run this code, program will run successful.
@@ -536,8 +532,8 @@ when we run this code, program will run successful.
 but now we comment the first line:
 
 ```bash
-#$name;
-required $name;
+#$name
+required $name
 ```
 
 now $name variable is not set, and you will get this error:
@@ -558,10 +554,10 @@ you can read input from user in stdin
 look at this example:
 
 ```bash
-$name; # set the name variable
-print 'what is your name? ';
-read $name; # read a input and copy that in $name variable
-println 'hello ' + $name; # say hello to $name :)
+$name # set the name variable
+print 'what is your name? '
+read $name # read a input and copy that in $name variable
+println 'hello ' + $name # say hello to $name :)
 ```
 
 when we run this code, output is this:
@@ -581,22 +577,22 @@ we can get input from user like above example
 also look at this example:
 
 ```bash
-$num1; $num2;
+$num1; $num2
 
-print 'enter first number: ';
-read $num1;
+print 'enter first number: '
+read $num1
 
-print 'enter second number: ';
-read $num2;
+print 'enter second number: '
+read $num2
 
 # now, $num1 and $num2 are string. we convert string to int:
-$num1 = int($num1);
-$num2 = int($num2);
+$num1 = int($num1)
+$num2 = int($num2)
 
 # now we want to plus them
-$sum = $num1 + $num2;
+$sum = $num1 + $num2
 
-println str($sum);
+println str($sum)
 ```
 
 program output:
@@ -615,7 +611,7 @@ to access command line arguments, you can use `$argv` variable.
 look at this example:
 
 ```bash
-println $argv[1];
+println $argv[1]
 ```
 
 we run above code:
@@ -630,7 +626,7 @@ output:
 hello
 ```
 
-actualy, `$argv` is a array where command line arguments is in that.
+actualy, `$argv` is an array contains command line arguments.
 
 
 
@@ -639,9 +635,9 @@ section is a system to make pointer to a part of code. this is useful to create 
 
 look at this example:
 ```bash
-section my_loop;
-    println 'hello world';
-goto my_loop;
+section my_loop
+    println 'hello world'
+goto my_loop
 ```
 
 this code prints `hello world` non-stop
@@ -653,12 +649,12 @@ actually when my code starts, prints hello world and then `goto` commands direct
 look at this example:
 
 ```bash
-$i = 1;
+$i = 1
 
-section loop;
-    println $i; # print $i
-    $i = $i + 1; # add 1 to $i
-mem $i < 10; gotoif loop; # check the condition in `mem` and use gotoif command
+section loop
+    println $i # print $i
+    $i = $i + 1 # add 1 to $i
+mem $i < 10; gotoif loop # check the condition in `mem` and use gotoif command
 ```
 
 the output of this code is
@@ -692,27 +688,27 @@ look at this example:
 
 ```bash
 # read age from user
-print 'enter your age: ';
-$age; read $age;
-$age = int($age);
+print 'enter your age: '
+$age; read $age
+$age = int($age)
 
-mem $age > 18; gotoif age_is_more_than_18; # if age is more than 18, goto age_is_more_than_18 section
+mem $age > 18; gotoif age_is_more_than_18 # if age is more than 18, goto age_is_more_than_18 section
 
 # if not, this line will run and program goes to age_is_less_than_18
-goto age_is_less_than_18;
+goto age_is_less_than_18
 
-section age_is_more_than_18;
+section age_is_more_than_18
 
-    println 'you are more than 18';
-    goto after_if;
+    println 'you are more than 18'
+    goto after_if
 
-section age_is_less_than_18;
+section age_is_less_than_18
 
-    println 'you are less than 18';
+    println 'you are less than 18'
 
-section after_if;
+section after_if
 
-println 'program ends';
+println 'program ends'
 ```
 
 we run the program:
@@ -737,11 +733,11 @@ the section system is very useful for making loops.
 to make loop, we can write this code:
 
 ```bash
-$i = 0;
-section loop;
-    println $i;
-    $i = $i + 1;
-mem $i < 10; gotoif loop;
+$i = 0
+section loop
+    println $i
+    $i = $i + 1
+mem $i < 10; gotoif loop
 ```
 
 output:
@@ -762,11 +758,11 @@ output:
 but we can use `loop` and `while` functions to make loop syntax easy:
 
 ```bash
-$i = 0;
-loop;
-    println $i;
-    $i = $i + 1;
-while $i < 10; # back to loop while condition is True (while $i < 10)
+$i = 0
+loop
+    println $i
+    $i = $i + 1
+while $i < 10 # back to loop while condition is True (while $i < 10)
 ```
 
 output:
@@ -790,11 +786,11 @@ you cannot make loops-in-loops with this operations. you can make single loops w
 for example:
 
 ```bash
-loop;
-    loop;
+loop
+    loop
         #
-    while True;
-while True;
+    while True
+while True
 ```
 
 the above code not works.
@@ -802,11 +798,11 @@ the above code not works.
 but you can write loop-in-loop with `section` operation:
 
 ```bash
-section loop1;
-    section loop2;
+section loop1
+    section loop2
         # your code
     mem True; gotoif loop2
-mem True; gotoif loop1;
+mem True; gotoif loop1
 ```
 
 
@@ -816,9 +812,9 @@ function is a system to make alias for some codes (function).
 
 look at this example:
 ```bash
-func say_hello;
-    println 'hello world';
-endfunc;
+func say_hello
+    println 'hello world'
+endfunc
 
 say_hello;
 ```
@@ -830,12 +826,12 @@ hello world
 ```
 
 ```bash
-func say_hello;
-    println 'hello world';
-endfunc;
+func say_hello
+    println 'hello world'
+endfunc
 
-say_hello;
-say_hello;
+say_hello
+say_hello
 ```
 
 output:
@@ -852,14 +848,14 @@ for declare a function you have to write `func <name-of-function>;`. and write c
 
 look at this smarter function:
 ```bash
-mem 'program started\n'; out ^;
+mem 'program started\n'; out ^
 
-func say_hello;
-    $name = ^; # copy mem to $name
-    println 'hello ' + $name;
-endfunc;
+func say_hello
+    $name = ^ # copy mem to $name
+    println 'hello ' + $name
+endfunc
 
-mem 'parsa'; say_hello;
+mem 'parsa'; say_hello
 ```
 
 program output:
@@ -875,11 +871,11 @@ hello parsa
 for pass argument to the Functions, you can put value after name of function:
 
 ```bash
-func myfunc;
-    out ^;
-endfunc;
+func myfunc
+    out ^
+endfunc
 
-myfunc "hello";
+myfunc "hello"
 ```
 
 output:
@@ -894,12 +890,12 @@ you can put a value after name of function. this value will put in mem and you c
 look at this example:
 
 ```bash
-func say_hello;
-    $name = ^; # copy mem(the passed argument to function) to $name
-    println 'hello ' + $name;
-endfunc;
+func say_hello
+    $name = ^ # copy mem(the passed argument to function) to $name
+    println 'hello ' + $name
+endfunc
 
-say_hello 'parsa';
+say_hello 'parsa'
 ```
 
 output:
@@ -911,14 +907,14 @@ hello parsa
 also you can pass more than 1 argument to functions:
 
 ```bash
-func say_hello;
-    $args = ^; # copy mem to $args
-    $first_name = $args[0];
-    $last_name = $args[1];
-    println 'hello ' + $first_name + ' ' + $last_name;
-endfunc;
+func say_hello
+    $args = ^ # copy mem to $args
+    $first_name = $args[0]
+    $last_name = $args[1]
+    println 'hello ' + $first_name + ' ' + $last_name
+endfunc
 
-say_hello 'parsa', 'shahmaleki';
+say_hello 'parsa', 'shahmaleki'
 ```
 
 arguments should be split with `,` and this will make a array in mem and function can access that array and use arguments.
@@ -926,33 +922,33 @@ arguments should be split with `,` and this will make a array in mem and functio
 we to copy function argument (in mem) to a variable, using this syntax:
 
 ```bash
-func say_hello;
-    $name = ^;
-    println 'hello ' + $name;
-endfunc;
+func say_hello
+    $name = ^
+    println 'hello ' + $name
+endfunc
 
-say_hello 'parsa';
+say_hello 'parsa'
 ```
 
 but also we can use this syntax to copy function argument to variable with better syntax:
 
 ```bash
-func say_hello ($name);
-    println 'hello ' + $name;
-endfunc;
+func say_hello ($name)
+    println 'hello ' + $name
+endfunc
 
-say_hello 'parsa';
+say_hello 'parsa'
 ```
 
 we can put `($varname)` after name of function (with a space between them) and mem will copy automatic in that variable.
 also you can don't use `()` and you can write above code like this:
 
 ```bash
-func say_hello $name; # without ()
-    println 'hello ' + $name;
-endfunc;
+func say_hello $name # without ()
+    println 'hello ' + $name
+endfunc
 
-say_hello 'parsa';
+say_hello 'parsa'
 ```
 
 ### local variables & global variables
@@ -960,17 +956,17 @@ say_hello 'parsa';
 look at this example:
 
 ```bash
-func myfunc;
-    $name = 'new name';
-    println $name;
-endfunc;
+func myfunc
+    $name = 'new name'
+    println $name
+endfunc
 
-$name = 'parsa';
-println $name;
+$name = 'parsa'
+println $name
 
-myfunc;
+myfunc
 
-println $name;
+println $name
 ```
 
 output:
@@ -994,18 +990,18 @@ so, how to change a global variable from a function?
 the answer is in `gset`:
 
 ```bash
-func myfunc;
-    $name = 'new name';
-    gset 'name', $name;
-    println $name;
-endfunc;
+func myfunc
+    $name = 'new name'
+    gset 'name', $name
+    println $name
+endfunc
 
-$name = 'parsa';
-println $name;
+$name = 'parsa'
+println $name
 
-myfunc;
+myfunc
 
-println $name;
+println $name
 ```
 
 output:
@@ -1029,15 +1025,15 @@ when you calling a function, that function may return a output. this value as ou
 look at this example:
 
 ```bash
-func add_two_nums ($nums);
-    $sum = $nums[0] + $nums[1]; # add two numbers
-    mem $sum; # put result to mem
-endfunc;
+func add_two_nums ($nums)
+    $sum = $nums[0] + $nums[1] # add two numbers
+    mem $sum # put result to mem
+endfunc
 
 # now we call this function
 add_two_nums 10, 5
-$result = ^; # function output is in mem and we copy mem to variable $result
-println $result;
+$result = ^ # function output is in mem and we copy mem to variable $result
+println $result
 ```
 
 output:
@@ -1049,14 +1045,14 @@ output:
 now, above syntax is ugly. we can write this code like this:
 
 ```bash
-func add_two_nums ($nums);
-    $sum = $nums[0] + $nums[1]; # add two numbers
-    mem $sum; # put result to mem
-endfunc;
+func add_two_nums ($nums)
+    $sum = $nums[0] + $nums[1] # add two numbers
+    mem $sum # put result to mem
+endfunc
 
 # now we call this function
-$result = ^ add_two_nums 10, 5;
-println $result;
+$result = ^ add_two_nums 10, 5
+println $result
 ```
 
 we write two operations in one operation to have better syntax. calling function and assigning mem (function output) to `$result`.
@@ -1065,7 +1061,7 @@ we just have to write variable name and an `=`, and next write `^` and them writ
 like it:
 
 ```bash
-$variable = ^ my_command_or_function 'my', 'arguments';
+$variable = ^ my_command_or_function 'my', 'arguments'
 ```
 
 and them this code will run and mem value will put into the variable
@@ -1078,9 +1074,9 @@ there is two operations for working with files in pashmak: `fread`, `fwrite`
 ### read a file
 
 ```bash
-mem '/path/to/file.txt'; fread ^;
-$content = ^;
-print 'content of file is: ' + $content;
+mem '/path/to/file.txt'; fread ^
+$content = ^
+print 'content of file is: ' + $content
 ```
 
 the content of `/path/to/file.txt'` is:
@@ -1103,10 +1099,10 @@ after fread command, content of readed file will put in the mem and you can acce
 
 ### write on file
 ```bash
-$filepath = '/path/to/file.txt';
+$filepath = '/path/to/file.txt'
 
-mem 'content of file';
-fwrite $filepath ^; # write mem (^) on the $filepath (/path/to/file.txt)
+mem 'content of file'
+fwrite $filepath ^ # write mem (^) on the $filepath (/path/to/file.txt)
 ```
 
 the `fwrite` operation gets two argument: file path and new content of file
@@ -1121,25 +1117,25 @@ arrays are a list from variables
 look at this example:
 
 ```bash
-$names = ['parsa', 'pashmak', 'jack'];
+$names = ['parsa', 'pashmak', 'jack']
 
-println $names; # output: ['parsa', 'pashmak', 'jack']
-println $names[0]; # output: parsa
-println $names[1]; # output: pashmak
-println $names[2]; # output: jack
+println $names # output: ['parsa', 'pashmak', 'jack']
+println $names[0] # output: parsa
+println $names[1] # output: pashmak
+println $names[2] # output: jack
 ```
 
 this is a example about array and loop:
 
 ```bash
-$names = ['parsa', 'pashmak', 'jack'];
+$names = ['parsa', 'pashmak', 'jack']
 
-$i = 0;
+$i = 0
 
 loop
-    println $names[$i];
-    $i = $i + 1;
-while $i < len($names);
+    println $names[$i]
+    $i = $i + 1
+while $i < len($names)
 ```
 
 output:
@@ -1156,11 +1152,11 @@ the above code prints names one by one
 you can add new item to a array:
 
 ```bash
-$myarray = ['red', 'green', 'blue'];
-println $myarray; # output: ['red', 'green', 'blue']
+$myarray = ['red', 'green', 'blue']
+println $myarray # output: ['red', 'green', 'blue']
 
-mem 'yellow'; arraypush $myarray ^; # add mem (^) to the $myarray
-println $myarray; # output: ['red', 'green', 'blue', 'yellow']
+mem 'yellow'; arraypush $myarray ^ # add mem (^) to the $myarray
+println $myarray # output: ['red', 'green', 'blue', 'yellow']
 ```
 
 `arraypush` operation gets two argument: array and new item you want to add to the array
@@ -1169,11 +1165,11 @@ println $myarray; # output: ['red', 'green', 'blue', 'yellow']
 you can delete a item from array:
 
 ```bash
-$myarray = ['red', 'green', 'blue'];
-println $myarray; # output: ['red', 'green', 'blue']
+$myarray = ['red', 'green', 'blue']
+println $myarray # output: ['red', 'green', 'blue']
 
-mem 1; arraypop $myarray ^; # remove index mem (^) from $myarray
-println $myarray; # output: ['red', 'blue']
+mem 1; arraypop $myarray ^ # remove index mem (^) from $myarray
+println $myarray # output: ['red', 'blue']
 ```
 
 `arraypop` operation gets two argument: array and index of that item you want to be remove from array
@@ -1185,7 +1181,7 @@ println $myarray; # output: ['red', 'blue']
 we may recive some errors in our program. for example:
 
 ```bash
-out $this_var_not_found;
+out $this_var_not_found
 ```
 
 output:
@@ -1199,7 +1195,7 @@ or:
 
 ```bash
 # undefined operation
-outttt ^;
+outttt ^
 ```
 
 output:
@@ -1218,17 +1214,17 @@ we can handle errors with `try-endtry` statement.
 look at this example:
 
 ```bash
-try handle_error;
-    out $somevar;
-endtry;
+try handle_error
+    out $somevar
+endtry
 
-goto after_error;
+goto after_error
 
-section handle_error;
+section handle_error
 
-mem 'some errors raised\n'; out ^;
+mem 'some errors raised\n'; out ^
 
-section after_error;
+section after_error
 ```
 
 when you write code between `try <section-name> ... endtry`, errors will not raised in them and if an error is raised, that section where passed to try operation will run.
@@ -1240,27 +1236,27 @@ this is helpful.
 when error is raised in try statement, error data will put in mem (^):
 
 ```bash
-try handle_error;
-    out $somevar;
-endtry;
+try handle_error
+    out $somevar
+endtry
 
-goto after_error;
+goto after_error
 
-section handle_error;
+section handle_error
 
-$ex = ^; # copy mem (^) to $ex variable (this includes information about raised error)
-println $ex; # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
+$ex = ^ # copy mem (^) to $ex variable (this includes information about raised error)
+println $ex # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
 
-section after_error;
+section after_error
 ```
 
 #### raising errors
 ```bash
-println 'program started';
+println 'program started'
 
-raise 'MyError', 'this is my error';
+raise 'MyError', 'this is my error'
 
-println 'this will not print';
+println 'this will not print'
 ```
 
 output:
@@ -1284,31 +1280,31 @@ here is some commands about OS
 change directory. with this command you can change program working directory:
 
 ```bash
-mem '/tmp'; chdir ^;
+mem '/tmp'; chdir ^
 
 # or
 
-$path = '/tmp';
-chdir $path; # use variable
+$path = '/tmp'
+chdir $path # use variable
 ```
 
 also you can use `std_chdir` function:
 
 ```bash
 # in this function you can pass path directly and not need to set path in mem before it
-std_chdir '/tmp';
+std_chdir '/tmp'
 # or
-std_chdir $path;
+std_chdir $path
 # or
-std_chdir $path + '/path';
+std_chdir $path + '/path'
 ```
 
 ### cwd
 get current working directory.
 
 ```bash
-cwd;
-out ^;
+cwd
+out ^
 ```
 
 output:
@@ -1320,16 +1316,16 @@ output:
 or:
 
 ```bash
-cwd;
-$cwd = ^;
-println $cwd;
+cwd
+$cwd = ^
+println $cwd
 ```
 
 or:
 
 ```bash
-$cwd = ^ cwd;
-println $cwd;
+$cwd = ^ cwd
+println $cwd
 ```
 
 this command puts current working directory path in mem
@@ -1338,20 +1334,20 @@ this command puts current working directory path in mem
 you can run shell commands by this command:
 
 ```bash
-mem 'ls /tmp'; system ^;
+mem 'ls /tmp'; system ^
 
 # or
 
-$cmd = 'ls /tmp';
-system $cmd; # use variable
+$cmd = 'ls /tmp'
+system $cmd # use variable
 ```
 
 also you can use `sys` function to have easier function:
 
 ```bash
-sys 'ls /tmp';
+sys 'ls /tmp'
 # or
-sys $cmd;
+sys $cmd
 ```
 
 you can pass value directly to `sys`
@@ -1359,8 +1355,8 @@ you can pass value directly to `sys`
 also after run `system` or `sys`, command exit code will put in `mem`:
 
 ```bash
-sys 'ls /';
-out ^; # output: 0
+sys 'ls /'
+out ^ # output: 0
 ```
 
 ### return
@@ -1369,11 +1365,11 @@ this command exits program
 look at this example:
 
 ```bash
-mem 'first print\n'; out ^;
+mem 'first print\n'; out ^
 
-return;
+return
 
-mem 'last print\n'; out ^; # this will not print
+mem 'last print\n'; out ^ # this will not print
 ```
 
 output:
@@ -1385,8 +1381,8 @@ first print
 ###### return with exit code:
 
 ```bash
-mem 'hello world\n'; out ^;
-return 1;
+mem 'hello world\n'; out ^
+return 1
 ```
 
 exit code of program will be `1`
@@ -1394,8 +1390,8 @@ exit code of program will be `1`
 or you can use `exit` command:
 
 ```bash
-exit; # with 0 default exit code
-exit 10; # with 10
+exit # with 0 default exit code
+exit 10 # with 10
 ```
 
 ### access to pashmakinfo
@@ -1403,7 +1399,7 @@ exit 10; # with 10
 if you want to access pashmak interpreter info, look at this example:
 
 ```bash
-println $pashmakinfo;
+println $pashmakinfo
 ```
 
 output is something like this:
@@ -1416,7 +1412,7 @@ this variable is a dictonary.
 for example, to access pashmak version:
 
 ```bash
-println $pashmakinfo['version'];
+println $pashmakinfo['version']
 ```
 
 output:
@@ -1433,8 +1429,8 @@ and `$pashmakinfo['pythoninfo']` shows info of python.
 for example, if you run an script in `/home/parsa/myscript.pashm` with this content:
 
 ```bash
-println $__file__;
-println $__dir__;
+println $__file__
+println $__dir__
 ```
 
 output is:
@@ -1458,28 +1454,28 @@ for example, we have 2 files: `app.pashm`, `fib.pashm`.
 
 ###### fib.pashm:
 ```bash
-func fib;
-    $a = 1;
-    $b = 1;
+func fib
+    $a = 1
+    $b = 1
 
     loop;
-        println $b;
+        println $b
 
-        $tmp_a = $a;
-        $tmp_b = $b;
+        $tmp_a = $a
+        $tmp_b = $b
 
-        $a = $tmp_b;
+        $a = $tmp_b
 
-        $b = $tmp_a + $tmp_b;
-    while $b < 10000;
-endfunc;
+        $b = $tmp_a + $tmp_b
+    while $b < 10000
+endfunc
 ```
 
 ###### app.pashm:
 ```bash
-mem 'fib.pashm'; include ^;
+mem 'fib.pashm'; include ^
 
-fib;
+fib
 ```
 
 when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example, here we used a function from the `fib.pashm` file.
@@ -1488,9 +1484,9 @@ also you can use `import` function to have easier syntax:
 
 ```bash
 # you can pass value directly to this
-import 'fib.pashm';
+import 'fib.pashm'
 
-fib;
+fib
 ```
 
 this is very useful.
@@ -1504,15 +1500,15 @@ name space is a very useful system to split sections of program.
 look at this example:
 
 ```bash
-namespace App;
-    func say_hello;
-        println 'hello world';
-    endfunc;
+namespace App
+    func say_hello
+        println 'hello world'
+    endfunc
 
-    say_hello;
-endnamespace;
+    say_hello
+endnamespace
 
-App.say_hello;
+App.say_hello
 ```
 
 output:
@@ -1535,20 +1531,20 @@ for example here, our namespace name is `App` and out function name is `say_hell
 also look at this example:
 
 ```bash
-namespace First;
-    func dosomething;
-        println 'i am from First';
-    endfunc;
-endnamespace;
+namespace First
+    func dosomething
+        println 'i am from First'
+    endfunc
+endnamespace
 
-namespace Last;
-    func dosomething;
-        println 'i am from Last';
-    endfunc;
-endnamespace;
+namespace Last
+    func dosomething
+        println 'i am from Last'
+    endfunc
+endnamespace
 
-First.dosomething;
-Last.dosomething;
+First.dosomething
+Last.dosomething
 ```
 
 output:
@@ -1561,30 +1557,30 @@ i am from Last
 also you can use `endns` keyword insted of `endnamespace` (this is from stdlib):
 
 ```bash
-namespace App;
-    func say_hello;
-        println 'hello world';
-    endfunc;
+namespace App
+    func say_hello
+        println 'hello world'
+    endfunc
 
-    say_hello;
-endns;
+    say_hello
+endns
 
-App.say_hello;
+App.say_hello
 ```
 
 also namespace system is sync with variables:
 
 ```bash
-namespace App;
-    $name = 'parsa';
-    println $name; # output: parsa
-    println $App.name; # output: parsa
-endns;
+namespace App
+    $name = 'parsa'
+    println $name # output: parsa
+    println $App.name # output: parsa
+endns
 
-println $App.name; # output: parsa
+println $App.name # output: parsa
 
 # but this has error:
-println $name; # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
+println $name # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
 ```
 
 ##### NOTE: name of namespace should not have `.` character. if you want to do this, use [subnamespace](#namespace-in-namespace-subnamespace).
@@ -1597,16 +1593,16 @@ the `use` operation is a command to use content of a namespace.
 look at this example:
 
 ```bash
-namespace App;
-    func dosomething;
-        println 'hello world';
-    endfunc;
+namespace App
+    func dosomething
+        println 'hello world'
+    endfunc
 
-    $name = 'parsa';
-endns;
+    $name = 'parsa'
+endns
 
-App.dosomething;
-println $App.name;
+App.dosomething
+println $App.name
 ```
 
 output:
@@ -1622,21 +1618,21 @@ but i want to don't use namespace prefix and just type name of function to call 
 look at this example:
 
 ```bash
-namespace App;
-    func dosomething;
-        println 'hello world';
-    endfunc;
+namespace App
+    func dosomething
+        println 'hello world'
+    endfunc
 
-    $name = 'parsa\n';
-endns;
+    $name = 'parsa\n'
+endns
 
-use App;
+use App
 
-App.dosomething;
-dosomething;
+App.dosomething
+dosomething
 
-out $App.name;
-out $name;
+out $App.name
+out $name
 ```
 
 output:
@@ -1658,23 +1654,23 @@ you can declare a namespace in a namespace
 look at this example:
 
 ```bash
-namespace App;
-    func hello;
-        println 'hello world';
-    endfunc;
+namespace App
+    func hello
+        println 'hello world'
+    endfunc
 
     # declare namespace `Core` under `App`
-    namespace Core;
-        func run;
-            println 'the core';
-        endfunc;
-    endns;
-endns;
+    namespace Core
+        func run
+            println 'the core'
+        endfunc
+    endns
+endns
 
 # now we use it
-App.hello;
+App.hello
 
-App.Core.run;
+App.Core.run
 ```
 
 output:
@@ -1693,7 +1689,7 @@ you can run pashmak code from string.
 look at this example:
 
 ```bash
-mem 'println "hello world from string"'; eval ^;
+mem 'println "hello world from string"'; eval ^
 ```
 
 output:
@@ -1707,11 +1703,11 @@ this code is runed from a string
 look at this example:
 
 ```bash
-$code;
-print 'enter some code: ';
-read $code;
+$code
+print 'enter some code: '
+read $code
 
-eval $code;
+eval $code
 ```
 
 output:
@@ -1727,15 +1723,15 @@ also you can use `std_eval` function to have easier syntax:
 
 ```bash
 # you can pass value directly
-std_eval '<some-code>';
+std_eval '<some-code>'
 ```
 
 ## run python code
 you can run python code like `eval` with `python` command:
 
 ```bash
-$code = 'print("hello world from python")';
-python $code;
+$code = 'print("hello world from python")'
+python $code
 ```
 
 output:
@@ -1747,7 +1743,7 @@ hello world from python
 also you can use `py` function to pass value directly:
 
 ```bash
-py 'print("hello world")';
+py 'print("hello world")'
 ```
 
 output:
@@ -1767,10 +1763,10 @@ you can import modules with `include` operation.
 look at this example:
 
 ```bash
-mem '@hash'; include ^;
+mem '@hash'; include ^
 # or using import to have easier syntax
-import '@hash';
-import '@module_name';
+import '@hash'
+import '@module_name'
 
 # ...
 ```
@@ -1781,10 +1777,10 @@ you have to give name of module with a `@` before that to the include operation.
 with hash module, you can calculate hash sum of values:
 
 ```bash
-import '@hash';
+import '@hash'
 
-hash.sha256 "hello"; # also you can use hash.md5 and...
-out ^; # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+hash.sha256 "hello" # also you can use hash.md5 and...
+out ^ # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 ```
 
 ##### how it works?
@@ -1814,10 +1810,10 @@ with this module, you can work with time.
 this function gives you current UNIX timestamp:
 
 ```bash
-import '@time';
+import '@time'
 
-time.time;
-out ^; # output is some thing like this: `1600416438.687201`
+time.time
+out ^ # output is some thing like this: `1600416438.687201`
 ```
 
 when you call this function, this function puts the unix timestamp into mem and you can access and use that.
@@ -1826,9 +1822,9 @@ when you call this function, this function puts the unix timestamp into mem and 
 this function sleeps for secounds:
 
 ```bash
-import '@time';
+import '@time'
 
-time.sleep 2; # sleeps for 2 secounds
+time.sleep 2 # sleeps for 2 secounds
 # mem 2.4; time.sleep; # sleepss for 2.4 secounds
 ```
 
@@ -1848,20 +1844,20 @@ this module makes random numbers
 
 ##### random.randint
 ```bash
-import '@random';
+import '@random'
 
-random.randint 1, 10; # generates a random int between 1 and 10
+random.randint 1, 10 # generates a random int between 1 and 10
 
-out ^; # and puts generated random number in mem and you can access that
+out ^ # and puts generated random number in mem and you can access that
 ```
 
 ##### random.random
 ```bash
-import '@random';
+import '@random'
 
-random.random; # generates a random float less that 1
+random.random # generates a random float less that 1
 
-out ^; # and puts generated random number in mem and you can access that
+out ^ # and puts generated random number in mem and you can access that
 ```
 
 ## file module
@@ -1871,40 +1867,40 @@ with this module, you can work with files smarter.
 with this function, you can open a file:
 
 ```bash
-import '@file';
+import '@file'
 
-file.open '/path/to/file.txt', 'r'; # first argument is file path, and second argument is open type. here is `r` means `read`
+file.open '/path/to/file.txt', 'r' # first argument is file path, and second argument is open type. here is `r` means `read`
 
 # now, opened file is in the mem. we can copy it in a variable
 
-$f = ^;
+$f = ^
 
 # or
 
-$f = ^ file.open '/path/to/file.txt', 'r';
+$f = ^ file.open '/path/to/file.txt', 'r'
 ```
 
 ##### file.read
 wtih this function, you can read opened file:
 
 ```bash
-import '@file';
+import '@file'
 
-$f = ^ file.open '/path/to/file.txt', 'r';
+$f = ^ file.open '/path/to/file.txt', 'r'
 
-file.read $f; # now, content of file is in the mem
-out ^; # output is content of file
+file.read $f # now, content of file is in the mem
+out ^ # output is content of file
 ```
 
 ##### file.write
 with this function, you can write on opened file:
 
 ```bash
-import '@file';
+import '@file'
 
-$f = ^ file.open '/path/to/file.txt', 'w'; # open type is `w` (write)
+$f = ^ file.open '/path/to/file.txt', 'w' # open type is `w` (write)
 
-file.write $f, 'new content'; # first arg is opened file and second arg is content.
+file.write $f, 'new content' # first arg is opened file and second arg is content.
 ```
 
 now file is changed
@@ -1913,25 +1909,25 @@ now file is changed
 with this function you can close file after your work:
 
 ```bash
-import '@file';
+import '@file'
 
-$f = ^ file.open '/path/to/file.txt', 'r';
+$f = ^ file.open '/path/to/file.txt', 'r'
 
 # work with file
 
-file.close $f; # close file after work
+file.close $f # close file after work
 ```
 
 ##### example:
 
 ```bash
-import '@file';
+import '@file'
 
-$file = ^ file.open '/path/to/file.txt', 'r';
+$file = ^ file.open '/path/to/file.txt', 'r'
 
-$content = ^ file.read $file;
+$content = ^ file.read $file
 
-print 'content of file is: ' + $content;
+print 'content of file is: ' + $content
 ```
 
 ###### more modules comming soon...
@@ -1942,7 +1938,7 @@ module path is a system to add pashmak scripts as modules to pashmak. for exampl
 for example, we want to import that module:
 
 ```bash
-import '@mymodule';
+import '@mymodule'
 ```
 
 to do this, you have to add directory `/var/lib/pashmak_modules` to pashmak path:
@@ -1973,43 +1969,43 @@ look at this example:
 
 ```bash
 # print
-print "hello world\n"; # INSTEAD OF `mem 'hello world\n'; out ^;`
+print "hello world\n" # INSTEAD OF `mem 'hello world\n'; out ^;`
 
 # println
-println "hello world"; # without using `\n` in the end of string
+println "hello world" # without using `\n` in the end of string
 
 # import
-import 'somefile.pashm';
-import '@hash'; # INSTEAD OF `mem '@hash'; include ^`
+import 'somefile.pashm'
+import '@hash' # INSTEAD OF `mem '@hash'; include ^`
 
 # exit
-exit; # exits program
-exit 2; # exits with exit code
+exit # exits program
+exit 2 # exits with exit code
 # INSTEAD OF `return;` and `return 2;`
 
 # py
-py "print('hello world from python')"; # INSTEAD OF `mem "print('hello world from python')"; python ^`
+py "print('hello world from python')" # INSTEAD OF `mem "print('hello world from python')"; python ^`
 
 # sys
-sys 'ls /tmp'; # INSTEAD OF `mem 'ls /tmp'; system ^;`
+sys 'ls /tmp' # INSTEAD OF `mem 'ls /tmp'; system ^;`
 
 # std_chdir
-std_chdir "/tmp"; # INSTEAD OF `mem '/tmp'; chdir ^;`
+std_chdir "/tmp" # INSTEAD OF `mem '/tmp'; chdir ^;`
 
 # std_eval
-std_eval 'mem "hi"\; out ^\;'; # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
+std_eval 'mem "hi"\; out ^\;' # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
 
 # gset
-gset 'somevar', 'new global value'; # you learned this command in functions section
+gset 'somevar', 'new global value' # you learned this command in functions section
 ```
 
 ##### raising errors
 ```bash
-print 'program started\n';
+print 'program started\n'
 
-raise 'MyError', 'this is my error';
+raise 'MyError', 'this is my error'
 
-print 'this will not print\n';
+print 'this will not print\n'
 ```
 
 output:
@@ -2030,7 +2026,7 @@ the stdlib has a function named `assert`. this function is for testing and asser
 look at this example:
 
 ```bash
-assert 2 == 3;
+assert 2 == 3
 ```
 
 output:
@@ -2043,11 +2039,11 @@ AssertError:
 you can pass a condition or boolean value to assert function. if that is True, this function do nothing:
 
 ```bash
-assert 2 == 2;
-assert True;
+assert 2 == 2
+assert True
 
-$age = 18;
-assert $age > 10;
+$age = 18
+assert $age > 10
 ```
 
 the above code do nothing, because all of values passed to assert are True.

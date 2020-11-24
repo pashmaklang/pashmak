@@ -5,15 +5,15 @@ name space is a very useful system to split sections of program.
 look at this example:
 
 ```bash
-namespace App;
-    func say_hello;
-        println 'hello world';
-    endfunc;
+namespace App
+    func say_hello
+        println 'hello world'
+    endfunc
 
-    say_hello;
-endnamespace;
+    say_hello
+endnamespace
 
-App.say_hello;
+App.say_hello
 ```
 
 output:
@@ -36,20 +36,20 @@ for example here, our namespace name is `App` and out function name is `say_hell
 also look at this example:
 
 ```bash
-namespace First;
-    func dosomething;
-        println 'i am from First';
-    endfunc;
-endnamespace;
+namespace First
+    func dosomething
+        println 'i am from First'
+    endfunc
+endnamespace
 
-namespace Last;
-    func dosomething;
-        println 'i am from Last';
-    endfunc;
-endnamespace;
+namespace Last
+    func dosomething
+        println 'i am from Last'
+    endfunc
+endnamespace
 
-First.dosomething;
-Last.dosomething;
+First.dosomething
+Last.dosomething
 ```
 
 output:
@@ -62,30 +62,30 @@ i am from Last
 also you can use `endns` keyword insted of `endnamespace` (this is from stdlib):
 
 ```bash
-namespace App;
-    func say_hello;
-        println 'hello world';
-    endfunc;
+namespace App
+    func say_hello
+        println 'hello world'
+    endfunc
 
-    say_hello;
-endns;
+    say_hello
+endns
 
-App.say_hello;
+App.say_hello
 ```
 
 also namespace system is sync with variables:
 
 ```bash
-namespace App;
-    $name = 'parsa';
-    println $name; # output: parsa
-    println $App.name; # output: parsa
-endns;
+namespace App
+    $name = 'parsa'
+    println $name # output: parsa
+    println $App.name # output: parsa
+endns
 
-println $App.name; # output: parsa
+println $App.name # output: parsa
 
 # but this has error:
-println $name; # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
+println $name # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
 ```
 
 ##### NOTE: name of namespace should not have `.` character. if you want to do this, use [subnamespace](#namespace-in-namespace-subnamespace).
@@ -98,16 +98,16 @@ the `use` operation is a command to use content of a namespace.
 look at this example:
 
 ```bash
-namespace App;
-    func dosomething;
-        println 'hello world';
-    endfunc;
+namespace App
+    func dosomething
+        println 'hello world'
+    endfunc
 
-    $name = 'parsa';
-endns;
+    $name = 'parsa'
+endns
 
-App.dosomething;
-println $App.name;
+App.dosomething
+println $App.name
 ```
 
 output:
@@ -123,21 +123,21 @@ but i want to don't use namespace prefix and just type name of function to call 
 look at this example:
 
 ```bash
-namespace App;
-    func dosomething;
-        println 'hello world';
-    endfunc;
+namespace App
+    func dosomething
+        println 'hello world'
+    endfunc
 
-    $name = 'parsa\n';
-endns;
+    $name = 'parsa\n'
+endns
 
-use App;
+use App
 
-App.dosomething;
-dosomething;
+App.dosomething
+dosomething
 
-out $App.name;
-out $name;
+out $App.name
+out $name
 ```
 
 output:
@@ -159,23 +159,23 @@ you can declare a namespace in a namespace
 look at this example:
 
 ```bash
-namespace App;
-    func hello;
-        println 'hello world';
-    endfunc;
+namespace App
+    func hello
+        println 'hello world'
+    endfunc
 
     # declare namespace `Core` under `App`
-    namespace Core;
-        func run;
-            println 'the core';
-        endfunc;
-    endns;
-endns;
+    namespace Core
+        func run
+            println 'the core'
+        endfunc
+    endns
+endns
 
 # now we use it
-App.hello;
+App.hello
 
-App.Core.run;
+App.Core.run
 ```
 
 output:

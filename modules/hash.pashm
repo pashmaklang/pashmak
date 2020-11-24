@@ -1,81 +1,79 @@
 #
 # hash.pashm
 #
-# the pashmak project
+# The Pashmak Project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
 #
-# This file is part of pashmak.
+# This file is part of Pashmak.
 #
-# pashmak is free software: you can redistribute it and/or modify
+# Pashmak is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# pashmak is distributed in the hope that it will be useful,
+# Pashmak is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
-##################################################
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
 
-namespace hash;
+namespace hash
+	func blake2b ($value)
+		py 'self.mem = hashlib.blake2b("' + $value + '".encode()).hexdigest()'
+	endfunc
 
-	func blake2b ($value);
-		py 'self.mem = hashlib.blake2b("' + $value + '".encode()).hexdigest()';
-	endfunc;
+	func blake2s ($value)
+		py 'self.mem = hashlib.blake2s("' + $value + '".encode()).hexdigest()'
+	endfunc
 
-	func blake2s ($value);
-		py 'self.mem = hashlib.blake2s("' + $value + '".encode()).hexdigest()';
-	endfunc;
+	func md5 ($value)
+		py 'self.mem = hashlib.md5("' + $value + '".encode()).hexdigest()'
+	endfunc
 
-	func md5 ($value);
-		py 'self.mem = hashlib.md5("' + $value + '".encode()).hexdigest()';
-	endfunc;
+	func sha1 ($value)
+		py 'self.mem = hashlib.sha1("' + $value + '".encode()).hexdigest()'
+	endfunc
 
-	func sha1 ($value);
-		py 'self.mem = hashlib.sha1("' + $value + '".encode()).hexdigest()';
-	endfunc;
+	func sha224 ($value)
+		py 'self.mem = hashlib.sha224("' + $value + '".encode()).hexdigest()'
+	endfunc
 
-	func sha224 ($value);
-		py 'self.mem = hashlib.sha224("' + $value + '".encode()).hexdigest()';
-	endfunc;
+	func sha256 ($value)
+		py 'self.mem = hashlib.sha256("' + $value + '".encode()).hexdigest()'
+	endfunc
 
-	func sha256 ($value);
-		py 'self.mem = hashlib.sha256("' + $value + '".encode()).hexdigest()';
-	endfunc;
+	func sha384 ($value)
+		py 'self.mem = hashlib.sha384("' + $value + '".encode()).hexdigest()'
+	endfunc
 
-	func sha384 ($value);
-		py 'self.mem = hashlib.sha384("' + $value + '".encode()).hexdigest()';
-	endfunc;
+	func sha3_224 ($value)
+		py 'self.mem = hashlib.sha3_224("' + $value + '".encode()).hexdigest()'
+	endfunc
 
-	func sha3_224 ($value);
-		py 'self.mem = hashlib.sha3_224("' + $value + '".encode()).hexdigest()';
-	endfunc;
+	func sha3_256 ($value)
+		py 'self.mem = hashlib.sha3_256("' + $value + '".encode()).hexdigest()'
+	endfunc
 
-	func sha3_256 ($value);
-		py 'self.mem = hashlib.sha3_256("' + $value + '".encode()).hexdigest()';
-	endfunc;
+	func sha3_384 ($value)
+		py 'self.mem = hashlib.sha3_384("' + $value + '".encode()).hexdigest()'
+	endfunc
 
-	func sha3_384 ($value);
-		py 'self.mem = hashlib.sha3_384("' + $value + '".encode()).hexdigest()';
-	endfunc;
+	func sha3_512 ($value)
+		py 'self.mem = hashlib.sha3_512("' + $value + '".encode()).hexdigest()'
+	endfunc
 
-	func sha3_512 ($value);
-		py 'self.mem = hashlib.sha3_512("' + $value + '".encode()).hexdigest()';
-	endfunc;
+	func sha512 ($value)
+		py 'self.mem = hashlib.sha512("' + $value + '".encode()).hexdigest()'
+	endfunc
 
-	func sha512 ($value);
-		py 'self.mem = hashlib.sha512("' + $value + '".encode()).hexdigest()';
-	endfunc;
+	func shake_128 ($value)
+		py 'self.mem = hashlib.shake_128("' + str($value[0]) + '".encode()).hexdigest(' + str($value[1]) + ')'
+	endfunc
 
-	func shake_128 ($value);
-		py 'self.mem = hashlib.shake_128("' + str($value[0]) + '".encode()).hexdigest(' + str($value[1]) + ')';
-	endfunc;
-
-	func shake_256 ($value);
-		py 'self.mem = hashlib.shake_256("' + str($value[0]) + '".encode()).hexdigest(' + str($value[1]) + ')';
-	endfunc;
-
-endnamespace;
+	func shake_256 ($value)
+		py 'self.mem = hashlib.shake_256("' + str($value[0]) + '".encode()).hexdigest(' + str($value[1]) + ')'
+	endfunc
+endns

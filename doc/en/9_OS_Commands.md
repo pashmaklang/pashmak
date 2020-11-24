@@ -6,31 +6,31 @@ here is some commands about OS
 change directory. with this command you can change program working directory:
 
 ```bash
-mem '/tmp'; chdir ^;
+mem '/tmp'; chdir ^
 
 # or
 
-$path = '/tmp';
-chdir $path; # use variable
+$path = '/tmp'
+chdir $path # use variable
 ```
 
 also you can use `std_chdir` function:
 
 ```bash
 # in this function you can pass path directly and not need to set path in mem before it
-std_chdir '/tmp';
+std_chdir '/tmp'
 # or
-std_chdir $path;
+std_chdir $path
 # or
-std_chdir $path + '/path';
+std_chdir $path + '/path'
 ```
 
 ### cwd
 get current working directory.
 
 ```bash
-cwd;
-out ^;
+cwd
+out ^
 ```
 
 output:
@@ -42,16 +42,16 @@ output:
 or:
 
 ```bash
-cwd;
-$cwd = ^;
-println $cwd;
+cwd
+$cwd = ^
+println $cwd
 ```
 
 or:
 
 ```bash
-$cwd = ^ cwd;
-println $cwd;
+$cwd = ^ cwd
+println $cwd
 ```
 
 this command puts current working directory path in mem
@@ -60,20 +60,20 @@ this command puts current working directory path in mem
 you can run shell commands by this command:
 
 ```bash
-mem 'ls /tmp'; system ^;
+mem 'ls /tmp'; system ^
 
 # or
 
-$cmd = 'ls /tmp';
-system $cmd; # use variable
+$cmd = 'ls /tmp'
+system $cmd # use variable
 ```
 
 also you can use `sys` function to have easier function:
 
 ```bash
-sys 'ls /tmp';
+sys 'ls /tmp'
 # or
-sys $cmd;
+sys $cmd
 ```
 
 you can pass value directly to `sys`
@@ -81,8 +81,8 @@ you can pass value directly to `sys`
 also after run `system` or `sys`, command exit code will put in `mem`:
 
 ```bash
-sys 'ls /';
-out ^; # output: 0
+sys 'ls /'
+out ^ # output: 0
 ```
 
 ### return
@@ -91,11 +91,11 @@ this command exits program
 look at this example:
 
 ```bash
-mem 'first print\n'; out ^;
+mem 'first print\n'; out ^
 
-return;
+return
 
-mem 'last print\n'; out ^; # this will not print
+mem 'last print\n'; out ^ # this will not print
 ```
 
 output:
@@ -107,8 +107,8 @@ first print
 ###### return with exit code:
 
 ```bash
-mem 'hello world\n'; out ^;
-return 1;
+mem 'hello world\n'; out ^
+return 1
 ```
 
 exit code of program will be `1`
@@ -116,8 +116,8 @@ exit code of program will be `1`
 or you can use `exit` command:
 
 ```bash
-exit; # with 0 default exit code
-exit 10; # with 10
+exit # with 0 default exit code
+exit 10 # with 10
 ```
 
 ### access to pashmakinfo
@@ -125,7 +125,7 @@ exit 10; # with 10
 if you want to access pashmak interpreter info, look at this example:
 
 ```bash
-println $pashmakinfo;
+println $pashmakinfo
 ```
 
 output is something like this:
@@ -138,7 +138,7 @@ this variable is a dictonary.
 for example, to access pashmak version:
 
 ```bash
-println $pashmakinfo['version'];
+println $pashmakinfo['version']
 ```
 
 output:
@@ -155,8 +155,8 @@ and `$pashmakinfo['pythoninfo']` shows info of python.
 for example, if you run an script in `/home/parsa/myscript.pashm` with this content:
 
 ```bash
-println $__file__;
-println $__dir__;
+println $__file__
+println $__dir__
 ```
 
 output is:

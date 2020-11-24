@@ -1,6 +1,11 @@
 # Pashmak Changelog
 
-## 0.2 (2020-11-24)
+## v0.2.1 (2020-11-24)
+
+#### Fixed
+- fixed try-in-try bug in try-endtry system
+
+## v0.2 (2020-11-24)
 
 #### Added
 - added module path system

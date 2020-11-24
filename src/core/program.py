@@ -1,24 +1,24 @@
 #
 # program.py
 #
-# the pashmak project
+# The Pashmak Project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
 #
-# This file is part of pashmak.
+# This file is part of Pashmak.
 #
-# pashmak is free software: you can redistribute it and/or modify
+# Pashmak is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# pashmak is distributed in the hope that it will be useful,
+# Pashmak is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
-##################################################
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
 
 ''' Pashmak program object '''
 
@@ -43,7 +43,7 @@ class Program(helpers.Helpers):
         self.is_test = is_test # program is in testing state
         self.output = '' # program output (for testing state)
         self.runtime_error = None # program raised error (for testing state)
-        self.is_in_try = None # says program is in try-endtry block
+        self.try_endtry = [] # says program is in try-endtry block
         self.runed_functions = [] # runed functions for stop function multi calling in one operation
         self.namespaces_tree = [] # namespaces tree
         self.used_namespaces = [] # list of used namespaces
@@ -113,9 +113,9 @@ class Program(helpers.Helpers):
     def raise_error(self, error_type: str, message: str, op: dict):
         ''' Raise error in program '''
         # check is in try
-        if self.is_in_try != None:
-            section_index = self.is_in_try
-            self.is_in_try = None
+        if self.try_endtry:
+            section_index = self.try_endtry[-1]
+            self.try_endtry.pop()
             new_step = self.sections[str(section_index)]
             self.current_step = new_step-1
 
