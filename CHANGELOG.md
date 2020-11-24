@@ -1,5 +1,13 @@
 # Pashmak Changelog
 
+## next release
+
+#### Added
+- added module path system
+
+#### Fixed
+- raise error when namespace or function name contains `.` character
+
 ## v0.1.1
 
 #### Fixed
