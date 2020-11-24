@@ -20,10 +20,10 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-println 'i am included';
+println 'i am included'
 
-$included_var = 'included value';
+$included_var = 'included value'
 
-func testfunc;
-    println 'i am included func';
-endfunc;
+func testfunc
+    println 'i am included func'
+endfunc

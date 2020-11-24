@@ -23,12 +23,12 @@
 # We have a array from names. we in here print them one by one
 
 # declare $names array
-$names = ['parsa', 'pashmak', 'something'];
+$names = ['parsa', 'pashmak', 'something']
 
 # set a counter for loop
-$i = 0;
+$i = 0
 
-loop;
-    println $names[$i];
-    $i = $i + 1;
-while $i < len($names);
+loop
+    println $names[$i]
+    $i = $i + 1
+while $i < len($names)

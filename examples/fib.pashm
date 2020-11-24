@@ -22,22 +22,22 @@
 
 # Printing the fibonacci pattern
 
-func fib ($n);
-    $a = 1;
-    $b = 1;
+func fib ($n)
+    $a = 1
+    $b = 1
 
-    println $a;
+    println $a
 
-    loop;
-        println $b;
+    loop
+        println $b
 
-        $tmp_a = $a;
-        $tmp_b = $b;
+        $tmp_a = $a
+        $tmp_b = $b
 
-        $a = $tmp_b;
+        $a = $tmp_b
 
-        $b = $tmp_a + $tmp_b;
-    while $b < $n;
-endfunc;
+        $b = $tmp_a + $tmp_b
+    while $b < $n
+endfunc
 
-fib 10000;
+fib 10000
