@@ -20,71 +20,71 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-func print;
-    out ^;
+func print
+    out ^
+endfunc
+
+func import
+    include ^
 endfunc;
 
-func import;
-    include ^;
-endfunc;
+func exit ($code)
+    mem type($code) != int; gotoif stdlib_exit_default_exit_with_zero_code
+    return $code
+    section stdlib_exit_default_exit_with_zero_code
+    return 0
+endfunc
 
-func exit ($code);
-    mem type($code) != int; gotoif stdlib_exit_default_exit_with_zero_code;
-    return $code;
-    section stdlib_exit_default_exit_with_zero_code;
-    return 0;
-endfunc;
+func py
+    python ^
+endfunc
 
-func py;
-    python ^;
-endfunc;
+func sys
+    system ^
+endfunc
 
-func sys;
-    system ^;
-endfunc;
+func std_chdir
+    chdir ^
+endfunc
 
-func std_chdir;
-    chdir ^;
-endfunc;
+func std_eval
+    eval ^
+endfunc
 
-func std_eval;
-    eval ^;
-endfunc;
+func endns
+    endnamespace
+endfunc
 
-func endns;
-    endnamespace;
-endfunc;
+func raise ($exdata)
+	mem "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', op)"
+    python ^
+endfunc
 
-func raise ($exdata);
-	mem "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', op)";
-    python ^;
-endfunc;
+func assert
+    gotoif tmp_assert_after_section
+    raise 'AssertError', 'asserting that false is true'
+    section tmp_assert_after_section
+endfunc
 
-func assert;
-    gotoif tmp_assert_after_section;
-    raise 'AssertError', 'asserting that false is true';
-    section tmp_assert_after_section;
-endfunc;
+func gset ($args)
+	mem 'self.variables["' + $args[0] + '"] = self.get_var("args")[1]'
+	python ^
+endfunc
 
-func gset ($args);
-	mem 'self.variables["' + $args[0] + '"] = self.get_var("args")[1]';
-	python ^;
-endfunc;
+func println ($value)
+    print str($value) + '\\n'
+endfunc
 
-func println ($value);
-    print str($value) + '\\n';
-endfunc;
+func printl ($value)
+    println $value
+endfunc
 
-func printl ($value);
-    println $value;
-endfunc;
+func loop
+    section loop
+endfunc
 
-func loop;
-    section loop;
-endfunc;
+func while
+    gotoif loop
+endfunc
 
-func while;
-    gotoif loop;
-endfunc;
-
-$pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")};
+$pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}

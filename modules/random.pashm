@@ -20,14 +20,12 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-namespace random;
+namespace random
+    func randint ($args)
+        py 'self.mem = random.randint(' + str($args[0]) + ',' + str($args[1]) + ')'
+    endfunc
 
-    func randint ($args);
-        py 'self.mem = random.randint(' + str($args[0]) + ',' + str($args[1]) + ')';
-    endfunc;
-
-    func random;
-        py 'self.mem = random.random()';
-    endfunc;
-
-endnamespace;
+    func random
+        py 'self.mem = random.random()'
+    endfunc
+endns

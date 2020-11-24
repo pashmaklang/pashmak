@@ -20,26 +20,24 @@
 # along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
 ##################################################
 
-namespace time;
+namespace time
+    func time
+        py 'self.mem = time.time()'
+    endfunc
 
-    func time;
-        py 'self.mem = time.time()';
-    endfunc;
+    func sleep ($time_to_sleep)
+        py 'self.mem = time.sleep(' + str($time_to_sleep) + ')'
+    endfunc
 
-    func sleep ($time_to_sleep);
-        py 'self.mem = time.sleep(' + str($time_to_sleep) + ')';
-    endfunc;
+    func ctime
+        py 'self.mem = time.ctime()'
+    endfunc
 
-    func ctime;
-        py 'self.mem = time.ctime()';
-    endfunc;
+    func gmtime
+        py 'self.mem = time.gmtime()'
+    endfunc
 
-    func gmtime;
-        py 'self.mem = time.gmtime()';
-    endfunc;
-
-    func localtime;
-        py 'self.mem = time.localtime()';
-    endfunc;
-
-endnamespace;
+    func localtime
+        py 'self.mem = time.localtime()'
+    endfunc
+endnamespace
