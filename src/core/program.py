@@ -98,6 +98,11 @@ class Program(helpers.Helpers):
         for k in self.sections:
             if self.sections[k] > after_index:
                 self.sections[k] = self.sections[k] + 1
+        i = 0
+        while i < len(self.runed_functions):
+            if self.runed_functions[i] > after_index:
+                self.runed_functions[i] = self.runed_functions[i] + 1
+            i += 1
 
     def raise_error(self, error_type: str, message: str, op: dict):
         ''' Raise error in program '''

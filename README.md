@@ -1,6 +1,6 @@
 # Pashmak Programming Language
-hi there. this is pashmak programming language. pashmak is an interpreter wrote in python.
-the pashmak scripts has cool and pashmaki syntax.
+Hi there. this is Pashmak programming language. Pashmak is an interpreter written in Python.
+Pashmak scripts have cool and pashmaki syntax.
 
 ### hello world!
 this is a simple hello world script in pashmak:
@@ -10,10 +10,10 @@ println 'hello world';
 ```
 
 ## Online interpreter
-if you want to test pashmak without installing and run codes online, go to [Pashmak online interpreter](https://pashmio-parsampsh.fandogh.cloud/)
+if you want to test pashmak without installing and need to run it online, go to [Pashmak online interpreter](https://pashmio-parsampsh.fandogh.cloud/)
 
 ## Authors
-pashmak is writed by [parsampsh](https://github.com/parsampsh) and [contributors](https://github.com/parsampsh/pashmak/graphs/contributors)
+pashmak is written by [parsampsh](https://github.com/parsampsh) and [contributors](https://github.com/parsampsh/pashmak/graphs/contributors)
 
 ## Contributing
 if you want to contribute to this project, read [Contributing Guide](CONTRIBUTING.md)
@@ -48,7 +48,7 @@ read the following Documentation to learn pashmak.
 
 ### GNU/Linux/Unix
 this installation guide is for GNU/Linux/UNIX systems. also compile process needs `pyinstaller`.
-if you don't have pyinstaller, enter `pip3 install pyinstaller` in terminal
+if you don't have pyinstaller, type `pip3 install pyinstaller` in terminal
 
 compile & install:
 
@@ -77,7 +77,7 @@ make
 sudo make install
 ```
 
-above commands installs latest (development) state of program
+above commands install latest (development) state of the program
 
 now you can run interpreter in terminal:
 
@@ -120,6 +120,11 @@ but also you can compile it with `pyinstaller`. if you don't have pyinstaller, e
 compile:
 
 ```bash
+# install pyinstaller with pip
+pip install pyinstaller
+
+# configure & compile
+.\win-configure.bat
 python -m PyInstaller src\pashmak.py --onefile
 ```
 
@@ -147,7 +152,7 @@ print 'something to print\n';
 
 #### how it works?
 
-first, we browse about pashmak syntax structure.
+first, we go through pashmak syntax structure.
 the base structure of pashmak syntax is this:
 
 ```bash
@@ -163,8 +168,10 @@ mem 'something to print\n'; # first operation
 out ^; # second operation
 ```
 
-here, mem is a operation and `'something to print\n'` is argument of that, and
-out is a operation and `^` is argument of that.
+##### NOTE: the `;` in the end of lines is not required. you can write your code without `;` IF you don't want to write two or more operations in one line
+
+here, mem is an operation and `'something to print\n'` is the argument of that, and
+out is an operation and `^` is the argument of that.
 
 but what is the function of this code?
 
@@ -173,6 +180,8 @@ when you run the script in terminal:
 ```bash
 pashmak myscript.pashm # or any filename you saved code in that
 ```
+
+##### NOTE: the `.pashm` extension for pashmak scripts is not required. you can run any file with any name as pashmak script
 
 you will get this output:
 
@@ -639,7 +648,7 @@ this code prints `hello world` non-stop
 
 actually when my code starts, prints hello world and then `goto` commands directs program step to the `my_loop` section and it will repeat again and again.
 
-###### NOTE: that TAB before `mem 'hello world'...` line is not required. this is writen only to have beautiful code
+###### NOTE: that TAB before `println 'hello world'...` line is not required. this is writen only to have beautiful code
 
 look at this example:
 
@@ -773,6 +782,31 @@ output:
 7
 8
 9
+```
+
+##### Important note about `loop` and `while` operations:
+you cannot make loops-in-loops with this operations. you can make single loops with this operations.
+
+for example:
+
+```bash
+loop;
+    loop;
+        #
+    while True;
+while True;
+```
+
+the above code not works.
+
+but you can write loop-in-loop with `section` operation:
+
+```bash
+section loop1;
+    section loop2;
+        # your code
+    mem True; gotoif loop2
+mem True; gotoif loop1;
 ```
 
 

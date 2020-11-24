@@ -2,7 +2,7 @@
 
 ### GNU/Linux/Unix
 this installation guide is for GNU/Linux/UNIX systems. also compile process needs `pyinstaller`.
-if you don't have pyinstaller, enter `pip3 install pyinstaller` in terminal
+if you don't have pyinstaller, type `pip3 install pyinstaller` in terminal
 
 compile & install:
 
@@ -31,7 +31,7 @@ make
 sudo make install
 ```
 
-above commands installs latest (development) state of program
+above commands install latest (development) state of the program
 
 now you can run interpreter in terminal:
 
@@ -74,6 +74,11 @@ but also you can compile it with `pyinstaller`. if you don't have pyinstaller, e
 compile:
 
 ```bash
+# install pyinstaller with pip
+pip install pyinstaller
+
+# configure & compile
+.\win-configure.bat
 python -m PyInstaller src\pashmak.py --onefile
 ```
 

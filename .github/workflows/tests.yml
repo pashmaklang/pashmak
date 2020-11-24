@@ -7,13 +7,14 @@ on:
     branches: [ master ]
 
 jobs:
-  linux_tests:
+  unix_tests:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}-latest
 
     strategy:
       matrix:
-        python: [3.6, 3.7, 3.8]
+        os: [ubuntu]
+        python: [3.6, 3.7, 3.8, 3.9]
 
     steps:
     - uses: actions/checkout@v2
@@ -21,39 +22,24 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python }}
-    - name: Run tests
-      run: make all
-
-    name: Linux Python ${{ matrix.python }}
-
-  Linux_Build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
     - name: Setup pyinstaller
       run: |
         pip3 install pyinstaller
-    - name: Build
+    - name: Test
       run: |
         make all
-        python3 -m PyInstaller src/pashmak.py --onefile
+        make
         ./dist/pashmak -v
 
-    name: Linux Build
+    name: ${{ matrix.os }} Python ${{ matrix.python }}
 
-  Windows_Python_3_6:
+  windows_tests:
 
     runs-on: windows-latest
 
     strategy:
       matrix:
-        python: [3.6, 3.7, 3.8]
+        python: [3.6, 3.7, 3.8, 3.9]
 
     steps:
     - uses: actions/checkout@v2
@@ -61,35 +47,13 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python }}
-    - name: Run tests
-      run: |
-        python scripts.py build-modules
-        python scripts.py update-headers
-        python scripts.py build-doc
-        python tests\run.py
-
-    name: Windows Python ${{ matrix.python }}
-
-  Windows_Build:
-
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
     - name: Setup pyinstaller
       run: |
         pip install pyinstaller
-    - name: Build
+    - name: Test
       run: |
-        python scripts.py build-modules
-        python scripts.py update-headers
-        python scripts.py build-doc
-        python tests\run.py
+        .\win-configure.bat
         python -m PyInstaller src\pashmak.py --onefile
-        dist/pashmak.exe -v
+        dist\pashmak.exe -v
 
-    name: Windows Build
+    name: Windows Python ${{ matrix.python }}

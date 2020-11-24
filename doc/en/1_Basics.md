@@ -14,7 +14,7 @@ print 'something to print\n';
 
 #### how it works?
 
-first, we browse about pashmak syntax structure.
+first, we go through pashmak syntax structure.
 the base structure of pashmak syntax is this:
 
 ```bash
@@ -30,8 +30,10 @@ mem 'something to print\n'; # first operation
 out ^; # second operation
 ```
 
-here, mem is a operation and `'something to print\n'` is argument of that, and
-out is a operation and `^` is argument of that.
+##### NOTE: the `;` in the end of lines is not required. you can write your code without `;` IF you don't want to write two or more operations in one line
+
+here, mem is an operation and `'something to print\n'` is the argument of that, and
+out is an operation and `^` is the argument of that.
 
 but what is the function of this code?
 
@@ -40,6 +42,8 @@ when you run the script in terminal:
 ```bash
 pashmak myscript.pashm # or any filename you saved code in that
 ```
+
+##### NOTE: the `.pashm` extension for pashmak scripts is not required. you can run any file with any name as pashmak script
 
 you will get this output:
 

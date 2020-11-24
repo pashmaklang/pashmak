@@ -24,6 +24,7 @@
 
 import os
 import tempfile
+import platform
 from TestCore import TestCore
 
 class test_stdlib(TestCore):

@@ -1,4 +1,4 @@
-FROM python:3.8-buster
+FROM python:3.9-buster
 
 # install pyinstaller
 RUN pip3 install pyinstaller
@@ -14,7 +14,7 @@ RUN make all
 RUN make
 RUN cp ./dist/pashmak /pashmak
 
-FROM php:7.4-cli
+FROM php:7.4-apache-buster
 
 # add a user for runtime
 RUN echo Y | adduser runner
@@ -23,8 +23,11 @@ RUN echo Y | adduser runner
 COPY --from=0 /pashmak /bin/pashmak
 RUN chmod +x /bin/pashmak
 
-# copy src
-COPY ./app /app
-WORKDIR /app
+# config apache
+RUN echo 'export APACHE_RUN_USER=runner' >> /etc/apache2/envvars
+RUN echo 'export APACHE_RUN_GROUP=runner' >> /etc/apache2/envvars
 
-CMD ["php", "-S", "0.0.0.0:80"]
+# copy src
+COPY ./app /var/www/html
+RUN chown -R root:root /var/www
+RUN chmod -R ga-w /var/www
