@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## v0.2.1 (2020-11-24)
 
 #### Fixed
 - fixed try-in-try bug in try-endtry system
