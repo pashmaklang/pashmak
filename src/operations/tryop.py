@@ -33,4 +33,4 @@ def run(self, op: dict):
     except KeyError:
         self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
 
-    self.is_in_try = arg
+    self.try_endtry.append(arg)
