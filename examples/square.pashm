@@ -1,0 +1,40 @@
+#
+# square.pashm
+#
+# the pashmak project
+# Copyright 2020 parsa mpsh <parsampsh@gmail.com>
+#
+# This file is part of pashmak.
+#
+# pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with pashmak.  If not, see <https://www.gnu.org/licenses/>.
+##################################################
+
+# Print an square
+
+func print_square ($args);
+    $x = $args[0];
+    $y = $args[1];
+    $i = 0;
+    section loop1;
+        $j = 0;
+        section loop2;
+            print '*';
+            $j = $j + 1;
+        mem $j < $y; gotoif loop2;
+        print '\n';
+        $i = $i + 1;
+    mem $i < $x; gotoif loop1;
+endfunc;
+
+print_square (10, 25);
