@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.2 (2020-11-24)
 
 #### Added
 - added module path system
