@@ -26,7 +26,7 @@ import sys
 import os
 import signal
 from syntax import parser
-from core import helpers, version
+from core import helpers, version, modules
 
 class Program(helpers.Helpers):
     ''' Pashmak program object '''
@@ -49,6 +49,8 @@ class Program(helpers.Helpers):
         self.used_namespaces = [] # list of used namespaces
         self.included_modules = [] # list of included modules to stop repeating imports
         self.bootstrap_operations_count = 0
+
+        self.allowed_pashmak_extensions = ['pashm'] # TODO : add more extensions
 
         self.current_step = 0
         self.stop_after_error = True
@@ -318,10 +320,43 @@ class Program(helpers.Helpers):
         ''' Raise error when signal exception raised '''
         self.raise_error('Signal', str(signal_code), self.operations[self.current_step])
 
+    def bootstrap_modules(self):
+        """ Loads modules from module paths in environment variable """
+        try:
+            pashmak_module_paths = os.environ['PASHMAKPATH']
+        except:
+            return
+        paths = pashmak_module_paths.strip().split(':')
+        paths = [path.strip() for path in paths if path.strip() != '']
+        for path in paths:
+            try:
+                path_files = os.listdir(path)
+            except:
+                continue
+            for f in path_files:
+                if f.split('.')[-1] in self.allowed_pashmak_extensions:
+                    if os.path.isfile(path + '/' + f):
+                        # check module exists
+                        f_name = f.split('/')[-1]
+                        module_name = f.split('.')[0]
+                        try:
+                            modules.modules[module_name]
+                        except:
+                            # module not found, we can add this
+                            try:
+                                f = open(path + '/' + f, 'r')
+                                content = f.read()
+                                f.close()
+                                modules.modules[module_name] = content
+                            except:
+                                pass
+
     def start(self):
         ''' Start running the program '''
 
         signal.signal(signal.SIGINT, self.signal_handler)
+
+        self.bootstrap_modules()
 
         is_in_func = False
         self.current_step = 0
