@@ -28,6 +28,19 @@ class test_examples(TestCore):
     ''' The test '''
     def run(self):
         ''' Run test '''
+        square_data = self.run_file('examples' + '/' + 'square.pashm')
+        self.assert_equals(square_data['output'], '''*************************
+*************************
+*************************
+*************************
+*************************
+*************************
+*************************
+*************************
+*************************
+*************************
+''')
+
         fib_data = self.run_file('examples' + '/' + 'fib.pashm')
         self.assert_equals(fib_data['output'], '''1
 1
