@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## next release
+
+#### Added
+- added an feature to multiple imports with `include`/`import` commands
+
 ## v0.2.1 (2020-11-24)
 
 #### Fixed

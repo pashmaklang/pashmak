@@ -60,3 +60,24 @@ class test_include(TestCore):
             self.run_script(''' mem '@notfound233445'; include ^; '''),
             'ModuleError'
         )
+
+        self.assert_output(self.run_without_error('''
+            import '@hash', 'examples/will_be_include.pashm';
+
+            hash.sha256 'hello'; out ^;
+
+        '''), 'i am included\n2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824')
+
+        self.assert_output(self.run_without_error('''
+            import ('@hash', 'examples/will_be_include.pashm');
+
+            hash.sha256 'hello'; out ^;
+
+        '''), 'i am included\n2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824')
+
+        self.assert_output(self.run_without_error('''
+            import ['@hash', 'examples/will_be_include.pashm'];
+
+            hash.sha256 'hello'; out ^;
+
+        '''), 'i am included\n2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824')
