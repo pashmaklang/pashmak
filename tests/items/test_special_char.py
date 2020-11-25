@@ -1,5 +1,5 @@
 #
-# test_backslash_semicolon.py
+# test_special_char.py
 #
 # The Pashmak Project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -24,7 +24,7 @@
 
 from TestCore import TestCore
 
-class test_backslash_semicolon(TestCore):
+class test_special_char(TestCore):
     ''' The test '''
     def run(self):
         ''' Run test '''
@@ -40,4 +40,25 @@ class test_backslash_semicolon(TestCore):
                 ''' mem 'this is \\\\; semicolon'; out ^; '''
             ),
             'this is \\; semicolon'
+        )
+
+        self.assert_output(
+            self.run_script(
+                ''' mem 'this is \\# sharp'; out ^; '''
+            ),
+            'this is # sharp'
+        )
+
+        self.assert_output(
+            self.run_script(
+                ''' mem 'this is \\\\# sharp'; out ^; '''
+            ),
+            'this is \\# sharp'
+        )
+
+        self.assert_output(
+            self.run_script(
+                ''' mem 'foo \\# \\; bar'; out ^; '''
+            ),
+            'foo # ; bar'
         )

@@ -24,17 +24,17 @@
 
 import random
 
-def handle_backslash_semicolon(op_str: str) -> list:
-    ''' Handle \\; as clean text semicolon '''
+def handle_special_char(op_str: str, ch: str) -> list:
+    ''' Handle \\<special-char> as clean text '''
 
-    # replace \; with a random string to replace it after argument parsing
+    # replace \<char> with a random string to replace it after argument parsing
     str_to_replace_with_semicolon = '<semicolon' + str(random.random()) + '>'
 
     # make sure generated random string is not currently in this line
     while str_to_replace_with_semicolon in op_str:
         str_to_replace_with_semicolon = '<semicolon' + str(random.random()) + '>'
 
-    op_str = op_str.replace('\\;', str_to_replace_with_semicolon)
+    op_str = op_str.replace('\\' + ch, str_to_replace_with_semicolon)
 
     return [op_str, str_to_replace_with_semicolon]
 
@@ -70,8 +70,11 @@ def parse(content: str) -> list:
     for line in lines:
         # clean line, remove comments from that
         line = line.strip()
+        tmp = handle_special_char(line, '#')
+        line = tmp[0]
         line = ignore_comment(line)
-        tmp = handle_backslash_semicolon(line)
+        line = line.replace(tmp[1], '#')
+        tmp = handle_special_char(line, ';')
         line = tmp[0]
         clean_semicolon = tmp[1]
 
