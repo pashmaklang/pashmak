@@ -1493,11 +1493,11 @@ also you can import more than 1 scripts in one line:
 
 ```bash
 # seprate them with `,`
-import 'a.pashm', '/path/to/b.pashm', 'dir/c.pashm';
+import 'a.pashm', '/path/to/b.pashm', 'dir/c.pashm'
 # or with () is not different
-import ('a.pashm', '/path/to/b.pashm', 'dir/c.pashm');
+import ('a.pashm', '/path/to/b.pashm', 'dir/c.pashm')
 # or with [] is not different
-import ['a.pashm', '/path/to/b.pashm', 'dir/c.pashm'];
+import ['a.pashm', '/path/to/b.pashm', 'dir/c.pashm']
 ```
 
 
@@ -1775,7 +1775,8 @@ look at this example:
 mem '@hash'; include ^
 # or using import to have easier syntax
 import '@hash'
-import '@module_name'
+import "@module_name"
+import "@module1", '@module2'
 
 # ...
 ```

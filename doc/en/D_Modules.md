@@ -10,7 +10,8 @@ look at this example:
 mem '@hash'; include ^
 # or using import to have easier syntax
 import '@hash'
-import '@module_name'
+import "@module_name"
+import "@module1", '@module2'
 
 # ...
 ```
