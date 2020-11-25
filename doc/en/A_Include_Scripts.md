@@ -41,4 +41,13 @@ import 'fib.pashm'
 fib
 ```
 
-this is very useful.
+also you can import more than 1 scripts in one line:
+
+```bash
+# seprate them with `,`
+import 'a.pashm', '/path/to/b.pashm', 'dir/c.pashm'
+# or with () is not different
+import ('a.pashm', '/path/to/b.pashm', 'dir/c.pashm')
+# or with [] is not different
+import ['a.pashm', '/path/to/b.pashm', 'dir/c.pashm']
+```

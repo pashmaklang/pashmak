@@ -21,6 +21,9 @@ if you want to contribute to this project, read [Contributing Guide](CONTRIBUTIN
 ## Changelog
 to see pashmak versions changelog, read [Changelog](CHANGELOG.md)
 
+## Security Policy
+if you detected an bug or vulnearability, read [Pashmak Security Policy](/SECURITY.md).
+
 # Documentation
 read the following Documentation to learn pashmak.
 
@@ -277,17 +280,19 @@ mem str(7*7) + ' is sum'; out ^ # output: 49 is sum
 
 the `mem` command is absolutely important and you need to use it everywhere
 
-#### print `;`
-for printing `;` character, put a `\` before semicolon:
+#### print `;` and `#`
+for printing `;` and `#` special characters, put a `\` before them:
 
 ```bash
 mem 'this is \; semicolon\n'; out ^
+mem 'this is \# sharp\n'; out ^
 ```
 
 output:
 
 ```
 this is ; semicolon
+this is # sharp
 ```
 
 ### printing without using mem
@@ -1489,7 +1494,16 @@ import 'fib.pashm'
 fib
 ```
 
-this is very useful.
+also you can import more than 1 scripts in one line:
+
+```bash
+# seprate them with `,`
+import 'a.pashm', '/path/to/b.pashm', 'dir/c.pashm'
+# or with () is not different
+import ('a.pashm', '/path/to/b.pashm', 'dir/c.pashm')
+# or with [] is not different
+import ['a.pashm', '/path/to/b.pashm', 'dir/c.pashm']
+```
 
 
 
@@ -1766,7 +1780,8 @@ look at this example:
 mem '@hash'; include ^
 # or using import to have easier syntax
 import '@hash'
-import '@module_name'
+import "@module_name"
+import "@module1", '@module2'
 
 # ...
 ```
