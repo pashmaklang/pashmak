@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## v0.2.2 (2020-11-25)
 
 - added an feature to multiple imports with `include`/`import` commands
 - added `\#` to use `#` special character in code

@@ -186,8 +186,8 @@ modules = {}
 class Releaser:
     @staticmethod
     def run(new_version: str):
-        if new_version[0] != 'v':
-            new_version = 'v' + new_version
+        if new_version[0] == 'v':
+            new_version = new_version[1:]
         # change version number
         f = open('src/core/version.py', 'r')
         content = f.read()
