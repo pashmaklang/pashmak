@@ -4,6 +4,7 @@
 
 #### Added
 - added an feature to multiple imports with `include`/`import` commands
+- added `\#` to use `#` special character in code
 
 ## v0.2.1 (2020-11-24)
 
@@ -19,7 +20,7 @@
 #### Fixed
 - raise error when namespace or function name contains `.` character
 
-## v0.1.1
+## v0.1.1 (2020-11-24)
 
 #### Fixed
 - fixed an bug in section handling about calling functions inside an loop
