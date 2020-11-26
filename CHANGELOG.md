@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.3 (2020-11-26)
 
 - added cli `-r` option to run code from cli arguments
 - added cli `-m|--modules` option to show list of modules
