@@ -1,5 +1,9 @@
 # Pashmak Changelog
 
+## next release
+
+- fixed modules not not be included from module path bug
+
 ## v0.2.2 (2020-11-25)
 
 - added an feature to multiple imports with `include`/`import` commands
