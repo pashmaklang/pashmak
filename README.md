@@ -89,6 +89,7 @@ pashmak -v # --version, shows version of pashmak
 pashmak app.pashm
 pashmak /path/to/script.pashm # runs file
 pashmak - # gets code from stdin and run that
+pashmak -r "<you code...>" # run code from cli arguments with `-r` option
 ```
 
 IF YOU DON'T WANT TO INSTALL IT, you can run this with python3 in terminal:
