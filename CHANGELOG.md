@@ -5,6 +5,7 @@
 - added cli `-r` option to run code from cli arguments
 - added cli `-m|--modules` option to show list of modules
 - added `/usr/lib/pashmak_modules` and `%HOME%/.local/lib/pashmak_modules` directories as default module paths
+- added feature import scripts inside namespaces
 
 ## 0.2.3 (2020-11-26)
 
