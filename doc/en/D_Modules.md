@@ -13,6 +13,11 @@ import '@hash'
 import "@module_name"
 import "@module1", '@module2'
 
+# also you can import modules like scripts under the namespaces
+namespace Foo;
+    import '@hash';
+endns;
+
 # ...
 ```
 
@@ -201,3 +206,18 @@ PASHMAKPATH=/path/to/first/dir:/path/to/another/dir:/another/dir2...
 you can seprate paths with `:`.
 
 next, pashmak interpreter loads modules from that directories. how? pashmak loads pashmak files with `.pashm` extension as module. for example, if name of file is `my_module.pashm`, you can import that with `import "@my_module"`.
+
+#### Default paths
+the default module paths in pashmak are:
+
+- `<home-directory>/.local/lib/pashmak_modules`
+- `/usr/lib/pashmak_modules` (only in UNIX systems)
+
+#### Show list of available modules
+to see list of available modules, run this command:
+
+```bash
+pashmak -m
+# or
+pashmak --modules
+```

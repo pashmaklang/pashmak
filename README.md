@@ -89,6 +89,8 @@ pashmak -v # --version, shows version of pashmak
 pashmak app.pashm
 pashmak /path/to/script.pashm # runs file
 pashmak - # gets code from stdin and run that
+pashmak -r "<you code...>" # run code from cli arguments with `-r` option
+pashmak -m # or --modules. shows list of available pashmak modules on the system
 ```
 
 IF YOU DON'T WANT TO INSTALL IT, you can run this with python3 in terminal:
@@ -1694,6 +1696,43 @@ hello world
 the core
 ```
 
+### importing inside namespaces
+you can import an script inside an namespace.
+
+for example, we have `foo.pashm` and `bar.pashm` scripts.
+
+##### `foo.pashm`:
+
+```bash
+namespace foo
+    func hello
+        println 'hello world'
+    endfunc
+endns
+
+func bye
+    println 'good bye'
+endfunc
+```
+
+##### `bar.pashm`:
+
+```bash
+import 'foo.pashm';
+
+namespace App;
+    import 'foo.pashm';
+endns;
+
+foo.hello # output: hello world
+bye # output: good bye
+
+App.foo.hello # output: hello world
+App.bye # output: good bye
+```
+
+in above example, we imported `foo.pashm` inside an namespace and content of `foo.pashm` is loaded under that namespace. for example, `foo.hello` function is loaded under `App` namespace, so finally will be set as `App.foo.hello`.
+
 
 
 # Eval
@@ -1782,6 +1821,11 @@ mem '@hash'; include ^
 import '@hash'
 import "@module_name"
 import "@module1", '@module2'
+
+# also you can import modules like scripts under the namespaces
+namespace Foo;
+    import '@hash';
+endns;
 
 # ...
 ```
@@ -1971,6 +2015,21 @@ PASHMAKPATH=/path/to/first/dir:/path/to/another/dir:/another/dir2...
 you can seprate paths with `:`.
 
 next, pashmak interpreter loads modules from that directories. how? pashmak loads pashmak files with `.pashm` extension as module. for example, if name of file is `my_module.pashm`, you can import that with `import "@my_module"`.
+
+#### Default paths
+the default module paths in pashmak are:
+
+- `<home-directory>/.local/lib/pashmak_modules`
+- `/usr/lib/pashmak_modules` (only in UNIX systems)
+
+#### Show list of available modules
+to see list of available modules, run this command:
+
+```bash
+pashmak -m
+# or
+pashmak --modules
+```
 
 
 

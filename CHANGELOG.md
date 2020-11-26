@@ -1,27 +1,34 @@
 # Pashmak Changelog
 
+## 0.3 (2020-11-26)
+
+- added cli `-r` option to run code from cli arguments
+- added cli `-m|--modules` option to show list of modules
+- added `/usr/lib/pashmak_modules` and `%HOME%/.local/lib/pashmak_modules` directories as default module paths
+- added feature import scripts inside namespaces
+
 ## 0.2.3 (2020-11-26)
 
 - fixed modules not not be included from module path bug
 
-## v0.2.2 (2020-11-25)
+## 0.2.2 (2020-11-25)
 
 - added an feature to multiple imports with `include`/`import` commands
 - added `\#` to use `#` special character in code
 
-## v0.2.1 (2020-11-24)
+## 0.2.1 (2020-11-24)
 
 - fixed try-in-try bug in try-endtry system
 
-## v0.2 (2020-11-24)
+## 0.2 (2020-11-24)
 
 - added module path system
 - added `$__file__` and `$__dir__` general variables
 - raise error when namespace or function name contains `.` character
 
-## v0.1.1 (2020-11-24)
+## 0.1.1 (2020-11-24)
 
 - fixed an bug in section handling about calling functions inside an loop
 
-## v0.1
+## 0.1
 first release!
