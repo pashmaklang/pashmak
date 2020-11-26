@@ -25,6 +25,7 @@
 import sys
 import os
 import signal
+from pathlib import Path
 from syntax import parser
 from core import helpers, version, modules
 
@@ -329,9 +330,11 @@ class Program(helpers.Helpers):
         try:
             pashmak_module_paths = os.environ['PASHMAKPATH']
         except:
-            return
+            pashmak_module_paths = ''
+        home_directory = str(Path.home())
         paths = pashmak_module_paths.strip().split(':')
         paths = [path.strip() for path in paths if path.strip() != '']
+        paths = [home_directory + '/.local/lib/pashmak_modules', '/usr/lib/pashmak_modules', *paths]
         for path in paths:
             try:
                 path_files = os.listdir(path)
