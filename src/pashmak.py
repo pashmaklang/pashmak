@@ -44,6 +44,22 @@ if __name__ == '__main__':
         print(version.version)
         sys.exit(0)
 
+    if sys.argv[1] in ['-m', '--modules']:
+        sys.argv[1] = '-r'
+        if len(sys.argv) <= 2:
+            sys.argv.append('')
+        sys.argv[2] = '''
+        # print list of modules
+        println 'List of pashmak available modules';
+        println '---------------------------------';
+        $modules = list(modules.modules.keys())
+        $i = 0;
+        section loop;
+            println $modules[$i];
+            $i = $i + 1;
+        mem $i < len($modules); gotoif loop;
+        '''
+
     if sys.argv[1] == '-r':
         if len(sys.argv) <= 2:
             print(sys.argv[0] + ': `-r` option requires code as argument: -r [code...]')

@@ -2,7 +2,8 @@
 
 ## next release
 
-- added cli `-r` option
+- added cli `-r` option to run code from cli arguments
+- added cli `-m|--modules` option to show list of modules
 
 ## 0.2.3 (2020-11-26)
 

@@ -90,6 +90,7 @@ pashmak app.pashm
 pashmak /path/to/script.pashm # runs file
 pashmak - # gets code from stdin and run that
 pashmak -r "<you code...>" # run code from cli arguments with `-r` option
+pashmak -m # or --modules. shows list of available pashmak modules on the system
 ```
 
 IF YOU DON'T WANT TO INSTALL IT, you can run this with python3 in terminal:
@@ -1972,6 +1973,15 @@ PASHMAKPATH=/path/to/first/dir:/path/to/another/dir:/another/dir2...
 you can seprate paths with `:`.
 
 next, pashmak interpreter loads modules from that directories. how? pashmak loads pashmak files with `.pashm` extension as module. for example, if name of file is `my_module.pashm`, you can import that with `import "@my_module"`.
+
+#### Show list of available modules
+to see list of available modules, run this command:
+
+```bash
+pashmak -m
+# or
+pashmak --modules
+```
 
 
 
