@@ -53,10 +53,14 @@ def run(self, op: dict):
         if path[0] == '@':
             module_name = path[1:]
             try:
-                if not module_name in self.included_modules:
+                namespaces_prefix = ''
+                for part in self.namespaces_tree:
+                    namespaces_prefix += part + '.'
+                namespaces_prefix += '@'
+                if not namespaces_prefix + module_name in self.included_modules:
                     content = modules.modules[module_name]
                     # add this module to imported modules
-                    self.included_modules.append(module_name)
+                    self.included_modules.append(namespaces_prefix + module_name)
                 else:
                     return
             except KeyError:

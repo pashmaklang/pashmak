@@ -13,6 +13,11 @@ import '@hash'
 import "@module_name"
 import "@module1", '@module2'
 
+# also you can import modules like scripts under the namespaces
+namespace Foo;
+    import '@hash';
+endns;
+
 # ...
 ```
 
