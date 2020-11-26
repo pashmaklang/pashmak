@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.2.3 (2020-11-26)
 
 - fixed modules not not be included from module path bug
 
