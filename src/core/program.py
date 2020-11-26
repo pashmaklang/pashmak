@@ -348,9 +348,9 @@ class Program(helpers.Helpers):
                         except:
                             # module not found, we can add this
                             try:
-                                f = open(path + '/' + f, 'r')
-                                content = f.read()
-                                f.close()
+                                fo = open(path + '/' + f, 'r')
+                                content = fo.read()
+                                fo.close()
                                 content = '$__file__ = "' + os.path.abspath(path + '/' + f) + '";\n$__dir__ = "' + os.path.dirname(os.path.abspath(path + '/' + f)) + '";\n' + content
                                 modules.modules[module_name] = content
                             except:
