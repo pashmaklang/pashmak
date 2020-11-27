@@ -2,7 +2,7 @@
 
 ## next release
 
-- fixed syntax removing more than 1 space bug. now `println "hello    world"` will print `hello    world`, not `hello world`
+- fixed syntax removing more than 1 space bug. now 'println "hello&nbsp;&nbsp;&nbsp;&nbsp;world"' will print "hello&nbsp;&nbsp;&nbsp;&nbsp;world", not `hello world`
 
 ## 0.3 (2020-11-26)
 
