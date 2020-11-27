@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.3.1 (2020-11-27)
 
 - fixed syntax removing more than 1 space bug. now 'println "hello&nbsp;&nbsp;&nbsp;&nbsp;world"' will print "hello&nbsp;&nbsp;&nbsp;&nbsp;world", not `hello world`
 - fixed bug in `$var = ^ <command>` syntax while using it in loop
