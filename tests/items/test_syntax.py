@@ -33,3 +33,5 @@ class test_syntax(TestCore):
         # some comment
         mem 'hello world'; out ^; # another comment
         '''), 'hello world')
+
+        self.assert_output(self.run_script('''print "hello  world"; '''), 'hello  world')

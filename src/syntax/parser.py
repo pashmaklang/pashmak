@@ -50,15 +50,16 @@ def parse_op(op_str: str) -> dict:
     op_parts = op_str.split(' ')
     op['command'] = op_parts[0]
     op_parts.pop(0)
-    op['args_str'] = ''
+    op['args_str'] = op['str'].split(' ', 1)
+    if len(op['args_str']) == 1:
+        op['args_str'] = ''
+    else:
+        op['args_str'] = op['args_str'][-1]
     op['args'] = []
     # set operation arguments
     for op_part in op_parts:
         if op_part != '' or op['command'] == 'mem':
             op['args'].append(op_part)
-            for ch in op_part:
-                op['args_str'] += ch
-            op['args_str'] += ' '
     op['args_str'] = op['args_str'].strip()
     return op
 

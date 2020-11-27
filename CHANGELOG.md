@@ -1,5 +1,9 @@
 # Pashmak Changelog
 
+## next release
+
+- fixed syntax removing more than 1 space bug. now `println "hello    world"` will print `hello    world`, not `hello world`
+
 ## 0.3 (2020-11-26)
 
 - added cli `-r` option to run code from cli arguments
