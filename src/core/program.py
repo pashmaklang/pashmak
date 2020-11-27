@@ -276,6 +276,9 @@ class Program(helpers.Helpers):
                 return
             value = None
             if parts[1].strip()[0] == '^' and len(parts[1].strip()) > 1:
+                if self.current_step in self.runed_functions:
+                    return
+                self.runed_functions.append(self.current_step)
                 cmd = parts[1].strip()[1:].strip()
                 # insert cmd after current operation
                 self.operations.insert(self.current_step+1, parser.parse(cmd)[0])
