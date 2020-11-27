@@ -231,6 +231,49 @@ func while
 endfunc
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
 """
+modules["test"] = """#
+# test.pashm
+#
+# The Pashmak Project
+# Copyright 2020 parsa mpsh <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+namespace test
+    func doAssert $value
+        assert $value
+    endfunc
+    func assertTrue $value
+        test.doAssert $value
+    endfunc
+    func assertFalse $value
+        test.doAssert not $value
+    endfunc
+    func assertEquals $args
+        $a = $args[0]
+        $b = $args[1]
+        test.doAssert $a == $b
+    endfunc
+    func assertNotEquals $args
+        $a = $args[0]
+        $b = $args[1]
+        test.doAssert $a != $b
+    endfunc
+endns
+"""
 modules["time"] = """#
 # time.pashm
 #
