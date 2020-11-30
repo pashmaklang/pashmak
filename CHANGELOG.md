@@ -3,6 +3,7 @@
 ## next release
 
 - added new internal module `test` contains assertion functions
+- added a feature to module path system to import directories as `__init__.pashm` of them
 
 ## 0.3.1 (2020-11-27)
 

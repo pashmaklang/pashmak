@@ -1,0 +1,5 @@
+namespace testdir2
+    func run
+        println 'hello testdir2'
+    endfunc
+endns

@@ -256,6 +256,19 @@ you can seprate paths with `:`.
 
 next, pashmak interpreter loads modules from that directories. how? pashmak loads pashmak files with `.pashm` extension as module. for example, if name of file is `my_module.pashm`, you can import that with `import "@my_module"`.
 
+also you can import an directory as module. for example, `/usr/lib/pashmak_modules` is in the module path. and there is a directory in `/usr/lib/pashmak_modules/mymodule/`. if you import `import "@mymodule"`, pashmak uses `/usr/lib/pashmak_modules/mymodule/__init__.pashm` file in that directory as module main file. you can load another scripts of your module in this file.
+
+for example:
+
+##### __init__.pashm:
+
+```bash
+import $__dir__ + '/core.pashm'
+import $__dir__ + '/another-file.pashm'
+# ...
+# or whatever you want to do
+```
+
 ### Default paths
 the default module paths in pashmak are:
 
