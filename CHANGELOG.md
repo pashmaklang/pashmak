@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.4 (2020-12-1)
 
 - added new internal module `test` contains assertion functions
 - added a feature to module path system to import directories as `__init__.pashm` of them
