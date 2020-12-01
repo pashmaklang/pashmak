@@ -2040,6 +2040,22 @@ test.assertNotEquals 2, 7 # successful
 test.assertNotEquals 2, 2 # AssertionError
 ```
 
+##### test.assertEmpty
+asserts the value is empty.
+
+```bash
+test.assertEmpty None
+test.assertEmpty 'hello' # error
+```
+
+##### test.assertNotEmpty
+asserts value is not empty
+
+```bash
+test.assertNotEmpty 'hello'
+test.assertNotEmpty None # error
+```
+
 ## Module path system
 module path is a system to add pashmak scripts as modules to pashmak. for example, you have an directory named `/var/lib/pashmak_modules` and there is an file named `/var/lib/pashmak_modules/mymodule.pashm`. this file is a pashmak script. now, how to add that pashmak script to pashmak as module?
 

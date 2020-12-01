@@ -44,4 +44,12 @@ namespace test
         $b = $args[1]
         test.doAssert $a != $b
     endfunc
+
+    func assertEmpty $value
+        test.doAssert $valie == None
+    endfunc
+
+    func assertNotEmpty $value
+        test.doAssert $valie != None
+    endfunc
 endns
