@@ -333,6 +333,7 @@ class Program(helpers.Helpers):
         try:
             pashmak_module_paths = os.environ['PASHMAKPATH']
         except:
+            os.environ['PASHMAKPATH'] = ''
             pashmak_module_paths = ''
         home_directory = str(Path.home())
         paths = pashmak_module_paths.strip().split(':')
