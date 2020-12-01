@@ -2,6 +2,7 @@
 
 ## next release
 
+- added `sys` internal module and `sys.path` to manage module paths
 - changed error raiser to show file and line number of code in error rendering
 - fixed an bug in module bootstraper, now the `PASHMAKPATH` environment variable has default empty value
 
