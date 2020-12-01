@@ -1,0 +1,5 @@
+namespace testliba
+    func run
+        println 'hello testliba'
+    endfunc
+endns

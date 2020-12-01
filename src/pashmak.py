@@ -25,10 +25,18 @@
 
 import sys
 import os
+import signal
 from syntax import parser
 from core import program, version
 
+def signal_handler(signal_code, frame):
+    """ handle signal """
+    sys.exit(1)
+
 if __name__ == '__main__':
+    # set signal handler
+    signal.signal(signal.SIGINT, signal_handler)
+
     # validate arguments
     if len(sys.argv) <= 1:
         print(sys.argv[0] + ': script file name is required: pashmak [filename]')

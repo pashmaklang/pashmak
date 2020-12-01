@@ -1,5 +1,5 @@
 #
-# version.py
+# test_module_path_system.py
 #
 # The Pashmak Project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -20,7 +20,31 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Version of pashmak '''
+''' The test '''
 
-# pashmak version
-version = 'v0.4'
+import os
+from TestCore import TestCore
+
+class test_module_path_system(TestCore):
+    ''' The test '''
+    def run(self):
+        ''' Run test '''
+        old_environ = os.environ
+
+        os.environ['PASHMAKPATH'] = os.getcwd() + '/tests/test-module-path'
+
+        self.assert_output(self.run_without_error('''
+        import '@testliba';
+
+        testliba.run
+        '''), 'hello testliba\n')
+
+        self.assert_has_error(self.run_script('''
+        import '@testdir1';
+        '''))
+
+        self.assert_output(self.run_without_error('''
+        import '@testdir2';
+
+        testdir2.run
+        '''), 'hello testdir2\n')

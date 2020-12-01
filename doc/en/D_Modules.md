@@ -1,5 +1,5 @@
-# General Modules
-pashmak has some general libraries to use. that modules are helpful for you.
+# Internal Modules
+pashmak has some internal libraries to use. that modules are helpful for you.
 
 ## how to import module
 you can import modules with `include` operation.
@@ -14,9 +14,9 @@ import "@module_name"
 import "@module1", '@module2'
 
 # also you can import modules like scripts under the namespaces
-namespace Foo;
-    import '@hash';
-endns;
+namespace Foo
+    import '@hash'
+endns
 
 # ...
 ```
@@ -110,7 +110,7 @@ random.random # generates a random float less that 1
 out ^ # and puts generated random number in mem and you can access that
 ```
 
-## file module
+### file module
 with this module, you can work with files smarter.
 
 ##### file.open
@@ -180,9 +180,74 @@ $content = ^ file.read $file
 print 'content of file is: ' + $content
 ```
 
-###### more modules comming soon...
+### test module
+the `test` module has some assertion functions to testing.
 
-### Module path system
+##### test.assertTrue
+asserts true:
+
+```bash
+import '@test'
+
+test.assertTrue True
+test.assertTrue 5 == 5
+test.assertTrue 10 > 5
+```
+
+above code will be run without error.
+
+this code will get `AssertError`:
+
+```bash
+test.assertTrue False
+test.assertTrue 3 == 2
+```
+
+##### test.assertFalse
+this function is reverse of `test.assertTrue`.
+
+```bash
+test.assertFalse False # run be run without error
+test.assertFalse 3 == 2 # run be run without error
+test.assertFalse 2 == 2 # AssertionError
+```
+
+##### test.assertEquals
+this function asserts two values equals.
+
+```bash
+# two arguments should be passed:
+test.assertEquals 'hello', 'hello' # successful
+test.assertEquals 2, 2 # successful
+test.assertEquals 'foo', 'bar' # AssertionError
+```
+
+##### test.assertNotEquals
+this function is reverse of `test.assertEquals`.
+
+```bash
+test.assertNotEquals 'foo', 'bar' # successful
+test.assertNotEquals 2, 7 # successful
+test.assertNotEquals 2, 2 # AssertionError
+```
+
+##### test.assertEmpty
+asserts the value is empty.
+
+```bash
+test.assertEmpty None
+test.assertEmpty 'hello' # error
+```
+
+##### test.assertNotEmpty
+asserts value is not empty
+
+```bash
+test.assertNotEmpty 'hello'
+test.assertNotEmpty None # error
+```
+
+## Module path system
 module path is a system to add pashmak scripts as modules to pashmak. for example, you have an directory named `/var/lib/pashmak_modules` and there is an file named `/var/lib/pashmak_modules/mymodule.pashm`. this file is a pashmak script. now, how to add that pashmak script to pashmak as module?
 
 for example, we want to import that module:
@@ -207,13 +272,26 @@ you can seprate paths with `:`.
 
 next, pashmak interpreter loads modules from that directories. how? pashmak loads pashmak files with `.pashm` extension as module. for example, if name of file is `my_module.pashm`, you can import that with `import "@my_module"`.
 
-#### Default paths
+also you can import an directory as module. for example, `/usr/lib/pashmak_modules` is in the module path. and there is a directory in `/usr/lib/pashmak_modules/mymodule/`. if you import `import "@mymodule"`, pashmak uses `/usr/lib/pashmak_modules/mymodule/__init__.pashm` file in that directory as module main file. you can load another scripts of your module in this file.
+
+for example:
+
+##### __init__.pashm:
+
+```bash
+import $__dir__ + '/core.pashm'
+import $__dir__ + '/another-file.pashm'
+# ...
+# or whatever you want to do
+```
+
+### Default paths
 the default module paths in pashmak are:
 
 - `<home-directory>/.local/lib/pashmak_modules`
 - `/usr/lib/pashmak_modules` (only in UNIX systems)
 
-#### Show list of available modules
+### Show list of available modules
 to see list of available modules, run this command:
 
 ```bash

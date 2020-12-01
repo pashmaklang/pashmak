@@ -344,22 +344,34 @@ class Program(helpers.Helpers):
             except:
                 continue
             for f in path_files:
+                module_name = None
+                if os.path.isdir(path + '/' + f):
+                    if os.path.isfile(path + '/' + f + '/__init__.pashm'):
+                        module_name = f.split('/')[-1].split('.')[0]
+                        f = path + '/' + f + '/__init__.pashm'
+                    else:
+                        f = path + '/' + f
+                else:
+                    f = path + '/' + f
+
                 if f.split('.')[-1] in self.allowed_pashmak_extensions:
-                    if os.path.isfile(path + '/' + f):
+                    if os.path.isfile(f):
                         # check module exists
                         f_name = f.split('/')[-1]
-                        module_name = f.split('.')[0]
+                        if module_name == None:
+                            module_name = f_name.split('.')[0]
                         try:
                             modules.modules[module_name]
                         except:
                             # module not found, we can add this
                             try:
-                                fo = open(path + '/' + f, 'r')
+                                fo = open(f, 'r')
                                 content = fo.read()
                                 fo.close()
-                                content = '$__file__ = "' + os.path.abspath(path + '/' + f) + '";\n$__dir__ = "' + os.path.dirname(os.path.abspath(path + '/' + f)) + '";\n' + content
+                                content = '$__file__ = "' + os.path.abspath(f) + '";\n$__dir__ = "' + os.path.dirname(os.path.abspath(f)) + '";\n' + content
                                 modules.modules[module_name] = content
                             except:
+                                raise
                                 pass
 
     def start(self):

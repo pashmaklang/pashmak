@@ -122,3 +122,41 @@ b87f88c72702fff1748e58b87e9141a42c0dbedc29a78cb0d4a5cd81
             os.remove(tmp_file)
         except:
             pass
+
+        self.run_without_error('''
+        import '@test';
+
+        test.assertTrue True;
+        test.assertTrue 2 == 2
+        test.assertTrue 3 > 1
+
+        test.assertFalse False
+        test.assertFalse 3 == 2
+        test.assertFalse 'foo' == 'bar'
+
+        test.assertEquals 2, 2
+        test.assertEquals 'foo', 'foo'
+
+        test.assertNotEquals 2, 3
+        test.assertNotEquals 'foo', 'bar'
+        ''')
+
+        self.assert_has_error(self.run_script('''
+        import '@test';
+        test.assertTrue 3 == 7;
+        '''))
+
+        self.assert_has_error(self.run_script('''
+        import '@test';
+        test.assertFalse 2 == 2;
+        '''))
+
+        self.assert_has_error(self.run_script('''
+        import '@test';
+        test.assertEquals 2, 8;
+        '''))
+
+        self.assert_has_error(self.run_script('''
+        import '@test';
+        test.assertNotEquals 2, 2;
+        '''))
