@@ -63,10 +63,11 @@ def parse_op(op_str: str) -> dict:
     op['args_str'] = op['args_str'].strip()
     return op
 
-def parse(content: str) -> list:
+def parse(content: str, filepath='<system>') -> list:
     ''' Parse code from text and return list of operations '''
     # split the lines
     lines = content.split('\n')
+    line_counter = 1
     operations = []
     for line in lines:
         # clean line, remove comments from that
@@ -87,5 +88,8 @@ def parse(content: str) -> list:
             if op != '':
                 # parse once operation and append it to the list
                 op = parse_op(op)
+                op['line_number'] = line_counter
+                op['file_path'] = filepath
                 operations.append(op)
+        line_counter += 1
     return operations

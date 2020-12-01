@@ -32,7 +32,7 @@ def run(self, op: dict):
 
     if '.' in arg:
         self.raise_error(
-            'FunctionNameContainsDotError', 'name "' + arg + '" for function contains `.` character', op['index']
+            'FunctionNameContainsDotError', 'name "' + arg + '" for function contains `.` character', op
         )
 
     # check function already declared
@@ -54,4 +54,4 @@ def run(self, op: dict):
     if len(op['args']) > 1:
         arg_var = op['args'][1].strip(')').strip('(')
         self.arg_should_be_variable(arg_var, op)
-        self.functions[self.current_func].append(parser.parse(arg_var + ' = ^')[0])
+        self.functions[self.current_func].append(parser.parse(arg_var + ' = ^', '<system>')[0])

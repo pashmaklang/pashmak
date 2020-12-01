@@ -1,5 +1,9 @@
 # Pashmak Changelog
 
+## next release
+
+- changed error raiser to show file and line number of code in error rendering
+
 ## 0.4 (2020-12-1)
 
 - added new internal module `test` contains assertion functions

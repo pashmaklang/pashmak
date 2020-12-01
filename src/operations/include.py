@@ -50,7 +50,9 @@ def run(self, op: dict):
         self.raise_error('ArgumentError', 'invalid argument type passed to include operation', op['index'])
 
     for path in paths:
+        code_location = path
         if path[0] == '@':
+            code_location = path
             module_name = path[1:]
             try:
                 namespaces_prefix = ''
@@ -71,10 +73,11 @@ def run(self, op: dict):
             try:
                 content = open(path, 'r').read()
                 content = '$__file__ = "' + path + '";\n$__dir__ = "' + os.path.dirname(path) + '"\n' + content
+                code_location = path
             except FileNotFoundError as ex:
                 self.raise_error('FileError', str(ex), op)
             except PermissionError as ex:
                 self.raise_error('FileError', str(ex), op)
     
-        operations = parser.parse(content)
+        operations = parser.parse(content, filepath=code_location)
         self.exec_func(operations, False)

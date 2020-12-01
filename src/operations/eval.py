@@ -38,7 +38,7 @@ def run(self, op: dict):
         code = self.get_var(arg[1:])
 
     # run the code
-    code_operations = parser.parse(code)
+    code_operations = parser.parse(code, filepath='<eval>')
     for code_op in list(reversed(code_operations)):
         self.operations.insert(self.current_step+1, code_op)
         self.update_section_indexes(self.current_step+1)
