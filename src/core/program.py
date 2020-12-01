@@ -141,7 +141,7 @@ class Program(helpers.Helpers):
                 )
             except KeyError:
                 pass
-        print('\tin ' + tmp_op['file_path'] + ':' + str(tmp_op['line_number']) + ': ' + op['str'])
+        print('\tin ' + op['file_path'] + ':' + str(op['line_number']) + ': ' + op['str'])
         sys.exit(1)
 
     def exec_func(self, func_body: list, with_state=True):
