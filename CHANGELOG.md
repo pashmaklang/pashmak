@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.5 (2020-12-2)
 
 - added `sys` internal module and `sys.path` to manage module paths
 - changed error raiser to show file and line number of code in error rendering
