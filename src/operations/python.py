@@ -22,6 +22,7 @@
 
 ''' Runs python code from string '''
 
+import os
 import hashlib
 import time
 import random

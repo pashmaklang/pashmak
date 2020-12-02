@@ -41,7 +41,7 @@ read the following Documentation to learn pashmak.
 - [Importing scripts](#include-scripts)
 - [Namespaces](#namespaces)
 - [Eval](#eval)
-- [Modules](#general-modules)
+- [Modules](#internal-modules)
 - [stdlib](#stdlib)
 
 
@@ -1822,6 +1822,10 @@ import '@hash'
 import "@module_name"
 import "@module1", '@module2'
 
+# also you can import modules without quotes
+import @sys
+import @hash, @mymodule
+
 # also you can import modules like scripts under the namespaces
 namespace Foo
     import '@hash'
@@ -2056,6 +2060,14 @@ test.assertNotEmpty 'hello'
 test.assertNotEmpty None # error
 ```
 
+### sys module
+this module has some functions to manage pashmak internal envrinonment.
+
+#### sys.path module
+this module is for manage module paths. you can add new module paths and load modules from everywhere at runtime with this module.
+
+to know about this module, go to next section [Module path system](#module-path-system).
+
 ## Module path system
 module path is a system to add pashmak scripts as modules to pashmak. for example, you have an directory named `/var/lib/pashmak_modules` and there is an file named `/var/lib/pashmak_modules/mymodule.pashm`. this file is a pashmak script. now, how to add that pashmak script to pashmak as module?
 
@@ -2107,6 +2119,60 @@ to see list of available modules, run this command:
 pashmak -m
 # or
 pashmak --modules
+```
+
+### Adding module paths at runtime (sys.path module)
+there is an namespace named `sys.path` in the `sys` module, this module is for adding new module paths at the runtime.
+with this feature, you can add another directories to your path and load modules from them in your program.
+
+for example:
+
+```bash
+import '@sys'
+
+sys.path.add '/home/parsa/my-directory';
+```
+
+in above code, directory `/home/parsa/my-directory` will be added to the module path. after this action, you can import modules of that directory.
+
+for example, we have `/home/parsa/my-directory/mylib.pashm` module and we can import that:
+
+```bash
+import '@sys'
+
+sys.path.add '/home/parsa/my-directory';
+
+import '@mylib'
+
+# do whatever you want
+```
+
+this system is very helpful, specialy when you want to add your local modules from an directory in your project.
+
+for example, i have an project and there is an directory named `pashmak_modules` contains local library. i can add this directory to module path in my code start point:
+
+```bash
+import $__dir__ + '/pashmak_modules/'
+
+# now i can import libraries from pashmak_modules directory
+```
+
+also you can get list of module paths:
+
+```bash
+import '@sys'
+
+$module_paths = ^ sys.path.list
+# OR
+$module_paths; sys.path.list; copy $module_paths
+
+println $module_paths
+```
+
+output:
+
+```
+['/path1', '/path2', '...']
 ```
 
 

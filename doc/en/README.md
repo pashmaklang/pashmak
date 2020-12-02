@@ -41,5 +41,5 @@ read the following Documentation to learn pashmak.
 - [Importing scripts](#include-scripts)
 - [Namespaces](#namespaces)
 - [Eval](#eval)
-- [Modules](#general-modules)
+- [Modules](#internal-modules)
 - [stdlib](#stdlib)

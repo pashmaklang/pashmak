@@ -29,7 +29,7 @@ def run(self, op: dict):
 
     if '.' in arg:
         self.raise_error(
-            'NamespaceContainsDotError', 'name "' + arg + '" for namespace contains `.` character', op['index']
+            'NamespaceContainsDotError', 'name "' + arg + '" for namespace contains `.` character', op
         )
 
     self.namespaces_tree.append(arg)

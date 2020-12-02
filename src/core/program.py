@@ -75,7 +75,7 @@ class Program(helpers.Helpers):
         $__file__ = "''' + os.path.abspath(self.main_filename) + '''";
         $__dir__ = "''' + os.path.dirname(os.path.abspath(self.main_filename)) + '''";
         mem "@stdlib"; include ^; py "self.bootstrap_operations_count = len(self.operations)-4";'
-        ''')
+        ''', filepath='<system>')
         operations.insert(0, tmp[0])
         operations.insert(1, tmp[1])
         operations.insert(2, tmp[2])
@@ -136,12 +136,12 @@ class Program(helpers.Helpers):
             try:
                 tmp_op = self.operations[state['entry_point']]
                 print(
-                    '\tin ' + str(tmp_op['index']-self.bootstrap_operations_count)\
+                    '\tin ' + tmp_op['file_path'] + ':' + str(tmp_op['line_number'])\
                     + ': ' + tmp_op['str']
                 )
             except KeyError:
                 pass
-        print('\tin ' + str(op['index']-self.bootstrap_operations_count) + ': ' + op['str'])
+        print('\tin ' + op['file_path'] + ':' + str(op['line_number']) + ': ' + op['str'])
         sys.exit(1)
 
     def exec_func(self, func_body: list, with_state=True):
@@ -179,7 +179,7 @@ class Program(helpers.Helpers):
                 i += 1
 
         if with_state:
-            self.operations.insert(i+1, parser.parse('popstate')[0])
+            self.operations.insert(i+1, parser.parse('popstate', filepath='<system>')[0])
             self.update_section_indexes(i+1)
 
     def eval(self, operation):
@@ -281,9 +281,9 @@ class Program(helpers.Helpers):
                 self.runed_functions.append(self.current_step)
                 cmd = parts[1].strip()[1:].strip()
                 # insert cmd after current operation
-                self.operations.insert(self.current_step+1, parser.parse(cmd)[0])
+                self.operations.insert(self.current_step+1, parser.parse(cmd, filepath='system')[0])
                 self.update_section_indexes(self.current_step+1)
-                self.operations.insert(self.current_step+2, parser.parse(varname + ' = ^')[0])
+                self.operations.insert(self.current_step+2, parser.parse(varname + ' = ^', filepath='<system>')[0])
                 self.update_section_indexes(self.current_step+2)
                 return
             elif parts[1].strip() == '^':
@@ -333,6 +333,7 @@ class Program(helpers.Helpers):
         try:
             pashmak_module_paths = os.environ['PASHMAKPATH']
         except:
+            os.environ['PASHMAKPATH'] = ''
             pashmak_module_paths = ''
         home_directory = str(Path.home())
         paths = pashmak_module_paths.strip().split(':')
@@ -392,7 +393,7 @@ class Program(helpers.Helpers):
                 if not is_in_func:
                     arg = current_op['args'][0]
                     self.sections[arg] = i+1
-                    self.operations[i] = parser.parse('pass')[0]
+                    self.operations[i] = parser.parse('pass', filepath='<system>')[0]
             elif current_op['command'] == 'func':
                 is_in_func = True
             elif current_op['command'] == 'endfunc':

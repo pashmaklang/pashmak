@@ -1,5 +1,5 @@
 #
-# eval.py
+# sys.pashm
 #
 # The Pashmak Project
 # Copyright 2020 parsa mpsh <parsampsh@gmail.com>
@@ -20,25 +20,18 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Runs pashmak code from string '''
+namespace sys
+    namespace path
+        func add $new_path
+            mem 'os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"'; python ^
+            mem 'self.bootstrap_modules()'; python ^
+        endfunc
 
-from syntax import parser
-
-def run(self, op: dict):
-    ''' Runs pashmak code from string '''
-
-    self.require_one_argument(op, 'eval operation requires argument')
-    arg = op['args'][0]
-    self.arg_should_be_variable_or_mem(arg, op)
-
-    if arg == '^':
-        code = self.get_mem()
-    else:
-        self.variable_required(arg[1:], op)
-        code = self.get_var(arg[1:])
-
-    # run the code
-    code_operations = parser.parse(code, filepath='<eval>')
-    for code_op in list(reversed(code_operations)):
-        self.operations.insert(self.current_step+1, code_op)
-        self.update_section_indexes(self.current_step+1)
+        func list
+            $paths_list = os.environ["PASHMAKPATH"]
+            $paths_list = $paths_list.strip().split(':')
+            $paths_list = [item.strip() for item in $paths_list if item != '']
+            mem $paths_list
+        endfunc
+    endns
+endns

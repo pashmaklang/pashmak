@@ -50,23 +50,30 @@ def parse_op(op_str: str) -> dict:
     op_parts = op_str.split(' ')
     op['command'] = op_parts[0]
     op_parts.pop(0)
-    op['args_str'] = op['str'].split(' ', 1)
-    if len(op['args_str']) == 1:
-        op['args_str'] = ''
-    else:
-        op['args_str'] = op['args_str'][-1]
+    op['args_str'] = ''
     op['args'] = []
     # set operation arguments
     for op_part in op_parts:
         if op_part != '' or op['command'] == 'mem':
+            if op['command'] == 'import':
+                if op_part:
+                    if op_part[0] == '@':
+                        op_part = '"' + op_part
+                        if op_part[-1] == ',':
+                            op_part = op_part[:len(op_part)-1] + '",'
+                        else:
+                            op_part = op_part + '"'
             op['args'].append(op_part)
+            op['args_str'] += op_part
+        op['args_str'] += ' '
     op['args_str'] = op['args_str'].strip()
     return op
 
-def parse(content: str) -> list:
+def parse(content: str, filepath='<system>') -> list:
     ''' Parse code from text and return list of operations '''
     # split the lines
     lines = content.split('\n')
+    line_counter = 1
     operations = []
     for line in lines:
         # clean line, remove comments from that
@@ -87,5 +94,8 @@ def parse(content: str) -> list:
             if op != '':
                 # parse once operation and append it to the list
                 op = parse_op(op)
+                op['line_number'] = line_counter
+                op['file_path'] = filepath
                 operations.append(op)
+        line_counter += 1
     return operations
