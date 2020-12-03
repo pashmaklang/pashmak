@@ -142,8 +142,10 @@ class DocBuilder:
             total_content += doc_part_content + '\n\n\n'
             doc_part_f.close()
 
-        # add a note to end of content
-        total_content += '\n##### NOTE: this file is auto generated from `doc` folder. do not change it directly\n'
+        # add a note to built readme
+        note_message = '\n##### NOTE: this file is auto generated from `doc` folder. do not change it directly. If you want to edit documentation, edit `doc/` folder files. your changes will built from that folder into this file.\n'
+        total_content += note_message
+        total_content = note_message + '\n' + total_content
 
         # write generated content to the README.md file
         target_file = 'README.md'

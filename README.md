@@ -1,3 +1,6 @@
+
+##### NOTE: this file is auto generated from `doc` folder. do not change it directly. If you want to edit documentation, edit `doc/` folder files. your changes will built from that folder into this file.
+
 # Pashmak Programming Language
 Hi there. this is Pashmak programming language. Pashmak is an interpreter written in Python.
 Pashmak scripts have cool and pashmaki syntax.
@@ -2271,4 +2274,4 @@ but if that value is false, program raises `AssertError`. this is helpful for te
 
 
 
-##### NOTE: this file is auto generated from `doc` folder. do not change it directly
+##### NOTE: this file is auto generated from `doc` folder. do not change it directly. If you want to edit documentation, edit `doc/` folder files. your changes will built from that folder into this file.
