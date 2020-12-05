@@ -144,7 +144,7 @@ class Program(helpers.Helpers):
         print('\tin ' + op['file_path'] + ':' + str(op['line_number']) + ': ' + op['str'])
         sys.exit(1)
 
-    def exec_func(self, func_body: list, with_state=True):
+    def exec_func(self, func_body: list, with_state=True, call_one_time=True):
         ''' Gets a list from operations and runs them as function or included script '''
         # create new state for this call
         if with_state:
@@ -154,7 +154,7 @@ class Program(helpers.Helpers):
             })
 
         # check function already called in this point
-        if self.current_step in self.runed_functions and with_state:
+        if self.current_step in self.runed_functions and (with_state or call_one_time):
             return
 
         # add this point to runed functions (for stop repeating call in loops)
@@ -319,7 +319,10 @@ class Program(helpers.Helpers):
                 self.mem = ''
 
             # execute function body
-            self.exec_func(func_body)
+            with_state = True
+            if op_name in ['import']:
+                with_state = False
+            self.exec_func(func_body, with_state, True)
             return
         except Exception as ex:
             self.raise_error('RuntimeError', str(ex), op)
