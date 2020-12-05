@@ -73,6 +73,8 @@ def run(self, op: dict):
             try:
                 content = open(path, 'r').read()
                 content = '$__file__ = "' + path + '";\n$__dir__ = "' + os.path.dirname(path) + '"\n' + content
+                content += '\n$__file__ = "' + self.get_var('__file__') + '"'
+                content += '\n$__dir__ = "' + self.get_var('__dir__') + '"'
                 code_location = path
             except FileNotFoundError as ex:
                 self.raise_error('FileError', str(ex), op)

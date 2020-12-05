@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## 0.5.1 (2020-12-5)
+
+- fixed importing variables bug, now imported variables are accessible from outside
+- moved `$pashmakinfo` variable to `sys` module, now is `$sys.pashmakinfo`
+
 ## 0.5 (2020-12-2)
 
 - added `sys` internal module and `sys.path` to manage module paths

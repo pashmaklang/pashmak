@@ -229,7 +229,6 @@ endfunc
 func while
     gotoif loop
 endfunc
-$pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
 """
 modules["sys"] = """#
 # sys.pashm
@@ -253,6 +252,7 @@ modules["sys"] = """#
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 namespace sys
+    $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
     namespace path
         func add $new_path
             mem 'os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"'; python ^

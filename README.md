@@ -1,3 +1,6 @@
+
+##### NOTE: this file is auto generated from `doc` folder. do not change it directly. If you want to edit documentation, edit `doc/` folder files. your changes will built from that folder into this file.
+
 # Pashmak Programming Language
 Hi there. this is Pashmak programming language. Pashmak is an interpreter written in Python.
 Pashmak scripts have cool and pashmaki syntax.
@@ -1401,35 +1404,6 @@ exit # with 0 default exit code
 exit 10 # with 10
 ```
 
-### access to pashmakinfo
-
-if you want to access pashmak interpreter info, look at this example:
-
-```bash
-println $pashmakinfo
-```
-
-output is something like this:
-
-```
-{'version': 'vx.y.z', 'pythoninfo': 'x.y.z (default, Jul x y, a:b:c) [GCC x.y.x]'}
-```
-
-this variable is a dictonary.
-for example, to access pashmak version:
-
-```bash
-println $pashmakinfo['version']
-```
-
-output:
-
-```
-v1.x.y
-```
-
-and `$pashmakinfo['pythoninfo']` shows info of python.
-
 ### `$__file__` and `$__dir__` variables
 `$__file__` and `$__dir__` variables are two variables contains self script filepath and dirpath.
 
@@ -2068,6 +2042,39 @@ this module is for manage module paths. you can add new module paths and load mo
 
 to know about this module, go to next section [Module path system](#module-path-system).
 
+#### `$sys.pashmakinfo`, access to pashmakinfo
+
+if you want to access to pashmak interpreter info, `sys` module has a variable named `pashmakinfo`:
+
+```bash
+import @sys
+
+println $sys.pashmakinfo
+```
+
+output is something like this:
+
+```
+{'version': 'vx.y.z', 'pythoninfo': 'x.y.z (default, Jul x y, a:b:c) [GCC x.y.x]'}
+```
+
+this variable is a dictonary.
+for example, to access pashmak version:
+
+```bash
+import @sys
+
+println $sys.pashmakinfo['version']
+```
+
+output:
+
+```
+v1.x.y
+```
+
+and `$sys.pashmakinfo['pythoninfo']` shows info of python.
+
 ## Module path system
 module path is a system to add pashmak scripts as modules to pashmak. for example, you have an directory named `/var/lib/pashmak_modules` and there is an file named `/var/lib/pashmak_modules/mymodule.pashm`. this file is a pashmak script. now, how to add that pashmak script to pashmak as module?
 
@@ -2271,4 +2278,4 @@ but if that value is false, program raises `AssertError`. this is helpful for te
 
 
 
-##### NOTE: this file is auto generated from `doc` folder. do not change it directly
+##### NOTE: this file is auto generated from `doc` folder. do not change it directly. If you want to edit documentation, edit `doc/` folder files. your changes will built from that folder into this file.

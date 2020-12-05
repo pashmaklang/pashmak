@@ -74,7 +74,6 @@ class TestCore:
 
         if not want_argv:
             del out['vars']['argv']
-        del out['vars']['pashmakinfo']
         try:
             del out['vars']['__file__']
         except:
