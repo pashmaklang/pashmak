@@ -1,5 +1,9 @@
 # Pashmak Changelog
 
+## next release
+
+- fixed namespace bug cannot using variables from another namespace inside a namespace
+
 ## 0.5.1 (2020-12-5)
 
 - fixed importing variables bug, now imported variables are accessible from outside
