@@ -21,6 +21,8 @@
 #########################################################################
 
 namespace sys
+    $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
+
     namespace path
         func add $new_path
             mem 'os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"'; python ^

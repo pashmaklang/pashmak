@@ -3,6 +3,7 @@
 ## next release
 
 - fixed importing variables bug, now imported variables are accessible from outside
+- moved `$pashmakinfo` variable to `sys` module, now is `$sys.pashmakinfo`
 
 ## 0.5 (2020-12-2)
 
