@@ -188,7 +188,10 @@ class Program(helpers.Helpers):
         # replace variable names with value of them
         for k in self.all_vars():
             code = code.replace('$' + k, 'self.get_var("' + k + '")')
-            for used_namespace in self.used_namespaces:
+            tmp_used_namespaces = self.used_namespaces
+            if self.current_namespace() != '':
+                tmp_used_namespaces = [*tmp_used_namespaces, self.current_namespace()[:len(self.current_namespace())-1]]
+            for used_namespace in tmp_used_namespaces:
                 if k[:len(used_namespace)+1] == used_namespace + '.':
                     tmp = k[len(used_namespace)+1:]
                     code = code.replace('$' + tmp, 'self.get_var("' + k + '")')
