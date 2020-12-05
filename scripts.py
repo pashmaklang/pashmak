@@ -13,7 +13,7 @@ Commands:
 
 header_text = '''#
 # The Pashmak Project
-# Copyright 2020 parsa mpsh <parsampsh@gmail.com>
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
