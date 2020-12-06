@@ -96,6 +96,8 @@ def parse(content: str, filepath='<system>') -> list:
                 op = parse_op(op)
                 op['line_number'] = line_counter
                 op['file_path'] = filepath
+                if op['command'] == 'section':
+                    operations.append(parse_op('pass'))
                 operations.append(op)
         line_counter += 1
     return operations
