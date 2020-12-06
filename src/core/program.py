@@ -72,8 +72,8 @@ class Program(helpers.Helpers):
         ''' Set operations list '''
         # include stdlib before everything
         tmp = parser.parse('''
-        $__file__ = "''' + os.path.abspath(self.main_filename) + '''";
-        $__dir__ = "''' + os.path.dirname(os.path.abspath(self.main_filename)) + '''";
+        $__file__ = "''' + os.path.abspath(self.main_filename).replace('\\', '\\\\') + '''";
+        $__dir__ = "''' + os.path.dirname(os.path.abspath(self.main_filename)).replace('\\', '\\\\') + '''";
         mem "@stdlib"; include ^; py "self.bootstrap_operations_count = len(self.operations)-4";'
         ''', filepath='<system>')
         operations.insert(0, tmp[0])
@@ -375,7 +375,7 @@ class Program(helpers.Helpers):
                                 fo = open(f, 'r')
                                 content = fo.read()
                                 fo.close()
-                                content = '$__file__ = "' + os.path.abspath(f) + '";\n$__dir__ = "' + os.path.dirname(os.path.abspath(f)) + '";\n' + content
+                                content = '$__file__ = "' + os.path.abspath(f).replace('\\', '\\\\') + '";\n$__dir__ = "' + os.path.dirname(os.path.abspath(f)).replace('\\', '\\\\') + '";\n' + content
                                 modules.modules[module_name] = content
                             except:
                                 raise
