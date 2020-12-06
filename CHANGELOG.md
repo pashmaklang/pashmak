@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.5.4 (2020-12-6)
 
 - fixed section system loop bug
 
