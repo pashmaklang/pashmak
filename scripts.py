@@ -13,7 +13,7 @@ Commands:
 
 header_text = '''#
 # The Pashmak Project
-# Copyright 2020 parsa mpsh <parsampsh@gmail.com>
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -86,14 +86,22 @@ class CopyrightHeaderUpdater:
         if len(parts) == 1:
             new_content = header_text + spliter + parts[0]
         elif len(parts) == 2:
-            new_content = header_text + spliter + parts[1]
+            old_header = parts[0]
+            old_header_parts = old_header.split('# This file is part of Pashmak.')
+            old_copyrights = old_header_parts[0].split('# The Pashmak Project')[-1]
+            new_header = header_text
+
+            tmp = new_header.split('# This file is part of Pashmak.')
+            new_header = '# The Pashmak Project' + old_copyrights + '# This file is part of Pashmak.' + tmp[-1]
+
+            new_content = new_header + spliter + parts[1]
         else:
             print('error in ' + fname + ': duplicate spliter')
             return
 
         # add current filename to header
         only_file_name = fname.split('/')[-1]
-        new_content = '#\n# ' + only_file_name + '\n' + new_content
+        new_content = '#\n# ' + only_file_name + '\n#\n' + new_content
 
         if fname == 'src' + '/' + 'pashmak.py' or fname == 'tests' + '/' + 'run.py':
             new_content = '#!/usr/bin/env python3\n' + new_content

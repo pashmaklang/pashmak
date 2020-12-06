@@ -1,5 +1,9 @@
 # Pashmak Changelog
 
+## 0.5.3 (2020-12-6)
+
+- fixed `$__file__` and `$__dir__` variables bug in windows
+
 ## 0.5.2 (2020-12-5)
 
 - fixed namespace bug cannot using variables from another namespace inside a namespace

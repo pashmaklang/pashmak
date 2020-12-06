@@ -42,4 +42,3 @@ read the following Documentation to learn pashmak.
 - [Namespaces](#namespaces)
 - [Eval](#eval)
 - [Modules](#internal-modules)
-- [stdlib](#stdlib)

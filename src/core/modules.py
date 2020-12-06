@@ -1,8 +1,9 @@
 #
 # modules.py
 #
+#
 # The Pashmak Project
-# Copyright 2020 parsa mpsh <parsampsh@gmail.com>
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -28,7 +29,7 @@ modules["file"] = """#
 # file.pashm
 #
 # The Pashmak Project
-# Copyright 2020 parsa mpsh <parsampsh@gmail.com>
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -64,7 +65,7 @@ modules["hash"] = """#
 # hash.pashm
 #
 # The Pashmak Project
-# Copyright 2020 parsa mpsh <parsampsh@gmail.com>
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -130,7 +131,7 @@ modules["random"] = """#
 # random.pashm
 #
 # The Pashmak Project
-# Copyright 2020 parsa mpsh <parsampsh@gmail.com>
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -160,7 +161,7 @@ modules["stdlib"] = """#
 # stdlib.pashm
 #
 # The Pashmak Project
-# Copyright 2020 parsa mpsh <parsampsh@gmail.com>
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -234,7 +235,7 @@ modules["sys"] = """#
 # sys.pashm
 #
 # The Pashmak Project
-# Copyright 2020 parsa mpsh <parsampsh@gmail.com>
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -271,7 +272,7 @@ modules["test"] = """#
 # test.pashm
 #
 # The Pashmak Project
-# Copyright 2020 parsa mpsh <parsampsh@gmail.com>
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -320,7 +321,7 @@ modules["time"] = """#
 # time.pashm
 #
 # The Pashmak Project
-# Copyright 2020 parsa mpsh <parsampsh@gmail.com>
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #

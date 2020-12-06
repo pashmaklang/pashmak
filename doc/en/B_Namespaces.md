@@ -59,7 +59,7 @@ i am from First
 i am from Last
 ```
 
-also you can use `endns` keyword insted of `endnamespace` (this is from stdlib):
+also you can use `endns` keyword insted of `endnamespace`:
 
 ```bash
 namespace App

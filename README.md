@@ -45,7 +45,6 @@ read the following Documentation to learn pashmak.
 - [Namespaces](#namespaces)
 - [Eval](#eval)
 - [Modules](#internal-modules)
-- [stdlib](#stdlib)
 
 
 
@@ -1022,7 +1021,7 @@ new name
 new name
 ```
 
-here, `gset` command (from stdlib) gets two parameters: first, global variable name and second, new value for that
+here, `gset` command gets two parameters: first, global variable name and second, new value for that
 
 this command sets value of that variable globaly.
 
@@ -1544,7 +1543,7 @@ i am from First
 i am from Last
 ```
 
-also you can use `endns` keyword insted of `endnamespace` (this is from stdlib):
+also you can use `endns` keyword insted of `endnamespace`:
 
 ```bash
 namespace App
@@ -1970,6 +1969,17 @@ print 'content of file is: ' + $content
 ### test module
 the `test` module has some assertion functions to testing.
 
+##### default `assert` function
+this function is a function in the pashmak. this function gets a value and asserts that is true:
+
+```bash
+# NOTE: you don't need to import anything for use this function
+assert 2 == 2 # ok
+assert 4 > 1 # ok
+assert True # ok
+assert 'foo' == 'bar' # error: AssertError
+```
+
 ##### test.assertTrue
 asserts true:
 
@@ -2182,98 +2192,10 @@ output:
 ['/path1', '/path2', '...']
 ```
 
+### Another useful libraries written by others
 
+- The [polor-pashm](https://github.com/sami2020pro/polor-pashm) library by [sami2020pro](https://github.com/sami2020pro)
 
-# Stdlib
-`stdlib` is a very important and useful module.
-this module make the pashmak syntax easy.
-
-this module not need to be import because it will import automaticaly.
-
-look at this example:
-
-```bash
-# print
-print "hello world\n" # INSTEAD OF `mem 'hello world\n'; out ^;`
-
-# println
-println "hello world" # without using `\n` in the end of string
-
-# import
-import 'somefile.pashm'
-import '@hash' # INSTEAD OF `mem '@hash'; include ^`
-
-# exit
-exit # exits program
-exit 2 # exits with exit code
-# INSTEAD OF `return;` and `return 2;`
-
-# py
-py "print('hello world from python')" # INSTEAD OF `mem "print('hello world from python')"; python ^`
-
-# sys
-sys 'ls /tmp' # INSTEAD OF `mem 'ls /tmp'; system ^;`
-
-# std_chdir
-std_chdir "/tmp" # INSTEAD OF `mem '/tmp'; chdir ^;`
-
-# std_eval
-std_eval 'mem "hi"\; out ^\;' # INSTEAD OF `mem 'mem "hi"\; out ^\;'; eval ^`
-
-# gset
-gset 'somevar', 'new global value' # you learned this command in functions section
-```
-
-##### raising errors
-```bash
-print 'program started\n'
-
-raise 'MyError', 'this is my error'
-
-print 'this will not print\n'
-```
-
-output:
-
-```
-progrma started
-MyError:
-	this is my error
-```
-
-the `raise` function can raise errors in program
-
-first argument `'TheError'` is error type and second error `'this is my error'` is error message.
-
-##### asserting
-the stdlib has a function named `assert`. this function is for testing and asserting
-
-look at this example:
-
-```bash
-assert 2 == 3
-```
-
-output:
-
-```
-AssertError:
-	asserting that false is true
-```
-
-you can pass a condition or boolean value to assert function. if that is True, this function do nothing:
-
-```bash
-assert 2 == 2
-assert True
-
-$age = 18
-assert $age > 10
-```
-
-the above code do nothing, because all of values passed to assert are True.
-
-but if that value is false, program raises `AssertError`. this is helpful for testing.
 
 
 

@@ -2,7 +2,7 @@
 # version.py
 #
 # The Pashmak Project
-# Copyright 2020 parsa mpsh <parsampsh@gmail.com>
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -23,4 +23,4 @@
 ''' Version of pashmak '''
 
 # pashmak version
-version = 'v0.5.2'
+version = 'v0.5.3'
