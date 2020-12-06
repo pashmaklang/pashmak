@@ -203,7 +203,7 @@ new name
 new name
 ```
 
-here, `gset` command (from stdlib) gets two parameters: first, global variable name and second, new value for that
+here, `gset` command gets two parameters: first, global variable name and second, new value for that
 
 this command sets value of that variable globaly.
 

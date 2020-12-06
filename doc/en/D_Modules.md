@@ -187,6 +187,17 @@ print 'content of file is: ' + $content
 ### test module
 the `test` module has some assertion functions to testing.
 
+##### default `assert` function
+this function is a function in the pashmak. this function gets a value and asserts that is true:
+
+```bash
+# NOTE: you don't need to import anything for use this function
+assert 2 == 2 # ok
+assert 4 > 1 # ok
+assert True # ok
+assert 'foo' == 'bar' # error: AssertError
+```
+
 ##### test.assertTrue
 asserts true:
 
