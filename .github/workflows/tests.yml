@@ -20,19 +20,19 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python }}
-    - name: Setup pyinstaller
+    - name: Setup pyinstaller (windows)
       if: startsWith(matrix.os, 'windows')
       run: pip install pyinstaller
-    - name: Setup pyinstaller (windows) 
+    - name: Setup pyinstaller
       if: false == startsWith(matrix.os, 'windows')
       run: pip3 install pyinstaller
-    - name: Running Tests
+    - name: Running Tests (windows)
       if: startsWith(matrix.os, 'windows')
       run: |
         .\win-configure.bat
         python -m PyInstaller src\pashmak.py --onefile
         dist\pashmak.exe -v
-    - name: Running Tests (windows)
+    - name: Running Tests
       if: false == startsWith(matrix.os, 'windows')
       run: |
         make all
