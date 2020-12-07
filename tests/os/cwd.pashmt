@@ -1,5 +1,5 @@
 #
-# test_cwd.py
+# cwd.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,13 +20,9 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' The test '''
-
-import os
-from TestCore import TestCore
-
-class test_cwd(TestCore):
-    ''' The test '''
-    def run(self):
-        ''' Run test '''
-        self.assert_output(self.run_without_error(''' cwd; out ^; '''), os.getcwd())
+--test--
+Test cwd command
+--file--
+cwd
+--mem--
+os.getcwd()
