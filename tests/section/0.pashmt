@@ -1,0 +1,10 @@
+--test--
+Test section system (If structure)
+--file--
+mem 'before start\n'; out ^;
+goto 10;
+mem 'it will not show'; out ^;
+section 10;
+mem 'this is end\n'; out ^;
+--output--
+'before start\nthis is end\n'

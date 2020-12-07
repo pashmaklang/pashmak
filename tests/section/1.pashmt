@@ -1,0 +1,14 @@
+--test--
+Test section system (Loop structure)
+--file--
+mem 'before start\n'; out ^;
+set $i; mem 0; copy $i;
+section 10;
+mem str($i); out ^;
+mem $i + 1; copy $i;
+mem $i < 10; gotoif 10;
+mem 'after start\n'; out ^;
+--output--
+'''before start
+0123456789after start
+'''

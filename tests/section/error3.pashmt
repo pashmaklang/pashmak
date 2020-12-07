@@ -1,0 +1,6 @@
+--test--
+Test section system error (2)
+--file--
+gotoif not_found
+--with-error--
+'SectionError'
