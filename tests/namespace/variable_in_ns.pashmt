@@ -1,0 +1,12 @@
+--test--
+Test variable in namespace
+--file--
+namespace App;
+    set $name; mem 'parsa'; copy $name;
+    out $name;
+    out $App.name;
+endns;
+out $App.name
+
+--output--
+'parsaparsaparsa'

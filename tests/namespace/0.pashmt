@@ -1,0 +1,13 @@
+--test--
+Test declaring namespace
+--file--
+namespace MySpace
+    func dosomething
+        print 'hello world\n'
+    endfunc
+    MySpace.dosomething
+    dosomething
+endnamespace
+MySpace.dosomething
+--output--
+'hello world\nhello world\nhello world\n'

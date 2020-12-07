@@ -1,0 +1,26 @@
+--test--
+--file--
+namespace App;
+    $name = 'parsa';
+    out $name;
+    out $App.name;
+    func dosomething;
+        print 'doing';
+    endfunc;
+    dosomething;
+    namespace Core;
+        func run;
+            print 'thecore';
+        endfunc;
+        run;
+        $corevar = 'corevar';
+        out $corevar;
+    endns;
+    Core.run;
+endns;
+out $App.name;
+App.Core.run;
+out $App.Core.corevar;
+
+--output--
+'parsaparsadoingthecorecorevarthecoreparsathecorecorevar'

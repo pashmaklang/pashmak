@@ -1,0 +1,6 @@
+--test--
+Test include command variable not found error
+--file--
+include $not_found
+--with-error--
+'VariableError'

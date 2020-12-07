@@ -1,0 +1,5 @@
+--test--
+Test include command syntax error
+--file--
+include hhghgjghj
+--with-error--

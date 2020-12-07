@@ -1,0 +1,10 @@
+--test--
+Test namespace variable error
+--file--
+namespace App
+    set $name; mem 'parsa'; copy $name
+endns
+out $name
+
+--with-error--
+'VariableError'

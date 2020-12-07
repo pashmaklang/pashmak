@@ -1,0 +1,29 @@
+--test--
+Test subnamespace (2)
+--file--
+
+namespace App;
+    $name = 'parsa';
+    func dosomething;
+        print 'doing';
+    endfunc;
+    namespace Core;
+        func run;
+            print 'thecore';
+        endfunc;
+        $corevar = 'corevar';
+    endns;
+endns;
+App.Core.run;
+print $App.Core.corevar;
+use App;
+Core.run;
+print $Core.corevar;
+use App.Core;
+Core.run;
+print $Core.corevar;
+run;
+print $corevar;
+
+--output--
+'thecorecorevarthecorecorevarthecorecorevarthecorecorevar'

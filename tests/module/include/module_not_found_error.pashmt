@@ -1,0 +1,6 @@
+--test--
+Test module not found error
+--file--
+mem '@notfound233445'; include ^
+--with-error--
+'ModuleError'

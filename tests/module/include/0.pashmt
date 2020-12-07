@@ -1,0 +1,14 @@
+--test--
+Test include command
+
+--file--
+mem 'before include\n'; out ^
+mem 'examples/will_be_include.pashm'; include ^
+mem 'after include\n'; out ^
+testfunc
+
+--output--
+'before include\ni am included\nafter include\ni am included func\n'
+
+--vars--
+{'included_var': 'included value'}
