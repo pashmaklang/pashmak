@@ -44,11 +44,24 @@ class <tstname>(TestCore):
 import sys
 import os
 from datetime import date
-from tests import tcolor
 
 if len(sys.argv) <= 1:
     print(help_msg)
     sys.exit()
+
+class Tcolor:
+    ''' Terminal ansi colors '''
+    def __init__(self):
+        self.HEADER = '\033[95m'
+        self.OKBLUE = '\033[94m'
+        self.OKGREEN = '\033[92m'
+        self.WARNING = '\033[93m'
+        self.FAIL = '\033[91m'
+        self.ENDC = '\033[0m'
+        self.BOLD = '\033[1m'
+        self.UNDERLINE = '\033[4m'
+tcolor = Tcolor()
+
 
 class CopyrightHeaderUpdater:
     # get list of all of .py files in src/ folder
