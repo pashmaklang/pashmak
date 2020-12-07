@@ -157,6 +157,8 @@ if you adding a feature or changing feature, change/add test for that feature
 - `--vars--`: asserts variables
 - `--mem--`: asserts mem value
 - `--output--`: asserts program output
+- `--cliargs--`: sets program command line arguments (list)
+- `--stdin--`: sets program stdin arguments (list)
 - `--exit-code--`: asserts program exit code
 - `--with-error--`: this option don't needs to value. this asserts the code has error
 

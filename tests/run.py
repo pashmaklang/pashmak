@@ -25,53 +25,148 @@
 
 import sys
 import os
+from random import shuffle
 
 # add `src/` folder to python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/' + 'src')
 
 import tcolor
+from TestCore import TestCore
 
 class TestRunner:
     ''' Test runner '''
     def __init__(self):
-        files = os.listdir('tests' + '/' + 'items')
         self.tests = []
-        self.total_asserts = 0
-        for f in files:
-            if f[len(f)-3:] == '.py':
-                self.tests.append(f)
+        self.load_tests('tests')
+        shuffle(self.tests)
 
-    def run_once(self, test: str, test_name_max_length: int):
+    def load_tests(self, path):
+        ''' Loads .pashmt tests '''
+        for f in os.listdir(path):
+            if os.path.isdir(path + '/' + f):
+                self.load_tests(path + '/' + f)
+            elif os.path.isfile(path + '/' + f):
+                if f[len(f)-7:] == '.pashmt':
+                    self.tests.append(path + '/' + f)
+
+    def run_once(self, test: str):
         ''' Run once test '''
-        test_class_name = test[:len(test)-3]
-        loaded_test = __import__('items.' + test_class_name)
-        test_obj = eval('loaded_test.' + test_class_name + '.' + test_class_name + '()')
-        print(test_class_name.replace('_', ' ') + ' ', end='', flush=True)
-        test_obj.run()
-        self.total_asserts += test_obj.total_asserts
-        whitespace = (' ') * (test_name_max_length - len(test_class_name) + 1)
-        print(tcolor.OKGREEN + whitespace + 'PASS' + tcolor.ENDC)
+        # read test file
+        f = open(test, 'r')
+        content = f.read()
+        f.close()
+        sections = {}
+        lines = content.split('\n')
+        current_section = None
+        for line in lines:
+            if line.strip()[:2] == '--' and line.strip()[len(line.strip())-2:] == '--':
+                current_section = line[2:]
+                current_section = current_section[:len(current_section)-2]
+                sections[current_section] = ''
+            elif current_section != None:
+                sections[current_section] += line + '\n'
+        
+        try:
+            sections['file']
+        except:
+            print(tcolor.WARNING + 'Warninig: test "' + test + '" has not section "file"' + tcolor.ENDC)
+            return
+
+        try:
+            sections['test']
+        except:
+            print(tcolor.WARNING + 'Warninig: test "' + test + '" has not section "test"' + tcolor.ENDC)
+            return
+
+        print(sections['test'].strip() + ' (' + test.strip().replace('\n', ' ').strip() + ')', end='', flush=True)
+
+        # run the test
+        read_inputs = []
+        cli_args = []
+
+        try:
+            sections['cliargs']
+            cli_args = True
+        except:
+            pass
+        if cli_args == True:
+            cli_args = eval(sections['cliargs'])
+
+        try:
+            sections['stdin']
+            read_inputs = True
+        except:
+            pass
+        if read_inputs == True:
+            read_inputs = eval(sections['stdin'])
+
+        core = TestCore()
+        result = core.run_script(sections['file'], read_inputs, cli_args)
+
+        # run assertions on result
+        with_error = False
+        try:
+            sections['with-error']
+            with_error = True
+        except:
+            pass
+        if with_error:
+            core.assert_has_error(result)
+        else:
+            core.assert_has_not_error(result)
+
+        variables = False
+        try:
+            sections['vars']
+            variables = True
+        except:
+            pass
+        if variables:
+            core.assert_vars(result, eval(sections['vars']))
+
+        mem = False
+        try:
+            sections['mem']
+            mem = True
+        except:
+            pass
+        if mem:
+            core.assert_mem(result, eval(sections['mem']))
+
+        output = False
+        try:
+            sections['output']
+            output = True
+        except:
+            pass
+        if output:
+            core.assert_output(result, eval(sections['output']))
+
+        exit_code = False
+        try:
+            sections['exit-code']
+            exit_code = True
+        except:
+            pass
+        if exit_code:
+            core.assert_exit_code(result, eval(sections['exit-code']))
+
+        print(tcolor.OKGREEN + ' PASS' + tcolor.ENDC)
 
     def run(self):
         ''' Start running tests '''
         print()
         print('Starting testing system...')
         print('--------------------------')
-        test_name_max_length = 0
-        for tmp_test in self.tests:
-            test_class_name = tmp_test[:len(tmp_test)-3]
-            tmp_test_length = len(tmp_test)
-            if tmp_test_length > test_name_max_length:
-                test_name_max_length = tmp_test_length
 
         for test in self.tests:
-            self.run_once(test, test_name_max_length)
+            self.run_once(test)
 
         print()
         print(
             tcolor.OKGREEN +\
             'All ' + str(len(self.tests)) +\
-            ' tests passed successfuly (' + str(self.total_asserts) + ' assertions)' +\
+            ' tests passed successfuly' +\
             tcolor.ENDC
         )
         print()
