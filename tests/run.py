@@ -26,7 +26,6 @@
 import sys
 import os
 import time
-from random import shuffle
 
 # add `src/` folder to python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/' + 'src')
@@ -167,7 +166,6 @@ class TestRunner:
     def __init__(self):
         self.tests = []
         self.load_tests('tests')
-        shuffle(self.tests)
 
     def load_tests(self, path):
         ''' Loads .pashmt tests '''
