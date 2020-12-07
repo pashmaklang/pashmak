@@ -1,0 +1,7 @@
+--test--
+Test eval system (errors)
+
+--file--
+eval $not_found;
+
+--with-error--

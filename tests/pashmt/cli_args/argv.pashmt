@@ -1,0 +1,13 @@
+--test--
+Test $argv variable
+
+--file--
+mem $argv[0]; out ^;
+mem $argv[1]; out ^;
+out $argc;
+
+--cliargs--
+['hi', 'bye']
+
+--output--
+'hibye2'

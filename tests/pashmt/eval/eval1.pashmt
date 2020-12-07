@@ -1,0 +1,10 @@
+--test--
+Test eval system (2)
+
+--file--
+set $code;
+mem 'mem "hello from eval"\; out ^\;'; copy $code;
+eval $code;
+
+--output--
+'hello from eval'

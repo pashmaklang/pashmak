@@ -1,0 +1,7 @@
+--test--
+Test python exec system (errors)
+
+--file--
+python $not_found;
+
+--with-error--

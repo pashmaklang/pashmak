@@ -1,0 +1,8 @@
+--test--
+Test python exec system
+
+--file--
+mem "self.all_vars()['myvar'] = 'the value'"; python ^;
+
+--vars--
+{'myvar': 'the value'}

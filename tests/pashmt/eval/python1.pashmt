@@ -1,0 +1,11 @@
+--test--
+Test python exec system (2)
+
+--file--
+set $code;
+mem "self.all_vars()['myvar'] = 'the value'"; copy $code;
+python $code;
+free $code
+
+--vars--
+{'myvar': 'the value'}

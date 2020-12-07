@@ -1,0 +1,8 @@
+--test--
+Test array example
+--file--
+import 'examples/array.pashm'
+
+--output--
+
+'parsa\npashmak\nsomething\n'

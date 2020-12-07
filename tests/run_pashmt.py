@@ -24,6 +24,7 @@
 
 import sys
 import os
+from random import shuffle
 
 # add `src/` folder to python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/' + 'src')
@@ -36,6 +37,7 @@ class TestRunner:
     def __init__(self):
         self.tests = []
         self.load_tests('tests')
+        shuffle(self.tests)
 
     def load_tests(self, path):
         ''' Loads .pashmt tests '''
@@ -78,8 +80,27 @@ class TestRunner:
         print(sections['test'].strip() + ' (' + test.strip().replace('\n', ' ').strip() + ')', end='', flush=True)
 
         # run the test
+        read_inputs = []
+        cli_args = []
+
+        try:
+            sections['cliargs']
+            cli_args = True
+        except:
+            pass
+        if cli_args == True:
+            cli_args = eval(sections['cliargs'])
+
+        try:
+            sections['stdin']
+            read_inputs = True
+        except:
+            pass
+        if read_inputs == True:
+            read_inputs = eval(sections['stdin'])
+
         core = TestCore()
-        result = core.run_script(sections['file'])
+        result = core.run_script(sections['file'], read_inputs, cli_args)
 
         # run assertions on result
         with_error = False

@@ -1,0 +1,7 @@
+--test--
+Test eval system (errors)
+
+--file--
+eval hfgjhjhg;
+
+--with-error--
