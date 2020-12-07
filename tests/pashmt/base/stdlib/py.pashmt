@@ -1,0 +1,10 @@
+--test--
+Test stdlib py function
+
+--file--
+
+py "self.mem = 'hi'";
+
+--mem--
+
+'hi'

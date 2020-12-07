@@ -75,7 +75,7 @@ class TestRunner:
             print(tcolor.WARNING + 'Warninig: test "' + test + '" has not section "test"' + tcolor.ENDC)
             return
 
-        print(sections['test'].strip() + ' (' + test + ')', end='', flush=True)
+        print(sections['test'].strip() + ' (' + test.strip().replace('\n', ' ').strip() + ')', end='', flush=True)
 
         # run the test
         core = TestCore()

@@ -1,0 +1,12 @@
+--test--
+Test stdlib loop and while functions
+
+--file--
+$i = 0;
+loop;
+    println 'hello world';
+    $i = $i + 1;
+while $i < 10;
+
+--output--
+'hello world\n' * 10

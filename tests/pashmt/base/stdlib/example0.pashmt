@@ -1,0 +1,13 @@
+--test--
+Example test for stdlib
+
+--file--
+
+set $name;
+mem 'parsa'; copy $name;
+print 'hello ' + $name;
+print str(2*2) + ' is sum';
+
+--output--
+
+'hello parsa4 is sum'

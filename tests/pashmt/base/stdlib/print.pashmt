@@ -1,0 +1,11 @@
+--test--
+Test stdlib print/println/printl functions
+--file--
+
+print "hello world"
+println 'hello world'
+printl 'hello world'
+
+--output--
+
+"hello worldhello world\nhello world\n"

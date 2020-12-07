@@ -1,0 +1,8 @@
+--test--
+Test stdlib raise function
+
+--file--
+
+raise ['SomeError', 'this is error'];
+
+--with-error--

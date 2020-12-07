@@ -1,0 +1,8 @@
+--test--
+Test runtime error
+
+--file--
+
+mem 'hello world; out ^;
+
+--with-error--

@@ -1,0 +1,8 @@
+--test--
+Test arraypop command
+--file--
+set $names;
+mem ['pashmak', 'parsa']; copy $names;
+mem 1; arraypop $names ^;
+--vars--
+{'names': ['pashmak']}

@@ -1,0 +1,10 @@
+--test--
+Test stdlib exit function
+
+--file--
+
+exit 5
+
+--exit-code--
+
+5

@@ -1,0 +1,8 @@
+--test--
+Example test for stdlib
+
+--file--
+
+print 'hello ' + $name;
+
+--with-error--

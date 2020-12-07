@@ -1,0 +1,15 @@
+--test--
+Test arraypush (2)
+--file--
+
+set $names;
+mem ['pashmak', 'parsa']; copy $names;
+set $new_item; mem 'newname'; copy $new_item;
+arraypush $names $new_item;
+free $new_item;
+
+--vars--
+
+{'names': [
+    'pashmak', 'parsa', 'newname'
+]}

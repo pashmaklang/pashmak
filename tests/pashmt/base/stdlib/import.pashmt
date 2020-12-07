@@ -1,0 +1,10 @@
+--test--
+Test stdlib import function
+
+--file--
+
+import "examples/will_be_include.pashm";
+
+--output--
+
+'i am included\n'

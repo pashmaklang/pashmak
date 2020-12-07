@@ -1,0 +1,12 @@
+--test--
+Test stdlib assert function
+--file--
+assert True
+assert 2 == 2
+assert 100 > 50
+$age = 30
+assert $age > 18
+println 'success'
+
+--output--
+'success\n'

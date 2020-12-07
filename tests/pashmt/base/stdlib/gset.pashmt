@@ -1,0 +1,14 @@
+--test--
+Test stlib gset function
+
+--file--
+set $name; mem 'parsa\n'; copy $name;
+func myfunc;
+	out $name;
+	gset ['name', 'pashmak\n'];
+endfunc;
+myfunc;
+out $name;
+
+--output--
+'parsa\npashmak\n'

@@ -1,0 +1,11 @@
+--test--
+Test syntax comments
+
+--file--
+
+# some comment
+mem 'hello world'; out ^; # another comment
+
+--output--
+
+"hello world"

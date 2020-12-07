@@ -1,0 +1,13 @@
+--test--
+Test special chars
+--file--
+
+mem 'this is \; semicolon'; out ^;
+mem 'this is \\; semicolon'; out ^;
+mem 'this is \# sharp'; out ^;
+mem 'this is \\# sharp'; out ^;
+mem 'foo \# \; bar'; out ^;
+
+--output--
+
+"this is ; semicolonthis is \\; semicolonthis is # sharpthis is \\# sharpfoo # ; bar"

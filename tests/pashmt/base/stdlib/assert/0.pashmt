@@ -1,0 +1,5 @@
+--test--
+Test assert function
+--file--
+assert 2 == 3;
+--with-error--

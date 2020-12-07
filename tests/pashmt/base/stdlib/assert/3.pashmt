@@ -1,0 +1,6 @@
+--test--
+Test stdlib assert function
+--file--
+set $age; mem 18; copy $age;
+assert $age > 30;
+--with-error--

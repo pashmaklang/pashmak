@@ -1,0 +1,9 @@
+--test--
+Test stdlib eval function
+--file--
+
+std_eval "mem 'output from eval'\; out ^\;";
+
+--output--
+
+'output from eval'

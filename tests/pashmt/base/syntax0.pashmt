@@ -1,0 +1,9 @@
+--test--
+Test syntax spaces
+--file--
+
+mem 'hello  world'; out  ^;
+
+--output--
+
+"hello  world"

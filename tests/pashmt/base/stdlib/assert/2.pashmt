@@ -1,0 +1,5 @@
+--test--
+Test assert function
+--file--
+assert False
+--with-error--
