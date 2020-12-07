@@ -1,5 +1,5 @@
 #
-# test_required.py
+# free0.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,24 +20,11 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' The test '''
-
-from TestCore import TestCore
-
-class test_required(TestCore):
-    ''' The test '''
-    def run(self):
-        ''' Run test '''
-        self.run_without_error('''
-            set $v1 $name $n;
-            required $v1 $name;
-            required $n;
-        ''')
-
-        self.assert_has_error(self.run_script('''
-            set $v1 $name;
-            required $v1 $name;
-            required $n;
-        '''), 'VariableError')
-
-        self.assert_has_error(self.run_script(''' required ffdggd $sgdfg; '''), 'VariableError')
+--test--
+Test free command
+--file--
+set $somevar $v1;
+set $hoho;
+free $v1 $hoho;
+--vars--
+{'somevar':None}

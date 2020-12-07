@@ -1,5 +1,5 @@
 #
-# test_free.py
+# typeof0.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,22 +20,19 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' The test '''
-
-from TestCore import TestCore
-
-class test_free(TestCore):
-    ''' The test '''
-    def run(self):
-        ''' Run test '''
-        self.assert_vars(self.run_without_error('''
-            set $somevar $v1;
-            set $hoho;
-            free $v1 $hoho;
-        '''), {'somevar':None})
-
-        self.assert_mem(self.run_without_error(''' mem 'some thing'; free ^; '''), None)
-
-        self.assert_vars(self.run_without_error(''' free $not_found_var; '''), {})
-
-        self.assert_has_error(self.run_script(''' free $somevar gdhfg ^; '''), 'SyntaxError')
+--test--
+Test typeof command
+--file--
+set $mystr $myint $mybool;
+mem 'the string'; copy $mystr;
+mem 17; copy $myint;
+mem True; copy $mybool;
+set $type_str;
+typeof $mystr; copy $type_str;
+set $type_int;
+typeof $myint; copy $type_int;
+set $type_bool;
+typeof $mybool; copy $type_bool;
+free $mystr $myint $mybool
+--vars--
+{'type_str': str, 'type_int': int, 'type_bool': bool}

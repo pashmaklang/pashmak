@@ -1,5 +1,5 @@
 #
-# test_copy.py
+# free2.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,20 +20,9 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' The test '''
-
-from TestCore import TestCore
-
-class test_copy(TestCore):
-    ''' The test '''
-    def run(self):
-        ''' Run test '''
-        self.assert_vars(self.run_without_error('''
-            set $name $family $age;
-            mem 'parsa'; copy $name;
-            copy $name $family;
-        '''), {
-            'name': 'parsa',
-            'family': 'parsa',
-            'age': None
-        })
+--test--
+Test free command variable on not found variable
+--file--
+free $not_found_var;
+--vars--
+{}

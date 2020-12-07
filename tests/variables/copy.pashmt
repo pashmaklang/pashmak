@@ -1,5 +1,5 @@
 #
-# test_mem.py
+# copy.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,25 +20,11 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' The test '''
-
-from TestCore import TestCore
-
-class test_mem(TestCore):
-    ''' The test '''
-    def run(self):
-        ''' Run test '''
-        self.assert_mem(self.run_without_error(''' mem 'some thing'; '''), 'some thing')
-
-        self.assert_mem(self.run_without_error(''' mem 155; '''), 155)
-
-        self.assert_mem(self.run_without_error(''' mem 'first' + 'last'; '''), 'firstlast')
-
-        self.assert_mem(self.run_without_error(''' mem 100 > 50; '''), True)
-
-        self.assert_mem(self.run_without_error('''
-            set $var; mem 'value'; copy $var;
-            mem $var + 'new';
-        '''), 'valuenew')
-
-        self.assert_mem(self.run_without_error(''' mem (10 * 5) + 9; '''), 59)
+--test--
+Test copy command
+--file--
+set $name $family $age;
+mem 'parsa'; copy $name;
+copy $name $family;
+--vars--
+{'name': 'parsa', 'family': 'parsa', 'age': None}
