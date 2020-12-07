@@ -1,0 +1,62 @@
+#
+# set.pashmt
+#
+# The Pashmak Project
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+variable defining system is working
+--file--
+set $myvar
+set $var1 $var2
+set $v3 $aaa $hoho
+set $var1
+set $test; mem 'hello'; copy $test;
+out $test; set $test; out $test;
+$x = 'the value'
+$y
+$a1 = 'parsa';
+$a2 = 'hello ' + $a1 + '\n';
+out $a2;
+mem 'hi mem'
+$themem = ^
+
+func testfunc $n
+mem 'the func' + $n
+endfunc
+
+$s = ^ testfunc 'A'
+--vars--
+{
+            'myvar': None,
+            'var1': None,
+            'var2': None,
+            'v3': None,
+            'aaa': None,
+            'hoho': None,
+            'test': 'hello',
+            'x': 'the value',
+            'y': None,
+            'a1': 'parsa',
+            'a2': 'hello parsa\n',
+            'themem': 'hi mem',
+            's': 'the funcA'
+}
+--output--
+'hellohellohello parsa\n'

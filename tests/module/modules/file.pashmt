@@ -1,0 +1,44 @@
+#
+# file.pashmt
+#
+# The Pashmak Project
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+file module is working
+--file--
+import '@file'
+$tmp_file
+py "import tempfile, random\; self.mem = tempfile.gettempdir().replace('\\\\', '/') + '/' + 'pashmak-test-file-' + str(random.random())"
+copy $tmp_file
+
+file.open [$tmp_file, 'w']
+set $file; copy $file
+
+file.write [$file, "content of file"]
+file.close $file
+
+file.open [$tmp_file, 'r']
+copy $file
+file.read $file; out ^
+file.close $file
+
+py 'os.remove("' + $tmp_file + '")'
+--output--
+'content of file'
