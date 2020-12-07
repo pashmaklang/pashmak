@@ -7,11 +7,11 @@ on:
 jobs:
   unix_tests:
 
-    runs-on: ${{ matrix.os }}-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        os: [ubuntu]
+        os: [ubuntu-latest, macos-latest]
         python: [3.6, 3.7, 3.8, 3.9]
 
     steps:
