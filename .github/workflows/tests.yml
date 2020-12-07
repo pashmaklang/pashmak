@@ -23,14 +23,16 @@ jobs:
     - name: Setup pyinstaller
       if: startsWith(matrix.os, 'windows')
       run: pip install pyinstaller
+    - name: Setup pyinstaller (windows) 
       if: false == startsWith(matrix.os, 'windows')
       run: pip3 install pyinstaller
-    - name: Test
+    - name: Running Tests
       if: startsWith(matrix.os, 'windows')
       run: |
         .\win-configure.bat
         python -m PyInstaller src\pashmak.py --onefile
         dist\pashmak.exe -v
+    - name: Running Tests (windows)
       if: false == startsWith(matrix.os, 'windows')
       run: |
         make all
