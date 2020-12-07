@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test file module
+file module is working
 --file--
 import '@file'
 $tmp_file

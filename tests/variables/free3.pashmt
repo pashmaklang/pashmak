@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test free command syntax error
+free command raises error when arguments syntax is not valid
 --file--
 free $somevar gdhfg ^;
 --with-error--

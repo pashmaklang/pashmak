@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test free command variable on not found variable
+free command has not any error on not found variable
 --file--
 free $not_found_var;
 --vars--

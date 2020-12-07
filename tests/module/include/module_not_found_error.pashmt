@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test module not found error
+include command raises error when module not found
 --file--
 mem '@notfound233445'; include ^
 --with-error--

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test typeof command syntax error
+typeof command raises error when arguments syntax is not valid
 --file--
 typeof fdfdgdg
 --with-error--

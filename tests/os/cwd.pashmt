@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test cwd command
+cwd command is working
 --file--
 cwd
 --mem--

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test try endtry
+try endtry is working when code has not any error
 --file--
 set $name; mem 'pashmak'; copy $name;
 

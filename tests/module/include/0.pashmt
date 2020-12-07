@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test include command
+include command is working
 
 --file--
 mem 'before include\n'; out ^

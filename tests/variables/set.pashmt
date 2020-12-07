@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test variable defining system
+variable defining system is working
 --file--
 set $myvar
 set $var1 $var2

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test try command syntax error
+try command raises syntax error correctly
 
 --file--
 try; gfdhghgfhf; endtry;

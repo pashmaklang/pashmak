@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test required command
+required command is working
 --file--
 set $v1 $name $n;
 required $v1 $name;

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test variable in namespace
+variables in namespaces working
 --file--
 namespace App;
     set $name; mem 'parsa'; copy $name;

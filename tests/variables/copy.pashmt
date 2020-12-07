@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test copy command
+copy command is working
 --file--
 set $name $family $age;
 mem 'parsa'; copy $name;

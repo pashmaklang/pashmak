@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test required command errors
+required command raises error when arguments has syntax error
 --file--
 required ffdggd $sgdfg
 --with-error--

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test arraypop command
+arraypop command works
 --file--
 set $names;
 mem ['pashmak', 'parsa']; copy $names;

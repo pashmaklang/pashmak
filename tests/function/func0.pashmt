@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test functions
+functions working
 
 --file--
 mem 'starting\n'; out ^;

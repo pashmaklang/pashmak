@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test subnamespace (2)
+subnamespace is working correct
 --file--
 
 namespace App;

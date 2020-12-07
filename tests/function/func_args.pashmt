@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test functions arguments
+functions argument will be set correctly
 --file--
 func myfunc;
     out ^;

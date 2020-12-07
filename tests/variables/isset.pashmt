@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test isset command
+isset command is working
 --file--
 set $var; isset $var; out ^
 free $var

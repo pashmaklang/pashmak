@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test include command variable not found error
+include command raises error when variable not found
 --file--
 include $not_found
 --with-error--

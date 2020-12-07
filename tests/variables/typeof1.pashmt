@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test typeof command variable not found error
+typeof command raises error when variable is not found
 --file--
 typeof $notfound
 --with-error--

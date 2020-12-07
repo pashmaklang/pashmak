@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test module not found error
+module path system without any path working
 --pyinit--
 import os
 os.environ['PASHMAKINFO'] = ''

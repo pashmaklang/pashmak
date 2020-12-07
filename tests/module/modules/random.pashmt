@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test random module
+random module is working
 --file--
 import "@random"
 random.randint [5,10]

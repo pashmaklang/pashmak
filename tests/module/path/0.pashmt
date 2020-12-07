@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test module path system
+modules are loaded in module path system
 --pyinit--
 
 import os

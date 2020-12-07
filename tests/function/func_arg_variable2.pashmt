@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test functions argument variable (2)
+functions argument variable is working with parentheses
 
 --file--
 func say_hi ($name);

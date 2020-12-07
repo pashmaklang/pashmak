@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test undefined function error
+program raises error while calling undefined function
 --file--
 undefined_func
 --with-error--

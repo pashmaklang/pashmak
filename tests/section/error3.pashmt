@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test section system error (2)
+section system raises error while trying to gotoif not founded section
 --file--
 gotoif not_found
 --with-error--

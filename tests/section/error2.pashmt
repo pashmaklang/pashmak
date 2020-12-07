@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test section system error
+section system raises error while trying to goto not founded section
 --file--
 goto not_found
 --with-error--

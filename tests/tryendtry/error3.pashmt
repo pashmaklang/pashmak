@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test try section not found error
+try command raises error when argment section is not found
 --file--
 try somesection; gfdhghgfhf; endtry;
 --with-error--

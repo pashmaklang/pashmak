@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test functions argument variable
+functions argument variable is working
 
 --file--
 func say_hi $name;

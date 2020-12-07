@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test required commands raises error when variable is not exists
+required commands raises error when variable is not exists
 --file--
 set $v1 $name;
 required $v1 $name;

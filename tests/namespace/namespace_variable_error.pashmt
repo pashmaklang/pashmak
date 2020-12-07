@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test namespace variable error
+namespace variable is declared inside namespace and is not accessible from outside
 --file--
 namespace App
     set $name; mem 'parsa'; copy $name

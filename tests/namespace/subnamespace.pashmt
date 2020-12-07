@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test subnamespace
+subnamespace is working
 --file--
 namespace App;
     $name = 'parsa';

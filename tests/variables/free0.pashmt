@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test free command
+free command is working
 --file--
 set $somevar $v1;
 set $hoho;

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test example hash module
+modules can be imported
 --file--
 mem '@hash'; include ^;
 hash.sha256 'hello'; out ^;

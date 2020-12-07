@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test include command syntax error
+include command raises error when argument syntax is not valid
 --file--
 include hhghgjghj
 --with-error--

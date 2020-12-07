@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test include command with variable as argument
+include command is working with variable as argument
 --file--
 set $path;
 mem 'examples/will_be_include.pashm'; copy $path;

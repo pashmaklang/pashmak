@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test section system (Loop structure)
+section system is working as Loop structure
 --file--
 mem 'before start\n'; out ^;
 set $i; mem 0; copy $i;

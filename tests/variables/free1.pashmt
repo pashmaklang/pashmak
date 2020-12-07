@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test free command on mem
+free command is working on mem
 --file--
 mem 'some thing'; free ^;
 --mem--

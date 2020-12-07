@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test time module
+ ime module is working
 --file--
 import '@time';
 time.time;

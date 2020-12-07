@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test section system (If structure)
+section system is working as If structure
 --file--
 mem 'before start\n'; out ^;
 goto 10;

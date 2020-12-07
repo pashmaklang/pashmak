@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test functions syntax errors
+function system raises error when function argument syntax is not valid
 
 --file--
 

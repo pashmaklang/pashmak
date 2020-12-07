@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test use command in namespaces
+use command is working
 
 --file--
 namespace App;

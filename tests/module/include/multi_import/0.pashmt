@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test multiple import
+multiple import is working
 --file--
 import '@hash', 'examples/will_be_include.pashm';
 hash.sha256 'hello'; out ^;

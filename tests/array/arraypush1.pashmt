@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test arraypush (2)
+arraypush command works (with variables)
 --file--
 
 set $names;

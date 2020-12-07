@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Test typeof command
+typeof command is working
 --file--
 set $mystr $myint $mybool;
 mem 'the string'; copy $mystr;
