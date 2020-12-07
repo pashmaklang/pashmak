@@ -220,7 +220,7 @@ if sys.argv[1] == 'update-headers':
         CopyrightHeaderUpdater.set_once_file_header(f)
 
     # get files list in src/ folder and set header of them
-    files_list = CopyrightHeaderUpdater('tests' + '/').files_list
+    files_list = CopyrightHeaderUpdater('tests' + '/', '.pashmt').files_list
     for f in files_list:
         CopyrightHeaderUpdater.set_once_file_header(f)
 
