@@ -1,0 +1,10 @@
+--test--
+Test module path system (2)
+--pyinit--
+import os
+os.environ['PASHMAKPATH'] = os.getcwd() + '/tests/test-module-path'
+--file--
+import '@testdir2';
+testdir2.run
+--output--
+'hello testdir2\n'

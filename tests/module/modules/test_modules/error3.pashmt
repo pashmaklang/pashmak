@@ -1,0 +1,7 @@
+--test--
+Test test module assert errors (3)
+--file--
+import '@test';
+test.assertEquals 2, 8;
+--with-error--
+'AssertError'

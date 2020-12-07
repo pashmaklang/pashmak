@@ -1,0 +1,13 @@
+--test--
+Test module path system
+--pyinit--
+
+import os
+os.environ['PASHMAKPATH'] = os.getcwd() + '/tests/test-module-path'
+
+--file--
+import '@testliba'
+testliba.run
+
+--output--
+'hello testliba\n'

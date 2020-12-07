@@ -1,0 +1,14 @@
+--test--
+Test test module
+--file--
+import '@test';
+test.assertTrue True;
+test.assertTrue 2 == 2
+test.assertTrue 3 > 1
+test.assertFalse False
+test.assertFalse 3 == 2
+test.assertFalse 'foo' == 'bar'
+test.assertEquals 2, 2
+test.assertEquals 'foo', 'foo'
+test.assertNotEquals 2, 3
+test.assertNotEquals 'foo', 'bar'

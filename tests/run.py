@@ -32,6 +32,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/
 
 from syntax import parser
 from core import program
+from core import modules
 
 class Tcolor:
     ''' Terminal ansi colors '''
@@ -227,6 +228,12 @@ class TestRunner:
         if read_inputs == True:
             read_inputs = eval(sections['stdin'])
 
+        try:
+            sections['pyinit']
+            exec(sections['pyinit'])
+        except:
+            pass
+
         core = TestCore()
         result = core.run_script(sections['file'], read_inputs, cli_args)
 
@@ -290,8 +297,11 @@ class TestRunner:
         print('Starting testing system...')
         print('--------------------------')
 
+        default_modules = modules.modules
+
         for test in self.tests:
             self.run_once(test)
+            modules.modules = default_modules
 
         print()
         print(
