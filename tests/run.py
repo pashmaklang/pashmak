@@ -25,6 +25,7 @@
 
 import sys
 import os
+import time
 from random import shuffle
 
 # add `src/` folder to python path
@@ -177,7 +178,7 @@ class TestRunner:
                 if f[len(f)-7:] == '.pashmt':
                     self.tests.append(path + '/' + f)
 
-    def run_once(self, test: str):
+    def run_once(self, test: str, test_counter: int):
         ''' Run once test '''
         # read test file
         f = open(test, 'r')
@@ -206,7 +207,7 @@ class TestRunner:
             print(tcolor.WARNING + 'Warninig: test "' + test + '" has not section "test"' + tcolor.ENDC)
             return
 
-        print(sections['test'].strip() + ' (' + test.strip().replace('\n', ' ').strip() + ')', end='', flush=True)
+        print('[' + str(test_counter) + '/' + str(len(self.tests)) + '] ' + sections['test'].strip() + ' (' + test.strip().replace('\n', ' ').strip() + ')', end='', flush=True)
 
         # run the test
         read_inputs = []
@@ -297,17 +298,24 @@ class TestRunner:
         print('Starting testing system...')
         print('--------------------------')
 
+        start_time = time.time()
         default_modules = modules.modules
+        test_counter = 1
 
         for test in self.tests:
-            self.run_once(test)
+            self.run_once(test, test_counter)
             modules.modules = default_modules
+            test_counter += 1
+
+        end_time = time.time()
+
+        test_time = end_time - start_time
 
         print()
         print(
             tcolor.OKGREEN +\
             'All ' + str(len(self.tests)) +\
-            ' tests passed successfuly' +\
+            ' tests passed successfuly in ' + str(test_time) + ' secounds' +\
             tcolor.ENDC
         )
         print()
