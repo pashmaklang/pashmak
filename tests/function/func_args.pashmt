@@ -1,0 +1,15 @@
+--test--
+Test functions arguments
+--file--
+func myfunc;
+    out ^;
+endfunc;
+myfunc "hello world"
+myfunc 2*3
+
+$var = 'test';
+
+myfunc 'this is ' + $var
+
+--output--
+'hello world6this is test'

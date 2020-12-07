@@ -1,0 +1,23 @@
+--test--
+Test function (example 0)
+
+--file--
+
+set $n; mem 'parsa\n'; copy $n;
+func myfunc;
+    out $n;
+    set $n; mem 'myfunc\n'; copy $n;
+    out $n;
+endfunc;
+func tststs;
+    out $n;
+    set $n; mem 'tststs\n'; copy $n;
+    myfunc;
+    out $n;
+endfunc;
+out $n;
+tststs;
+out $n;
+
+--output--
+'parsa\nparsa\nparsa\nmyfunc\ntststs\nparsa\n'

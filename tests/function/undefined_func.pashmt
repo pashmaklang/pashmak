@@ -1,0 +1,5 @@
+--test--
+Test undefined function error
+--file--
+undefined_func
+--with-error--

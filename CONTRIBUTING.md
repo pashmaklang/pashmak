@@ -160,7 +160,7 @@ if you adding a feature or changing feature, change/add test for that feature
 - `--cliargs--`: sets program command line arguments (list)
 - `--stdin--`: sets program stdin arguments (list)
 - `--exit-code--`: asserts program exit code
-- `--with-error--`: this option don't needs to value. this asserts the code has error
+- `--with-error--`: asserts program has error. value is optional, but you can assert error type as value
 
 example:
 

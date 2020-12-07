@@ -1,0 +1,8 @@
+--test--
+Test out command (1, errors)
+
+--file--
+out $not_found_var;
+
+--with-error--
+'VariableError'

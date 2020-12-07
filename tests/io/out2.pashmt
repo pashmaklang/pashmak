@@ -1,0 +1,8 @@
+--test--
+Test out command (2, errors)
+
+--file--
+out
+
+--with-error--
+'ArgumentError'

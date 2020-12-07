@@ -1,0 +1,8 @@
+--test--
+Test read command
+--file--
+set $input; read $input; out $input;
+--stdin--
+['pashmak']
+--output--
+'pashmak'

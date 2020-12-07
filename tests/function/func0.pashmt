@@ -1,0 +1,14 @@
+--test--
+Test functions
+
+--file--
+mem 'starting\n'; out ^;
+func myfunc;
+    mem 'func runed\n'; out ^;
+    mem 'func finished\n'; out ^;
+endfunc;
+myfunc;
+mem 'finished\n'; out ^;
+
+--output--
+'starting\nfunc runed\nfunc finished\nfinished\n'

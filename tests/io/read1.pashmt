@@ -1,0 +1,11 @@
+--test--
+Test read command (1, errors)
+
+--file--
+read $notfound
+
+--stdin
+['test']
+
+--with-error--
+'VariableError'

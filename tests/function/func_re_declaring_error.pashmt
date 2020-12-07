@@ -1,0 +1,13 @@
+--test--
+Test functions re-declaring error
+
+--file--
+func myfunc;
+    print 'hello';
+endfunc;
+func myfunc;
+    print 'something';
+endfunc;
+
+--with-error--
+'FunctionError'

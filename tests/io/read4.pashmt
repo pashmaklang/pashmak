@@ -1,0 +1,16 @@
+--test--
+Test read command (2)
+
+--file--
+set $input;
+read $input;
+out $input;
+set $input_1;
+read $input_1;
+out $input_1;
+
+--stdin--
+['pashmak', 'parsa']
+
+--output--
+'pashmakparsa'

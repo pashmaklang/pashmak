@@ -1,0 +1,14 @@
+--test--
+Test read command (4)
+
+--file--
+set $var $v2; read ^ $var $v2
+
+--stdin--
+['themem', 'pashmak', 'hello']
+
+--mem--
+'themem'
+
+--vars--
+{'var': 'pashmak', 'v2': 'hello'}

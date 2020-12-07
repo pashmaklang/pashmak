@@ -1,0 +1,12 @@
+--test--
+Test functions argument variable
+
+--file--
+func say_hi $name;
+    println $name;
+endfunc;
+
+say_hi 'parsa';
+
+--output--
+'parsa\n'

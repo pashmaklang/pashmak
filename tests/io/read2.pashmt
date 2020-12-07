@@ -1,0 +1,10 @@
+--test--
+Test read command (2, errors)
+
+--file--
+read gfhfjhgjgjgh
+
+--stdin
+['test']
+
+--with-error--

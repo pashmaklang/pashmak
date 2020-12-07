@@ -1,0 +1,13 @@
+--test--
+Test functions syntax errors
+
+--file--
+
+func myfunc;
+    out ^;
+endfunc;
+
+myfunc hello world;
+
+--with-error--
+'RuntimeError'

@@ -1,0 +1,11 @@
+--test--
+Test functions multi call
+--file--
+func myfunc
+    mem 'func runed\n'; out ^
+endfunc
+myfunc
+myfunc
+
+--output--
+'func runed\nfunc runed\n'

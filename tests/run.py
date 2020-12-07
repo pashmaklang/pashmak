@@ -192,7 +192,7 @@ class TestRunner:
                 sections[current_section] = ''
             elif current_section != None:
                 sections[current_section] += line + '\n'
-        
+
         try:
             sections['file']
         except:
@@ -238,7 +238,11 @@ class TestRunner:
         except:
             pass
         if with_error:
-            core.assert_has_error(result)
+            try:
+                err_type = eval(sections['with-error'])
+            except:
+                err_type = None
+            core.assert_has_error(result, err_type)
         else:
             core.assert_has_not_error(result)
 

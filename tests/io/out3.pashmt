@@ -1,0 +1,7 @@
+--test--
+Test out command (3, errors)
+
+--file--
+out sfgfdgdfhd
+
+--with-error--

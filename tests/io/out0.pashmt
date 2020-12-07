@@ -1,0 +1,11 @@
+--test--
+Test out command
+
+--file--
+mem 'hi there'; out ^;
+mem 'hello world\n'; out ^;
+set $name; mem 'pashmak'; copy $name;
+out $name;
+
+--output--
+'hi therehello world\npashmak'

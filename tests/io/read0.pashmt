@@ -1,0 +1,8 @@
+--test--
+Test read command without argument
+
+--file--
+read
+
+--stdin--
+['test']

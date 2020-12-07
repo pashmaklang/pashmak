@@ -1,0 +1,11 @@
+--test--
+Test read command (3)
+
+--file--
+read ^
+
+--stdin--
+['pashmak']
+
+--mem--
+'pashmak'
