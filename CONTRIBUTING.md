@@ -123,56 +123,83 @@ python3 ./tests/run.py
 ```
 
 #### create new test
-to create new test, run this command:
+to create new test, you should create a file with `.pashmt` extension in `tests` folder. also you can create that in any subdirectory. for example `tests/foo/bar/test.pashmt` or `tests/hello.pashmt`, etc.
 
-```bash
-python3 scripts.py make-test test_something
-```
+the strcuture of `.pashmt` files is so easy. test runner reads them and runs code and runs assertions on result of the code.
 
-alwasy put `test_` before name of test.
-
-now the test script is created in `tests/items/test_something.py`
+for example `tests/example/test_something.pashmt`
 
 this is content of that:
 
-```python
-from TestCore import TestCore
-
-class test_something(TestCore):
-    def run(self):
-        self.assert_true(True)
+```
+--test--
+This is a example test
+--file--
+# this is my code
+print 'hello world'
+--output--
+"hello world"
 ```
 
-you can do your test in `run` function in `test_something` class.
+in above example, we are asserting output of that code is `hello world`.
+
+syntax of this files is very easy.
+you have to write `--<section-name>--` in a line and write value in next lines.
+
+for example, `--test--` option sets a short description for the test.
+and `--file--` set the code. and `--output--` asserts output.
+
+totally, the above test runs `print "hello world"` code and asserts output of that code is `"hello world"`
 
 if you adding a feature or changing feature, change/add test for that feature
 
-#### test core functions
-- assert_true(Value): gets a value and asserts that is True
-- assert_false(Value): gets a value and asserts that is False
-- assert_equals(first, last): gets two value and asserts they are equals
-- assert_not_equals(first, last): gets two value and asserts they are NOT equals
-- run_script(code): gets a code and run that then returns program result
-- run_without_error(code): gets a code and run that then returns program result and auto assert program has not error
-- assert_vars(program_result, vars): gets a program result and asserts variables equals `vars`
-- assert_mem(program_result, mem): gets a program result and asserts mem equals `mem`
-- assert_output(program_result, output): gets a program result and asserts output equals `output`
-- assert_exit_code(program_result, exit_code): gets a program result and asserts exit code equals `exit_code`
-- assert_has_error(program_result): gets a program result and asserts program has error
-- assert_has_not_error(program_result): gets a program result and asserts program has NOT error
-- dump(object): gets a object and dumps that object
-
+#### Another test options
+- `--vars--`: asserts variables
+- `--mem--`: asserts mem value
+- `--output--`: asserts program output
+- `--exit-code--`: asserts program exit code
+- `--with-error--`: this option don't needs to value. this asserts the code has error
 
 example:
 
-```python
-from TestCore import TestCore
-
-class test_something(TestCore):
-    def run(self):
-        self.assert_output(self.run_without_error('''
-        mem 'hello world'; out ^;
-        '''), 'hello world')
-
-        # my code prints `hello world` and i'm asserting the output is `hello world`
 ```
+--test--
+Example test
+--file--
+# this is my code
+println 'hello world'
+$foo = 'bar'
+$name = 'pashmak'
+mem 'the mem'
+return 5
+
+--output
+"hello world\n"
+
+--vars--
+{"foo": "bar", "name": "pashmak"}
+
+--mem--
+"the mem"
+
+--exit-code--
+5
+```
+
+REMEMBER, always put values in `--mem--`, `--output--` and... as python syntax!
+
+for example, if you want to assert output is `hello world`, DO NOT WRITE THIS:
+
+```
+--output--
+hello world
+```
+
+above test is wrong, but this is value:
+
+```
+--output--
+"hello world"
+```
+
+actually, you have to write `"` and... assert values.

@@ -1,0 +1,21 @@
+--test--
+Example test
+--file--
+# this is my code
+println 'hello world'
+$foo = 'bar'
+$name = 'pashmak'
+mem 'the mem'
+return 5
+
+--output
+"hello world\n"
+
+--vars--
+{"foo": "bar", "name": "pashmak"}
+
+--mem--
+"the mem"
+
+--exit-code--
+5
