@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         python: [3.6, 3.7, 3.8, 3.9]
 
     steps:
@@ -21,37 +21,20 @@ jobs:
       with:
         python-version: ${{ matrix.python }}
     - name: Setup pyinstaller
-      run: |
-        pip3 install pyinstaller
+      if: startsWith(matrix.os, 'windows')
+      run: pip install pyinstaller
+      else:
+      run: pip3 install pyinstaller
     - name: Test
+      if: startsWith(matrix.os, 'windows')
+      run: |
+        .\win-configure.bat
+        python -m PyInstaller src\pashmak.py --onefile
+        dist\pashmak.exe -v
+      else:
       run: |
         make all
         make
         ./dist/pashmak -v
 
     name: ${{ matrix.os }} Python ${{ matrix.python }}
-
-  windows_tests:
-
-    runs-on: windows-latest
-
-    strategy:
-      matrix:
-        python: [3.6, 3.7, 3.8, 3.9]
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python }}
-    - name: Setup pyinstaller
-      run: |
-        pip install pyinstaller
-    - name: Test
-      run: |
-        .\win-configure.bat
-        python -m PyInstaller src\pashmak.py --onefile
-        dist\pashmak.exe -v
-
-    name: Windows Python ${{ matrix.python }}
