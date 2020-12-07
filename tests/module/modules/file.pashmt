@@ -1,5 +1,5 @@
 #
-# test_modules.py
+# file.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,33 +20,25 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' The test '''
+--test--
+Test file module
+--file--
+import '@file'
+$tmp_file
+py "import tempfile, random\; self.mem = tempfile.gettempdir().replace('\\\\', '/') + '/' + 'pashmak-test-file-' + str(random.random())"
+copy $tmp_file
 
-import random
-import os
-import tempfile
-from TestCore import TestCore
+file.open [$tmp_file, 'w']
+set $file; copy $file
 
-class test_modules(TestCore):
-    ''' The test '''
-    def run(self):
-        ''' Run test '''
+file.write [$file, "content of file"]
+file.close $file
 
-        tmp_file = tempfile.gettempdir().replace('\\', '/') + '/' + 'pashmak-test-file-' + str(random.random())
-        self.assert_output(self.run_without_error('''
-        import '@file';
+file.open [$tmp_file, 'r']
+copy $file
+file.read $file; out ^
+file.close $file
 
-        file.open ["''' + tmp_file + '''", 'w'];
-        set $file; copy $file;
-        file.write [$file, "content of file"];
-        file.close $file;
-
-        file.open ["''' + tmp_file + '''", 'r'];
-        copy $file;
-        file.read $file; out ^;
-        '''), 'content of file')
-
-        try:
-            os.remove(tmp_file)
-        except:
-            pass
+py 'os.remove("' + $tmp_file + '")'
+--output--
+'content of file'
