@@ -735,85 +735,6 @@ you are less than 18
 program ends
 ```
 
-### an easy way to make loops
-
-the section system is very useful for making loops.
-
-to make loop, we can write this code:
-
-```bash
-$i = 0
-section loop
-    println $i
-    $i = $i + 1
-mem $i < 10; gotoif loop
-```
-
-output:
-
-```
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-```
-
-but we can use `loop` and `while` functions to make loop syntax easy:
-
-```bash
-$i = 0
-loop
-    println $i
-    $i = $i + 1
-while $i < 10 # back to loop while condition is True (while $i < 10)
-```
-
-output:
-
-```
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-```
-
-##### Important note about `loop` and `while` operations:
-you cannot make loops-in-loops with this operations. you can make single loops with this operations.
-
-for example:
-
-```bash
-loop
-    loop
-        #
-    while True
-while True
-```
-
-the above code not works.
-
-but you can write loop-in-loop with `section` operation:
-
-```bash
-section loop1
-    section loop2
-        # your code
-    mem True; gotoif loop2
-mem True; gotoif loop1
-```
-
 
 
 # Functions
@@ -1141,10 +1062,10 @@ $names = ['parsa', 'pashmak', 'jack']
 
 $i = 0
 
-loop
+section loop
     println $names[$i]
     $i = $i + 1
-while $i < len($names)
+mem $i < len($names); gotoif loop
 ```
 
 output:
@@ -1438,7 +1359,7 @@ func fib
     $a = 1
     $b = 1
 
-    loop;
+    section loop;
         println $b
 
         $tmp_a = $a
@@ -1447,7 +1368,7 @@ func fib
         $a = $tmp_b
 
         $b = $tmp_a + $tmp_b
-    while $b < 10000
+    mem $b < 10000; gotoif loop
 endfunc
 ```
 

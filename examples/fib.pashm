@@ -28,7 +28,7 @@ func fib ($n)
 
     println $a
 
-    loop
+    section loop
         println $b
 
         $tmp_a = $a
@@ -37,7 +37,7 @@ func fib ($n)
         $a = $tmp_b
 
         $b = $tmp_a + $tmp_b
-    while $b < $n
+    mem $b < $n; gotoif loop
 endfunc
 
 fib 10000

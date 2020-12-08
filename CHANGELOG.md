@@ -1,5 +1,9 @@
 # Pashmak Changelog
 
+## next release
+
+- removed `loop` and `while` functions
+
 ## 0.5.4 (2020-12-6)
 
 - fixed section system loop bug

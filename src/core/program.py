@@ -323,7 +323,7 @@ class Program(helpers.Helpers):
 
             # execute function body
             with_state = True
-            if op_name in ['import']:
+            if op_name in ['import', 'mem']:
                 with_state = False
             self.exec_func(func_body, with_state, True)
             return
