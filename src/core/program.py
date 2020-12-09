@@ -302,13 +302,6 @@ class Program(helpers.Helpers):
             try:
                 self.current_struct
                 is_in_struct = True
-                '''default_value = op['str'].split('=', 1)
-                if len(default_value) > 1:
-                    default_value = default_value[-1]
-                    self.structs[self.current_struct][op_name[1:]] = self.eval(default_value)
-                else:
-                    self.structs[self.current_struct][op_name[1:]] = None
-                return'''
             except NameError:
                 pass
             except KeyError:
