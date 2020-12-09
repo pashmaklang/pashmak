@@ -1,5 +1,5 @@
 #
-# struct.pashm
+# 006-prop-value-set.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,12 +20,36 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
+--test--
+struct object props can recive the value
+--file--
+
+struct Foo
+    $title = 'the title'
+endstruct
+
 struct Human
     $name
-    $age = 12
+    $age
+    $foo = ^ new Foo
 endstruct
 
 $someone = ^ new Human
-$someone->['name'] = 'parsa'
+$someone->['name'] = 'hello world'
+$someone->['age'] = 18
 
 println $someone->['name']
+println $someone->['foo']->['title']
+
+$someone->['foo']->['title'] = 'new title'
+println $someone->['foo']->['title']
+
+$someone->['name'] = $someone->['name'] + '.'
+println $someone->['name']
+
+--output--
+"""hello world
+the title
+new title
+hello world.
+"""
