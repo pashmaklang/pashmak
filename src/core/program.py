@@ -381,7 +381,7 @@ class Program(helpers.Helpers):
             self.exec_func(func_body, with_state, True)
             return
         except Exception as ex:
-            self.raise_error('RuntimeError', str(ex), op)
+            raise
 
     def signal_handler(self, signal_code, frame):
         ''' Raise error when signal exception raised '''
@@ -469,7 +469,7 @@ class Program(helpers.Helpers):
                 except:
                     break
                 self.raise_error(
-                    'RuntimeError',
+                    ex.__class__.__name__,
                     str(ex),
                     self.set_operation_index(self.operations[self.current_step])
                 )

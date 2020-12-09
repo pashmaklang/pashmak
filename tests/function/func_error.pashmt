@@ -32,4 +32,4 @@ endfunc;
 myfunc hello world;
 
 --with-error--
-'RuntimeError'
+'SyntaxError'
