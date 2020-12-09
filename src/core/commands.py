@@ -51,6 +51,9 @@ from operations import python as op_python
 from operations import namespace as op_namespace
 from operations import endnamespace as op_endnamespace
 from operations import use as op_use
+from operations import struct as op_struct
+from operations import endstruct as op_endstruct
+from operations import new as op_new
 
 class Commands:
     ''' Only some aliases for operations '''
@@ -166,3 +169,15 @@ class Commands:
     def run_use(self, op: dict):
         ''' run use '''
         op_use.run(self, op)
+
+    def run_struct(self, op: dict):
+        ''' run struct '''
+        op_struct.run(self, op)
+
+    def run_endstruct(self, op: dict):
+        ''' run endstruct '''
+        op_endstruct.run(self, op)
+
+    def run_new(self, op: dict):
+        ''' run new '''
+        op_new.run(self, op)
