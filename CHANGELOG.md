@@ -3,6 +3,7 @@
 ## next release
 
 - removed `loop` and `while` functions
+- created **Structs** system
 
 ## 0.5.4 (2020-12-6)
 
