@@ -1836,6 +1836,32 @@ you can access to properties by `->` symbol:
 $obj->['prop1']->['prop2']->['prop3']
 ```
 
+also you can set new properties on a object:
+
+
+```bash
+struct Car
+    $name
+    $color
+endstruct
+
+$my_car = ^ new Car
+$my_car->['name'] = 'my car'
+$my_car->['color'] = 'red'
+
+$my_car->['the_new_prop'] = 'the value'
+
+println $my_car->['the_new_prop']
+```
+
+output:
+
+```
+the value
+```
+
+in the above example, property `the_new_prop` is not declared in struct by default, but you can add props without any problem in objects.
+
 
 
 # Eval
