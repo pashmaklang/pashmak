@@ -40,6 +40,7 @@ class Program(helpers.Helpers):
         } # declared functions <function-name>:[<list-of-body-operations>]
         self.operations = [] # list of operations
         self.sections = {} # list of declared sections <section-name>:<index-of-operation-to-jump>
+        self.structs = {}
         self.mem = None # memory temp value
         self.is_test = is_test # program is in testing state
         self.output = '' # program output (for testing state)
@@ -208,6 +209,10 @@ class Program(helpers.Helpers):
             self.run_endfunc(op)
             return
 
+        if op_name == 'endstruct':
+            self.run_endstruct(op)
+            return
+
         if op_name == 'popstate':
             if self.states:
                 self.states.pop()
@@ -217,6 +222,24 @@ class Program(helpers.Helpers):
         try:
             self.current_func
             self.functions[self.current_func].append(op)
+            return
+        except NameError:
+            pass
+        except KeyError:
+            pass
+        except AttributeError:
+            pass
+
+        # if a struct is started, append current operation as a property to struct
+        try:
+            self.current_struct
+            self.arg_should_be_variable(op_name, op)
+            default_value = op['args_str'].split('=', 1)
+            if len(default_value) > 1:
+                default_value = default_value[-1]
+                self.structs[self.current_struct][op_name[1:]] = self.eval(default_value)
+            else:
+                self.structs[self.current_struct][op_name[1:]] = None
             return
         except NameError:
             pass
@@ -254,6 +277,8 @@ class Program(helpers.Helpers):
             'namespace': self.run_namespace,
             'endnamespace': self.run_endnamespace,
             'use': self.run_use,
+            'struct': self.run_struct,
+            'endstruct': self.run_endstruct,
             'pass': None,
         }
 
