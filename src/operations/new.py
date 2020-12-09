@@ -50,4 +50,4 @@ def run(self, op: dict):
                 self.raise_error('StructError', 'undefined struct "' + arg + '"', op)
                 return
 
-    self.mem = {'struct': struct_real_name, 'props': struct}
+    self.mem = {'struct': struct_real_name, 'props': dict(struct)}
