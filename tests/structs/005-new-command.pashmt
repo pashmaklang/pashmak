@@ -1,5 +1,5 @@
 #
-# struct.pashm
+# 005-new-command.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,11 +20,45 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
+--test--
+the new command can make an object from struct
+--file--
 struct Car
     $name
-    $age = 12
+    $color = 'red'
 endstruct
 
-$my_car = {'struct': 'Car', 'data': self.structs['Car']}
+$my_car = ^ new Car
 
-println $my_car
+namespace Foo
+    struct Bar
+        $title = 'the bar'
+    endstruct
+
+    namespace Sub
+        struct Hello
+            $say_hi = 'Hi!'
+        endstruct
+    endns
+endns
+
+$my_bar; new Foo.Bar; copy $my_bar
+
+use Foo.Sub
+
+$my_hi = ^ new Hello
+
+println $my_bar
+println $my_car['color']
+
+--vars--
+{
+    'my_car': {'struct': 'Car', 'props': {'name': None, 'color': 'red'}},
+    'my_bar': {'struct': 'Foo.Bar', 'props': {'title': 'the bar'}},
+    'my_hi': {'struct': 'Foo.Sub.Hello', 'props': {'say_hi': 'Hi!'}}
+}
+
+--output--
+"""{'title': 'the bar'}
+red
+"""

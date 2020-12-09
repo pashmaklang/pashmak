@@ -188,14 +188,32 @@ class Program(helpers.Helpers):
         code = '(' + operation + ')'
         # replace variable names with value of them
         for k in self.all_vars():
-            code = code.replace('$' + k, 'self.get_var("' + k + '")')
+            # check variable is struct
+            is_struct = False
+            try:
+                assert type(self.all_vars()[k]) == dict
+                self.all_vars()[k]['struct']
+                self.all_vars()[k]['props']
+                assert len(list(self.all_vars()[k].keys())) == 2
+                is_struct = True
+            except KeyError:
+                pass
+            except AssertionError:
+                pass
+            if is_struct:
+                code = code.replace('$' + k, 'self.get_var("' + k + '")["props"]')
+            else:
+                code = code.replace('$' + k, 'self.get_var("' + k + '")')
             tmp_used_namespaces = self.used_namespaces
             if self.current_namespace() != '':
                 tmp_used_namespaces = [*tmp_used_namespaces, self.current_namespace()[:len(self.current_namespace())-1]]
             for used_namespace in tmp_used_namespaces:
                 if k[:len(used_namespace)+1] == used_namespace + '.':
                     tmp = k[len(used_namespace)+1:]
-                    code = code.replace('$' + tmp, 'self.get_var("' + k + '")')
+                    if is_struct:
+                        code = code.replace('$' + tmp, 'self.get_var("' + k + '")["props"]')
+                    else:
+                        code = code.replace('$' + tmp, 'self.get_var("' + k + '")')
 
         return eval(code)
 
@@ -279,6 +297,7 @@ class Program(helpers.Helpers):
             'use': self.run_use,
             'struct': self.run_struct,
             'endstruct': self.run_endstruct,
+            'new': self.run_new,
             'pass': None,
         }
 
