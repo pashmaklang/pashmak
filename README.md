@@ -942,6 +942,23 @@ endfunc
 say_hello 'parsa'
 ```
 
+#### how two handle multiple arguments?
+in the above examples, all of created functions only have ONE function. some times our functions recives more than one arguments. how we can handle this?
+
+to handle this, you can use something like this:
+
+```bash
+func say_hi ($args)
+    $first_name = $args[0]
+    $last_name = $args[1]
+    println 'hello ' + $first_name + ' ' + $last_name
+endfunc
+
+say_hi 'parsa', 'shahmaleki'
+```
+
+in above example, all of our arguments are in `$args`. that variable is a python tuple/list. we can handle multiple arguments like this example.
+
 ### local variables & global variables
 
 look at this example:
