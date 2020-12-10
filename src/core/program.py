@@ -28,6 +28,7 @@ import signal
 from pathlib import Path
 from syntax import parser
 from core import helpers, version, modules
+from core.struct import Struct
 
 class Program(helpers.Helpers):
     ''' Pashmak program object '''
@@ -189,20 +190,10 @@ class Program(helpers.Helpers):
         # replace variable names with value of them
         for k in self.all_vars():
             # check variable is struct
-            is_struct = False
-            try:
-                assert type(self.all_vars()[k]) == dict
-                self.all_vars()[k]['struct']
-                self.all_vars()[k]['props']
-                assert len(list(self.all_vars()[k].keys())) == 2
-                is_struct = True
-            except KeyError:
-                pass
-            except AssertionError:
-                pass
+            is_struct = type(self.all_vars()[k]) == Struct
             code = code.replace('$' + k, 'self.get_var("' + k + '")')
             if is_struct:
-                code = code.replace('self.get_var("' + k + '")->', 'self.get_var("' + k + '")["props"]')
+                code = code.replace('self.get_var("' + k + '")->', 'self.get_var("' + k + '").props')
             tmp_used_namespaces = self.used_namespaces
             if self.current_namespace() != '':
                 tmp_used_namespaces = [*tmp_used_namespaces, self.current_namespace()[:len(self.current_namespace())-1]]
@@ -211,9 +202,9 @@ class Program(helpers.Helpers):
                     tmp = k[len(used_namespace)+1:]
                     code = code.replace('$' + tmp, 'self.get_var("' + k + '")')
                     if is_struct:
-                        code = code.replace('self.get_var("' + k + '")->', 'self.get_var("' + k + '")["props"]')
-        code = code.replace('"]->', '"]["props"]')
-        code = code.replace('\']->', '\']["props"]')
+                        code = code.replace('self.get_var("' + k + '")->', 'self.get_var("' + k + '").props')
+        code = code.replace('"]->', '"].props')
+        code = code.replace('\']->', '\'].props')
         return eval(code)
 
     def run(self, op: dict):
@@ -314,11 +305,11 @@ class Program(helpers.Helpers):
             varname = varname.split('->', 1)
             is_struct_setting = False
             if len(varname) > 1:
-                is_struct_setting = varname[1].replace('->', '["props"]')
+                is_struct_setting = varname[1].replace('->', '.props')
             varname = varname[0]
             if len(parts) <= 1:
                 if is_in_struct:
-                    self.structs[self.current_struct][varname[1:]] = None
+                    self.structs[self.current_struct].props[varname[1:]] = None
                 else:
                     self.set_var(varname[1:], None)
                 return
@@ -340,10 +331,10 @@ class Program(helpers.Helpers):
                 value = self.eval(parts[1].strip())
             if is_struct_setting != False:
                 tmp_real_var = self.get_var(varname[1:])
-                exec('tmp_real_var["props"]' + is_struct_setting + ' = value')
+                exec('tmp_real_var.props' + is_struct_setting + ' = value')
             else:
                 if is_in_struct:
-                    self.structs[self.current_struct][varname[1:]] = value
+                    self.structs[self.current_struct].props[varname[1:]] = value
                 else:
                     self.set_var(varname[1:], value)
             return

@@ -25,14 +25,22 @@ tests "linked struct self to instances" bug
 
 --file--
 
-
 struct Person
     $name; $age = 10
 endstruct
 
-$p = ^ new Person
-$p->['age'] = 20
+$p1 = ^ new Person
+$p1->['age'] = 20
 
-print self.structs
+$p2 = ^ new Person
+$p2->['age'] = 77
+
+println self.structs['Person'].props
+println $p1->['age']
+println $p2->['age']
+
 --output--
-"{'Person': {'name': None, 'age': 10}}"
+"""{'name': None, 'age': 10}
+20
+77
+"""

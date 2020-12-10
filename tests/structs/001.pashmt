@@ -25,6 +25,9 @@ struct can be declared
 --file--
 struct Person
 endstruct
-print self.structs
+println list(self.structs.keys())
+println self.structs['Person'].props
 --output--
-"{'Person': {}}"
+"""['Person']
+{}
+"""

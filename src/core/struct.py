@@ -20,30 +20,13 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Declares a struct """
+""" Structs """
 
-from core.struct import Struct
+class Struct:
+    """ Struct model """
+    def __init__(self, name: str, props: dict):
+        self.props = props
+        self.name = name
 
-def run(self, op: dict):
-    """ Declares a struct """
-    self.require_one_argument(op, 'struct operation requires struct name argument')
-    arg = op['args'][0]
-
-    if '.' in arg:
-        self.raise_error(
-            'StructNameContainsDotError', 'name "' + arg + '" for struct contains `.` character', op
-        )
-
-    # check struct already declared
-    try:
-        self.structs[self.current_namespace() + arg]
-        self.raise_error(
-            'StructError',
-            'struct "' + self.current_namespace() + arg + '" already declared',
-            op
-        )
-    except KeyError:
-        pass
-
-    self.structs[self.current_namespace() + arg] = Struct(self.current_namespace() + arg, {})
-    self.current_struct = self.current_namespace() + arg
+    def __str__(self):
+        return '[PashmakStruct name="' + self.name + '"]'

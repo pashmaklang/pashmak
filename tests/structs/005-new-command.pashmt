@@ -48,17 +48,10 @@ use Foo.Sub
 
 $my_hi = ^ new Hello
 
-println $my_bar
+println $my_bar->['title']
 println $my_car->['color']
 
---vars--
-{
-    'my_car': {'struct': 'Car', 'props': {'name': None, 'color': 'red'}},
-    'my_bar': {'struct': 'Foo.Bar', 'props': {'title': 'the bar'}},
-    'my_hi': {'struct': 'Foo.Sub.Hello', 'props': {'say_hi': 'Hi!'}}
-}
-
 --output--
-"""{'struct': 'Foo.Bar', 'props': {'title': 'the bar'}}
+"""the bar
 red
 """

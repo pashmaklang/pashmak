@@ -20,8 +20,10 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-
 """ Creates a new instance from a struct """
+
+import copy
+from core.struct import Struct
 
 def run(self, op: dict):
     """ Creates a new instance from a struct """
@@ -50,4 +52,5 @@ def run(self, op: dict):
                 self.raise_error('StructError', 'undefined struct "' + arg + '"', op)
                 return
 
-    self.mem = {'struct': struct_real_name, 'props': dict(struct)}
+    struct_copy = copy.deepcopy(struct)
+    self.mem = struct_copy
