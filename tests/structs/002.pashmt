@@ -35,4 +35,4 @@ endns
 
 print list(self.structs.keys())
 --output--
-"['Models.Car', 'Models.Foo.Bar']"
+"['Object', 'Models.Car', 'Models.Foo.Bar']"

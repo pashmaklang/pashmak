@@ -1923,6 +1923,70 @@ the value
 
 in the above example, property `the_new_prop` is not declared in struct by default, but you can add props without any problem in objects.
 
+### inheritance
+the inheritance in structs means structs can be child of another structs. this means the child struct has all of he's/she's parent properties.
+
+look at this example:
+
+```bash
+struct Thing
+    $name
+endstruct
+
+struct Animal < Thing
+    $title
+    $size
+    $color
+    $gender
+endstruct
+
+struct Cat<Animal
+    $mioo
+endstruct
+
+struct Human<Animal
+    $height
+endstruct
+```
+
+in the above example, we used `<` symbol to make a struct child of another struct:
+
+```bash
+struct Parent
+
+endstruct
+
+# the `Child < Parent` sets this struct as child of the `Parent`
+struct Child < Parent
+
+endstruct
+```
+
+the child struct, has all of properties of the parent.
+
+for example:
+
+```bash
+struct Father
+    $name = 'hello world'
+endstruct
+
+struct Child < Father
+    $age = 100
+endstruct
+
+$child = ^ new Child
+
+println $child->name # output: hello world
+println $child->age # output: 100
+```
+
+actually, the parent struct has not properties of he's childs, but childs has all of parent's props.
+
+#### All of structs extends from `Object` struct
+all of structs by default extedns from a struct named `Object`. this struct is a internal pashmak struct.
+all of structs are child of this struct.
+
 
 
 # Eval

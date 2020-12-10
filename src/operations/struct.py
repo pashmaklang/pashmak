@@ -27,12 +27,39 @@ from core.struct import Struct
 def run(self, op: dict):
     """ Declares a struct """
     self.require_one_argument(op, 'struct operation requires struct name argument')
-    arg = op['args'][0]
+    arg = op['args_str']
+    arg = arg.split('<', 1)
+    parent = None
+    if len(arg) > 1:
+        parent = arg[1].strip()
+    arg = arg[0].strip()
 
     if '.' in arg:
         self.raise_error(
             'StructNameContainsDotError', 'name "' + arg + '" for struct contains `.` character', op
         )
+
+    # check parent exists
+    parent_real_name = None
+    if parent != None:
+        try:
+            parent_obj = self.structs[self.current_namespace() + parent]
+            parent_real_name = self.current_namespace() + parent
+        except KeyError:
+            parent_obj = None
+            for used_namespace in self.used_namespaces:
+                try:
+                    parent_obj = self.structs[used_namespace + '.' + parent]
+                    parent_real_name = used_namespace + '.' + parent
+                except KeyError:
+                    pass
+            if not parent_obj:
+                try:
+                    parent_obj = self.structs[parent]
+                    parent_real_name = parent
+                except KeyError:
+                    self.raise_error('StructError', 'undefined struct "' + parent + '"', op)
+                    return
 
     # check struct already declared
     try:
@@ -45,5 +72,11 @@ def run(self, op: dict):
     except KeyError:
         pass
 
-    self.structs[self.current_namespace() + arg] = Struct(self.current_namespace() + arg, {})
+    if parent_real_name != None:
+        self.structs[self.current_namespace() + arg] = self.structs[parent_real_name]
+    else:
+        if self.current_namespace() + arg != 'Object':
+            self.structs[self.current_namespace() + arg] = self.structs['Object']
+        else:
+            self.structs[self.current_namespace() + arg] = Struct(self.current_namespace() + arg, {})
     self.current_struct = self.current_namespace() + arg

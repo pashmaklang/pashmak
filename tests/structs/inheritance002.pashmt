@@ -1,5 +1,5 @@
 #
-# tmp.pashm
+# inheritance002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,18 +20,13 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-struct by
-    $a = 'way'
+--test--
+undefined struct error will be raised when parent struct not found
+
+--file--
+
+struct Test < Undefined
 endstruct
 
-struct Person
-    $name = 'parsa'
-    $by = ^ new by
-endstruct
-
-$p = ^ new Person
-
-$p->name = 'my name'
-$p->by->a = 'my name'
-
-println $p->name, $p->by->a
+--with-error--
+"StructError"
