@@ -23,6 +23,7 @@
 """ Structs """
 
 class StructProps(dict):
+    """ The `obj.props` """
     def __getattr__(self, attrname):
         try:
             return self[attrname]
