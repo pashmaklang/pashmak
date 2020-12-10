@@ -22,6 +22,9 @@
 
 """ Structs """
 
+class StructConstError(Exception):
+    pass
+
 class StructProps(dict):
     """ The `obj.props` """
     def __getattr__(self, attrname):
@@ -29,6 +32,16 @@ class StructProps(dict):
             return self[attrname]
         except KeyError:
             raise AttributeError(attrname)
+
+    def __setattr__(self, attrname, value):
+        try:
+            self[attrname]
+            if self[attrname] != None:
+                if attrname[0] == '_':
+                    raise StructConstError('property "' + attrname + '" is const and cannot be changed')
+        except KeyError:
+            pass
+        self[attrname] = value
 
 class Struct:
     """ Struct model """

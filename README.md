@@ -1983,6 +1983,29 @@ println $child->age # output: 100
 
 actually, the parent struct has not properties of he's childs, but childs has all of parent's props.
 
+also you can use **Consts** in structs.
+
+for example:
+
+```bash
+struct Person
+    $name = 'parsa'
+    $_age = 100 # age is const
+endstruct
+
+$p = ^ new Person
+
+$p->_age = 50
+```
+
+output:
+
+```
+StructConstError:...
+```
+
+if you want to set a peoperty as constant, you have to put a `_` in the start of that name.
+
 #### All of structs extends from `Object` struct
 all of structs by default extedns from a struct named `Object`. this struct is a internal pashmak struct.
 all of structs are child of this struct.
