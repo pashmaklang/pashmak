@@ -13,7 +13,7 @@ println 'hello world'
 if you want to test pashmak without installing and need to run it online, go to [Pashmak online interpreter](https://pashmio-parsampsh.fandogh.cloud/)
 
 ## Authors
-pashmak is written by [parsampsh](https://github.com/parsampsh) and [contributors](https://github.com/parsampsh/pashmak/graphs/contributors)
+pashmak is written by [parsampsh](https://github.com/parsampsh) and [contributors](https://github.com/pashmaklang/pashmak/graphs/contributors)
 
 ## Contributing
 if you want to contribute to this project, read [Contributing Guide](CONTRIBUTING.md)
@@ -31,6 +31,7 @@ read the following Documentation to learn pashmak.
 - [Installation](#installation)
 - [Basics](#basics)
 - [Variables](#variables)
+- [Constants](#Constants)
 - [Read Input From User](#read-input-from-user)
 - [Sections](#sections)
 - [Functions](#functions)
@@ -40,5 +41,6 @@ read the following Documentation to learn pashmak.
 - [OS Commands](#os-commands)
 - [Importing scripts](#include-scripts)
 - [Namespaces](#namespaces)
+- [Structs](#Structs)
 - [Eval](#eval)
 - [Modules](#internal-modules)

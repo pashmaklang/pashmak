@@ -1,0 +1,55 @@
+#
+# 006-prop-value-set.pashmt
+#
+# The Pashmak Project
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+struct object props can recive the value
+--file--
+
+struct Foo
+    $title = 'the title'
+endstruct
+
+struct Human
+    $name
+    $age
+    $foo = ^ new Foo
+endstruct
+
+$someone = ^ new Human
+$someone->name = 'hello world'
+$someone->age = 18
+
+println $someone->name
+println $someone->foo->title
+
+$someone->foo->title = 'new title'
+println $someone->foo->title
+
+$someone->name = $someone->name + '.'
+println $someone->name
+
+--output--
+"""hello world
+the title
+new title
+hello world.
+"""

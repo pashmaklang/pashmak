@@ -23,9 +23,7 @@
 ''' Runs python code from string '''
 
 import os
-import hashlib
-import time
-import random
+import hashlib, time, random
 
 def run(self, op: dict):
     ''' Runs python code from string '''

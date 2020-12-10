@@ -77,6 +77,16 @@ class Helpers(commands.Commands):
 
     def set_var(self, varname: str, value):
         ''' Gets name of a variable and sets value on that '''
+        if '&' in varname:
+            do_raise_error = False
+            try:
+                if self.all_vars()[self.current_namespace() + varname] != None:
+                    op = self.operations[self.current_step]
+                    do_raise_error = True
+            except:
+                pass
+            if do_raise_error:
+                self.raise_error('ConstError', '"' + varname + '" is a const and you cannot change that value', op)
         self.all_vars()[self.current_namespace() + varname] = value
 
     def all_vars(self):

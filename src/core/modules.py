@@ -224,12 +224,8 @@ endfunc
 func printl ($value)
     println $value
 endfunc
-func loop
-    section loop
-endfunc
-func while
-    gotoif loop
-endfunc
+struct Object
+endstruct
 """
 modules["sys"] = """#
 # sys.pashm

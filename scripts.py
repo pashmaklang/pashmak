@@ -4,7 +4,6 @@ help_msg = '''
 this is a script to manage pashmak project
 
 Commands:
-    make-test       create new test
     update-headers  update files copyright headers
     build-doc       build documentation in README.md from doc/ folder
     build-modules   build modules from modules/ folder in src/core/modules.py
@@ -45,11 +44,24 @@ class <tstname>(TestCore):
 import sys
 import os
 from datetime import date
-from tests import tcolor
 
 if len(sys.argv) <= 1:
     print(help_msg)
     sys.exit()
+
+class Tcolor:
+    ''' Terminal ansi colors '''
+    def __init__(self):
+        self.HEADER = '\033[95m'
+        self.OKBLUE = '\033[94m'
+        self.OKGREEN = '\033[92m'
+        self.WARNING = '\033[93m'
+        self.FAIL = '\033[91m'
+        self.ENDC = '\033[0m'
+        self.BOLD = '\033[1m'
+        self.UNDERLINE = '\033[4m'
+tcolor = Tcolor()
+
 
 class CopyrightHeaderUpdater:
     # get list of all of .py files in src/ folder
@@ -110,24 +122,6 @@ class CopyrightHeaderUpdater:
         f.write(new_content)
         f.close()
 
-
-class TestMaker:
-    @staticmethod
-    def make(test_name):
-        if os.path.isfile('tests' + '/' + 'items' + '/' + test_name + '.py'):
-            print('test "' + test_name + '" already exists')
-            return 1
-
-        f = open('tests' + '/' + 'items' + '/' + test_name + '.py', 'w')
-
-        global test_content
-
-        content = test_content.replace('<tstname>', test_name)
-
-        f.write(content)
-        f.close()
-        return 0
-
 class DocBuilder:
     @staticmethod
     def build(path):
@@ -164,7 +158,6 @@ class DocBuilder:
         readme_f.close()
 
         print('\033[32mDocumentation built successfully and README.md generated.\033[0m')
-
 
 class ModuleBuilder:
     @staticmethod
@@ -227,7 +220,7 @@ if sys.argv[1] == 'update-headers':
         CopyrightHeaderUpdater.set_once_file_header(f)
 
     # get files list in src/ folder and set header of them
-    files_list = CopyrightHeaderUpdater('tests' + '/').files_list
+    files_list = CopyrightHeaderUpdater('tests' + '/', '.pashmt').files_list
     for f in files_list:
         CopyrightHeaderUpdater.set_once_file_header(f)
 
@@ -243,13 +236,6 @@ if sys.argv[1] == 'update-headers':
 
     print('\033[32mHeaders updated successfully\033[0m')
     sys.exit()
-
-if sys.argv[1] == 'make-test':
-    if len(sys.argv) <= 2:
-        print('make-test: test name argument is required')
-        sys.exit(1)
-
-    sys.exit(TestMaker.make(sys.argv[2]))
 
 if sys.argv[1] == 'build-doc':
     for item in os.listdir('doc'):

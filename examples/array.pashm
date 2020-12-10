@@ -28,7 +28,7 @@ $names = ['parsa', 'pashmak', 'something']
 # set a counter for loop
 $i = 0
 
-loop
+section loop
     println $names[$i]
     $i = $i + 1
-while $i < len($names)
+mem $i < len($names); gotoif loop
