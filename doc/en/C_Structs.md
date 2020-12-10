@@ -28,7 +28,7 @@ println $my_car
 output:
 
 ```
-{'struct': 'Car', 'props': {'name': None, 'color': None}}
+[PashmakStruct name="Car"]
 ```
 
 now, we want to set the properties:
@@ -40,16 +40,16 @@ struct Car
 endstruct
 
 $my_car = ^ new Car
-$my_car->['name'] = 'BMW'
-$my_car->['color'] = 'white'
+$my_car->name = 'BMW'
+$my_car->color = 'white'
 
-println $my_car
+println $my_car->name ' ' + $my_car->color
 ```
 
 output:
 
 ```
-{'struct': 'Car', 'props': {'name': 'BMW', 'color': 'red'}}
+BMW white
 ```
 
 so, let's review the structures. for declaring the structs, we have to use `struct` and `endstruct` commands:
@@ -121,10 +121,10 @@ endstruct
 
 $my_car = ^ new Car
 
-println $my_car->['name'] # output: default name
+println $my_car->name # output: default name
 ```
 
-we can access to the object properties by writing `$varname->['property_name']`
+we can access to the object properties by writing `$varname->property_name`
 
 the `->` symbol is important.
 
@@ -138,11 +138,11 @@ endstruct
 
 $my_car = ^ new Car
 
-println $my_car->['name'] # output: default name
+println $my_car->name # output: default name
 
 # setting the new value
-$my_car->['name'] = 'new name'
-println $my_car->['name'] # output: new name
+$my_car->name = 'new name'
+println $my_car->name # output: new name
 ```
 
 ### structs in namespaces
@@ -182,11 +182,11 @@ struct Car
 endstruct
 
 $my_car = ^ new Car
-$my_car->['name'] = 'my car'
-$my_car->['brand']->['title'] = 'BMW'
+$my_car->name = 'my car'
+$my_car->brand->title = 'BMW'
 
-println $my_car->['name']
-println $my_car->['brand']->['title']
+println $my_car->name
+println $my_car->brand->title
 ```
 
 output:
@@ -202,7 +202,7 @@ you can access to properties by `->` symbol:
 
 ```bash
 # access to `prop3` of `prop2` of `prop1` of $obj
-$obj->['prop1']->['prop2']->['prop3']
+$obj->prop1->prop2->prop3
 ```
 
 also you can set new properties on a object:
@@ -215,12 +215,12 @@ struct Car
 endstruct
 
 $my_car = ^ new Car
-$my_car->['name'] = 'my car'
-$my_car->['color'] = 'red'
+$my_car->name = 'my car'
+$my_car->color = 'red'
 
-$my_car->['the_new_prop'] = 'the value'
+$my_car->the_new_prop = 'the value'
 
-println $my_car->['the_new_prop']
+println $my_car->the_new_prop
 ```
 
 output:
@@ -230,3 +230,67 @@ the value
 ```
 
 in the above example, property `the_new_prop` is not declared in struct by default, but you can add props without any problem in objects.
+
+### inheritance
+the inheritance in structs means structs can be child of another structs. this means the child struct has all of he's/she's parent properties.
+
+look at this example:
+
+```bash
+struct Thing
+    $name
+endstruct
+
+struct Animal < Thing
+    $title
+    $size
+    $color
+    $gender
+endstruct
+
+struct Cat<Animal
+    $mioo
+endstruct
+
+struct Human<Animal
+    $height
+endstruct
+```
+
+in the above example, we used `<` symbol to make a struct child of another struct:
+
+```bash
+struct Parent
+
+endstruct
+
+# the `Child < Parent` sets this struct as child of the `Parent`
+struct Child < Parent
+
+endstruct
+```
+
+the child struct, has all of properties of the parent.
+
+for example:
+
+```bash
+struct Father
+    $name = 'hello world'
+endstruct
+
+struct Child < Father
+    $age = 100
+endstruct
+
+$child = ^ new Child
+
+println $child->name # output: hello world
+println $child->age # output: 100
+```
+
+actually, the parent struct has not properties of he's childs, but childs has all of parent's props.
+
+#### All of structs extends from `Object` struct
+all of structs by default extedns from a struct named `Object`. this struct is a internal pashmak struct.
+all of structs are child of this struct.

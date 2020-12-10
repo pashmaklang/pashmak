@@ -28,7 +28,7 @@ struct Car
     $price = 100
 endstruct
 
-print self.structs
+print self.structs['Car'].props
 
 --output--
-"{'Car': {'name': None, 'price': 100}}"
+"{'name': None, 'price': 100}"

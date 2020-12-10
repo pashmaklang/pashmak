@@ -33,6 +33,6 @@ namespace Models
     endns
 endns
 
-print self.structs
+print list(self.structs.keys())
 --output--
-"{'Models.Car': {}, 'Models.Foo.Bar': {}}"
+"['Object', 'Models.Car', 'Models.Foo.Bar']"

@@ -224,6 +224,8 @@ endfunc
 func printl ($value)
     println $value
 endfunc
+struct Object
+endstruct
 """
 modules["sys"] = """#
 # sys.pashm

@@ -1,5 +1,5 @@
 #
-# 007.pashmt
+# struct.py
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,20 +20,20 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
---test--
-constant property can be changed
+""" Structs """
 
---file--
+class StructProps(dict):
+    def __getattr__(self, attrname):
+        try:
+            return self[attrname]
+        except KeyError:
+            raise AttributeError(attrname)
 
-struct Person
-    $name
-endstruct
+class Struct:
+    """ Struct model """
+    def __init__(self, name: str, props: dict):
+        self.props = StructProps(props)
+        self.name = name
 
-$&p = ^ new Person
-
-$&p->name = 'hello world'
-
-println $&p->name
-
---output--
-'hello world\n'
+    def __str__(self):
+        return '[PashmakStruct name="' + self.name + '"]'

@@ -78,3 +78,6 @@ endfunc
 func printl ($value)
     println $value
 endfunc
+
+struct Object
+endstruct
