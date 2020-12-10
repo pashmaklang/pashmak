@@ -10,7 +10,7 @@ assignees: ''
 **Fillable**
 you are suggesting **New feature** or **Changing feature**? new/changing
 - [ ] did you read the pashmak documentation?
-- [ ] are you sure this feature already not exists
+- [ ] are you sure this feature already not exists?
 
 **The title**
 Please describe your idea or feature request here...

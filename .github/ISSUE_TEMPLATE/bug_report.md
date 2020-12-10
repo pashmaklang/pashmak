@@ -23,7 +23,7 @@ If an error message is releated to the code, write it here...
 - Python version: e.g. 3.9
 - Pashmak version: e.g. 0.1
 
-(also you can run `pashmak --info` and write it here)
+(also you can run `pashmak --info` and write output here)
 
 **Additional context**
-If there is anything more, write here
+If there is any more thing, write here
