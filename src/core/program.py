@@ -30,6 +30,8 @@ from syntax import parser
 from core import helpers, version, modules
 from core.struct import Struct
 
+import hashlib, time, random
+
 class Program(helpers.Helpers):
     ''' Pashmak program object '''
 

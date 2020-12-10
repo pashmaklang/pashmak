@@ -303,6 +303,27 @@ v1.x.y
 
 and `$sys.pashmakinfo['pythoninfo']` shows info of python.
 
+## Python standard modules
+you can use this python standard modules in pashmak directly in your code:
+
+- `os`
+- `time`
+- `hashlib`
+- `random`
+
+for example:
+
+```bash
+println os.getuid()
+println random.random()
+println 'hash is ' + hashlib.sha256('hello'.encode()).hexdigest()
+$cwd = os.getcwd()
+$time = time.time() - 100
+# ...
+```
+
+this is very useful!
+
 ## Module path system
 module path is a system to add pashmak scripts as modules to pashmak. for example, you have an directory named `/var/lib/pashmak_modules` and there is an file named `/var/lib/pashmak_modules/mymodule.pashm`. this file is a pashmak script. now, how to add that pashmak script to pashmak as module?
 
