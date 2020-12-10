@@ -341,7 +341,6 @@ class Program(helpers.Helpers):
             if is_struct_setting != False:
                 tmp_real_var = self.get_var(varname[1:])
                 exec('tmp_real_var["props"]' + is_struct_setting + ' = value')
-                #self.set_var(varname[1:], tmp_real_var)
             else:
                 if is_in_struct:
                     self.structs[self.current_struct][varname[1:]] = value
