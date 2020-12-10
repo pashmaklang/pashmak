@@ -28,7 +28,7 @@ println $my_car
 output:
 
 ```
-{'struct': 'Car', 'props': {'name': None, 'color': None}}
+[PashmakStruct name="Car"]
 ```
 
 now, we want to set the properties:
@@ -40,16 +40,16 @@ struct Car
 endstruct
 
 $my_car = ^ new Car
-$my_car->['name'] = 'BMW'
-$my_car->['color'] = 'white'
+$my_car->name = 'BMW'
+$my_car->color = 'white'
 
-println $my_car
+println $my_car->name ' ' + $my_car->color
 ```
 
 output:
 
 ```
-{'struct': 'Car', 'props': {'name': 'BMW', 'color': 'red'}}
+BMW white
 ```
 
 so, let's review the structures. for declaring the structs, we have to use `struct` and `endstruct` commands:
@@ -121,10 +121,10 @@ endstruct
 
 $my_car = ^ new Car
 
-println $my_car->['name'] # output: default name
+println $my_car->name # output: default name
 ```
 
-we can access to the object properties by writing `$varname->['property_name']`
+we can access to the object properties by writing `$varname->property_name`
 
 the `->` symbol is important.
 
@@ -138,11 +138,11 @@ endstruct
 
 $my_car = ^ new Car
 
-println $my_car->['name'] # output: default name
+println $my_car->name # output: default name
 
 # setting the new value
-$my_car->['name'] = 'new name'
-println $my_car->['name'] # output: new name
+$my_car->name = 'new name'
+println $my_car->name # output: new name
 ```
 
 ### structs in namespaces
@@ -182,11 +182,11 @@ struct Car
 endstruct
 
 $my_car = ^ new Car
-$my_car->['name'] = 'my car'
-$my_car->['brand']->['title'] = 'BMW'
+$my_car->name = 'my car'
+$my_car->brand->title = 'BMW'
 
-println $my_car->['name']
-println $my_car->['brand']->['title']
+println $my_car->name
+println $my_car->brand->title
 ```
 
 output:
@@ -202,7 +202,7 @@ you can access to properties by `->` symbol:
 
 ```bash
 # access to `prop3` of `prop2` of `prop1` of $obj
-$obj->['prop1']->['prop2']->['prop3']
+$obj->prop1->prop2->prop3
 ```
 
 also you can set new properties on a object:
@@ -215,12 +215,12 @@ struct Car
 endstruct
 
 $my_car = ^ new Car
-$my_car->['name'] = 'my car'
-$my_car->['color'] = 'red'
+$my_car->name = 'my car'
+$my_car->color = 'red'
 
-$my_car->['the_new_prop'] = 'the value'
+$my_car->the_new_prop = 'the value'
 
-println $my_car->['the_new_prop']
+println $my_car->the_new_prop
 ```
 
 output:

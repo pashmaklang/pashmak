@@ -20,11 +20,18 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-struct Person
-    $name
+struct by
+    $a = 'way'
 endstruct
 
-$&p = ^ new Person
+struct Person
+    $name = 'parsa'
+    $by = ^ new by
+endstruct
 
-$&p->['name'] = 'new'
-println $&p
+$p = ^ new Person
+
+$p->name = 'my name'
+$p->by->a = 'my name'
+
+println $p->name, $p->by->a

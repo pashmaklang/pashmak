@@ -26,6 +26,6 @@ struct Human
 endstruct
 
 $someone = ^ new Human
-$someone->['name'] = 'parsa'
+$someone->name = 'parsa'
 
-println $someone->['name']
+println $someone->name

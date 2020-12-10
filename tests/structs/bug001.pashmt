@@ -30,14 +30,14 @@ struct Person
 endstruct
 
 $p1 = ^ new Person
-$p1->['age'] = 20
+$p1->age = 20
 
 $p2 = ^ new Person
-$p2->['age'] = 77
+$p2->age = 77
 
 println self.structs['Person'].props
-println $p1->['age']
-println $p2->['age']
+println $p1->age
+println $p2->age
 
 --output--
 """{'name': None, 'age': 10}

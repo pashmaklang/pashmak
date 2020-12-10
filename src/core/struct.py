@@ -22,10 +22,17 @@
 
 """ Structs """
 
+class StructProps(dict):
+    def __getattr__(self, attrname):
+        try:
+            return self[attrname]
+        except KeyError:
+            raise AttributeError(attrname)
+
 class Struct:
     """ Struct model """
     def __init__(self, name: str, props: dict):
-        self.props = props
+        self.props = StructProps(props)
         self.name = name
 
     def __str__(self):
