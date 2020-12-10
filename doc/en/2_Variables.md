@@ -249,3 +249,22 @@ output:
 ```
 ConstError: "$&name" is const and cannot be changed...
 ```
+
+also you can **declare** a constant, but set value of that later.
+
+for example:
+
+```bash
+$&name # only declare constant, default value is `None`
+
+# set value
+$&name = 'parsa'
+
+println $&name
+```
+
+output:
+
+```
+parsa
+```

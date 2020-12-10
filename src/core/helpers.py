@@ -80,9 +80,9 @@ class Helpers(commands.Commands):
         if '&' in varname:
             do_raise_error = False
             try:
-                self.all_vars()[self.current_namespace() + varname]
-                op = self.operations[self.current_step]
-                do_raise_error = True
+                if self.all_vars()[self.current_namespace() + varname] != None:
+                    op = self.operations[self.current_step]
+                    do_raise_error = True
             except:
                 pass
             if do_raise_error:
