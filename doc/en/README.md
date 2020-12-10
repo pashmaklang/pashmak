@@ -31,6 +31,7 @@ read the following Documentation to learn pashmak.
 - [Installation](#installation)
 - [Basics](#basics)
 - [Variables](#variables)
+- [Constants](#Constants)
 - [Read Input From User](#read-input-from-user)
 - [Sections](#sections)
 - [Functions](#functions)

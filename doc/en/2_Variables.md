@@ -209,3 +209,43 @@ VariableError:
 ```
 
 the `required` command checks a variable is exists, if no, raising RequireError
+
+## Constants
+constants (consts) are even like variables, but one thing is different in constants, **Constants values cannot be changed**.
+
+for example:
+
+```bash
+# declare the const
+$&name = 'the value'
+
+println $&name
+```
+
+output:
+
+```
+the value
+```
+
+to declare consts, you only need to put a `&` in the name of variable.
+
+```bash
+$&const1 = 123
+$&const2 = 'fsgdf'
+# ...
+```
+
+when we try to change value of the const, we will get error:
+
+```bash
+$&name = 'the name'
+
+$&name = 'new value'
+```
+
+output:
+
+```
+ConstError: "$&name" is const and cannot be changed...
+```
