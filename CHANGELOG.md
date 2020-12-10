@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.6, 0.6-alpha0 (2020-12-11)
 
 - removed `loop` and `while` functions
 - created **Structs** system
