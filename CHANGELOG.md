@@ -7,6 +7,7 @@
 - change default `RuntimeError` name to the real python exception name in exception system
 - created consts system
 - some optimizations in mem eval parser
+- added a feature to use mem symbol `^` in eval, now you can run `my_function ^ + ' something else'`
 
 ## 0.5.4 (2020-12-6)
 
