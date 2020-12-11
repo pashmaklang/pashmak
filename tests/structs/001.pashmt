@@ -29,5 +29,5 @@ println list(self.structs.keys())
 println self.structs['Person'].props
 --output--
 """['Object', 'Person']
-{}
+{'__parent__': 'Object', '__name__': 'Person'}
 """

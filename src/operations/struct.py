@@ -22,6 +22,7 @@
 
 """ Declares a struct """
 
+import copy
 from core.struct import Struct
 
 def run(self, op: dict):
@@ -73,13 +74,16 @@ def run(self, op: dict):
         pass
 
     if parent_real_name != None:
-        self.structs[self.current_namespace() + arg] = self.structs[parent_real_name]
-        self.structs[self.current_namespace() + arg].parent = parent_real_name
+        self.structs[self.current_namespace() + arg] = copy.deepcopy(self.structs[parent_real_name])
+        self.structs[self.current_namespace() + arg].props['__parent__'] = parent_real_name
+        self.structs[self.current_namespace() + arg].props['__name__'] = self.current_namespace() + arg
     else:
         if self.current_namespace() + arg != 'Object':
-            self.structs[self.current_namespace() + arg] = self.structs['Object']
-            self.structs[self.current_namespace() + arg].parent = 'Object'
+            self.structs[self.current_namespace() + arg] = copy.deepcopy(self.structs['Object'])
+            self.structs[self.current_namespace() + arg].props['__parent__'] = 'Object'
+            self.structs[self.current_namespace() + arg].props['__name__'] = self.current_namespace() + arg
         else:
-            self.structs[self.current_namespace() + arg] = Struct(self.current_namespace() + arg, {})
-            self.structs[self.current_namespace() + arg].parent = None
+            self.structs[self.current_namespace() + arg] = copy.deepcopy(Struct(self.current_namespace() + arg, {}))
+            self.structs[self.current_namespace() + arg].props['__parent__'] = None
+            self.structs[self.current_namespace() + arg].props['__name__'] = 'Object'
     self.current_struct = self.current_namespace() + arg
