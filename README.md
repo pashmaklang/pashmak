@@ -2083,6 +2083,30 @@ total syntax:
 $object_name@method_name 'arguments...'
 ```
 
+also all of classes extends parent methods.
+
+for example:
+
+```bash
+class Father
+    func hi
+        println 'hello world'
+    endfunc
+endclass
+
+class Child < Father; endclass
+
+$obj = ^ new Child
+
+$obj@hi
+```
+
+output:
+
+```
+hello world
+```
+
 
 
 # Eval
