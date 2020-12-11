@@ -1,0 +1,62 @@
+#
+# 001.pashmt
+#
+# The Pashmak Project
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+basic if test
+
+--file--
+$age = 30
+
+if $age > 10
+    println 'age is more that 10'
+endif
+
+if $age < 5
+    println 'age is less than 5'
+endif
+
+if $age == 20
+    pass
+else
+    println 'age is not equals 20'
+endif
+
+if $age == 7
+    pass
+elif $age == 9
+    pass
+else
+    println 'the else was runed'
+endif
+
+if $age == 1
+    pass
+elif $age == 30
+    println 'is is 30'
+endif
+
+--output--
+"""age is more that 10
+age is not equals 20
+the else was runed
+is is 30
+"""
