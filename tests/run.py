@@ -166,6 +166,11 @@ class TestRunner:
     def __init__(self):
         self.tests = []
         self.load_tests('tests')
+        self.default_classes = ['Object']
+        self.default_classes_list_str = ''
+        for item in self.default_classes:
+            self.default_classes_list_str += "'" + item + '\', '
+        self.default_classes_list_str = self.default_classes_list_str.strip().strip(',')
 
     def load_tests(self, path):
         ''' Loads .pashmt tests '''

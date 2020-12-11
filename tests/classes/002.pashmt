@@ -35,4 +35,4 @@ endns
 
 print list(self.classes.keys())
 --output--
-"['Object', 'Models.Car', 'Models.Foo.Bar']"
+"["+self.default_classes_list_str+", 'Models.Car', 'Models.Foo.Bar']"

@@ -20,6 +20,9 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
+class Object
+endclass
+
 func print
     out ^
 endfunc
@@ -86,6 +89,3 @@ endfunc
 func python
     rmem exec(^)
 endfunc
-
-class Object
-endclass
