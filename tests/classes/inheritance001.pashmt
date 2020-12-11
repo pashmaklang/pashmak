@@ -1,5 +1,5 @@
 #
-# endstruct.py
+# inheritance001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,12 +20,31 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Closes struct block '''
+--test--
+classes can be child of another classes
 
-def run(self, op: dict):
-    ''' Closes struct block '''
+--file--
+class GrandMother
+    $size = 10
+endclass
 
-    try:
-        del self.current_struct
-    except AttributeError:
-        pass
+class Father<GrandMother
+    $name = 'the name'
+endclass
+
+class Child < Father
+    $foo = 'the foo'
+endclass
+
+$obj = ^ new Child
+
+println $obj->foo
+println $obj->name
+println $obj->size
+
+--output--
+
+"""the foo
+the name
+10
+"""

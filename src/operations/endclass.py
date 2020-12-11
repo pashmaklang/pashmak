@@ -1,5 +1,5 @@
 #
-# inheritance002.pashmt
+# endclass.py
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,13 +20,12 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
---test--
-undefined struct error will be raised when parent struct not found
+''' Closes class block '''
 
---file--
+def run(self, op: dict):
+    ''' Closes class block '''
 
-struct Test < Undefined
-endstruct
-
---with-error--
-"StructError"
+    try:
+        del self.current_class
+    except AttributeError:
+        pass

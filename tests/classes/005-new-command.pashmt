@@ -1,5 +1,5 @@
 #
-# 003-props.pashmt
+# 005-new-command.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,14 +21,37 @@
 #########################################################################
 
 --test--
-struct properties can be declared
+the new command can make an object from class
 --file--
-struct Car
+class Car
     $name
-    $price = 100
-endstruct
+    $color = 'red'
+endclass
 
-print self.structs['Car'].props
+$my_car = ^ new Car
+
+namespace Foo
+    class Bar
+        $title = 'the bar'
+    endclass
+
+    namespace Sub
+        class Hello
+            $say_hi = 'Hi!'
+        endclass
+    endns
+endns
+
+$my_bar; new Foo.Bar; copy $my_bar
+
+use Foo.Sub
+
+$my_hi = ^ new Hello
+
+println $my_bar->title
+println $my_car->color
 
 --output--
-"{'__parent__': 'Object', '__name__': 'Car', 'name': None, 'price': 100}"
+"""the bar
+red
+"""

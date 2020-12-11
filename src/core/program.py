@@ -28,7 +28,7 @@ import signal
 from pathlib import Path
 from syntax import parser
 from core import helpers, version, modules
-from core.struct import Struct
+from core.class_system import Class
 
 import hashlib, time, random
 
@@ -44,7 +44,7 @@ class Program(helpers.Helpers):
         } # declared functions <function-name>:[<list-of-body-operations>]
         self.operations = [] # list of operations
         self.sections = {} # list of declared sections <section-name>:<index-of-operation-to-jump>
-        self.structs = {}
+        self.classes = {}
         self.mem = None # memory temp value
         self.is_test = is_test # program is in testing state
         self.output = '' # program output (for testing state)
@@ -259,8 +259,8 @@ class Program(helpers.Helpers):
             self.run_endfunc(op)
             return
 
-        if op_name == 'endstruct':
-            self.run_endstruct(op)
+        if op_name == 'endclass':
+            self.run_endclass(op)
             return
 
         if op_name == 'popstate':
@@ -272,8 +272,8 @@ class Program(helpers.Helpers):
         try:
             self.current_func
             try:
-                self.current_struct
-                self.structs[self.current_struct].methods[self.current_func].append(op)
+                self.current_class
+                self.classes[self.current_class].methods[self.current_func].append(op)
             except:
                 self.functions[self.current_func].append(op)
             return
@@ -308,8 +308,8 @@ class Program(helpers.Helpers):
             'namespace': self.run_namespace,
             'endnamespace': self.run_endnamespace,
             'use': self.run_use,
-            'struct': self.run_struct,
-            'endstruct': self.run_endstruct,
+            'class': self.run_class,
+            'endclass': self.run_endclass,
             'new': self.run_new,
             'pass': None,
         }
@@ -335,11 +335,11 @@ class Program(helpers.Helpers):
                 tmp_bool = False
 
         if op['str'][0] == '$' and tmp_bool:
-            # if a struct is started, append current operation as a property to struct
-            is_in_struct = False
+            # if a class is started, append current operation as a property to class
+            is_in_class = False
             try:
-                self.current_struct
-                is_in_struct = True
+                self.current_class
+                is_in_class = True
             except NameError:
                 pass
             except KeyError:
@@ -350,13 +350,13 @@ class Program(helpers.Helpers):
             varname = parts[0].strip()
             full_varname = varname
             varname = varname.split('->', 1)
-            is_struct_setting = False
+            is_class_setting = False
             if len(varname) > 1:
-                is_struct_setting = varname[1].replace('->', '.props.')
+                is_class_setting = varname[1].replace('->', '.props.')
             varname = varname[0]
             if len(parts) <= 1:
-                if is_in_struct:
-                    self.structs[self.current_struct].props[varname[1:]] = None
+                if is_in_class:
+                    self.classes[self.current_class].props[varname[1:]] = None
                 else:
                     self.set_var(varname[1:], None)
                 return
@@ -376,12 +376,12 @@ class Program(helpers.Helpers):
                 value = self.get_mem()
             else:
                 value = self.eval(parts[1].strip())
-            if is_struct_setting != False:
+            if is_class_setting != False:
                 tmp_real_var = self.get_var(varname[1:])
-                exec('tmp_real_var.props.' + is_struct_setting + ' = value')
+                exec('tmp_real_var.props.' + is_class_setting + ' = value')
             else:
-                if is_in_struct:
-                    self.structs[self.current_struct].props[varname[1:]] = value
+                if is_in_class:
+                    self.classes[self.current_class].props[varname[1:]] = value
                 else:
                     self.set_var(varname[1:], value)
             return
@@ -391,13 +391,13 @@ class Program(helpers.Helpers):
         if op['command'][0] == '$':
             var_name = op['command'].split('@')[0]
             var = self.all_vars()[var_name[1:]]
-            if type(var) != Struct:
-                self.raise_error('MethodError', 'calling method on non-struct object "' + var_name + '"', op)
+            if type(var) != Class:
+                self.raise_error('MethodError', 'calling method on non-class object "' + var_name + '"', op)
             try:
                 func_body = var.methods[op['command'].split('@')[1]]
                 is_method = var
             except:
-                self.raise_error('MethodError', 'struct ' + self.all_vars()[var_name[1:]].__name__ + ' has not method "' + op['command'][0].split('@')[1] + '"', op)
+                self.raise_error('MethodError', 'class ' + self.all_vars()[var_name[1:]].__name__ + ' has not method "' + op['command'][0].split('@')[1] + '"', op)
         else:
             try:
                 func_body = self.functions[self.current_namespace() + op_name]

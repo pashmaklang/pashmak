@@ -46,8 +46,8 @@ from operations import arraypop as op_arraypop
 from operations import namespace as op_namespace
 from operations import endnamespace as op_endnamespace
 from operations import use as op_use
-from operations import struct as op_struct
-from operations import endstruct as op_endstruct
+from operations import classop as op_class
+from operations import endclass as op_endclass
 from operations import new as op_new
 
 class Commands:
@@ -145,13 +145,13 @@ class Commands:
         ''' run use '''
         op_use.run(self, op)
 
-    def run_struct(self, op: dict):
-        ''' run struct '''
-        op_struct.run(self, op)
+    def run_class(self, op: dict):
+        ''' run class '''
+        op_class.run(self, op)
 
-    def run_endstruct(self, op: dict):
-        ''' run endstruct '''
-        op_endstruct.run(self, op)
+    def run_endclass(self, op: dict):
+        ''' run endclass '''
+        op_endclass.run(self, op)
 
     def run_new(self, op: dict):
         ''' run new '''

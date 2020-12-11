@@ -1,5 +1,5 @@
 #
-# method001.pashmt
+# 007.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,30 +21,19 @@
 #########################################################################
 
 --test--
-struct method can be declared
+constant property can be changed
 
 --file--
-struct Person
-    func hello
-        println 'Person > hello was runed'
-    endfunc
 
-    func with_arg $arg
-        println 'hello ' + $arg
-    endfunc
-endstruct
+class Person
+    $name
+endclass
 
-$p = ^ new Person
+$&p = ^ new Person
 
-$p@hello
+$&p->name = 'hello world'
 
-$p@with_arg 'parsa'
-
-$p@with_arg('parsa')
+println $&p->name
 
 --output--
-
-'''Person > hello was runed
-hello parsa
-hello parsa
-'''
+'hello world\n'

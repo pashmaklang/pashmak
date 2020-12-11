@@ -3,7 +3,7 @@
 ## 0.6, 0.6-alpha1 (2020-12-11)
 
 - removed `loop` and `while` functions
-- created **Structs** system
+- created **Class** system
 - change default `RuntimeError` name to the real python exception name in exception system
 - created consts system
 - some optimizations in mem eval parser

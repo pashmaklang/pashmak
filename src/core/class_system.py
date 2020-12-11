@@ -1,5 +1,5 @@
 #
-# struct.py
+# class_system.py
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,12 +20,12 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Structs """
+""" Classes """
 
-class StructConstError(Exception):
+class ClassConstError(Exception):
     pass
 
-class StructProps(dict):
+class ClassProps(dict):
     """ The `obj.props` """
     def __getattr__(self, attrname):
         try:
@@ -38,19 +38,19 @@ class StructProps(dict):
             self[attrname]
             if self[attrname] != None:
                 if attrname[0] == '_':
-                    raise StructConstError('property "' + attrname + '" is const and cannot be changed')
+                    raise ClassConstError('property "' + attrname + '" is const and cannot be changed')
         except KeyError:
             pass
         self[attrname] = value
 
-class Struct:
-    """ Struct model """
+class Class:
+    """ Class model """
     def __init__(self, name: str, props: dict):
-        self.props = StructProps(props)
+        self.props = ClassProps(props)
         self.methods = {}
 
     def __str__(self):
-        return '[PashmakStruct name="' + self.__name__ + '"]'
+        return '[PashmakClass name="' + self.__name__ + '"]'
 
     def __getattr__(self, attrname):
         if attrname == 'props':

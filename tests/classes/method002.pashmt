@@ -1,5 +1,5 @@
 #
-# 002.pashmt
+# method002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,18 +21,28 @@
 #########################################################################
 
 --test--
-struct can be declared inside namespaces
+the $this variable is accessible in methods
+
 --file--
-namespace Models
-    struct Car
-    endstruct
 
-    namespace Foo
-        struct Bar
-        endstruct
-    endns
-endns
+class Person
+    $name
+    func set_name $name
+        $this->name = $name
+    endfunc
 
-print list(self.structs.keys())
+    func get_name
+        mem $this->name
+    endfunc
+endclass
+
+$p = ^ new Person
+
+$p@set_name 'parsa'
+
+$name = ^ $p@get_name
+
+println $name
+
 --output--
-"['Object', 'Models.Car', 'Models.Foo.Bar']"
+'parsa\n'

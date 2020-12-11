@@ -1,5 +1,5 @@
 #
-# method002.pashmt
+# 006-prop-value-set.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,28 +21,35 @@
 #########################################################################
 
 --test--
-the $this variable is accessible in methods
-
+class object props can recive the value
 --file--
 
-struct Person
+class Foo
+    $title = 'the title'
+endclass
+
+class Human
     $name
-    func set_name $name
-        $this->name = $name
-    endfunc
+    $age
+    $foo = ^ new Foo
+endclass
 
-    func get_name
-        mem $this->name
-    endfunc
-endstruct
+$someone = ^ new Human
+$someone->name = 'hello world'
+$someone->age = 18
 
-$p = ^ new Person
+println $someone->name
+println $someone->foo->title
 
-$p@set_name 'parsa'
+$someone->foo->title = 'new title'
+println $someone->foo->title
 
-$name = ^ $p@get_name
-
-println $name
+$someone->name = $someone->name + '.'
+println $someone->name
 
 --output--
-'parsa\n'
+"""hello world
+the title
+new title
+hello world.
+"""

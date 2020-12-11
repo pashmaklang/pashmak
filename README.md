@@ -43,7 +43,7 @@ read the following Documentation to learn pashmak.
 - [OS Commands](#os-commands)
 - [Importing scripts](#include-scripts)
 - [Namespaces](#namespaces)
-- [Structs](#Structs)
+- [Classes](#Classes)
 - [Eval](#eval)
 - [Modules](#internal-modules)
 
@@ -1656,27 +1656,27 @@ in above example, we imported `foo.pashm` inside an namespace and content of `fo
 
 
 
-# Structs
-struct is a system to declare a structure of data. actually, struct is a model with some fields.
+# Classes
+class is a system to declare a structure of data. actually, class is a model with some fields.
 
-for example, we want to declare a model from **Car**. we can declare a struct:
+for example, we want to declare a model from **Car**. we can declare a class:
 
 ```bash
-struct Car
+class Car
     $name
     $color
-endstruct
+endclass
 ```
 
-in above example, we declared a structure named `Car` with `name` and `color` properties.
+in above example, we declared a class named `Car` with `name` and `color` properties.
 
 let's use this:
 
 ```bash
-struct Car
+class Car
     $name
     $color
-endstruct
+endclass
 
 $my_car = ^ new Car
 
@@ -1686,16 +1686,16 @@ println $my_car
 output:
 
 ```
-[PashmakStruct name="Car"]
+[PashmakClass name="Car"]
 ```
 
 now, we want to set the properties:
 
 ```bash
-struct Car
+class Car
     $name
     $color
-endstruct
+endclass
 
 $my_car = ^ new Car
 $my_car->name = 'BMW'
@@ -1710,23 +1710,23 @@ output:
 BMW white
 ```
 
-so, let's review the structures. for declaring the structs, we have to use `struct` and `endstruct` commands:
+so, let's review the classes. for declaring the classes, we have to use `class` and `endclass` commands:
 
 ```bash
-struct TheStructName
+class TheClassName
     # declare the properties
-endstruct
+endclass
 ```
 
 between them, you have to declare properties like normal variables:
 
 ```bash
-struct TheStructName
+class TheClassName
     # declare the properties
     $prop1
     $prop2
     $prop3; $prop4
-endstruct
+endclass
 ```
 
 default value for that properties is `None`.
@@ -1734,48 +1734,48 @@ default value for that properties is `None`.
 also you can set the default value:
 
 ```bash
-struct TheStructName
+class TheClassName
     # declare the properties
     $prop1 = 'the default value'
     $prop2 = 12
     $prop3; $prop4
-endstruct
+endclass
 ```
 
-now, we declared our struct, how to create a instance from that? actually, we can create infinitivly object from that. for example we have a thing named `Car`, this is a structure and we have much many objects with `Car` structure.
+now, we declared our class, how to create a instance from that? actually, we can create infinitivly object from that. for example we have a thing named `Car`, this is a class and we have much many objects with `Car` class.
 
 ```bash
-struct TheStructName
+class TheClassName
     # declare the properties
     $prop1 = 'the default value'
     $prop2 = 12
     $prop3; $prop4
-endstruct
+endclass
 
-$my_object = ^ new TheStructName
+$my_object = ^ new TheClassName
 ```
 
-the `new` command gets name of struct and creates an instance from that and puts that in the mem temp value.
-means, if i want to put created object in a variables, i need to write `$var = ^ new StructName`.
+the `new` command gets name of class and creates an instance from that and puts that in the mem temp value.
+means, if i want to put created object in a variables, i need to write `$var = ^ new ClassName`.
 
 also we can create that with another syntax:
 
 ```bash
 $my_object # declare the variable
-new StructName # create the object
+new ClassName # create the object
 copy $my_object # copy created object to variable
 
 # finally
-$my_object; new StructName; copy $my_object
+$my_object; new ClassName; copy $my_object
 ```
 
-now, we can create object from a struct. how to access to the properties? look at this example:
+now, we can create object from a class. how to access to the properties? look at this example:
 
 ```bash
-struct Car
+class Car
     $name = 'default name'
     $color
-endstruct
+endclass
 
 $my_car = ^ new Car
 
@@ -1789,10 +1789,10 @@ the `->` symbol is important.
 also you can set the value with this syntax:
 
 ```bash
-struct Car
+class Car
     $name = 'default name'
     $color
-endstruct
+endclass
 
 $my_car = ^ new Car
 
@@ -1803,23 +1803,23 @@ $my_car->name = 'new name'
 println $my_car->name # output: new name
 ```
 
-### structs in namespaces
-you can declare structs inside the namespaces like variables and functions.
+### classes in namespaces
+you can declare classes inside the namespaces like variables and functions.
 
 for example:
 
 ```bash
 namespace Models
-    struct Car
+    class Car
         $name
         $color
-    endstruct
+    endclass
 endns
 
 $my_car = ^ new Models.Car
 ```
 
-all of laws for **structs in namespaces** is like `functions` and `variables`.
+all of laws for **classes in namespaces** is like `functions` and `variables`.
 
 ### Advance property usage
 you can use more features of the properties. actually, you can create any structure in your properties.
@@ -1827,17 +1827,17 @@ you can use more features of the properties. actually, you can create any struct
 look at this example:
 
 ```bash
-struct Brand
+class Brand
     $title = 'the brand name'
-endstruct
+endclass
 
-struct Car
+class Car
     $name
     $color
 
-    # the brand property is a object from Brand struct
+    # the brand property is a object from Brand class
     $brand = ^ new Brand
-endstruct
+endclass
 
 $my_car = ^ new Car
 $my_car->name = 'my car'
@@ -1867,10 +1867,10 @@ also you can set new properties on a object:
 
 
 ```bash
-struct Car
+class Car
     $name
     $color
-endstruct
+endclass
 
 $my_car = ^ new Car
 $my_car->name = 'my car'
@@ -1887,17 +1887,17 @@ output:
 the value
 ```
 
-in the above example, property `the_new_prop` is not declared in struct by default, but you can add props without any problem in objects.
+in the above example, property `the_new_prop` is not declared in class by default, but you can add props without any problem in objects.
 
-also you can use **Consts** in structs.
+also you can use **Consts** in classes.
 
 for example:
 
 ```bash
-struct Person
+class Person
     $name = 'parsa'
     $_age = 100 # age is const
-endstruct
+endclass
 
 $p = ^ new Person
 
@@ -1907,62 +1907,62 @@ $p->_age = 50
 output:
 
 ```
-StructConstError:...
+ClassConstError:...
 ```
 
 if you want to set a peoperty as constant, you have to put a `_` in the start of that name.
 
 ### inheritance
-the inheritance in structs means structs can be child of another structs. this means the child struct has all of he's/she's parent properties.
+the inheritance in classes means classes can be child of another classes. this means the child class has all of he's/she's parent properties.
 
 look at this example:
 
 ```bash
-struct Thing
+class Thing
     $name
-endstruct
+endclass
 
-struct Animal < Thing
+class Animal < Thing
     $title
     $size
     $color
     $gender
-endstruct
+endclass
 
-struct Cat<Animal
+class Cat<Animal
     $mioo
-endstruct
+endclass
 
-struct Human<Animal
+class Human<Animal
     $height
-endstruct
+endclass
 ```
 
-in the above example, we used `<` symbol to make a struct child of another struct:
+in the above example, we used `<` symbol to make a class child of another class:
 
 ```bash
-struct Parent
+class Parent
 
-endstruct
+endclass
 
-# the `Child < Parent` sets this struct as child of the `Parent`
-struct Child < Parent
+# the `Child < Parent` sets this class as child of the `Parent`
+class Child < Parent
 
-endstruct
+endclass
 ```
 
-the child struct, has all of properties of the parent.
+the child class, has all of properties of the parent.
 
 for example:
 
 ```bash
-struct Father
+class Father
     $name = 'hello world'
-endstruct
+endclass
 
-struct Child < Father
+class Child < Father
     $age = 100
-endstruct
+endclass
 
 $child = ^ new Child
 
@@ -1970,43 +1970,43 @@ println $child->name # output: hello world
 println $child->age # output: 100
 ```
 
-actually, the parent struct has not properties of he's childs, but childs has all of parent's props.
+actually, the parent class has not properties of he's childs, but childs has all of parent's props.
 
-#### All of structs extends `Object` struct
-all of structs by default extedns from a struct named `Object`. this struct is a internal pashmak struct.
-all of structs are child of this struct.
+#### All of classes extends `Object` class
+all of classes by default extedns from a class named `Object`. this class is a internal pashmak class.
+all of classes are child of this class.
 
-### Structs general attributes
-structs has some general properties:
+### Classes general attributes
+classes has some general properties:
 
-- `__name__`: name of the struct
-- `__parent__`: name of parent of struct
+- `__name__`: name of the class
+- `__parent__`: name of parent of class
 
 for example:
 
 ```bash
-struct Person
+class Person
 
-endstruct
+endclass
 
 $person = ^ new Person
 
 println $person->__name__ # output: Person
 ```
 
-### Struct methods
-you can declare function inside structs. the struct's function is named **Method**.
+### Class methods
+you can declare function inside classes. the class's function is named **Method**.
 
 look at this example:
 
 ```bash
-struct Cat
+class Cat
     $name
 
     func mio
         println 'miooo...'
     endfunc
-endstruct
+endclass
 
 # create a object from Cat
 $my_cat = ^ new Cat
@@ -2020,18 +2020,18 @@ output:
 miooo...
 ```
 
-actually, you can call functions of a struct.
+actually, you can call functions of a class.
 
 another example:
 
 ```bash
-struct Cat
+class Cat
     $name
 
     func mio
         println 'miooo... my name is ' + $this->name
     endfunc
-endstruct
+endclass
 
 # create a object from Cat
 $my_cat = ^ new Cat
@@ -2050,7 +2050,7 @@ in above example, we used a variable named `$this`. this variable is a pointer t
 another example:
 
 ```bash
-struct Person
+class Person
     $name
 
     func set_name $name
@@ -2060,7 +2060,7 @@ struct Person
     func say_hi
         println 'hello. my name is ' + $this->name
     endfunc
-endstruct
+endclass
 
 $p = ^ new Person
 

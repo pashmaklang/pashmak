@@ -1,5 +1,5 @@
 #
-# method003.pashmt
+# consts02.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,13 +21,28 @@
 #########################################################################
 
 --test--
-system raises error when trying to call a method on non-struct object
+class constants working with default none value
 
 --file--
+class Test
+    $name = 'hello'
+    $_age
+endclass
 
-$p = 'some string'
+$test = ^ new Test
 
-$p@somemethod
+$test->name = 'new name'
+
+println $test->name
+
+$test->_age = 100
+
+println $test->_age
+
+$test->_age = 1001
+
+--output--
+'new name\n100\n'
 
 --with-error--
-'MethodError'
+'ClassConstError'

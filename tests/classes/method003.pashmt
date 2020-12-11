@@ -1,5 +1,5 @@
 #
-# consts01.pashmt
+# method003.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,24 +21,13 @@
 #########################################################################
 
 --test--
-struct constants working
+system raises error when trying to call a method on non-class object
 
 --file--
-struct Test
-    $name = 'hello'
-    $_age = 10
-endstruct
 
-$test = ^ new Test
+$p = 'some string'
 
-$test->name = 'new name'
-
-print $test->name
-
-$test->_age = 100
-
---output--
-'new name'
+$p@somemethod
 
 --with-error--
-'StructConstError'
+'MethodError'

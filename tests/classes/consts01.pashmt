@@ -1,5 +1,5 @@
 #
-# struct.pashm
+# consts01.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,12 +20,25 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-struct Human
-    $name
-    $age = 12
-endstruct
+--test--
+class constants working
 
-$someone = ^ new Human
-$someone->name = 'parsa'
+--file--
+class Test
+    $name = 'hello'
+    $_age = 10
+endclass
 
-println $someone->name
+$test = ^ new Test
+
+$test->name = 'new name'
+
+print $test->name
+
+$test->_age = 100
+
+--output--
+'new name'
+
+--with-error--
+'ClassConstError'

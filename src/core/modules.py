@@ -230,8 +230,8 @@ endfunc
 func python
     rmem exec(^)
 endfunc
-struct Object
-endstruct
+class Object
+endclass
 """
 modules["sys"] = """#
 # sys.pashm

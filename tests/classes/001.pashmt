@@ -1,5 +1,5 @@
 #
-# inheritance001.pashmt
+# 001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,30 +21,13 @@
 #########################################################################
 
 --test--
-structs can be child of another structs
-
+class can be declared
 --file--
-struct GrandMother
-    $size = 10
-endstruct
-
-struct Father<GrandMother
-    $name = 'the name'
-endstruct
-
-struct Child < Father
-    $foo = 'the foo'
-endstruct
-
-$obj = ^ new Child
-
-println $obj->foo
-println $obj->name
-println $obj->size
-
+class Person
+endclass
+println list(self.classes.keys())
+println self.classes['Person'].props
 --output--
-
-"""the foo
-the name
-10
+"""['Object', 'Person']
+{'__parent__': 'Object', '__name__': 'Person'}
 """
