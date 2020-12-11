@@ -451,6 +451,8 @@ out $name # output: None
 
 variable will set and just get `None` as default value
 
+#### NOTE: allowed characters for variable name are `A-Z`, `a-z`, `&._` characters.
+
 ### put `mem` value to variable
 
 we can set value of mem to variables with this legacy way:
