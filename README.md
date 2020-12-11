@@ -2167,17 +2167,6 @@ output:
 hello world from python
 ```
 
-also you can use `py` function to pass value directly:
-
-```bash
-py 'print("hello world")'
-```
-
-output:
-
-```
-hello world
-```
 
 
 
