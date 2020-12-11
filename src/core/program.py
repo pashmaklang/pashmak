@@ -239,6 +239,7 @@ class Program(helpers.Helpers):
                     self.variable_required(k, self.operations[self.current_step])
                     code = code.replace('$' + k, 'self.get_var("' + k + '")')
                 code = code.replace('->', '.')
+                code = code.replace('^', 'self.get_mem()')
             else:
                 code = code[1]
             full_op += code

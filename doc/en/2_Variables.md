@@ -126,6 +126,19 @@ $myvar = ^
 
 if you put `^` (mem symbol) as value, memory value will put in the variable
 
+also you can use that mem alongside another values.
+
+for example:
+
+```bash
+mem 'parsa'
+$message = 'my name is ' + ^
+println $message # output: my name is parsa
+
+mem 10
+println (^ + 5) * 2 # output: 30
+```
+
 ### free variables
 when you set a variable, that var is in memory. you can delete that var with `free` command:
 

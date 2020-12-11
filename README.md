@@ -472,6 +472,19 @@ $myvar = ^
 
 if you put `^` (mem symbol) as value, memory value will put in the variable
 
+also you can use that mem alongside another values.
+
+for example:
+
+```bash
+mem 'parsa'
+$message = 'my name is ' + ^
+println $message # output: my name is parsa
+
+mem 10
+println (^ + 5) * 2 # output: 30
+```
+
 ### free variables
 when you set a variable, that var is in memory. you can delete that var with `free` command:
 
@@ -954,6 +967,32 @@ func say_hello $name # without ()
 endfunc
 
 say_hello 'parsa'
+```
+
+also we can use mem symbol in argument of function.
+
+for example:
+
+```bash
+func say_hello $name # without ()
+    println 'hello ' + $name
+endfunc
+
+mem 'parsa'
+
+say_hello ^
+```
+
+or:
+
+```bash
+func say_hello $name # without ()
+    println 'hello ' + $name
+endfunc
+
+mem 'parsa'
+
+say_hello ^ + ' shahmaleki'
 ```
 
 #### how two handle multiple arguments?

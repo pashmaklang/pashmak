@@ -142,6 +142,32 @@ endfunc
 say_hello 'parsa'
 ```
 
+also we can use mem symbol in argument of function.
+
+for example:
+
+```bash
+func say_hello $name # without ()
+    println 'hello ' + $name
+endfunc
+
+mem 'parsa'
+
+say_hello ^
+```
+
+or:
+
+```bash
+func say_hello $name # without ()
+    println 'hello ' + $name
+endfunc
+
+mem 'parsa'
+
+say_hello ^ + ' shahmaleki'
+```
+
 #### how two handle multiple arguments?
 in the above examples, all of created functions only have ONE function. some times our functions recives more than one arguments. how we can handle this?
 
