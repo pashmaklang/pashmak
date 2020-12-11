@@ -74,9 +74,12 @@ def run(self, op: dict):
 
     if parent_real_name != None:
         self.structs[self.current_namespace() + arg] = self.structs[parent_real_name]
+        self.structs[self.current_namespace() + arg].parent = parent_real_name
     else:
         if self.current_namespace() + arg != 'Object':
             self.structs[self.current_namespace() + arg] = self.structs['Object']
+            self.structs[self.current_namespace() + arg].parent = 'Object'
         else:
             self.structs[self.current_namespace() + arg] = Struct(self.current_namespace() + arg, {})
+            self.structs[self.current_namespace() + arg].parent = None
     self.current_struct = self.current_namespace() + arg
