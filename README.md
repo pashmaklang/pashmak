@@ -556,6 +556,18 @@ VariableError:
 
 the `required` command checks a variable is exists, if no, raising RequireError
 
+### python datatype methods
+datatype of the pashmak variables, is handled by python. this means you can use all python methods on them.
+
+for example:
+
+```bash
+$mystring = '  hello world          '
+println $mystring->strip() # output: `hello world`
+```
+
+#### NOTE: in python, for calling function or access to property of a object, we use `.` character, but in pashmak we use `->` symbol(like php)
+
 ## Constants
 constants (consts) are even like variables, but one thing is different in constants, **Constants values cannot be changed**.
 

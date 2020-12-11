@@ -228,22 +228,17 @@ class Program(helpers.Helpers):
             if code[0] == False:
                 code = code[1]
                 # replace variable names with value of them
-                for k in self.all_vars():
-                    # check variable is struct
-                    is_struct = type(self.all_vars()[k]) == Struct
+                variables_in_code = []
+                literals = '()+-/*%=}{<> [],'
+                code_words = self.multi_char_split(code, literals)
+                for word in code_words:
+                    if word:
+                        if word[0] == '$':
+                            variables_in_code.append(word[1:])
+                for k in variables_in_code:
+                    self.variable_required(k, self.operations[self.current_step])
                     code = code.replace('$' + k, 'self.get_var("' + k + '")')
-                    if is_struct:
-                        code = code.replace('self.get_var("' + k + '")->', 'self.get_var("' + k + '").props.')
-                    tmp_used_namespaces = self.used_namespaces
-                    if self.current_namespace() != '':
-                        tmp_used_namespaces = [*tmp_used_namespaces, self.current_namespace()[:len(self.current_namespace())-1]]
-                    for used_namespace in tmp_used_namespaces:
-                        if k[:len(used_namespace)+1] == used_namespace + '.':
-                            tmp = k[len(used_namespace)+1:]
-                            code = code.replace('$' + tmp, 'self.get_var("' + k + '")')
-                            if is_struct:
-                                code = code.replace('self.get_var("' + k + '")->', 'self.get_var("' + k + '").props.')
-                code = code.replace('->', '.props.')
+                code = code.replace('->', '.')
             else:
                 code = code[1]
             full_op += code

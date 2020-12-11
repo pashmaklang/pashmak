@@ -95,3 +95,12 @@ class Helpers(commands.Commands):
             return self.variables
 
         return self.states[-1]['vars']
+
+    def multi_char_split(self, string, seprators):
+        result = ['']
+        for char in string:
+            if char in seprators:
+                result.append('')
+            else:
+                result[-1] += char
+        return result
