@@ -451,6 +451,8 @@ out $name # output: None
 
 variable will set and just get `None` as default value
 
+#### NOTE: allowed characters for variable name are `A-Z`, `a-z`, `&._` characters.
+
 ### put `mem` value to variable
 
 we can set value of mem to variables with this legacy way:
@@ -469,6 +471,19 @@ $myvar = ^
 ```
 
 if you put `^` (mem symbol) as value, memory value will put in the variable
+
+also you can use that mem alongside another values.
+
+for example:
+
+```bash
+mem 'parsa'
+$message = 'my name is ' + ^
+println $message # output: my name is parsa
+
+mem 10
+println (^ + 5) * 2 # output: 30
+```
 
 ### free variables
 when you set a variable, that var is in memory. you can delete that var with `free` command:
@@ -555,6 +570,18 @@ VariableError:
 ```
 
 the `required` command checks a variable is exists, if no, raising RequireError
+
+### python datatype methods
+datatype of the pashmak variables, is handled by python. this means you can use all python methods on them.
+
+for example:
+
+```bash
+$mystring = '  hello world          '
+println $mystring->strip() # output: `hello world`
+```
+
+#### NOTE: in python, for calling function or access to property of a object, we use `.` character, but in pashmak we use `->` symbol(like php)
 
 ## Constants
 constants (consts) are even like variables, but one thing is different in constants, **Constants values cannot be changed**.
@@ -807,7 +834,9 @@ func say_hello
     println 'hello world'
 endfunc
 
-say_hello;
+say_hello
+# or
+say_hello()
 ```
 
 output:
@@ -822,7 +851,7 @@ func say_hello
 endfunc
 
 say_hello
-say_hello
+say_hello()
 ```
 
 output:
@@ -867,12 +896,29 @@ func myfunc
 endfunc
 
 myfunc "hello"
+# or
+myfunc("hello")
 ```
 
 output:
 
 ```
 hello
+```
+
+##### NOTE: using `()` in end of function is optional. for example:
+
+```bash
+myfunc
+myfunc()
+# above codes are not different
+```
+
+or with arguments:
+
+```bash
+myfunc "arg1", "arg2"
+myfunc("arg1", "arg2")
 ```
 
 ##### how it works?
@@ -940,6 +986,32 @@ func say_hello $name # without ()
 endfunc
 
 say_hello 'parsa'
+```
+
+also we can use mem symbol in argument of function.
+
+for example:
+
+```bash
+func say_hello $name # without ()
+    println 'hello ' + $name
+endfunc
+
+mem 'parsa'
+
+say_hello ^
+```
+
+or:
+
+```bash
+func say_hello $name # without ()
+    println 'hello ' + $name
+endfunc
+
+mem 'parsa'
+
+say_hello ^ + ' shahmaleki'
 ```
 
 #### how two handle multiple arguments?
@@ -2026,6 +2098,24 @@ actually, the parent struct has not properties of he's childs, but childs has al
 #### All of structs extends `Object` struct
 all of structs by default extedns from a struct named `Object`. this struct is a internal pashmak struct.
 all of structs are child of this struct.
+
+### Structs general attributes
+structs has some general properties:
+
+- `__name__`: name of the struct
+- `__parent__`: name of parent of struct
+
+for example:
+
+```bash
+struct Person
+
+endstruct
+
+$person = ^ new Person
+
+println $person->__name__ # output: Person
+```
 
 
 

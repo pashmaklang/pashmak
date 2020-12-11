@@ -7,7 +7,9 @@ func say_hello
     println 'hello world'
 endfunc
 
-say_hello;
+say_hello
+# or
+say_hello()
 ```
 
 output:
@@ -22,7 +24,7 @@ func say_hello
 endfunc
 
 say_hello
-say_hello
+say_hello()
 ```
 
 output:
@@ -67,12 +69,29 @@ func myfunc
 endfunc
 
 myfunc "hello"
+# or
+myfunc("hello")
 ```
 
 output:
 
 ```
 hello
+```
+
+##### NOTE: using `()` in end of function is optional. for example:
+
+```bash
+myfunc
+myfunc()
+# above codes are not different
+```
+
+or with arguments:
+
+```bash
+myfunc "arg1", "arg2"
+myfunc("arg1", "arg2")
 ```
 
 ##### how it works?
@@ -140,6 +159,32 @@ func say_hello $name # without ()
 endfunc
 
 say_hello 'parsa'
+```
+
+also we can use mem symbol in argument of function.
+
+for example:
+
+```bash
+func say_hello $name # without ()
+    println 'hello ' + $name
+endfunc
+
+mem 'parsa'
+
+say_hello ^
+```
+
+or:
+
+```bash
+func say_hello $name # without ()
+    println 'hello ' + $name
+endfunc
+
+mem 'parsa'
+
+say_hello ^ + ' shahmaleki'
 ```
 
 #### how two handle multiple arguments?

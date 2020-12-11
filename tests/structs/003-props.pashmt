@@ -31,4 +31,4 @@ endstruct
 print self.structs['Car'].props
 
 --output--
-"{'name': None, 'price': 100}"
+"{'__parent__': 'Object', '__name__': 'Car', 'name': None, 'price': 100}"

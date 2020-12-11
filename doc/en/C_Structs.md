@@ -317,3 +317,21 @@ actually, the parent struct has not properties of he's childs, but childs has al
 #### All of structs extends `Object` struct
 all of structs by default extedns from a struct named `Object`. this struct is a internal pashmak struct.
 all of structs are child of this struct.
+
+### Structs general attributes
+structs has some general properties:
+
+- `__name__`: name of the struct
+- `__parent__`: name of parent of struct
+
+for example:
+
+```bash
+struct Person
+
+endstruct
+
+$person = ^ new Person
+
+println $person->__name__ # output: Person
+```

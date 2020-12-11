@@ -188,25 +188,62 @@ class Program(helpers.Helpers):
 
     def eval(self, operation):
         ''' Runs eval on operation '''
-        code = '(' + operation + ')'
-        # replace variable names with value of them
-        for k in self.all_vars():
-            # check variable is struct
-            is_struct = type(self.all_vars()[k]) == Struct
-            code = code.replace('$' + k, 'self.get_var("' + k + '")')
-            if is_struct:
-                code = code.replace('self.get_var("' + k + '")->', 'self.get_var("' + k + '").props.')
-            tmp_used_namespaces = self.used_namespaces
-            if self.current_namespace() != '':
-                tmp_used_namespaces = [*tmp_used_namespaces, self.current_namespace()[:len(self.current_namespace())-1]]
-            for used_namespace in tmp_used_namespaces:
-                if k[:len(used_namespace)+1] == used_namespace + '.':
-                    tmp = k[len(used_namespace)+1:]
-                    code = code.replace('$' + tmp, 'self.get_var("' + k + '")')
-                    if is_struct:
-                        code = code.replace('self.get_var("' + k + '")->', 'self.get_var("' + k + '").props.')
-        code = code.replace('->', '.props.')
-        return eval(code)
+        i = 0
+        operation = operation.strip()
+        is_in_string = False
+        operation_parts = [[False, '']]
+        while i < len(operation):
+            is_string_start = False
+            if operation[i] == '"' or operation[i] == "'":
+                before_backslashes_count = 0
+                try:
+                    x = i-1
+                    while x >= 0:
+                        if operation[x] == '\\':
+                            before_backslashes_count += 1
+                        else:
+                            x = -1
+                        x -= 1
+                except:
+                    pass
+                if is_in_string:
+                    if before_backslashes_count % 2 != 0 and before_backslashes_count != 0:
+                        pass
+                    elif is_in_string == operation[i]:
+                        is_in_string = False
+                        operation_parts[-1][1] += operation[i]
+                        is_string_start = True
+                        operation_parts.append([False, ''])
+                else:
+                    is_in_string = operation[i]
+                    operation_parts.append([True, ''])
+                    operation_parts[-1][1] += operation[i]
+                    is_string_start = True
+            if not is_string_start:
+                operation_parts[-1][1] += operation[i]
+            i += 1
+
+        full_op = ''
+        for code in operation_parts:
+            if code[0] == False:
+                code = code[1]
+                # replace variable names with value of them
+                variables_in_code = []
+                literals = '()+-/*%=}{<> [],'
+                code_words = self.multi_char_split(code, literals)
+                for word in code_words:
+                    if word:
+                        if word[0] == '$':
+                            variables_in_code.append(word[1:])
+                for k in variables_in_code:
+                    self.variable_required(k, self.operations[self.current_step])
+                    code = code.replace('$' + k, 'self.get_var("' + k + '")')
+                code = code.replace('->', '.')
+                code = code.replace('^', 'self.get_mem()')
+            else:
+                code = code[1]
+            full_op += code
+        return eval(full_op)
 
     def run(self, op: dict):
         ''' Run once operation '''

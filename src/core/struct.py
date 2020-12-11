@@ -47,7 +47,14 @@ class Struct:
     """ Struct model """
     def __init__(self, name: str, props: dict):
         self.props = StructProps(props)
-        self.name = name
 
     def __str__(self):
         return '[PashmakStruct name="' + self.name + '"]'
+
+    def __getattr__(self, attrname):
+        if attrname == 'props':
+            return super().__getattr__(attrname)
+        try:
+            return self.props[attrname]
+        except KeyError:
+            raise AttributeError(attrname)

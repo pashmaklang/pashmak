@@ -1,5 +1,5 @@
 #
-# bug001.pashmt
+# 008.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,26 +21,26 @@
 #########################################################################
 
 --test--
-tests "linked struct self to instances" bug
+struct objects have __parent__ and __name__ properties
 
 --file--
 
-struct Person
-    $name; $age = 10
+struct Test
+
 endstruct
 
-$p1 = ^ new Person
-$p1->age = 20
+struct Hello < Test
 
-$p2 = ^ new Person
-$p2->age = 77
+endstruct
 
-println self.structs['Person'].props
-println $p1->age
-println $p2->age
+
+$test = ^ new Test
+$hello = ^ new Hello
+
+println $test->props
+println $hello->props
 
 --output--
-"""{'__parent__': 'Object', '__name__': 'Person', 'name': None, 'age': 10}
-20
-77
+"""{'__parent__': 'Object', '__name__': 'Test'}
+{'__parent__': 'Test', '__name__': 'Hello'}
 """

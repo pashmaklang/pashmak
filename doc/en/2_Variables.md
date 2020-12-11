@@ -105,6 +105,8 @@ out $name # output: None
 
 variable will set and just get `None` as default value
 
+#### NOTE: allowed characters for variable name are `A-Z`, `a-z`, `&._` characters.
+
 ### put `mem` value to variable
 
 we can set value of mem to variables with this legacy way:
@@ -123,6 +125,19 @@ $myvar = ^
 ```
 
 if you put `^` (mem symbol) as value, memory value will put in the variable
+
+also you can use that mem alongside another values.
+
+for example:
+
+```bash
+mem 'parsa'
+$message = 'my name is ' + ^
+println $message # output: my name is parsa
+
+mem 10
+println (^ + 5) * 2 # output: 30
+```
 
 ### free variables
 when you set a variable, that var is in memory. you can delete that var with `free` command:
@@ -209,6 +224,18 @@ VariableError:
 ```
 
 the `required` command checks a variable is exists, if no, raising RequireError
+
+### python datatype methods
+datatype of the pashmak variables, is handled by python. this means you can use all python methods on them.
+
+for example:
+
+```bash
+$mystring = '  hello world          '
+println $mystring->strip() # output: `hello world`
+```
+
+#### NOTE: in python, for calling function or access to property of a object, we use `.` character, but in pashmak we use `->` symbol(like php)
 
 ## Constants
 constants (consts) are even like variables, but one thing is different in constants, **Constants values cannot be changed**.
