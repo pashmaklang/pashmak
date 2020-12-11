@@ -24,7 +24,6 @@
 
 import random
 
-
 def handle_special_char(op_str: str, ch: str) -> list:
     ''' Handle \\<special-char> as clean text '''
 
@@ -44,7 +43,7 @@ def ignore_comment(op_str: str) -> str:
     parts = op_str.split('#', 1) # just part of before `#` is the code and after that is comment
     return parts[0]
 
-def parse_op(op_str: str) -> dict:
+def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
     ''' Parse a operation from text to object '''
     op = {}
     op['str'] = op_str # operation plain string
@@ -74,6 +73,8 @@ def parse_op(op_str: str) -> dict:
         op['args_str'] += ' '
     op['args_str'] = op['args_str'].strip()
     op['str'] = op['command'] + ' ' + op['args_str']
+    op['file_path'] = file_path
+    op['line_number'] = line_number
     return op
 
 def parse(content: str, filepath='<system>') -> list:
@@ -107,4 +108,40 @@ def parse(content: str, filepath='<system>') -> list:
                     operations.append(parse_op('pass'))
                 operations.append(op)
         line_counter += 1
+
+    # handle the if statement
+    open_ifs = []
+    open_ifs_counters = []
+    i = 0
+    while i < len(operations):
+        try:
+            if operations[i]['command'] == 'if':
+                # init new if block
+                open_ifs.append('tmpsectionif' + str(random.random()).replace('.', '') + '_')
+                open_ifs_counters.append(2)
+
+                operations.insert(i+1, parse_op('mem not (' + operations[i]['args_str'] + ')', file_path='<system>', line_number=i))
+                operations.insert(i+2, parse_op('gotoif ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
+                i += 2
+            elif operations[i]['command'] == 'elif' or operations[i]['command'] == 'else':
+                cond = operations[i]['args_str']
+                if operations[i]['command'] == 'else':
+                    cond = 'True'
+                operations.insert(i+1, parse_op('goto ' + open_ifs[-1] + 'end', file_path='<system>', line_number=i))
+                operations.insert(i+2, parse_op('section ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
+                operations.insert(i+3, parse_op('mem not (' + cond + ')', file_path='<system>', line_number=i))
+                operations.insert(i+4, parse_op('gotoif ' + open_ifs[-1] + str(open_ifs_counters[-1]+1), file_path='<system>', line_number=i))
+                open_ifs_counters[-1] += 1
+                i += 4
+            elif operations[i]['command'] == 'endif':
+                operations.insert(i+1, parse_op('section ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
+                operations.insert(i+2, parse_op('section ' + open_ifs[-1] + 'end', file_path='<system>', line_number=i))
+                open_ifs.pop()
+                open_ifs_counters.pop()
+                i += 2
+        except:
+            pass
+
+        i += 1
+
     return operations
