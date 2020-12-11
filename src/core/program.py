@@ -149,13 +149,16 @@ class Program(helpers.Helpers):
         print('\tin ' + op['file_path'] + ':' + str(op['line_number']) + ': ' + op['str'])
         sys.exit(1)
 
-    def exec_func(self, func_body: list, with_state=True, call_one_time=True):
+    def exec_func(self, func_body: list, with_state=True, call_one_time=True, default_variables={}):
         ''' Gets a list from operations and runs them as function or included script '''
         # create new state for this call
         if with_state:
+            state_vars = dict(self.variables)
+            for k in default_variables:
+                state_vars[k] = default_variables[k]
             self.states.append({
                 'entry_point': self.current_step,
-                'vars': dict(self.variables),
+                'vars': state_vars,
             })
 
         # check function already called in this point
@@ -268,7 +271,11 @@ class Program(helpers.Helpers):
         # if a function is started, append current operation to the function body
         try:
             self.current_func
-            self.functions[self.current_func].append(op)
+            try:
+                self.current_struct
+                self.structs[self.current_struct].methods[self.current_func].append(op)
+            except:
+                self.functions[self.current_func].append(op)
             return
         except NameError:
             pass
@@ -321,7 +328,13 @@ class Program(helpers.Helpers):
             return
 
         # check operation syntax is variable value setting
+        tmp_bool = True
         if op['str'][0] == '$':
+            tmp_parts = op['str'].strip().split('@', 1)
+            if self.variable_exists(tmp_parts[0].strip()[1:]):
+                tmp_bool = False
+
+        if op['str'][0] == '$' and tmp_bool:
             # if a struct is started, append current operation as a property to struct
             is_in_struct = False
             try:
@@ -374,21 +387,33 @@ class Program(helpers.Helpers):
             return
 
         # check function exists
-        try:
-            func_body = self.functions[self.current_namespace() + op_name]
-        except KeyError:
-            func_body = None
-            for used_namespace in self.used_namespaces:
-                try:
-                    func_body = self.functions[used_namespace + '.' + op_name]
-                except KeyError:
-                    pass
-            if not func_body:
-                try:
-                    func_body = self.functions[op_name]
-                except KeyError:
-                    self.raise_error('SyntaxError', 'undefined operation "' + op_name + '"', op)
-                    return
+        is_method = False
+        if op['command'][0] == '$':
+            var_name = op['command'].split('@')[0]
+            var = self.all_vars()[var_name[1:]]
+            if type(var) != Struct:
+                self.raise_error('MethodError', 'calling method on non-struct object "' + var_name + '"', op)
+            try:
+                func_body = var.methods[op['command'].split('@')[1]]
+                is_method = var
+            except:
+                self.raise_error('MethodError', 'struct ' + self.all_vars()[var_name[1:]].__name__ + ' has not method "' + op['command'][0].split('@')[1] + '"', op)
+        else:
+            try:
+                func_body = self.functions[self.current_namespace() + op_name]
+            except KeyError:
+                func_body = None
+                for used_namespace in self.used_namespaces:
+                    try:
+                        func_body = self.functions[used_namespace + '.' + op_name]
+                    except KeyError:
+                        pass
+                if not func_body:
+                    try:
+                        func_body = self.functions[op_name]
+                    except KeyError:
+                        self.raise_error('SyntaxError', 'undefined operation "' + op_name + '"', op)
+                        return
 
         # run function
         try:
@@ -405,7 +430,10 @@ class Program(helpers.Helpers):
             with_state = True
             if op_name in ['import', 'mem', 'python', 'rmem']:
                 with_state = False
-            self.exec_func(func_body, with_state, True)
+            default_variables = {}
+            if is_method != False:
+                default_variables['this'] = is_method
+            self.exec_func(func_body, with_state, True, default_variables=default_variables)
             return
         except Exception as ex:
             raise

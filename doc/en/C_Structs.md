@@ -335,3 +335,92 @@ $person = ^ new Person
 
 println $person->__name__ # output: Person
 ```
+
+### Struct methods
+you can declare function inside structs. the struct's function is named **Method**.
+
+look at this example:
+
+```bash
+struct Cat
+    $name
+
+    func mio
+        println 'miooo...'
+    endfunc
+endstruct
+
+# create a object from Cat
+$my_cat = ^ new Cat
+
+$my_cat@mio
+```
+
+output:
+
+```
+miooo...
+```
+
+actually, you can call functions of a struct.
+
+another example:
+
+```bash
+struct Cat
+    $name
+
+    func mio
+        println 'miooo... my name is ' + $this->name
+    endfunc
+endstruct
+
+# create a object from Cat
+$my_cat = ^ new Cat
+$my_cat->name = 'gerdoo'
+$my_cat@mio
+```
+
+output:
+
+```
+miooo... my name is gerdoo
+```
+
+in above example, we used a variable named `$this`. this variable is a pointer to self of object.
+
+another example:
+
+```bash
+struct Person
+    $name
+
+    func set_name $name
+        $this->name = $name
+    endfunc
+
+    func say_hi
+        println 'hello. my name is ' + $this->name
+    endfunc
+endstruct
+
+$p = ^ new Person
+
+$p@set_name 'parsa'
+
+$p@say_hi
+```
+
+output:
+
+```
+hello. my name is parsa
+```
+
+**You can set object self properties by using $this variable like above examples**
+
+total syntax:
+
+```bash
+$object_name@method_name 'arguments...'
+```
