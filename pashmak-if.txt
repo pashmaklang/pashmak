@@ -1,0 +1,35 @@
+--- The following structure (if..elif..endif) should be converted to the section system in syntax parser ---
+
+### if <cond> ###
+mem not (<cond>)
+gotoif if_2
+
+	# if...
+
+### elif <cond> ###
+goto if_end
+section if_2
+mem not (<cond>)
+gotoif if_3
+
+	# elif...
+
+### elif <cond> ###
+goto if_end
+section if_3
+mem not (<cond>)
+gotoif if_4
+
+	# elif...
+
+### else ###
+goto if_end
+section if_4
+mem False
+gotoif if_5
+
+	# else...
+
+### endif ###
+section if_5
+section if_end
