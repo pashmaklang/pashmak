@@ -28,7 +28,7 @@ import signal
 from pathlib import Path
 from syntax import parser
 from core import helpers, version, modules
-from core.struct import Struct
+from core.class_system import Class
 
 import hashlib, time, random
 
@@ -39,11 +39,12 @@ class Program(helpers.Helpers):
         self.variables = {} # main state variables
         self.states = [] # list of states
         self.functions = {
-            "mem": [] # mem is a empty function just for save mem in code
+            "mem": [], # mem is a empty function just for save mem in code
+            "rmem": [],
         } # declared functions <function-name>:[<list-of-body-operations>]
         self.operations = [] # list of operations
         self.sections = {} # list of declared sections <section-name>:<index-of-operation-to-jump>
-        self.structs = {}
+        self.classes = {}
         self.mem = None # memory temp value
         self.is_test = is_test # program is in testing state
         self.output = '' # program output (for testing state)
@@ -78,7 +79,7 @@ class Program(helpers.Helpers):
         tmp = parser.parse('''
         $__file__ = "''' + os.path.abspath(self.main_filename).replace('\\', '\\\\') + '''";
         $__dir__ = "''' + os.path.dirname(os.path.abspath(self.main_filename)).replace('\\', '\\\\') + '''";
-        mem "@stdlib"; include ^; py "self.bootstrap_operations_count = len(self.operations)-4";'
+        mem '@stdlib'; include ^; python "self.bootstrap_operations_count = len(self.operations)-4";'
         ''', filepath='<system>')
         operations.insert(0, tmp[0])
         operations.insert(1, tmp[1])
@@ -148,13 +149,16 @@ class Program(helpers.Helpers):
         print('\tin ' + op['file_path'] + ':' + str(op['line_number']) + ': ' + op['str'])
         sys.exit(1)
 
-    def exec_func(self, func_body: list, with_state=True, call_one_time=True):
+    def exec_func(self, func_body: list, with_state=True, call_one_time=True, default_variables={}):
         ''' Gets a list from operations and runs them as function or included script '''
         # create new state for this call
         if with_state:
+            state_vars = dict(self.variables)
+            for k in default_variables:
+                state_vars[k] = default_variables[k]
             self.states.append({
                 'entry_point': self.current_step,
-                'vars': dict(self.variables),
+                'vars': state_vars,
             })
 
         # check function already called in this point
@@ -255,8 +259,8 @@ class Program(helpers.Helpers):
             self.run_endfunc(op)
             return
 
-        if op_name == 'endstruct':
-            self.run_endstruct(op)
+        if op_name == 'endclass':
+            self.run_endclass(op)
             return
 
         if op_name == 'popstate':
@@ -267,7 +271,11 @@ class Program(helpers.Helpers):
         # if a function is started, append current operation to the function body
         try:
             self.current_func
-            self.functions[self.current_func].append(op)
+            try:
+                self.current_class
+                self.classes[self.current_class].methods[self.current_func].append(op)
+            except:
+                self.functions[self.current_func].append(op)
             return
         except NameError:
             pass
@@ -285,15 +293,11 @@ class Program(helpers.Helpers):
             'return': self.run_return,
             'func': self.run_func,
             'required': self.run_required,
-            'typeof': self.run_typeof,
-            'system': self.run_system,
             'include': self.run_include,
             'goto': self.run_goto,
             'gotoif': self.run_gotoif,
             'fread': self.run_fread,
             'fwrite': self.run_fwrite,
-            'chdir': self.run_chdir,
-            'cwd': self.run_cwd,
             'isset': self.run_isset,
             'out': self.run_out,
             'try': self.run_try,
@@ -301,12 +305,11 @@ class Program(helpers.Helpers):
             'eval': self.run_eval,
             'arraypush': self.run_arraypush,
             'arraypop': self.run_arraypop,
-            'python': self.run_python,
             'namespace': self.run_namespace,
             'endnamespace': self.run_endnamespace,
             'use': self.run_use,
-            'struct': self.run_struct,
-            'endstruct': self.run_endstruct,
+            'class': self.run_class,
+            'endclass': self.run_endclass,
             'new': self.run_new,
             'pass': None,
         }
@@ -325,12 +328,18 @@ class Program(helpers.Helpers):
             return
 
         # check operation syntax is variable value setting
+        tmp_bool = True
         if op['str'][0] == '$':
-            # if a struct is started, append current operation as a property to struct
-            is_in_struct = False
+            tmp_parts = op['str'].strip().split('@', 1)
+            if self.variable_exists(tmp_parts[0].strip()[1:]):
+                tmp_bool = False
+
+        if op['str'][0] == '$' and tmp_bool:
+            # if a class is started, append current operation as a property to class
+            is_in_class = False
             try:
-                self.current_struct
-                is_in_struct = True
+                self.current_class
+                is_in_class = True
             except NameError:
                 pass
             except KeyError:
@@ -341,13 +350,13 @@ class Program(helpers.Helpers):
             varname = parts[0].strip()
             full_varname = varname
             varname = varname.split('->', 1)
-            is_struct_setting = False
+            is_class_setting = False
             if len(varname) > 1:
-                is_struct_setting = varname[1].replace('->', '.props.')
+                is_class_setting = varname[1].replace('->', '.props.')
             varname = varname[0]
             if len(parts) <= 1:
-                if is_in_struct:
-                    self.structs[self.current_struct].props[varname[1:]] = None
+                if is_in_class:
+                    self.classes[self.current_class].props[varname[1:]] = None
                 else:
                     self.set_var(varname[1:], None)
                 return
@@ -367,46 +376,64 @@ class Program(helpers.Helpers):
                 value = self.get_mem()
             else:
                 value = self.eval(parts[1].strip())
-            if is_struct_setting != False:
+            if is_class_setting != False:
                 tmp_real_var = self.get_var(varname[1:])
-                exec('tmp_real_var.props.' + is_struct_setting + ' = value')
+                exec('tmp_real_var.props.' + is_class_setting + ' = value')
             else:
-                if is_in_struct:
-                    self.structs[self.current_struct].props[varname[1:]] = value
+                if is_in_class:
+                    self.classes[self.current_class].props[varname[1:]] = value
                 else:
                     self.set_var(varname[1:], value)
             return
 
         # check function exists
-        try:
-            func_body = self.functions[self.current_namespace() + op_name]
-        except KeyError:
-            func_body = None
-            for used_namespace in self.used_namespaces:
-                try:
-                    func_body = self.functions[used_namespace + '.' + op_name]
-                except KeyError:
-                    pass
-            if not func_body:
-                try:
-                    func_body = self.functions[op_name]
-                except KeyError:
-                    self.raise_error('SyntaxError', 'undefined operation "' + op_name + '"', op)
-                    return
+        is_method = False
+        if op['command'][0] == '$':
+            var_name = op['command'].split('@')[0]
+            var = self.all_vars()[var_name[1:]]
+            if type(var) != Class:
+                self.raise_error('MethodError', 'calling method on non-class object "' + var_name + '"', op)
+            try:
+                func_body = var.methods[op['command'].split('@')[1]]
+                is_method = var
+            except:
+                self.raise_error('MethodError', 'class ' + self.all_vars()[var_name[1:]].__name__ + ' has not method "' + op['command'][0].split('@')[1] + '"', op)
+        else:
+            try:
+                func_body = self.functions[self.current_namespace() + op_name]
+            except KeyError:
+                func_body = None
+                for used_namespace in self.used_namespaces:
+                    try:
+                        func_body = self.functions[used_namespace + '.' + op_name]
+                    except KeyError:
+                        pass
+                if not func_body:
+                    try:
+                        func_body = self.functions[op_name]
+                    except KeyError:
+                        self.raise_error('SyntaxError', 'undefined operation "' + op_name + '"', op)
+                        return
 
         # run function
         try:
             # put argument in the mem
             if op['args_str'] != '':
-                self.mem = self.eval(op['args_str'])
+                if op['command'] != 'rmem':
+                    self.mem = self.eval(op['args_str'])
+                else:
+                    self.eval(op['args_str'])
             else:
                 self.mem = ''
 
             # execute function body
             with_state = True
-            if op_name in ['import', 'mem']:
+            if op_name in ['import', 'mem', 'python', 'rmem']:
                 with_state = False
-            self.exec_func(func_body, with_state, True)
+            default_variables = {}
+            if is_method != False:
+                default_variables['this'] = is_method
+            self.exec_func(func_body, with_state, True, default_variables=default_variables)
             return
         except Exception as ex:
             raise

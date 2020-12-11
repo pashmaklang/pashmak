@@ -1,5 +1,5 @@
 #
-# 008.pashmt
+# method001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,26 +21,30 @@
 #########################################################################
 
 --test--
-struct objects have __parent__ and __name__ properties
+class method can be declared
 
 --file--
+class Person
+    func hello
+        println 'Person > hello was runed'
+    endfunc
 
-struct Test
+    func with_arg $arg
+        println 'hello ' + $arg
+    endfunc
+endclass
 
-endstruct
+$p = ^ new Person
 
-struct Hello < Test
+$p@hello
 
-endstruct
+$p@with_arg 'parsa'
 
-
-$test = ^ new Test
-$hello = ^ new Hello
-
-println $test->props
-println $hello->props
+$p@with_arg('parsa')
 
 --output--
-"""{'__parent__': 'Object', '__name__': 'Test'}
-{'__parent__': 'Test', '__name__': 'Hello'}
-"""
+
+'''Person > hello was runed
+hello parsa
+hello parsa
+'''

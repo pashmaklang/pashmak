@@ -1,5 +1,5 @@
 #
-# 002.pashmt
+# 006-prop-value-set.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,18 +21,35 @@
 #########################################################################
 
 --test--
-struct can be declared inside namespaces
+class object props can recive the value
 --file--
-namespace Models
-    struct Car
-    endstruct
 
-    namespace Foo
-        struct Bar
-        endstruct
-    endns
-endns
+class Foo
+    $title = 'the title'
+endclass
 
-print list(self.structs.keys())
+class Human
+    $name
+    $age
+    $foo = ^ new Foo
+endclass
+
+$someone = ^ new Human
+$someone->name = 'hello world'
+$someone->age = 18
+
+println $someone->name
+println $someone->foo->title
+
+$someone->foo->title = 'new title'
+println $someone->foo->title
+
+$someone->name = $someone->name + '.'
+println $someone->name
+
 --output--
-"['Object', 'Models.Car', 'Models.Foo.Bar']"
+"""hello world
+the title
+new title
+hello world.
+"""

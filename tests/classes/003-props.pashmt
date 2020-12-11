@@ -1,5 +1,5 @@
 #
-# typeof.py
+# 003-props.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,14 +20,15 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Puts type of a variable in mem '''
+--test--
+class properties can be declared
+--file--
+class Car
+    $name
+    $price = 100
+endclass
 
-def run(self, op: dict):
-    ''' Puts type of a variable in mem '''
+print self.classes['Car'].props
 
-    args = op['args']
-    for arg in args:
-        self.arg_should_be_variable(arg, op)
-        self.variable_required(arg[1:], op)
-        var = self.get_var(arg[1:])
-        self.mem = type(var)
+--output--
+"{'__parent__': 'Object', '__name__': 'Car', 'name': None, 'price': 100}"

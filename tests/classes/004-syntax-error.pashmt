@@ -1,5 +1,5 @@
 #
-# bug001.pashmt
+# 004-syntax-error.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,26 +21,11 @@
 #########################################################################
 
 --test--
-tests "linked struct self to instances" bug
-
+class raises error when body codes has syntax error
 --file--
-
-struct Person
-    $name; $age = 10
-endstruct
-
-$p1 = ^ new Person
-$p1->age = 20
-
-$p2 = ^ new Person
-$p2->age = 77
-
-println self.structs['Person'].props
-println $p1->age
-println $p2->age
-
---output--
-"""{'__parent__': 'Object', '__name__': 'Person', 'name': None, 'age': 10}
-20
-77
-"""
+class Foo
+    $name
+    gdfghfjh
+endclass
+--with-error--
+'SyntaxError'

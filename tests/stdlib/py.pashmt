@@ -21,12 +21,12 @@
 #########################################################################
 
 --test--
-stdlib py function runs python code
+stdlib python function runs python code
 
 --file--
 
-py "self.mem = 'hi'";
+python "self.hello = 'hi'";
+println self.hello
+--output--
 
---mem--
-
-'hi'
+'hi\n'

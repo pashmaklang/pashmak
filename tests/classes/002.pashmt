@@ -1,5 +1,5 @@
 #
-# 007.pashmt
+# 002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,19 +21,18 @@
 #########################################################################
 
 --test--
-constant property can be changed
-
+class can be declared inside namespaces
 --file--
+namespace Models
+    class Car
+    endclass
 
-struct Person
-    $name
-endstruct
+    namespace Foo
+        class Bar
+        endclass
+    endns
+endns
 
-$&p = ^ new Person
-
-$&p->name = 'hello world'
-
-println $&p->name
-
+print list(self.classes.keys())
 --output--
-'hello world\n'
+"['Object', 'Models.Car', 'Models.Foo.Bar']"

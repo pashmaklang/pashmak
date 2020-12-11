@@ -32,27 +32,22 @@ from operations import returnop as op_return
 from operations import func as op_func
 from operations import endfunc as op_endfunc
 from operations import required as op_required
-from operations import typeof as op_typeof
-from operations import system as op_system
 from operations import include as op_include
 from operations import goto as op_goto
 from operations import gotoif as op_gotoif
 from operations import fread as op_fread
 from operations import fwrite as op_fwrite
-from operations import chdir as op_chdir
-from operations import cwd as op_cwd
 from operations import isset as op_isset
 from operations import tryop as op_try
 from operations import endtry as op_endtry
 from operations import eval as op_eval
 from operations import arraypush as op_arraypush
 from operations import arraypop as op_arraypop
-from operations import python as op_python
 from operations import namespace as op_namespace
 from operations import endnamespace as op_endnamespace
 from operations import use as op_use
-from operations import struct as op_struct
-from operations import endstruct as op_endstruct
+from operations import classop as op_class
+from operations import endclass as op_endclass
 from operations import new as op_new
 
 class Commands:
@@ -94,14 +89,6 @@ class Commands:
         ''' run required '''
         op_required.run(self, op)
 
-    def run_typeof(self, op: dict):
-        ''' run typeof '''
-        op_typeof.run(self, op)
-
-    def run_system(self, op: dict):
-        ''' run system '''
-        op_system.run(self, op)
-
     def run_include(self, op: dict):
         ''' run include '''
         op_include.run(self, op)
@@ -121,14 +108,6 @@ class Commands:
     def run_fwrite(self, op: dict):
         ''' run fwrite '''
         op_fwrite.run(self, op)
-
-    def run_chdir(self, op: dict):
-        ''' run chdir '''
-        op_chdir.run(self, op)
-
-    def run_cwd(self, op: dict):
-        ''' run cwd '''
-        op_cwd.run(self, op)
 
     def run_isset(self, op: dict):
         ''' run isset '''
@@ -154,10 +133,6 @@ class Commands:
         ''' run arraypop '''
         op_arraypop.run(self, op)
 
-    def run_python(self, op: dict):
-        ''' run python '''
-        op_python.run(self, op)
-
     def run_namespace(self, op: dict):
         ''' run namespace '''
         op_namespace.run(self, op)
@@ -170,13 +145,13 @@ class Commands:
         ''' run use '''
         op_use.run(self, op)
 
-    def run_struct(self, op: dict):
-        ''' run struct '''
-        op_struct.run(self, op)
+    def run_class(self, op: dict):
+        ''' run class '''
+        op_class.run(self, op)
 
-    def run_endstruct(self, op: dict):
-        ''' run endstruct '''
-        op_endstruct.run(self, op)
+    def run_endclass(self, op: dict):
+        ''' run endclass '''
+        op_endclass.run(self, op)
 
     def run_new(self, op: dict):
         ''' run new '''

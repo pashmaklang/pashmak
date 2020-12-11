@@ -1,5 +1,5 @@
 #
-# 006-prop-value-set.pashmt
+# 008.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,35 +21,26 @@
 #########################################################################
 
 --test--
-struct object props can recive the value
+class objects have __parent__ and __name__ properties
+
 --file--
 
-struct Foo
-    $title = 'the title'
-endstruct
+class Test
 
-struct Human
-    $name
-    $age
-    $foo = ^ new Foo
-endstruct
+endclass
 
-$someone = ^ new Human
-$someone->name = 'hello world'
-$someone->age = 18
+class Hello < Test
 
-println $someone->name
-println $someone->foo->title
+endclass
 
-$someone->foo->title = 'new title'
-println $someone->foo->title
 
-$someone->name = $someone->name + '.'
-println $someone->name
+$test = ^ new Test
+$hello = ^ new Hello
+
+println $test->props
+println $hello->props
 
 --output--
-"""hello world
-the title
-new title
-hello world.
+"""{'__parent__': 'Object', '__name__': 'Test'}
+{'__parent__': 'Test', '__name__': 'Hello'}
 """

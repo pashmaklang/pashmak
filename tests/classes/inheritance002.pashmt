@@ -1,5 +1,5 @@
 #
-# 004-syntax-error.pashmt
+# inheritance002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,11 +21,12 @@
 #########################################################################
 
 --test--
-struct raises error when body codes has syntax error
+undefined class error will be raised when parent class not found
+
 --file--
-struct Foo
-    $name
-    gdfghfjh
-endstruct
+
+class Test < Undefined
+endclass
+
 --with-error--
-'SyntaxError'
+"ClassError"

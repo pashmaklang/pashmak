@@ -1,5 +1,5 @@
 #
-# consts02.pashmt
+# bug001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,28 +21,26 @@
 #########################################################################
 
 --test--
-struct constants working with default none value
+tests "linked class self to instances" bug
 
 --file--
-struct Test
-    $name = 'hello'
-    $_age
-endstruct
 
-$test = ^ new Test
+class Person
+    $name; $age = 10
+endclass
 
-$test->name = 'new name'
+$p1 = ^ new Person
+$p1->age = 20
 
-println $test->name
+$p2 = ^ new Person
+$p2->age = 77
 
-$test->_age = 100
-
-println $test->_age
-
-$test->_age = 1001
+println self.classes['Person'].props
+println $p1->age
+println $p2->age
 
 --output--
-'new name\n100\n'
-
---with-error--
-'StructConstError'
+"""{'__parent__': 'Object', '__name__': 'Person', 'name': None, 'age': 10}
+20
+77
+"""

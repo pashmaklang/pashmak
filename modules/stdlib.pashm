@@ -35,18 +35,6 @@ func exit ($code)
     return 0
 endfunc
 
-func py
-    python ^
-endfunc
-
-func sys
-    system ^
-endfunc
-
-func std_chdir
-    chdir ^
-endfunc
-
 func std_eval
     eval ^
 endfunc
@@ -56,7 +44,7 @@ func endns
 endfunc
 
 func raise ($exdata)
-	mem "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', op)"
+	mem "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', self.operations[self.current_step])"
     python ^
 endfunc
 
@@ -79,5 +67,25 @@ func printl ($value)
     println $value
 endfunc
 
-struct Object
-endstruct
+func cwd
+    mem os.getcwd()
+endfunc
+
+func chdir ($path)
+    mem os.chdir($path)
+endfunc
+
+func typeof ($obj)
+    mem type($obj)
+endfunc
+
+func system ($cmd)
+    mem os.system($cmd)
+endfunc
+
+func python
+    rmem exec(^)
+endfunc
+
+class Object
+endclass

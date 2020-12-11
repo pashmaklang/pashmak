@@ -136,8 +136,8 @@ use App
 App.dosomething
 dosomething
 
-out $App.name
-out $name
+println $App.name
+println $name
 ```
 
 output:
@@ -151,7 +151,7 @@ parsa
 
 when i use `use` operation and give a namespace as argument to that, i can call all of that namespace members without namespace prefix.
 
-for example if there is a namespace named `App` and have a function named `dosomething`, for call that function i have to write `App.dosomething`. but if i run `use App;`, after that i can call this function just by typing `dosomething;`
+for example if there is a namespace named `App` and have a function named `dosomething`, for call that function i have to write `App.dosomething`. but if i run `use App`, after that i can call this function just by typing `dosomething;`
 
 ### namespace in namespace (subnamespace)
 you can declare a namespace in a namespace

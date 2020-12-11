@@ -1,5 +1,5 @@
 #
-# chdir.py
+# consts02.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,21 +20,29 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Changes program working directory '''
+--test--
+class constants working with default none value
 
-import os
+--file--
+class Test
+    $name = 'hello'
+    $_age
+endclass
 
-def run(self, op: dict):
-    ''' Changes program working directory '''
+$test = ^ new Test
 
-    self.require_one_argument(op, 'chdir operation requires argument')
-    arg = op['args'][0]
-    self.arg_should_be_variable_or_mem(arg, op)
+$test->name = 'new name'
 
-    if arg == '^':
-        path = self.get_mem()
-    else:
-        self.variable_required(arg[1:], op)
-        path = self.get_var(arg[1:])
+println $test->name
 
-    os.chdir(path)
+$test->_age = 100
+
+println $test->_age
+
+$test->_age = 1001
+
+--output--
+'new name\n100\n'
+
+--with-error--
+'ClassConstError'

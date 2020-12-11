@@ -47,11 +47,21 @@ def run(self, op: dict):
         pass
 
     # declare function
-    self.current_func = self.current_namespace() + arg
-    self.functions[self.current_func] = []
+    is_method = False
+    try:
+        self.current_class
+        self.current_func = arg
+        self.classes[self.current_class].methods[self.current_func] = []
+        is_method = True
+    except:
+        self.current_func = self.current_namespace() + arg
+        self.functions[self.current_func] = []
 
     # check for argument variable
     if len(op['args']) > 1:
         arg_var = op['args'][1].strip(')').strip('(')
         self.arg_should_be_variable(arg_var, op)
-        self.functions[self.current_func].append(parser.parse(arg_var + ' = ^', '<system>')[0])
+        if is_method:
+            self.classes[self.current_class].methods[self.current_func].append(parser.parse(arg_var + ' = ^', '<system>')[0])
+        else:
+            self.functions[self.current_func].append(parser.parse(arg_var + ' = ^', '<system>')[0])

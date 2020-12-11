@@ -1,5 +1,5 @@
 #
-# endstruct.py
+# 001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,12 +20,14 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Closes struct block '''
-
-def run(self, op: dict):
-    ''' Closes struct block '''
-
-    try:
-        del self.current_struct
-    except AttributeError:
-        pass
+--test--
+class can be declared
+--file--
+class Person
+endclass
+println list(self.classes.keys())
+println self.classes['Person'].props
+--output--
+"""['Object', 'Person']
+{'__parent__': 'Object', '__name__': 'Person'}
+"""

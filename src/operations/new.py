@@ -20,37 +20,37 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Creates a new instance from a struct """
+""" Creates a new instance from a class """
 
 import copy
-from core.struct import Struct
+from core.class_system import Class
 
 def run(self, op: dict):
-    """ Creates a new instance from a struct """
+    """ Creates a new instance from a class """
 
-    self.require_one_argument(op, 'new operation requires struct name argument')
+    self.require_one_argument(op, 'new operation requires class name argument')
     arg = op['args'][0]
 
-    # check struct exists
-    struct_real_name = None
+    # check class exists
+    class_real_name = None
     try:
-        struct = self.structs[self.current_namespace() + arg]
-        struct_real_name = self.current_namespace() + arg
+        aclass = self.classes[self.current_namespace() + arg]
+        class_real_name = self.current_namespace() + arg
     except KeyError:
-        struct = None
+        aclass = None
         for used_namespace in self.used_namespaces:
             try:
-                struct = self.structs[used_namespace + '.' + arg]
-                struct_real_name = used_namespace + '.' + arg
+                aclass = self.classes[used_namespace + '.' + arg]
+                class_real_name = used_namespace + '.' + arg
             except KeyError:
                 pass
-        if not struct:
+        if not aclass:
             try:
-                struct = self.structs[arg]
-                struct_real_name = arg
+                aclass = self.classes[arg]
+                class_real_name = arg
             except KeyError:
-                self.raise_error('StructError', 'undefined struct "' + arg + '"', op)
+                self.raise_error('ClassError', 'undefined class "' + arg + '"', op)
                 return
 
-    struct_copy = copy.deepcopy(struct)
-    self.mem = struct_copy
+    class_copy = copy.deepcopy(aclass)
+    self.mem = class_copy

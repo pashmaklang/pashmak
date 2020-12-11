@@ -23,9 +23,9 @@
 --test--
 file module is working
 --file--
-import '@file'
+import @file
 $tmp_file
-py "import tempfile, random\; self.mem = tempfile.gettempdir().replace('\\\\', '/') + '/' + 'pashmak-test-file-' + str(random.random())"
+python "import tempfile, random\; self.mem = tempfile.gettempdir().replace('\\\\', '/') + '/' + 'pashmak-test-file-' + str(random.random())"
 copy $tmp_file
 
 file.open [$tmp_file, 'w']
@@ -39,6 +39,6 @@ copy $file
 file.read $file; out ^
 file.close $file
 
-py 'os.remove("' + $tmp_file + '")'
+mem os.remove($tmp_file)
 --output--
 'content of file'

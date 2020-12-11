@@ -1,5 +1,5 @@
 #
-# cwd.py
+# method002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,11 +20,29 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Puts program current working directory in mem '''
+--test--
+the $this variable is accessible in methods
 
-import os
+--file--
 
-def run(self, op: dict):
-    ''' Puts program current working directory in mem '''
+class Person
+    $name
+    func set_name $name
+        $this->name = $name
+    endfunc
 
-    self.mem = os.getcwd()
+    func get_name
+        mem $this->name
+    endfunc
+endclass
+
+$p = ^ new Person
+
+$p@set_name 'parsa'
+
+$name = ^ $p@get_name
+
+println $name
+
+--output--
+'parsa\n'

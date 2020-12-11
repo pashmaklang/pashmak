@@ -1,5 +1,5 @@
 #
-# 001.pashmt
+# class.pashm
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,14 +20,12 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
---test--
-struct can be declared
---file--
-struct Person
-endstruct
-println list(self.structs.keys())
-println self.structs['Person'].props
---output--
-"""['Object', 'Person']
-{'__parent__': 'Object', '__name__': 'Person'}
-"""
+class Human
+    $name
+    $age = 12
+endclass
+
+$someone = ^ new Human
+$someone->name = 'parsa'
+
+println $someone->name

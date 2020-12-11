@@ -24,7 +24,6 @@ for example here I entered `parsa` as input and program printed `hello parsa`
 
 we can get input from user like above example
 
-
 also look at this example:
 
 ```bash
@@ -55,6 +54,16 @@ enter second number: <input>2
 ```
 
 this example gets two numbers from user and shows sum of them
+
+also you can read value directly:
+
+```bash
+print 'enter your name: '
+$name = ^ read ^
+println 'hello ' + $name
+```
+
+the `^ read ^` reads value and puts that in the variable.
 
 ### read command line arguments
 to access command line arguments, you can use `$argv` variable.

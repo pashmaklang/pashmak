@@ -1,5 +1,5 @@
 #
-# 005-new-command.pashmt
+# inheritance001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,37 +21,30 @@
 #########################################################################
 
 --test--
-the new command can make an object from struct
+classes can be child of another classes
+
 --file--
-struct Car
-    $name
-    $color = 'red'
-endstruct
+class GrandMother
+    $size = 10
+endclass
 
-$my_car = ^ new Car
+class Father<GrandMother
+    $name = 'the name'
+endclass
 
-namespace Foo
-    struct Bar
-        $title = 'the bar'
-    endstruct
+class Child < Father
+    $foo = 'the foo'
+endclass
 
-    namespace Sub
-        struct Hello
-            $say_hi = 'Hi!'
-        endstruct
-    endns
-endns
+$obj = ^ new Child
 
-$my_bar; new Foo.Bar; copy $my_bar
-
-use Foo.Sub
-
-$my_hi = ^ new Hello
-
-println $my_bar->title
-println $my_car->color
+println $obj->foo
+println $obj->name
+println $obj->size
 
 --output--
-"""the bar
-red
+
+"""the foo
+the name
+10
 """

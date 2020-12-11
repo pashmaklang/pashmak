@@ -24,13 +24,13 @@
 stdlib gset function working
 
 --file--
-set $name; mem 'parsa\n'; copy $name;
-func myfunc;
-	out $name;
-	gset ['name', 'pashmak\n'];
-endfunc;
-myfunc;
-out $name;
+$name = 'parsa\n'
+func myfunc
+	print $name
+	gset ['name', 'pashmak\n']
+endfunc
+myfunc
+print $name
 
 --output--
 'parsa\npashmak\n'

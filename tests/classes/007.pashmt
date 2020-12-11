@@ -1,5 +1,5 @@
 #
-# inheritance001.pashmt
+# 007.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,30 +21,19 @@
 #########################################################################
 
 --test--
-structs can be child of another structs
+constant property can be changed
 
 --file--
-struct GrandMother
-    $size = 10
-endstruct
 
-struct Father<GrandMother
-    $name = 'the name'
-endstruct
+class Person
+    $name
+endclass
 
-struct Child < Father
-    $foo = 'the foo'
-endstruct
+$&p = ^ new Person
 
-$obj = ^ new Child
+$&p->name = 'hello world'
 
-println $obj->foo
-println $obj->name
-println $obj->size
+println $&p->name
 
 --output--
-
-"""the foo
-the name
-10
-"""
+'hello world\n'

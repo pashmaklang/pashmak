@@ -38,13 +38,12 @@ read the following Documentation to learn pashmak.
 - [Read Input From User](#read-input-from-user)
 - [Sections](#sections)
 - [Functions](#functions)
-- [Work With Files](#work-with-files)
 - [Arrays](#arrays)
 - [Try-Endtry statement](#try-and-endtry-statement)
 - [OS Commands](#os-commands)
 - [Importing scripts](#include-scripts)
 - [Namespaces](#namespaces)
-- [Structs](#Structs)
+- [Classes](#Classes)
 - [Eval](#eval)
 - [Modules](#internal-modules)
 
@@ -149,7 +148,7 @@ dist\pashmak.exe -v
 a simple printing in pashmak on screen:
 
 ```bash
-mem 'something to print\n'; out ^
+mem 'something to print\n'; print ^
 ```
 
 or
@@ -203,19 +202,11 @@ but how?
 first, `mem` command brings the string `'some thing to print'` in memory, and next `out` command prints the memory value on screen.
 
 ### what is `mem`?
-you cannot print any thing like this:
-
-```bash
-out 'hello world\n'
-```
-
-because commands in pashmak never gets a value directly.
-if you want to pass a value to the commands, you need to use `mem` command to load that value.
-in this example, first, `mem` command loads the `'some thing to print'`, and next, we pass value of mem to the `out` command:
+mem is a temp place to make values.
 
 ```bash
 mem 'hello world'
-out ^ # the ^ is pointer of mem
+print ^ # the ^ is pointer of mem
 ```
 
 the ^ is pointer of mem
@@ -223,7 +214,7 @@ the ^ is pointer of mem
 you can also write the code like this to have shorter code (we have to use `;` to seprate them):
 
 ```bash
-mem 'hello world\n'; out ^
+mem 'hello world\n'; print ^
 ```
 
 ###### NOTE: remember to put \n when you want to go to the next line
@@ -235,9 +226,9 @@ look at this example:
 ```bash
 mem 'some thing\n'
 
-out ^ # output: some thing
+print ^ # output: some thing
 
-out ^ # output: None
+print ^ # output: None
 ```
 
 why in the first time when mem value was read, the value correctly was printed on screen, but in the second time, the `None` was printed?
@@ -248,10 +239,10 @@ look at this example:
 
 ```bash
 mem 'first value\n'
-out ^
+print ^
 
 mem 'second value\n'
-out ^
+print ^
 ```
 
 output of this code:
@@ -269,17 +260,17 @@ you can calculate every thing in mem
 for undrestanding, look at the following examples:
 
 ```bash
-mem 'hi there'; out ^ # output: hi there
+mem 'hi there'; print ^ # output: hi there
 
 # you can paste strings
-mem 'first string ' + 'last string'; out ^ # output: first string last string
+mem 'first string ' + 'last string'; print ^ # output: first string last string
 
 # run math operations
-mem 2*7; out ^ # output: 14
+mem 2*7; print ^ # output: 14
 
-mem 3*(2+1); out ^ # output: 9
+mem 3*(2+1); print ^ # output: 9
 
-mem str(7*7) + ' is sum'; out ^ # output: 49 is sum
+mem str(7*7) + ' is sum'; print ^ # output: 49 is sum
 # the `str` function gets a value and convert it to string.
 # in here you can not paste number to string. first need to convert num to str with str()
 ```
@@ -290,8 +281,8 @@ the `mem` command is absolutely important and you need to use it everywhere
 for printing `;` and `#` special characters, put a `\` before them:
 
 ```bash
-mem 'this is \; semicolon\n'; out ^
-mem 'this is \# sharp\n'; out ^
+mem 'this is \; semicolon\n'; print ^
+mem 'this is \# sharp\n'; print ^
 ```
 
 output:
@@ -305,7 +296,7 @@ this is # sharp
 this is a easier syntax for printing:
 
 ```bash
-mem 'hello world\n'; out ^
+mem 'hello world\n'; print ^
 
 # this is easier
 print 'hello world\n'
@@ -317,7 +308,9 @@ print 'hello ' + 'parsa\n'
 print 'num is ' + str(100+7)
 ```
 
-after this, we never use `mem <something>; out ^;` pattern for printing, and we just use `print` command.
+you can use all of features of `mem` in the argument of commands like above example.
+
+after this, we never use `mem <something>; print ^;` pattern for printing, and we just use `print` command.
 
 ### println
 
@@ -351,9 +344,7 @@ variables are like a pot where you can save data in it
 we work with three commands: `set`, `copy`, `free`, to set and handle variables in pashmak
 
 ```bash
-set $myvar # set a variables named $myvar
-mem 'this is data' # bring string 'this is data' to mem
-copy ^ $myvar # copy mem (^) to $myvar
+$myvar = 'this is data'
 
 println $myvar # output: this is data
 ```
@@ -363,7 +354,10 @@ println $myvar # output: this is data
 also you can set more than one variable with `set` command:
 
 ```bash
-set $var1 $var2 $var3 # default value is null
+set $var1
+# or
+$var1
+$var2; $var3 # default value is null
 ```
 
 ### use variables in mem
@@ -371,99 +365,41 @@ set $var1 $var2 $var3 # default value is null
 look at this example:
 
 ```bash
-set $name # set name variable
-mem 'parsa'; copy ^ $name # copy 'parsa' string to name variable
+$name = 'parsa' # set name variable
 
 println 'hello ' + $name # output: hello parsa
 
-set $num; mem 12; copy ^ $num
+$num = 12
 println $num * 5 # output: 60
 
-set $num2; mem 4; copy $num2 # alias of `copy ^ $num2`
+$num2 = 4 # alias of `copy ^ $num2`
 
 println $num * $num2 + 1 # output: 49
 ```
 
-#### how it works?
-we declare $name variable and put `'parsa'` string in that
-
-next, in mem we maked a string and paste $name variable value to `'hello '` with a \n at the end of it, and we print that mem
-
-you can use variables in mem like example above
-
-###### NOTE: in above example, we used `copy` command like this:
-
-```bash
-mem 'some value'
-copy $somevar
-# that is alias of
-copy ^ $somevar
-```
-
-if you give just one variable to copy command, the mem will be copy in that variable
+#### copy variables in other variables
 
 look at this example:
 
 ```bash
-set $var1 $var2
+$var1 = 'hi'
+$var2 = 'bye'
 
-mem 'hi'; copy $var1
-mem 'bye'; copy $var2 # this is alias of `copy ^ $var2`
+println $var1 # output: hi
+println $var2 # output: bye
 
-out $var1 # output: hi
-out $var2 # output: bye
-
-copy $var1 $var2 # copy a variable in variable
+$var2 = $var1
 
 out $var1 # output: hi
 out $var2 # output: hi
 
 ```
 
-### a better way to set variables value without using `mem` and `set` commands and with easier syntax
-
-```bash
-$name = 'parsa'
-```
-
-you just need to write name of variable with `$` and next assign value with `=` after this:
-
-```bash
-$name = 'parsa'
-
-$num1 = 10
-$num2 = 50
-
-$sum = $num1 + $num2 # use variables in variables
-
-println 'sum is ' + str($sum) # output: sum is 60
-
-$msg = 'hello ' + $name
-println $msg # output: hello parsa
-```
-
-also if you just write something like this:
-
-```bash
-$name # without `= <value>...`
-out $name # output: None
-```
-
-variable will set and just get `None` as default value
-
 #### NOTE: allowed characters for variable name are `A-Z`, `a-z`, `&._` characters.
 
 ### put `mem` value to variable
 
-we can set value of mem to variables with this legacy way:
-
-```bash
-$myvar # set myvar
-mem 'something' # load mem
-copy $myvar # copy mem to variable
-```
-
-the better way is:
+we can set value of mem to variables with this code:
 
 ```bash
 mem 'something'
@@ -485,16 +421,16 @@ mem 10
 println (^ + 5) * 2 # output: 30
 ```
 
-### free variables
+### free(delete) variables
 when you set a variable, that var is in memory. you can delete that var with `free` command:
 
 ```bash
 $somevar = 'some value'
-out $somevar # output: some value
+println $somevar # output: some value
 
 free $somevar
 
-out $somevar # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
+println $somevar # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
 ```
 
 also you can make free more than one variable with `free` command:
@@ -511,10 +447,10 @@ look at this example:
 ```bash
 $somevar; $v # set `somevar` and `v` variables
 
-isset $somevar; out ^ # output: True
-isset $this_var_not_found; out ^ # output: False
-isset $somevar $sassadffgdty; out ^ # output: False
-isset $somevar $v; out ^ # output: True
+isset $somevar; println ^ # output: True
+isset $this_var_not_found; println ^ # output: False
+isset $somevar $sassadffgdty; println ^ # output: False
+isset $somevar $v; println ^ # output: True
 ```
 
 #### how it works?
@@ -523,7 +459,7 @@ the isset command gets one or more variable names and if all of that vars exist,
 
 ### typeof command
 
-you can get the data type of a variable with `typeof` command
+you can get the data type of a variable with `typeof` function.
 
 look at this example:
 
@@ -533,10 +469,11 @@ $myint = 20
 $myfloat = 15.32
 $mybool = False
 
-typeof $mystr; out ^ # output: <class 'str'>
-typeof $myint; out ^ # output: <class 'int'>
-typeof $myfloat; out ^ # output: <class 'float'>
-typeof $mybool; out ^ # output: <class 'bool'>
+typeof $mystr; println ^ # output: <class 'str'>
+typeof $myint; println ^ # output: <class 'int'>
+typeof($myfloat); println ^ # output: <class 'float'>
+typeof($mybool); println ^ # output: <class 'bool'>
+# NOTE: the `()` is not required
 ```
 
 this command puts the typeof variable in mem
@@ -601,7 +538,7 @@ output:
 the value
 ```
 
-to declare consts, you only need to put a `&` in the name of variable.
+to declare consts, you only need to put a `&` in the name of variable(location of that is not important).
 
 ```bash
 $&const1 = 123
@@ -670,7 +607,6 @@ for example here I entered `parsa` as input and program printed `hello parsa`
 
 we can get input from user like above example
 
-
 also look at this example:
 
 ```bash
@@ -701,6 +637,16 @@ enter second number: <input>2
 ```
 
 this example gets two numbers from user and shows sum of them
+
+also you can read value directly:
+
+```bash
+print 'enter your name: '
+$name = ^ read ^
+println 'hello ' + $name
+```
+
+the `^ read ^` reads value and puts that in the variable.
 
 ### read command line arguments
 to access command line arguments, you can use `$argv` variable.
@@ -1148,49 +1094,6 @@ and them this code will run and mem value will put into the variable
 
 
 
-# Work with files
-there is two operations for working with files in pashmak: `fread`, `fwrite`
-
-### read a file
-
-```bash
-mem '/path/to/file.txt'; fread ^
-$content = ^
-print 'content of file is: ' + $content
-```
-
-the content of `/path/to/file.txt'` is:
-
-```
-hello world. this is my content
-bye
-```
-
-output of the program:
-
-```
-content of file is: hello world. this is my content
-bye
-```
-
-you can put a variable instead `^` in `fread ^` as path of file to read
-
-after fread command, content of readed file will put in the mem and you can access that
-
-### write on file
-```bash
-$filepath = '/path/to/file.txt'
-
-mem 'content of file'
-fwrite $filepath ^ # write mem (^) on the $filepath (/path/to/file.txt)
-```
-
-the `fwrite` operation gets two argument: file path and new content of file
-
-you will learn easier work with files in [File general module](#file-module) section.
-
-
-
 # Arrays
 arrays are a list from variables
 
@@ -1241,6 +1144,13 @@ println $myarray # output: ['red', 'green', 'blue', 'yellow']
 
 `arraypush` operation gets two argument: array and new item you want to add to the array
 
+also you can use python methods:
+
+```bash
+$myarray = ['first', 'second']
+mem $myarray->append('new item')
+```
+
 ### arraypop
 you can delete a item from array:
 
@@ -1254,6 +1164,13 @@ println $myarray # output: ['red', 'blue']
 
 `arraypop` operation gets two argument: array and index of that item you want to be remove from array
 
+also you can use python methods:
+
+```bash
+$myarray = ['first', 'second']
+mem $myarray->pop(0)
+```
+
 
 
 # Try and Endtry statement
@@ -1261,7 +1178,7 @@ println $myarray # output: ['red', 'blue']
 we may recive some errors in our program. for example:
 
 ```bash
-out $this_var_not_found
+println $this_var_not_found
 ```
 
 output:
@@ -1275,7 +1192,7 @@ or:
 
 ```bash
 # undefined operation
-outttt ^
+printlgdfgfd ^
 ```
 
 output:
@@ -1295,7 +1212,7 @@ look at this example:
 
 ```bash
 try handle_error
-    out $somevar
+    println $somevar
 endtry
 
 goto after_error
@@ -1317,7 +1234,7 @@ when error is raised in try statement, error data will put in mem (^):
 
 ```bash
 try handle_error
-    out $somevar
+    println $somevar
 endtry
 
 goto after_error
@@ -1335,6 +1252,8 @@ section after_error
 println 'program started'
 
 raise 'MyError', 'this is my error'
+# or
+raise('MyError', 'this is my error')
 
 println 'this will not print'
 ```
@@ -1360,23 +1279,7 @@ here is some commands about OS
 change directory. with this command you can change program working directory:
 
 ```bash
-mem '/tmp'; chdir ^
-
-# or
-
-$path = '/tmp'
-chdir $path # use variable
-```
-
-also you can use `std_chdir` function:
-
-```bash
-# in this function you can pass path directly and not need to set path in mem before it
-std_chdir '/tmp'
-# or
-std_chdir $path
-# or
-std_chdir $path + '/path'
+chdir '/tmp'
 ```
 
 ### cwd
@@ -1384,7 +1287,7 @@ get current working directory.
 
 ```bash
 cwd
-out ^
+println ^
 ```
 
 output:
@@ -1396,7 +1299,7 @@ output:
 or:
 
 ```bash
-cwd
+cwd # or `cwd()`
 $cwd = ^
 println $cwd
 ```
@@ -1414,42 +1317,27 @@ this command puts current working directory path in mem
 you can run shell commands by this command:
 
 ```bash
-mem 'ls /tmp'; system ^
-
-# or
-
-$cmd = 'ls /tmp'
-system $cmd # use variable
+system 'ls /tmp'
 ```
 
-also you can use `sys` function to have easier function:
+also after run `system` function, exit code will put in `mem`:
 
 ```bash
-sys 'ls /tmp'
-# or
-sys $cmd
+system 'ls /'
+println ^ # output: 0
 ```
 
-you can pass value directly to `sys`
-
-also after run `system` or `sys`, command exit code will put in `mem`:
-
-```bash
-sys 'ls /'
-out ^ # output: 0
-```
-
-### return
+### exit
 this command exits program
 
 look at this example:
 
 ```bash
-mem 'first print\n'; out ^
+println 'first print\n'
 
-return
+exit
 
-mem 'last print\n'; out ^ # this will not print
+println 'last print\n' # this will not print
 ```
 
 output:
@@ -1458,11 +1346,11 @@ output:
 first print
 ```
 
-###### return with exit code:
+###### exit with exit code:
 
 ```bash
-mem 'hello world\n'; out ^
-return 1
+println 'hello world\n'
+exit 1
 ```
 
 exit code of program will be `1`
@@ -1510,7 +1398,7 @@ func fib
     $b = 1
 
     section loop;
-        println $b
+        println $a
 
         $tmp_a = $a
         $tmp_b = $b
@@ -1518,27 +1406,18 @@ func fib
         $a = $tmp_b
 
         $b = $tmp_a + $tmp_b
-    mem $b < 10000; gotoif loop
+    mem $a < 10000; gotoif loop
 endfunc
 ```
 
 ###### app.pashm:
 ```bash
-mem 'fib.pashm'; include ^
-
-fib
-```
-
-when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example, here we used a function from the `fib.pashm` file.
-
-also you can use `import` function to have easier syntax:
-
-```bash
-# you can pass value directly to this
 import 'fib.pashm'
 
 fib
 ```
+
+when we run `import` function and pass a file path to that, content of that file will be included in our code and will run. for example, here we used a function from the `fib.pashm` file.
 
 also you can import more than 1 scripts in one line:
 
@@ -1546,9 +1425,7 @@ also you can import more than 1 scripts in one line:
 # seprate them with `,`
 import 'a.pashm', '/path/to/b.pashm', 'dir/c.pashm'
 # or with () is not different
-import ('a.pashm', '/path/to/b.pashm', 'dir/c.pashm')
-# or with [] is not different
-import ['a.pashm', '/path/to/b.pashm', 'dir/c.pashm']
+import('a.pashm', '/path/to/b.pashm', 'dir/c.pashm')
 ```
 
 
@@ -1691,8 +1568,8 @@ use App
 App.dosomething
 dosomething
 
-out $App.name
-out $name
+println $App.name
+println $name
 ```
 
 output:
@@ -1706,7 +1583,7 @@ parsa
 
 when i use `use` operation and give a namespace as argument to that, i can call all of that namespace members without namespace prefix.
 
-for example if there is a namespace named `App` and have a function named `dosomething`, for call that function i have to write `App.dosomething`. but if i run `use App;`, after that i can call this function just by typing `dosomething;`
+for example if there is a namespace named `App` and have a function named `dosomething`, for call that function i have to write `App.dosomething`. but if i run `use App`, after that i can call this function just by typing `dosomething;`
 
 ### namespace in namespace (subnamespace)
 you can declare a namespace in a namespace
@@ -1779,27 +1656,27 @@ in above example, we imported `foo.pashm` inside an namespace and content of `fo
 
 
 
-# Structs
-struct is a system to declare a structure of data. actually, struct is a model with some fields.
+# Classes
+class is a system to declare a structure of data. actually, class is a model with some fields.
 
-for example, we want to declare a model from **Car**. we can declare a struct:
+for example, we want to declare a model from **Car**. we can declare a class:
 
 ```bash
-struct Car
+class Car
     $name
     $color
-endstruct
+endclass
 ```
 
-in above example, we declared a structure named `Car` with `name` and `color` properties.
+in above example, we declared a class named `Car` with `name` and `color` properties.
 
 let's use this:
 
 ```bash
-struct Car
+class Car
     $name
     $color
-endstruct
+endclass
 
 $my_car = ^ new Car
 
@@ -1809,16 +1686,16 @@ println $my_car
 output:
 
 ```
-[PashmakStruct name="Car"]
+[PashmakClass name="Car"]
 ```
 
 now, we want to set the properties:
 
 ```bash
-struct Car
+class Car
     $name
     $color
-endstruct
+endclass
 
 $my_car = ^ new Car
 $my_car->name = 'BMW'
@@ -1833,23 +1710,23 @@ output:
 BMW white
 ```
 
-so, let's review the structures. for declaring the structs, we have to use `struct` and `endstruct` commands:
+so, let's review the classes. for declaring the classes, we have to use `class` and `endclass` commands:
 
 ```bash
-struct TheStructName
+class TheClassName
     # declare the properties
-endstruct
+endclass
 ```
 
 between them, you have to declare properties like normal variables:
 
 ```bash
-struct TheStructName
+class TheClassName
     # declare the properties
     $prop1
     $prop2
     $prop3; $prop4
-endstruct
+endclass
 ```
 
 default value for that properties is `None`.
@@ -1857,48 +1734,48 @@ default value for that properties is `None`.
 also you can set the default value:
 
 ```bash
-struct TheStructName
+class TheClassName
     # declare the properties
     $prop1 = 'the default value'
     $prop2 = 12
     $prop3; $prop4
-endstruct
+endclass
 ```
 
-now, we declared our struct, how to create a instance from that? actually, we can create infinitivly object from that. for example we have a thing named `Car`, this is a structure and we have much many objects with `Car` structure.
+now, we declared our class, how to create a instance from that? actually, we can create infinitivly object from that. for example we have a thing named `Car`, this is a class and we have much many objects with `Car` class.
 
 ```bash
-struct TheStructName
+class TheClassName
     # declare the properties
     $prop1 = 'the default value'
     $prop2 = 12
     $prop3; $prop4
-endstruct
+endclass
 
-$my_object = ^ new TheStructName
+$my_object = ^ new TheClassName
 ```
 
-the `new` command gets name of struct and creates an instance from that and puts that in the mem temp value.
-means, if i want to put created object in a variables, i need to write `$var = ^ new StructName`.
+the `new` command gets name of class and creates an instance from that and puts that in the mem temp value.
+means, if i want to put created object in a variables, i need to write `$var = ^ new ClassName`.
 
 also we can create that with another syntax:
 
 ```bash
 $my_object # declare the variable
-new StructName # create the object
+new ClassName # create the object
 copy $my_object # copy created object to variable
 
 # finally
-$my_object; new StructName; copy $my_object
+$my_object; new ClassName; copy $my_object
 ```
 
-now, we can create object from a struct. how to access to the properties? look at this example:
+now, we can create object from a class. how to access to the properties? look at this example:
 
 ```bash
-struct Car
+class Car
     $name = 'default name'
     $color
-endstruct
+endclass
 
 $my_car = ^ new Car
 
@@ -1912,10 +1789,10 @@ the `->` symbol is important.
 also you can set the value with this syntax:
 
 ```bash
-struct Car
+class Car
     $name = 'default name'
     $color
-endstruct
+endclass
 
 $my_car = ^ new Car
 
@@ -1926,23 +1803,23 @@ $my_car->name = 'new name'
 println $my_car->name # output: new name
 ```
 
-### structs in namespaces
-you can declare structs inside the namespaces like variables and functions.
+### classes in namespaces
+you can declare classes inside the namespaces like variables and functions.
 
 for example:
 
 ```bash
 namespace Models
-    struct Car
+    class Car
         $name
         $color
-    endstruct
+    endclass
 endns
 
 $my_car = ^ new Models.Car
 ```
 
-all of laws for **structs in namespaces** is like `functions` and `variables`.
+all of laws for **classes in namespaces** is like `functions` and `variables`.
 
 ### Advance property usage
 you can use more features of the properties. actually, you can create any structure in your properties.
@@ -1950,17 +1827,17 @@ you can use more features of the properties. actually, you can create any struct
 look at this example:
 
 ```bash
-struct Brand
+class Brand
     $title = 'the brand name'
-endstruct
+endclass
 
-struct Car
+class Car
     $name
     $color
 
-    # the brand property is a object from Brand struct
+    # the brand property is a object from Brand class
     $brand = ^ new Brand
-endstruct
+endclass
 
 $my_car = ^ new Car
 $my_car->name = 'my car'
@@ -1990,10 +1867,10 @@ also you can set new properties on a object:
 
 
 ```bash
-struct Car
+class Car
     $name
     $color
-endstruct
+endclass
 
 $my_car = ^ new Car
 $my_car->name = 'my car'
@@ -2010,17 +1887,17 @@ output:
 the value
 ```
 
-in the above example, property `the_new_prop` is not declared in struct by default, but you can add props without any problem in objects.
+in the above example, property `the_new_prop` is not declared in class by default, but you can add props without any problem in objects.
 
-also you can use **Consts** in structs.
+also you can use **Consts** in classes.
 
 for example:
 
 ```bash
-struct Person
+class Person
     $name = 'parsa'
     $_age = 100 # age is const
-endstruct
+endclass
 
 $p = ^ new Person
 
@@ -2030,62 +1907,62 @@ $p->_age = 50
 output:
 
 ```
-StructConstError:...
+ClassConstError:...
 ```
 
 if you want to set a peoperty as constant, you have to put a `_` in the start of that name.
 
 ### inheritance
-the inheritance in structs means structs can be child of another structs. this means the child struct has all of he's/she's parent properties.
+the inheritance in classes means classes can be child of another classes. this means the child class has all of he's/she's parent properties.
 
 look at this example:
 
 ```bash
-struct Thing
+class Thing
     $name
-endstruct
+endclass
 
-struct Animal < Thing
+class Animal < Thing
     $title
     $size
     $color
     $gender
-endstruct
+endclass
 
-struct Cat<Animal
+class Cat<Animal
     $mioo
-endstruct
+endclass
 
-struct Human<Animal
+class Human<Animal
     $height
-endstruct
+endclass
 ```
 
-in the above example, we used `<` symbol to make a struct child of another struct:
+in the above example, we used `<` symbol to make a class child of another class:
 
 ```bash
-struct Parent
+class Parent
 
-endstruct
+endclass
 
-# the `Child < Parent` sets this struct as child of the `Parent`
-struct Child < Parent
+# the `Child < Parent` sets this class as child of the `Parent`
+class Child < Parent
 
-endstruct
+endclass
 ```
 
-the child struct, has all of properties of the parent.
+the child class, has all of properties of the parent.
 
 for example:
 
 ```bash
-struct Father
+class Father
     $name = 'hello world'
-endstruct
+endclass
 
-struct Child < Father
+class Child < Father
     $age = 100
-endstruct
+endclass
 
 $child = ^ new Child
 
@@ -2093,28 +1970,117 @@ println $child->name # output: hello world
 println $child->age # output: 100
 ```
 
-actually, the parent struct has not properties of he's childs, but childs has all of parent's props.
+actually, the parent class has not properties of he's childs, but childs has all of parent's props.
 
-#### All of structs extends `Object` struct
-all of structs by default extedns from a struct named `Object`. this struct is a internal pashmak struct.
-all of structs are child of this struct.
+#### All of classes extends `Object` class
+all of classes by default extedns from a class named `Object`. this class is a internal pashmak class.
+all of classes are child of this class.
 
-### Structs general attributes
-structs has some general properties:
+### Classes general attributes
+classes has some general properties:
 
-- `__name__`: name of the struct
-- `__parent__`: name of parent of struct
+- `__name__`: name of the class
+- `__parent__`: name of parent of class
 
 for example:
 
 ```bash
-struct Person
+class Person
 
-endstruct
+endclass
 
 $person = ^ new Person
 
 println $person->__name__ # output: Person
+```
+
+### Class methods
+you can declare function inside classes. the class's function is named **Method**.
+
+look at this example:
+
+```bash
+class Cat
+    $name
+
+    func mio
+        println 'miooo...'
+    endfunc
+endclass
+
+# create a object from Cat
+$my_cat = ^ new Cat
+
+$my_cat@mio
+```
+
+output:
+
+```
+miooo...
+```
+
+actually, you can call functions of a class.
+
+another example:
+
+```bash
+class Cat
+    $name
+
+    func mio
+        println 'miooo... my name is ' + $this->name
+    endfunc
+endclass
+
+# create a object from Cat
+$my_cat = ^ new Cat
+$my_cat->name = 'gerdoo'
+$my_cat@mio
+```
+
+output:
+
+```
+miooo... my name is gerdoo
+```
+
+in above example, we used a variable named `$this`. this variable is a pointer to self of object.
+
+another example:
+
+```bash
+class Person
+    $name
+
+    func set_name $name
+        $this->name = $name
+    endfunc
+
+    func say_hi
+        println 'hello. my name is ' + $this->name
+    endfunc
+endclass
+
+$p = ^ new Person
+
+$p@set_name 'parsa'
+
+$p@say_hi
+```
+
+output:
+
+```
+hello. my name is parsa
+```
+
+**You can set object self properties by using $this variable like above examples**
+
+total syntax:
+
+```bash
+$object_name@method_name 'arguments...'
 ```
 
 
