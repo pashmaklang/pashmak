@@ -148,7 +148,7 @@ dist\pashmak.exe -v
 a simple printing in pashmak on screen:
 
 ```bash
-mem 'something to print\n'; out ^
+mem 'something to print\n'; print ^
 ```
 
 or
@@ -202,19 +202,11 @@ but how?
 first, `mem` command brings the string `'some thing to print'` in memory, and next `out` command prints the memory value on screen.
 
 ### what is `mem`?
-you cannot print any thing like this:
-
-```bash
-out 'hello world\n'
-```
-
-because commands in pashmak never gets a value directly.
-if you want to pass a value to the commands, you need to use `mem` command to load that value.
-in this example, first, `mem` command loads the `'some thing to print'`, and next, we pass value of mem to the `out` command:
+mem is a temp place to make values.
 
 ```bash
 mem 'hello world'
-out ^ # the ^ is pointer of mem
+print ^ # the ^ is pointer of mem
 ```
 
 the ^ is pointer of mem
@@ -222,7 +214,7 @@ the ^ is pointer of mem
 you can also write the code like this to have shorter code (we have to use `;` to seprate them):
 
 ```bash
-mem 'hello world\n'; out ^
+mem 'hello world\n'; print ^
 ```
 
 ###### NOTE: remember to put \n when you want to go to the next line
@@ -234,9 +226,9 @@ look at this example:
 ```bash
 mem 'some thing\n'
 
-out ^ # output: some thing
+print ^ # output: some thing
 
-out ^ # output: None
+print ^ # output: None
 ```
 
 why in the first time when mem value was read, the value correctly was printed on screen, but in the second time, the `None` was printed?
@@ -247,10 +239,10 @@ look at this example:
 
 ```bash
 mem 'first value\n'
-out ^
+print ^
 
 mem 'second value\n'
-out ^
+print ^
 ```
 
 output of this code:
@@ -268,17 +260,17 @@ you can calculate every thing in mem
 for undrestanding, look at the following examples:
 
 ```bash
-mem 'hi there'; out ^ # output: hi there
+mem 'hi there'; print ^ # output: hi there
 
 # you can paste strings
-mem 'first string ' + 'last string'; out ^ # output: first string last string
+mem 'first string ' + 'last string'; print ^ # output: first string last string
 
 # run math operations
-mem 2*7; out ^ # output: 14
+mem 2*7; print ^ # output: 14
 
-mem 3*(2+1); out ^ # output: 9
+mem 3*(2+1); print ^ # output: 9
 
-mem str(7*7) + ' is sum'; out ^ # output: 49 is sum
+mem str(7*7) + ' is sum'; print ^ # output: 49 is sum
 # the `str` function gets a value and convert it to string.
 # in here you can not paste number to string. first need to convert num to str with str()
 ```
@@ -289,8 +281,8 @@ the `mem` command is absolutely important and you need to use it everywhere
 for printing `;` and `#` special characters, put a `\` before them:
 
 ```bash
-mem 'this is \; semicolon\n'; out ^
-mem 'this is \# sharp\n'; out ^
+mem 'this is \; semicolon\n'; print ^
+mem 'this is \# sharp\n'; print ^
 ```
 
 output:
@@ -304,7 +296,7 @@ this is # sharp
 this is a easier syntax for printing:
 
 ```bash
-mem 'hello world\n'; out ^
+mem 'hello world\n'; print ^
 
 # this is easier
 print 'hello world\n'
@@ -316,7 +308,9 @@ print 'hello ' + 'parsa\n'
 print 'num is ' + str(100+7)
 ```
 
-after this, we never use `mem <something>; out ^;` pattern for printing, and we just use `print` command.
+you can use all of features of `mem` in the argument of commands like above example.
+
+after this, we never use `mem <something>; print ^;` pattern for printing, and we just use `print` command.
 
 ### println
 
