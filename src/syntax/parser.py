@@ -24,6 +24,7 @@
 
 import random
 
+
 def handle_special_char(op_str: str, ch: str) -> list:
     ''' Handle \\<special-char> as clean text '''
 
@@ -49,6 +50,11 @@ def parse_op(op_str: str) -> dict:
     op['str'] = op_str # operation plain string
     op_parts = op_str.split(' ')
     op['command'] = op_parts[0]
+    op['command'] = op['command'].split('(')
+    if len(op['command']) > 1:
+        op_parts[0] = op['command'][0]
+        op_parts.insert(1, '(' + op['command'][1])
+    op['command'] = op['command'][0]
     op_parts.pop(0)
     op['args_str'] = ''
     op['args'] = []
@@ -67,6 +73,7 @@ def parse_op(op_str: str) -> dict:
             op['args_str'] += op_part
         op['args_str'] += ' '
     op['args_str'] = op['args_str'].strip()
+    op['str'] = op['command'] + ' ' + op['args_str']
     return op
 
 def parse(content: str, filepath='<system>') -> list:
