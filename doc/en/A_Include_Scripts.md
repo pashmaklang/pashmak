@@ -11,7 +11,7 @@ func fib
     $b = 1
 
     section loop;
-        println $b
+        println $a
 
         $tmp_a = $a
         $tmp_b = $b
@@ -19,27 +19,18 @@ func fib
         $a = $tmp_b
 
         $b = $tmp_a + $tmp_b
-    mem $b < 10000; gotoif loop
+    mem $a < 10000; gotoif loop
 endfunc
 ```
 
 ###### app.pashm:
 ```bash
-mem 'fib.pashm'; include ^
-
-fib
-```
-
-when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example, here we used a function from the `fib.pashm` file.
-
-also you can use `import` function to have easier syntax:
-
-```bash
-# you can pass value directly to this
 import 'fib.pashm'
 
 fib
 ```
+
+when we run `import` function and pass a file path to that, content of that file will be included in our code and will run. for example, here we used a function from the `fib.pashm` file.
 
 also you can import more than 1 scripts in one line:
 
@@ -47,7 +38,5 @@ also you can import more than 1 scripts in one line:
 # seprate them with `,`
 import 'a.pashm', '/path/to/b.pashm', 'dir/c.pashm'
 # or with () is not different
-import ('a.pashm', '/path/to/b.pashm', 'dir/c.pashm')
-# or with [] is not different
-import ['a.pashm', '/path/to/b.pashm', 'dir/c.pashm']
+import('a.pashm', '/path/to/b.pashm', 'dir/c.pashm')
 ```

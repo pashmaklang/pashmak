@@ -6,23 +6,7 @@ here is some commands about OS
 change directory. with this command you can change program working directory:
 
 ```bash
-mem '/tmp'; chdir ^
-
-# or
-
-$path = '/tmp'
-chdir $path # use variable
-```
-
-also you can use `std_chdir` function:
-
-```bash
-# in this function you can pass path directly and not need to set path in mem before it
-std_chdir '/tmp'
-# or
-std_chdir $path
-# or
-std_chdir $path + '/path'
+chdir '/tmp'
 ```
 
 ### cwd
@@ -30,7 +14,7 @@ get current working directory.
 
 ```bash
 cwd
-out ^
+println ^
 ```
 
 output:
@@ -42,7 +26,7 @@ output:
 or:
 
 ```bash
-cwd
+cwd # or `cwd()`
 $cwd = ^
 println $cwd
 ```
@@ -60,42 +44,27 @@ this command puts current working directory path in mem
 you can run shell commands by this command:
 
 ```bash
-mem 'ls /tmp'; system ^
-
-# or
-
-$cmd = 'ls /tmp'
-system $cmd # use variable
+system 'ls /tmp'
 ```
 
-also you can use `sys` function to have easier function:
+also after run `system` function, exit code will put in `mem`:
 
 ```bash
-sys 'ls /tmp'
-# or
-sys $cmd
+system 'ls /'
+println ^ # output: 0
 ```
 
-you can pass value directly to `sys`
-
-also after run `system` or `sys`, command exit code will put in `mem`:
-
-```bash
-sys 'ls /'
-out ^ # output: 0
-```
-
-### return
+### exit
 this command exits program
 
 look at this example:
 
 ```bash
-mem 'first print\n'; out ^
+println 'first print\n'
 
-return
+exit
 
-mem 'last print\n'; out ^ # this will not print
+println 'last print\n' # this will not print
 ```
 
 output:
@@ -104,11 +73,11 @@ output:
 first print
 ```
 
-###### return with exit code:
+###### exit with exit code:
 
 ```bash
-mem 'hello world\n'; out ^
-return 1
+println 'hello world\n'
+exit 1
 ```
 
 exit code of program will be `1`

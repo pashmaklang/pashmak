@@ -3,7 +3,7 @@
 we may recive some errors in our program. for example:
 
 ```bash
-out $this_var_not_found
+println $this_var_not_found
 ```
 
 output:
@@ -17,7 +17,7 @@ or:
 
 ```bash
 # undefined operation
-outttt ^
+printlgdfgfd ^
 ```
 
 output:
@@ -37,7 +37,7 @@ look at this example:
 
 ```bash
 try handle_error
-    out $somevar
+    println $somevar
 endtry
 
 goto after_error
@@ -59,7 +59,7 @@ when error is raised in try statement, error data will put in mem (^):
 
 ```bash
 try handle_error
-    out $somevar
+    println $somevar
 endtry
 
 goto after_error
@@ -77,6 +77,8 @@ section after_error
 println 'program started'
 
 raise 'MyError', 'this is my error'
+# or
+raise('MyError', 'this is my error')
 
 println 'this will not print'
 ```

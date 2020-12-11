@@ -38,7 +38,6 @@ read the following Documentation to learn pashmak.
 - [Read Input From User](#read-input-from-user)
 - [Sections](#sections)
 - [Functions](#functions)
-- [Work With Files](#work-with-files)
 - [Arrays](#arrays)
 - [Try-Endtry statement](#try-and-endtry-statement)
 - [OS Commands](#os-commands)
@@ -351,9 +350,7 @@ variables are like a pot where you can save data in it
 we work with three commands: `set`, `copy`, `free`, to set and handle variables in pashmak
 
 ```bash
-set $myvar # set a variables named $myvar
-mem 'this is data' # bring string 'this is data' to mem
-copy ^ $myvar # copy mem (^) to $myvar
+$myvar = 'this is data'
 
 println $myvar # output: this is data
 ```
@@ -363,7 +360,10 @@ println $myvar # output: this is data
 also you can set more than one variable with `set` command:
 
 ```bash
-set $var1 $var2 $var3 # default value is null
+set $var1
+# or
+$var1
+$var2; $var3 # default value is null
 ```
 
 ### use variables in mem
@@ -371,99 +371,41 @@ set $var1 $var2 $var3 # default value is null
 look at this example:
 
 ```bash
-set $name # set name variable
-mem 'parsa'; copy ^ $name # copy 'parsa' string to name variable
+$name = 'parsa' # set name variable
 
 println 'hello ' + $name # output: hello parsa
 
-set $num; mem 12; copy ^ $num
+$num = 12
 println $num * 5 # output: 60
 
-set $num2; mem 4; copy $num2 # alias of `copy ^ $num2`
+$num2 = 4 # alias of `copy ^ $num2`
 
 println $num * $num2 + 1 # output: 49
 ```
 
-#### how it works?
-we declare $name variable and put `'parsa'` string in that
-
-next, in mem we maked a string and paste $name variable value to `'hello '` with a \n at the end of it, and we print that mem
-
-you can use variables in mem like example above
-
-###### NOTE: in above example, we used `copy` command like this:
-
-```bash
-mem 'some value'
-copy $somevar
-# that is alias of
-copy ^ $somevar
-```
-
-if you give just one variable to copy command, the mem will be copy in that variable
+#### copy variables in other variables
 
 look at this example:
 
 ```bash
-set $var1 $var2
+$var1 = 'hi'
+$var2 = 'bye'
 
-mem 'hi'; copy $var1
-mem 'bye'; copy $var2 # this is alias of `copy ^ $var2`
+println $var1 # output: hi
+println $var2 # output: bye
 
-out $var1 # output: hi
-out $var2 # output: bye
-
-copy $var1 $var2 # copy a variable in variable
+$var2 = $var1
 
 out $var1 # output: hi
 out $var2 # output: hi
 
 ```
 
-### a better way to set variables value without using `mem` and `set` commands and with easier syntax
-
-```bash
-$name = 'parsa'
-```
-
-you just need to write name of variable with `$` and next assign value with `=` after this:
-
-```bash
-$name = 'parsa'
-
-$num1 = 10
-$num2 = 50
-
-$sum = $num1 + $num2 # use variables in variables
-
-println 'sum is ' + str($sum) # output: sum is 60
-
-$msg = 'hello ' + $name
-println $msg # output: hello parsa
-```
-
-also if you just write something like this:
-
-```bash
-$name # without `= <value>...`
-out $name # output: None
-```
-
-variable will set and just get `None` as default value
-
 #### NOTE: allowed characters for variable name are `A-Z`, `a-z`, `&._` characters.
 
 ### put `mem` value to variable
 
-we can set value of mem to variables with this legacy way:
-
-```bash
-$myvar # set myvar
-mem 'something' # load mem
-copy $myvar # copy mem to variable
-```
-
-the better way is:
+we can set value of mem to variables with this code:
 
 ```bash
 mem 'something'
@@ -485,16 +427,16 @@ mem 10
 println (^ + 5) * 2 # output: 30
 ```
 
-### free variables
+### free(delete) variables
 when you set a variable, that var is in memory. you can delete that var with `free` command:
 
 ```bash
 $somevar = 'some value'
-out $somevar # output: some value
+println $somevar # output: some value
 
 free $somevar
 
-out $somevar # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
+println $somevar # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
 ```
 
 also you can make free more than one variable with `free` command:
@@ -511,10 +453,10 @@ look at this example:
 ```bash
 $somevar; $v # set `somevar` and `v` variables
 
-isset $somevar; out ^ # output: True
-isset $this_var_not_found; out ^ # output: False
-isset $somevar $sassadffgdty; out ^ # output: False
-isset $somevar $v; out ^ # output: True
+isset $somevar; println ^ # output: True
+isset $this_var_not_found; println ^ # output: False
+isset $somevar $sassadffgdty; println ^ # output: False
+isset $somevar $v; println ^ # output: True
 ```
 
 #### how it works?
@@ -523,7 +465,7 @@ the isset command gets one or more variable names and if all of that vars exist,
 
 ### typeof command
 
-you can get the data type of a variable with `typeof` command
+you can get the data type of a variable with `typeof` function.
 
 look at this example:
 
@@ -533,10 +475,11 @@ $myint = 20
 $myfloat = 15.32
 $mybool = False
 
-typeof $mystr; out ^ # output: <class 'str'>
-typeof $myint; out ^ # output: <class 'int'>
-typeof $myfloat; out ^ # output: <class 'float'>
-typeof $mybool; out ^ # output: <class 'bool'>
+typeof $mystr; println ^ # output: <class 'str'>
+typeof $myint; println ^ # output: <class 'int'>
+typeof($myfloat); println ^ # output: <class 'float'>
+typeof($mybool); println ^ # output: <class 'bool'>
+# NOTE: the `()` is not required
 ```
 
 this command puts the typeof variable in mem
@@ -601,7 +544,7 @@ output:
 the value
 ```
 
-to declare consts, you only need to put a `&` in the name of variable.
+to declare consts, you only need to put a `&` in the name of variable(location of that is not important).
 
 ```bash
 $&const1 = 123
@@ -670,7 +613,6 @@ for example here I entered `parsa` as input and program printed `hello parsa`
 
 we can get input from user like above example
 
-
 also look at this example:
 
 ```bash
@@ -701,6 +643,16 @@ enter second number: <input>2
 ```
 
 this example gets two numbers from user and shows sum of them
+
+also you can read value directly:
+
+```bash
+print 'enter your name: '
+$name = ^ read ^
+println 'hello ' + $name
+```
+
+the `^ read ^` reads value and puts that in the variable.
 
 ### read command line arguments
 to access command line arguments, you can use `$argv` variable.
@@ -1148,49 +1100,6 @@ and them this code will run and mem value will put into the variable
 
 
 
-# Work with files
-there is two operations for working with files in pashmak: `fread`, `fwrite`
-
-### read a file
-
-```bash
-mem '/path/to/file.txt'; fread ^
-$content = ^
-print 'content of file is: ' + $content
-```
-
-the content of `/path/to/file.txt'` is:
-
-```
-hello world. this is my content
-bye
-```
-
-output of the program:
-
-```
-content of file is: hello world. this is my content
-bye
-```
-
-you can put a variable instead `^` in `fread ^` as path of file to read
-
-after fread command, content of readed file will put in the mem and you can access that
-
-### write on file
-```bash
-$filepath = '/path/to/file.txt'
-
-mem 'content of file'
-fwrite $filepath ^ # write mem (^) on the $filepath (/path/to/file.txt)
-```
-
-the `fwrite` operation gets two argument: file path and new content of file
-
-you will learn easier work with files in [File general module](#file-module) section.
-
-
-
 # Arrays
 arrays are a list from variables
 
@@ -1241,6 +1150,13 @@ println $myarray # output: ['red', 'green', 'blue', 'yellow']
 
 `arraypush` operation gets two argument: array and new item you want to add to the array
 
+also you can use python methods:
+
+```bash
+$myarray = ['first', 'second']
+mem $myarray->append('new item')
+```
+
 ### arraypop
 you can delete a item from array:
 
@@ -1254,6 +1170,13 @@ println $myarray # output: ['red', 'blue']
 
 `arraypop` operation gets two argument: array and index of that item you want to be remove from array
 
+also you can use python methods:
+
+```bash
+$myarray = ['first', 'second']
+mem $myarray->pop(0)
+```
+
 
 
 # Try and Endtry statement
@@ -1261,7 +1184,7 @@ println $myarray # output: ['red', 'blue']
 we may recive some errors in our program. for example:
 
 ```bash
-out $this_var_not_found
+println $this_var_not_found
 ```
 
 output:
@@ -1275,7 +1198,7 @@ or:
 
 ```bash
 # undefined operation
-outttt ^
+printlgdfgfd ^
 ```
 
 output:
@@ -1295,7 +1218,7 @@ look at this example:
 
 ```bash
 try handle_error
-    out $somevar
+    println $somevar
 endtry
 
 goto after_error
@@ -1317,7 +1240,7 @@ when error is raised in try statement, error data will put in mem (^):
 
 ```bash
 try handle_error
-    out $somevar
+    println $somevar
 endtry
 
 goto after_error
@@ -1335,6 +1258,8 @@ section after_error
 println 'program started'
 
 raise 'MyError', 'this is my error'
+# or
+raise('MyError', 'this is my error')
 
 println 'this will not print'
 ```
@@ -1360,23 +1285,7 @@ here is some commands about OS
 change directory. with this command you can change program working directory:
 
 ```bash
-mem '/tmp'; chdir ^
-
-# or
-
-$path = '/tmp'
-chdir $path # use variable
-```
-
-also you can use `std_chdir` function:
-
-```bash
-# in this function you can pass path directly and not need to set path in mem before it
-std_chdir '/tmp'
-# or
-std_chdir $path
-# or
-std_chdir $path + '/path'
+chdir '/tmp'
 ```
 
 ### cwd
@@ -1384,7 +1293,7 @@ get current working directory.
 
 ```bash
 cwd
-out ^
+println ^
 ```
 
 output:
@@ -1396,7 +1305,7 @@ output:
 or:
 
 ```bash
-cwd
+cwd # or `cwd()`
 $cwd = ^
 println $cwd
 ```
@@ -1414,42 +1323,27 @@ this command puts current working directory path in mem
 you can run shell commands by this command:
 
 ```bash
-mem 'ls /tmp'; system ^
-
-# or
-
-$cmd = 'ls /tmp'
-system $cmd # use variable
+system 'ls /tmp'
 ```
 
-also you can use `sys` function to have easier function:
+also after run `system` function, exit code will put in `mem`:
 
 ```bash
-sys 'ls /tmp'
-# or
-sys $cmd
+system 'ls /'
+println ^ # output: 0
 ```
 
-you can pass value directly to `sys`
-
-also after run `system` or `sys`, command exit code will put in `mem`:
-
-```bash
-sys 'ls /'
-out ^ # output: 0
-```
-
-### return
+### exit
 this command exits program
 
 look at this example:
 
 ```bash
-mem 'first print\n'; out ^
+println 'first print\n'
 
-return
+exit
 
-mem 'last print\n'; out ^ # this will not print
+println 'last print\n' # this will not print
 ```
 
 output:
@@ -1458,11 +1352,11 @@ output:
 first print
 ```
 
-###### return with exit code:
+###### exit with exit code:
 
 ```bash
-mem 'hello world\n'; out ^
-return 1
+println 'hello world\n'
+exit 1
 ```
 
 exit code of program will be `1`
@@ -1510,7 +1404,7 @@ func fib
     $b = 1
 
     section loop;
-        println $b
+        println $a
 
         $tmp_a = $a
         $tmp_b = $b
@@ -1518,27 +1412,18 @@ func fib
         $a = $tmp_b
 
         $b = $tmp_a + $tmp_b
-    mem $b < 10000; gotoif loop
+    mem $a < 10000; gotoif loop
 endfunc
 ```
 
 ###### app.pashm:
 ```bash
-mem 'fib.pashm'; include ^
-
-fib
-```
-
-when we run `include` command and pass a file path from mem (^) or variable to that, content of thet file will include in our code and will run. for example, here we used a function from the `fib.pashm` file.
-
-also you can use `import` function to have easier syntax:
-
-```bash
-# you can pass value directly to this
 import 'fib.pashm'
 
 fib
 ```
+
+when we run `import` function and pass a file path to that, content of that file will be included in our code and will run. for example, here we used a function from the `fib.pashm` file.
 
 also you can import more than 1 scripts in one line:
 
@@ -1546,9 +1431,7 @@ also you can import more than 1 scripts in one line:
 # seprate them with `,`
 import 'a.pashm', '/path/to/b.pashm', 'dir/c.pashm'
 # or with () is not different
-import ('a.pashm', '/path/to/b.pashm', 'dir/c.pashm')
-# or with [] is not different
-import ['a.pashm', '/path/to/b.pashm', 'dir/c.pashm']
+import('a.pashm', '/path/to/b.pashm', 'dir/c.pashm')
 ```
 
 
@@ -1691,8 +1574,8 @@ use App
 App.dosomething
 dosomething
 
-out $App.name
-out $name
+println $App.name
+println $name
 ```
 
 output:
@@ -1706,7 +1589,7 @@ parsa
 
 when i use `use` operation and give a namespace as argument to that, i can call all of that namespace members without namespace prefix.
 
-for example if there is a namespace named `App` and have a function named `dosomething`, for call that function i have to write `App.dosomething`. but if i run `use App;`, after that i can call this function just by typing `dosomething;`
+for example if there is a namespace named `App` and have a function named `dosomething`, for call that function i have to write `App.dosomething`. but if i run `use App`, after that i can call this function just by typing `dosomething;`
 
 ### namespace in namespace (subnamespace)
 you can declare a namespace in a namespace

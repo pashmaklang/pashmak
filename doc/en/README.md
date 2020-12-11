@@ -35,7 +35,6 @@ read the following Documentation to learn pashmak.
 - [Read Input From User](#read-input-from-user)
 - [Sections](#sections)
 - [Functions](#functions)
-- [Work With Files](#work-with-files)
 - [Arrays](#arrays)
 - [Try-Endtry statement](#try-and-endtry-statement)
 - [OS Commands](#os-commands)

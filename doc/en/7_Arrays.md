@@ -48,6 +48,13 @@ println $myarray # output: ['red', 'green', 'blue', 'yellow']
 
 `arraypush` operation gets two argument: array and new item you want to add to the array
 
+also you can use python methods:
+
+```bash
+$myarray = ['first', 'second']
+mem $myarray->append('new item')
+```
+
 ### arraypop
 you can delete a item from array:
 
@@ -60,3 +67,10 @@ println $myarray # output: ['red', 'blue']
 ```
 
 `arraypop` operation gets two argument: array and index of that item you want to be remove from array
+
+also you can use python methods:
+
+```bash
+$myarray = ['first', 'second']
+mem $myarray->pop(0)
+```

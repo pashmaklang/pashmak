@@ -39,7 +39,8 @@ class Program(helpers.Helpers):
         self.variables = {} # main state variables
         self.states = [] # list of states
         self.functions = {
-            "mem": [] # mem is a empty function just for save mem in code
+            "mem": [], # mem is a empty function just for save mem in code
+            "rmem": [],
         } # declared functions <function-name>:[<list-of-body-operations>]
         self.operations = [] # list of operations
         self.sections = {} # list of declared sections <section-name>:<index-of-operation-to-jump>
@@ -78,7 +79,7 @@ class Program(helpers.Helpers):
         tmp = parser.parse('''
         $__file__ = "''' + os.path.abspath(self.main_filename).replace('\\', '\\\\') + '''";
         $__dir__ = "''' + os.path.dirname(os.path.abspath(self.main_filename)).replace('\\', '\\\\') + '''";
-        mem "@stdlib"; include ^; py "self.bootstrap_operations_count = len(self.operations)-4";'
+        mem '@stdlib'; include ^; python "self.bootstrap_operations_count = len(self.operations)-4";'
         ''', filepath='<system>')
         operations.insert(0, tmp[0])
         operations.insert(1, tmp[1])
@@ -285,15 +286,11 @@ class Program(helpers.Helpers):
             'return': self.run_return,
             'func': self.run_func,
             'required': self.run_required,
-            'typeof': self.run_typeof,
-            'system': self.run_system,
             'include': self.run_include,
             'goto': self.run_goto,
             'gotoif': self.run_gotoif,
             'fread': self.run_fread,
             'fwrite': self.run_fwrite,
-            'chdir': self.run_chdir,
-            'cwd': self.run_cwd,
             'isset': self.run_isset,
             'out': self.run_out,
             'try': self.run_try,
@@ -301,7 +298,6 @@ class Program(helpers.Helpers):
             'eval': self.run_eval,
             'arraypush': self.run_arraypush,
             'arraypop': self.run_arraypop,
-            'python': self.run_python,
             'namespace': self.run_namespace,
             'endnamespace': self.run_endnamespace,
             'use': self.run_use,
@@ -398,13 +394,16 @@ class Program(helpers.Helpers):
         try:
             # put argument in the mem
             if op['args_str'] != '':
-                self.mem = self.eval(op['args_str'])
+                if op['command'] != 'rmem':
+                    self.mem = self.eval(op['args_str'])
+                else:
+                    self.eval(op['args_str'])
             else:
                 self.mem = ''
 
             # execute function body
             with_state = True
-            if op_name in ['import', 'mem']:
+            if op_name in ['import', 'mem', 'python', 'rmem']:
                 with_state = False
             self.exec_func(func_body, with_state, True)
             return

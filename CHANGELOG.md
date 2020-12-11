@@ -9,6 +9,7 @@
 - some optimizations in mem eval parser
 - added a feature to use mem symbol `^` in eval, now you can run `my_function ^ + ' something else'`
 - added syntax feature to put `()` in function call syntax, for example `println("hello world")` or `my_func(1, 2)`
+- some optimizations in interpreter code
 
 ## 0.5.4 (2020-12-6)
 
