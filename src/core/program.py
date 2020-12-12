@@ -285,6 +285,7 @@ class Program(helpers.Helpers):
             pass
 
         # TODO : delete set operation
+        # TODO : delete `arraypush` and `arraypop` commands
         # list of operations
         operations_dict = {
             'set': self.run_set,
