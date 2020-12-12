@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 0.6, 0.6-alpha2 (2020-12-11)
+## 0.6, 0.6-alpha3 (2020-12-11)
 
 - removed `loop` and `while` functions
 - created **Class** system
