@@ -1,5 +1,5 @@
 #
-# arraypop0.pashmt
+# pop.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,10 +21,9 @@
 #########################################################################
 
 --test--
-arraypop command works
+$array->pop() works
 --file--
-set $names;
-mem ['pashmak', 'parsa']; copy $names;
-mem 1; arraypop $names ^;
+$names = ['pashmak', 'parsa']
+mem $names->pop(1)
 --vars--
 {'names': ['pashmak']}

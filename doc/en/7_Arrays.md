@@ -35,42 +35,57 @@ jack
 
 the above code prints names one by one
 
-### arraypush
-you can add new item to a array:
-
-```bash
-$myarray = ['red', 'green', 'blue']
-println $myarray # output: ['red', 'green', 'blue']
-
-mem 'yellow'; arraypush $myarray ^ # add mem (^) to the $myarray
-println $myarray # output: ['red', 'green', 'blue', 'yellow']
-```
-
-`arraypush` operation gets two argument: array and new item you want to add to the array
-
-also you can use python methods:
+### adding new item to array
+you can add new item to an array by using python `append` and `insert` methods:
 
 ```bash
 $myarray = ['first', 'second']
+println $myarray
+
 mem $myarray->append('new item')
+println $myarray
 ```
 
-### arraypop
-you can delete a item from array:
+output:
+
+```
+['first', 'second']
+['first', 'second', 'new item']
+```
+
+also with `insert` method you can set the location of new item:
 
 ```bash
-$myarray = ['red', 'green', 'blue']
-println $myarray # output: ['red', 'green', 'blue']
+$myarray = ['one', 'two', 'four']
+println $myarray
 
-mem 1; arraypop $myarray ^ # remove index mem (^) from $myarray
-println $myarray # output: ['red', 'blue']
+mem $myarray->insert(3, 'three')
+println $myarray
 ```
 
-`arraypop` operation gets two argument: array and index of that item you want to be remove from array
+output:
 
-also you can use python methods:
+```
+['one', 'two', 'four']
+['one', 'two', 'three', 'four']
+```
+
+### removing an item from array
+you can delete an item from array by using python `pop` method:
 
 ```bash
 $myarray = ['first', 'second']
+println $myarray
+
 mem $myarray->pop(1)
+println $myarray
 ```
+
+output:
+
+```
+['first', 'second']
+['first']
+```
+
+also `pop` method without argument removes last item by default.

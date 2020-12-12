@@ -39,8 +39,6 @@ from operations import isset as op_isset
 from operations import tryop as op_try
 from operations import endtry as op_endtry
 from operations import eval as op_eval
-from operations import arraypush as op_arraypush
-from operations import arraypop as op_arraypop
 from operations import namespace as op_namespace
 from operations import endnamespace as op_endnamespace
 from operations import use as op_use
@@ -114,14 +112,6 @@ class Commands:
     def run_eval(self, op: dict):
         ''' run eval '''
         op_eval.run(self, op)
-
-    def run_arraypush(self, op: dict):
-        ''' run arraypush '''
-        op_arraypush.run(self, op)
-
-    def run_arraypop(self, op: dict):
-        ''' run arraypop '''
-        op_arraypop.run(self, op)
 
     def run_namespace(self, op: dict):
         ''' run namespace '''

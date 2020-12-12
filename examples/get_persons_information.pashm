@@ -35,7 +35,7 @@ section loop
     print 'enter your age: '
     $p->age = ^ read ^
 
-    arraypush $persons $p
+    mem $persons->append($p)
 
     $i = $i + 1
 mem $i < 3; gotoif loop;

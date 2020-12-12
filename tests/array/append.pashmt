@@ -1,5 +1,5 @@
 #
-# arraypop1.pashmt
+# append.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,14 +21,13 @@
 #########################################################################
 
 --test--
-arraypop command works (with variables)
+$array->append() works
+
 --file--
-set $names;
-mem ['pashmak', 'parsa']; copy $names;
-set $index; mem 1; copy $index;
-arraypop $names $index;
-free $index;
+$names = ['pashmak', 'parsa']
+mem $names->append('newname')
 --vars--
+
 {'names': [
-    'pashmak'
+    'pashmak', 'parsa', 'newname'
 ]}
