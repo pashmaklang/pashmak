@@ -22,16 +22,16 @@
 
 # This is a simple loop printing numbers from 1 to 99
 
-func myfunc
+func myfunc ($n)
     println 'starting...'
 
     $i = 1
     section loop
-        print str($i) + '\n'
+        println str($i)
         $i = $i + 1
-    mem $i < 100; gotoif loop
+    mem $i < $n; gotoif loop
 
     println 'finished'
 endfunc
 
-myfunc
+myfunc(100)
