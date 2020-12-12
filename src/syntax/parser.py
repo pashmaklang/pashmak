@@ -122,7 +122,6 @@ def parse(content: str, filepath='<system>') -> list:
 
                 operations.insert(i+1, parse_op('mem not (' + operations[i]['args_str'] + ')', file_path='<system>', line_number=i))
                 operations.insert(i+2, parse_op('gotoif ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
-                i += 2
             elif operations[i]['command'] == 'elif' or operations[i]['command'] == 'else':
                 cond = operations[i]['args_str']
                 if operations[i]['command'] == 'else':
@@ -132,16 +131,16 @@ def parse(content: str, filepath='<system>') -> list:
                 operations.insert(i+3, parse_op('mem not (' + cond + ')', file_path='<system>', line_number=i))
                 operations.insert(i+4, parse_op('gotoif ' + open_ifs[-1] + str(open_ifs_counters[-1]+1), file_path='<system>', line_number=i))
                 open_ifs_counters[-1] += 1
-                i += 4
             elif operations[i]['command'] == 'endif':
                 operations.insert(i+1, parse_op('section ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
                 operations.insert(i+2, parse_op('section ' + open_ifs[-1] + 'end', file_path='<system>', line_number=i))
                 open_ifs.pop()
                 open_ifs_counters.pop()
-                i += 2
         except:
             pass
 
+        if i == len(operations)-1 and open_ifs and open_ifs_counters:
+            operations.insert(i+1, parse_op('endif', file_path='<system>', line_number=i))
         i += 1
 
     return operations
