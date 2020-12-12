@@ -27,12 +27,9 @@ from operations import free as op_free
 from operations import read as op_read
 from operations import func as op_func
 from operations import endfunc as op_endfunc
-from operations import required as op_required
 from operations import include as op_include
 from operations import goto as op_goto
 from operations import gotoif as op_gotoif
-from operations import fread as op_fread
-from operations import fwrite as op_fwrite
 from operations import isset as op_isset
 from operations import tryop as op_try
 from operations import endtry as op_endtry
@@ -63,10 +60,6 @@ class Commands:
         ''' run endfunc '''
         op_endfunc.run(self, op)
 
-    def run_required(self, op: dict):
-        ''' run required '''
-        op_required.run(self, op)
-
     def run_include(self, op: dict):
         ''' run include '''
         op_include.run(self, op)
@@ -78,14 +71,6 @@ class Commands:
     def run_gotoif(self, op: dict):
         ''' run gotoif '''
         op_gotoif.run(self, op)
-
-    def run_fread(self, op: dict):
-        ''' run fread '''
-        op_fread.run(self, op)
-
-    def run_fwrite(self, op: dict):
-        ''' run fwrite '''
-        op_fwrite.run(self, op)
 
     def run_isset(self, op: dict):
         ''' run isset '''

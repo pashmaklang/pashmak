@@ -232,6 +232,8 @@ endfunc
 func python
     rmem exec(^)
 endfunc
+func required
+endfunc
 """
 modules["sys"] = """#
 # sys.pashm

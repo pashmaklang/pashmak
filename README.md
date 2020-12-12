@@ -517,6 +517,13 @@ VariableError: undefined variable $name
 
 The `required` command checks a variable is exists, if no, raises VariableError.
 
+also you can check more than one variables:
+
+```bash
+required $a, $b
+# you have to seprate them with `,`
+```
+
 ### python datatype methods
 datatype of the pashmak variables, is handled by python. this means you can use all python methods on them.
 
