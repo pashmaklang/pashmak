@@ -20,7 +20,7 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Only some aliases for operations '''
+""" Only some aliases for operations """
 
 # operations imports
 from operations import free as op_free
@@ -41,68 +41,68 @@ from operations import endclass as op_endclass
 from operations import new as op_new
 
 class Commands:
-    ''' Only some aliases for operations '''
+    """ Only some aliases for operations """
 
     def run_free(self, op: dict):
-        ''' run free '''
+        """ run free """
         op_free.run(self, op)
 
     def run_read(self, op: dict):
-        ''' run read '''
+        """ run read """
         op_read.run(self, op)
 
     def run_func(self, op: dict):
-        ''' run func '''
+        """ run func """
         op_func.run(self, op)
 
     def run_endfunc(self, op: dict):
-        ''' run endfunc '''
+        """ run endfunc """
         op_endfunc.run(self, op)
 
     def run_include(self, op: dict):
-        ''' run include '''
+        """ run include """
         op_include.run(self, op)
 
     def run_goto(self, op: dict):
-        ''' run goto '''
+        """ run goto """
         op_goto.run(self, op)
 
     def run_gotoif(self, op: dict):
-        ''' run gotoif '''
+        """ run gotoif """
         op_gotoif.run(self, op)
 
     def run_isset(self, op: dict):
-        ''' run isset '''
+        """ run isset """
         op_isset.run(self, op)
 
     def run_try(self, op: dict):
-        ''' run try '''
+        """ run try """
         op_try.run(self, op)
 
     def run_endtry(self, op: dict):
-        ''' run endtry '''
+        """ run endtry """
         op_endtry.run(self, op)
 
     def run_namespace(self, op: dict):
-        ''' run namespace '''
+        """ run namespace """
         op_namespace.run(self, op)
 
     def run_endnamespace(self, op: dict):
-        ''' run endnamespace '''
+        """ run endnamespace """
         op_endnamespace.run(self, op)
 
     def run_use(self, op: dict):
-        ''' run use '''
+        """ run use """
         op_use.run(self, op)
 
     def run_class(self, op: dict):
-        ''' run class '''
+        """ run class """
         op_class.run(self, op)
 
     def run_endclass(self, op: dict):
-        ''' run endclass '''
+        """ run endclass """
         op_endclass.run(self, op)
 
     def run_new(self, op: dict):
-        ''' run new '''
+        """ run new """
         op_new.run(self, op)

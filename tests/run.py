@@ -30,7 +30,7 @@ import time
 # add `src/` folder to python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/' + 'src')
 
-from syntax import parser
+import syntax_parser as parser
 from core import program
 from core import modules
 

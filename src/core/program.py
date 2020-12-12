@@ -20,20 +20,20 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Pashmak program object '''
+""" Pashmak program object """
 
 import sys
 import os
 import signal
 from pathlib import Path
-from syntax import parser
+import syntax_parser as parser
 from core import helpers, version, modules
 from core.class_system import Class
 
 import hashlib, time, random
 
 class Program(helpers.Helpers):
-    ''' Pashmak program object '''
+    """ Pashmak program object """
 
     def __init__(self, is_test=False, args=[]):
         self.variables = {} # main state variables
@@ -67,14 +67,14 @@ class Program(helpers.Helpers):
         self.set_var('argc', len(self.get_var('argv')))
 
     def current_namespace(self):
-        ''' Returns current namespace '''
+        """ Returns current namespace """
         namespace_prefix = ''
         for ns in self.namespaces_tree:
             namespace_prefix += ns + '.'
         return namespace_prefix
 
     def set_operations(self, operations: list):
-        ''' Set operations list '''
+        """ Set operations list """
         # include stdlib before everything
         tmp = parser.parse('''
         $__file__ = "''' + os.path.abspath(self.main_filename).replace('\\', '\\\\') + '''";
@@ -91,22 +91,22 @@ class Program(helpers.Helpers):
         self.operations = operations
 
     def set_operation_index(self, op: dict) -> dict:
-        ''' Add operation index to operation dictonary '''
+        """ Add operation index to operation dictonary """
         op['index'] = self.current_step
         return op
 
     def get_mem(self):
-        ''' Return memory value and empty that '''
+        """ Return memory value and empty that """
         mem = self.mem
         self.mem = None
         return mem
 
     def update_section_indexes(self, after_index):
-        '''
+        """
         When a new operation inserted in operations list,
         this function add 1 to section indexes to be
         sync with new operations list
-        '''
+        """
         for k in self.sections:
             if self.sections[k] > after_index:
                 self.sections[k] = self.sections[k] + 1
@@ -117,7 +117,7 @@ class Program(helpers.Helpers):
             i += 1
 
     def raise_error(self, error_type: str, message: str, op: dict):
-        ''' Raise error in program '''
+        """ Raise error in program """
         # check is in try
         if self.try_endtry:
             section_index = self.try_endtry[-1]
@@ -150,7 +150,7 @@ class Program(helpers.Helpers):
         sys.exit(1)
 
     def exec_func(self, func_body: list, with_state=True, call_one_time=True, default_variables={}):
-        ''' Gets a list from operations and runs them as function or included script '''
+        """ Gets a list from operations and runs them as function or included script """
         # create new state for this call
         if with_state:
             state_vars = dict(self.variables)
@@ -191,7 +191,7 @@ class Program(helpers.Helpers):
             self.update_section_indexes(i+1)
 
     def eval(self, operation):
-        ''' Runs eval on operation '''
+        """ Runs eval on operation """
         i = 0
         operation = operation.strip()
         is_in_string = False
@@ -250,7 +250,7 @@ class Program(helpers.Helpers):
         return eval(full_op)
 
     def run(self, op: dict):
-        ''' Run once operation '''
+        """ Run once operation """
 
         op = self.set_operation_index(op)
         op_name = op['command']
@@ -433,7 +433,7 @@ class Program(helpers.Helpers):
             raise
 
     def signal_handler(self, signal_code, frame):
-        ''' Raise error when signal exception raised '''
+        """ Raise error when signal exception raised """
         self.raise_error('Signal', str(signal_code), self.operations[self.current_step])
 
     def bootstrap_modules(self):
@@ -484,7 +484,7 @@ class Program(helpers.Helpers):
                                 pass
 
     def start(self):
-        ''' Start running the program '''
+        """ Start running the program """
 
         signal.signal(signal.SIGINT, self.signal_handler)
 

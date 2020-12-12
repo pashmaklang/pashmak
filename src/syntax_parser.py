@@ -1,5 +1,5 @@
 #
-# parser.py
+# syntax_parser.py
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
