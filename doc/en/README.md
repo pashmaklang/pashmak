@@ -34,6 +34,7 @@ read the following Documentation to learn pashmak.
 - [Constants](#Constants)
 - [Read Input From User](#read-input-from-user)
 - [Sections](#sections)
+- [If statements](#if-elif-else-statement)
 - [Functions](#functions)
 - [Arrays](#arrays)
 - [Try-Endtry statement](#try-and-endtry-statement)

@@ -1,5 +1,5 @@
 #
-# 002.pashmt
+# inheritance003.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,18 +21,24 @@
 #########################################################################
 
 --test--
-class can be declared inside namespaces
+child class has all of parent methods
+
 --file--
-namespace Models
-    class Car
-    endclass
 
-    namespace Foo
-        class Bar
-        endclass
-    endns
-endns
+class Parent
+    func hi
+        println 'i am parent'
+    endfunc
+endclass
 
-print list(self.classes.keys())
+class Child < Parent
+
+endclass
+
+$a = ^ new Child
+
+$a@hi
+
 --output--
-"["+self.default_classes_list_str+", 'Models.Car', 'Models.Foo.Bar']"
+
+'i am parent\n'

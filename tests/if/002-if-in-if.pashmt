@@ -1,5 +1,5 @@
 #
-# 002.pashmt
+# 002-if-in-if.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,18 +21,33 @@
 #########################################################################
 
 --test--
-class can be declared inside namespaces
+if in if working correct
+
 --file--
-namespace Models
-    class Car
-    endclass
 
-    namespace Foo
-        class Bar
-        endclass
-    endns
-endns
+if 2 == 2
+    println '2 is 2'
 
-print list(self.classes.keys())
+    if 7 == 9
+        pass
+    else
+        println '7 is not 9'
+
+        if 1 == 1
+            println '1 is 1'
+            
+            if 3 == 5
+                pass
+            elif 4 == 4
+                println '4 is 4'
+            endif
+        endif
+    endif
+endif
+
 --output--
-"["+self.default_classes_list_str+", 'Models.Car', 'Models.Foo.Bar']"
+"""2 is 2
+7 is not 9
+1 is 1
+4 is 4
+"""

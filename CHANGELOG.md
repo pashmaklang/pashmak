@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 0.6, 0.6-alpha2 (2020-12-11)
+## 0.6, 0.6-alpha3 (2020-12-11)
 
 - removed `loop` and `while` functions
 - created **Class** system
@@ -10,6 +10,7 @@
 - added a feature to use mem symbol `^` in eval, now you can run `my_function ^ + ' something else'`
 - added syntax feature to put `()` in function call syntax, for example `println("hello world")` or `my_func(1, 2)`
 - some optimizations in interpreter code
+- added `if..elif..else` statement
 
 ## 0.5.4 (2020-12-6)
 

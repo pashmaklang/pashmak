@@ -178,6 +178,8 @@ modules["stdlib"] = """#
 # You should have received a copy of the GNU General Public License
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
+class Object
+endclass
 func print
     out ^
 endfunc
@@ -230,8 +232,6 @@ endfunc
 func python
     rmem exec(^)
 endfunc
-class Object
-endclass
 """
 modules["sys"] = """#
 # sys.pashm

@@ -188,7 +188,7 @@ say_hello ^ + ' shahmaleki'
 ```
 
 #### how two handle multiple arguments?
-in the above examples, all of created functions only have ONE function. some times our functions recives more than one arguments. how we can handle this?
+in the above examples, all of created functions only have ONE argument. some times our functions recives more than one arguments. how we can handle this?
 
 to handle this, you can use something like this:
 

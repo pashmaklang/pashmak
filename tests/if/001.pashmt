@@ -1,5 +1,5 @@
 #
-# 002.pashmt
+# 001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,18 +21,42 @@
 #########################################################################
 
 --test--
-class can be declared inside namespaces
+basic if test
+
 --file--
-namespace Models
-    class Car
-    endclass
+$age = 30
 
-    namespace Foo
-        class Bar
-        endclass
-    endns
-endns
+if $age > 10
+    println 'age is more that 10'
+endif
 
-print list(self.classes.keys())
+if $age < 5
+    println 'age is less than 5'
+endif
+
+if $age == 20
+    pass
+else
+    println 'age is not equals 20'
+endif
+
+if $age == 7
+    pass
+elif $age == 9
+    pass
+else
+    println 'the else was runed'
+endif
+
+if $age == 1
+    pass
+elif $age == 30
+    println 'is is 30'
+endif
+
 --output--
-"["+self.default_classes_list_str+", 'Models.Car', 'Models.Foo.Bar']"
+"""age is more that 10
+age is not equals 20
+the else was runed
+is is 30
+"""
