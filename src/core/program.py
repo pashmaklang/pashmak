@@ -312,6 +312,10 @@ class Program(helpers.Helpers):
             'endclass': self.run_endclass,
             'new': self.run_new,
             'pass': None,
+            'if': None,
+            'elif': None,
+            'else': None,
+            'endif': None,
         }
 
         # check op_name is a valid operation
