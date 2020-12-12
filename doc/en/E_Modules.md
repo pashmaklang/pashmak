@@ -2,13 +2,11 @@
 pashmak has some internal libraries to use. that modules are helpful for you.
 
 ## how to import module
-you can import modules with `include` operation.
+you can import modules with `import` function.
 
 look at this example:
 
 ```bash
-mem '@hash'; include ^
-# or using import to have easier syntax
 import '@hash'
 import "@module_name"
 import "@module1", '@module2'
@@ -31,10 +29,10 @@ you have to give name of module with a `@` before that to the include operation.
 with hash module, you can calculate hash sum of values:
 
 ```bash
-import '@hash'
+import @hash
 
 hash.sha256 "hello" # also you can use hash.md5 and...
-out ^ # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+println ^ # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 ```
 
 ##### how it works?
@@ -64,10 +62,10 @@ with this module, you can work with time.
 this function gives you current UNIX timestamp:
 
 ```bash
-import '@time'
+import @time
 
 time.time
-out ^ # output is some thing like this: `1600416438.687201`
+println ^ # output is some thing like this: `1600416438.687201`
 ```
 
 when you call this function, this function puts the unix timestamp into mem and you can access and use that.
@@ -76,7 +74,7 @@ when you call this function, this function puts the unix timestamp into mem and 
 this function sleeps for secounds:
 
 ```bash
-import '@time'
+import @time
 
 time.sleep 2 # sleeps for 2 secounds
 # mem 2.4; time.sleep; # sleepss for 2.4 secounds
@@ -98,20 +96,20 @@ this module makes random numbers
 
 ##### random.randint
 ```bash
-import '@random'
+import @random
 
 random.randint 1, 10 # generates a random int between 1 and 10
 
-out ^ # and puts generated random number in mem and you can access that
+println ^ # and puts generated random number in mem and you can access that
 ```
 
 ##### random.random
 ```bash
-import '@random'
+import @random
 
 random.random # generates a random float less that 1
 
-out ^ # and puts generated random number in mem and you can access that
+println ^ # and puts generated random number in mem and you can access that
 ```
 
 ### file module
@@ -121,7 +119,7 @@ with this module, you can work with files smarter.
 with this function, you can open a file:
 
 ```bash
-import '@file'
+import @file
 
 file.open '/path/to/file.txt', 'r' # first argument is file path, and second argument is open type. here is `r` means `read`
 
@@ -138,19 +136,19 @@ $f = ^ file.open '/path/to/file.txt', 'r'
 wtih this function, you can read opened file:
 
 ```bash
-import '@file'
+import @file
 
 $f = ^ file.open '/path/to/file.txt', 'r'
 
 file.read $f # now, content of file is in the mem
-out ^ # output is content of file
+println ^ # output is content of file
 ```
 
 ##### file.write
 with this function, you can write on opened file:
 
 ```bash
-import '@file'
+import @file
 
 $f = ^ file.open '/path/to/file.txt', 'w' # open type is `w` (write)
 
@@ -163,7 +161,7 @@ now file is changed
 with this function you can close file after your work:
 
 ```bash
-import '@file'
+import @file
 
 $f = ^ file.open '/path/to/file.txt', 'r'
 
@@ -175,7 +173,7 @@ file.close $f # close file after work
 ##### example:
 
 ```bash
-import '@file'
+import @file
 
 $file = ^ file.open '/path/to/file.txt', 'r'
 
@@ -202,7 +200,7 @@ assert 'foo' == 'bar' # error: AssertError
 asserts true:
 
 ```bash
-import '@test'
+import @test
 
 test.assertTrue True
 test.assertTrue 5 == 5
@@ -384,7 +382,7 @@ with this feature, you can add another directories to your path and load modules
 for example:
 
 ```bash
-import '@sys'
+import @sys
 
 sys.path.add '/home/parsa/my-directory';
 ```
@@ -434,4 +432,3 @@ output:
 ### Another useful libraries written by others
 
 - The [polor-pashm](https://github.com/sami2020pro/polor-pashm) library by [sami2020pro](https://github.com/sami2020pro)
-

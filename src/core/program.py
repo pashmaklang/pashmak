@@ -302,7 +302,7 @@ class Program(helpers.Helpers):
             'out': self.run_out,
             'try': self.run_try,
             'endtry': self.run_endtry,
-            'eval': self.run_eval,
+            'core_eval': self.run_eval,
             'arraypush': self.run_arraypush,
             'arraypop': self.run_arraypop,
             'namespace': self.run_namespace,

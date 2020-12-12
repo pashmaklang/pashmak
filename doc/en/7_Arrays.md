@@ -1,5 +1,5 @@
 # Arrays
-arrays are a list from variables
+arrays are a list from variables.
 
 look at this example:
 
@@ -72,5 +72,5 @@ also you can use python methods:
 
 ```bash
 $myarray = ['first', 'second']
-mem $myarray->pop(0)
+mem $myarray->pop(1)
 ```

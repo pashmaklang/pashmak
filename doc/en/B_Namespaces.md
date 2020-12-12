@@ -23,7 +23,7 @@ hello world
 hello world
 ```
 
-actualy, everything where is declared between `namespace <something>;` and `endnamespace;` will be under this.
+actualy, everything which is declared between `namespace <something>` and `endnamespace` will be under this.
 
 in above example, we declared a namespace named `App`. and we declared `say_hello` function in that.
 

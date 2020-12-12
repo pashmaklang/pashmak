@@ -195,8 +195,9 @@ func exit ($code)
         return 0
     endif
 endfunc
-func std_eval
-    eval ^
+func eval
+    # TODO : delete `core_eval` function and use python function
+    core_eval ^
 endfunc
 func endns
     endnamespace

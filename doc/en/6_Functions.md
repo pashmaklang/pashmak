@@ -1,5 +1,5 @@
 # Functions
-function is a system to make alias for some codes (function).
+Function is a system to make alias for some codes (function).
 
 look at this example:
 ```bash
@@ -8,8 +8,8 @@ func say_hello
 endfunc
 
 say_hello
-# or
-say_hello()
+# or with `()`
+#say_hello()
 ```
 
 output:
@@ -23,6 +23,7 @@ func say_hello
     println 'hello world'
 endfunc
 
+# we run this two times
 say_hello
 say_hello()
 ```
@@ -35,9 +36,9 @@ hello world
 ```
 
 
-you can declare a function and call it from everywhere. when you call a function, all of codes inside that function will run
+You can declare a function and call it from everywhere. when you call a function, all of codes inside that function will be runed.
 
-for declare a function you have to write `func <name-of-function>;`. and write codes. then for close function write `endfunc;` after codes
+for declare a function you have to write `func <name-of-function>` and write codes. then for close function write `endfunc` after codes.
 
 look at this smarter function:
 ```bash
@@ -78,6 +79,14 @@ output:
 ```
 hello
 ```
+
+This is exactly like
+
+```
+mem 'something'; some_func
+```
+
+but with better syntax, you only need to run `some_func 'something'`.
 
 ##### NOTE: using `()` in end of function is optional. for example:
 
@@ -315,6 +324,7 @@ like it:
 
 ```bash
 $variable = ^ my_command_or_function 'my', 'arguments'
+# above code will put mem value to the variable after run above function or command
 ```
 
-and them this code will run and mem value will put into the variable
+and them this code will run and mem value will put into the variable(actually, puts result of command or function into the variable).
