@@ -27,7 +27,6 @@ from operations import set as op_set
 from operations import free as op_free
 from operations import copy as op_copy
 from operations import read as op_read
-from operations import returnop as op_return
 from operations import func as op_func
 from operations import endfunc as op_endfunc
 from operations import required as op_required
@@ -67,10 +66,6 @@ class Commands:
     def run_read(self, op: dict):
         ''' run read '''
         op_read.run(self, op)
-
-    def run_return(self, op: dict):
-        ''' run return '''
-        op_return.run(self, op)
 
     def run_func(self, op: dict):
         ''' run func '''

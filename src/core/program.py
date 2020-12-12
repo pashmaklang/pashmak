@@ -291,7 +291,6 @@ class Program(helpers.Helpers):
             'free': self.run_free,
             'copy': self.run_copy,
             'read': self.run_read,
-            'return': self.run_return,
             'func': self.run_func,
             'required': self.run_required,
             'include': self.run_include,

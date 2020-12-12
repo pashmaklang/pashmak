@@ -22,6 +22,7 @@
 
 ''' Partial of program object functions '''
 
+from sys import exit
 from core import commands
 
 class Helpers(commands.Commands):
@@ -111,3 +112,11 @@ class Helpers(commands.Commands):
             print(obj, end='', flush=True)
         else:
             self.output += str(obj)
+
+    def exit_program(self, exit_code):
+        """ Exits the program """
+        if not self.is_test:
+            exit(exit_code)
+        else:
+            self.current_step = len(self.operations) * 2
+            self.exit_code = exit_code

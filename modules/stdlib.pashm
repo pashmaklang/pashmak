@@ -32,12 +32,10 @@ func import
 endfunc;
 
 func exit ($code)
-    # TODO : delete `return` operation and exit by python code
-    if type($code) == int
-        return $code
-    else
-        return 0
+    if type($code) != int
+        $code = 0
     endif
+    mem self.exit_program($code)
 endfunc
 
 func eval
