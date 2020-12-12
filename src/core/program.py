@@ -56,7 +56,7 @@ class Program(helpers.Helpers):
         self.included_modules = [] # list of included modules to stop repeating imports
         self.bootstrap_operations_count = 0
 
-        self.allowed_pashmak_extensions = ['pashm'] # TODO : add more extensions
+        self.allowed_pashmak_extensions = ['pashm']
 
         self.current_step = 0
         self.stop_after_error = True
@@ -295,7 +295,6 @@ class Program(helpers.Helpers):
             'isset': self.run_isset,
             'try': self.run_try,
             'endtry': self.run_endtry,
-            'core_eval': self.run_eval,
             'namespace': self.run_namespace,
             'endnamespace': self.run_endnamespace,
             'use': self.run_use,

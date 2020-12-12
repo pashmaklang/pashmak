@@ -24,6 +24,7 @@
 
 from sys import exit
 from core import commands
+from syntax import parser
 
 class Helpers(commands.Commands):
     ''' Partial of program object functions '''
@@ -120,3 +121,11 @@ class Helpers(commands.Commands):
         else:
             self.current_step = len(self.operations) * 2
             self.exit_code = exit_code
+
+    def pashmak_eval(self, code):
+        """ Runs the pashmak code from string """
+        # run the code
+        code_operations = parser.parse(code, filepath='<eval>')
+        for code_op in list(reversed(code_operations)):
+            self.operations.insert(self.current_step+1, code_op)
+            self.update_section_indexes(self.current_step+1)

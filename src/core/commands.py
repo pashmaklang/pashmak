@@ -33,7 +33,6 @@ from operations import gotoif as op_gotoif
 from operations import isset as op_isset
 from operations import tryop as op_try
 from operations import endtry as op_endtry
-from operations import eval as op_eval
 from operations import namespace as op_namespace
 from operations import endnamespace as op_endnamespace
 from operations import use as op_use
@@ -83,10 +82,6 @@ class Commands:
     def run_endtry(self, op: dict):
         ''' run endtry '''
         op_endtry.run(self, op)
-
-    def run_eval(self, op: dict):
-        ''' run eval '''
-        op_eval.run(self, op)
 
     def run_namespace(self, op: dict):
         ''' run namespace '''

@@ -193,8 +193,7 @@ func exit ($code)
     mem self.exit_program($code)
 endfunc
 func eval
-    # TODO : delete `core_eval` function and use python function
-    core_eval ^
+    mem self.pashmak_eval(^)
 endfunc
 func endns
     endnamespace
