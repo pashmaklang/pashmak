@@ -26,11 +26,11 @@ namespace file
     endfunc
 
     func close ($file)
-        mem "self.get_var('file').close()"; python ^
+        mem $file->close()
     endfunc
 
     func read ($file)
-        mem "self.mem = self.get_var('file').read()"; python ^
+        mem $file->read()
     endfunc
 
     func write ($args)

@@ -24,6 +24,7 @@ class Object
 endclass
 
 func print
+    # TODO : delete the `out` operation and print here by using python code
     out ^
 endfunc
 
@@ -32,10 +33,12 @@ func import
 endfunc;
 
 func exit ($code)
-    mem type($code) != int; gotoif stdlib_exit_default_exit_with_zero_code
-    return $code
-    section stdlib_exit_default_exit_with_zero_code
-    return 0
+    # TODO : delete `return` operation and exit by python code
+    if type($code) == int
+        return $code
+    else
+        return 0
+    endif
 endfunc
 
 func std_eval
@@ -51,15 +54,14 @@ func raise ($exdata)
     python ^
 endfunc
 
-func assert
-    gotoif tmp_assert_after_section
-    raise 'AssertError', 'asserting that false is true'
-    section tmp_assert_after_section
+func assert ($value)
+    if not $value
+        raise 'AssertError', 'asserting that false is true'
+    endif
 endfunc
 
 func gset ($args)
-	mem 'self.variables["' + $args[0] + '"] = self.get_var("args")[1]'
-	python ^
+	python 'self.variables["' + str($args[0]) + '"] = self.get_var("args")[1]'
 endfunc
 
 func println ($value)

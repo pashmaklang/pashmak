@@ -22,58 +22,58 @@
 
 namespace hash
 	func blake2b ($value)
-		python 'self.mem = hashlib.blake2b("' + $value + '".encode()).hexdigest()'
+		mem hashlib.blake2b($value->encode())->hexdigest()
 	endfunc
 
 	func blake2s ($value)
-		python 'self.mem = hashlib.blake2s("' + $value + '".encode()).hexdigest()'
+		mem hashlib.blake2s($value->encode())->hexdigest()
 	endfunc
 
 	func md5 ($value)
-		python 'self.mem = hashlib.md5("' + $value + '".encode()).hexdigest()'
+		mem hashlib.md5($value->encode())->hexdigest()
 	endfunc
 
 	func sha1 ($value)
-		python 'self.mem = hashlib.sha1("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha1($value->encode())->hexdigest()
 	endfunc
 
 	func sha224 ($value)
-		python 'self.mem = hashlib.sha224("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha224($value->encode())->hexdigest()
 	endfunc
 
 	func sha256 ($value)
-		python 'self.mem = hashlib.sha256("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha256($value->encode())->hexdigest()
 	endfunc
 
 	func sha384 ($value)
-		python 'self.mem = hashlib.sha384("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha384($value->encode())->hexdigest()
 	endfunc
 
 	func sha3_224 ($value)
-		python 'self.mem = hashlib.sha3_224("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha3_224($value->encode())->hexdigest()
 	endfunc
 
 	func sha3_256 ($value)
-		python 'self.mem = hashlib.sha3_256("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha3_256($value->encode())->hexdigest()
 	endfunc
 
 	func sha3_384 ($value)
-		python 'self.mem = hashlib.sha3_384("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha3_384($value->encode())->hexdigest()
 	endfunc
 
 	func sha3_512 ($value)
-		python 'self.mem = hashlib.sha3_512("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha3_512($value->encode())->hexdigest()
 	endfunc
 
 	func sha512 ($value)
-		python 'self.mem = hashlib.sha512("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha512($value->encode())->hexdigest()
 	endfunc
 
 	func shake_128 ($value)
-		python 'self.mem = hashlib.shake_128("' + str($value[0]) + '".encode()).hexdigest(' + str($value[1]) + ')'
+		mem hashlib.shake_128(str($value[0])->encode()).hexdigest($value[1])
 	endfunc
 
 	func shake_256 ($value)
-		python 'self.mem = hashlib.shake_256("' + str($value[0]) + '".encode()).hexdigest(' + str($value[1]) + ')'
+		mem hashlib.shake_256(str($value[0])->encode()).hexdigest($value[1])
 	endfunc
 endns
