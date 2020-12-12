@@ -22,26 +22,27 @@
 
 --test--
 variable defining system is working
+
 --file--
-set $myvar
-set $var1 $var2
-set $v3 $aaa $hoho
-set $var1
-set $test; mem 'hello'; copy $test;
-print $test; set $test; print $test;
+$myvar
+$var1; $var2
+$v3; $aaa; $hoho
+$var1
+$test = 'hello'
+print $test
+print $test
 $x = 'the value'
 $y
-$a1 = 'parsa';
-$a2 = 'hello ' + $a1 + '\n';
-print $a2;
+$a1 = 'parsa'
+$a2 = 'hello ' + $a1 + '\n'
+print $a2
 mem 'hi mem'
 $themem = ^
-
 func testfunc $n
-mem 'the func' + $n
+    mem 'the func' + $n
 endfunc
-
 $s = ^ testfunc 'A'
+
 --vars--
 {
             'myvar': None,

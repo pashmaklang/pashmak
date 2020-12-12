@@ -23,8 +23,8 @@
 --test--
 copy command is working
 --file--
-set $name $family $age;
-mem 'parsa'; copy $name;
-copy $name $family;
+$name; $family; $age
+$name = 'parsa'
+$family = $name
 --vars--
 {'name': 'parsa', 'family': 'parsa', 'age': None}

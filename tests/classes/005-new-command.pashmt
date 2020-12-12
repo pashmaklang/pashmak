@@ -42,7 +42,7 @@ namespace Foo
     endns
 endns
 
-$my_bar; new Foo.Bar; copy $my_bar
+$my_bar = ^ new Foo.Bar
 
 use Foo.Sub
 

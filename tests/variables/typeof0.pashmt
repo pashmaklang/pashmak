@@ -22,17 +22,17 @@
 
 --test--
 typeof command is working
+
 --file--
-set $mystr $myint $mybool;
-mem 'the string'; copy $mystr;
-mem 17; copy $myint;
-mem True; copy $mybool;
-set $type_str;
-typeof $mystr; copy $type_str;
-set $type_int;
-typeof $myint; copy $type_int;
-set $type_bool;
-typeof $mybool; copy $type_bool;
+$mystr = 'the string'
+$myint = 17
+$mybool = True
+
+$type_str = ^ typeof $mystr;
+$type_int = ^ typeof $myint
+$type_bool = ^ typeof $mybool
+
 free $mystr $myint $mybool
+
 --vars--
 {'type_str': str, 'type_int': int, 'type_bool': bool}

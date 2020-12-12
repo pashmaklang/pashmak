@@ -417,8 +417,6 @@ also you can get list of module paths:
 import '@sys'
 
 $module_paths = ^ sys.path.list
-# OR
-$module_paths; sys.path.list; copy $module_paths
 
 println $module_paths
 ```

@@ -361,9 +361,6 @@ Also you can set variables without value like this example:
 ```bash
 $var1
 $var2; $var3 # default value is null
-
-# also there is a command named `set`. this is a low level command
-set $var1 $var2 $var3
 ```
 
 ### Using variables in mem calculation
@@ -378,7 +375,7 @@ println 'hello ' + $name # output: hello parsa
 $num = 12
 println $num * 5 # output: 60
 
-$num2 = 4 # alias of `copy ^ $num2`
+$num2 = 4
 
 println $num * $num2 + 1 # output: 49
 ```
@@ -1937,17 +1934,6 @@ $my_object = ^ new TheClassName
 the `new` command gets name of class and creates an instance from that and puts that in the mem temp value.
 means, if i want to put created object in a variables, i need to write `$var = ^ new ClassName`.
 
-also we can create that with another syntax:
-
-```bash
-$my_object # declare the variable
-new ClassName # create the object
-copy $my_object # copy created object to variable
-
-# finally
-$my_object; new ClassName; copy $my_object
-```
-
 now, we can create object from a class. how to access to the properties? look at this example:
 
 ```bash
@@ -2759,8 +2745,6 @@ also you can get list of module paths:
 import '@sys'
 
 $module_paths = ^ sys.path.list
-# OR
-$module_paths; sys.path.list; copy $module_paths
 
 println $module_paths
 ```

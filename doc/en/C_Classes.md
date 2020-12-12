@@ -100,17 +100,6 @@ $my_object = ^ new TheClassName
 the `new` command gets name of class and creates an instance from that and puts that in the mem temp value.
 means, if i want to put created object in a variables, i need to write `$var = ^ new ClassName`.
 
-also we can create that with another syntax:
-
-```bash
-$my_object # declare the variable
-new ClassName # create the object
-copy $my_object # copy created object to variable
-
-# finally
-$my_object; new ClassName; copy $my_object
-```
-
 now, we can create object from a class. how to access to the properties? look at this example:
 
 ```bash

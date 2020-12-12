@@ -23,6 +23,6 @@
 --test--
 required command is working
 --file--
-set $v1 $name $n;
+$v1; $name; $n
 required $v1 $name;
 required $n;

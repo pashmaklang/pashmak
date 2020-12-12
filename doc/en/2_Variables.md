@@ -19,9 +19,6 @@ Also you can set variables without value like this example:
 ```bash
 $var1
 $var2; $var3 # default value is null
-
-# also there is a command named `set`. this is a low level command
-set $var1 $var2 $var3
 ```
 
 ### Using variables in mem calculation
@@ -36,7 +33,7 @@ println 'hello ' + $name # output: hello parsa
 $num = 12
 println $num * 5 # output: 60
 
-$num2 = 4 # alias of `copy ^ $num2`
+$num2 = 4
 
 println $num * $num2 + 1 # output: 49
 ```

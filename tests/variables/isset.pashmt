@@ -23,10 +23,10 @@
 --test--
 isset command is working
 --file--
-set $var; isset $var; print ^
+$var; isset $var; print ^
 free $var
 isset $var; print ^
-set $two; isset $two $one; print ^
-set $one; isset $two $one; print ^
+$two; isset $two $one; print ^
+$one; isset $two $one; print ^
 --output--
 'TrueFalseFalseTrue'

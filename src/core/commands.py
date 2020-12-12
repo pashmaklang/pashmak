@@ -23,9 +23,7 @@
 ''' Only some aliases for operations '''
 
 # operations imports
-from operations import set as op_set
 from operations import free as op_free
-from operations import copy as op_copy
 from operations import read as op_read
 from operations import func as op_func
 from operations import endfunc as op_endfunc
@@ -49,17 +47,9 @@ from operations import new as op_new
 class Commands:
     ''' Only some aliases for operations '''
 
-    def run_set(self, op: dict):
-        ''' run set '''
-        op_set.run(self, op)
-
     def run_free(self, op: dict):
         ''' run free '''
         op_free.run(self, op)
-
-    def run_copy(self, op: dict):
-        ''' run copy '''
-        op_copy.run(self, op)
 
     def run_read(self, op: dict):
         ''' run read '''
