@@ -23,6 +23,7 @@
 ''' Pashmak syntax parser '''
 
 import random
+import time
 
 def handle_special_char(op_str: str, ch: str) -> list:
     ''' Handle \\<special-char> as clean text '''
@@ -117,7 +118,7 @@ def parse(content: str, filepath='<system>') -> list:
         try:
             if operations[i]['command'] == 'if':
                 # init new if block
-                open_ifs.append('tmpsectionif' + str(random.random()).replace('.', '') + '_')
+                open_ifs.append('tmpsectionif' + str(random.random()).replace('.', '') + str(time.time()).replace('.', '') + '_')
                 open_ifs_counters.append(2)
 
                 operations.insert(i+1, parse_op('mem not (' + operations[i]['args_str'] + ')', file_path='<system>', line_number=i))
