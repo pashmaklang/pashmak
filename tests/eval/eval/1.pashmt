@@ -25,7 +25,7 @@ eval command working with variable args
 
 --file--
 set $code;
-mem 'mem "hello from eval"\; out ^\;'; copy $code;
+mem 'mem "hello from eval"\; print ^\;'; copy $code;
 eval $code;
 
 --output--

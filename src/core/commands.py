@@ -26,7 +26,6 @@
 from operations import set as op_set
 from operations import free as op_free
 from operations import copy as op_copy
-from operations import out as op_out
 from operations import read as op_read
 from operations import returnop as op_return
 from operations import func as op_func
@@ -64,10 +63,6 @@ class Commands:
     def run_copy(self, op: dict):
         ''' run copy '''
         op_copy.run(self, op)
-
-    def run_out(self, op: dict):
-        ''' run out '''
-        op_out.run(self, op)
 
     def run_read(self, op: dict):
         ''' run read '''

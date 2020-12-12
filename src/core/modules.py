@@ -181,8 +181,7 @@ modules["stdlib"] = """#
 class Object
 endclass
 func print
-    # TODO : delete the `out` operation and print here by using python code
-    out ^
+    mem self.print(^)
 endfunc
 func import
     include ^

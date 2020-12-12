@@ -24,13 +24,13 @@
 functions working
 
 --file--
-mem 'starting\n'; out ^;
+mem 'starting\n'; print ^;
 func myfunc;
-    mem 'func runed\n'; out ^;
-    mem 'func finished\n'; out ^;
+    mem 'func runed\n'; print ^;
+    mem 'func finished\n'; print ^;
 endfunc;
 myfunc;
-mem 'finished\n'; out ^;
+mem 'finished\n'; print ^;
 
 --output--
 'starting\nfunc runed\nfunc finished\nfinished\n'

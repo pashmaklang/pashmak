@@ -24,11 +24,11 @@
 special characters can be printed
 --file--
 
-mem 'this is \; semicolon'; out ^;
-mem 'this is \\; semicolon'; out ^;
-mem 'this is \# sharp'; out ^;
-mem 'this is \\# sharp'; out ^;
-mem 'foo \# \; bar'; out ^;
+mem 'this is \; semicolon'; print ^;
+mem 'this is \\; semicolon'; print ^;
+mem 'this is \# sharp'; print ^;
+mem 'this is \\# sharp'; print ^;
+mem 'foo \# \; bar'; print ^;
 
 --output--
 

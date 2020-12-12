@@ -26,7 +26,7 @@ function system raises error when function argument syntax is not valid
 --file--
 
 func myfunc;
-    out ^;
+    print ^;
 endfunc;
 
 myfunc hello world;

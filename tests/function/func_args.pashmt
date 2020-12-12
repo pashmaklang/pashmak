@@ -24,7 +24,7 @@
 functions argument will be set correctly
 --file--
 func myfunc;
-    out ^;
+    print ^;
 endfunc;
 myfunc "hello world"
 myfunc 2*3

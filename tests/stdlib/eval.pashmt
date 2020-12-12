@@ -24,7 +24,7 @@
 stdlib eval function working
 --file--
 
-eval "mem 'output from eval'\; out ^\;";
+eval "print 'output from eval'";
 
 --output--
 

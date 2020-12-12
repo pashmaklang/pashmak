@@ -24,9 +24,9 @@
 include command is working
 
 --file--
-mem 'before include\n'; out ^
+mem 'before include\n'; print ^
 mem 'examples/will_be_include.pashm'; include ^
-mem 'after include\n'; out ^
+mem 'after include\n'; print ^
 testfunc
 
 --output--

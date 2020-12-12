@@ -24,7 +24,7 @@
 eval command working
 
 --file--
-mem 'mem "hello from eval"\; out ^\;'; eval ^;
+mem 'mem "hello from eval"\; print ^\;'; eval ^;
 
 --output--
 'hello from eval'

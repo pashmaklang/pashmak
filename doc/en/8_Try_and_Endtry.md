@@ -44,7 +44,7 @@ goto after_error
 
 section handle_error
 
-mem 'some errors raised\n'; out ^
+mem 'some errors raised\n'; print ^
 
 section after_error
 ```

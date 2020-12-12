@@ -23,10 +23,10 @@
 --test--
 section system is working as If structure
 --file--
-mem 'before start\n'; out ^;
+mem 'before start\n'; print ^;
 goto 10;
-mem 'it will not show'; out ^;
+mem 'it will not show'; print ^;
 section 10;
-mem 'this is end\n'; out ^;
+mem 'this is end\n'; print ^;
 --output--
 'before start\nthis is end\n'

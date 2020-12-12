@@ -28,7 +28,7 @@ eval $code
 output:
 
 ```
-enter some code: <input>mem 'hi\n'; out ^;
+enter some code: <input>mem 'hi\n'; print ^;
 hi
 ```
 

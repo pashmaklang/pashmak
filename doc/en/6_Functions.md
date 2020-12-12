@@ -42,7 +42,7 @@ for declare a function you have to write `func <name-of-function>` and write cod
 
 look at this smarter function:
 ```bash
-mem 'program started\n'; out ^
+mem 'program started\n'; print ^
 
 func say_hello
     $name = ^ # copy mem to $name
@@ -66,7 +66,7 @@ for pass argument to the Functions, you can put value after name of function:
 
 ```bash
 func myfunc
-    out ^
+    print ^
 endfunc
 
 myfunc "hello"

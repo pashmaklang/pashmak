@@ -24,9 +24,9 @@
 The $argv variable has correct value
 
 --file--
-mem $argv[0]; out ^;
-mem $argv[1]; out ^;
-out $argc;
+mem $argv[0]; print ^;
+mem $argv[1]; print ^;
+print $argc;
 
 --cliargs--
 ['hi', 'bye']

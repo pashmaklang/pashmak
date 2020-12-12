@@ -27,19 +27,19 @@ Example test functions
 
 set $n; mem 'parsa\n'; copy $n;
 func myfunc;
-    out $n;
+    print $n;
     set $n; mem 'myfunc\n'; copy $n;
-    out $n;
+    print $n;
 endfunc;
 func tststs;
-    out $n;
+    print $n;
     set $n; mem 'tststs\n'; copy $n;
     myfunc;
-    out $n;
+    print $n;
 endfunc;
-out $n;
+print $n;
 tststs;
-out $n;
+print $n;
 
 --output--
 'parsa\nparsa\nparsa\nmyfunc\ntststs\nparsa\n'

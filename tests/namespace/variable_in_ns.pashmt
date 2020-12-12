@@ -24,11 +24,11 @@
 variables in namespaces working
 --file--
 namespace App;
-    set $name; mem 'parsa'; copy $name;
-    out $name;
-    out $App.name;
+    $name = 'parsa'
+    print $name;
+    print $App.name;
 endns;
-out $App.name
+print $App.name
 
 --output--
 'parsaparsaparsa'

@@ -28,12 +28,12 @@ set $var1 $var2
 set $v3 $aaa $hoho
 set $var1
 set $test; mem 'hello'; copy $test;
-out $test; set $test; out $test;
+print $test; set $test; print $test;
 $x = 'the value'
 $y
 $a1 = 'parsa';
 $a2 = 'hello ' + $a1 + '\n';
-out $a2;
+print $a2;
 mem 'hi mem'
 $themem = ^
 

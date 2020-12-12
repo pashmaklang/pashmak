@@ -27,14 +27,14 @@ set $name; mem 'pashmak'; copy $name;
 
 try 10;
 # a code without error
-mem 'hello ' + $name; out ^;
+mem 'hello ' + $name; print ^;
 endtry;
 
 goto 20;
 
 section 10;
 
-mem 'the Error!'; out ^;
+mem 'the Error!'; print ^;
 
 section 20;
 --output--

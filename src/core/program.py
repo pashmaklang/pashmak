@@ -284,7 +284,7 @@ class Program(helpers.Helpers):
         except AttributeError:
             pass
 
-        # TODO : delete `arraypush`, `arraypop` and `set` commands
+        # TODO : delete set operation
         # list of operations
         operations_dict = {
             'set': self.run_set,
@@ -300,7 +300,6 @@ class Program(helpers.Helpers):
             'fread': self.run_fread,
             'fwrite': self.run_fwrite,
             'isset': self.run_isset,
-            'out': self.run_out,
             'try': self.run_try,
             'endtry': self.run_endtry,
             'core_eval': self.run_eval,

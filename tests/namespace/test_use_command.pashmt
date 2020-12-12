@@ -26,22 +26,22 @@ use command is working
 --file--
 namespace App;
     func dosomething;
-        print 'hello world\n';
+        print 'hello world\n'
     endfunc;
-    set $name; mem 'the app'; copy $name;
+    $name = 'the app'
 endns;
 
 namespace Second;
     func hello;
-        print 'hello\n';
+        print 'hello\n'
     endfunc;
-    set $test; mem 'the second'; copy $test;
+    $test = 'the second'
 endns;
 
 App.dosomething;
 Second.hello;
-out $App.name;
-out $Second.test;
+print $App.name;
+print $Second.test;
 
 use App;
 use Second;
@@ -51,10 +51,10 @@ dosomething;
 Second.hello;
 hello;
 
-out $App.name;
-out $Second.test;
-out $name;
-out $test;
+print $App.name;
+print $Second.test;
+print $name;
+print $test;
 
 --output--
 'hello world\nhello\nthe appthe secondhello world\nhello world\nhello\nhello\nthe appthe secondthe appthe second'

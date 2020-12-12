@@ -24,7 +24,7 @@
 functions can be called more than 1 time
 --file--
 func myfunc
-    mem 'func runed\n'; out ^
+    mem 'func runed\n'; print ^
 endfunc
 myfunc
 myfunc

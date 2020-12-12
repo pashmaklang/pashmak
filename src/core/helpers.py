@@ -104,3 +104,10 @@ class Helpers(commands.Commands):
             else:
                 result[-1] += char
         return result
+
+    def print(self, obj):
+        """ Prints a object """
+        if not self.is_test:
+            print(obj, end='', flush=True)
+        else:
+            self.output += str(obj)

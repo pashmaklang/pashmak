@@ -33,12 +33,12 @@ goto 20;
 section 10;
 
 set $ex; copy $ex;
-mem $ex['type'] + ':' + $ex['message']; out ^;
+mem $ex['type'] + ':' + $ex['message']; print ^
 goto 30;
 
 section 20;
 
-mem 'without error'; out ^;
+mem 'without error'; print ^;
 
 section 30;
 --output--
