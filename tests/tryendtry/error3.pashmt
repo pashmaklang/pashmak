@@ -23,6 +23,6 @@
 --test--
 try command raises error when argment section is not found
 --file--
-try somesection; gfdhghgfhf; endtry;
+try somesection; gfdhghgfhf; endtry
 --with-error--
 'SectionError'

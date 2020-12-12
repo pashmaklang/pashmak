@@ -1,5 +1,5 @@
 #
-# 2.pashmt
+# python.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,9 +21,13 @@
 #########################################################################
 
 --test--
-eval command has error when argument syntax is not valid
+python exec system is working
 
 --file--
-eval hfgjhjhg;
+python "self.all_vars()['myvar'] = 'the value'"
+python "self.mem = 'the mem'"
 
---with-error--
+--vars--
+{'myvar': 'the value'}
+--mem--
+'the mem'

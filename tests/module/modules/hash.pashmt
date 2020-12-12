@@ -23,7 +23,7 @@
 --test--
 hash module is working
 --file--
-import '@hash';
+import '@hash'
 use hash;
 blake2b 'hello'; println ^
 blake2s 'hello'; println ^

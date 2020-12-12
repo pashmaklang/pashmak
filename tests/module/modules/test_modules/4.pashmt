@@ -23,7 +23,7 @@
 --test--
 test module assertNotEquals function raises error when condition is True
 --file--
-import '@test';
-test.assertNotEquals 2, 2;
+import '@test'
+test.assertNotEquals 2, 2
 --with-error--
 'AssertError'

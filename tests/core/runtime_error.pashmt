@@ -25,6 +25,7 @@ runtime error is raising when there is syntax error
 
 --file--
 
-mem 'hello world; print ^;
+mem 'hello world; print ^
 
 --with-error--
+'SyntaxError'

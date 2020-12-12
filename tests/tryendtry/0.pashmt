@@ -23,19 +23,19 @@
 --test--
 try endtry is working when code has not any error
 --file--
-set $name; mem 'pashmak'; copy $name;
+$name = 'pashmak'
 
-try 10;
+try 10
 # a code without error
-mem 'hello ' + $name; print ^;
-endtry;
+print 'hello ' + $name
+endtry
 
-goto 20;
+goto 20
 
-section 10;
+section 10
 
-mem 'the Error!'; print ^;
+print 'the Error!'
 
-section 20;
+section 20
 --output--
 'hello pashmak'

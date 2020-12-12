@@ -24,11 +24,11 @@
 functions argument variable is working
 
 --file--
-func say_hi $name;
-    println $name;
-endfunc;
+func say_hi $name
+    println $name
+endfunc
 
-say_hi 'parsa';
+say_hi 'parsa'
 
 --output--
 'parsa\n'

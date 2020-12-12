@@ -25,7 +25,7 @@ stdlib import function working
 
 --file--
 
-import "examples/will_be_include.pashm";
+import "examples/will_be_include.pashm"
 
 --output--
 

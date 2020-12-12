@@ -23,13 +23,13 @@
 --test--
 section system is working as Loop structure
 --file--
-mem 'before start\n'; print ^;
-set $i; mem 0; copy $i;
-section 10;
-mem str($i); print ^;
-mem $i + 1; copy $i;
-mem $i < 10; gotoif 10;
-mem 'after start\n'; print ^;
+println 'before start'
+$i = 0
+section 10
+print str($i)
+$i = $i + 1
+mem $i < 10; gotoif 10
+println 'after start'
 --output--
 '''before start
 0123456789after start

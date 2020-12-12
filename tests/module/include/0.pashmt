@@ -21,12 +21,12 @@
 #########################################################################
 
 --test--
-include command is working
+import command is working
 
 --file--
-mem 'before include\n'; print ^
-mem 'examples/will_be_include.pashm'; include ^
-mem 'after include\n'; print ^
+println 'before include'
+import 'examples/will_be_include.pashm'
+println 'after include'
 testfunc
 
 --output--

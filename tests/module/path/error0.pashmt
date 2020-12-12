@@ -28,3 +28,4 @@ os.environ['PASHMAKINFO'] = ''
 --file--
 import '@testdir1'
 --with-error--
+'ModuleError'

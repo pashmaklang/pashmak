@@ -24,37 +24,37 @@
 use command is working
 
 --file--
-namespace App;
-    func dosomething;
-        print 'hello world\n'
-    endfunc;
+namespace App
+    func dosomething
+        println 'hello world'
+    endfunc
     $name = 'the app'
-endns;
+endns
 
-namespace Second;
-    func hello;
-        print 'hello\n'
-    endfunc;
+namespace Second
+    func hello
+        println 'hello'
+    endfunc
     $test = 'the second'
-endns;
+endns
 
-App.dosomething;
-Second.hello;
-print $App.name;
-print $Second.test;
+App.dosomething
+Second.hello
+print $App.name
+print $Second.test
 
-use App;
-use Second;
+use App
+use Second
 
-App.dosomething;
-dosomething;
-Second.hello;
-hello;
+App.dosomething
+dosomething
+Second.hello
+hello
 
-print $App.name;
-print $Second.test;
-print $name;
-print $test;
+print $App.name
+print $Second.test
+print $name
+print $test
 
 --output--
 'hello world\nhello\nthe appthe secondhello world\nhello world\nhello\nhello\nthe appthe secondthe appthe second'

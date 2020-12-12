@@ -25,21 +25,23 @@ Example test functions
 
 --file--
 
-set $n; mem 'parsa\n'; copy $n;
-func myfunc;
-    print $n;
-    set $n; mem 'myfunc\n'; copy $n;
-    print $n;
-endfunc;
-func tststs;
-    print $n;
-    set $n; mem 'tststs\n'; copy $n;
-    myfunc;
-    print $n;
-endfunc;
-print $n;
-tststs;
-print $n;
+$n = 'parsa'
+func myfunc
+    println $n
+    $n = 'myfunc'
+    println $n;
+endfunc
+
+func tststs
+    println $n
+    $n = 'tststs'
+    myfunc()
+    println $n;
+endfunc
+
+println $n
+tststs
+println $n
 
 --output--
 'parsa\nparsa\nparsa\nmyfunc\ntststs\nparsa\n'

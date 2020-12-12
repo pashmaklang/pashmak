@@ -23,6 +23,7 @@
 --test--
 assert function raises error when value is False (4)
 --file--
-set $age; mem 18; copy $age;
-assert $age > 30;
+$age = 18
+assert $age > 30
 --with-error--
+'AssertError'

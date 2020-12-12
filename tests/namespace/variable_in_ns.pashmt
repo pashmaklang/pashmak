@@ -23,11 +23,11 @@
 --test--
 variables in namespaces working
 --file--
-namespace App;
+namespace App
     $name = 'parsa'
-    print $name;
-    print $App.name;
-endns;
+    print $name
+    print $App.name
+endns
 print $App.name
 
 --output--

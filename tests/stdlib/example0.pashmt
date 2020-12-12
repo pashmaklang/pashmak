@@ -25,10 +25,9 @@ Example test for stdlib for printing
 
 --file--
 
-set $name;
-mem 'parsa'; copy $name;
-print 'hello ' + $name;
-print str(2*2) + ' is sum';
+$name = 'parsa'
+print 'hello ' + $name
+print str(2*2) + ' is sum'
 
 --output--
 

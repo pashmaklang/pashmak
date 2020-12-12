@@ -25,11 +25,11 @@ function system raises error when function argument syntax is not valid
 
 --file--
 
-func myfunc;
-    print ^;
-endfunc;
+func myfunc
+    print ^
+endfunc
 
-myfunc hello world;
+myfunc hello world
 
 --with-error--
 'SyntaxError'

@@ -24,13 +24,13 @@
 stdlib gset function working
 
 --file--
-$name = 'parsa\n'
+$name = 'parsa'
 func myfunc
-	print $name
-	gset ['name', 'pashmak\n']
+	println $name
+	gset 'name', 'pashmak'
 endfunc
 myfunc
-print $name
+println $name
 
 --output--
 'parsa\npashmak\n'

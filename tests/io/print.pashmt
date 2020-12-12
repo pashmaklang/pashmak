@@ -1,5 +1,5 @@
 #
-# 1.pashmt
+# print.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,12 +21,11 @@
 #########################################################################
 
 --test--
-eval command working with variable args
+print functions working
 
 --file--
-set $code;
-mem 'mem "hello from eval"\; print ^\;'; copy $code;
-eval $code;
+println 'hello'
+print 'hello'
 
 --output--
-'hello from eval'
+'hello\nhello'

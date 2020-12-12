@@ -21,7 +21,8 @@
 #########################################################################
 
 --test--
-include command raises error when argument syntax is not valid
+import command raises error when argument syntax is not valid
 --file--
-include hhghgjghj
+import hhghgjghj
 --with-error--
+'NameError'

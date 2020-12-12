@@ -24,12 +24,11 @@
 read command can read more that one argument
 
 --file--
-set $input;
-read $input;
-print $input;
-set $input_1;
-read $input_1;
-print $input_1;
+$input; read $input
+print $input
+
+$input_1; read $input_1
+print $input_1
 
 --stdin--
 ['pashmak', 'parsa']

@@ -25,6 +25,7 @@ Example test for stdlib (2)
 
 --file--
 
-print 'hello ' + $name;
+print 'hello ' + $name
 
 --with-error--
+'VariableError'

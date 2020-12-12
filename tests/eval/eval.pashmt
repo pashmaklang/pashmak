@@ -1,5 +1,5 @@
 #
-# 1.pashmt
+# eval.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,13 +21,10 @@
 #########################################################################
 
 --test--
-python exec system is working with variable arguments
+eval command working
 
 --file--
-set $code;
-mem "self.all_vars()['myvar'] = 'the value'"; copy $code;
-python $code;
-free $code
+eval 'print "hello from eval"'
 
---vars--
-{'myvar': 'the value'}
+--output--
+'hello from eval'
