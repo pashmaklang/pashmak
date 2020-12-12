@@ -796,6 +796,108 @@ endif
 
 in this part, we learn how to use this system.
 
+The if syntax is this:
+
+```bash
+if <condition>
+    # code
+endif
+```
+
+for example:
+
+```bash
+$age = 30
+
+if $age > 18
+    println 'Welcome!'
+endif
+```
+
+output:
+
+```
+Welcome!
+```
+
+```bash
+$age = 12
+
+if $age > 18
+    println 'Welcome!'
+endif
+
+# above code haven't output
+```
+
+also you can use `else`:
+
+```bash
+$age = 12
+
+if $age > 18
+    println 'Welcome!'
+else
+    println 'you cannot access'
+endif
+```
+
+if condition of `if` is not true, `else` block will be runed.
+
+also there is other keyword `elif`:
+
+```bash
+$num = 17
+
+if $num == 5
+    println 'num is 5'
+elif $num == 6
+    println 'num is 6'
+elif $num == 17
+    println 'num is 17'
+else
+    println 'nothing'
+endif
+```
+
+output:
+
+```
+num is 17
+```
+
+actually, `elif` block will be checked one by one. `elif` means `else if`.
+
+### If in If
+you can write ifs in ifs.
+
+look at this example:
+
+```bash
+$num = 15
+$test = True
+
+if $num == 18
+    pass
+elif $num == 15
+    println 'num is 15'
+
+    # another if in the parent if
+    if $test
+        println 'this is a test'
+    else
+        println 'this is not test'
+    endif
+endif
+```
+
+output:
+
+```
+num is 15
+this is a test
+```
+
 
 
 # Functions
@@ -988,7 +1090,7 @@ say_hello ^ + ' shahmaleki'
 ```
 
 #### how two handle multiple arguments?
-in the above examples, all of created functions only have ONE function. some times our functions recives more than one arguments. how we can handle this?
+in the above examples, all of created functions only have ONE argument. some times our functions recives more than one arguments. how we can handle this?
 
 to handle this, you can use something like this:
 
