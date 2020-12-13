@@ -23,6 +23,6 @@
 --test--
 required command raises error when arguments has syntax error
 --file--
-required ffdggd $sgdfg
+required ffdggd, $sgdfg
 --with-error--
 'VariableError'

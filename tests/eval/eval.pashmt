@@ -1,5 +1,5 @@
 #
-# 2.pashmt
+# eval.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,9 +21,10 @@
 #########################################################################
 
 --test--
-eval command has error when argument syntax is not valid
+eval command working
 
 --file--
-eval hfgjhjhg;
+eval 'print "hello from eval"'
 
---with-error--
+--output--
+'hello from eval'

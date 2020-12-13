@@ -51,10 +51,10 @@ namespace file
         mem open($args[0], $args[1])
     endfunc
     func close ($file)
-        mem "self.get_var('file').close()"; python ^
+        mem $file->close()
     endfunc
     func read ($file)
-        mem "self.mem = self.get_var('file').read()"; python ^
+        mem $file->read()
     endfunc
     func write ($args)
         mem $args[0].write($args[1])
@@ -84,46 +84,46 @@ modules["hash"] = """#
 #########################################################################
 namespace hash
 	func blake2b ($value)
-		python 'self.mem = hashlib.blake2b("' + $value + '".encode()).hexdigest()'
+		mem hashlib.blake2b($value->encode())->hexdigest()
 	endfunc
 	func blake2s ($value)
-		python 'self.mem = hashlib.blake2s("' + $value + '".encode()).hexdigest()'
+		mem hashlib.blake2s($value->encode())->hexdigest()
 	endfunc
 	func md5 ($value)
-		python 'self.mem = hashlib.md5("' + $value + '".encode()).hexdigest()'
+		mem hashlib.md5($value->encode())->hexdigest()
 	endfunc
 	func sha1 ($value)
-		python 'self.mem = hashlib.sha1("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha1($value->encode())->hexdigest()
 	endfunc
 	func sha224 ($value)
-		python 'self.mem = hashlib.sha224("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha224($value->encode())->hexdigest()
 	endfunc
 	func sha256 ($value)
-		python 'self.mem = hashlib.sha256("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha256($value->encode())->hexdigest()
 	endfunc
 	func sha384 ($value)
-		python 'self.mem = hashlib.sha384("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha384($value->encode())->hexdigest()
 	endfunc
 	func sha3_224 ($value)
-		python 'self.mem = hashlib.sha3_224("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha3_224($value->encode())->hexdigest()
 	endfunc
 	func sha3_256 ($value)
-		python 'self.mem = hashlib.sha3_256("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha3_256($value->encode())->hexdigest()
 	endfunc
 	func sha3_384 ($value)
-		python 'self.mem = hashlib.sha3_384("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha3_384($value->encode())->hexdigest()
 	endfunc
 	func sha3_512 ($value)
-		python 'self.mem = hashlib.sha3_512("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha3_512($value->encode())->hexdigest()
 	endfunc
 	func sha512 ($value)
-		python 'self.mem = hashlib.sha512("' + $value + '".encode()).hexdigest()'
+		mem hashlib.sha512($value->encode())->hexdigest()
 	endfunc
 	func shake_128 ($value)
-		python 'self.mem = hashlib.shake_128("' + str($value[0]) + '".encode()).hexdigest(' + str($value[1]) + ')'
+		mem hashlib.shake_128(str($value[0])->encode()).hexdigest($value[1])
 	endfunc
 	func shake_256 ($value)
-		python 'self.mem = hashlib.shake_256("' + str($value[0]) + '".encode()).hexdigest(' + str($value[1]) + ')'
+		mem hashlib.shake_256(str($value[0])->encode()).hexdigest($value[1])
 	endfunc
 endns
 """
@@ -150,10 +150,10 @@ modules["random"] = """#
 #########################################################################
 namespace random
     func randint ($args)
-        python 'self.mem = random.randint(' + str($args[0]) + ',' + str($args[1]) + ')'
+        mem random.randint($args[0], $args[1])
     endfunc
     func random
-        python 'self.mem = random.random()'
+        mem random.random()
     endfunc
 endns
 """
@@ -181,19 +181,19 @@ modules["stdlib"] = """#
 class Object
 endclass
 func print
-    out ^
+    mem self.print(^)
 endfunc
 func import
     include ^
 endfunc;
 func exit ($code)
-    mem type($code) != int; gotoif stdlib_exit_default_exit_with_zero_code
-    return $code
-    section stdlib_exit_default_exit_with_zero_code
-    return 0
+    if type($code) != int
+        $code = 0
+    endif
+    mem self.exit_program($code)
 endfunc
-func std_eval
-    eval ^
+func eval
+    mem self.pashmak_eval(^)
 endfunc
 func endns
     endnamespace
@@ -202,14 +202,13 @@ func raise ($exdata)
 	mem "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', self.operations[self.current_step])"
     python ^
 endfunc
-func assert
-    gotoif tmp_assert_after_section
-    raise 'AssertError', 'asserting that false is true'
-    section tmp_assert_after_section
+func assert ($value)
+    if not $value
+        raise 'AssertError', 'asserting that false is true'
+    endif
 endfunc
 func gset ($args)
-	mem 'self.variables["' + $args[0] + '"] = self.get_var("args")[1]'
-	python ^
+	python 'self.variables["' + str($args[0]) + '"] = self.get_var("args")[1]'
 endfunc
 func println ($value)
     print str($value) + '\\n'
@@ -231,6 +230,8 @@ func system ($cmd)
 endfunc
 func python
     rmem exec(^)
+endfunc
+func required
 endfunc
 """
 modules["sys"] = """#
@@ -258,12 +259,11 @@ namespace sys
     $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
     namespace path
         func add $new_path
-            mem 'os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"'; python ^
-            mem 'self.bootstrap_modules()'; python ^
+            python 'os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"'
+            mem self.bootstrap_modules()
         endfunc
         func list
-            $paths_list = os.environ["PASHMAKPATH"]
-            $paths_list = $paths_list.strip().split(':')
+            $paths_list = os.environ["PASHMAKPATH"]->strip()->split(':')
             $paths_list = [item.strip() for item in $paths_list if item != '']
             mem $paths_list
         endfunc
@@ -342,19 +342,19 @@ modules["time"] = """#
 #########################################################################
 namespace time
     func time
-        python 'self.mem = time.time()'
+        mem time.time()
     endfunc
     func sleep ($time_to_sleep)
-        python 'self.mem = time.sleep(' + str($time_to_sleep) + ')'
+        mem time.sleep($time_to_sleep)
     endfunc
     func ctime
-        python 'self.mem = time.ctime()'
+        mem time.ctime()
     endfunc
     func gmtime
-        python 'self.mem = time.gmtime()'
+        mem time.gmtime()
     endfunc
     func localtime
-        python 'self.mem = time.localtime()'
+        mem time.localtime()
     endfunc
 endnamespace
 """

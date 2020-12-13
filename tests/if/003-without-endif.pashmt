@@ -1,5 +1,5 @@
 #
-# python.py
+# 003-without-endif.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,23 +20,14 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Runs python code from string '''
+--test--
+program will not be crashed when if block is not close
 
-import os
-import hashlib, time, random
+--file--
+if True
+    print 'yes'
+else
+    print 'no'
 
-def run(self, op: dict):
-    ''' Runs python code from string '''
-
-    self.require_one_argument(op, 'python operation requires argument')
-    arg = op['args'][0]
-    self.arg_should_be_variable_or_mem(arg, op)
-
-    if arg == '^':
-        code = self.get_mem()
-    else:
-        self.variable_required(arg[1:], op)
-        code = self.get_var(arg[1:])
-
-    # run the python code
-    exec(code)
+--output--
+'yes'

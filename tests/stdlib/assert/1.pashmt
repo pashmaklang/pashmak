@@ -23,5 +23,6 @@
 --test--
 assert function raises error when value is False (2)
 --file--
-assert 1 > 10;
+assert 1 > 10
 --with-error--
+'AssertError'

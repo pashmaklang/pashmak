@@ -24,12 +24,13 @@
 function system raises error when re-declaring a function
 
 --file--
-func myfunc;
-    print 'hello';
-endfunc;
-func myfunc;
-    print 'something';
-endfunc;
+func myfunc
+    print 'hello'
+endfunc
+
+func myfunc
+    print 'something'
+endfunc
 
 --with-error--
 'FunctionError'

@@ -24,13 +24,16 @@
 functions working
 
 --file--
-mem 'starting\n'; out ^;
-func myfunc;
-    mem 'func runed\n'; out ^;
-    mem 'func finished\n'; out ^;
-endfunc;
-myfunc;
-mem 'finished\n'; out ^;
+println 'starting'
+
+func myfunc
+    println 'func runed'
+    println 'func finished'
+endfunc
+
+myfunc
+
+println 'finished'
 
 --output--
 'starting\nfunc runed\nfunc finished\nfinished\n'

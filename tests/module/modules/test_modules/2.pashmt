@@ -23,7 +23,7 @@
 --test--
 test module assertFalse function raises error when value is True
 --file--
-import '@test';
-test.assertFalse 2 == 2;
+import '@test'
+test.assertFalse 2 == 2
 --with-error--
 'AssertError'

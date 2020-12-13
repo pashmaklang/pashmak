@@ -20,33 +20,35 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Partial of program object functions '''
+""" Partial of program object functions """
 
+from sys import exit
 from core import commands
+import syntax_parser as parser
 
 class Helpers(commands.Commands):
-    ''' Partial of program object functions '''
+    """ Partial of program object functions """
 
     def raise_variable_error(self, varname: str, op: dict):
-        ''' Raise variable not found error '''
+        """ Raise variable not found error """
         return self.raise_error('VariableError', 'undefined variable "' + str(varname) + '"', op)
 
     def raise_syntax_error(self, string: str, op: dict):
-        ''' Raises syntax error '''
+        """ Raises syntax error """
         return self.raise_error('SyntaxError', 'unexpected "' + string + '"', op)
 
     def arg_should_be_variable(self, arg: str, op: dict):
-        ''' Checks argument syntax is variable name '''
+        """ Checks argument syntax is variable name """
         if arg[0] != '$':
             self.raise_syntax_error(arg[0], op)
 
     def arg_should_be_variable_or_mem(self, arg: str, op: dict):
-        ''' Checks argument syntax is variable name or mem '''
+        """ Checks argument syntax is variable name or mem """
         if arg[0] != '$' and arg != '^':
             self.raise_syntax_error(arg[0], op)
 
     def variable_exists(self, varname: str) -> bool:
-        ''' Checks a variable is exists or not '''
+        """ Checks a variable is exists or not """
         try:
             self.get_var(varname)
             return True
@@ -54,17 +56,17 @@ class Helpers(commands.Commands):
             return False
 
     def variable_required(self, varname: str, op: dict):
-        ''' Raises variable error if variable not exists '''
+        """ Raises variable error if variable not exists """
         if not self.variable_exists(varname):
             self.raise_variable_error(varname, op)
 
     def require_one_argument(self, op: dict, error_message: str):
-        ''' Checks argument syntax to be variable name '''
+        """ Checks argument syntax to be variable name """
         if len(op['args']) <= 0:
             self.raise_error('ArgumentError', error_message, op)
 
     def get_var(self, varname: str):
-        ''' Gets a variable name and returns value of that '''
+        """ Gets a variable name and returns value of that """
         try:
             return self.all_vars()[self.current_namespace() + varname]
         except KeyError:
@@ -76,7 +78,7 @@ class Helpers(commands.Commands):
             return self.all_vars()[varname]
 
     def set_var(self, varname: str, value):
-        ''' Gets name of a variable and sets value on that '''
+        """ Gets name of a variable and sets value on that """
         if '&' in varname:
             do_raise_error = False
             try:
@@ -90,13 +92,14 @@ class Helpers(commands.Commands):
         self.all_vars()[self.current_namespace() + varname] = value
 
     def all_vars(self):
-        ''' Returns list of all of variables '''
+        """ Returns list of all of variables """
         if not self.states:
             return self.variables
 
         return self.states[-1]['vars']
 
     def multi_char_split(self, string, seprators):
+        """ Splits string by multi seprators """
         result = ['']
         for char in string:
             if char in seprators:
@@ -104,3 +107,26 @@ class Helpers(commands.Commands):
             else:
                 result[-1] += char
         return result
+
+    def print(self, obj):
+        """ Prints a object """
+        if not self.is_test:
+            print(obj, end='', flush=True)
+        else:
+            self.output += str(obj)
+
+    def exit_program(self, exit_code):
+        """ Exits the program """
+        if not self.is_test:
+            exit(exit_code)
+        else:
+            self.current_step = len(self.operations) * 2
+            self.exit_code = exit_code
+
+    def pashmak_eval(self, code):
+        """ Runs the pashmak code from string """
+        # run the code
+        code_operations = parser.parse(code, filepath='<eval>')
+        for code_op in list(reversed(code_operations)):
+            self.operations.insert(self.current_step+1, code_op)
+            self.update_section_indexes(self.current_step+1)

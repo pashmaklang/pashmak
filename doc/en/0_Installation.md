@@ -1,10 +1,10 @@
 ## Installation
 
 ### GNU/Linux/Unix
-this installation guide is for GNU/Linux/UNIX systems. also compile process needs `pyinstaller`.
-if you don't have pyinstaller, type `pip3 install pyinstaller` in terminal
+This installation guide is for GNU/Linux/UNIX systems. Also compile process needs `pyinstaller` pip library.
+If you don't have Pyinstaller, run `pip3 install pyinstaller` command in terminal.
 
-compile & install:
+Compile & Install:
 
 ```bash
 # checkout to latest release
@@ -21,9 +21,9 @@ git checkout master
 git branch -D installation
 ```
 
-run above commands in terminal to install pashmak interpreter on your GNU/Linux/UNIX system.
+Run above commands in terminal to install Pashmak interpreter on your GNU/Linux/UNIX system.
 
-also if you want install latest version (in development), do not run above git commands and just run it:
+Also if you want install latest version(development state), do not run above git commands and just run it:
 
 ```bash
 make all
@@ -31,9 +31,9 @@ make
 sudo make install
 ```
 
-above commands install latest (development) state of the program
+Above commands install latest (development) state of the program.
 
-now you can run interpreter in terminal:
+Now you can run Interpreter in terminal:
 
 ```bash
 pashmak --info # shows info about pashmak
@@ -55,25 +55,27 @@ python3 src/pashmak.py
 ```
 
 #### uninstallation
-to uninstall pashmak, run this make command in terminal:
+To uninstall Pashmak, run this make command in terminal:
 
 ```bash
 sudo make uninstall
 ```
 
-pashmak will be remove from your system.
+Or manually remove `/usr/bin/pashmak`.
+
+Pashmak will be remove from your system.
 
 ### Windows
-in windows, you can run program with python interpreter without compiling:
+In Windows, you can run program with python interpreter without compiling:
 
 ```bash
 cd \path\to\project
 python src\pashmak.py
 ```
 
-but also you can compile it with `pyinstaller`. if you don't have pyinstaller, enter `pip install pyinstaller` in command line
+But also you can compile it with `pyinstaller`. If you don't have Pyinstaller, run `pip install pyinstaller` in command line.
 
-compile:
+Compile:
 
 ```bash
 # install pyinstaller with pip

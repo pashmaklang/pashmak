@@ -23,22 +23,22 @@
 --test--
 hash module is working
 --file--
-import '@hash';
+import '@hash'
 use hash;
-blake2b 'hello'; out ^; print '\n';
-blake2s 'hello'; out ^; print '\n';
-md5 'hello'; out ^; print '\n';
-sha1 'hello'; out ^; print '\n';
-sha224 'hello'; out ^; print '\n';
-sha256 'hello'; out ^; print '\n';
-sha384 'hello'; out ^; print '\n';
-sha3_224 'hello'; out ^; print '\n';
-sha3_256 'hello'; out ^; print '\n';
-sha3_384 'hello'; out ^; print '\n';
-sha3_512 'hello'; out ^; print '\n';
-sha512 'hello'; out ^; print '\n';
-hash.shake_128 'hello', 30; out ^; print '\n';
-hash.shake_256 'hello', 30; out ^; print '\n';
+blake2b 'hello'; println ^
+blake2s 'hello'; println ^
+md5 'hello'; println ^
+sha1 'hello'; println ^
+sha224 'hello'; println ^
+sha256 'hello'; println ^
+sha384 'hello'; println ^
+sha3_224 'hello'; println ^
+sha3_256 'hello'; println ^
+sha3_384 'hello'; println ^
+sha3_512 'hello'; println ^
+sha512 'hello'; println ^
+hash.shake_128 'hello', 30; println ^
+hash.shake_256 'hello', 30; println ^
 --output--
 '''e4cfa39a3d37be31c59609e807970799caa68a19bfaa15135f165085e01d41a65ba1e1b146aeb6bd0092b49eac214c103ccfa3a365954bbbe52f74a2b3620c94
 19213bacc58dee6dbde3ceb9a47cbb330b3d86f8cca8997eb00be456f140ca25

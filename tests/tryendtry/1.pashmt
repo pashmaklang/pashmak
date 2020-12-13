@@ -23,22 +23,22 @@
 --test--
 raised error data is put into mem
 --file--
-try 10;
+try 10
 # a code with error
-mmdgfgdhgfhjh;
-endtry;
+mmdgfgdhgfhjh
+endtry
 
-goto 20;
+goto 20
 
-section 10;
+section 10
 
-set $ex; copy $ex;
-mem $ex['type'] + ':' + $ex['message']; out ^;
-goto 30;
+$ex = ^
+print $ex['type'] + ':' + $ex['message']
+goto 30
 
-section 20;
+section 20
 
-mem 'without error'; out ^;
+print 'without error'
 
 section 30;
 --output--

@@ -24,7 +24,7 @@
 try command raises syntax error correctly
 
 --file--
-try; gfdhghgfhf; endtry;
+try; gfdhghgfhf; endtry
 
 --with-error--
 'ArgumentError'

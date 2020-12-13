@@ -25,3 +25,4 @@ assert function raises error when value is False (3)
 --file--
 assert False
 --with-error--
+'AssertError'

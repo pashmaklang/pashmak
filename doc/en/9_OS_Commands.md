@@ -1,6 +1,6 @@
 # OS Commands
 
-here is some commands about OS
+here is some commands about OS.
 
 ### chdir
 change directory. with this command you can change program working directory:
@@ -28,7 +28,7 @@ or:
 ```bash
 cwd # or `cwd()`
 $cwd = ^
-println $cwd
+println 'The current working directory is ' + $cwd
 ```
 
 or:
@@ -38,7 +38,7 @@ $cwd = ^ cwd
 println $cwd
 ```
 
-this command puts current working directory path in mem
+this command puts current working directory path into the mem.
 
 ### system
 you can run shell commands by this command:
@@ -52,6 +52,12 @@ also after run `system` function, exit code will put in `mem`:
 ```bash
 system 'ls /'
 println ^ # output: 0
+```
+
+or:
+
+```bash
+$exit_code = ^ system 'ls /'
 ```
 
 ### exit
@@ -81,13 +87,6 @@ exit 1
 ```
 
 exit code of program will be `1`
-
-or you can use `exit` command:
-
-```bash
-exit # with 0 default exit code
-exit 10 # with 10
-```
 
 ### `$__file__` and `$__dir__` variables
 `$__file__` and `$__dir__` variables are two variables contains self script filepath and dirpath.

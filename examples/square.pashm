@@ -32,9 +32,9 @@ func print_square ($args)
             print '*'
             $j = $j + 1
         mem $j < $y; gotoif loop2
-        print '\n'
+        println
         $i = $i + 1
     mem $i < $x; gotoif loop1
 endfunc
 
-print_square (10, 25)
+print_square(10, 25)

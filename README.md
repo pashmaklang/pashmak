@@ -53,10 +53,10 @@ read the following Documentation to learn pashmak.
 ## Installation
 
 ### GNU/Linux/Unix
-this installation guide is for GNU/Linux/UNIX systems. also compile process needs `pyinstaller`.
-if you don't have pyinstaller, type `pip3 install pyinstaller` in terminal
+This installation guide is for GNU/Linux/UNIX systems. Also compile process needs `pyinstaller` pip library.
+If you don't have Pyinstaller, run `pip3 install pyinstaller` command in terminal.
 
-compile & install:
+Compile & Install:
 
 ```bash
 # checkout to latest release
@@ -73,9 +73,9 @@ git checkout master
 git branch -D installation
 ```
 
-run above commands in terminal to install pashmak interpreter on your GNU/Linux/UNIX system.
+Run above commands in terminal to install Pashmak interpreter on your GNU/Linux/UNIX system.
 
-also if you want install latest version (in development), do not run above git commands and just run it:
+Also if you want install latest version(development state), do not run above git commands and just run it:
 
 ```bash
 make all
@@ -83,9 +83,9 @@ make
 sudo make install
 ```
 
-above commands install latest (development) state of the program
+Above commands install latest (development) state of the program.
 
-now you can run interpreter in terminal:
+Now you can run Interpreter in terminal:
 
 ```bash
 pashmak --info # shows info about pashmak
@@ -107,25 +107,27 @@ python3 src/pashmak.py
 ```
 
 #### uninstallation
-to uninstall pashmak, run this make command in terminal:
+To uninstall Pashmak, run this make command in terminal:
 
 ```bash
 sudo make uninstall
 ```
 
-pashmak will be remove from your system.
+Or manually remove `/usr/bin/pashmak`.
+
+Pashmak will be remove from your system.
 
 ### Windows
-in windows, you can run program with python interpreter without compiling:
+In Windows, you can run program with python interpreter without compiling:
 
 ```bash
 cd \path\to\project
 python src\pashmak.py
 ```
 
-but also you can compile it with `pyinstaller`. if you don't have pyinstaller, enter `pip install pyinstaller` in command line
+But also you can compile it with `pyinstaller`. If you don't have Pyinstaller, run `pip install pyinstaller` in command line.
 
-compile:
+Compile:
 
 ```bash
 # install pyinstaller with pip
@@ -146,7 +148,7 @@ dist\pashmak.exe -v
 
 ## Basics
 
-a simple printing in pashmak on screen:
+A simple printing in Pashmak:
 
 ```bash
 mem 'something to print\n'; print ^
@@ -160,28 +162,28 @@ print 'something to print\n';
 
 #### how it works?
 
-first, we go through pashmak syntax structure.
-the base structure of pashmak syntax is this:
+First, we go through pashmak syntax structure.
+The base structure of pashmak syntax is this:
 
 ```bash
-<operation> [arguments];
-<operation> [arguments];
-<operation> [arguments]; <operation> [arguments];
+<operation> [arguments]
+<operation> [arguments]
+<operation> [arguments]; <operation> [arguments]
 ```
 
-in this example, we have two operations:
+In this example, we have two operations:
 
 ```bash
 mem 'something to print\n'; # first operation
-out ^; # second operation
+print ^; # second operation
 ```
 
 ##### NOTE: the `;` in the end of lines is not required. you can write your code without `;` IF you don't want to write two or more operations in one line
 
-here, mem is an operation and `'something to print\n'` is the argument of that, and
-out is an operation and `^` is the argument of that.
+Here, `mem` is an operation and `'something to print\n'` is the argument of that, and
+`print` is an operation and `^` is the argument of that.
 
-but what is the function of this code?
+But what is the function of this code?
 
 when you run the script in terminal:
 
@@ -197,22 +199,22 @@ you will get this output:
 something to print
 ```
 
-this code, prints `'some thing to print'` on the stdout.
+This code, prints `'some thing to print'` on the stdout.
 but how?
 
-first, `mem` command brings the string `'some thing to print'` in memory, and next `out` command prints the memory value on screen.
+First, `mem` command brings the string `'some thing to print'` in memory, and next `print` command prints the memory value on screen.
 
 ### what is `mem`?
-mem is a temp place to make values.
+mem is a temp place to make and calculate values.
 
 ```bash
 mem 'hello world'
 print ^ # the ^ is pointer of mem
 ```
 
-the ^ is pointer of mem
+The `^` is pointer of the mem.
 
-you can also write the code like this to have shorter code (we have to use `;` to seprate them):
+You can also write the code like this to have shorter code (we have to use `;` to seprate them):
 
 ```bash
 mem 'hello world\n'; print ^
@@ -222,7 +224,7 @@ mem 'hello world\n'; print ^
 
 #### mem is temp
 
-look at this example:
+Look at this example:
 
 ```bash
 mem 'some thing\n'
@@ -232,11 +234,11 @@ print ^ # output: some thing
 print ^ # output: None
 ```
 
-why in the first time when mem value was read, the value correctly was printed on screen, but in the second time, the `None` was printed?
+Why in the first time when mem value was read, the value correctly was printed on screen, but in the second time, the `None` was printed?
 
-because memory is temporary. when you read the memory, that will be empty after read automaticly.
+Because memory is a temp place. When you read the memory, that will be empty after read automaticly.
 
-look at this example:
+Look at this example:
 
 ```bash
 mem 'first value\n'
@@ -253,12 +255,12 @@ first value
 second value
 ```
 
-###### NOTE: the # character is comment operation. you can put comment in your code after # character
+###### NOTE: the # character is comment operation. you can put comment in your code after # character. comments have not any effect in program
 
 ### more about mem
-you can calculate every thing in mem
+You can calculate every thing in the `mem`.
 
-for undrestanding, look at the following examples:
+For undrestanding this, look at the following examples:
 
 ```bash
 mem 'hi there'; print ^ # output: hi there
@@ -276,10 +278,10 @@ mem str(7*7) + ' is sum'; print ^ # output: 49 is sum
 # in here you can not paste number to string. first need to convert num to str with str()
 ```
 
-the `mem` command is absolutely important and you need to use it everywhere
+**The mem structure, is handled by Python(eval function) and you can use all of python operations in the mem calculation**
 
-#### print `;` and `#`
-for printing `;` and `#` special characters, put a `\` before them:
+#### Print `;` and `#`
+For printing `;` and `#` special characters, put a `\` before them:
 
 ```bash
 mem 'this is \; semicolon\n'; print ^
@@ -293,7 +295,7 @@ this is ; semicolon
 this is # sharp
 ```
 
-### printing without using mem
+### Printing without using mem
 this is a easier syntax for printing:
 
 ```bash
@@ -311,13 +313,13 @@ print 'num is ' + str(100+7)
 
 you can use all of features of `mem` in the argument of commands like above example.
 
-after this, we never use `mem <something>; print ^;` pattern for printing, and we just use `print` command.
+after this, we never use `mem <something>; print ^` pattern for printing, and we just use `print` command.
 
 ### println
 
-if you want to print something and go next line, you have to put `\n` after your string.
+If you want to print something and go next line, you have to put `\n` in the end of string.
 
-but with `println` command, you don't need to use `\n` and that will put automaticaly:
+But with `println` function, you don't need to use `\n` and that will put automaticaly:
 
 ```bash
 println 'hello world'
@@ -329,7 +331,7 @@ output:
 hello world<nextline>
 ```
 
-also there is a alias for `println`, this is `printl`:
+Also there is a alias for `println`, this is `printl`:
 
 ```bash
 #println "hello world"
@@ -340,9 +342,9 @@ printl "hello world"
 
 ## Variables
 
-variables are like a pot where you can save data in it
+Variables are like a pot which you can save data in them.
 
-we work with three commands: `set`, `copy`, `free`, to set and handle variables in pashmak
+Look at this example:
 
 ```bash
 $myvar = 'this is data'
@@ -352,16 +354,16 @@ println $myvar # output: this is data
 
 ###### NOTE: always put $ before name of variable everywhere
 
-also you can set more than one variable with `set` command:
+Declaring variables is so easy, only you have to write `$<name_of_variable>`.
+
+Also you can set variables without value like this example:
 
 ```bash
-set $var1
-# or
 $var1
 $var2; $var3 # default value is null
 ```
 
-### use variables in mem
+### Using variables in mem calculation
 
 look at this example:
 
@@ -373,7 +375,7 @@ println 'hello ' + $name # output: hello parsa
 $num = 12
 println $num * 5 # output: 60
 
-$num2 = 4 # alias of `copy ^ $num2`
+$num2 = 4
 
 println $num * $num2 + 1 # output: 49
 ```
@@ -391,25 +393,28 @@ println $var2 # output: bye
 
 $var2 = $var1
 
-out $var1 # output: hi
-out $var2 # output: hi
+println $var1 # output: hi
+println $var2 # output: hi
 
+$name = 'parsa'
+$message = 'hello' + $parsa # you can use all of mem calculation features in here
+println $message # output: hello parsa
 ```
 
-#### NOTE: allowed characters for variable name are `A-Z`, `a-z`, `&._` characters.
+#### NOTE: allowed characters for variable name are `A-Za-z`(or any alpha-bet characters in other languages), `&._` characters.
 
-### put `mem` value to variable
+### Put `mem` value to variable
 
-we can set value of mem to variables with this code:
+We can set value of mem to variables with this code:
 
 ```bash
 mem 'something'
 $myvar = ^
 ```
 
-if you put `^` (mem symbol) as value, memory value will put in the variable
+If you put `^` (mem symbol) as value, memory value will put in the variable.
 
-also you can use that mem alongside another values.
+Also you can use that mem alongside another values.
 
 for example:
 
@@ -423,7 +428,7 @@ println (^ + 5) * 2 # output: 30
 ```
 
 ### free(delete) variables
-when you set a variable, that var is in memory. you can delete that var with `free` command:
+When you set a variable, that var is in memory. you can delete that var with `free` command:
 
 ```bash
 $somevar = 'some value'
@@ -434,14 +439,14 @@ free $somevar
 println $somevar # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
 ```
 
-also you can make free more than one variable with `free` command:
+Also you can make free more than one variables with `free` command:
 
 ```bash
 free $var1 $var2 $var3 # ...
 ```
 
-### checking a variable isset
-you can check a variable existens with `isset` command
+### Checking a variable isset
+You can check a variable existens with `isset` command.
 
 look at this example:
 
@@ -454,13 +459,15 @@ isset $somevar $sassadffgdty; println ^ # output: False
 isset $somevar $v; println ^ # output: True
 ```
 
+(The `True` and `False` are Python booleans).
+
 #### how it works?
 
-the isset command gets one or more variable names and if all of that vars exist, it will put `True` in  memory and if all or one/more of them are not exists, it will put `False` in memory
+The isset command gets one or more variable names and if all of that vars exist, it will put `True` in  memory and if all or one/more of them are not exists, it will put `False` in memory
 
 ### typeof command
 
-you can get the data type of a variable with `typeof` function.
+You can get the data type of a variable with `typeof` function.
 
 look at this example:
 
@@ -477,11 +484,13 @@ typeof($mybool); println ^ # output: <class 'bool'>
 # NOTE: the `()` is not required
 ```
 
-this command puts the typeof variable in mem
+This command puts the typeof variable in mem.
+
+(All of pashmak datatypes are handled by python and you can use all of python variables features).
 
 ### required command
 
-the required command requiring an variable existens.
+The required command requiring an variable existens.
 
 look at this example:
 
@@ -500,14 +509,20 @@ but now we comment the first line:
 required $name
 ```
 
-now $name variable is not set, and you will get this error:
+now `$name` variable is not exists, and you will get this error:
 
 ```
-VariableError:
-    undefined variable $name
+VariableError: undefined variable $name
 ```
 
-the `required` command checks a variable is exists, if no, raising RequireError
+The `required` command checks a variable is exists, if no, raises VariableError.
+
+also you can check more than one variables:
+
+```bash
+required $a, $b
+# you have to seprate them with `,`
+```
 
 ### python datatype methods
 datatype of the pashmak variables, is handled by python. this means you can use all python methods on them.
@@ -522,7 +537,7 @@ println $mystring->strip() # output: `hello world`
 #### NOTE: in python, for calling function or access to property of a object, we use `.` character, but in pashmak we use `->` symbol(like php)
 
 ## Constants
-constants (consts) are even like variables, but one thing is different in constants, **Constants values cannot be changed**.
+Constants (consts) are even like variables, but one thing is different in constants, **Constant value cannot be changed**.
 
 for example:
 
@@ -539,7 +554,7 @@ output:
 the value
 ```
 
-to declare consts, you only need to put a `&` in the name of variable(location of that is not important).
+To declare consts, you only need to put a `&` in the name of variable(location of that is not important).
 
 ```bash
 $&const1 = 123
@@ -547,7 +562,7 @@ $&const2 = 'fsgdf'
 # ...
 ```
 
-when we try to change value of the const, we will get error:
+When we try to change value of the const, we will get error:
 
 ```bash
 $&name = 'the name'
@@ -580,11 +595,13 @@ output:
 parsa
 ```
 
+But in the second time, error will be raised.
+
 
 
 ## Read Input From User
 
-you can read input from user in stdin
+You can read input from user in stdin.
 
 look at this example:
 
@@ -595,18 +612,18 @@ read $name # read a input and copy that in $name variable
 println 'hello ' + $name # say hello to $name :)
 ```
 
-when we run this code, output is this:
+When we run this code, output is this:
 
 ```
 what is your name? <input>parsa
 hello parsa
 ```
 
-after print `what is your name? ` program waits for input, and when you type something and press enter, program prints `hello <your-input>`
+after print `what is your name? ` program waits for input, and when you type something and press enter, program prints `hello <your-input>`.
 
-for example here I entered `parsa` as input and program printed `hello parsa`
+for example here I entered `parsa` as input and program printed `hello parsa`.
 
-we can get input from user like above example
+We can get input from user like above example.
 
 also look at this example:
 
@@ -637,7 +654,7 @@ enter second number: <input>2
 14
 ```
 
-this example gets two numbers from user and shows sum of them
+this example gets two numbers from user and shows sum of them.
 
 also you can read value directly:
 
@@ -648,9 +665,11 @@ println 'hello ' + $name
 ```
 
 the `^ read ^` reads value and puts that in the variable.
+actually, `read ^` reads value and puts that in the mem, the `^ read ^`, reads that and puts into that variable which this value is assigned to that.
 
-### read command line arguments
-to access command line arguments, you can use `$argv` variable.
+### Reading command line arguments
+To access command line arguments, you can use `$argv` variable.
+this variable is a public variable and is list contains command line arguments.
 
 look at this example:
 
@@ -670,12 +689,15 @@ output:
 hello
 ```
 
-actualy, `$argv` is an array contains command line arguments.
+Type of `$argv` is the python `list`.
 
 
 
 # Sections
-section is a system to make pointer to a part of code. this is useful to create loop, if and...
+Section is a system to make pointer to a part of code. this is useful to create loop, if and... and is used to handle program flow.
+
+Actually, programs flow maybe changed by conditions and loop...
+the section system is used to control program flow.
 
 look at this example:
 ```bash
@@ -684,9 +706,9 @@ section my_loop
 goto my_loop
 ```
 
-this code prints `hello world` non-stop
+this code prints `hello world` non-stop.
 
-actually when my code starts, prints hello world and then `goto` commands directs program step to the `my_loop` section and it will repeat again and again.
+Actually when my code starts, prints hello world and then `goto` commands directs program step to the `my_loop` section and it will repeat again and again.
 
 ###### NOTE: that TAB before `println 'hello world'...` line is not required. this is writen only to have beautiful code
 
@@ -701,7 +723,8 @@ section loop
 mem $i < 10; gotoif loop # check the condition in `mem` and use gotoif command
 ```
 
-the output of this code is
+the output of this code is:
+
 ```
 1
 2
@@ -720,13 +743,13 @@ we have 3 operations about section system:
 - gotoif
 
 ### section
-this command gets name of section as parameter like above examples. this is for declare the section
+This command gets name of section as parameter like above examples. This is for declaring the sections.
 
 ### goto
-goto gets a name as section name and goto to that section.
+goto command gets a name as section name and brings program current step to that section.
 
 ### gotoif
-gotoif checks `mem` and if mem is True, will go to wanted section. if not, do nothing and continue
+gotoif checks `mem` and if mem is True, will go to wanted section. if not, does nothing and continue.
 
 look at this example:
 
@@ -769,6 +792,9 @@ enter your age: <input>14
 you are less than 18
 program ends
 ```
+
+The above example is used to create conditions.
+That code gets age of user as a integer, and checks conditions on that and does something by that conditions.
 
 
 
@@ -901,7 +927,7 @@ this is a test
 
 
 # Functions
-function is a system to make alias for some codes (function).
+Function is a system to make alias for some codes (function).
 
 look at this example:
 ```bash
@@ -910,8 +936,8 @@ func say_hello
 endfunc
 
 say_hello
-# or
-say_hello()
+# or with `()`
+#say_hello()
 ```
 
 output:
@@ -925,6 +951,7 @@ func say_hello
     println 'hello world'
 endfunc
 
+# we run this two times
 say_hello
 say_hello()
 ```
@@ -937,13 +964,13 @@ hello world
 ```
 
 
-you can declare a function and call it from everywhere. when you call a function, all of codes inside that function will run
+You can declare a function and call it from everywhere. when you call a function, all of codes inside that function will be runed.
 
-for declare a function you have to write `func <name-of-function>;`. and write codes. then for close function write `endfunc;` after codes
+for declare a function you have to write `func <name-of-function>` and write codes. then for close function write `endfunc` after codes.
 
 look at this smarter function:
 ```bash
-mem 'program started\n'; out ^
+mem 'program started\n'; print ^
 
 func say_hello
     $name = ^ # copy mem to $name
@@ -967,7 +994,7 @@ for pass argument to the Functions, you can put value after name of function:
 
 ```bash
 func myfunc
-    out ^
+    print ^
 endfunc
 
 myfunc "hello"
@@ -980,6 +1007,14 @@ output:
 ```
 hello
 ```
+
+This is exactly like
+
+```
+mem 'something'; some_func
+```
+
+but with better syntax, you only need to run `some_func 'something'`.
 
 ##### NOTE: using `()` in end of function is optional. for example:
 
@@ -1217,14 +1252,15 @@ like it:
 
 ```bash
 $variable = ^ my_command_or_function 'my', 'arguments'
+# above code will put mem value to the variable after run above function or command
 ```
 
-and them this code will run and mem value will put into the variable
+and them this code will run and mem value will put into the variable(actually, puts result of command or function into the variable).
 
 
 
 # Arrays
-arrays are a list from variables
+arrays are a list from variables.
 
 look at this example:
 
@@ -1260,45 +1296,60 @@ jack
 
 the above code prints names one by one
 
-### arraypush
-you can add new item to a array:
-
-```bash
-$myarray = ['red', 'green', 'blue']
-println $myarray # output: ['red', 'green', 'blue']
-
-mem 'yellow'; arraypush $myarray ^ # add mem (^) to the $myarray
-println $myarray # output: ['red', 'green', 'blue', 'yellow']
-```
-
-`arraypush` operation gets two argument: array and new item you want to add to the array
-
-also you can use python methods:
+### adding new item to array
+you can add new item to an array by using python `append` and `insert` methods:
 
 ```bash
 $myarray = ['first', 'second']
+println $myarray
+
 mem $myarray->append('new item')
+println $myarray
 ```
 
-### arraypop
-you can delete a item from array:
+output:
+
+```
+['first', 'second']
+['first', 'second', 'new item']
+```
+
+also with `insert` method you can set the location of new item:
 
 ```bash
-$myarray = ['red', 'green', 'blue']
-println $myarray # output: ['red', 'green', 'blue']
+$myarray = ['one', 'two', 'four']
+println $myarray
 
-mem 1; arraypop $myarray ^ # remove index mem (^) from $myarray
-println $myarray # output: ['red', 'blue']
+mem $myarray->insert(3, 'three')
+println $myarray
 ```
 
-`arraypop` operation gets two argument: array and index of that item you want to be remove from array
+output:
 
-also you can use python methods:
+```
+['one', 'two', 'four']
+['one', 'two', 'three', 'four']
+```
+
+### removing an item from array
+you can delete an item from array by using python `pop` method:
 
 ```bash
 $myarray = ['first', 'second']
-mem $myarray->pop(0)
+println $myarray
+
+mem $myarray->pop(1)
+println $myarray
 ```
+
+output:
+
+```
+['first', 'second']
+['first']
+```
+
+also `pop` method without argument removes last item by default.
 
 
 
@@ -1328,10 +1379,10 @@ output:
 
 ```
 SyntaxError:
-        undefined operation "outttt"
+        undefined operation "printlgdfgfd"
 ```
 
-they are errors
+they are errors.
 
 ##### but how to handle errors?
 
@@ -1348,14 +1399,13 @@ goto after_error
 
 section handle_error
 
-mem 'some errors raised\n'; out ^
+mem 'some errors raised\n'; print ^
 
 section after_error
 ```
 
 when you write code between `try <section-name> ... endtry`, errors will not raised in them and if an error is raised, that section where passed to try operation will run.
-
-this is helpful.
+actually, we say to the Pashmak to don't show error to user and do that thing I'm saying you instead of default error showing.
 
 #### how to access raised error data?
 
@@ -1377,6 +1427,10 @@ section after_error
 ```
 
 #### raising errors
+Your self can raise errors in the program.
+
+for example:
+
 ```bash
 println 'program started'
 
@@ -1394,7 +1448,7 @@ progrma started
 MyError: this is my error
 ```
 
-the `raise` function can raise errors in program
+The `raise` function can raise errors in program.
 
 first argument `'TheError'` is error type and second error `'this is my error'` is error message.
 
@@ -1402,7 +1456,7 @@ first argument `'TheError'` is error type and second error `'this is my error'` 
 
 # OS Commands
 
-here is some commands about OS
+here is some commands about OS.
 
 ### chdir
 change directory. with this command you can change program working directory:
@@ -1430,7 +1484,7 @@ or:
 ```bash
 cwd # or `cwd()`
 $cwd = ^
-println $cwd
+println 'The current working directory is ' + $cwd
 ```
 
 or:
@@ -1440,7 +1494,7 @@ $cwd = ^ cwd
 println $cwd
 ```
 
-this command puts current working directory path in mem
+this command puts current working directory path into the mem.
 
 ### system
 you can run shell commands by this command:
@@ -1454,6 +1508,12 @@ also after run `system` function, exit code will put in `mem`:
 ```bash
 system 'ls /'
 println ^ # output: 0
+```
+
+or:
+
+```bash
+$exit_code = ^ system 'ls /'
 ```
 
 ### exit
@@ -1484,13 +1544,6 @@ exit 1
 
 exit code of program will be `1`
 
-or you can use `exit` command:
-
-```bash
-exit # with 0 default exit code
-exit 10 # with 10
-```
-
 ### `$__file__` and `$__dir__` variables
 `$__file__` and `$__dir__` variables are two variables contains self script filepath and dirpath.
 
@@ -1514,7 +1567,7 @@ The `$__dir__` variable contains dirpath of current running script.
 
 
 
-# Include scripts
+# Importing scripts
 you can distribute your code in more than 1 files.
 
 for example, we have 2 files: `app.pashm`, `fib.pashm`.
@@ -1522,6 +1575,7 @@ for example, we have 2 files: `app.pashm`, `fib.pashm`.
 
 ###### fib.pashm:
 ```bash
+# this function prints fibonacci pattern
 func fib
     $a = 1
     $b = 1
@@ -1546,12 +1600,12 @@ import 'fib.pashm'
 fib
 ```
 
-when we run `import` function and pass a file path to that, content of that file will be included in our code and will run. for example, here we used a function from the `fib.pashm` file.
+when we run `import` function and pass a file path to that, content of that file will be included in our code and will be runed. for example, here we used a function from the `fib.pashm` file.
 
-also you can import more than 1 scripts in one line:
+also you can import more than 1 scripts in one command:
 
 ```bash
-# seprate them with `,`
+# seprate them with `,` (actially a tuple or list)
 import 'a.pashm', '/path/to/b.pashm', 'dir/c.pashm'
 # or with () is not different
 import('a.pashm', '/path/to/b.pashm', 'dir/c.pashm')
@@ -1584,7 +1638,7 @@ hello world
 hello world
 ```
 
-actualy, everything where is declared between `namespace <something>;` and `endnamespace;` will be under this.
+actualy, everything which is declared between `namespace <something>` and `endnamespace` will be under this.
 
 in above example, we declared a namespace named `App`. and we declared `say_hello` function in that.
 
@@ -1886,17 +1940,6 @@ $my_object = ^ new TheClassName
 
 the `new` command gets name of class and creates an instance from that and puts that in the mem temp value.
 means, if i want to put created object in a variables, i need to write `$var = ^ new ClassName`.
-
-also we can create that with another syntax:
-
-```bash
-$my_object # declare the variable
-new ClassName # create the object
-copy $my_object # copy created object to variable
-
-# finally
-$my_object; new ClassName; copy $my_object
-```
 
 now, we can create object from a class. how to access to the properties? look at this example:
 
@@ -2245,7 +2288,7 @@ you can run pashmak code from string.
 look at this example:
 
 ```bash
-mem 'println "hello world from string"'; eval ^
+eval 'println "hello world from string"'
 ```
 
 output:
@@ -2254,14 +2297,13 @@ output:
 hello world from string
 ```
 
-this code is runed from a string
+this code is runed from a string.
 
 look at this example:
 
 ```bash
-$code
 print 'enter some code: '
-read $code
+$code; read $code
 
 eval $code
 ```
@@ -2269,18 +2311,11 @@ eval $code
 output:
 
 ```
-enter some code: <input>mem 'hi\n'; out ^;
+enter some code: <input>mem 'hi\n'; print ^;
 hi
 ```
 
 the above code gets a string from user and runs that as pashmak code.
-
-also you can use `std_eval` function to have easier syntax:
-
-```bash
-# you can pass value directly
-std_eval '<some-code>'
-```
 
 ## run python code
 you can run python code like `eval` with `python` command:
@@ -2298,18 +2333,15 @@ hello world from python
 
 
 
-
 # Internal Modules
 pashmak has some internal libraries to use. that modules are helpful for you.
 
 ## how to import module
-you can import modules with `include` operation.
+you can import modules with `import` function.
 
 look at this example:
 
 ```bash
-mem '@hash'; include ^
-# or using import to have easier syntax
 import '@hash'
 import "@module_name"
 import "@module1", '@module2'
@@ -2332,10 +2364,10 @@ you have to give name of module with a `@` before that to the include operation.
 with hash module, you can calculate hash sum of values:
 
 ```bash
-import '@hash'
+import @hash
 
 hash.sha256 "hello" # also you can use hash.md5 and...
-out ^ # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+println ^ # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 ```
 
 ##### how it works?
@@ -2365,10 +2397,10 @@ with this module, you can work with time.
 this function gives you current UNIX timestamp:
 
 ```bash
-import '@time'
+import @time
 
 time.time
-out ^ # output is some thing like this: `1600416438.687201`
+println ^ # output is some thing like this: `1600416438.687201`
 ```
 
 when you call this function, this function puts the unix timestamp into mem and you can access and use that.
@@ -2377,7 +2409,7 @@ when you call this function, this function puts the unix timestamp into mem and 
 this function sleeps for secounds:
 
 ```bash
-import '@time'
+import @time
 
 time.sleep 2 # sleeps for 2 secounds
 # mem 2.4; time.sleep; # sleepss for 2.4 secounds
@@ -2399,20 +2431,20 @@ this module makes random numbers
 
 ##### random.randint
 ```bash
-import '@random'
+import @random
 
 random.randint 1, 10 # generates a random int between 1 and 10
 
-out ^ # and puts generated random number in mem and you can access that
+println ^ # and puts generated random number in mem and you can access that
 ```
 
 ##### random.random
 ```bash
-import '@random'
+import @random
 
 random.random # generates a random float less that 1
 
-out ^ # and puts generated random number in mem and you can access that
+println ^ # and puts generated random number in mem and you can access that
 ```
 
 ### file module
@@ -2422,7 +2454,7 @@ with this module, you can work with files smarter.
 with this function, you can open a file:
 
 ```bash
-import '@file'
+import @file
 
 file.open '/path/to/file.txt', 'r' # first argument is file path, and second argument is open type. here is `r` means `read`
 
@@ -2439,19 +2471,19 @@ $f = ^ file.open '/path/to/file.txt', 'r'
 wtih this function, you can read opened file:
 
 ```bash
-import '@file'
+import @file
 
 $f = ^ file.open '/path/to/file.txt', 'r'
 
 file.read $f # now, content of file is in the mem
-out ^ # output is content of file
+println ^ # output is content of file
 ```
 
 ##### file.write
 with this function, you can write on opened file:
 
 ```bash
-import '@file'
+import @file
 
 $f = ^ file.open '/path/to/file.txt', 'w' # open type is `w` (write)
 
@@ -2464,7 +2496,7 @@ now file is changed
 with this function you can close file after your work:
 
 ```bash
-import '@file'
+import @file
 
 $f = ^ file.open '/path/to/file.txt', 'r'
 
@@ -2476,7 +2508,7 @@ file.close $f # close file after work
 ##### example:
 
 ```bash
-import '@file'
+import @file
 
 $file = ^ file.open '/path/to/file.txt', 'r'
 
@@ -2503,7 +2535,7 @@ assert 'foo' == 'bar' # error: AssertError
 asserts true:
 
 ```bash
-import '@test'
+import @test
 
 test.assertTrue True
 test.assertTrue 5 == 5
@@ -2685,7 +2717,7 @@ with this feature, you can add another directories to your path and load modules
 for example:
 
 ```bash
-import '@sys'
+import @sys
 
 sys.path.add '/home/parsa/my-directory';
 ```
@@ -2720,8 +2752,6 @@ also you can get list of module paths:
 import '@sys'
 
 $module_paths = ^ sys.path.list
-# OR
-$module_paths; sys.path.list; copy $module_paths
 
 println $module_paths
 ```
@@ -2735,7 +2765,6 @@ output:
 ### Another useful libraries written by others
 
 - The [polor-pashm](https://github.com/sami2020pro/polor-pashm) library by [sami2020pro](https://github.com/sami2020pro)
-
 
 
 

@@ -20,7 +20,7 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Version of pashmak '''
+""" Version of pashmak """
 
 # pashmak version
-version = 'v0.6-alpha3'
+version = 'v0.6-alpha4'

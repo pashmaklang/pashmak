@@ -1,5 +1,5 @@
 #
-# 3.pashmt
+# eval-bug001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,9 +21,11 @@
 #########################################################################
 
 --test--
-out command raises error when argument syntax is not valid
+eval command state bug is fixed
 
 --file--
-out sfgfdgdfhd
+$name = 'parsa'
+eval 'println "hello " + $name'
 
---with-error--
+--output--
+'hello parsa\n'

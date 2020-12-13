@@ -22,22 +22,22 @@
 
 namespace time
     func time
-        python 'self.mem = time.time()'
+        mem time.time()
     endfunc
 
     func sleep ($time_to_sleep)
-        python 'self.mem = time.sleep(' + str($time_to_sleep) + ')'
+        mem time.sleep($time_to_sleep)
     endfunc
 
     func ctime
-        python 'self.mem = time.ctime()'
+        mem time.ctime()
     endfunc
 
     func gmtime
-        python 'self.mem = time.gmtime()'
+        mem time.gmtime()
     endfunc
 
     func localtime
-        python 'self.mem = time.localtime()'
+        mem time.localtime()
     endfunc
 endnamespace

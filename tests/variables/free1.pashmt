@@ -23,6 +23,6 @@
 --test--
 free command is working on mem
 --file--
-mem 'some thing'; free ^;
+mem 'some thing'; free ^
 --mem--
 None

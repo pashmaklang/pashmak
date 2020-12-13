@@ -23,8 +23,8 @@
 --test--
 free command is working
 --file--
-set $somevar $v1;
-set $hoho;
-free $v1 $hoho;
+$somevar; $v1
+$hoho
+free $v1 $hoho
 --vars--
 {'somevar':None}

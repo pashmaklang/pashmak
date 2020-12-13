@@ -25,7 +25,7 @@ namespaces can be declared and called
 --file--
 namespace MySpace
     func dosomething
-        print 'hello world\n'
+        println 'hello world'
     endfunc
     MySpace.dosomething
     dosomething

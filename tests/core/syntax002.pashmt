@@ -1,5 +1,5 @@
 #
-# 2.pashmt
+# syntax002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,10 +21,23 @@
 #########################################################################
 
 --test--
-out command raises error when argument is not passed
+literal chars can be used in strings
 
 --file--
-out
 
---with-error--
-'ArgumentError'
+println 'hello ^'
+
+mem 'hi there'
+println 'string is ' + ^
+
+$var = 'is dolar'
+println 'this $ ' + $var
+
+println 'this \' is quote and ", \" is quote and \\"'
+
+--output--
+"""hello ^
+string is hi there
+this $ is dolar
+this ' is quote and ", " is quote and \\"
+"""

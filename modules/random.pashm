@@ -22,10 +22,10 @@
 
 namespace random
     func randint ($args)
-        python 'self.mem = random.randint(' + str($args[0]) + ',' + str($args[1]) + ')'
+        mem random.randint($args[0], $args[1])
     endfunc
 
     func random
-        python 'self.mem = random.random()'
+        mem random.random()
     endfunc
 endns

@@ -1,5 +1,5 @@
 #
-# 1.pashmt
+# append.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,13 +21,13 @@
 #########################################################################
 
 --test--
-python exec system is working with variable arguments
+$array->append() works
 
 --file--
-set $code;
-mem "self.all_vars()['myvar'] = 'the value'"; copy $code;
-python $code;
-free $code
-
+$names = ['pashmak', 'parsa']
+mem $names->append('newname')
 --vars--
-{'myvar': 'the value'}
+
+{'names': [
+    'pashmak', 'parsa', 'newname'
+]}

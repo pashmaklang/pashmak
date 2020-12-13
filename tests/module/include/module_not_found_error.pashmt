@@ -23,6 +23,6 @@
 --test--
 include command raises error when module not found
 --file--
-mem '@notfound233445'; include ^
+import '@notfound233445'
 --with-error--
 'ModuleError'

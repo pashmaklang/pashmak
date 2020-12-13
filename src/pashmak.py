@@ -26,7 +26,7 @@
 import sys
 import os
 import signal
-from syntax import parser
+import syntax_parser as parser
 from core import program, version
 
 def signal_handler(signal_code, frame):

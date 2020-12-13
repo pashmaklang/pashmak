@@ -30,3 +30,4 @@ read gfhfjhgjgjgh
 ['test']
 
 --with-error--
+'SyntaxError'

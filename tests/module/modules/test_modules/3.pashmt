@@ -23,7 +23,7 @@
 --test--
 test module assertEquals function raises error when condition is False
 --file--
-import '@test';
-test.assertEquals 2, 8;
+import '@test'
+test.assertEquals 2, 8
 --with-error--
 'AssertError'

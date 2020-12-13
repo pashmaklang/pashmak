@@ -21,10 +21,11 @@
 #########################################################################
 
 --test--
-include command is working with variable as argument
+import command is working with variable as argument
+
 --file--
-set $path;
-mem 'examples/will_be_include.pashm'; copy $path;
-include $path;
+$path = 'examples/will_be_include.pashm'
+import $path;
+
 --output--
 'i am included\n'

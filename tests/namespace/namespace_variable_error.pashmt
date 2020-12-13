@@ -24,9 +24,9 @@
 namespace variable is declared inside namespace and is not accessible from outside
 --file--
 namespace App
-    set $name; mem 'parsa'; copy $name
+    $name = 'parsa'
 endns
-out $name
+print $name
 
 --with-error--
 'VariableError'

@@ -23,6 +23,6 @@
 --test--
 free command raises error when arguments syntax is not valid
 --file--
-free $somevar gdhfg ^;
+free $somevar gdhfg ^
 --with-error--
 'SyntaxError'

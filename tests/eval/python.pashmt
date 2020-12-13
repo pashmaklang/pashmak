@@ -1,5 +1,5 @@
 #
-# copy.py
+# python.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,33 +20,14 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Copies a variable or mem into another variable '''
+--test--
+python exec system is working
 
-def run(self, op: dict):
-    ''' Copies a variable or mem into another variable '''
-    args = op['args']
+--file--
+python "self.all_vars()['myvar'] = 'the value'"
+python "self.mem = 'the mem'"
 
-    if len(args) <= 0:
-        self.raise_error('ArgumentError', 'copy command gets two arguments', op)
-
-    first_var = args[0]
-
-    if len(args) == 1:
-        mem = self.get_mem()
-        self.set_var(first_var[1:], mem)
-        return
-
-    second_var = args[1]
-
-    try:
-        if first_var == '^':
-            first_var_value = self.get_mem()
-        else:
-            first_var_value = self.get_var(first_var[1:])
-    except KeyError:
-        self.raise_variable_error(first_var, op)
-
-    if second_var == '^':
-        self.mem = first_var_value
-    else:
-        self.set_var(second_var[1:], first_var_value)
+--vars--
+{'myvar': 'the value'}
+--mem--
+'the mem'

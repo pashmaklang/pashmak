@@ -21,8 +21,8 @@
 #########################################################################
 
 --test--
-include command raises error when variable not found
+import command raises error when variable not found
 --file--
-include $not_found
+import $not_found
 --with-error--
 'VariableError'

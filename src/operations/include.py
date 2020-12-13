@@ -23,7 +23,7 @@
 ''' Includes another script file to program '''
 
 import os
-from syntax import parser
+import syntax_parser as parser
 from core import modules
 
 def run(self, op: dict):

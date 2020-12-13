@@ -26,17 +26,17 @@ file module is working
 import @file
 $tmp_file
 python "import tempfile, random\; self.mem = tempfile.gettempdir().replace('\\\\', '/') + '/' + 'pashmak-test-file-' + str(random.random())"
-copy $tmp_file
+$tmp_file = ^
 
 file.open [$tmp_file, 'w']
-set $file; copy $file
+$file = ^
 
 file.write [$file, "content of file"]
 file.close $file
 
 file.open [$tmp_file, 'r']
-copy $file
-file.read $file; out ^
+$file = ^
+file.read $file; print ^
 file.close $file
 
 mem os.remove($tmp_file)

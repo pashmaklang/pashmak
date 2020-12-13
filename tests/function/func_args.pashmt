@@ -23,13 +23,13 @@
 --test--
 functions argument will be set correctly
 --file--
-func myfunc;
-    out ^;
-endfunc;
+func myfunc
+    print ^
+endfunc
 myfunc "hello world"
 myfunc 2*3
 
-$var = 'test';
+$var = 'test'
 
 myfunc 'this is ' + $var
 

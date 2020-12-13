@@ -23,7 +23,7 @@
 --test--
 read command can read data and put it in a variable
 --file--
-set $input; read $input; out $input;
+$input; read $input; print $input
 --stdin--
 ['pashmak']
 --output--

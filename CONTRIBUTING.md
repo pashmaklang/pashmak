@@ -174,7 +174,7 @@ println 'hello world'
 $foo = 'bar'
 $name = 'pashmak'
 mem 'the mem'
-return 5
+exit 5
 
 --output
 "hello world\n"

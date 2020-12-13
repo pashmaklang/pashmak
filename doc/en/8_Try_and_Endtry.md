@@ -24,10 +24,10 @@ output:
 
 ```
 SyntaxError:
-        undefined operation "outttt"
+        undefined operation "printlgdfgfd"
 ```
 
-they are errors
+they are errors.
 
 ##### but how to handle errors?
 
@@ -44,14 +44,13 @@ goto after_error
 
 section handle_error
 
-mem 'some errors raised\n'; out ^
+mem 'some errors raised\n'; print ^
 
 section after_error
 ```
 
 when you write code between `try <section-name> ... endtry`, errors will not raised in them and if an error is raised, that section where passed to try operation will run.
-
-this is helpful.
+actually, we say to the Pashmak to don't show error to user and do that thing I'm saying you instead of default error showing.
 
 #### how to access raised error data?
 
@@ -73,6 +72,10 @@ section after_error
 ```
 
 #### raising errors
+Your self can raise errors in the program.
+
+for example:
+
 ```bash
 println 'program started'
 
@@ -90,6 +93,6 @@ progrma started
 MyError: this is my error
 ```
 
-the `raise` function can raise errors in program
+The `raise` function can raise errors in program.
 
 first argument `'TheError'` is error type and second error `'this is my error'` is error message.

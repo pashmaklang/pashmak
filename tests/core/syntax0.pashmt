@@ -24,7 +24,7 @@
 syntax space handling working
 --file--
 
-mem 'hello  world'; out  ^;
+print 'hello  world'
 
 --output--
 

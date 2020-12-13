@@ -23,10 +23,10 @@
 --test--
  ime module is working
 --file--
-import '@time';
-time.time;
-time.sleep 0.01;
-time.ctime;
-time.gmtime;
-time.localtime;
+import '@time'
+time.time
+time.sleep 0.01
+time.ctime
+time.gmtime
+time.localtime
 # ONLY NEEDS TO BE RUNED WITHOUT ERROR

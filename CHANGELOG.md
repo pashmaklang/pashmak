@@ -1,8 +1,7 @@
 # Pashmak Changelog
 
-## 0.6, 0.6-alpha3 (2020-12-11)
+## 0.6, 0.6-alpha4 (2020-12-11)
 
-- removed `loop` and `while` functions
 - created **Class** system
 - change default `RuntimeError` name to the real python exception name in exception system
 - created consts system
@@ -11,6 +10,9 @@
 - added syntax feature to put `()` in function call syntax, for example `println("hello world")` or `my_func(1, 2)`
 - some optimizations in interpreter code
 - added `if..elif..else` statement
+- deleted `loop` and `while` functions
+- deleted `out`, `fread` and `fwrite` commands
+- fixed a bug in `eval` function
 
 ## 0.5.4 (2020-12-6)
 
