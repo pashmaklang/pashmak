@@ -176,7 +176,15 @@ modules = {}
 '''
         # write modules as python dictonary in src/core/modules.py file
         for k in modules:
-            pycode += '\nmodules["' + k + '"] = """' + modules[k].replace('\n\n', '\n') + '"""'
+            tmp_module_content = modules[k].replace('\n\n', '\n')
+            tmp_module_content = tmp_module_content.replace('\n\n', '\n')
+            new_module_content = ''
+            for line in tmp_module_content.strip().split('\n'):
+                line = line.strip().split('#')[0].strip()
+                if line != '':
+                    new_module_content += line + '\n'
+            new_module_content = new_module_content.strip()
+            pycode += '\nmodules["' + k + '"] = """' + new_module_content + '"""'
 
         pycode += '\n'
 

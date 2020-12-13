@@ -132,46 +132,13 @@ class Helpers(commands.Commands):
             self.operations.insert(self.current_step+1, code_op)
             self.update_section_indexes(self.current_step+1)
 
-    def import_script(self, paths):
-        """ Imports scripts/modules """
-        op = self.operations[self.current_step]
+    def current_namespace(self):
+        """ Returns current namespace """
+        namespace_prefix = ''
+        for ns in self.namespaces_tree:
+            namespace_prefix += ns + '.'
+        return namespace_prefix
 
-        if type(paths) == str:
-            paths = [paths]
-        elif type(paths) != list and type(paths) != tuple:
-            self.raise_error('ArgumentError', 'invalid argument type', op)
-
-        for path in paths:
-            code_location = path
-            if path[0] == '@':
-                code_location = path
-                module_name = path[1:]
-                try:
-                    namespaces_prefix = ''
-                    for part in self.namespaces_tree:
-                        namespaces_prefix += part + '.'
-                    namespaces_prefix += '@'
-                    if not namespaces_prefix + module_name in self.included_modules:
-                        content = modules.modules[module_name]
-                        # add this module to imported modules
-                        self.included_modules.append(namespaces_prefix + module_name)
-                    else:
-                        return
-                except KeyError:
-                    self.raise_error('ModuleError', 'undefined module "' + module_name + '"', op)
-            else:
-                if path[0] != '/':
-                    path = os.path.dirname(os.path.abspath(self.main_filename)) + '/' + path
-                try:
-                    content = open(path, 'r').read()
-                    content = '$__file__ = "' + path.replace('\\', '\\\\') + '";\n$__dir__ = "' + os.path.dirname(path).replace('\\', '\\\\') + '"\n' + content
-                    content += '\n$__file__ = "' + self.get_var('__file__').replace('\\', '\\\\') + '"'
-                    content += '\n$__dir__ = "' + self.get_var('__dir__').replace('\\', '\\\\') + '"'
-                    code_location = path
-                except FileNotFoundError as ex:
-                    self.raise_error('FileError', str(ex), op)
-                except PermissionError as ex:
-                    self.raise_error('FileError', str(ex), op)
-
-            operations = parser.parse(content, filepath=code_location)
-            self.exec_func(operations, False)
+    def signal_handler(self, signal_code, frame):
+        """ Raise error when signal exception raised """
+        self.raise_error('Signal', str(signal_code), self.operations[self.current_step])
