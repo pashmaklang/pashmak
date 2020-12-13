@@ -1,0 +1,53 @@
+#
+# 009-init-magic-method.pashmt
+#
+# The Pashmak Project
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+class init method is working
+
+--file--
+
+class Hello
+    func __init__ $name
+        $this->name = $name
+        println 'the ' + $name + ' was created'
+    endfunc
+endclass
+
+$hello = ^ new Hello 'parsa'
+println $hello->name
+
+class Bye < Hello
+    func __init__ $something
+        println 'hello ' + $something
+        $this->something = $something
+    endfunc
+endclass
+
+$bye = ^ new Bye 'parsa'
+println $bye->something
+
+--output--
+"""the parsa was created
+parsa
+hello parsa
+parsa
+"""

@@ -23,7 +23,9 @@
 """ Creates a new instance from a class """
 
 import copy
+import random
 from core.class_system import Class
+import syntax_parser as parser
 
 def run(self, op: dict):
     """ Creates a new instance from a class """
@@ -53,4 +55,18 @@ def run(self, op: dict):
                 return
 
     class_copy = copy.deepcopy(aclass)
-    self.mem = class_copy
+    init_args = op['args_str'].split(' ', 1)
+    if len(init_args) > 1:
+        init_args = init_args[-1].strip()
+    else:
+        init_args = ''
+    if init_args == '':
+        init_args = 'None'
+    # run the constructor
+    tmp_variable = 'the_temp_variable_for_class_init_'
+    while self.variable_exists(tmp_variable):
+        tmp_variable = tmp_variable + str(random.random()).replace('.', '')
+    self.set_var(tmp_variable, class_copy)
+    self.operations.insert(self.current_step+1, parser.parse('$' + tmp_variable + '@__init__ ' + init_args)[0])
+    self.operations.insert(self.current_step+2, parser.parse('mem $' + tmp_variable)[0])
+    self.operations.insert(self.current_step+3, parser.parse('free $' + tmp_variable)[0])
