@@ -179,6 +179,8 @@ modules["stdlib"] = """#
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 class Object
+    func __init__
+    endfunc
 endclass
 func print
     mem self.print(^)

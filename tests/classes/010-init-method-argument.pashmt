@@ -1,5 +1,5 @@
 #
-# version.py
+# 010-init-method-argument.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,22 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+--test--
+class init method can recive argument
 
-# pashmak version
-version = 'v0.6-alpha5'
+--file--
+class Hi
+    func __init__ $name
+        println 'hi ' + $name
+        $this->name = $name
+    endfunc
+endclass
+
+$hi = ^ new Hi 'parsa'
+
+println $hi->name
+
+--output--
+'''hi parsa
+parsa
+'''

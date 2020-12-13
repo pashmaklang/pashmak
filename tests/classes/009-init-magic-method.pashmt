@@ -1,5 +1,5 @@
 #
-# version.py
+# 009-init-magic-method.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,34 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+--test--
+class init method is working
 
-# pashmak version
-version = 'v0.6-alpha5'
+--file--
+
+class Hello
+    func __init__ $name
+        $this->name = $name
+        println 'the ' + $name + ' was created'
+    endfunc
+endclass
+
+$hello = ^ new Hello 'parsa'
+println $hello->name
+
+class Bye < Hello
+    func __init__ $something
+        println 'hello ' + $something
+        $this->something = $something
+    endfunc
+endclass
+
+$bye = ^ new Bye 'parsa'
+println $bye->something
+
+--output--
+"""the parsa was created
+parsa
+hello parsa
+parsa
+"""
