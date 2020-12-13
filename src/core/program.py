@@ -422,7 +422,7 @@ class Program(helpers.Helpers):
 
             # execute function body
             with_state = True
-            if op_name in ['import', 'mem', 'python', 'rmem']:
+            if op_name in ['import', 'mem', 'python', 'rmem', 'eval']:
                 with_state = False
             default_variables = {}
             if is_method != False:
