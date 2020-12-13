@@ -44,7 +44,8 @@ class Program(helpers.Helpers):
         } # declared functions <function-name>:[<list-of-body-operations>]
         self.operations = [] # list of operations
         self.sections = {} # list of declared sections <section-name>:<index-of-operation-to-jump>
-        self.classes = {}
+        self.classes = {} # list of declared classes
+        self.imported_files = [] # list of imported files
         self.mem = None # memory temp value
         self.is_test = is_test # program is in testing state
         self.output = '' # program output (for testing state)
@@ -65,7 +66,7 @@ class Program(helpers.Helpers):
         self.set_var('argv', args)
         self.set_var('argc', len(self.get_var('argv')))
 
-    def import_script(self, paths):
+    def import_script(self, paths, import_once=False):
         """ Imports scripts/modules """
         op = self.operations[self.current_step]
 
@@ -95,12 +96,15 @@ class Program(helpers.Helpers):
             else:
                 if path[0] != '/':
                     path = os.path.dirname(os.path.abspath(self.main_filename)) + '/' + path
+                if os.path.abspath(path) in self.imported_files and import_once:
+                    return
                 try:
                     content = open(path, 'r').read()
                     content = '$__file__ = "' + path.replace('\\', '\\\\') + '";\n$__dir__ = "' + os.path.dirname(path).replace('\\', '\\\\') + '"\n' + content
                     content += '\n$__file__ = "' + self.get_var('__file__').replace('\\', '\\\\') + '"'
                     content += '\n$__dir__ = "' + self.get_var('__dir__').replace('\\', '\\\\') + '"'
                     code_location = path
+                    self.imported_files.append(os.path.abspath(code_location))
                 except FileNotFoundError as ex:
                     self.raise_error('FileError', str(ex), op)
                 except PermissionError as ex:

@@ -14,6 +14,7 @@
 - deleted `out`, `fread`, `include` and `fwrite` commands because they was very low level and are not needed
 - fixed a bug in `eval` function
 - fixed a bug in module path system
+- added `import_once` function
 
 ## 0.5.4 (2020-12-6)
 

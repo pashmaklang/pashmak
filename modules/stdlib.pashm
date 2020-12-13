@@ -33,6 +33,10 @@ func import
     mem self.import_script(^)
 endfunc
 
+func import_once
+    mem self.import_script(^, True)
+endfunc
+
 func exit ($code)
     if type($code) != int
         $code = 0
