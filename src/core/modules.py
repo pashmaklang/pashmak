@@ -186,8 +186,8 @@ func print
     mem self.print(^)
 endfunc
 func import
-    include ^
-endfunc;
+    mem self.import_script(^)
+endfunc
 func exit ($code)
     if type($code) != int
         $code = 0

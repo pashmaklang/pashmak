@@ -54,7 +54,6 @@ class Program(helpers.Helpers):
         self.namespaces_tree = [] # namespaces tree
         self.used_namespaces = [] # list of used namespaces
         self.included_modules = [] # list of included modules to stop repeating imports
-        self.bootstrap_operations_count = 0
 
         self.allowed_pashmak_extensions = ['pashm']
 
@@ -77,15 +76,13 @@ class Program(helpers.Helpers):
         """ Set operations list """
         # include stdlib before everything
         tmp = parser.parse('''
-        $__file__ = "''' + os.path.abspath(self.main_filename).replace('\\', '\\\\') + '''";
-        $__dir__ = "''' + os.path.dirname(os.path.abspath(self.main_filename)).replace('\\', '\\\\') + '''";
-        mem '@stdlib'; include ^; python "self.bootstrap_operations_count = len(self.operations)-4";'
+        $__file__ = "''' + os.path.abspath(self.main_filename).replace('\\', '\\\\') + '''"
+        $__dir__ = "''' + os.path.dirname(os.path.abspath(self.main_filename)).replace('\\', '\\\\') + '''"
+        mem self.import_script('@stdlib')
         ''', filepath='<system>')
         operations.insert(0, tmp[0])
         operations.insert(1, tmp[1])
         operations.insert(2, tmp[2])
-        operations.insert(3, tmp[3])
-        operations.insert(4, tmp[4])
 
         # set operations on program object
         self.operations = operations
@@ -289,7 +286,6 @@ class Program(helpers.Helpers):
             'free': self.run_free,
             'read': self.run_read,
             'func': self.run_func,
-            'include': self.run_include,
             'goto': self.run_goto,
             'gotoif': self.run_gotoif,
             'isset': self.run_isset,

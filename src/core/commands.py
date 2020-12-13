@@ -27,7 +27,6 @@ from operations import free as op_free
 from operations import read as op_read
 from operations import func as op_func
 from operations import endfunc as op_endfunc
-from operations import include as op_include
 from operations import goto as op_goto
 from operations import gotoif as op_gotoif
 from operations import isset as op_isset
@@ -58,10 +57,6 @@ class Commands:
     def run_endfunc(self, op: dict):
         """ run endfunc """
         op_endfunc.run(self, op)
-
-    def run_include(self, op: dict):
-        """ run include """
-        op_include.run(self, op)
 
     def run_goto(self, op: dict):
         """ run goto """

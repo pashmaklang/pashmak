@@ -11,7 +11,7 @@
 - some optimizations in interpreter code
 - added `if..elif..else` statement
 - deleted `loop` and `while` functions
-- deleted `out`, `fread` and `fwrite` commands
+- deleted `out`, `fread`, `include` and `fwrite` commands because they was very low level and are not needed
 - fixed a bug in `eval` function
 - fixed a bug in module path system
 
