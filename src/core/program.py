@@ -439,14 +439,14 @@ class Program(helpers.Helpers):
     def bootstrap_modules(self):
         """ Loads modules from module paths in environment variable """
         try:
-            pashmak_module_paths = os.environ['PASHMAKPATH']
+            os.environ['PASHMAKPATH']
         except:
             os.environ['PASHMAKPATH'] = ''
-            pashmak_module_paths = ''
         home_directory = str(Path.home())
+        os.environ['PASHMAKPATH'] = '/usr/lib/pashmak_modules:' + home_directory + '/.local/lib/pashmak_modules:' + os.environ['PASHMAKPATH']
+        pashmak_module_paths = os.environ['PASHMAKPATH']
         paths = pashmak_module_paths.strip().split(':')
         paths = [path.strip() for path in paths if path.strip() != '']
-        paths = [home_directory + '/.local/lib/pashmak_modules', '/usr/lib/pashmak_modules', *paths]
         for path in paths:
             try:
                 path_files = os.listdir(path)

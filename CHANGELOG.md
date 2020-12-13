@@ -13,6 +13,7 @@
 - deleted `loop` and `while` functions
 - deleted `out`, `fread` and `fwrite` commands
 - fixed a bug in `eval` function
+- fixed a bug in module path system
 
 ## 0.5.4 (2020-12-6)
 
