@@ -73,7 +73,7 @@ class Program(helpers.Helpers):
         if type(paths) == str:
             paths = [paths]
         elif type(paths) != list and type(paths) != tuple:
-            self.raise_error('ArgumentError', 'invalid argument type', op)
+            return self.raise_error('ArgumentError', 'invalid argument type', op)
 
         for path in paths:
             code_location = path
@@ -92,7 +92,7 @@ class Program(helpers.Helpers):
                     else:
                         return
                 except KeyError:
-                    self.raise_error('ModuleError', 'undefined module "' + module_name + '"', op)
+                    return self.raise_error('ModuleError', 'undefined module "' + module_name + '"', op)
             else:
                 if path[0] != '/':
                     path = os.path.dirname(os.path.abspath(self.main_filename)) + '/' + path
@@ -106,9 +106,9 @@ class Program(helpers.Helpers):
                     code_location = path
                     self.imported_files.append(os.path.abspath(code_location))
                 except FileNotFoundError as ex:
-                    self.raise_error('FileError', str(ex), op)
+                    return self.raise_error('FileError', str(ex), op)
                 except PermissionError as ex:
-                    self.raise_error('FileError', str(ex), op)
+                    return self.raise_error('FileError', str(ex), op)
 
             operations = parser.parse(content, filepath=code_location)
             self.exec_func(operations, False)
@@ -429,12 +429,12 @@ class Program(helpers.Helpers):
             var_name = op['command'].split('@')[0]
             var = self.all_vars()[var_name[1:]]
             if type(var) != Class:
-                self.raise_error('MethodError', 'calling method on non-class object "' + var_name + '"', op)
+                return self.raise_error('MethodError', 'calling method on non-class object "' + var_name + '"', op)
             try:
                 func_body = var.methods[op['command'].split('@')[1]]
                 is_method = var
             except:
-                self.raise_error('MethodError', 'class ' + self.all_vars()[var_name[1:]].__name__ + ' has not method "' + op['command'][0].split('@')[1] + '"', op)
+                return self.raise_error('MethodError', 'class ' + self.all_vars()[var_name[1:]].__name__ + ' has not method "' + op['command'][0].split('@')[1] + '"', op)
         else:
             try:
                 func_body = self.functions[self.current_namespace() + op_name]
@@ -449,8 +449,7 @@ class Program(helpers.Helpers):
                     try:
                         func_body = self.functions[op_name]
                     except KeyError:
-                        self.raise_error('SyntaxError', 'undefined operation "' + op_name + '"', op)
-                        return
+                        return self.raise_error('SyntaxError', 'undefined operation "' + op_name + '"', op)
 
         # run function
         try:

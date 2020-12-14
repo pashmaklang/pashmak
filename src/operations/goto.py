@@ -31,6 +31,6 @@ def run(self, op: dict):
     try:
         section_index = self.sections[arg]
     except KeyError:
-        self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
+        return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
 
     self.current_step = section_index-1

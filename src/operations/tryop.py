@@ -31,6 +31,6 @@ def run(self, op: dict):
     try:
         self.sections[arg]
     except KeyError:
-        self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
+        return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
 
     self.try_endtry.append(arg)

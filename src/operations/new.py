@@ -51,8 +51,7 @@ def run(self, op: dict):
                 aclass = self.classes[arg]
                 class_real_name = arg
             except KeyError:
-                self.raise_error('ClassError', 'undefined class "' + arg + '"', op)
-                return
+                return self.raise_error('ClassError', 'undefined class "' + arg + '"', op)
 
     class_copy = copy.deepcopy(aclass)
     init_args = op['args_str'].split(' ', 1)

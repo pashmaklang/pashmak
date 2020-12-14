@@ -90,6 +90,7 @@ class Helpers(commands.Commands):
                 pass
             if do_raise_error:
                 self.raise_error('ConstError', '"' + varname + '" is a const and you cannot change that value', op)
+                return
         self.all_vars()[self.current_namespace() + varname] = value
 
     def all_vars(self):

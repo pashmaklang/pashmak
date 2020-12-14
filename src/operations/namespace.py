@@ -28,7 +28,7 @@ def run(self, op: dict):
     arg = op['args'][0]
 
     if '.' in arg:
-        self.raise_error(
+        return self.raise_error(
             'NamespaceContainsDotError', 'name "' + arg + '" for namespace contains `.` character', op
         )
 
