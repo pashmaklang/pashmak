@@ -1,5 +1,5 @@
 #
-# version.py
+# 002-import-once.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,16 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+--test--
+import_once function works and only imports a file one time
 
-# pashmak version
-version = 'v0.6-alpha6'
+--file--
+import_once 'examples/will_be_include.pashm'
+import_once 'examples/will_be_include.pashm'
+
+testfunc
+
+--output--
+"""i am included
+i am included func
+"""

@@ -30,8 +30,12 @@ func print
 endfunc
 
 func import
-    include ^
-endfunc;
+    mem self.import_script(^)
+endfunc
+
+func import_once
+    mem self.import_script(^, True)
+endfunc
 
 func exit ($code)
     if type($code) != int

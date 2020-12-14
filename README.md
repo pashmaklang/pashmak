@@ -42,7 +42,7 @@ read the following Documentation to learn pashmak.
 - [Arrays](#arrays)
 - [Try-Endtry statement](#try-and-endtry-statement)
 - [OS Commands](#os-commands)
-- [Importing scripts](#include-scripts)
+- [Importing scripts](#importing-scripts)
 - [Namespaces](#namespaces)
 - [Classes](#Classes)
 - [Eval](#eval)
@@ -1610,6 +1610,45 @@ import 'a.pashm', '/path/to/b.pashm', 'dir/c.pashm'
 # or with () is not different
 import('a.pashm', '/path/to/b.pashm', 'dir/c.pashm')
 ```
+
+### import_once function
+there is a command named `import_once`. this is excatly like `import` function, but this function do not repeats for import one script.
+
+for example, we have a file named `foo.pashm`:
+
+##### foo.pashm:
+
+```bash
+func hello
+    println 'hello'
+endfunc
+```
+
+now, we import this file Two times:
+
+```bash
+import 'foo.pashm'
+import 'foo.pashm'
+```
+
+we will get this error:
+
+```
+FunctionError: function "hello" already declared...
+```
+
+because i imported this script two times and my code tryied to declare function `hello` two times, so, we get the error.
+
+but if i use the `import_once` function:
+
+```bash
+import_once 'foo.pashm'
+import_once 'foo.pashm'
+```
+
+the above code will be runed successfully.
+
+because, `import_once` function checks the file, and if files already imported, don't imports again.
 
 
 

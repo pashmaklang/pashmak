@@ -44,7 +44,8 @@ class Program(helpers.Helpers):
         } # declared functions <function-name>:[<list-of-body-operations>]
         self.operations = [] # list of operations
         self.sections = {} # list of declared sections <section-name>:<index-of-operation-to-jump>
-        self.classes = {}
+        self.classes = {} # list of declared classes
+        self.imported_files = [] # list of imported files
         self.mem = None # memory temp value
         self.is_test = is_test # program is in testing state
         self.output = '' # program output (for testing state)
@@ -54,7 +55,6 @@ class Program(helpers.Helpers):
         self.namespaces_tree = [] # namespaces tree
         self.used_namespaces = [] # list of used namespaces
         self.included_modules = [] # list of included modules to stop repeating imports
-        self.bootstrap_operations_count = 0
 
         self.allowed_pashmak_extensions = ['pashm']
 
@@ -66,26 +66,64 @@ class Program(helpers.Helpers):
         self.set_var('argv', args)
         self.set_var('argc', len(self.get_var('argv')))
 
-    def current_namespace(self):
-        """ Returns current namespace """
-        namespace_prefix = ''
-        for ns in self.namespaces_tree:
-            namespace_prefix += ns + '.'
-        return namespace_prefix
+    def import_script(self, paths, import_once=False):
+        """ Imports scripts/modules """
+        op = self.operations[self.current_step]
+
+        if type(paths) == str:
+            paths = [paths]
+        elif type(paths) != list and type(paths) != tuple:
+            self.raise_error('ArgumentError', 'invalid argument type', op)
+
+        for path in paths:
+            code_location = path
+            if path[0] == '@':
+                code_location = path
+                module_name = path[1:]
+                try:
+                    namespaces_prefix = ''
+                    for part in self.namespaces_tree:
+                        namespaces_prefix += part + '.'
+                    namespaces_prefix += '@'
+                    if not namespaces_prefix + module_name in self.included_modules:
+                        content = modules.modules[module_name]
+                        # add this module to imported modules
+                        self.included_modules.append(namespaces_prefix + module_name)
+                    else:
+                        return
+                except KeyError:
+                    self.raise_error('ModuleError', 'undefined module "' + module_name + '"', op)
+            else:
+                if path[0] != '/':
+                    path = os.path.dirname(os.path.abspath(self.main_filename)) + '/' + path
+                if os.path.abspath(path) in self.imported_files and import_once:
+                    return
+                try:
+                    content = open(path, 'r').read()
+                    content = '$__file__ = "' + path.replace('\\', '\\\\') + '";\n$__dir__ = "' + os.path.dirname(path).replace('\\', '\\\\') + '"\n' + content
+                    content += '\n$__file__ = "' + self.get_var('__file__').replace('\\', '\\\\') + '"'
+                    content += '\n$__dir__ = "' + self.get_var('__dir__').replace('\\', '\\\\') + '"'
+                    code_location = path
+                    self.imported_files.append(os.path.abspath(code_location))
+                except FileNotFoundError as ex:
+                    self.raise_error('FileError', str(ex), op)
+                except PermissionError as ex:
+                    self.raise_error('FileError', str(ex), op)
+
+            operations = parser.parse(content, filepath=code_location)
+            self.exec_func(operations, False)
 
     def set_operations(self, operations: list):
         """ Set operations list """
         # include stdlib before everything
         tmp = parser.parse('''
-        $__file__ = "''' + os.path.abspath(self.main_filename).replace('\\', '\\\\') + '''";
-        $__dir__ = "''' + os.path.dirname(os.path.abspath(self.main_filename)).replace('\\', '\\\\') + '''";
-        mem '@stdlib'; include ^; python "self.bootstrap_operations_count = len(self.operations)-4";'
+        $__file__ = "''' + os.path.abspath(self.main_filename).replace('\\', '\\\\') + '''"
+        $__dir__ = "''' + os.path.dirname(os.path.abspath(self.main_filename)).replace('\\', '\\\\') + '''"
+        mem self.import_script('@stdlib')
         ''', filepath='<system>')
         operations.insert(0, tmp[0])
         operations.insert(1, tmp[1])
         operations.insert(2, tmp[2])
-        operations.insert(3, tmp[3])
-        operations.insert(4, tmp[4])
 
         # set operations on program object
         self.operations = operations
@@ -289,7 +327,6 @@ class Program(helpers.Helpers):
             'free': self.run_free,
             'read': self.run_read,
             'func': self.run_func,
-            'include': self.run_include,
             'goto': self.run_goto,
             'gotoif': self.run_gotoif,
             'isset': self.run_isset,
@@ -431,10 +468,6 @@ class Program(helpers.Helpers):
             return
         except Exception as ex:
             raise
-
-    def signal_handler(self, signal_code, frame):
-        """ Raise error when signal exception raised """
-        self.raise_error('Signal', str(signal_code), self.operations[self.current_step])
 
     def bootstrap_modules(self):
         """ Loads modules from module paths in environment variable """

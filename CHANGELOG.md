@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 0.6, 0.6-alpha5
+## 0.6, 0.6-alpha6
 
 - created **Class** system
 - change default `RuntimeError` name to the real python exception name in exception system
@@ -11,9 +11,10 @@
 - some optimizations in interpreter code
 - added `if..elif..else` statement
 - deleted `loop` and `while` functions
-- deleted `out`, `fread` and `fwrite` commands
+- deleted `out`, `fread`, `include` and `fwrite` commands because they was very low level and are not needed
 - fixed a bug in `eval` function
 - fixed a bug in module path system
+- added `import_once` function
 
 ## 0.5.4 (2020-12-6)
 

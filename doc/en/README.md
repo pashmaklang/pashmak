@@ -39,7 +39,7 @@ read the following Documentation to learn pashmak.
 - [Arrays](#arrays)
 - [Try-Endtry statement](#try-and-endtry-statement)
 - [OS Commands](#os-commands)
-- [Importing scripts](#include-scripts)
+- [Importing scripts](#importing-scripts)
 - [Namespaces](#namespaces)
 - [Classes](#Classes)
 - [Eval](#eval)

@@ -22,8 +22,9 @@
 
 """ Partial of program object functions """
 
+import os
 from sys import exit
-from core import commands
+from core import commands, modules
 import syntax_parser as parser
 
 class Helpers(commands.Commands):
@@ -130,3 +131,14 @@ class Helpers(commands.Commands):
         for code_op in list(reversed(code_operations)):
             self.operations.insert(self.current_step+1, code_op)
             self.update_section_indexes(self.current_step+1)
+
+    def current_namespace(self):
+        """ Returns current namespace """
+        namespace_prefix = ''
+        for ns in self.namespaces_tree:
+            namespace_prefix += ns + '.'
+        return namespace_prefix
+
+    def signal_handler(self, signal_code, frame):
+        """ Raise error when signal exception raised """
+        self.raise_error('Signal', str(signal_code), self.operations[self.current_step])
