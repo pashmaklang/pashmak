@@ -228,7 +228,7 @@ class Program(helpers.Helpers):
             self.operations.insert(i+1, parser.parse('popstate', filepath='<system>')[0])
             self.update_section_indexes(i+1)
 
-    def eval(self, operation):
+    def eval(self, operation, only_parse=False):
         """ Runs eval on operation """
         i = 0
         operation = operation.strip()
@@ -285,6 +285,8 @@ class Program(helpers.Helpers):
             else:
                 code = code[1]
             full_op += code
+        if only_parse:
+            return full_op
         return eval(full_op)
 
     def run(self, op: dict):
@@ -408,13 +410,17 @@ class Program(helpers.Helpers):
             else:
                 value = self.eval(parts[1].strip())
             if is_class_setting != False:
-                tmp_real_var = self.get_var(varname[1:])
+                tmp_real_var = self.eval(varname)
                 exec('tmp_real_var.props.' + is_class_setting + ' = value')
             else:
                 if is_in_class:
                     self.classes[self.current_class].props[varname[1:]] = value
                 else:
-                    self.set_var(varname[1:], value)
+                    if '[' in varname or ']' in varname:
+                        the_target = self.eval(varname, only_parse=True)
+                        exec(the_target + ' = value')
+                    else:
+                        self.set_var(varname[1:], value)
             return
 
         # check function exists
