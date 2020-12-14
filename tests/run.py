@@ -57,13 +57,6 @@ class TestCore:
         ''' Enable program error rendering '''
         self.is_test = False
 
-    def run_file(self, file_path: str, read_inputs=[]) -> dict:
-        ''' Runs a script from file '''
-        f = open(file_path, 'r')
-        content = f.read()
-        f.close()
-        return self.run_script(content, read_inputs)
-
     def run_without_error(self, script_content: str, read_inputs=[], args=[], want_argv=False, stop_after_error=True) -> dict:
         ''' Runs a script and auto assert without error '''
         prog = self.run_script(script_content, read_inputs, args, want_argv, stop_after_error)
@@ -80,7 +73,7 @@ class TestCore:
         prog.start()
 
         out = {}
-        out['vars'] = prog.variables
+        out['vars'] = prog.states[-1]['vars']
         out['output'] = prog.output
         out['runtime_error'] = prog.runtime_error
         out['mem'] = prog.mem

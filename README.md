@@ -656,17 +656,6 @@ enter second number: <input>2
 
 this example gets two numbers from user and shows sum of them.
 
-also you can read value directly:
-
-```bash
-print 'enter your name: '
-$name = ^ read ^
-println 'hello ' + $name
-```
-
-the `^ read ^` reads value and puts that in the variable.
-actually, `read ^` reads value and puts that in the mem, the `^ read ^`, reads that and puts into that variable which this value is assigned to that.
-
 ### Reading command line arguments
 To access command line arguments, you can use `$argv` variable.
 this variable is a public variable and is list contains command line arguments.

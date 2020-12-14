@@ -65,7 +65,19 @@ def run(self, op: dict):
     tmp_variable = 'the_temp_variable_for_class_init_' + str(random.random()).replace('.', '')
     while self.variable_exists(tmp_variable):
         tmp_variable = tmp_variable + str(random.random()).replace('.', '')
-    self.set_var(tmp_variable, class_copy)
-    self.operations.insert(self.current_step+1, parser.parse('$' + tmp_variable + '@__init__ ' + init_args)[0])
-    self.operations.insert(self.current_step+2, parser.parse('mem $' + tmp_variable)[0])
-    self.operations.insert(self.current_step+3, parser.parse('free $' + tmp_variable)[0])
+    self.mem = class_copy
+    code_operations = """
+    $""" + tmp_variable + """ = ^
+    $""" + tmp_variable + """@__init__ """ + init_args + """
+    mem $""" + tmp_variable + """
+    free $""" + tmp_variable + """
+    """
+    tmp_is_in_class = False
+    try:
+        tmp_is_in_class = copy.deepcopy(self.current_class)
+        del self.current_class
+    except:
+        pass
+    self.exec_func(parser.parse(code_operations), False)
+    if tmp_is_in_class:
+        self.current_class = tmp_is_in_class

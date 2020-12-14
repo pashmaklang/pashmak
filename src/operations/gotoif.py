@@ -34,4 +34,4 @@ def run(self, op: dict):
         return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
 
     if self.mem:
-        self.current_step = section_index-1
+        self.states[-1]['current_step'] = section_index-1

@@ -1,5 +1,5 @@
 #
-# goto.py
+# persons.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,17 +20,17 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Changes program step to a section '''
+--test--
+an example to get information of 3 persons
 
-def run(self, op: dict):
-    ''' Changes program step to a section '''
+--file--
+import 'examples/get_persons_information.pashm'
 
-    self.require_one_argument(op, 'goto operation requires section name argument')
-    arg = op['args'][0]
+--stdin--
+['z', '20', 'e', '700', 'someone', '800']
 
-    try:
-        section_index = self.sections[arg]
-    except KeyError:
-        return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
-
-    self.states[-1]['current_step'] = section_index-1
+--output--
+"""enter your name: enter your age: enter your name: enter your age: enter your name: enter your age: hello z 20
+hello e 700
+hello someone 800
+"""
