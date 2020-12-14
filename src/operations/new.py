@@ -62,7 +62,7 @@ def run(self, op: dict):
     if init_args == '':
         init_args = 'None'
     # run the constructor
-    tmp_variable = 'the_temp_variable_for_class_init_'
+    tmp_variable = 'the_temp_variable_for_class_init_' + str(random.random()).replace('.', '')
     while self.variable_exists(tmp_variable):
         tmp_variable = tmp_variable + str(random.random()).replace('.', '')
     self.set_var(tmp_variable, class_copy)
