@@ -1,6 +1,6 @@
 SHELL = bash
 PYTHON = python3
-MANAGE_SCRIPT = $(PYTHON) ./scripts.py
+SCRIPTS = $(PYTHON) ./src/pashmak.py scripts/
 INSTALLATION_PATH = /usr/bin/pashmak
 
 .DEFAULT_GOAL := main
@@ -21,16 +21,16 @@ clean:
 	@echo -e "\033[32mall of build files cleaned successfuly\033[0m"
 
 update-headers:
-	@$(MANAGE_SCRIPT) update-headers
+	@$(PYTHON) scripts/update-copyright-headers.py
 
 test:
 	@$(PYTHON) ./tests/run.py
 
 docs:
-	@$(MANAGE_SCRIPT) build-doc
+	@$(SCRIPTS)doc-build.pashm
 
 module:
-	@$(MANAGE_SCRIPT) build-modules
+	@$(SCRIPTS)module-build.pashm
 
 all: module update-headers docs test
 ifeq ($(GIT_IS_INSTALLED),1)

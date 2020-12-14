@@ -30,7 +30,7 @@ import syntax_parser as parser
 from core import helpers, version, modules
 from core.class_system import Class
 
-import hashlib, time, random
+import hashlib, time, random, datetime
 
 class Program(helpers.Helpers):
     """ Pashmak program object """

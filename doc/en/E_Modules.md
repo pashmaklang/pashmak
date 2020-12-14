@@ -308,6 +308,7 @@ you can use this python standard modules in pashmak directly in your code:
 - `time`
 - `hashlib`
 - `random`
+- `datetime`
 
 for example:
 
