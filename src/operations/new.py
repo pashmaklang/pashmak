@@ -25,7 +25,7 @@
 import copy
 import random
 from core.class_system import Class
-import syntax_parser as parser
+from core import parser
 
 def run(self, op: dict):
     """ Creates a new instance from a class """

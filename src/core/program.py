@@ -26,7 +26,7 @@ import sys
 import os
 import signal
 from pathlib import Path
-import syntax_parser as parser
+from core import parser
 from core import helpers, version, modules
 from core.class_system import Class
 

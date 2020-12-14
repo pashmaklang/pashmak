@@ -22,7 +22,7 @@
 
 ''' Starts function block '''
 
-import syntax_parser as parser
+from core import parser
 
 def run(self, op: dict):
     ''' Starts function block '''

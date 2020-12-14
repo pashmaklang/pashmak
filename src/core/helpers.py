@@ -25,7 +25,7 @@
 import os
 from sys import exit
 from core import commands, modules
-import syntax_parser as parser
+from core import parser
 
 class Helpers(commands.Commands):
     """ Partial of program object functions """
