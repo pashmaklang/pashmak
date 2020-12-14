@@ -119,6 +119,10 @@ class Helpers(commands.Commands):
         if not self.is_test:
             exit(exit_code)
         else:
+            i = len(self.states)-1
+            while i > 0:
+                self.states.pop()
+                i -= 1
             self.states[-1]['current_step'] = len(self.states[-1]['operations']) * 2
             self.exit_code = exit_code
 
