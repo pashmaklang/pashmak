@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 0.6, 0.6-alpha6
+## 0.6, 0.6-alpha7
 
 - created **Class** system
 - change default `RuntimeError` name to the real python exception name in exception system
@@ -15,6 +15,7 @@
 - fixed a bug in `eval` function
 - fixed a bug in module path system
 - added `import_once` function
+- added a syntax to handle dictonary item value assigning, now we can run `$my_dict["item"] = "value"`
 
 ## 0.5.4 (2020-12-6)
 

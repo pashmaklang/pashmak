@@ -1,0 +1,37 @@
+#!/usr/bin/env pashmak
+# Release new version
+
+if len($argv) <= 1
+    println 'releaser: new version argument is required'
+    exit 1
+endif
+
+$new_version = $argv[1]
+
+if $new_version[0] == 'v'
+    $new_version = $new_version[1:]
+endif
+
+# change version number
+$f = open('src/core/version.py', 'r')
+$content = $f->read()
+$content = $content->split('version = ')[0]
+$content = $content + 'version = \'v'
+$content = $content + $new_version
+$content = $content + '\'\n'
+mem $f->close()
+
+$f = open('src/core/version.py', 'w')
+mem $f->write($content)
+mem $f->close()
+
+$f = open('CHANGELOG.md', 'r')
+$content = $f->read()
+$date_str = datetime->date->today()
+$date_str = str($date_str->year) + '-' + str($date_str->month) + '-' + str($date_str->day)
+$content = $content->replace('\#\# next release', '\#\# ' + $new_version + ' (' + $date_str + ')')
+mem $f->close()
+
+$f = open('CHANGELOG.md', 'w')
+mem $f->write($content)
+mem $f->close()

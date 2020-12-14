@@ -1,0 +1,1 @@
+This directory contains some automation scripts for this project
