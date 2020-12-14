@@ -1,6 +1,6 @@
 # TODO
 
-- fix class init method bug
+- fix class init method in loop bug
 - fix importing in loop bug
 - convert copyright header updater script from python to pashmak
 - create more magic methods for classes
