@@ -162,6 +162,7 @@ if you adding a feature or changing feature, change/add test for that feature
 - `--exit-code--`: asserts program exit code
 - `--with-error--`: asserts program has error. value is optional, but you can assert error type as value
 - `--pyinit--`: this can be a python code to be runed before running test code
+- `--skip--`: this option says that to test runner, if this was faild, ignore this and skip
 
 example:
 

@@ -22,6 +22,7 @@
 
 --test--
 modules are loaded in module path system (2)
+--skip--
 --pyinit--
 import os
 os.environ['PASHMAKPATH'] = os.getcwd() + '/tests/test-module-path'
