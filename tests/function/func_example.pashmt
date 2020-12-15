@@ -44,4 +44,10 @@ tststs
 println $n
 
 --output--
-'parsa\nparsa\nparsa\nmyfunc\ntststs\nparsa\n'
+"""parsa
+parsa
+tststs
+myfunc
+tststs
+parsa
+"""

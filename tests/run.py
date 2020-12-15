@@ -30,7 +30,7 @@ import time
 # add `src/` folder to python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/' + 'src')
 
-import syntax_parser as parser
+from core import parser
 from core import program
 from core import modules
 
@@ -57,13 +57,6 @@ class TestCore:
         ''' Enable program error rendering '''
         self.is_test = False
 
-    def run_file(self, file_path: str, read_inputs=[]) -> dict:
-        ''' Runs a script from file '''
-        f = open(file_path, 'r')
-        content = f.read()
-        f.close()
-        return self.run_script(content, read_inputs)
-
     def run_without_error(self, script_content: str, read_inputs=[], args=[], want_argv=False, stop_after_error=True) -> dict:
         ''' Runs a script and auto assert without error '''
         prog = self.run_script(script_content, read_inputs, args, want_argv, stop_after_error)
@@ -80,7 +73,7 @@ class TestCore:
         prog.start()
 
         out = {}
-        out['vars'] = prog.variables
+        out['vars'] = prog.states[-1]['vars']
         out['output'] = prog.output
         out['runtime_error'] = prog.runtime_error
         out['mem'] = prog.mem
@@ -215,6 +208,12 @@ class TestRunner:
         # run the test
         read_inputs = []
         cli_args = []
+        is_skip = False
+        try:
+            sections['skip']
+            is_skip = True
+        except:
+            pass
 
         try:
             sections['cliargs']
@@ -241,57 +240,63 @@ class TestRunner:
         core = TestCore()
         result = core.run_script(sections['file'], read_inputs, cli_args)
 
+        try:
         # run assertions on result
-        with_error = False
-        try:
-            sections['with-error']
-            with_error = True
-        except:
-            pass
-        if with_error:
+            with_error = False
             try:
-                err_type = eval(sections['with-error'])
+                sections['with-error']
+                with_error = True
             except:
-                err_type = None
-            core.assert_has_error(result, err_type)
-        else:
-            core.assert_has_not_error(result)
+                pass
+            if with_error:
+                try:
+                    err_type = eval(sections['with-error'])
+                except:
+                    err_type = None
+                core.assert_has_error(result, err_type)
+            else:
+                core.assert_has_not_error(result)
 
-        variables = False
-        try:
-            sections['vars']
-            variables = True
-        except:
-            pass
-        if variables:
-            core.assert_vars(result, eval(sections['vars']))
+            variables = False
+            try:
+                sections['vars']
+                variables = True
+            except:
+                pass
+            if variables:
+                core.assert_vars(result, eval(sections['vars']))
+    
+            mem = False
+            try:
+                sections['mem']
+                mem = True
+            except:
+                pass
+            if mem:
+                core.assert_mem(result, eval(sections['mem']))
+    
+            output = False
+            try:
+                sections['output']
+                output = True
+            except:
+                pass
+            if output:
+                core.assert_output(result, eval(sections['output']))
 
-        mem = False
-        try:
-            sections['mem']
-            mem = True
+            exit_code = False
+            try:
+                sections['exit-code']
+                exit_code = True
+            except:
+                pass
+            if exit_code:
+                core.assert_exit_code(result, eval(sections['exit-code']))
         except:
-            pass
-        if mem:
-            core.assert_mem(result, eval(sections['mem']))
-
-        output = False
-        try:
-            sections['output']
-            output = True
-        except:
-            pass
-        if output:
-            core.assert_output(result, eval(sections['output']))
-
-        exit_code = False
-        try:
-            sections['exit-code']
-            exit_code = True
-        except:
-            pass
-        if exit_code:
-            core.assert_exit_code(result, eval(sections['exit-code']))
+            if is_skip:
+                print('\033[31mSkipped.\033[0m')
+            else:
+                raise
 
         print(tcolor.OKGREEN + ' PASS' + tcolor.ENDC)
 

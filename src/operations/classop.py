@@ -36,7 +36,7 @@ def run(self, op: dict):
     arg = arg[0].strip()
 
     if '.' in arg:
-        self.raise_error(
+        return self.raise_error(
             'ClassNameContainsDotError', 'name "' + arg + '" for class contains `.` character', op
         )
 
@@ -59,13 +59,12 @@ def run(self, op: dict):
                     parent_obj = self.classes[parent]
                     parent_real_name = parent
                 except KeyError:
-                    self.raise_error('ClassError', 'undefined class "' + parent + '"', op)
-                    return
+                    return self.raise_error('ClassError', 'undefined class "' + parent + '"', op)
 
     # check class already declared
     try:
         self.classes[self.current_namespace() + arg]
-        self.raise_error(
+        return self.raise_error(
             'ClassError',
             'class "' + self.current_namespace() + arg + '" already declared',
             op

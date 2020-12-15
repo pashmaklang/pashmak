@@ -25,7 +25,7 @@
 import copy
 import random
 from core.class_system import Class
-import syntax_parser as parser
+from core import parser
 
 def run(self, op: dict):
     """ Creates a new instance from a class """
@@ -51,8 +51,7 @@ def run(self, op: dict):
                 aclass = self.classes[arg]
                 class_real_name = arg
             except KeyError:
-                self.raise_error('ClassError', 'undefined class "' + arg + '"', op)
-                return
+                return self.raise_error('ClassError', 'undefined class "' + arg + '"', op)
 
     class_copy = copy.deepcopy(aclass)
     init_args = op['args_str'].split(' ', 1)
@@ -63,10 +62,22 @@ def run(self, op: dict):
     if init_args == '':
         init_args = 'None'
     # run the constructor
-    tmp_variable = 'the_temp_variable_for_class_init_'
+    tmp_variable = 'the_temp_variable_for_class_init_' + str(random.random()).replace('.', '')
     while self.variable_exists(tmp_variable):
         tmp_variable = tmp_variable + str(random.random()).replace('.', '')
-    self.set_var(tmp_variable, class_copy)
-    self.operations.insert(self.current_step+1, parser.parse('$' + tmp_variable + '@__init__ ' + init_args)[0])
-    self.operations.insert(self.current_step+2, parser.parse('mem $' + tmp_variable)[0])
-    self.operations.insert(self.current_step+3, parser.parse('free $' + tmp_variable)[0])
+    self.mem = class_copy
+    code_operations = """
+    $""" + tmp_variable + """ = ^
+    $""" + tmp_variable + """@__init__ """ + init_args + """
+    mem $""" + tmp_variable + """
+    free $""" + tmp_variable + """
+    """
+    tmp_is_in_class = False
+    try:
+        tmp_is_in_class = copy.deepcopy(self.current_class)
+        del self.current_class
+    except:
+        pass
+    self.exec_func(parser.parse(code_operations), False)
+    if tmp_is_in_class:
+        self.current_class = tmp_is_in_class

@@ -22,7 +22,7 @@
 
 ''' Starts function block '''
 
-import syntax_parser as parser
+from core import parser
 
 def run(self, op: dict):
     ''' Starts function block '''
@@ -31,14 +31,14 @@ def run(self, op: dict):
     arg = op['args'][0]
 
     if '.' in arg:
-        self.raise_error(
+        return self.raise_error(
             'FunctionNameContainsDotError', 'name "' + arg + '" for function contains `.` character', op
         )
 
     # check function already declared
     try:
         self.functions[self.current_namespace() + arg]
-        self.raise_error(
+        return self.raise_error(
             'FunctionError',
             'function "' + self.current_namespace() + arg + '" already declared',
             op

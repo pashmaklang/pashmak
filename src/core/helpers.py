@@ -25,7 +25,7 @@
 import os
 from sys import exit
 from core import commands, modules
-import syntax_parser as parser
+from core import parser
 
 class Helpers(commands.Commands):
     """ Partial of program object functions """
@@ -84,19 +84,17 @@ class Helpers(commands.Commands):
             do_raise_error = False
             try:
                 if self.all_vars()[self.current_namespace() + varname] != None:
-                    op = self.operations[self.current_step]
+                    op = self.states[-1]['operations'][self.states[-1]['current_step']]
                     do_raise_error = True
             except:
                 pass
             if do_raise_error:
                 self.raise_error('ConstError', '"' + varname + '" is a const and you cannot change that value', op)
+                return
         self.all_vars()[self.current_namespace() + varname] = value
 
     def all_vars(self):
         """ Returns list of all of variables """
-        if not self.states:
-            return self.variables
-
         return self.states[-1]['vars']
 
     def multi_char_split(self, string, seprators):
@@ -121,16 +119,18 @@ class Helpers(commands.Commands):
         if not self.is_test:
             exit(exit_code)
         else:
-            self.current_step = len(self.operations) * 2
+            i = len(self.states)-1
+            while i > 0:
+                self.states.pop()
+                i -= 1
+            self.states[-1]['current_step'] = len(self.states[-1]['operations']) * 2
             self.exit_code = exit_code
 
     def pashmak_eval(self, code):
         """ Runs the pashmak code from string """
         # run the code
         code_operations = parser.parse(code, filepath='<eval>')
-        for code_op in list(reversed(code_operations)):
-            self.operations.insert(self.current_step+1, code_op)
-            self.update_section_indexes(self.current_step+1)
+        self.exec_func(code_operations, False)
 
     def current_namespace(self):
         """ Returns current namespace """
@@ -141,4 +141,4 @@ class Helpers(commands.Commands):
 
     def signal_handler(self, signal_code, frame):
         """ Raise error when signal exception raised """
-        self.raise_error('Signal', str(signal_code), self.operations[self.current_step])
+        self.raise_error('Signal', str(signal_code), self.states[-1]['operations'][self.states[-1]['current_step']])

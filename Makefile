@@ -21,7 +21,7 @@ clean:
 	@echo -e "\033[32mall of build files cleaned successfuly\033[0m"
 
 update-headers:
-	@$(PYTHON) scripts/update-copyright-headers.py
+	@$(SCRIPTS)update-headers.pashm
 
 test:
 	@$(PYTHON) ./tests/run.py

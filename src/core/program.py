@@ -26,7 +26,7 @@ import sys
 import os
 import signal
 from pathlib import Path
-import syntax_parser as parser
+from core import parser
 from core import helpers, version, modules
 from core.class_system import Class
 
@@ -36,13 +36,18 @@ class Program(helpers.Helpers):
     """ Pashmak program object """
 
     def __init__(self, is_test=False, args=[]):
-        self.variables = {} # main state variables
-        self.states = [] # list of states
+        self.states = [{
+            'current_step': 0,
+            'operations': [],
+            'vars': {
+                'argv': args,
+                'argc': len(args)
+            }
+        }] # list of states
         self.functions = {
             "mem": [], # mem is a empty function just for save mem in code
             "rmem": [],
         } # declared functions <function-name>:[<list-of-body-operations>]
-        self.operations = [] # list of operations
         self.sections = {} # list of declared sections <section-name>:<index-of-operation-to-jump>
         self.classes = {} # list of declared classes
         self.imported_files = [] # list of imported files
@@ -51,14 +56,13 @@ class Program(helpers.Helpers):
         self.output = '' # program output (for testing state)
         self.runtime_error = None # program raised error (for testing state)
         self.try_endtry = [] # says program is in try-endtry block
-        self.runed_functions = [] # runed functions for stop function multi calling in one operation
         self.namespaces_tree = [] # namespaces tree
         self.used_namespaces = [] # list of used namespaces
         self.included_modules = [] # list of included modules to stop repeating imports
 
         self.allowed_pashmak_extensions = ['pashm']
 
-        self.current_step = 0
+        self.states[-1]['current_step'] = 0
         self.stop_after_error = True
         self.main_filename = os.getcwd() + '/__main__'
 
@@ -68,12 +72,12 @@ class Program(helpers.Helpers):
 
     def import_script(self, paths, import_once=False):
         """ Imports scripts/modules """
-        op = self.operations[self.current_step]
+        op = self.states[-1]['operations'][self.states[-1]['current_step']]
 
         if type(paths) == str:
             paths = [paths]
         elif type(paths) != list and type(paths) != tuple:
-            self.raise_error('ArgumentError', 'invalid argument type', op)
+            return self.raise_error('ArgumentError', 'invalid argument type', op)
 
         for path in paths:
             code_location = path
@@ -92,7 +96,7 @@ class Program(helpers.Helpers):
                     else:
                         return
                 except KeyError:
-                    self.raise_error('ModuleError', 'undefined module "' + module_name + '"', op)
+                    return self.raise_error('ModuleError', 'undefined module "' + module_name + '"', op)
             else:
                 if path[0] != '/':
                     path = os.path.dirname(os.path.abspath(self.main_filename)) + '/' + path
@@ -106,9 +110,9 @@ class Program(helpers.Helpers):
                     code_location = path
                     self.imported_files.append(os.path.abspath(code_location))
                 except FileNotFoundError as ex:
-                    self.raise_error('FileError', str(ex), op)
+                    return self.raise_error('FileError', str(ex), op)
                 except PermissionError as ex:
-                    self.raise_error('FileError', str(ex), op)
+                    return self.raise_error('FileError', str(ex), op)
 
             operations = parser.parse(content, filepath=code_location)
             self.exec_func(operations, False)
@@ -126,11 +130,11 @@ class Program(helpers.Helpers):
         operations.insert(2, tmp[2])
 
         # set operations on program object
-        self.operations = operations
+        self.states[-1]['operations'] = operations
 
     def set_operation_index(self, op: dict) -> dict:
         """ Add operation index to operation dictonary """
-        op['index'] = self.current_step
+        op['index'] = self.states[-1]['current_step']
         return op
 
     def get_mem(self):
@@ -149,10 +153,6 @@ class Program(helpers.Helpers):
             if self.sections[k] > after_index:
                 self.sections[k] = self.sections[k] + 1
         i = 0
-        while i < len(self.runed_functions):
-            if self.runed_functions[i] > after_index:
-                self.runed_functions[i] = self.runed_functions[i] + 1
-            i += 1
 
     def raise_error(self, error_type: str, message: str, op: dict):
         """ Raise error in program """
@@ -161,7 +161,7 @@ class Program(helpers.Helpers):
             section_index = self.try_endtry[-1]
             self.try_endtry.pop()
             new_step = self.sections[str(section_index)]
-            self.current_step = new_step-1
+            self.states[-1]['current_step'] = new_step-1
 
             # put error data in mem
             self.mem = {'type': error_type, 'message': message, 'index': op['index']}
@@ -170,63 +170,46 @@ class Program(helpers.Helpers):
         if self.is_test:
             self.runtime_error = {'type': error_type, 'message': message, 'index': op['index']}
             if self.stop_after_error:
-                self.current_step = len(self.operations)*2
+                self.states[-1]['current_step'] = len(self.states[-1]['operations'])*2
             return
 
         # render error
         print(error_type + ': ' + message + ':')
-        for state in self.states:
+        last_state = self.states[0]
+        for state in self.states[1:]:
             try:
-                tmp_op = self.operations[state['entry_point']]
+                if last_state:
+                    tmp_op = last_state['operations'][last_state['current_step']]
+                else:
+                    tmp_op = state['operations'][0]
                 print(
                     '\tin ' + tmp_op['file_path'] + ':' + str(tmp_op['line_number'])\
                     + ': ' + tmp_op['str']
                 )
             except KeyError:
                 pass
+            last_state = state
         print('\tin ' + op['file_path'] + ':' + str(op['line_number']) + ': ' + op['str'])
         sys.exit(1)
 
-    def exec_func(self, func_body: list, with_state=True, call_one_time=True, default_variables={}):
+    def exec_func(self, func_body: list, with_state=True, default_variables={}):
         """ Gets a list from operations and runs them as function or included script """
         # create new state for this call
         if with_state:
-            state_vars = dict(self.variables)
-            for k in default_variables:
-                state_vars[k] = default_variables[k]
-            self.states.append({
-                'entry_point': self.current_step,
-                'vars': state_vars,
-            })
+            state_vars = dict(self.states[-1]['vars'])
+        else:
+            state_vars = self.states[-1]['vars']
 
-        # check function already called in this point
-        if self.current_step in self.runed_functions and (with_state or call_one_time):
-            return
-
-        # add this point to runed functions (for stop repeating call in loops)
-        if with_state:
-            self.runed_functions.append(self.current_step)
+        for k in default_variables:
+            state_vars[k] = default_variables[k]
+        self.states.append({
+            'current_step': 0,
+            'operations': func_body,
+            'vars': state_vars,
+        })
 
         # run function
-        i = int(self.current_step)
-        is_in_func = False
-        for func_op in func_body:
-            func_op_parsed = self.set_operation_index(func_op)
-            if func_op_parsed['command'] == 'section' and not is_in_func:
-                section_name = func_op_parsed['args'][0]
-                self.sections[section_name] = i+1
-            else:
-                if func_op_parsed['command'] == 'func':
-                    is_in_func = True
-                elif func_op_parsed['command'] == 'endfunc':
-                    is_in_func = False
-                self.operations.insert(i+1, func_op)
-                self.update_section_indexes(i+1)
-                i += 1
-
-        if with_state:
-            self.operations.insert(i+1, parser.parse('popstate', filepath='<system>')[0])
-            self.update_section_indexes(i+1)
+        self.start_state()
 
     def eval(self, operation, only_parse=False):
         """ Runs eval on operation """
@@ -278,7 +261,7 @@ class Program(helpers.Helpers):
                         if word[0] == '$':
                             variables_in_code.append(word[1:])
                 for k in variables_in_code:
-                    self.variable_required(k, self.operations[self.current_step])
+                    self.variable_required(k, self.states[-1]['operations'][self.states[-1]['current_step']])
                     code = code.replace('$' + k, 'self.get_var("' + k + '")')
                 code = code.replace('->', '.')
                 code = code.replace('^', 'self.get_mem()')
@@ -301,11 +284,6 @@ class Program(helpers.Helpers):
 
         if op_name == 'endclass':
             self.run_endclass(op)
-            return
-
-        if op_name == 'popstate':
-            if self.states:
-                self.states.pop()
             return
 
         # if a function is started, append current operation to the function body
@@ -395,15 +373,12 @@ class Program(helpers.Helpers):
                 return
             value = None
             if parts[1].strip()[0] == '^' and len(parts[1].strip()) > 1:
-                if self.current_step in self.runed_functions:
-                    return
-                self.runed_functions.append(self.current_step)
                 cmd = parts[1].strip()[1:].strip()
                 # insert cmd after current operation
-                self.operations.insert(self.current_step+1, parser.parse(cmd, filepath='system')[0])
-                self.update_section_indexes(self.current_step+1)
-                self.operations.insert(self.current_step+2, parser.parse(full_varname + ' = ^', filepath='<system>')[0])
-                self.update_section_indexes(self.current_step+2)
+                self.states[-1]['operations'].insert(self.states[-1]['current_step']+1, parser.parse(cmd, filepath='system')[0])
+                self.update_section_indexes(self.states[-1]['current_step']+1)
+                self.states[-1]['operations'].insert(self.states[-1]['current_step']+2, parser.parse(full_varname + ' = ^', filepath='<system>')[0])
+                self.update_section_indexes(self.states[-1]['current_step']+2)
                 return
             elif parts[1].strip() == '^':
                 value = self.get_mem()
@@ -429,12 +404,12 @@ class Program(helpers.Helpers):
             var_name = op['command'].split('@')[0]
             var = self.all_vars()[var_name[1:]]
             if type(var) != Class:
-                self.raise_error('MethodError', 'calling method on non-class object "' + var_name + '"', op)
+                return self.raise_error('MethodError', 'calling method on non-class object "' + var_name + '"', op)
             try:
                 func_body = var.methods[op['command'].split('@')[1]]
                 is_method = var
             except:
-                self.raise_error('MethodError', 'class ' + self.all_vars()[var_name[1:]].__name__ + ' has not method "' + op['command'][0].split('@')[1] + '"', op)
+                return self.raise_error('MethodError', 'class ' + self.all_vars()[var_name[1:]].__name__ + ' has not method "' + op['command'][0].split('@')[1] + '"', op)
         else:
             try:
                 func_body = self.functions[self.current_namespace() + op_name]
@@ -449,8 +424,7 @@ class Program(helpers.Helpers):
                     try:
                         func_body = self.functions[op_name]
                     except KeyError:
-                        self.raise_error('SyntaxError', 'undefined operation "' + op_name + '"', op)
-                        return
+                        return self.raise_error('SyntaxError', 'undefined operation "' + op_name + '"', op)
 
         # run function
         try:
@@ -470,7 +444,7 @@ class Program(helpers.Helpers):
             default_variables = {}
             if is_method != False:
                 default_variables['this'] = is_method
-            self.exec_func(func_body, with_state, True, default_variables=default_variables)
+            self.exec_func(func_body, with_state, default_variables=default_variables)
             return
         except Exception as ex:
             raise
@@ -522,6 +496,45 @@ class Program(helpers.Helpers):
                                 raise
                                 pass
 
+    def start_state(self):
+        """ Start running state thread """
+        is_in_func = False
+        self.states[-1]['current_step'] = 0
+
+        # load the sections
+        i = 0
+        while i < len(self.states[-1]['operations']):
+            current_op = self.set_operation_index(self.states[-1]['operations'][i])
+            if current_op['command'] == 'section':
+                if not is_in_func:
+                    arg = current_op['args'][0]
+                    self.sections[arg] = i+1
+                    self.states[-1]['operations'][i] = parser.parse('pass', filepath='<system>')[0]
+            elif current_op['command'] == 'func':
+                is_in_func = True
+            elif current_op['command'] == 'endfunc':
+                is_in_func = False
+            i += 1
+
+        self.states[-1]['current_step'] = 0
+        while self.states[-1]['current_step'] < len(self.states[-1]['operations']):
+            try:
+                self.run(self.states[-1]['operations'][self.states[-1]['current_step']])
+            except Exception as ex:
+                try:
+                    self.set_operation_index(self.states[-1]['operations'][self.states[-1]['current_step']])
+                except:
+                    break
+                self.raise_error(
+                    ex.__class__.__name__,
+                    str(ex),
+                    self.set_operation_index(self.states[-1]['operations'][self.states[-1]['current_step']])
+                )
+            self.states[-1]['current_step'] += 1
+
+        if len(self.states) > 1:
+            self.states.pop()
+
     def start(self):
         """ Start running the program """
 
@@ -529,36 +542,4 @@ class Program(helpers.Helpers):
 
         self.bootstrap_modules()
 
-        is_in_func = False
-        self.current_step = 0
-
-        # load the sections
-        i = 0
-        while i < len(self.operations):
-            current_op = self.set_operation_index(self.operations[i])
-            if current_op['command'] == 'section':
-                if not is_in_func:
-                    arg = current_op['args'][0]
-                    self.sections[arg] = i+1
-                    self.operations[i] = parser.parse('pass', filepath='<system>')[0]
-            elif current_op['command'] == 'func':
-                is_in_func = True
-            elif current_op['command'] == 'endfunc':
-                is_in_func = False
-            i += 1
-
-        self.current_step = 0
-        while self.current_step < len(self.operations):
-            try:
-                self.run(self.operations[self.current_step])
-            except Exception as ex:
-                try:
-                    self.set_operation_index(self.operations[self.current_step])
-                except:
-                    break
-                self.raise_error(
-                    ex.__class__.__name__,
-                    str(ex),
-                    self.set_operation_index(self.operations[self.current_step])
-                )
-            self.current_step += 1
+        self.start_state()
