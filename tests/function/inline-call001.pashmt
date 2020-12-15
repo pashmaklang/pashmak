@@ -1,5 +1,5 @@
 #
-# 1.pashmt
+# inline-call001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,13 +21,21 @@
 #########################################################################
 
 --test--
-read command raises error when argument variable is not found
+inline function calling working
 
 --file--
-read $notfound
+func sayhi $name
+    mem 'hello ' + $name
+endfunc
 
---stdin
-['test']
+func get_name
+    mem 'parsa'
+endfunc
 
---with-error--
-'VariableError'
+println %{ sayhi 'pashmak' }%
+println %{ sayhi %{ get_name }% }%
+
+--output--
+"""hello pashmak
+hello parsa
+"""

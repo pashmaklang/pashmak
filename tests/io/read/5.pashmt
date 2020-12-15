@@ -24,7 +24,7 @@
 read command can read value on mem
 
 --file--
-read ^
+read
 
 --stdin--
 ['pashmak']

@@ -29,13 +29,11 @@ $persons = []
 
 $i = 0
 section loop
-    $p = ^ new Person
+    $p = %{ new Person }%
     print 'enter your name: '
-    read ^
-    $p->name = ^
+    $p->name = %{ read }%
     print 'enter your age: '
-    read ^
-    $p->age = ^
+    $p->age = %{ read }%
 
     mem $persons->append($p)
 

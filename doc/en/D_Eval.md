@@ -20,7 +20,7 @@ look at this example:
 
 ```bash
 print 'enter some code: '
-$code; read $code
+$code = %{ read }%
 
 eval $code
 ```

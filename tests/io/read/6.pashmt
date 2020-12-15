@@ -24,13 +24,12 @@
 read command can read multiple values in one command
 
 --file--
-$var; $v2; read ^ $var $v2
+$var; $v2;
+$var = %{ read }%
+$v2 = %{ read }%
 
 --stdin--
-['themem', 'pashmak', 'hello']
-
---mem--
-'themem'
+['pashmak', 'hello']
 
 --vars--
 {'var': 'pashmak', 'v2': 'hello'}

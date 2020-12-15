@@ -606,9 +606,8 @@ You can read input from user in stdin.
 look at this example:
 
 ```bash
-$name # set the name variable
 print 'what is your name? '
-read $name # read a input and copy that in $name variable
+$name = %{ read }% # read a input and put that in $name variable
 println 'hello ' + $name # say hello to $name :)
 ```
 
@@ -631,14 +630,10 @@ also look at this example:
 $num1; $num2
 
 print 'enter first number: '
-read $num1
+$num1 = int(%{ read }%)
 
 print 'enter second number: '
-read $num2
-
-# now, $num1 and $num2 are string. we convert string to int:
-$num1 = int($num1)
-$num2 = int($num2)
+$num2 = int(%{ read }%)
 
 # now we want to plus them
 $sum = $num1 + $num2
@@ -745,8 +740,10 @@ look at this example:
 ```bash
 # read age from user
 print 'enter your age: '
-$age; read $age
+$age = %{ read }%
 $age = int($age)
+# OR
+$age = int(%{ read }%)
 
 mem $age > 18; gotoif age_is_more_than_18 # if age is more than 18, goto age_is_more_than_18 section
 
@@ -1221,30 +1218,65 @@ output:
 15
 ```
 
-now, above syntax is ugly. we can write this code like this:
+### inline calling functions
+you can call a function as argument of another function.
+
+look at this example:
+
+```bash
+# the say_hi function returns string `hello <$name>`
+func say_hi $name
+    mem 'hello ' + $name
+endfunc
+
+# we want to call this function and print the output of that
+println %{ say_hi "parsa" }%
+```
+
+output:
+
+```
+hello parsa
+```
+
+in the above example, we directly called a function and passed the output of that as argument of `println` function.
+
+you have to use `%{ }%` syntax and write you code between them. output of that function will be used instead of that.
+
+another example:
+
+```bash
+func say_hi $name
+    mem 'hello ' + $name
+endfunc
+
+func get_name
+    mem 'pashmak'
+endfunc
+
+println %{ say_hi %{ get_name }% }%
+```
+
+output:
+
+```
+hello pashmak
+```
+
+in the above example, we used `%{ }%` structure complicated.
+
+another example:
 
 ```bash
 func add_two_nums ($nums)
-    $sum = $nums[0] + $nums[1] # add two numbers
-    mem $sum # put result to mem
+    mem $nums[0] + $nums[1]
 endfunc
 
-# now we call this function
-$result = ^ add_two_nums 10, 5
-println $result
+$result = %{ add_two_nums 10, 5 }%
+println 'sum is ' + str($result)
 ```
 
-we write two operations in one operation to have better syntax. calling function and assigning mem (function output) to `$result`.
-we just have to write variable name and an `=`, and next write `^` and them write our code after this.
-
-like it:
-
-```bash
-$variable = ^ my_command_or_function 'my', 'arguments'
-# above code will put mem value to the variable after run above function or command
-```
-
-and them this code will run and mem value will put into the variable(actually, puts result of command or function into the variable).
+This is very useful.
 
 
 
@@ -1525,16 +1557,14 @@ output:
 or:
 
 ```bash
-cwd # or `cwd()`
-$cwd = ^
+$cwd = %{ cwd() }%
 println 'The current working directory is ' + $cwd
 ```
 
 or:
 
 ```bash
-$cwd = ^ cwd
-println $cwd
+println %{ cwd }%
 ```
 
 this command puts current working directory path into the mem.
@@ -1556,7 +1586,7 @@ println ^ # output: 0
 or:
 
 ```bash
-$exit_code = ^ system 'ls /'
+println %{ system 'ls /' }%
 ```
 
 ### exit
@@ -1943,7 +1973,7 @@ class Car
     $color
 endclass
 
-$my_car = ^ new Car
+$my_car = %{ new Car }%
 
 println $my_car
 ```
@@ -1962,11 +1992,11 @@ class Car
     $color
 endclass
 
-$my_car = ^ new Car
+$my_car = %{ new Car }%
 $my_car->name = 'BMW'
 $my_car->color = 'white'
 
-println $my_car->name ' ' + $my_car->color
+println $my_car->name + ' ' + $my_car->color
 ```
 
 output:
@@ -2017,11 +2047,11 @@ class TheClassName
     $prop3; $prop4
 endclass
 
-$my_object = ^ new TheClassName
+$my_object = %{ new TheClassName }%
 ```
 
 the `new` command gets name of class and creates an instance from that and puts that in the mem temp value.
-means, if i want to put created object in a variables, i need to write `$var = ^ new ClassName`.
+means, if i want to put created object in a variables, i need to write `$var = %{ new ClassName }%`.
 
 now, we can create object from a class. how to access to the properties? look at this example:
 
@@ -2031,7 +2061,7 @@ class Car
     $color
 endclass
 
-$my_car = ^ new Car
+$my_car = %{ new Car }%
 
 println $my_car->name # output: default name
 ```
@@ -2048,7 +2078,7 @@ class Car
     $color
 endclass
 
-$my_car = ^ new Car
+$my_car = %{ new Car }%
 
 println $my_car->name # output: default name
 
@@ -2070,7 +2100,7 @@ namespace Models
     endclass
 endns
 
-$my_car = ^ new Models.Car
+$my_car = %{ new Models.Car }%
 ```
 
 all of laws for **classes in namespaces** is like `functions` and `variables`.
@@ -2090,10 +2120,10 @@ class Car
     $color
 
     # the brand property is a object from Brand class
-    $brand = ^ new Brand
+    $brand = %{ new Brand }%
 endclass
 
-$my_car = ^ new Car
+$my_car = %{ new Car }%
 $my_car->name = 'my car'
 $my_car->brand->title = 'BMW'
 
@@ -2126,7 +2156,7 @@ class Car
     $color
 endclass
 
-$my_car = ^ new Car
+$my_car = %{ new Car }%
 $my_car->name = 'my car'
 $my_car->color = 'red'
 
@@ -2153,7 +2183,7 @@ class Person
     $_age = 100 # age is const
 endclass
 
-$p = ^ new Person
+$p = %{ new Person }%
 
 $p->_age = 50
 ```
@@ -2218,7 +2248,7 @@ class Child < Father
     $age = 100
 endclass
 
-$child = ^ new Child
+$child = %{ new Child }%
 
 println $child->name # output: hello world
 println $child->age # output: 100
@@ -2243,7 +2273,7 @@ class Person
 
 endclass
 
-$person = ^ new Person
+$person = %{ new Person }%
 
 println $person->__name__ # output: Person
 ```
@@ -2263,7 +2293,7 @@ class Cat
 endclass
 
 # create a object from Cat
-$my_cat = ^ new Cat
+$my_cat = %{ new Cat }%
 
 $my_cat@mio
 ```
@@ -2288,7 +2318,7 @@ class Cat
 endclass
 
 # create a object from Cat
-$my_cat = ^ new Cat
+$my_cat = %{ new Cat }%
 $my_cat->name = 'gerdoo'
 $my_cat@mio
 ```
@@ -2316,7 +2346,7 @@ class Person
     endfunc
 endclass
 
-$p = ^ new Person
+$p = %{ new Person }%
 
 $p@set_name 'parsa'
 
@@ -2344,15 +2374,16 @@ for example:
 ```bash
 class Father
     func hi
-        println 'hello world'
+        # returnns this string
+        mem 'hello world'
     endfunc
 endclass
 
 class Child < Father; endclass
 
-$obj = ^ new Child
+$obj = %{ new Child %}
 
-$obj@hi
+println %{ $obj@hi }%
 ```
 
 output:
@@ -2376,7 +2407,7 @@ class Person
     endfunc
 endclass
 
-$p = ^ new Person
+$p = %{ new Person }%
 ```
 
 output:
@@ -2395,7 +2426,7 @@ class Person
     endfunc
 endclass
 
-$p = ^ new Person 'parsa'
+$p = %{ new Person 'parsa' }%
 println $p->name
 ```
 
@@ -2416,9 +2447,11 @@ class Person
     $name
 endclass
 
-$p = ^ new Person
+$p = %{ new Person }%
 $p->name = 'parsa'
 println $p
+# OR
+println %{ new Person }%
 ```
 
 output:
@@ -2442,7 +2475,7 @@ class Person
     endfunc
 endclass
 
-$p = ^ new Person
+$p = %{ new Person }%
 $p->name = 'parsa'
 println $p
 ```
@@ -2479,7 +2512,7 @@ look at this example:
 
 ```bash
 print 'enter some code: '
-$code; read $code
+$code = %{ read }%
 
 eval $code
 ```
@@ -2544,6 +2577,8 @@ import @hash
 
 hash.sha256 "hello" # also you can use hash.md5 and...
 println ^ # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+# OR
+println %{ hash.sha256 "hello" }%
 ```
 
 ##### how it works?
@@ -2575,8 +2610,7 @@ this function gives you current UNIX timestamp:
 ```bash
 import @time
 
-time.time
-println ^ # output is some thing like this: `1600416438.687201`
+println %{ time.time() }% # output is some thing like this: `1600416438.687201`
 ```
 
 when you call this function, this function puts the unix timestamp into mem and you can access and use that.
@@ -2609,18 +2643,17 @@ this module makes random numbers
 ```bash
 import @random
 
-random.randint 1, 10 # generates a random int between 1 and 10
-
-println ^ # and puts generated random number in mem and you can access that
+# generates a random int between 1 and 10
+println %{ random.randint 1, 10 }%
 ```
 
 ##### random.random
 ```bash
 import @random
 
-random.random # generates a random float less that 1
-
-println ^ # and puts generated random number in mem and you can access that
+# generates a random float less that 1
+$rand = %{ random.random }%
+println $rand
 ```
 
 ### file module
@@ -2640,7 +2673,7 @@ $f = ^
 
 # or
 
-$f = ^ file.open '/path/to/file.txt', 'r'
+$f = %{ file.open '/path/to/file.txt', 'r' }%
 ```
 
 ##### file.read
@@ -2649,10 +2682,9 @@ wtih this function, you can read opened file:
 ```bash
 import @file
 
-$f = ^ file.open '/path/to/file.txt', 'r'
+$f = %{ file.open '/path/to/file.txt', 'r' }%
 
-file.read $f # now, content of file is in the mem
-println ^ # output is content of file
+println %{ file.read $f }% # output is content of file
 ```
 
 ##### file.write
@@ -2661,7 +2693,7 @@ with this function, you can write on opened file:
 ```bash
 import @file
 
-$f = ^ file.open '/path/to/file.txt', 'w' # open type is `w` (write)
+$f = %{ file.open '/path/to/file.txt', 'w' }% # open type is `w` (write)
 
 file.write $f, 'new content' # first arg is opened file and second arg is content.
 ```
@@ -2674,7 +2706,7 @@ with this function you can close file after your work:
 ```bash
 import @file
 
-$f = ^ file.open '/path/to/file.txt', 'r'
+$f = %{ file.open '/path/to/file.txt', 'r' }%
 
 # work with file
 
@@ -2686,9 +2718,9 @@ file.close $f # close file after work
 ```bash
 import @file
 
-$file = ^ file.open '/path/to/file.txt', 'r'
+$file = %{ file.open '/path/to/file.txt', 'r' }%
 
-$content = ^ file.read $file
+$content = %{ file.read $file }%
 
 print 'content of file is: ' + $content
 ```
@@ -2928,7 +2960,7 @@ also you can get list of module paths:
 ```bash
 import '@sys'
 
-$module_paths = ^ sys.path.list
+$module_paths = %{ sys.path.list }%
 
 println $module_paths
 ```

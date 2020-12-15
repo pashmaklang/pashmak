@@ -36,7 +36,7 @@ file.close $file
 
 file.open [$tmp_file, 'r']
 $file = ^
-file.read $file; print ^
+print %{ file.read $file }%
 file.close $file
 
 mem os.remove($tmp_file)

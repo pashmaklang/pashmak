@@ -20,7 +20,7 @@ class Car
     $color
 endclass
 
-$my_car = ^ new Car
+$my_car = %{ new Car }%
 
 println $my_car
 ```
@@ -39,11 +39,11 @@ class Car
     $color
 endclass
 
-$my_car = ^ new Car
+$my_car = %{ new Car }%
 $my_car->name = 'BMW'
 $my_car->color = 'white'
 
-println $my_car->name ' ' + $my_car->color
+println $my_car->name + ' ' + $my_car->color
 ```
 
 output:
@@ -94,11 +94,11 @@ class TheClassName
     $prop3; $prop4
 endclass
 
-$my_object = ^ new TheClassName
+$my_object = %{ new TheClassName }%
 ```
 
 the `new` command gets name of class and creates an instance from that and puts that in the mem temp value.
-means, if i want to put created object in a variables, i need to write `$var = ^ new ClassName`.
+means, if i want to put created object in a variables, i need to write `$var = %{ new ClassName }%`.
 
 now, we can create object from a class. how to access to the properties? look at this example:
 
@@ -108,7 +108,7 @@ class Car
     $color
 endclass
 
-$my_car = ^ new Car
+$my_car = %{ new Car }%
 
 println $my_car->name # output: default name
 ```
@@ -125,7 +125,7 @@ class Car
     $color
 endclass
 
-$my_car = ^ new Car
+$my_car = %{ new Car }%
 
 println $my_car->name # output: default name
 
@@ -147,7 +147,7 @@ namespace Models
     endclass
 endns
 
-$my_car = ^ new Models.Car
+$my_car = %{ new Models.Car }%
 ```
 
 all of laws for **classes in namespaces** is like `functions` and `variables`.
@@ -167,10 +167,10 @@ class Car
     $color
 
     # the brand property is a object from Brand class
-    $brand = ^ new Brand
+    $brand = %{ new Brand }%
 endclass
 
-$my_car = ^ new Car
+$my_car = %{ new Car }%
 $my_car->name = 'my car'
 $my_car->brand->title = 'BMW'
 
@@ -203,7 +203,7 @@ class Car
     $color
 endclass
 
-$my_car = ^ new Car
+$my_car = %{ new Car }%
 $my_car->name = 'my car'
 $my_car->color = 'red'
 
@@ -230,7 +230,7 @@ class Person
     $_age = 100 # age is const
 endclass
 
-$p = ^ new Person
+$p = %{ new Person }%
 
 $p->_age = 50
 ```
@@ -295,7 +295,7 @@ class Child < Father
     $age = 100
 endclass
 
-$child = ^ new Child
+$child = %{ new Child }%
 
 println $child->name # output: hello world
 println $child->age # output: 100
@@ -320,7 +320,7 @@ class Person
 
 endclass
 
-$person = ^ new Person
+$person = %{ new Person }%
 
 println $person->__name__ # output: Person
 ```
@@ -340,7 +340,7 @@ class Cat
 endclass
 
 # create a object from Cat
-$my_cat = ^ new Cat
+$my_cat = %{ new Cat }%
 
 $my_cat@mio
 ```
@@ -365,7 +365,7 @@ class Cat
 endclass
 
 # create a object from Cat
-$my_cat = ^ new Cat
+$my_cat = %{ new Cat }%
 $my_cat->name = 'gerdoo'
 $my_cat@mio
 ```
@@ -393,7 +393,7 @@ class Person
     endfunc
 endclass
 
-$p = ^ new Person
+$p = %{ new Person }%
 
 $p@set_name 'parsa'
 
@@ -421,15 +421,16 @@ for example:
 ```bash
 class Father
     func hi
-        println 'hello world'
+        # returnns this string
+        mem 'hello world'
     endfunc
 endclass
 
 class Child < Father; endclass
 
-$obj = ^ new Child
+$obj = %{ new Child %}
 
-$obj@hi
+println %{ $obj@hi }%
 ```
 
 output:
@@ -453,7 +454,7 @@ class Person
     endfunc
 endclass
 
-$p = ^ new Person
+$p = %{ new Person }%
 ```
 
 output:
@@ -472,7 +473,7 @@ class Person
     endfunc
 endclass
 
-$p = ^ new Person 'parsa'
+$p = %{ new Person 'parsa' }%
 println $p->name
 ```
 
@@ -493,9 +494,11 @@ class Person
     $name
 endclass
 
-$p = ^ new Person
+$p = %{ new Person }%
 $p->name = 'parsa'
 println $p
+# OR
+println %{ new Person }%
 ```
 
 output:
@@ -519,7 +522,7 @@ class Person
     endfunc
 endclass
 
-$p = ^ new Person
+$p = %{ new Person }%
 $p->name = 'parsa'
 println $p
 ```

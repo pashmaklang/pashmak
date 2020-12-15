@@ -304,27 +304,62 @@ output:
 15
 ```
 
-now, above syntax is ugly. we can write this code like this:
+### inline calling functions
+you can call a function as argument of another function.
+
+look at this example:
+
+```bash
+# the say_hi function returns string `hello <$name>`
+func say_hi $name
+    mem 'hello ' + $name
+endfunc
+
+# we want to call this function and print the output of that
+println %{ say_hi "parsa" }%
+```
+
+output:
+
+```
+hello parsa
+```
+
+in the above example, we directly called a function and passed the output of that as argument of `println` function.
+
+you have to use `%{ }%` syntax and write you code between them. output of that function will be used instead of that.
+
+another example:
+
+```bash
+func say_hi $name
+    mem 'hello ' + $name
+endfunc
+
+func get_name
+    mem 'pashmak'
+endfunc
+
+println %{ say_hi %{ get_name }% }%
+```
+
+output:
+
+```
+hello pashmak
+```
+
+in the above example, we used `%{ }%` structure complicated.
+
+another example:
 
 ```bash
 func add_two_nums ($nums)
-    $sum = $nums[0] + $nums[1] # add two numbers
-    mem $sum # put result to mem
+    mem $nums[0] + $nums[1]
 endfunc
 
-# now we call this function
-$result = ^ add_two_nums 10, 5
-println $result
+$result = %{ add_two_nums 10, 5 }%
+println 'sum is ' + str($result)
 ```
 
-we write two operations in one operation to have better syntax. calling function and assigning mem (function output) to `$result`.
-we just have to write variable name and an `=`, and next write `^` and them write our code after this.
-
-like it:
-
-```bash
-$variable = ^ my_command_or_function 'my', 'arguments'
-# above code will put mem value to the variable after run above function or command
-```
-
-and them this code will run and mem value will put into the variable(actually, puts result of command or function into the variable).
+This is very useful.
