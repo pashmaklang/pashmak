@@ -28,9 +28,9 @@ $mystr = 'the string'
 $myint = 17
 $mybool = True
 
-$type_str = ^ typeof $mystr;
-$type_int = ^ typeof $myint
-$type_bool = ^ typeof $mybool
+$type_str = %{ typeof $mystr }%
+$type_int = %{ typeof $myint }%
+$type_bool = %{ typeof $mybool }%
 
 free $mystr $myint $mybool
 

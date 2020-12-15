@@ -28,7 +28,7 @@ class __str__ method working
 class First
 endclass
 
-$first = ^ new First
+$first = %{ new First }%
 
 println $first
 
@@ -39,7 +39,7 @@ class Second
     endfunc
 endclass
 
-$second = ^ new Second
+$second = %{ new Second }%
 
 println $second
 

@@ -40,7 +40,7 @@ class First
     $dict = {'a': 'A'}
 endclass
 
-$f = ^ new First
+$f = %{ new First }%
 
 println $f->dict
 
@@ -52,6 +52,7 @@ class Hello
     $list = ['a', 'b', 'c']
 endclass
 
+# TODO : change this line
 $f->hello = ^ new Hello
 
 println $f->hello->list

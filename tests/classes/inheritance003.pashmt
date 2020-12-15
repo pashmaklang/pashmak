@@ -35,7 +35,7 @@ class Child < Parent
 
 endclass
 
-$a = ^ new Child
+$a = %{ new Child }%
 
 $a@hi
 

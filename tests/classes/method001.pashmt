@@ -34,7 +34,7 @@ class Person
     endfunc
 endclass
 
-$p = ^ new Person
+$p = %{ new Person }%
 
 $p@hello
 
