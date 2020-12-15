@@ -29,7 +29,10 @@ jobs:
     - name: Running Tests (windows)
       if: startsWith(matrix.os, 'windows')
       run: |
-        .\win-configure.bat
+        python src\pashmak.py scripts\module-build.pashm
+        python src\pashmak.py scripts\update-headers.pashm
+        python src\pashmak.py scripts\doc-build.pashm
+        python tests\run.py
         python -m PyInstaller src\pashmak.py --onefile
         dist\pashmak.exe -v
     - name: Running Tests
