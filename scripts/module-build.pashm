@@ -1,15 +1,17 @@
 #!/usr/bin/env pashmak
 # Mixes static pashmak internal modules from `modules/` directory to `src/core/modules.py` file
 
+import @file
+
 $modules = {}
 $module_files = os.listdir($__dir__ + '/../modules')
 mem $module_files->sort()
 
 $i = 0
 section loop1
-    $f = open($__dir__ + '/../modules/' + $module_files[$i])
-    $content = $f->read()
-    mem $f->close()
+    $f = %{ file.open $__dir__ + '/../modules/' + $module_files[$i], 'r' }%
+    $content = %{ file.read $f }%
+    file.close $f
     $module_name = $module_files[$i]->split('.')[0]
     $modules[$module_name] = $content
     $i = $i + 1
@@ -23,7 +25,6 @@ section loop2
     $tmp_module_content = $modules[$k]->replace('\n\n', '\n')
     $tmp_module_content = $tmp_module_content->replace('\n\n', '\n')
     $new_module_content = ''
-
 
     $j = 0
     $lines = $tmp_module_content->strip()->split('\n')
@@ -43,8 +44,8 @@ mem $i < len($keys); gotoif loop2
 
 $pycode = $pycode + '\n'
 
-$f = open($__dir__ + '/../src/core/modules.py', 'w')
-mem $f->write($pycode)
-mem $f->close()
+$f = %{ file.open $__dir__ + '/../src/core/modules.py', 'w' }%
+file.write $f, $pycode
+file.close $f
 
 println "\033[32mall of modules mixed in 'src/core/modules.py' successfuly\033[0m"
