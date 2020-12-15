@@ -40,9 +40,7 @@ $p = %{ new Person }%
 
 $p@set_name 'parsa'
 
-# TODO : change this line
-$p@get_name
-$name = ^
+$name = %{ $p@get_name }%
 
 println $name
 

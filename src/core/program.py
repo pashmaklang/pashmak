@@ -259,7 +259,7 @@ class Program(helpers.Helpers):
                 code_words = self.multi_char_split(code, literals)
                 for word in code_words:
                     if word:
-                        if word[0] == '$':
+                        if word[0] == '$' and not '@' in word:
                             variables_in_code.append(word[1:])
                 for k in variables_in_code:
                     self.variable_required(k, self.states[-1]['operations'][self.states[-1]['current_step']])
