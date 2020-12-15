@@ -1,5 +1,5 @@
 #
-# 1.pashmt
+# eval2.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,13 +21,15 @@
 #########################################################################
 
 --test--
-read command raises error when argument variable is not found
+eval function do not creates new state and runs on current state
 
 --file--
-read $notfound
+$name = 'hi'
+println $name
+eval "$name = 'the new'"
+println $name
 
---stdin
-['test']
-
---with-error--
-'VariableError'
+--output--
+"""hi
+the new
+"""

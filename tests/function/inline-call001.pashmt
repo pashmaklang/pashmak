@@ -1,5 +1,5 @@
 #
-# consts01.pashmt
+# inline-call001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,24 +21,21 @@
 #########################################################################
 
 --test--
-class constants working
+inline function calling working
 
 --file--
-class Test
-    $name = 'hello'
-    $_age = 10
-endclass
+func sayhi $name
+    mem 'hello ' + $name
+endfunc
 
-$test = %{ new Test }%
+func get_name
+    mem 'parsa'
+endfunc
 
-$test->name = 'new name'
-
-print $test->name
-
-$test->_age = 100
+println %{ sayhi 'pashmak' }%
+println %{ sayhi %{ get_name }% }%
 
 --output--
-'new name'
-
---with-error--
-'ClassConstError'
+"""hello pashmak
+hello parsa
+"""

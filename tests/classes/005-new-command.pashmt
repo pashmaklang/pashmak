@@ -28,7 +28,7 @@ class Car
     $color = 'red'
 endclass
 
-$my_car = ^ new Car
+$my_car = %{ new Car }%
 
 namespace Foo
     class Bar
@@ -42,11 +42,11 @@ namespace Foo
     endns
 endns
 
-$my_bar = ^ new Foo.Bar
+$my_bar = %{ new Foo.Bar }%
 
 use Foo.Sub
 
-$my_hi = ^ new Hello
+$my_hi = %{ new Hello }%
 
 println $my_bar->title
 println $my_car->color

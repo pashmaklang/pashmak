@@ -50,6 +50,14 @@ class Class:
         self.methods = {}
 
     def __str__(self):
+        str_magic_method = None
+        try:
+            str_magic_method = self.methods['__str__']
+        except KeyError:
+            pass
+        if str_magic_method != None:
+            self.__prog__.exec_func(str_magic_method, True, {'this': self})
+            return str(self.__prog__.get_mem())
         return '[PashmakClass name="' + self.__name__ + '"]'
 
     def __getattr__(self, attrname):

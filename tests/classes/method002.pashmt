@@ -36,11 +36,11 @@ class Person
     endfunc
 endclass
 
-$p = ^ new Person
+$p = %{ new Person }%
 
 $p@set_name 'parsa'
 
-$name = ^ $p@get_name
+$name = %{ $p@get_name }%
 
 println $name
 

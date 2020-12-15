@@ -1,5 +1,5 @@
 #
-# 2.pashmt
+# str-method001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,13 +21,29 @@
 #########################################################################
 
 --test--
-read command raises error when argument syntax is not valid
+class __str__ method working
 
 --file--
-read gfhfjhgjgjgh
 
---stdin
-['test']
+class First
+endclass
 
---with-error--
-'SyntaxError'
+$first = %{ new First }%
+
+println $first
+
+class Second
+    func __str__
+        $the_str = 'hello world. i am a Second class'
+        mem $the_str
+    endfunc
+endclass
+
+$second = %{ new Second }%
+
+println $second
+
+--output--
+"""[PashmakClass name="First"]
+hello world. i am a Second class
+"""

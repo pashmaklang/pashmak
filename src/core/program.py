@@ -249,6 +249,7 @@ class Program(helpers.Helpers):
             i += 1
 
         full_op = ''
+        opened_inline_calls_count = 0
         for code in operation_parts:
             if code[0] == False:
                 code = code[1]
@@ -258,19 +259,50 @@ class Program(helpers.Helpers):
                 code_words = self.multi_char_split(code, literals)
                 for word in code_words:
                     if word:
-                        if word[0] == '$':
+                        if word[0] == '$' and not '@' in word:
                             variables_in_code.append(word[1:])
                 for k in variables_in_code:
                     self.variable_required(k, self.states[-1]['operations'][self.states[-1]['current_step']])
                     code = code.replace('$' + k, 'self.get_var("' + k + '")')
                 code = code.replace('->', '.')
                 code = code.replace('^', 'self.get_mem()')
+                z = 0
+                new_code = ''
+                while z < len(code):
+                    if z > 0:
+                        if code[z-1] + code[z] == '%{':
+                            if opened_inline_calls_count == 0:
+                                new_code = new_code[:len(new_code)-1]
+                                new_code += 'self.call_inline_func("""'
+                                pass # replace
+                            else:
+                                new_code += code[z]
+                            opened_inline_calls_count += 1
+                        elif code[z-1] + code[z] == '}%':
+                            if opened_inline_calls_count <= 1:
+                                new_code = new_code[:len(new_code)-1]
+                                new_code += '""")'
+                            else:
+                                new_code += code[z]
+                            opened_inline_calls_count -= 1
+                        else:
+                            new_code += code[z]
+                    else:
+                        new_code += code[z]
+                    z += 1
+                code = new_code
             else:
                 code = code[1]
             full_op += code
         if only_parse:
             return full_op
         return eval(full_op)
+
+    def call_inline_func(self, code: str):
+        """ Runs the internal function call "%{ func_or_command }" """
+        operations = parser.parse(code)
+        self.exec_func(operations, False)
+        return self.get_mem()
 
     def run(self, op: dict):
         """ Run once operation """
@@ -372,17 +404,7 @@ class Program(helpers.Helpers):
                     self.set_var(varname[1:], None)
                 return
             value = None
-            if parts[1].strip()[0] == '^' and len(parts[1].strip()) > 1:
-                cmd = parts[1].strip()[1:].strip()
-                # insert cmd after current operation
-                self.states[-1]['operations'].insert(self.states[-1]['current_step']+1, parser.parse(cmd, filepath='system')[0])
-                self.update_section_indexes(self.states[-1]['current_step']+1)
-                self.states[-1]['operations'].insert(self.states[-1]['current_step']+2, parser.parse(full_varname + ' = ^', filepath='<system>')[0])
-                self.update_section_indexes(self.states[-1]['current_step']+2)
-                return
-            elif parts[1].strip() == '^':
-                value = self.get_mem()
-            else:
+            if True:
                 value = self.eval(parts[1].strip())
             if is_class_setting != False:
                 tmp_real_var = self.eval(varname)

@@ -5,9 +5,8 @@ You can read input from user in stdin.
 look at this example:
 
 ```bash
-$name # set the name variable
 print 'what is your name? '
-read $name # read a input and copy that in $name variable
+$name = %{ read }% # read a input and put that in $name variable
 println 'hello ' + $name # say hello to $name :)
 ```
 
@@ -30,14 +29,10 @@ also look at this example:
 $num1; $num2
 
 print 'enter first number: '
-read $num1
+$num1 = int(%{ read }%)
 
 print 'enter second number: '
-read $num2
-
-# now, $num1 and $num2 are string. we convert string to int:
-$num1 = int($num1)
-$num2 = int($num2)
+$num2 = int(%{ read }%)
 
 # now we want to plus them
 $sum = $num1 + $num2

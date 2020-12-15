@@ -36,7 +36,7 @@ class Child < Father
     $foo = 'the foo'
 endclass
 
-$obj = ^ new Child
+$obj = %{ new Child }%
 
 println $obj->foo
 println $obj->name
