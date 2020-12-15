@@ -65,6 +65,7 @@ def run(self, op: dict):
     tmp_variable = 'the_temp_variable_for_class_init_' + str(random.random()).replace('.', '')
     while self.variable_exists(tmp_variable):
         tmp_variable = tmp_variable + str(random.random()).replace('.', '')
+    class_copy.__prog__ = self
     self.mem = class_copy
     code_operations = """
     $""" + tmp_variable + """ = ^
