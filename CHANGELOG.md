@@ -19,6 +19,7 @@
 - fixed some bugs in error raising system
 - fixed lot of interpreter internal bugs and some optimizations
 - added inline function calling feature, for example `println %{ my_func_or_command %{ another_command_as_arg }% }%`
+- removed `$var = ^ command` syntax
 
 ## 0.5.4 (2020-12-6)
 
