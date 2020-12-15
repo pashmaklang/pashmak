@@ -52,8 +52,7 @@ class Hello
     $list = ['a', 'b', 'c']
 endclass
 
-# TODO : change this line
-$f->hello = ^ new Hello
+$f->hello = %{ new Hello }%
 
 println $f->hello->list
 
