@@ -23,9 +23,6 @@
 """ Pashmak Builtin functions """
 
 from builtins_func import func as op_func
-from builtins_func import goto as op_goto
-from builtins_func import gotoif as op_gotoif
-from builtins_func import tryop as op_try
 from builtins_func import classop as op_class
 from builtins_func import new as op_new
 
@@ -53,10 +50,6 @@ class BuiltinFunctions:
             self.read_data.pop(0)
         self.mem = readed_data
 
-    def run_func(self, op: dict):
-        """ run func """
-        op_func.run(self, op)
-
     def run_endfunc(self, op: dict):
         """ Closes the functon declaration block """
         try:
@@ -65,12 +58,25 @@ class BuiltinFunctions:
             pass
 
     def run_goto(self, op: dict):
-        """ run goto """
-        op_goto.run(self, op)
+        """ Changes program current step to a specify section """
+        self.require_one_argument(op, 'goto function requires section name argument')
+        arg = op['args'][0]
+        try:
+            section_index = self.sections[arg]
+        except KeyError:
+            return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
+        self.states[-1]['current_step'] = section_index-1
 
     def run_gotoif(self, op: dict):
-        """ run gotoif """
-        op_gotoif.run(self, op)
+        """ Changes program current step to a specify section IF mem is True """
+        self.require_one_argument(op, 'gotoif function requires section name argument')
+        arg = op['args'][0]
+        try:
+            section_index = self.sections[arg]
+        except KeyError:
+            return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
+        if self.mem:
+            self.states[-1]['current_step'] = section_index-1
 
     def run_isset(self, op: dict):
         """ Checks variable(s) exists and puts result to mem """
@@ -83,8 +89,14 @@ class BuiltinFunctions:
         self.mem = True
 
     def run_try(self, op: dict):
-        """ run try """
-        op_try.run(self, op)
+        """ Starts the try-endtry block """
+        self.require_one_argument(op, 'try command requires section name argument')
+        arg = op['args'][0]
+        try:
+            self.sections[arg]
+        except KeyError:
+            return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
+        self.try_endtry.append(arg)
 
     def run_endtry(self, op: dict):
         """ Closes the try-endtry block """
@@ -112,10 +124,6 @@ class BuiltinFunctions:
         arg = op['args'][0]
         self.used_namespaces.append(arg)
 
-    def run_class(self, op: dict):
-        """ run class """
-        op_class.run(self, op)
-
     def run_endclass(self, op: dict):
         """ Closes the class declaration block """
         try:
@@ -123,6 +131,14 @@ class BuiltinFunctions:
         except AttributeError:
             pass
 
+    def run_class(self, op: dict):
+        """ run class """
+        op_class.run(self, op)
+
     def run_new(self, op: dict):
         """ run new """
         op_new.run(self, op)
+
+    def run_func(self, op: dict):
+        """ run func """
+        op_func.run(self, op)
