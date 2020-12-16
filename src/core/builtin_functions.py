@@ -1,5 +1,5 @@
 #
-# commands.py
+# builtin_functions.py
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,28 +20,22 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Only some aliases for operations """
+""" Pashmak Builtin functions """
 
-# operations imports
 from operations import free as op_free
 from operations import read as op_read
 from operations import func as op_func
-from operations import endfunc as op_endfunc
 from operations import goto as op_goto
 from operations import gotoif as op_gotoif
 from operations import isset as op_isset
 from operations import tryop as op_try
-from operations import endtry as op_endtry
 from operations import namespace as op_namespace
-from operations import endnamespace as op_endnamespace
 from operations import use as op_use
 from operations import classop as op_class
-from operations import endclass as op_endclass
 from operations import new as op_new
 
-class Commands:
-    """ Only some aliases for operations """
-
+class BuiltinFunctions:
+    """ Builtin functions """
     def run_free(self, op: dict):
         """ run free """
         op_free.run(self, op)
@@ -55,8 +49,11 @@ class Commands:
         op_func.run(self, op)
 
     def run_endfunc(self, op: dict):
-        """ run endfunc """
-        op_endfunc.run(self, op)
+        """ Closes the functon declaration block """
+        try:
+            del self.current_func
+        except AttributeError:
+            pass
 
     def run_goto(self, op: dict):
         """ run goto """
@@ -75,16 +72,18 @@ class Commands:
         op_try.run(self, op)
 
     def run_endtry(self, op: dict):
-        """ run endtry """
-        op_endtry.run(self, op)
+        """ Closes the try-endtry block """
+        if self.try_endtry:
+            self.try_endtry.pop()
 
     def run_namespace(self, op: dict):
         """ run namespace """
         op_namespace.run(self, op)
 
     def run_endnamespace(self, op: dict):
-        """ run endnamespace """
-        op_endnamespace.run(self, op)
+        """ Closes the namespace block """
+        if self.namespaces_tree:
+            self.namespaces_tree.pop()
 
     def run_use(self, op: dict):
         """ run use """
@@ -95,8 +94,11 @@ class Commands:
         op_class.run(self, op)
 
     def run_endclass(self, op: dict):
-        """ run endclass """
-        op_endclass.run(self, op)
+        """ Closes the class declaration block """
+        try:
+            del self.current_class
+        except AttributeError:
+            pass
 
     def run_new(self, op: dict):
         """ run new """

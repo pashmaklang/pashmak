@@ -24,10 +24,10 @@
 
 import os
 from sys import exit
-from core import commands, modules
+from core import builtin_functions, modules
 from core import parser
 
-class Helpers(commands.Commands):
+class Helpers(builtin_functions.BuiltinFunctions):
     """ Partial of program object functions """
 
     def raise_variable_error(self, varname: str, op: dict):
