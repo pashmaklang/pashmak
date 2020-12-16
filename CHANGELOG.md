@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 0.6, 0.6-beta2
+## 0.6, 0.6-beta3
 
 - created **Class** system
 - change default `RuntimeError` name to the real python exception name in exception system
