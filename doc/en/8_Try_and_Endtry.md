@@ -16,7 +16,7 @@ VariableError:
 or:
 
 ```bash
-# undefined operation
+# undefined function
 printlgdfgfd ^
 ```
 
@@ -24,7 +24,7 @@ output:
 
 ```
 SyntaxError:
-        undefined operation "printlgdfgfd"
+        undefined function "printlgdfgfd"
 ```
 
 they are errors.
@@ -49,7 +49,7 @@ mem 'some errors raised\n'; print ^
 section after_error
 ```
 
-when you write code between `try <section-name> ... endtry`, errors will not raised in them and if an error is raised, that section where passed to try operation will run.
+when you write code between `try <section-name> ... endtry`, errors will not raised in them and if an error is raised, that section where passed to try command will run.
 actually, we say to the Pashmak to don't show error to user and do that thing I'm saying you instead of default error showing.
 
 #### how to access raised error data?

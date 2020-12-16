@@ -45,9 +45,9 @@ def ignore_comment(op_str: str) -> str:
     return parts[0]
 
 def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
-    ''' Parse a operation from text to object '''
+    ''' Parse a command from text to object '''
     op = {}
-    op['str'] = op_str # operation plain string
+    op['str'] = op_str # command plain string
     op_parts = op_str.split(' ')
     op['command'] = op_parts[0]
     op['command'] = op['command'].split('(')
@@ -58,7 +58,7 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
     op_parts.pop(0)
     op['args_str'] = ''
     op['args'] = []
-    # set operation arguments
+    # set command arguments
     for op_part in op_parts:
         if op_part != '' or op['command'] == 'mem':
             if op['command'] == 'import':
@@ -79,11 +79,11 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
     return op
 
 def parse(content: str, filepath='<system>') -> list:
-    ''' Parse code from text and return list of operations '''
+    ''' Parse code from text and return list of commands '''
     # split the lines
     lines = content.split('\n')
     line_counter = 1
-    operations = []
+    commands = []
     for line in lines:
         # clean line, remove comments from that
         line = line.strip()
@@ -95,53 +95,53 @@ def parse(content: str, filepath='<system>') -> list:
         line = tmp[0]
         clean_semicolon = tmp[1]
 
-        # get operations by spliting line by ;
+        # get commands by spliting line by ;
         ops = line.split(';')
         for op in ops:
             op = op.strip()
             op = op.replace(clean_semicolon, ';')
             if op != '':
-                # parse once operation and append it to the list
+                # parse once command and append it to the list
                 op = parse_op(op)
                 op['line_number'] = line_counter
                 op['file_path'] = filepath
                 if op['command'] == 'section':
-                    operations.append(parse_op('pass'))
-                operations.append(op)
+                    commands.append(parse_op('pass'))
+                commands.append(op)
         line_counter += 1
 
     # handle the if statement
     open_ifs = []
     open_ifs_counters = []
     i = 0
-    while i < len(operations):
+    while i < len(commands):
         try:
-            if operations[i]['command'] == 'if':
+            if commands[i]['command'] == 'if':
                 # init new if block
                 open_ifs.append('tmpsectionif' + str(random.random()).replace('.', '') + str(time.time()).replace('.', '') + '_')
                 open_ifs_counters.append(2)
 
-                operations.insert(i+1, parse_op('mem not (' + operations[i]['args_str'] + ')', file_path='<system>', line_number=i))
-                operations.insert(i+2, parse_op('gotoif ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
-            elif operations[i]['command'] == 'elif' or operations[i]['command'] == 'else':
-                cond = operations[i]['args_str']
-                if operations[i]['command'] == 'else':
+                commands.insert(i+1, parse_op('mem not (' + commands[i]['args_str'] + ')', file_path='<system>', line_number=i))
+                commands.insert(i+2, parse_op('gotoif ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
+            elif commands[i]['command'] == 'elif' or commands[i]['command'] == 'else':
+                cond = commands[i]['args_str']
+                if commands[i]['command'] == 'else':
                     cond = 'True'
-                operations.insert(i+1, parse_op('goto ' + open_ifs[-1] + 'end', file_path='<system>', line_number=i))
-                operations.insert(i+2, parse_op('section ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
-                operations.insert(i+3, parse_op('mem not (' + cond + ')', file_path='<system>', line_number=i))
-                operations.insert(i+4, parse_op('gotoif ' + open_ifs[-1] + str(open_ifs_counters[-1]+1), file_path='<system>', line_number=i))
+                commands.insert(i+1, parse_op('goto ' + open_ifs[-1] + 'end', file_path='<system>', line_number=i))
+                commands.insert(i+2, parse_op('section ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
+                commands.insert(i+3, parse_op('mem not (' + cond + ')', file_path='<system>', line_number=i))
+                commands.insert(i+4, parse_op('gotoif ' + open_ifs[-1] + str(open_ifs_counters[-1]+1), file_path='<system>', line_number=i))
                 open_ifs_counters[-1] += 1
-            elif operations[i]['command'] == 'endif':
-                operations.insert(i+1, parse_op('section ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
-                operations.insert(i+2, parse_op('section ' + open_ifs[-1] + 'end', file_path='<system>', line_number=i))
+            elif commands[i]['command'] == 'endif':
+                commands.insert(i+1, parse_op('section ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
+                commands.insert(i+2, parse_op('section ' + open_ifs[-1] + 'end', file_path='<system>', line_number=i))
                 open_ifs.pop()
                 open_ifs_counters.pop()
         except:
             pass
 
-        if i == len(operations)-1 and open_ifs and open_ifs_counters:
-            operations.insert(i+1, parse_op('endif', file_path='<system>', line_number=i))
+        if i == len(commands)-1 and open_ifs and open_ifs_counters:
+            commands.insert(i+1, parse_op('endif', file_path='<system>', line_number=i))
         i += 1
 
-    return operations
+    return commands

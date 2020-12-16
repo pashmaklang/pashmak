@@ -27,7 +27,7 @@ from core.class_system import Class
 
 def run(self, op: dict):
     """ Declares a class """
-    self.require_one_argument(op, 'class operation requires class name argument')
+    self.require_one_argument(op, 'missing class name')
     arg = op['args_str']
     arg = arg.split('<', 1)
     parent = None

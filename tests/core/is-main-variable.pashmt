@@ -1,5 +1,5 @@
 #
-# endnamespace.py
+# is-main-variable.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,9 +20,16 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Closes namespace prefix '''
+--test--
+$__ismain__ variable has valid value
 
-def run(self, op: dict):
-    ''' Closes namespace prefix '''
-    if self.namespaces_tree:
-        self.namespaces_tree.pop()
+--file--
+println $__ismain__
+import 'tests/test-module-path/is_main_test.pashm'
+println $__ismain__
+
+--output--
+"""True
+False
+True
+"""

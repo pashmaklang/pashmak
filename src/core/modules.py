@@ -117,7 +117,7 @@ func endns
 endnamespace
 endfunc
 func raise ($exdata)
-python "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', self.states[-1]['operations'][self.states[-1]['current_step']])"
+python "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', self.states[-1]['commands'][self.states[-1]['current_step']])"
 endfunc
 func assert ($value)
 if not $value

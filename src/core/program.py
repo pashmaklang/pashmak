@@ -38,7 +38,7 @@ class Program(helpers.Helpers):
     def __init__(self, is_test=False, args=[]):
         self.states = [{
             'current_step': 0,
-            'operations': [],
+            'commands': [],
             'vars': {
                 'argv': args,
                 'argc': len(args)
@@ -47,8 +47,8 @@ class Program(helpers.Helpers):
         self.functions = {
             "mem": [], # mem is a empty function just for save mem in code
             "rmem": [],
-        } # declared functions <function-name>:[<list-of-body-operations>]
-        self.sections = {} # list of declared sections <section-name>:<index-of-operation-to-jump>
+        } # declared functions <function-name>:[<list-of-body-commands>]
+        self.sections = {} # list of declared sections <section-name>:<index-of-command-to-jump>
         self.classes = {} # list of declared classes
         self.imported_files = [] # list of imported files
         self.mem = None # memory temp value
@@ -72,7 +72,7 @@ class Program(helpers.Helpers):
 
     def import_script(self, paths, import_once=False):
         """ Imports scripts/modules """
-        op = self.states[-1]['operations'][self.states[-1]['current_step']]
+        op = self.states[-1]['commands'][self.states[-1]['current_step']]
 
         if type(paths) == str:
             paths = [paths]
@@ -104,9 +104,10 @@ class Program(helpers.Helpers):
                     return
                 try:
                     content = open(path, 'r').read()
-                    content = '$__file__ = "' + path.replace('\\', '\\\\') + '";\n$__dir__ = "' + os.path.dirname(path).replace('\\', '\\\\') + '"\n' + content
+                    content = '$__ismain__ = False; $__file__ = "' + path.replace('\\', '\\\\') + '";\n$__dir__ = "' + os.path.dirname(path).replace('\\', '\\\\') + '"\n' + content
                     content += '\n$__file__ = "' + self.get_var('__file__').replace('\\', '\\\\') + '"'
                     content += '\n$__dir__ = "' + self.get_var('__dir__').replace('\\', '\\\\') + '"'
+                    content += '\n$__ismain__ = "' + str(bool(self.get_var('__ismain__'))) + '"'
                     code_location = path
                     self.imported_files.append(os.path.abspath(code_location))
                 except FileNotFoundError as ex:
@@ -114,26 +115,28 @@ class Program(helpers.Helpers):
                 except PermissionError as ex:
                     return self.raise_error('FileError', str(ex), op)
 
-            operations = parser.parse(content, filepath=code_location)
-            self.exec_func(operations, False)
+            commands = parser.parse(content, filepath=code_location)
+            self.exec_func(commands, False)
 
-    def set_operations(self, operations: list):
-        """ Set operations list """
+    def set_commands(self, commands: list):
+        """ Set commands list """
         # include stdlib before everything
         tmp = parser.parse('''
         $__file__ = "''' + os.path.abspath(self.main_filename).replace('\\', '\\\\') + '''"
         $__dir__ = "''' + os.path.dirname(os.path.abspath(self.main_filename)).replace('\\', '\\\\') + '''"
+        $__ismain__ = True
         mem self.import_script('@stdlib')
         ''', filepath='<system>')
-        operations.insert(0, tmp[0])
-        operations.insert(1, tmp[1])
-        operations.insert(2, tmp[2])
+        commands.insert(0, tmp[0])
+        commands.insert(1, tmp[1])
+        commands.insert(2, tmp[2])
+        commands.insert(3, tmp[3])
 
-        # set operations on program object
-        self.states[-1]['operations'] = operations
+        # set commands on program object
+        self.states[-1]['commands'] = commands
 
-    def set_operation_index(self, op: dict) -> dict:
-        """ Add operation index to operation dictonary """
+    def set_command_index(self, op: dict) -> dict:
+        """ Add command index to command dictonary """
         op['index'] = self.states[-1]['current_step']
         return op
 
@@ -145,9 +148,9 @@ class Program(helpers.Helpers):
 
     def update_section_indexes(self, after_index):
         """
-        When a new operation inserted in operations list,
+        When a new command inserted in commands list,
         this function add 1 to section indexes to be
-        sync with new operations list
+        sync with new commands list
         """
         for k in self.sections:
             if self.sections[k] > after_index:
@@ -170,7 +173,7 @@ class Program(helpers.Helpers):
         if self.is_test:
             self.runtime_error = {'type': error_type, 'message': message, 'index': op['index']}
             if self.stop_after_error:
-                self.states[-1]['current_step'] = len(self.states[-1]['operations'])*2
+                self.states[-1]['current_step'] = len(self.states[-1]['commands'])*2
             return
 
         # render error
@@ -179,9 +182,9 @@ class Program(helpers.Helpers):
         for state in self.states[1:]:
             try:
                 if last_state:
-                    tmp_op = last_state['operations'][last_state['current_step']]
+                    tmp_op = last_state['commands'][last_state['current_step']]
                 else:
-                    tmp_op = state['operations'][0]
+                    tmp_op = state['commands'][0]
                 print(
                     '\tin ' + tmp_op['file_path'] + ':' + str(tmp_op['line_number'])\
                     + ': ' + tmp_op['str']
@@ -193,7 +196,7 @@ class Program(helpers.Helpers):
         sys.exit(1)
 
     def exec_func(self, func_body: list, with_state=True, default_variables={}):
-        """ Gets a list from operations and runs them as function or included script """
+        """ Gets a list from commands and runs them as function or included script """
         # create new state for this call
         if with_state:
             state_vars = dict(self.states[-1]['vars'])
@@ -204,27 +207,27 @@ class Program(helpers.Helpers):
             state_vars[k] = default_variables[k]
         self.states.append({
             'current_step': 0,
-            'operations': func_body,
+            'commands': func_body,
             'vars': state_vars,
         })
 
         # run function
         self.start_state()
 
-    def eval(self, operation, only_parse=False):
-        """ Runs eval on operation """
+    def eval(self, command, only_parse=False):
+        """ Runs eval on command """
         i = 0
-        operation = operation.strip()
+        command = command.strip()
         is_in_string = False
-        operation_parts = [[False, '']]
-        while i < len(operation):
+        command_parts = [[False, '']]
+        while i < len(command):
             is_string_start = False
-            if operation[i] == '"' or operation[i] == "'":
+            if command[i] == '"' or command[i] == "'":
                 before_backslashes_count = 0
                 try:
                     x = i-1
                     while x >= 0:
-                        if operation[x] == '\\':
+                        if command[x] == '\\':
                             before_backslashes_count += 1
                         else:
                             x = -1
@@ -234,23 +237,23 @@ class Program(helpers.Helpers):
                 if is_in_string:
                     if before_backslashes_count % 2 != 0 and before_backslashes_count != 0:
                         pass
-                    elif is_in_string == operation[i]:
+                    elif is_in_string == command[i]:
                         is_in_string = False
-                        operation_parts[-1][1] += operation[i]
+                        command_parts[-1][1] += command[i]
                         is_string_start = True
-                        operation_parts.append([False, ''])
+                        command_parts.append([False, ''])
                 else:
-                    is_in_string = operation[i]
-                    operation_parts.append([True, ''])
-                    operation_parts[-1][1] += operation[i]
+                    is_in_string = command[i]
+                    command_parts.append([True, ''])
+                    command_parts[-1][1] += command[i]
                     is_string_start = True
             if not is_string_start:
-                operation_parts[-1][1] += operation[i]
+                command_parts[-1][1] += command[i]
             i += 1
 
         full_op = ''
         opened_inline_calls_count = 0
-        for code in operation_parts:
+        for code in command_parts:
             if code[0] == False:
                 code = code[1]
                 # replace variable names with value of them
@@ -262,7 +265,7 @@ class Program(helpers.Helpers):
                         if word[0] == '$' and not '@' in word:
                             variables_in_code.append(word[1:])
                 for k in variables_in_code:
-                    self.variable_required(k, self.states[-1]['operations'][self.states[-1]['current_step']])
+                    self.variable_required(k, self.states[-1]['commands'][self.states[-1]['current_step']])
                     code = code.replace('$' + k, 'self.get_var("' + k + '")')
                 code = code.replace('->', '.')
                 code = code.replace('^', 'self.get_mem()')
@@ -300,14 +303,14 @@ class Program(helpers.Helpers):
 
     def call_inline_func(self, code: str):
         """ Runs the internal function call "%{ func_or_command }" """
-        operations = parser.parse(code)
-        self.exec_func(operations, False)
+        commands = parser.parse(code)
+        self.exec_func(commands, False)
         return self.get_mem()
 
     def run(self, op: dict):
-        """ Run once operation """
+        """ Run once command """
 
-        op = self.set_operation_index(op)
+        op = self.set_command_index(op)
         op_name = op['command']
 
         if op_name == 'endfunc':
@@ -318,7 +321,7 @@ class Program(helpers.Helpers):
             self.run_endclass(op)
             return
 
-        # if a function is started, append current operation to the function body
+        # if a function is started, append current command to the function body
         try:
             self.current_func
             try:
@@ -334,8 +337,8 @@ class Program(helpers.Helpers):
         except AttributeError:
             pass
 
-        # list of operations
-        operations_dict = {
+        # list of commands
+        commands_dict = {
             'free': self.run_free,
             'read': self.run_read,
             'func': self.run_func,
@@ -357,20 +360,20 @@ class Program(helpers.Helpers):
             'endif': None,
         }
 
-        # check op_name is a valid operation
+        # check op_name is a valid command
         op_func = 0
         try:
-            op_func = operations_dict[op_name]
+            op_func = commands_dict[op_name]
         except:
             pass
 
-        # if op_name is a valid operation, run the function
+        # if op_name is a valid command, run the function
         if op_func != 0:
             if op_func != None:
                 op_func(op)
             return
 
-        # check operation syntax is variable value setting
+        # check command syntax is variable value setting
         tmp_bool = True
         if op['str'][0] == '$':
             tmp_parts = op['str'].strip().split('@', 1)
@@ -378,7 +381,7 @@ class Program(helpers.Helpers):
                 tmp_bool = False
 
         if op['str'][0] == '$' and tmp_bool:
-            # if a class is started, append current operation as a property to class
+            # if a class is started, append current command as a property to class
             is_in_class = False
             try:
                 self.current_class
@@ -446,7 +449,7 @@ class Program(helpers.Helpers):
                     try:
                         func_body = self.functions[op_name]
                     except KeyError:
-                        return self.raise_error('SyntaxError', 'undefined operation "' + op_name + '"', op)
+                        return self.raise_error('SyntaxError', 'undefined function "' + op_name + '"', op)
 
         # run function
         try:
@@ -525,13 +528,13 @@ class Program(helpers.Helpers):
 
         # load the sections
         i = 0
-        while i < len(self.states[-1]['operations']):
-            current_op = self.set_operation_index(self.states[-1]['operations'][i])
+        while i < len(self.states[-1]['commands']):
+            current_op = self.set_command_index(self.states[-1]['commands'][i])
             if current_op['command'] == 'section':
                 if not is_in_func:
                     arg = current_op['args'][0]
                     self.sections[arg] = i+1
-                    self.states[-1]['operations'][i] = parser.parse('pass', filepath='<system>')[0]
+                    self.states[-1]['commands'][i] = parser.parse('pass', filepath='<system>')[0]
             elif current_op['command'] == 'func':
                 is_in_func = True
             elif current_op['command'] == 'endfunc':
@@ -539,18 +542,18 @@ class Program(helpers.Helpers):
             i += 1
 
         self.states[-1]['current_step'] = 0
-        while self.states[-1]['current_step'] < len(self.states[-1]['operations']):
+        while self.states[-1]['current_step'] < len(self.states[-1]['commands']):
             try:
-                self.run(self.states[-1]['operations'][self.states[-1]['current_step']])
+                self.run(self.states[-1]['commands'][self.states[-1]['current_step']])
             except Exception as ex:
                 try:
-                    self.set_operation_index(self.states[-1]['operations'][self.states[-1]['current_step']])
+                    self.set_command_index(self.states[-1]['commands'][self.states[-1]['current_step']])
                 except:
                     break
                 self.raise_error(
                     ex.__class__.__name__,
                     str(ex),
-                    self.set_operation_index(self.states[-1]['operations'][self.states[-1]['current_step']])
+                    self.set_command_index(self.states[-1]['commands'][self.states[-1]['current_step']])
                 )
             self.states[-1]['current_step'] += 1
 

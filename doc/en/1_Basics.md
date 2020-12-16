@@ -18,22 +18,22 @@ First, we go through pashmak syntax structure.
 The base structure of pashmak syntax is this:
 
 ```bash
-<operation> [arguments]
-<operation> [arguments]
-<operation> [arguments]; <operation> [arguments]
+<command> [arguments]
+<command> [arguments]
+<command> [arguments]; <command> [arguments]
 ```
 
-In this example, we have two operations:
+In this example, we have two commands:
 
 ```bash
-mem 'something to print\n'; # first operation
-print ^; # second operation
+mem 'something to print\n'; # first command
+print ^; # second command
 ```
 
-##### NOTE: the `;` in the end of lines is not required. you can write your code without `;` IF you don't want to write two or more operations in one line
+##### NOTE: the `;` in the end of lines is not required. you can write your code without `;` IF you don't want to write two or more command in one line
 
-Here, `mem` is an operation and `'something to print\n'` is the argument of that, and
-`print` is an operation and `^` is the argument of that.
+Here, `mem` is an command and `'something to print\n'` is the argument of that, and
+`print` is an command and `^` is the argument of that.
 
 But what is the function of this code?
 
@@ -107,7 +107,7 @@ first value
 second value
 ```
 
-###### NOTE: the # character is comment operation. you can put comment in your code after # character. comments have not any effect in program
+###### NOTE: the # character is comment symbol. you can put comment in your code after # character. comments have not any effect in program
 
 ### more about mem
 You can calculate every thing in the `mem`.
@@ -120,7 +120,7 @@ mem 'hi there'; print ^ # output: hi there
 # you can paste strings
 mem 'first string ' + 'last string'; print ^ # output: first string last string
 
-# run math operations
+# run math calculations
 mem 2*7; print ^ # output: 14
 
 mem 3*(2+1); print ^ # output: 9
@@ -130,7 +130,7 @@ mem str(7*7) + ' is sum'; print ^ # output: 49 is sum
 # in here you can not paste number to string. first need to convert num to str with str()
 ```
 
-**The mem structure, is handled by Python(eval function) and you can use all of python operations in the mem calculation**
+**The mem structure, is handled by Python(eval function) and you can use all of python features in the mem calculation**
 
 #### Print `;` and `#`
 For printing `;` and `#` special characters, put a `\` before them:
