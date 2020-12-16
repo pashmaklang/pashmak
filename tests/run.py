@@ -94,6 +94,10 @@ class TestCore:
             del out['vars']['__dir__']
         except:
             pass
+        try:
+            del out['vars']['__ismain__']
+        except:
+            pass
 
         return out
 

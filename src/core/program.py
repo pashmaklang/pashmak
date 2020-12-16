@@ -104,9 +104,10 @@ class Program(helpers.Helpers):
                     return
                 try:
                     content = open(path, 'r').read()
-                    content = '$__file__ = "' + path.replace('\\', '\\\\') + '";\n$__dir__ = "' + os.path.dirname(path).replace('\\', '\\\\') + '"\n' + content
+                    content = '$__ismain__ = False; $__file__ = "' + path.replace('\\', '\\\\') + '";\n$__dir__ = "' + os.path.dirname(path).replace('\\', '\\\\') + '"\n' + content
                     content += '\n$__file__ = "' + self.get_var('__file__').replace('\\', '\\\\') + '"'
                     content += '\n$__dir__ = "' + self.get_var('__dir__').replace('\\', '\\\\') + '"'
+                    content += '\n$__ismain__ = "' + str(bool(self.get_var('__ismain__'))) + '"'
                     code_location = path
                     self.imported_files.append(os.path.abspath(code_location))
                 except FileNotFoundError as ex:
@@ -123,11 +124,13 @@ class Program(helpers.Helpers):
         tmp = parser.parse('''
         $__file__ = "''' + os.path.abspath(self.main_filename).replace('\\', '\\\\') + '''"
         $__dir__ = "''' + os.path.dirname(os.path.abspath(self.main_filename)).replace('\\', '\\\\') + '''"
+        $__ismain__ = True
         mem self.import_script('@stdlib')
         ''', filepath='<system>')
         commands.insert(0, tmp[0])
         commands.insert(1, tmp[1])
         commands.insert(2, tmp[2])
+        commands.insert(3, tmp[3])
 
         # set commands on program object
         self.states[-1]['commands'] = commands
