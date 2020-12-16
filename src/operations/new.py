@@ -69,9 +69,9 @@ def run(self, op: dict):
     self.mem = class_copy
     code_operations = """
     $""" + tmp_variable + """ = ^
-    $""" + tmp_variable + """@__init__ """ + init_args + """
-    mem $""" + tmp_variable + """
-    free $""" + tmp_variable + """
+    $""" + self.current_namespace() + tmp_variable + """@__init__ """ + init_args + """
+    mem $""" + self.current_namespace() + tmp_variable + """
+    free $""" + self.current_namespace() + tmp_variable + """
     """
     tmp_is_in_class = False
     try:

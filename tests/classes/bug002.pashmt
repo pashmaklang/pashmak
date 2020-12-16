@@ -1,0 +1,55 @@
+#
+# bug002.pashmt
+#
+# The Pashmak Project
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+class can be initiated in the namespace
+
+--file--
+
+namespace App
+    class First
+    endclass
+endns
+
+namespace Foo
+    class Something
+        $name = 'hi there'
+    endclass
+
+    class Last
+        $hi = %{ new App.First }%
+        $some = %{ new Something }%
+        $some2 = %{ new Foo.Something }%
+    endclass
+endns
+
+$l = %{new Foo.Last}%
+
+println $l->hi
+println $l->some
+println $l->some2
+
+--output--
+"""[PashmakClass name="App.First"]
+[PashmakClass name="Foo.Something"]
+[PashmakClass name="Foo.Something"]
+"""
