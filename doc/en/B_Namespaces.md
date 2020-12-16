@@ -92,8 +92,8 @@ println $name # VariableError: undefined variable $name, because it is in App na
 
 this system is very useful.
 
-### use operation
-the `use` operation is a command to use content of a namespace.
+### use command
+the `use` command is a command to use content of a namespace.
 
 look at this example:
 
@@ -149,7 +149,7 @@ parsa
 parsa
 ```
 
-when i use `use` operation and give a namespace as argument to that, i can call all of that namespace members without namespace prefix.
+when i use `use` command and give a namespace as argument to that, i can call all of that namespace members without namespace prefix.
 
 for example if there is a namespace named `App` and have a function named `dosomething`, for call that function i have to write `App.dosomething`. but if i run `use App`, after that i can call this function just by typing `dosomething;`
 

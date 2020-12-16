@@ -89,10 +89,10 @@ if __name__ == '__main__':
             script_f = open(filename, 'r')
             script_content = script_f.read()
 
-    script_operations = parser.parse(script_content, filepath=filename)
+    script_commands = parser.parse(script_content, filepath=filename)
 
     # make pashmak program object
     prog = program.Program(args=sys.argv[1:])
     prog.main_filename = filename
-    prog.set_operations(script_operations)
+    prog.set_commands(script_commands)
     prog.start()

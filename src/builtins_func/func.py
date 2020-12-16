@@ -27,7 +27,7 @@ from core import parser
 def run(self, op: dict):
     ''' Starts function block '''
 
-    self.require_one_argument(op, 'func operation requires function name argument')
+    self.require_one_argument(op, 'missing function name')
     arg = op['args'][0]
 
     if '.' in arg:

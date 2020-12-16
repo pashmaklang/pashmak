@@ -1,5 +1,5 @@
 #
-# goto.py
+# gotoif.py
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,12 +20,12 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Changes program step to a section '''
+''' Changes program step to a section if mem is true '''
 
 def run(self, op: dict):
-    ''' Changes program step to a section '''
+    ''' Changes program step to a section if mem is true '''
 
-    self.require_one_argument(op, 'goto operation requires section name argument')
+    self.require_one_argument(op, 'gotoif function requires section name argument')
     arg = op['args'][0]
 
     try:
@@ -33,4 +33,5 @@ def run(self, op: dict):
     except KeyError:
         return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
 
-    self.states[-1]['current_step'] = section_index-1
+    if self.mem:
+        self.states[-1]['current_step'] = section_index-1

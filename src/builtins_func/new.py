@@ -30,7 +30,7 @@ from core import parser
 def run(self, op: dict):
     """ Creates a new instance from a class """
 
-    self.require_one_argument(op, 'new operation requires class name argument')
+    self.require_one_argument(op, 'missing class name')
     arg = op['args'][0]
 
     # check class exists
@@ -67,7 +67,7 @@ def run(self, op: dict):
         tmp_variable = tmp_variable + str(random.random()).replace('.', '')
     class_copy.__prog__ = self
     self.mem = class_copy
-    code_operations = """
+    code_commands = """
     $""" + tmp_variable + """ = ^
     $""" + self.current_namespace() + tmp_variable + """@__init__ """ + init_args + """
     mem $""" + self.current_namespace() + tmp_variable + """
@@ -79,6 +79,6 @@ def run(self, op: dict):
         del self.current_class
     except:
         pass
-    self.exec_func(parser.parse(code_operations), False)
+    self.exec_func(parser.parse(code_commands), False)
     if tmp_is_in_class:
         self.current_class = tmp_is_in_class

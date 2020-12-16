@@ -1,5 +1,5 @@
 #
-# gotoif.py
+# tryop.py
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,18 +20,17 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Changes program step to a section if mem is true '''
+''' Opens try-endtry block '''
 
 def run(self, op: dict):
-    ''' Changes program step to a section if mem is true '''
+    ''' Opens try-endtry block '''
 
-    self.require_one_argument(op, 'gotoif operation requires section name argument')
+    self.require_one_argument(op, 'try command requires section name argument')
     arg = op['args'][0]
 
     try:
-        section_index = self.sections[arg]
+        self.sections[arg]
     except KeyError:
         return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
 
-    if self.mem:
-        self.states[-1]['current_step'] = section_index-1
+    self.try_endtry.append(arg)

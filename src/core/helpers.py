@@ -84,7 +84,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
             do_raise_error = False
             try:
                 if self.all_vars()[self.current_namespace() + varname] != None:
-                    op = self.states[-1]['operations'][self.states[-1]['current_step']]
+                    op = self.states[-1]['commands'][self.states[-1]['current_step']]
                     do_raise_error = True
             except:
                 pass
@@ -123,14 +123,14 @@ class Helpers(builtin_functions.BuiltinFunctions):
             while i > 0:
                 self.states.pop()
                 i -= 1
-            self.states[-1]['current_step'] = len(self.states[-1]['operations']) * 2
+            self.states[-1]['current_step'] = len(self.states[-1]['commands']) * 2
             self.exit_code = exit_code
 
     def pashmak_eval(self, code):
         """ Runs the pashmak code from string """
         # run the code
-        code_operations = parser.parse(code, filepath='<eval>')
-        self.exec_func(code_operations, False)
+        code_commands = parser.parse(code, filepath='<eval>')
+        self.exec_func(code_commands, False)
 
     def current_namespace(self):
         """ Returns current namespace """
@@ -141,4 +141,4 @@ class Helpers(builtin_functions.BuiltinFunctions):
 
     def signal_handler(self, signal_code, frame):
         """ Raise error when signal exception raised """
-        self.raise_error('Signal', str(signal_code), self.states[-1]['operations'][self.states[-1]['current_step']])
+        self.raise_error('Signal', str(signal_code), self.states[-1]['commands'][self.states[-1]['current_step']])

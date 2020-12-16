@@ -166,22 +166,22 @@ First, we go through pashmak syntax structure.
 The base structure of pashmak syntax is this:
 
 ```bash
-<operation> [arguments]
-<operation> [arguments]
-<operation> [arguments]; <operation> [arguments]
+<command> [arguments]
+<command> [arguments]
+<command> [arguments]; <command> [arguments]
 ```
 
-In this example, we have two operations:
+In this example, we have two commands:
 
 ```bash
-mem 'something to print\n'; # first operation
-print ^; # second operation
+mem 'something to print\n'; # first command
+print ^; # second command
 ```
 
-##### NOTE: the `;` in the end of lines is not required. you can write your code without `;` IF you don't want to write two or more operations in one line
+##### NOTE: the `;` in the end of lines is not required. you can write your code without `;` IF you don't want to write two or more command in one line
 
-Here, `mem` is an operation and `'something to print\n'` is the argument of that, and
-`print` is an operation and `^` is the argument of that.
+Here, `mem` is an command and `'something to print\n'` is the argument of that, and
+`print` is an command and `^` is the argument of that.
 
 But what is the function of this code?
 
@@ -255,7 +255,7 @@ first value
 second value
 ```
 
-###### NOTE: the # character is comment operation. you can put comment in your code after # character. comments have not any effect in program
+###### NOTE: the # character is comment symbol. you can put comment in your code after # character. comments have not any effect in program
 
 ### more about mem
 You can calculate every thing in the `mem`.
@@ -268,7 +268,7 @@ mem 'hi there'; print ^ # output: hi there
 # you can paste strings
 mem 'first string ' + 'last string'; print ^ # output: first string last string
 
-# run math operations
+# run math calculations
 mem 2*7; print ^ # output: 14
 
 mem 3*(2+1); print ^ # output: 9
@@ -278,7 +278,7 @@ mem str(7*7) + ' is sum'; print ^ # output: 49 is sum
 # in here you can not paste number to string. first need to convert num to str with str()
 ```
 
-**The mem structure, is handled by Python(eval function) and you can use all of python operations in the mem calculation**
+**The mem structure, is handled by Python(eval function) and you can use all of python features in the mem calculation**
 
 #### Print `;` and `#`
 For printing `;` and `#` special characters, put a `\` before them:
@@ -721,7 +721,7 @@ the output of this code is:
 9
 ```
 
-we have 3 operations about section system:
+we have 3 functions about section system:
 - section
 - goto
 - gotoif
@@ -1446,7 +1446,7 @@ VariableError:
 or:
 
 ```bash
-# undefined operation
+# undefined function
 printlgdfgfd ^
 ```
 
@@ -1454,7 +1454,7 @@ output:
 
 ```
 SyntaxError:
-        undefined operation "printlgdfgfd"
+        undefined function "printlgdfgfd"
 ```
 
 they are errors.
@@ -1479,7 +1479,7 @@ mem 'some errors raised\n'; print ^
 section after_error
 ```
 
-when you write code between `try <section-name> ... endtry`, errors will not raised in them and if an error is raised, that section where passed to try operation will run.
+when you write code between `try <section-name> ... endtry`, errors will not raised in them and if an error is raised, that section where passed to try command will run.
 actually, we say to the Pashmak to don't show error to user and do that thing I'm saying you instead of default error showing.
 
 #### how to access raised error data?
@@ -1819,8 +1819,8 @@ println $name # VariableError: undefined variable $name, because it is in App na
 
 this system is very useful.
 
-### use operation
-the `use` operation is a command to use content of a namespace.
+### use command
+the `use` command is a command to use content of a namespace.
 
 look at this example:
 
@@ -1876,7 +1876,7 @@ parsa
 parsa
 ```
 
-when i use `use` operation and give a namespace as argument to that, i can call all of that namespace members without namespace prefix.
+when i use `use` command and give a namespace as argument to that, i can call all of that namespace members without namespace prefix.
 
 for example if there is a namespace named `App` and have a function named `dosomething`, for call that function i have to write `App.dosomething`. but if i run `use App`, after that i can call this function just by typing `dosomething;`
 
@@ -2567,7 +2567,7 @@ endns
 # ...
 ```
 
-you have to give name of module with a `@` before that to the include operation.
+you have to give name of module with a `@` before that to the include command.
 
 ### hash module
 with hash module, you can calculate hash sum of values:

@@ -22,27 +22,36 @@
 
 """ Pashmak Builtin functions """
 
-from operations import free as op_free
-from operations import read as op_read
-from operations import func as op_func
-from operations import goto as op_goto
-from operations import gotoif as op_gotoif
-from operations import isset as op_isset
-from operations import tryop as op_try
-from operations import namespace as op_namespace
-from operations import use as op_use
-from operations import classop as op_class
-from operations import new as op_new
+from builtins_func import func as op_func
+from builtins_func import goto as op_goto
+from builtins_func import gotoif as op_gotoif
+from builtins_func import tryop as op_try
+from builtins_func import classop as op_class
+from builtins_func import new as op_new
 
 class BuiltinFunctions:
     """ Builtin functions """
     def run_free(self, op: dict):
-        """ run free """
-        op_free.run(self, op)
+        """ Deletes variables """
+        args = op['args']
+        for arg in args:
+            self.arg_should_be_variable_or_mem(arg, op)
+            if arg == '^':
+                self.mem = None
+            else:
+                try:
+                    del self.all_vars()[arg[1:]]
+                except KeyError:
+                    pass
 
     def run_read(self, op: dict):
-        """ run read """
-        op_read.run(self, op)
+        """ Reads input from stdin """
+        if not self.is_test:
+            readed_data = input()
+        else:
+            readed_data = self.read_data[0]
+            self.read_data.pop(0)
+        self.mem = readed_data
 
     def run_func(self, op: dict):
         """ run func """
@@ -64,8 +73,14 @@ class BuiltinFunctions:
         op_gotoif.run(self, op)
 
     def run_isset(self, op: dict):
-        """ run isset """
-        op_isset.run(self, op)
+        """ Checks variable(s) exists and puts result to mem """
+        args = op['args']
+        for arg in args:
+            self.arg_should_be_variable(arg, op)
+            if not self.variable_exists(arg[1:]):
+                self.mem = False
+                return
+        self.mem = True
 
     def run_try(self, op: dict):
         """ run try """
@@ -77,8 +92,14 @@ class BuiltinFunctions:
             self.try_endtry.pop()
 
     def run_namespace(self, op: dict):
-        """ run namespace """
-        op_namespace.run(self, op)
+        """ Starts the namespace block """
+        self.require_one_argument(op, 'namespace function requires namespace argument')
+        arg = op['args'][0]
+        if '.' in arg:
+            return self.raise_error(
+                'NamespaceContainsDotError', 'name "' + arg + '" for namespace contains `.` character', op
+            )
+        self.namespaces_tree.append(arg)
 
     def run_endnamespace(self, op: dict):
         """ Closes the namespace block """
@@ -86,8 +107,10 @@ class BuiltinFunctions:
             self.namespaces_tree.pop()
 
     def run_use(self, op: dict):
-        """ run use """
-        op_use.run(self, op)
+        """ Adds a namespace to used namespaces """
+        self.require_one_argument(op, 'use command requires namespace argument')
+        arg = op['args'][0]
+        self.used_namespaces.append(arg)
 
     def run_class(self, op: dict):
         """ run class """

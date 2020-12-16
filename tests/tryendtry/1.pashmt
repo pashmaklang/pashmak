@@ -42,4 +42,4 @@ print 'without error'
 
 section 30;
 --output--
-'SyntaxError:undefined operation "mmdgfgdhgfhjh"'
+'SyntaxError:undefined function "mmdgfgdhgfhjh"'

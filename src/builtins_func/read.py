@@ -1,5 +1,5 @@
 #
-# isset.py
+# read.py
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,16 +20,14 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Checks variables exists and put result in mem '''
+''' Reads a input from stdin '''
 
 def run(self, op: dict):
-    ''' Checks variables exists and put result in mem '''
-
-    args = op['args']
-    for arg in args:
-        self.arg_should_be_variable(arg, op)
-        if not self.variable_exists(arg[1:]):
-            self.mem = False
-            return
-
-    self.mem = True
+    ''' Reads a input from stdin '''
+    # TODO : add this to builtin_functions.py
+    if not self.is_test:
+        readed_data = input()
+    else:
+        readed_data = self.read_data[0]
+        self.read_data.pop(0)
+    self.mem = readed_data

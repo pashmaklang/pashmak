@@ -1,5 +1,5 @@
 #
-# use.py
+# goto.py
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,12 +20,17 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Adds a namespace to used namespaces '''
+''' Changes program step to a section '''
 
 def run(self, op: dict):
-    ''' Adds a namespace to used namespaces '''
+    ''' Changes program step to a section '''
 
-    self.require_one_argument(op, 'use operation requires namespace argument')
+    self.require_one_argument(op, 'goto function requires section name argument')
     arg = op['args'][0]
 
-    self.used_namespaces.append(arg)
+    try:
+        section_index = self.sections[arg]
+    except KeyError:
+        return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
+
+    self.states[-1]['current_step'] = section_index-1

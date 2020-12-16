@@ -65,11 +65,11 @@ class TestCore:
 
     def run_script(self, script_content: str, read_inputs=[], args=[], want_argv=False, stop_after_error=True) -> dict:
         ''' Runs a script and returns result '''
-        script_operations = parser.parse(script_content, filepath='<test>')
+        script_commands = parser.parse(script_content, filepath='<test>')
         prog = program.Program(is_test=self.is_test, args=args)
         prog.stop_after_error = stop_after_error
         prog.read_data = read_inputs
-        prog.set_operations(script_operations)
+        prog.set_commands(script_commands)
         prog.start()
 
         out = {}

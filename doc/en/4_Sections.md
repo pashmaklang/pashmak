@@ -42,7 +42,7 @@ the output of this code is:
 9
 ```
 
-we have 3 operations about section system:
+we have 3 functions about section system:
 - section
 - goto
 - gotoif

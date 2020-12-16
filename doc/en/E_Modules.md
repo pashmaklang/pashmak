@@ -23,7 +23,7 @@ endns
 # ...
 ```
 
-you have to give name of module with a `@` before that to the include operation.
+you have to give name of module with a `@` before that to the include command.
 
 ### hash module
 with hash module, you can calculate hash sum of values:
