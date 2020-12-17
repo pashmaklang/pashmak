@@ -31,10 +31,10 @@ func set_once_header $path
     endif
 
     # add current filename to header
-    $only_file_name = $path->split('/')[-1]
+    $only_file_name = $path->replace('\\', '/')->split('/')[-1]
     $new_content = '\#\n\# ' + $only_file_name + '\n\#\n' + $new_content
 
-    if $path->endswith('src' + '/' + 'pashmak.py') or $path->endswith('tests' + '/' + 'run.py')
+    if $path->replace('\\', '/')->endswith('src' + '/' + 'pashmak.py') or $path->replace('\\', '/')->endswith('tests' + '/' + 'run.py')
         $new_content = '\#!/usr/bin/env python3\n' + $new_content
     endif
 
