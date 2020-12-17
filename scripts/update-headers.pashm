@@ -1,3 +1,4 @@
+#!/usr/bin/env pashmak
 # Updates files copyright headers
 
 $header_text = '\#\n\# The Pashmak Project\n\# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>\n\#\n\# This file is part of Pashmak.\n\#\n\# Pashmak is free software: you can redistribute it and/or modify\n\# it under the terms of the GNU General Public License as published by\n\# the Free Software Foundation, either version 3 of the License, or\n\# (at your option) any later version.\n\#\n\# Pashmak is distributed in the hope that it will be useful,\n\# but WITHOUT ANY WARRANTY\; without even the implied warranty of\n\# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n\# GNU General Public License for more details.\n\#\n\# You should have received a copy of the GNU General Public License\n\# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.\n'
@@ -86,7 +87,7 @@ $total_paths = [*$total_paths, *$c->files_list]
 $c = %{ new Crawler $__dir__ + '/../tests', '.pashmt' }%
 $total_paths = [*$total_paths, *$c->files_list]
 
-$c = %{ new Crawler $__dir__ + '/../modules', '.pashm' }%
+$c = %{ new Crawler $__dir__ + '/../src/modules', '.pashm' }%
 $total_paths = [*$total_paths, *$c->files_list]
 
 $c = %{ new Crawler $__dir__ + '/../examples', '.pashm' }%
