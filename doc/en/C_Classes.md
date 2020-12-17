@@ -384,7 +384,7 @@ another example:
 class Person
     $name
 
-    func set_name $name
+    func set_name($name)
         $this->name = $name
     endfunc
 
@@ -467,7 +467,7 @@ also you can pass argument to `__init__` method. look at this example:
 
 ```bash
 class Person
-    func __init__ $name
+    func __init__($name)
         $this->name = $name
         println 'hello ' + $this->name
     endfunc
