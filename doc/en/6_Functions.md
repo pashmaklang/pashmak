@@ -159,6 +159,8 @@ endfunc
 say_hello 'parsa'
 ```
 
+#### NOTE: that space between `hello` and `($name)` is not required.
+
 we can put `($varname)` after name of function (with a space between them) and mem will copy automatic in that variable.
 also you can don't use `()` and you can write above code like this:
 
@@ -202,7 +204,7 @@ in the above examples, all of created functions only have ONE argument. some tim
 to handle this, you can use something like this:
 
 ```bash
-func say_hi ($args)
+func say_hi($args)
     $first_name = $args[0]
     $last_name = $args[1]
     println 'hello ' + $first_name + ' ' + $last_name
@@ -287,7 +289,7 @@ when you calling a function, that function may return a output. this value as ou
 look at this example:
 
 ```bash
-func add_two_nums ($nums)
+func add_two_nums($nums)
     $sum = $nums[0] + $nums[1] # add two numbers
     mem $sum # put result to mem
 endfunc
@@ -354,7 +356,7 @@ in the above example, we used `%{ }%` structure complicated.
 another example:
 
 ```bash
-func add_two_nums ($nums)
+func add_two_nums($nums)
     mem $nums[0] + $nums[1]
 endfunc
 

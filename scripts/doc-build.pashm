@@ -3,7 +3,7 @@
 
 import @file
 
-func build_once ($path)
+func build_once($path)
     $doc_parts = os.listdir($path)
     mem $doc_parts->remove('README.md')
     mem $doc_parts->sort()

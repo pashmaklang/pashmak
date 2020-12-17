@@ -25,7 +25,7 @@ namespace time
         mem time.time()
     endfunc
 
-    func sleep ($time_to_sleep)
+    func sleep($time_to_sleep)
         mem time.sleep($time_to_sleep)
     endfunc
 

@@ -1,5 +1,5 @@
 #
-# random.pashm
+# syntax001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,12 +20,32 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-namespace random
-    func randint($args)
-        mem random.randint($args[0], $args[1])
-    endfunc
+--test--
+function declaration syntax is not sensitive to whitespaces
 
-    func random
-        mem random.random()
-    endfunc
-endns
+--file--
+func hello1
+    println 'hello world'
+endfunc
+
+func hello2 $name
+    println('hello ' + $name)
+endfunc
+
+func hello3 (   $name        )
+    println 'hello ' + $name
+endfunc
+
+func hello4($name)
+    println 'hello ' + $name
+endfunc
+
+func hello5(   $name     )
+    println 'hello ' + $name
+endfunc
+
+hello1()
+hello2 '2'
+hello3('3')
+hello4 ('4')
+hello5  '5'

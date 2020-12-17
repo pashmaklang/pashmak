@@ -251,7 +251,7 @@ class BuiltinFunctions:
     def run_func(self, op: dict):
         """ Starts function declaration block """
         self.require_one_argument(op, 'missing function name')
-        arg = op['args'][0]
+        arg = self.multi_char_split(op['args_str'], ' (', 1)[0]
         if '.' in arg:
             return self.raise_error(
                 'FunctionNameContainsDotError', 'name "' + arg + '" for function contains `.` character', op
@@ -277,8 +277,8 @@ class BuiltinFunctions:
             self.current_func = self.current_namespace() + arg
             self.functions[self.current_func] = []
         # check for argument variable
-        if len(op['args']) > 1:
-            arg_var = op['args'][1].strip(')').strip('(')
+        if len(self.multi_char_split(op['args_str'], ' (', 1)) > 1:
+            arg_var = self.multi_char_split(op['args_str'], ' (', 1)[1].strip(')').strip('(').strip()
             self.arg_should_be_variable(arg_var, op)
             if is_method:
                 self.classes[self.current_class].methods[self.current_func].append(parser.parse(arg_var + ' = ^', '<system>')[0])

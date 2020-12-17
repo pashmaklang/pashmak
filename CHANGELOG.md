@@ -21,6 +21,7 @@
 - added inline function calling feature, for example `println %{ my_func_or_command %{ another_command_as_arg }% }%`
 - removed `$var = ^ command` syntax(use `$var = %{ command }%` instead of that)
 - added general variable `$__ismain__`
+- fixed a bug in function declaration syntax
 
 ## 0.5.4 (2020-12-6)
 

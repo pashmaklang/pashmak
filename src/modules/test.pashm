@@ -21,35 +21,35 @@
 #########################################################################
 
 namespace test
-    func doAssert $value
+    func doAssert($value)
         assert $value
     endfunc
 
-    func assertTrue $value
+    func assertTrue($value)
         test.doAssert $value
     endfunc
 
-    func assertFalse $value
+    func assertFalse($value)
         test.doAssert not $value
     endfunc
 
-    func assertEquals $args
+    func assertEquals($args)
         $a = $args[0]
         $b = $args[1]
         test.doAssert $a == $b
     endfunc
 
-    func assertNotEquals $args
+    func assertNotEquals($args)
         $a = $args[0]
         $b = $args[1]
         test.doAssert $a != $b
     endfunc
 
-    func assertEmpty $value
+    func assertEmpty($value)
         test.doAssert $valie == None
     endfunc
 
-    func assertNotEmpty $value
+    func assertNotEmpty($value)
         test.doAssert $valie != None
     endfunc
 endns

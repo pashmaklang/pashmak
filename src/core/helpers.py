@@ -97,12 +97,17 @@ class Helpers(builtin_functions.BuiltinFunctions):
         """ Returns list of all of variables """
         return self.states[-1]['vars']
 
-    def multi_char_split(self, string, seprators):
+    def multi_char_split(self, string, seprators, count=None):
         """ Splits string by multi seprators """
         result = ['']
+        i = 0
         for char in string:
             if char in seprators:
-                result.append('')
+                if count == None:
+                    result.append('')
+                elif i < count:
+                    result.append('')
+                i += 1
             else:
                 result[-1] += char
         return result

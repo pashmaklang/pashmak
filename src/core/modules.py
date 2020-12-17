@@ -25,65 +25,65 @@
 modules = {}
 
 modules["file"] = """namespace file
-func open ($args)
+func open($args)
 mem open($args[0], $args[1])
 endfunc
-func close ($file)
+func close($file)
 mem $file->close()
 endfunc
-func read ($file)
+func read($file)
 mem $file->read()
 endfunc
-func write ($args)
+func write($args)
 mem $args[0].write($args[1])
 endfunc
 endns"""
 modules["hash"] = """namespace hash
-func blake2b ($value)
+func blake2b($value)
 mem hashlib.blake2b($value->encode())->hexdigest()
 endfunc
-func blake2s ($value)
+func blake2s($value)
 mem hashlib.blake2s($value->encode())->hexdigest()
 endfunc
-func md5 ($value)
+func md5($value)
 mem hashlib.md5($value->encode())->hexdigest()
 endfunc
-func sha1 ($value)
+func sha1($value)
 mem hashlib.sha1($value->encode())->hexdigest()
 endfunc
-func sha224 ($value)
+func sha224($value)
 mem hashlib.sha224($value->encode())->hexdigest()
 endfunc
-func sha256 ($value)
+func sha256($value)
 mem hashlib.sha256($value->encode())->hexdigest()
 endfunc
-func sha384 ($value)
+func sha384($value)
 mem hashlib.sha384($value->encode())->hexdigest()
 endfunc
-func sha3_224 ($value)
+func sha3_224($value)
 mem hashlib.sha3_224($value->encode())->hexdigest()
 endfunc
-func sha3_256 ($value)
+func sha3_256($value)
 mem hashlib.sha3_256($value->encode())->hexdigest()
 endfunc
-func sha3_384 ($value)
+func sha3_384($value)
 mem hashlib.sha3_384($value->encode())->hexdigest()
 endfunc
-func sha3_512 ($value)
+func sha3_512($value)
 mem hashlib.sha3_512($value->encode())->hexdigest()
 endfunc
-func sha512 ($value)
+func sha512($value)
 mem hashlib.sha512($value->encode())->hexdigest()
 endfunc
-func shake_128 ($value)
+func shake_128($value)
 mem hashlib.shake_128(str($value[0])->encode()).hexdigest($value[1])
 endfunc
-func shake_256 ($value)
+func shake_256($value)
 mem hashlib.shake_256(str($value[0])->encode()).hexdigest($value[1])
 endfunc
 endns"""
 modules["random"] = """namespace random
-func randint ($args)
+func randint($args)
 mem random.randint($args[0], $args[1])
 endfunc
 func random
@@ -103,7 +103,7 @@ endfunc
 func import_once
 mem self.import_script(^, True)
 endfunc
-func exit ($code)
+func exit($code)
 if type($code) != int
 $code = 0
 endif
@@ -115,33 +115,33 @@ endfunc
 func endns
 endnamespace
 endfunc
-func raise ($exdata)
+func raise($exdata)
 python "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', self.states[-1]['commands'][self.states[-1]['current_step']])"
 endfunc
-func assert ($value)
+func assert($value)
 if not $value
 raise 'AssertError', 'asserting that false is true'
 endif
 endfunc
-func gset ($args)
+func gset($args)
 python 'self.states[0]["vars"]["' + str($args[0]) + '"] = self.get_var("args")[1]'
 endfunc
-func println ($value)
+func println($value)
 print str($value) + '\\n'
 endfunc
-func printl ($value)
+func printl($value)
 println $value
 endfunc
 func cwd
 mem os.getcwd()
 endfunc
-func chdir ($path)
+func chdir($path)
 mem os.chdir($path)
 endfunc
-func typeof ($obj)
+func typeof($obj)
 mem type($obj)
 endfunc
-func system ($cmd)
+func system($cmd)
 mem os.system($cmd)
 endfunc
 func python
@@ -152,7 +152,7 @@ endfunc"""
 modules["sys"] = """namespace sys
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
 namespace path
-func add $new_path
+func add($new_path)
 python 'os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"'
 mem self.bootstrap_modules()
 endfunc
@@ -164,29 +164,29 @@ endfunc
 endns
 endns"""
 modules["test"] = """namespace test
-func doAssert $value
+func doAssert($value)
 assert $value
 endfunc
-func assertTrue $value
+func assertTrue($value)
 test.doAssert $value
 endfunc
-func assertFalse $value
+func assertFalse($value)
 test.doAssert not $value
 endfunc
-func assertEquals $args
+func assertEquals($args)
 $a = $args[0]
 $b = $args[1]
 test.doAssert $a == $b
 endfunc
-func assertNotEquals $args
+func assertNotEquals($args)
 $a = $args[0]
 $b = $args[1]
 test.doAssert $a != $b
 endfunc
-func assertEmpty $value
+func assertEmpty($value)
 test.doAssert $valie == None
 endfunc
-func assertNotEmpty $value
+func assertNotEmpty($value)
 test.doAssert $valie != None
 endfunc
 endns"""
@@ -194,7 +194,7 @@ modules["time"] = """namespace time
 func time
 mem time.time()
 endfunc
-func sleep ($time_to_sleep)
+func sleep($time_to_sleep)
 mem time.sleep($time_to_sleep)
 endfunc
 func ctime
