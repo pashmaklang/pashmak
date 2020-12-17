@@ -1,7 +1,6 @@
 #
 # modules.py
 #
-#
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
 #
