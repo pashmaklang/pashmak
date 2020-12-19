@@ -35,9 +35,9 @@ empty_func()
 hello()
 
 --output--
-"""('/home/parsa/p/personal/pashmak', '/home/parsa/p/personal/pashmak/__main__')
-('/home/parsa/p/personal/pashmak/tests/test-module-path', '/home/parsa/p/personal/pashmak/tests/test-module-path/dir-and-file.pashm')
-('/home/parsa/p/personal/pashmak/tests/test-module-path', '/home/parsa/p/personal/pashmak/tests/test-module-path/dir-and-file.pashm')
-('/home/parsa/p/personal/pashmak', '/home/parsa/p/personal/pashmak/__main__')
-('/home/parsa/p/personal/pashmak/tests/test-module-path', '/home/parsa/p/personal/pashmak/tests/test-module-path/dir-and-file.pashm')
+"""('""" + os.getcwd() + """', '""" + os.getcwd() + """/__main__')
+('""" + os.getcwd() + """/tests/test-module-path', '""" + os.getcwd() + """/tests/test-module-path/dir-and-file.pashm')
+('""" + os.getcwd() + """/tests/test-module-path', '""" + os.getcwd() + """/tests/test-module-path/dir-and-file.pashm')
+('""" + os.getcwd() + """', '""" + os.getcwd() + """/__main__')
+('""" + os.getcwd() + """/tests/test-module-path', '""" + os.getcwd() + """/tests/test-module-path/dir-and-file.pashm')
 """
