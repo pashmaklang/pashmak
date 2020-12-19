@@ -1,5 +1,6 @@
 # TODO
 
+- fix `$__dir__` and `$__file__` variables bug in function body
 - create `return` command for functions
 - create more magic methods for classes
 - add more examples
