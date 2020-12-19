@@ -1,9 +1,9 @@
 # TODO
 
-- fix `$__dir__` and `$__file__` variables bug in function body
-- create more magic methods for classes
-- add more examples
-- write developer documentation
-- add more internal modules
 - create subimporting syntax for module system
+- write developer documentation
+- create more magic methods for classes
+- create JIT system
+- add more examples
+- add more internal modules
 - create syntax highlighter (gh-19)

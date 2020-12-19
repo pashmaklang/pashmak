@@ -23,6 +23,7 @@
 - added general variable `$__ismain__`
 - fixed a bug in function declaration syntax
 - created `return` command for functions
+- fixed a bug in `$__dir__` and `$__file__` variables in function
 
 ## 0.5.4 (2020-12-6)
 
