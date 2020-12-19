@@ -22,6 +22,7 @@
 - removed `$var = ^ command` syntax(use `$var = %{ command }%` instead of that)
 - added general variable `$__ismain__`
 - fixed a bug in function declaration syntax
+- created `return` command for functions
 
 ## 0.5.4 (2020-12-6)
 

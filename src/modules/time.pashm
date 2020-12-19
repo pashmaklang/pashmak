@@ -22,22 +22,22 @@
 
 namespace time
     func time
-        mem time.time()
+        return time.time()
     endfunc
 
     func sleep($time_to_sleep)
-        mem time.sleep($time_to_sleep)
+        return time.sleep($time_to_sleep)
     endfunc
 
     func ctime
-        mem time.ctime()
+        return time.ctime()
     endfunc
 
     func gmtime
-        mem time.gmtime()
+        return time.gmtime()
     endfunc
 
     func localtime
-        mem time.localtime()
+        return time.localtime()
     endfunc
 endnamespace

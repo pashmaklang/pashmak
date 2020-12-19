@@ -284,3 +284,17 @@ class BuiltinFunctions:
                 self.classes[self.current_class].methods[self.current_func].append(parser.parse(arg_var + ' = ^', '<system>')[0])
             else:
                 self.functions[self.current_func].append(parser.parse(arg_var + ' = ^', '<system>')[0])
+
+    def run_return(self, op: dict):
+        """ Returns a value in function """
+        value = op['args_str'].strip()
+        if value == '':
+            value = None
+        else:
+            value = self.eval(value)
+
+        self.mem = value
+        if len(self.states) > 1:
+            self.states[-1]['current_step'] = len(self.states[-1]['commands']) * 2
+        else:
+            self.exit_program(value)

@@ -18,7 +18,7 @@ func set_once_header($path)
         $new_content = $header_text + $spliter + $parts[0]
     else
 	# already has the header
-        goto end_of_func
+        return
     endif
 
     # add current filename to header
@@ -32,8 +32,6 @@ func set_once_header($path)
     $f = open($path, 'w')
     mem $f->write($new_content)
     mem $f->close()
-
-    section end_of_func
 endfunc
 
 ### This class crawls in a path and finds files with specify extension ###

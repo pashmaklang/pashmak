@@ -518,7 +518,7 @@ class Person
     $name
 
     func __str__
-        mem 'hello. my name is ' + $this->name
+        return 'hello. my name is ' + $this->name
     endfunc
 endclass
 

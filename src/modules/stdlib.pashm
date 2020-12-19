@@ -75,19 +75,19 @@ func printl($value)
 endfunc
 
 func cwd
-    mem os.getcwd()
+    return os.getcwd()
 endfunc
 
 func chdir($path)
-    mem os.chdir($path)
+    return os.chdir($path)
 endfunc
 
 func typeof($obj)
-    mem type($obj)
+    return type($obj)
 endfunc
 
 func system($cmd)
-    mem os.system($cmd)
+    return os.system($cmd)
 endfunc
 
 func python

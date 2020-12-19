@@ -353,6 +353,7 @@ class Program(helpers.Helpers):
             'class': self.run_class,
             'endclass': self.run_endclass,
             'new': self.run_new,
+            'return': self.run_return,
             'pass': None,
             'if': None,
             'elif': None,

@@ -26,68 +26,68 @@ modules = {}
 
 modules["file"] = """namespace file
 func open($args)
-mem open($args[0], $args[1])
+return open($args[0], $args[1])
 endfunc
 func close($file)
-mem $file->close()
+return $file->close()
 endfunc
 func read($file)
-mem $file->read()
+return $file->read()
 endfunc
 func write($args)
-mem $args[0].write($args[1])
+return $args[0].write($args[1])
 endfunc
 endns"""
 modules["hash"] = """namespace hash
 func blake2b($value)
-mem hashlib.blake2b($value->encode())->hexdigest()
+return hashlib.blake2b($value->encode())->hexdigest()
 endfunc
 func blake2s($value)
-mem hashlib.blake2s($value->encode())->hexdigest()
+return hashlib.blake2s($value->encode())->hexdigest()
 endfunc
 func md5($value)
-mem hashlib.md5($value->encode())->hexdigest()
+return hashlib.md5($value->encode())->hexdigest()
 endfunc
 func sha1($value)
-mem hashlib.sha1($value->encode())->hexdigest()
+return hashlib.sha1($value->encode())->hexdigest()
 endfunc
 func sha224($value)
-mem hashlib.sha224($value->encode())->hexdigest()
+return hashlib.sha224($value->encode())->hexdigest()
 endfunc
 func sha256($value)
-mem hashlib.sha256($value->encode())->hexdigest()
+return hashlib.sha256($value->encode())->hexdigest()
 endfunc
 func sha384($value)
-mem hashlib.sha384($value->encode())->hexdigest()
+return hashlib.sha384($value->encode())->hexdigest()
 endfunc
 func sha3_224($value)
-mem hashlib.sha3_224($value->encode())->hexdigest()
+return hashlib.sha3_224($value->encode())->hexdigest()
 endfunc
 func sha3_256($value)
-mem hashlib.sha3_256($value->encode())->hexdigest()
+return hashlib.sha3_256($value->encode())->hexdigest()
 endfunc
 func sha3_384($value)
-mem hashlib.sha3_384($value->encode())->hexdigest()
+return hashlib.sha3_384($value->encode())->hexdigest()
 endfunc
 func sha3_512($value)
-mem hashlib.sha3_512($value->encode())->hexdigest()
+return hashlib.sha3_512($value->encode())->hexdigest()
 endfunc
 func sha512($value)
-mem hashlib.sha512($value->encode())->hexdigest()
+return hashlib.sha512($value->encode())->hexdigest()
 endfunc
 func shake_128($value)
-mem hashlib.shake_128(str($value[0])->encode()).hexdigest($value[1])
+return hashlib.shake_128(str($value[0])->encode()).hexdigest($value[1])
 endfunc
 func shake_256($value)
-mem hashlib.shake_256(str($value[0])->encode()).hexdigest($value[1])
+return hashlib.shake_256(str($value[0])->encode()).hexdigest($value[1])
 endfunc
 endns"""
 modules["random"] = """namespace random
 func randint($args)
-mem random.randint($args[0], $args[1])
+return random.randint($args[0], $args[1])
 endfunc
 func random
-mem random.random()
+return random.random()
 endfunc
 endns"""
 modules["stdlib"] = """class Object
@@ -133,16 +133,16 @@ func printl($value)
 println $value
 endfunc
 func cwd
-mem os.getcwd()
+return os.getcwd()
 endfunc
 func chdir($path)
-mem os.chdir($path)
+return os.chdir($path)
 endfunc
 func typeof($obj)
-mem type($obj)
+return type($obj)
 endfunc
 func system($cmd)
-mem os.system($cmd)
+return os.system($cmd)
 endfunc
 func python
 rmem exec(^)
@@ -159,7 +159,7 @@ endfunc
 func list
 $paths_list = os.environ["PASHMAKPATH"]->strip()->split(':')
 $paths_list = [item.strip() for item in $paths_list if item != '']
-mem $paths_list
+return $paths_list
 endfunc
 endns
 endns"""
@@ -192,18 +192,18 @@ endfunc
 endns"""
 modules["time"] = """namespace time
 func time
-mem time.time()
+return time.time()
 endfunc
 func sleep($time_to_sleep)
-mem time.sleep($time_to_sleep)
+return time.sleep($time_to_sleep)
 endfunc
 func ctime
-mem time.ctime()
+return time.ctime()
 endfunc
 func gmtime
-mem time.gmtime()
+return time.gmtime()
 endfunc
 func localtime
-mem time.localtime()
+return time.localtime()
 endfunc
 endnamespace"""

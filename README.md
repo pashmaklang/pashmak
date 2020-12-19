@@ -1220,6 +1220,29 @@ output:
 15
 ```
 
+also you can use `return` command instead of above method.
+
+for example:
+
+```bash
+func get_data
+    println 'start'
+    return 'the data'
+    println 'end' # this will not be runed
+endfunc
+
+println %{ get_data() }%
+```
+
+output:
+
+```
+start
+the data
+```
+
+actually, in `return` command, value will be put in the mem as output and function will be finished(commands after return will not be runed).
+
 ### inline calling functions
 you can call a function as argument of another function.
 
@@ -1228,7 +1251,7 @@ look at this example:
 ```bash
 # the say_hi function returns string `hello <$name>`
 func say_hi $name
-    mem 'hello ' + $name
+    return 'hello ' + $name
 endfunc
 
 # we want to call this function and print the output of that
@@ -1249,11 +1272,11 @@ another example:
 
 ```bash
 func say_hi $name
-    mem 'hello ' + $name
+    return 'hello ' + $name
 endfunc
 
 func get_name
-    mem 'pashmak'
+    return 'pashmak'
 endfunc
 
 println %{ say_hi %{ get_name }% }%
@@ -1271,7 +1294,7 @@ another example:
 
 ```bash
 func add_two_nums($nums)
-    mem $nums[0] + $nums[1]
+    return $nums[0] + $nums[1]
 endfunc
 
 $result = %{ add_two_nums 10, 5 }%
@@ -2523,7 +2546,7 @@ class Person
     $name
 
     func __str__
-        mem 'hello. my name is ' + $this->name
+        return 'hello. my name is ' + $this->name
     endfunc
 endclass
 

@@ -1,5 +1,5 @@
 #
-# random.pashm
+# return002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,12 +20,16 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-namespace random
-    func randint($args)
-        return random.randint($args[0], $args[1])
-    endfunc
+--test--
+return command exits program when is used in main program state
 
-    func random
-        return random.random()
-    endfunc
-endns
+--file--
+print 'first'
+return 100
+print 'last'
+
+--output--
+'first'
+
+--exit-code--
+100
