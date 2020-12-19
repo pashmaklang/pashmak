@@ -1,5 +1,6 @@
 # TODO
 
+- create `return` command for functions
 - create more magic methods for classes
 - add more examples
 - write developer documentation
