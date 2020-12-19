@@ -4,12 +4,12 @@
 import @file
 
 $modules = {}
-$module_files = os.listdir($__dir__ + '/../modules')
+$module_files = os.listdir($__dir__ + '/../src/modules')
 mem $module_files->sort()
 
 $i = 0
 section loop1
-    $f = %{ file.open $__dir__ + '/../modules/' + $module_files[$i], 'r' }%
+    $f = %{ file.open $__dir__ + '/../src/modules/' + $module_files[$i], 'r' }%
     $content = %{ file.read $f }%
     file.close $f
     $module_name = $module_files[$i]->split('.')[0]

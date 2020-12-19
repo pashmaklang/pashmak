@@ -1,5 +1,5 @@
 #
-# random.pashm
+# return003.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,12 +20,19 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-namespace random
-    func randint ($args)
-        mem random.randint($args[0], $args[1])
-    endfunc
 
-    func random
-        mem random.random()
-    endfunc
-endns
+--test--
+return command works when have not argument
+--file--
+func hello
+    print 'first'
+    return
+    print 'last'
+endfunc
+
+$r = %{ hello }%
+
+println $r
+
+--output--
+'firstNone\n'

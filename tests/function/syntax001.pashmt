@@ -1,5 +1,5 @@
 #
-# sys.pashm
+# syntax001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,19 +20,32 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-namespace sys
-    $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
+--test--
+function declaration syntax is not sensitive to whitespaces
 
-    namespace path
-        func add $new_path
-            python 'os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"'
-            mem self.bootstrap_modules()
-        endfunc
+--file--
+func hello1
+    println 'hello world'
+endfunc
 
-        func list
-            $paths_list = os.environ["PASHMAKPATH"]->strip()->split(':')
-            $paths_list = [item.strip() for item in $paths_list if item != '']
-            mem $paths_list
-        endfunc
-    endns
-endns
+func hello2 $name
+    println('hello ' + $name)
+endfunc
+
+func hello3 (   $name        )
+    println 'hello ' + $name
+endfunc
+
+func hello4($name)
+    println 'hello ' + $name
+endfunc
+
+func hello5(   $name     )
+    println 'hello ' + $name
+endfunc
+
+hello1()
+hello2 '2'
+hello3('3')
+hello4 ('4')
+hello5  '5'

@@ -197,6 +197,8 @@ class Program(helpers.Helpers):
 
     def exec_func(self, func_body: list, with_state=True, default_variables={}):
         """ Gets a list from commands and runs them as function or included script """
+        old_dir = self.get_var('__dir__')
+        old_file = self.get_var('__file__')
         # create new state for this call
         if with_state:
             state_vars = dict(self.states[-1]['vars'])
@@ -205,6 +207,10 @@ class Program(helpers.Helpers):
 
         for k in default_variables:
             state_vars[k] = default_variables[k]
+        if len(func_body) > 0:
+            state_vars['__file__'] = func_body[0]['file_path']
+            if os.path.isfile(state_vars['__file__']):
+                state_vars['__dir__'] = os.path.dirname(state_vars['__file__'])
         self.states.append({
             'current_step': 0,
             'commands': func_body,
@@ -213,6 +219,9 @@ class Program(helpers.Helpers):
 
         # run function
         self.start_state()
+
+        self.set_var('__dir__', old_dir)
+        self.set_var('__file__', old_file)
 
     def eval(self, command, only_parse=False):
         """ Runs eval on command """
@@ -353,6 +362,7 @@ class Program(helpers.Helpers):
             'class': self.run_class,
             'endclass': self.run_endclass,
             'new': self.run_new,
+            'return': self.run_return,
             'pass': None,
             'if': None,
             'elif': None,

@@ -1,5 +1,5 @@
 #
-# file.pashm
+# return001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,20 +20,18 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-namespace file
-    func open ($args)
-        mem open($args[0], $args[1])
-    endfunc
+--test--
+return command working correct
+--file--
+func hello
+    println 'hello'
+    return 'good bye'
+    println 'world'
+endfunc
 
-    func close ($file)
-        mem $file->close()
-    endfunc
+hello
+print ^
 
-    func read ($file)
-        mem $file->read()
-    endfunc
-
-    func write ($args)
-        mem $args[0].write($args[1])
-    endfunc
-endns
+--output--
+"""hello
+good bye"""

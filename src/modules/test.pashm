@@ -1,5 +1,5 @@
 #
-# loop.pashm
+# test.pashm
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,18 +20,36 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-# This is a simple loop printing numbers from 1 to 99
+namespace test
+    func doAssert($value)
+        assert $value
+    endfunc
 
-func myfunc($n)
-    println 'starting...'
+    func assertTrue($value)
+        test.doAssert $value
+    endfunc
 
-    $i = 1
-    section loop
-        println str($i)
-        $i = $i + 1
-    mem $i < $n; gotoif loop
+    func assertFalse($value)
+        test.doAssert not $value
+    endfunc
 
-    println 'finished'
-endfunc
+    func assertEquals($args)
+        $a = $args[0]
+        $b = $args[1]
+        test.doAssert $a == $b
+    endfunc
 
-myfunc(100)
+    func assertNotEquals($args)
+        $a = $args[0]
+        $b = $args[1]
+        test.doAssert $a != $b
+    endfunc
+
+    func assertEmpty($value)
+        test.doAssert $valie == None
+    endfunc
+
+    func assertNotEmpty($value)
+        test.doAssert $valie != None
+    endfunc
+endns

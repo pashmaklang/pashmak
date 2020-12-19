@@ -1,5 +1,5 @@
 #
-# time.pashm
+# dir-and-file-vars.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,24 +20,26 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-namespace time
-    func time
-        mem time.time()
-    endfunc
+--test--
+the $__dir__ and $__file__ variables are valid
 
-    func sleep ($time_to_sleep)
-        mem time.sleep($time_to_sleep)
-    endfunc
+--file--
+println $__dir__, $__file__
 
-    func ctime
-        mem time.ctime()
-    endfunc
+import 'tests/test-module-path/dir-and-file.pashm'
 
-    func gmtime
-        mem time.gmtime()
-    endfunc
+println $__dir__, $__file__
 
-    func localtime
-        mem time.localtime()
-    endfunc
-endnamespace
+empty_func()
+
+hello()
+
+--output--
+"""('""" + os.getcwd() + """', '""" + os.getcwd() + """/__main__')
+('""" + os.getcwd() + """/tests/test-module-path', '""" + os.getcwd() + """/tests/test-module-path/dir-and-file.pashm')
+('""" + os.getcwd() + """/tests/test-module-path', '""" + os.getcwd() + """/tests/test-module-path/dir-and-file.pashm')
+('""" + os.getcwd() + """', '""" + os.getcwd() + """/__main__')
+('""" + os.getcwd() + """/tests/test-module-path', '""" + os.getcwd() + """/tests/test-module-path/dir-and-file.pashm')
+"""
+
+--skip--

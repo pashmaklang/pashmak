@@ -159,6 +159,8 @@ endfunc
 say_hello 'parsa'
 ```
 
+#### NOTE: that space between `hello` and `($name)` is not required.
+
 we can put `($varname)` after name of function (with a space between them) and mem will copy automatic in that variable.
 also you can don't use `()` and you can write above code like this:
 
@@ -202,7 +204,7 @@ in the above examples, all of created functions only have ONE argument. some tim
 to handle this, you can use something like this:
 
 ```bash
-func say_hi ($args)
+func say_hi($args)
     $first_name = $args[0]
     $last_name = $args[1]
     println 'hello ' + $first_name + ' ' + $last_name
@@ -287,7 +289,7 @@ when you calling a function, that function may return a output. this value as ou
 look at this example:
 
 ```bash
-func add_two_nums ($nums)
+func add_two_nums($nums)
     $sum = $nums[0] + $nums[1] # add two numbers
     mem $sum # put result to mem
 endfunc
@@ -304,6 +306,29 @@ output:
 15
 ```
 
+also you can use `return` command instead of above method.
+
+for example:
+
+```bash
+func get_data
+    println 'start'
+    return 'the data'
+    println 'end' # this will not be runed
+endfunc
+
+println %{ get_data() }%
+```
+
+output:
+
+```
+start
+the data
+```
+
+actually, in `return` command, value will be put in the mem as output and function will be finished(commands after return will not be runed).
+
 ### inline calling functions
 you can call a function as argument of another function.
 
@@ -312,7 +337,7 @@ look at this example:
 ```bash
 # the say_hi function returns string `hello <$name>`
 func say_hi $name
-    mem 'hello ' + $name
+    return 'hello ' + $name
 endfunc
 
 # we want to call this function and print the output of that
@@ -333,11 +358,11 @@ another example:
 
 ```bash
 func say_hi $name
-    mem 'hello ' + $name
+    return 'hello ' + $name
 endfunc
 
 func get_name
-    mem 'pashmak'
+    return 'pashmak'
 endfunc
 
 println %{ say_hi %{ get_name }% }%
@@ -354,8 +379,8 @@ in the above example, we used `%{ }%` structure complicated.
 another example:
 
 ```bash
-func add_two_nums ($nums)
-    mem $nums[0] + $nums[1]
+func add_two_nums($nums)
+    return $nums[0] + $nums[1]
 endfunc
 
 $result = %{ add_two_nums 10, 5 }%

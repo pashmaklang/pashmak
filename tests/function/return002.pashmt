@@ -1,5 +1,5 @@
 #
-# loop.pashm
+# return002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,18 +20,16 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-# This is a simple loop printing numbers from 1 to 99
+--test--
+return command exits program when is used in main program state
 
-func myfunc($n)
-    println 'starting...'
+--file--
+print 'first'
+return 100
+print 'last'
 
-    $i = 1
-    section loop
-        println str($i)
-        $i = $i + 1
-    mem $i < $n; gotoif loop
+--output--
+'first'
 
-    println 'finished'
-endfunc
-
-myfunc(100)
+--exit-code--
+100

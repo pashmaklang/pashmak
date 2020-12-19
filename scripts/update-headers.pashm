@@ -1,8 +1,9 @@
+#!/usr/bin/env pashmak
 # Updates files copyright headers
 
 $header_text = '\#\n\# The Pashmak Project\n\# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>\n\#\n\# This file is part of Pashmak.\n\#\n\# Pashmak is free software: you can redistribute it and/or modify\n\# it under the terms of the GNU General Public License as published by\n\# the Free Software Foundation, either version 3 of the License, or\n\# (at your option) any later version.\n\#\n\# Pashmak is distributed in the hope that it will be useful,\n\# but WITHOUT ANY WARRANTY\; without even the implied warranty of\n\# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n\# GNU General Public License for more details.\n\#\n\# You should have received a copy of the GNU General Public License\n\# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.\n'
 
-func set_once_header $path
+func set_once_header($path)
     $spliter = ('\#' * 73) + '\n\n'
     
     # open file and add header
@@ -15,44 +16,32 @@ func set_once_header $path
     $parts = $content->split($spliter)
     if len($parts) == 1
         $new_content = $header_text + $spliter + $parts[0]
-    elif len($parts) == 2
-        $old_header = $parts[0]
-        $old_header_parts = $old_header->split('\# This file is part of Pashmak.')
-        $old_copyrights = $old_header_parts[0]->split('\# The Pashmak Project')[-1]
-        $new_header = $header_text
-
-        $tmp = $new_header->split('\# This file is part of Pashmak.')
-        $new_header = '\# The Pashmak Project' + $old_copyrights + '\# This file is part of Pashmak.' + $tmp[-1]
-
-        $new_content = $new_header + $spliter + $parts[1]
     else
-        println 'error in ' + $path + ': duplicate spliter'
-        goto end_of_func
+	# already has the header
+        return
     endif
 
     # add current filename to header
-    $only_file_name = $path->split('/')[-1]
-    $new_content = '\#\n\# ' + $only_file_name + '\n\#\n' + $new_content
+    $only_file_name = $path->replace('\\', '/')->split('/')[-1]
+    $new_content = '\#\n\# ' + $only_file_name + '\n' + $new_content
 
-    if $path->endswith('src' + '/' + 'pashmak.py') or $path->endswith('tests' + '/' + 'run.py')
+    if $path->replace('\\', '/')->endswith('src' + '/' + 'pashmak.py') or $path->replace('\\', '/')->endswith('tests' + '/' + 'run.py')
         $new_content = '\#!/usr/bin/env python3\n' + $new_content
     endif
 
     $f = open($path, 'w')
     mem $f->write($new_content)
     mem $f->close()
-
-    section end_of_func
 endfunc
 
 ### This class crawls in a path and finds files with specify extension ###
 class Crawler
-    func __init__ $args
+    func __init__($args)
         $this->files_list = []
         $this@get $args[0], $args[1]
     endfunc
 
-    func add_once $args
+    func add_once($args)
         $path = $args[0]
         $extension = $args[1]
 
@@ -61,7 +50,7 @@ class Crawler
         endif
     endfunc
 
-    func get $args
+    func get($args)
         $path = $args[0]
         $extension = $args[1]
 
@@ -86,7 +75,7 @@ $total_paths = [*$total_paths, *$c->files_list]
 $c = %{ new Crawler $__dir__ + '/../tests', '.pashmt' }%
 $total_paths = [*$total_paths, *$c->files_list]
 
-$c = %{ new Crawler $__dir__ + '/../modules', '.pashm' }%
+$c = %{ new Crawler $__dir__ + '/../src/modules', '.pashm' }%
 $total_paths = [*$total_paths, *$c->files_list]
 
 $c = %{ new Crawler $__dir__ + '/../examples', '.pashm' }%

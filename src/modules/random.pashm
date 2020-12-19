@@ -1,5 +1,5 @@
 #
-# test.pashm
+# random.pashm
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,36 +20,12 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-namespace test
-    func doAssert $value
-        assert $value
+namespace random
+    func randint($args)
+        return random.randint($args[0], $args[1])
     endfunc
 
-    func assertTrue $value
-        test.doAssert $value
-    endfunc
-
-    func assertFalse $value
-        test.doAssert not $value
-    endfunc
-
-    func assertEquals $args
-        $a = $args[0]
-        $b = $args[1]
-        test.doAssert $a == $b
-    endfunc
-
-    func assertNotEquals $args
-        $a = $args[0]
-        $b = $args[1]
-        test.doAssert $a != $b
-    endfunc
-
-    func assertEmpty $value
-        test.doAssert $valie == None
-    endfunc
-
-    func assertNotEmpty $value
-        test.doAssert $valie != None
+    func random
+        return random.random()
     endfunc
 endns

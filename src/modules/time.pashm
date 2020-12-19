@@ -1,5 +1,5 @@
 #
-# loop.pashm
+# time.pashm
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,18 +20,24 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-# This is a simple loop printing numbers from 1 to 99
+namespace time
+    func time
+        return time.time()
+    endfunc
 
-func myfunc($n)
-    println 'starting...'
+    func sleep($time_to_sleep)
+        return time.sleep($time_to_sleep)
+    endfunc
 
-    $i = 1
-    section loop
-        println str($i)
-        $i = $i + 1
-    mem $i < $n; gotoif loop
+    func ctime
+        return time.ctime()
+    endfunc
 
-    println 'finished'
-endfunc
+    func gmtime
+        return time.gmtime()
+    endfunc
 
-myfunc(100)
+    func localtime
+        return time.localtime()
+    endfunc
+endnamespace

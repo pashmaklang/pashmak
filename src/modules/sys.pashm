@@ -1,5 +1,5 @@
 #
-# loop.pashm
+# sys.pashm
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,18 +20,19 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-# This is a simple loop printing numbers from 1 to 99
+namespace sys
+    $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
 
-func myfunc($n)
-    println 'starting...'
+    namespace path
+        func add($new_path)
+            python 'os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"'
+            mem self.bootstrap_modules()
+        endfunc
 
-    $i = 1
-    section loop
-        println str($i)
-        $i = $i + 1
-    mem $i < $n; gotoif loop
-
-    println 'finished'
-endfunc
-
-myfunc(100)
+        func list
+            $paths_list = os.environ["PASHMAKPATH"]->strip()->split(':')
+            $paths_list = [item.strip() for item in $paths_list if item != '']
+            return $paths_list
+        endfunc
+    endns
+endns

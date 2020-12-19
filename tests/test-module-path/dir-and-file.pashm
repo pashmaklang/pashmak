@@ -1,0 +1,10 @@
+println $__dir__, $__file__
+
+func empty_func
+endfunc
+
+func hello
+    println $__dir__, $__file__
+endfunc
+
+println $__dir__, $__file__

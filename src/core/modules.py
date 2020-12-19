@@ -1,7 +1,6 @@
 #
 # modules.py
 #
-#
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
 #
@@ -26,69 +25,69 @@
 modules = {}
 
 modules["file"] = """namespace file
-func open ($args)
-mem open($args[0], $args[1])
+func open($args)
+return open($args[0], $args[1])
 endfunc
-func close ($file)
-mem $file->close()
+func close($file)
+return $file->close()
 endfunc
-func read ($file)
-mem $file->read()
+func read($file)
+return $file->read()
 endfunc
-func write ($args)
-mem $args[0].write($args[1])
+func write($args)
+return $args[0].write($args[1])
 endfunc
 endns"""
 modules["hash"] = """namespace hash
-func blake2b ($value)
-mem hashlib.blake2b($value->encode())->hexdigest()
+func blake2b($value)
+return hashlib.blake2b($value->encode())->hexdigest()
 endfunc
-func blake2s ($value)
-mem hashlib.blake2s($value->encode())->hexdigest()
+func blake2s($value)
+return hashlib.blake2s($value->encode())->hexdigest()
 endfunc
-func md5 ($value)
-mem hashlib.md5($value->encode())->hexdigest()
+func md5($value)
+return hashlib.md5($value->encode())->hexdigest()
 endfunc
-func sha1 ($value)
-mem hashlib.sha1($value->encode())->hexdigest()
+func sha1($value)
+return hashlib.sha1($value->encode())->hexdigest()
 endfunc
-func sha224 ($value)
-mem hashlib.sha224($value->encode())->hexdigest()
+func sha224($value)
+return hashlib.sha224($value->encode())->hexdigest()
 endfunc
-func sha256 ($value)
-mem hashlib.sha256($value->encode())->hexdigest()
+func sha256($value)
+return hashlib.sha256($value->encode())->hexdigest()
 endfunc
-func sha384 ($value)
-mem hashlib.sha384($value->encode())->hexdigest()
+func sha384($value)
+return hashlib.sha384($value->encode())->hexdigest()
 endfunc
-func sha3_224 ($value)
-mem hashlib.sha3_224($value->encode())->hexdigest()
+func sha3_224($value)
+return hashlib.sha3_224($value->encode())->hexdigest()
 endfunc
-func sha3_256 ($value)
-mem hashlib.sha3_256($value->encode())->hexdigest()
+func sha3_256($value)
+return hashlib.sha3_256($value->encode())->hexdigest()
 endfunc
-func sha3_384 ($value)
-mem hashlib.sha3_384($value->encode())->hexdigest()
+func sha3_384($value)
+return hashlib.sha3_384($value->encode())->hexdigest()
 endfunc
-func sha3_512 ($value)
-mem hashlib.sha3_512($value->encode())->hexdigest()
+func sha3_512($value)
+return hashlib.sha3_512($value->encode())->hexdigest()
 endfunc
-func sha512 ($value)
-mem hashlib.sha512($value->encode())->hexdigest()
+func sha512($value)
+return hashlib.sha512($value->encode())->hexdigest()
 endfunc
-func shake_128 ($value)
-mem hashlib.shake_128(str($value[0])->encode()).hexdigest($value[1])
+func shake_128($value)
+return hashlib.shake_128(str($value[0])->encode()).hexdigest($value[1])
 endfunc
-func shake_256 ($value)
-mem hashlib.shake_256(str($value[0])->encode()).hexdigest($value[1])
+func shake_256($value)
+return hashlib.shake_256(str($value[0])->encode()).hexdigest($value[1])
 endfunc
 endns"""
 modules["random"] = """namespace random
-func randint ($args)
-mem random.randint($args[0], $args[1])
+func randint($args)
+return random.randint($args[0], $args[1])
 endfunc
 func random
-mem random.random()
+return random.random()
 endfunc
 endns"""
 modules["stdlib"] = """class Object
@@ -104,7 +103,7 @@ endfunc
 func import_once
 mem self.import_script(^, True)
 endfunc
-func exit ($code)
+func exit($code)
 if type($code) != int
 $code = 0
 endif
@@ -116,34 +115,34 @@ endfunc
 func endns
 endnamespace
 endfunc
-func raise ($exdata)
+func raise($exdata)
 python "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', self.states[-1]['commands'][self.states[-1]['current_step']])"
 endfunc
-func assert ($value)
+func assert($value)
 if not $value
 raise 'AssertError', 'asserting that false is true'
 endif
 endfunc
-func gset ($args)
+func gset($args)
 python 'self.states[0]["vars"]["' + str($args[0]) + '"] = self.get_var("args")[1]'
 endfunc
-func println ($value)
+func println($value)
 print str($value) + '\\n'
 endfunc
-func printl ($value)
+func printl($value)
 println $value
 endfunc
 func cwd
-mem os.getcwd()
+return os.getcwd()
 endfunc
-func chdir ($path)
-mem os.chdir($path)
+func chdir($path)
+return os.chdir($path)
 endfunc
-func typeof ($obj)
-mem type($obj)
+func typeof($obj)
+return type($obj)
 endfunc
-func system ($cmd)
-mem os.system($cmd)
+func system($cmd)
+return os.system($cmd)
 endfunc
 func python
 rmem exec(^)
@@ -153,58 +152,58 @@ endfunc"""
 modules["sys"] = """namespace sys
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
 namespace path
-func add $new_path
+func add($new_path)
 python 'os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"'
 mem self.bootstrap_modules()
 endfunc
 func list
 $paths_list = os.environ["PASHMAKPATH"]->strip()->split(':')
 $paths_list = [item.strip() for item in $paths_list if item != '']
-mem $paths_list
+return $paths_list
 endfunc
 endns
 endns"""
 modules["test"] = """namespace test
-func doAssert $value
+func doAssert($value)
 assert $value
 endfunc
-func assertTrue $value
+func assertTrue($value)
 test.doAssert $value
 endfunc
-func assertFalse $value
+func assertFalse($value)
 test.doAssert not $value
 endfunc
-func assertEquals $args
+func assertEquals($args)
 $a = $args[0]
 $b = $args[1]
 test.doAssert $a == $b
 endfunc
-func assertNotEquals $args
+func assertNotEquals($args)
 $a = $args[0]
 $b = $args[1]
 test.doAssert $a != $b
 endfunc
-func assertEmpty $value
+func assertEmpty($value)
 test.doAssert $valie == None
 endfunc
-func assertNotEmpty $value
+func assertNotEmpty($value)
 test.doAssert $valie != None
 endfunc
 endns"""
 modules["time"] = """namespace time
 func time
-mem time.time()
+return time.time()
 endfunc
-func sleep ($time_to_sleep)
-mem time.sleep($time_to_sleep)
+func sleep($time_to_sleep)
+return time.sleep($time_to_sleep)
 endfunc
 func ctime
-mem time.ctime()
+return time.ctime()
 endfunc
 func gmtime
-mem time.gmtime()
+return time.gmtime()
 endfunc
 func localtime
-mem time.localtime()
+return time.localtime()
 endfunc
 endnamespace"""
