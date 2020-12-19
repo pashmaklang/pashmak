@@ -41,3 +41,5 @@ hello()
 ('""" + os.getcwd() + """', '""" + os.getcwd() + """/__main__')
 ('""" + os.getcwd() + """/tests/test-module-path', '""" + os.getcwd() + """/tests/test-module-path/dir-and-file.pashm')
 """
+
+--skip--
