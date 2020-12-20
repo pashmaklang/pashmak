@@ -45,3 +45,4 @@ read the following Documentation to learn pashmak.
 - [Eval](#eval)
 - [Modules](#internal-modules)
 - [Jit compiler](#the-pashmak-jit-compiler)
+- [Developer Guide](#developer-guide)
