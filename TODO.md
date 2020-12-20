@@ -2,6 +2,5 @@
 
 - create more magic methods for classes
 - write developer documentation
-- add more examples
 - add more internal modules
 - create syntax highlighter (gh-19)
