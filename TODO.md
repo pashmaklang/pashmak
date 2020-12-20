@@ -1,7 +1,6 @@
 # TODO
 
 - create more magic methods for classes
-- create JIT system
 - write developer documentation
 - add more examples
 - add more internal modules

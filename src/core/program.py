@@ -27,7 +27,7 @@ import os
 import signal
 from pathlib import Path
 from core import parser
-from core import helpers, version, modules
+from core import helpers, version, modules, jit
 from core.class_system import Class
 
 import hashlib, time, random, datetime
@@ -81,6 +81,7 @@ class Program(helpers.Helpers):
 
         for path in paths:
             code_location = path
+            commands = []
             if path[0] == '@':
                 code_location = path
                 module_name = path[1:]
@@ -91,6 +92,7 @@ class Program(helpers.Helpers):
                     namespaces_prefix += '@'
                     if not namespaces_prefix + module_name in self.included_modules:
                         content = modules.modules[module_name]
+                        commands = parser.parse(content, filepath=code_location)
                         # add this module to imported modules
                         self.included_modules.append(namespaces_prefix + module_name)
                     else:
@@ -103,19 +105,14 @@ class Program(helpers.Helpers):
                 if os.path.abspath(path) in self.imported_files and import_once:
                     return
                 try:
-                    content = open(path, 'r').read()
-                    content = '$__ismain__ = False; $__file__ = "' + path.replace('\\', '\\\\') + '";\n$__dir__ = "' + os.path.dirname(path).replace('\\', '\\\\') + '"\n' + content
-                    content += '\n$__file__ = "' + self.get_var('__file__').replace('\\', '\\\\') + '"'
-                    content += '\n$__dir__ = "' + self.get_var('__dir__').replace('\\', '\\\\') + '"'
-                    content += '\n$__ismain__ = "' + str(bool(self.get_var('__ismain__'))) + '"'
                     code_location = path
+                    commands = jit.load(path, code_location, self)
                     self.imported_files.append(os.path.abspath(code_location))
                 except FileNotFoundError as ex:
                     return self.raise_error('FileError', str(ex), op)
                 except PermissionError as ex:
                     return self.raise_error('FileError', str(ex), op)
 
-            commands = parser.parse(content, filepath=code_location)
             self.exec_func(commands, False)
 
     def set_commands(self, commands: list):

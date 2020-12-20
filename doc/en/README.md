@@ -44,3 +44,4 @@ read the following Documentation to learn pashmak.
 - [Classes](#Classes)
 - [Eval](#eval)
 - [Modules](#internal-modules)
+- [Jit compiler](#the-pashmak-jit-compiler)

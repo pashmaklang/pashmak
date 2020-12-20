@@ -27,7 +27,7 @@ import sys
 import os
 import signal
 from core import parser
-from core import program, version
+from core import program, version, jit
 
 def signal_handler(signal_code, frame):
     """ handle signal """
@@ -72,7 +72,7 @@ if __name__ == '__main__':
         if len(sys.argv) <= 2:
             print(sys.argv[0] + ': `-r` option requires code as argument: -r [code...]')
             sys.exit(1)
-        script_content = sys.argv[2]
+        script_commands = parser.parse(sys.argv[2], filepath=filename)
         filename = '-r'
     else:
         filename = sys.argv[1]
@@ -81,15 +81,13 @@ if __name__ == '__main__':
             script_content = ''
             for line in sys.stdin.readlines():
                 script_content += line
+            script_commands = parser.parse(script_content, filepath=filename)
         elif not os.path.isfile(filename):
             print(sys.argv[0] + ': file "' + filename + '" not found')
             sys.exit(1)
         else:
             # read content of file and parse it with the parser
-            script_f = open(filename, 'r')
-            script_content = script_f.read()
-
-    script_commands = parser.parse(script_content, filepath=filename)
+            script_commands = jit.load(filename, code_location=filename)
 
     # make pashmak program object
     prog = program.Program(args=sys.argv[1:])
