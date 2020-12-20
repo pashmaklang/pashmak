@@ -78,7 +78,7 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
     op['line_number'] = line_number
     return op
 
-def parse(content: str, filepath='<system>') -> list:
+def parse(content: str, filepath='<system>', only_parse=False) -> list:
     ''' Parse code from text and return list of commands '''
     # split the lines
     lines = content.split('\n')
@@ -105,10 +105,13 @@ def parse(content: str, filepath='<system>') -> list:
                 op = parse_op(op)
                 op['line_number'] = line_counter
                 op['file_path'] = filepath
-                if op['command'] == 'section':
+                if op['command'] == 'section' and only_parse == False:
                     commands.append(parse_op('pass'))
                 commands.append(op)
         line_counter += 1
+
+    if only_parse:
+        return commands
 
     # handle the if statement
     open_ifs = []
