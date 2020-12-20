@@ -26,8 +26,7 @@
 import sys
 import os
 import signal
-from core import parser
-from core import program, version, jit
+from core import program, version, jit, parser
 
 def signal_handler(signal_code, frame):
     """ handle signal """
@@ -72,7 +71,7 @@ if __name__ == '__main__':
         if len(sys.argv) <= 2:
             print(sys.argv[0] + ': `-r` option requires code as argument: -r [code...]')
             sys.exit(1)
-        script_commands = parser.parse(sys.argv[2], filepath=filename)
+        script_commands = parser.parse(sys.argv[2], filepath='-')
         filename = '-r'
     else:
         filename = sys.argv[1]
