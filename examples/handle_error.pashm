@@ -1,5 +1,5 @@
 #
-# class.pashm
+# handle_error.pashm
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,26 +20,12 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-class Human
-    $name
-    $age = 12
+try handle_error
+    println 'A'
+    fghgfhg
+    println 'B'
+endtry
 
-    func say_hi
-        println 'hello. my name is ' + $this->name
-    endfunc
-
-    func set_name($name)
-        $this->name = $name
-    endfunc
-endclass
-
-$someone = %{ new Human }%
-$someone->name = 'parsa'
-
-println $someone->name
-
-$someone@say_hi()
-
-$someone@set_name('Pashmak')
-
-$someone@say_hi()
+goto after_handle_error; section handle_error
+    println 'the error!'
+section after_handle_error
