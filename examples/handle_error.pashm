@@ -1,5 +1,5 @@
 #
-# version.py
+# handle_error.pashm
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,12 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+try handle_error
+    println 'A'
+    fghgfhg
+    println 'B'
+endtry
 
-# pashmak version
-version = 'v0.6-beta5'
+goto after_handle_error; section handle_error
+    println 'the error!'
+section after_handle_error

@@ -1,5 +1,5 @@
 #
-# version.py
+# recursive.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,15 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+--test--
+recursive function calling
 
-# pashmak version
-version = 'v0.6-beta5'
+--file--
+
+func hello
+    hello()
+endfunc
+hello()
+
+--with-error--
+"RecursionError"
