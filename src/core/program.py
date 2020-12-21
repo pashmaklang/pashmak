@@ -26,8 +26,7 @@ import sys
 import os
 import signal
 from pathlib import Path
-from core import parser
-from core import helpers, version, modules, jit
+from core import helpers, version, modules, jit, parser
 from core.class_system import Class
 
 import hashlib, time, random, datetime
