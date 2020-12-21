@@ -37,7 +37,7 @@ class Program(helpers.Helpers):
     def __init__(self, is_test=False, args=[]):
         self.states = [{
             'current_step': 0,
-            'commands': [],
+            'commands': [parser.parse('pass')[0]],
             'vars': {
                 'argv': args,
                 'argc': len(args)
@@ -116,18 +116,11 @@ class Program(helpers.Helpers):
 
     def set_commands(self, commands: list):
         """ Set commands list """
-        # include stdlib before everything
-        tmp = parser.parse('''
-        $__file__ = "''' + os.path.abspath(self.main_filename).replace('\\', '\\\\') + '''"
-        $__dir__ = "''' + os.path.dirname(os.path.abspath(self.main_filename)).replace('\\', '\\\\') + '''"
-        $__ismain__ = True
-        mem self.import_script('@stdlib')
-        ''', filepath='<system>')
-        commands.insert(0, tmp[0])
-        commands.insert(1, tmp[1])
-        commands.insert(2, tmp[2])
-        commands.insert(3, tmp[3])
-
+        # setup environment
+        self.set_var('__file__', os.path.abspath(self.main_filename))
+        self.set_var('__dir__', os.path.dirname(os.path.abspath(self.main_filename)))
+        self.set_var('__ismain__', True)
+        self.import_script('@stdlib')
         # set commands on program object
         self.states[-1]['commands'] = commands
 
