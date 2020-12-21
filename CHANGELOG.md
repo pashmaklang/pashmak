@@ -22,6 +22,7 @@
 - fixed lot of interpreter internal bugs and some optimizations
 - fixed a bug in function declaration syntax
 - fixed a bug in `$__dir__` and `$__file__` variables in function
+- fixed a bug in multi importing syntax
 
 #### Removed
 - deleted `loop` and `while` functions
