@@ -142,17 +142,6 @@ class Program(helpers.Helpers):
         self.mem = None
         return mem
 
-    def update_section_indexes(self, after_index):
-        """
-        When a new command inserted in commands list,
-        this function add 1 to section indexes to be
-        sync with new commands list
-        """
-        for k in self.sections:
-            if self.sections[k] > after_index:
-                self.sections[k] = self.sections[k] + 1
-        i = 0
-
     def raise_error(self, error_type: str, message: str, op: dict):
         """ Raise error in program """
         # check is in try
