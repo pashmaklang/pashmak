@@ -56,7 +56,7 @@ class BuiltinFunctions:
         try:
             del self.current_func
         except AttributeError:
-            pass
+            self.raise_error('SyntaxError', 'unexpected "endfunc" when function block is not opened', op)
 
     def run_goto(self, op: dict):
         """ Changes program current step to a specify section """
@@ -103,6 +103,8 @@ class BuiltinFunctions:
         """ Closes the try-endtry block """
         if self.try_endtry:
             self.try_endtry.pop()
+        else:
+            self.raise_error('SyntaxError', 'unexpected "endtry" when try block is not opened', op)
 
     def run_namespace(self, op: dict):
         """ Starts the namespace block """
@@ -118,6 +120,8 @@ class BuiltinFunctions:
         """ Closes the namespace block """
         if self.namespaces_tree:
             self.namespaces_tree.pop()
+        else:
+            self.raise_error('SyntaxError', 'unexpected "endnamespace" when namespace block is not opened', op)
 
     def run_use(self, op: dict):
         """ Adds a namespace to used namespaces """
@@ -130,7 +134,7 @@ class BuiltinFunctions:
         try:
             del self.current_class
         except AttributeError:
-            pass
+            self.raise_error('SyntaxError', 'unexpected "endclass" when class block is not opened', op)
 
     def run_class(self, op: dict):
         """ Starts the class declaration block """
@@ -193,7 +197,6 @@ class BuiltinFunctions:
                 self.classes[self.current_namespace() + arg].props['__parent__'] = None
                 self.classes[self.current_namespace() + arg].props['__name__'] = 'Object'
         self.current_class = self.current_namespace() + arg
-
 
     def run_new(self, op: dict):
         """ Creates a object from class """
