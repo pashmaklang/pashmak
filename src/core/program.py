@@ -421,8 +421,8 @@ class Program(helpers.Helpers):
             try:
                 func_body = var.methods[op['command'].split('@')[1]]
                 is_method = var
-            except:
-                return self.raise_error('MethodError', 'class ' + self.all_vars()[var_name[1:]].__name__ + ' has not method "' + op['command'][0].split('@')[1] + '"', op)
+            except KeyError:
+                return self.raise_error('MethodError', 'class ' + self.all_vars()[var_name[1:]].__name__ + ' has not method "' + op['command'].split('@')[1] + '"', op)
         else:
             try:
                 func_body = self.functions[self.current_namespace() + op_name]
