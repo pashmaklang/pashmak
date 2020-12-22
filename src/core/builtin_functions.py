@@ -232,9 +232,10 @@ class BuiltinFunctions:
             tmp_variable = tmp_variable + str(random.random()).replace('.', '')
         class_copy.__prog__ = self
         self.mem = class_copy
+        self.mem.__name__
         code_commands = """
         $""" + tmp_variable + """ = ^
-        $""" + self.current_namespace() + tmp_variable + """@__init__ """ + init_args + """
+        mem $""" + self.current_namespace() + tmp_variable + """->methods["__init__"](""" + init_args + """)
         mem $""" + self.current_namespace() + tmp_variable + """
         free $""" + self.current_namespace() + tmp_variable + """
         """

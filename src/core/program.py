@@ -413,32 +413,20 @@ class Program(helpers.Helpers):
             return
 
         # check function exists
-        is_method = False
-        if op['command'][0] == '$':
-            var_name = op['command'].split('@')[0]
-            var = self.all_vars()[var_name[1:]]
-            if type(var) != Class:
-                return self.raise_error('MethodError', 'calling method on non-class object "' + var_name + '"', op)
-            try:
-                func_body = var.methods[op['command'].split('@')[1]]
-                is_method = var
-            except KeyError:
-                return self.raise_error('MethodError', 'class ' + self.all_vars()[var_name[1:]].__name__ + ' has not method "' + op['command'].split('@')[1] + '"', op)
-        else:
-            try:
-                func_body = self.functions[self.current_namespace() + op_name]
-            except KeyError:
-                func_body = None
-                for used_namespace in self.used_namespaces:
-                    try:
-                        func_body = self.functions[used_namespace + '.' + op_name]
-                    except KeyError:
-                        pass
-                if not func_body:
-                    try:
-                        func_body = self.functions[op_name]
-                    except KeyError:
-                        return self.raise_error('SyntaxError', 'undefined function "' + op_name + '"', op)
+        try:
+            func_body = self.functions[self.current_namespace() + op_name]
+        except KeyError:
+            func_body = None
+            for used_namespace in self.used_namespaces:
+                try:
+                    func_body = self.functions[used_namespace + '.' + op_name]
+                except KeyError:
+                    pass
+            if not func_body:
+                try:
+                    func_body = self.functions[op_name]
+                except KeyError:
+                    return self.raise_error('SyntaxError', 'undefined function "' + op_name + '"', op)
 
         # run function
         try:
@@ -456,8 +444,6 @@ class Program(helpers.Helpers):
             if op_name in ['import', 'mem', 'python', 'rmem', 'eval']:
                 with_state = False
             default_variables = {}
-            if is_method != False:
-                default_variables['this'] = is_method
             self.exec_func(func_body.body, with_state, default_variables=default_variables)
             return
         except Exception as ex:

@@ -38,7 +38,7 @@ endfunc
 class Crawler
     func __init__($args)
         $this->files_list = []
-        $this@get $args[0], $args[1]
+        mem $this->get($args[0], $args[1])
     endfunc
 
     func add_once($args)
@@ -58,9 +58,9 @@ class Crawler
         $i = 0
         section loop1
             if os.path.isdir($path + '/' + $files[$i])
-                $this@get $path + '/' + $files[$i], $extension
+                mem $this->get($path + '/' + $files[$i], $extension)
             else
-                $this@add_once $path + '/' + $files[$i], $extension
+                mem $this->add_once($path + '/' + $files[$i], $extension)
             endif
             $i = $i + 1
         mem $i < len($files); gotoif loop1

@@ -37,7 +37,7 @@ endclass
 
 $a = %{new Child}%
 
-$a@hi
+mem $a->hi()
 
 --output--
 
