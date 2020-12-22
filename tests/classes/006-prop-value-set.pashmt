@@ -31,10 +31,10 @@ endclass
 class Human
     $name
     $age
-    $foo = %{ new Foo }%
+    $foo = %{new Foo}%
 endclass
 
-$someone = %{ new Human }%
+$someone = %{new Human}%
 $someone->name = 'hello world'
 $someone->age = 18
 

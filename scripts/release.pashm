@@ -15,25 +15,25 @@ if $new_version[0] == 'v'
 endif
 
 # change version number
-$f = %{ file.open 'src/core/version.py', 'r' }%
-$content = %{ file.read $f }%
+$f = %{file.open 'src/core/version.py', 'r'}%
+$content = %{file.read $f}%
 $content = $content->split('version = ')[0]
 $content = $content + 'version = \'v'
 $content = $content + $new_version
 $content = $content + '\'\n'
 file.close $f
 
-$f = %{ file.open 'src/core/version.py', 'w' }%
+$f = %{file.open 'src/core/version.py', 'w'}%
 file.write $f, $content
 file.close $f
 
-$f = %{ file.open('CHANGELOG.md', 'r') }%
-$content = %{ file.read $f }%
+$f = %{file.open('CHANGELOG.md', 'r')}%
+$content = %{file.read $f}%
 $date_str = datetime->date->today()
 $date_str = str($date_str->year) + '-' + str($date_str->month) + '-' + str($date_str->day)
 $content = $content->replace('\#\# next release', '\#\# ' + $new_version + ' (' + $date_str + ')')
 file.close $f
 
-$f = %{ file.open 'CHANGELOG.md', 'w' }%
+$f = %{file.open 'CHANGELOG.md', 'w'}%
 file.write $f, $content
 file.close $f

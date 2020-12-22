@@ -11,7 +11,7 @@
 - added `return` command for functions
 - added `import_once` function
 - added a syntax to handle dictonary item value assigning, now we can run `$my_dict["item"] = "value"`
-- added inline function calling feature, for example `println %{ my_func_or_command %{ another_command_as_arg }% }%`
+- added inline function calling feature, for example `println %{my_func_or_command %{another_command_as_arg}%}%`
 - added general variable `$__ismain__`
 - added **Jit** compiler
 
@@ -28,7 +28,7 @@
 #### Removed
 - deleted `loop` and `while` functions
 - deleted `out`, `fread`, `include` and `fwrite` commands because they was very low level and are not needed
-- deleted `$var = ^ command` syntax(use `$var = %{ command }%` instead of that)
+- deleted `$var = ^ command` syntax(use `$var = %{command}%` instead of that)
 
 #### Other changes
 - change default `RuntimeError` name to the real python exception name in exception system

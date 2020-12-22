@@ -34,7 +34,7 @@ import @hash
 hash.sha256 "hello" # also you can use hash.md5 and...
 println ^ # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 # OR
-println %{ hash.sha256 "hello" }%
+println %{hash.sha256 "hello"}%
 ```
 
 ##### how it works?
@@ -66,7 +66,7 @@ this function gives you current UNIX timestamp:
 ```bash
 import @time
 
-println %{ time.time() }% # output is some thing like this: `1600416438.687201`
+println %{time.time()}% # output is some thing like this: `1600416438.687201`
 ```
 
 when you call this function, this function puts the unix timestamp into mem and you can access and use that.
@@ -100,7 +100,7 @@ this module makes random numbers
 import @random
 
 # generates a random int between 1 and 10
-println %{ random.randint 1, 10 }%
+println %{random.randint 1, 10}%
 ```
 
 ##### random.random
@@ -108,7 +108,7 @@ println %{ random.randint 1, 10 }%
 import @random
 
 # generates a random float less that 1
-$rand = %{ random.random }%
+$rand = %{random.random}%
 println $rand
 ```
 
@@ -129,7 +129,7 @@ $f = ^
 
 # or
 
-$f = %{ file.open '/path/to/file.txt', 'r' }%
+$f = %{file.open '/path/to/file.txt', 'r'}%
 ```
 
 ##### file.read
@@ -138,9 +138,9 @@ wtih this function, you can read opened file:
 ```bash
 import @file
 
-$f = %{ file.open '/path/to/file.txt', 'r' }%
+$f = %{file.open '/path/to/file.txt', 'r'}%
 
-println %{ file.read $f }% # output is content of file
+println %{file.read $f}% # output is content of file
 ```
 
 ##### file.write
@@ -149,7 +149,7 @@ with this function, you can write on opened file:
 ```bash
 import @file
 
-$f = %{ file.open '/path/to/file.txt', 'w' }% # open type is `w` (write)
+$f = %{file.open '/path/to/file.txt', 'w'}% # open type is `w` (write)
 
 file.write $f, 'new content' # first arg is opened file and second arg is content.
 ```
@@ -162,7 +162,7 @@ with this function you can close file after your work:
 ```bash
 import @file
 
-$f = %{ file.open '/path/to/file.txt', 'r' }%
+$f = %{file.open '/path/to/file.txt', 'r'}%
 
 # work with file
 
@@ -174,9 +174,9 @@ file.close $f # close file after work
 ```bash
 import @file
 
-$file = %{ file.open '/path/to/file.txt', 'r' }%
+$file = %{file.open '/path/to/file.txt', 'r'}%
 
-$content = %{ file.read $file }%
+$content = %{file.read $file}%
 
 print 'content of file is: ' + $content
 ```
@@ -416,7 +416,7 @@ also you can get list of module paths:
 ```bash
 import '@sys'
 
-$module_paths = %{ sys.path.list }%
+$module_paths = %{sys.path.list}%
 
 println $module_paths
 ```

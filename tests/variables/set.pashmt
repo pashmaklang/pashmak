@@ -41,7 +41,7 @@ $themem = ^
 func testfunc $n
     mem 'the func' + $n
 endfunc
-$s = %{ testfunc 'A' }%
+$s = %{testfunc 'A'}%
 
 --vars--
 {

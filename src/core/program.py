@@ -290,7 +290,7 @@ class Program(helpers.Helpers):
         return eval(full_op)
 
     def call_inline_func(self, code: str):
-        """ Runs the internal function call "%{ func_or_command }" """
+        """ Runs the internal function call "%{func_or_command }" """
         commands = parser.parse(code)
         self.exec_func(commands, False)
         return self.get_mem()

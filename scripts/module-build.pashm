@@ -9,8 +9,8 @@ mem $module_files->sort()
 
 $i = 0
 section loop1
-    $f = %{ file.open $__dir__ + '/../src/modules/' + $module_files[$i], 'r' }%
-    $content = %{ file.read $f }%
+    $f = %{file.open $__dir__ + '/../src/modules/' + $module_files[$i], 'r'}%
+    $content = %{file.read $f}%
     file.close $f
     $module_name = $module_files[$i]->split('.')[0]
     $modules[$module_name] = $content
@@ -44,7 +44,7 @@ mem $i < len($keys); gotoif loop2
 
 $pycode = $pycode + '\n'
 
-$f = %{ file.open $__dir__ + '/../src/core/modules.py', 'w' }%
+$f = %{file.open $__dir__ + '/../src/core/modules.py', 'w'}%
 file.write $f, $pycode
 file.close $f
 

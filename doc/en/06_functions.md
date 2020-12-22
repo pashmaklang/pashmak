@@ -317,7 +317,7 @@ func get_data
     println 'end' # this will not be runed
 endfunc
 
-println %{ get_data() }%
+println %{get_data()}%
 ```
 
 output:
@@ -341,7 +341,7 @@ func say_hi $name
 endfunc
 
 # we want to call this function and print the output of that
-println %{ say_hi "parsa" }%
+println %{say_hi "parsa"}%
 ```
 
 output:
@@ -352,7 +352,7 @@ hello parsa
 
 in the above example, we directly called a function and passed the output of that as argument of `println` function.
 
-you have to use `%{ }%` syntax and write you code between them. output of that function will be used instead of that.
+you have to use `%{}%` syntax and write you code between them. output of that function will be used instead of that.
 
 another example:
 
@@ -365,7 +365,7 @@ func get_name
     return 'pashmak'
 endfunc
 
-println %{ say_hi %{ get_name }% }%
+println %{say_hi %{get_name}%}%
 ```
 
 output:
@@ -374,7 +374,7 @@ output:
 hello pashmak
 ```
 
-in the above example, we used `%{ }%` structure complicated.
+in the above example, we used `%{}%` structure complicated.
 
 another example:
 
@@ -383,7 +383,7 @@ func add_two_nums($nums)
     return $nums[0] + $nums[1]
 endfunc
 
-$result = %{ add_two_nums 10, 5 }%
+$result = %{add_two_nums 10, 5}%
 println 'sum is ' + str($result)
 ```
 

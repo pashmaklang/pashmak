@@ -30,7 +30,7 @@ func hello
     print 'last'
 endfunc
 
-$r = %{ hello }%
+$r = %{hello}%
 
 println $r
 

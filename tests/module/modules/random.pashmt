@@ -27,5 +27,5 @@ import "@random"
 random.randint [5,10]
 $rand = ^
 assert $rand >= 5 and $rand <= 10
-$r2 = %{ random.random }%
+$r2 = %{random.random}%
 assert $r2 < 1

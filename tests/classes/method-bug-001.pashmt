@@ -30,7 +30,7 @@ endclass
 
 $a = %{new Hello}%
 
-$a@ffghfgjghjh
+mem $a->ffghfgjghjh()
 
 --with-error--
-"MethodError"
+"AttributeError"

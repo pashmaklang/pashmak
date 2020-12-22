@@ -27,7 +27,7 @@ system raises error when trying to call a method on non-class object
 
 $p = 'some string'
 
-$p@somemethod
+mem $p->somemethod()
 
 --with-error--
-'MethodError'
+'AttributeError'

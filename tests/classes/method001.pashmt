@@ -34,13 +34,13 @@ class Person
     endfunc
 endclass
 
-$p = %{ new Person }%
+$p = %{new Person}%
 
-$p@hello
+mem $p->hello()
 
-$p@with_arg 'parsa'
+mem $p->with_arg('parsa')
 
-$p@with_arg('parsa')
+mem $p->with_arg('parsa')
 
 --output--
 

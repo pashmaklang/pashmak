@@ -13,8 +13,8 @@ func build_once($path)
 
     $i = 0
     section build_once_loop1
-        $f = %{ file.open $path + '/' + $doc_parts[$i], 'r' }%
-        $content = %{ file.read $f }%
+        $f = %{file.open $path + '/' + $doc_parts[$i], 'r'}%
+        $content = %{file.read $f}%
         file.close $f
         $total_content = $total_content + $content + '\n\n\n'
         $i = $i + 1
@@ -30,7 +30,7 @@ func build_once($path)
     if $lang != 'en'
         $readme_path = $__dir__ + '/../README-' + $lang + '.md'
     endif
-    $readme_f = %{ file.open $readme_path, 'w' }%
+    $readme_f = %{file.open $readme_path, 'w'}%
     file.write $readme_f, $total_content
     file.close $readme_f
 endfunc
