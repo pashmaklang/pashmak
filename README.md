@@ -3132,7 +3132,7 @@ except KeyError:
     # section is not exists, raise the error
     return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
 # section exists, change the program current step to the section
-self.states[-1]['current_step'] = section_index-1
+self.threads[-1]['current_step'] = section_index-1
 ```
 
 The above code is a example.

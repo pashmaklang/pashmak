@@ -67,7 +67,7 @@ class BuiltinFunctions:
             section_index = self.sections[arg]
         except KeyError:
             return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
-        self.states[-1]['current_step'] = section_index-1
+        self.threads[-1]['current_step'] = section_index-1
 
     def run_gotoif(self, op: dict):
         """ Changes program current step to a specify section IF mem is True """
@@ -78,7 +78,7 @@ class BuiltinFunctions:
         except KeyError:
             return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
         if self.mem:
-            self.states[-1]['current_step'] = section_index-1
+            self.threads[-1]['current_step'] = section_index-1
 
     def run_isset(self, op: dict):
         """ Checks variable(s) exists and puts result to mem """
@@ -128,7 +128,7 @@ class BuiltinFunctions:
         """ Adds a namespace to used namespaces """
         self.require_one_argument(op, 'use command requires namespace argument')
         arg = op['args'][0]
-        self.states[-1]['used_namespaces'].append(arg)
+        self.threads[-1]['used_namespaces'].append(arg)
 
     def run_endclass(self, op: dict):
         """ Closes the class declaration block """
@@ -158,7 +158,7 @@ class BuiltinFunctions:
                 parent_real_name = self.current_namespace() + parent
             except KeyError:
                 parent_obj = None
-                for used_namespace in self.states[-1]['used_namespaces']:
+                for used_namespace in self.threads[-1]['used_namespaces']:
                     try:
                         parent_obj = self.classes[used_namespace + '.' + parent]
                         parent_real_name = used_namespace + '.' + parent
@@ -206,7 +206,7 @@ class BuiltinFunctions:
             class_real_name = self.current_namespace() + arg
         except KeyError:
             aclass = None
-            for used_namespace in self.states[-1]['used_namespaces']:
+            for used_namespace in self.threads[-1]['used_namespaces']:
                 try:
                     aclass = self.classes[used_namespace + '.' + arg]
                     class_real_name = used_namespace + '.' + arg
@@ -294,7 +294,7 @@ class BuiltinFunctions:
         else:
             value = self.eval(value)
         self.mem = value
-        if len(self.states) > 1:
-            self.states[-1]['current_step'] = len(self.states[-1]['commands']) * 2
+        if len(self.threads) > 1:
+            self.threads[-1]['current_step'] = len(self.threads[-1]['commands']) * 2
         else:
             self.exit_program(value)

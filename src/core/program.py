@@ -36,7 +36,7 @@ class Program(helpers.Helpers):
     """ Pashmak program object """
 
     def __init__(self, is_test=False, args=[]):
-        self.states = [{
+        self.threads = [{
             'current_step': 0,
             'commands': [parser.parse('pass')[0]],
             'used_namespaces': [],
@@ -44,7 +44,7 @@ class Program(helpers.Helpers):
                 'argv': args,
                 'argc': len(args)
             }
-        }] # list of states
+        }] # list of threads
         self.functions = {
             "mem": Function(name='mem', prog=self), # mem is a empty function just for save mem in code
             "rmem": Function(name='rmem', prog=self),
@@ -62,7 +62,7 @@ class Program(helpers.Helpers):
 
         self.allowed_pashmak_extensions = ['pashm']
 
-        self.states[-1]['current_step'] = 0
+        self.threads[-1]['current_step'] = 0
         self.stop_after_error = True
         self.main_filename = os.getcwd() + '/__main__'
 
@@ -72,7 +72,7 @@ class Program(helpers.Helpers):
 
     def import_script(self, paths, import_once=False):
         """ Imports scripts/modules """
-        op = self.states[-1]['commands'][self.states[-1]['current_step']]
+        op = self.threads[-1]['commands'][self.threads[-1]['current_step']]
 
         if type(paths) == str:
             paths = [paths]
@@ -123,11 +123,11 @@ class Program(helpers.Helpers):
         self.set_var('__ismain__', True)
         self.import_script('@stdlib')
         # set commands on program object
-        self.states[-1]['commands'] = commands
+        self.threads[-1]['commands'] = commands
 
     def set_command_index(self, op: dict) -> dict:
         """ Add command index to command dictonary """
-        op['index'] = self.states[-1]['current_step']
+        op['index'] = self.threads[-1]['current_step']
         return op
 
     def get_mem(self):
@@ -143,7 +143,7 @@ class Program(helpers.Helpers):
             section_index = self.try_endtry[-1]
             self.try_endtry.pop()
             new_step = self.sections[str(section_index)]
-            self.states[-1]['current_step'] = new_step-1
+            self.threads[-1]['current_step'] = new_step-1
 
             # put error data in mem
             self.mem = {'type': error_type, 'message': message, 'index': op['index']}
@@ -152,56 +152,56 @@ class Program(helpers.Helpers):
         if self.is_test:
             self.runtime_error = {'type': error_type, 'message': message, 'index': op['index']}
             if self.stop_after_error:
-                self.states[-1]['current_step'] = len(self.states[-1]['commands'])*2
+                self.threads[-1]['current_step'] = len(self.threads[-1]['commands'])*2
             return
 
         # render error
         print(error_type + ': ' + message + ':')
-        last_state = self.states[0]
-        for state in self.states[1:]:
+        last_thread = self.threads[0]
+        for thread in self.threads[1:]:
             try:
-                if last_state:
-                    tmp_op = last_state['commands'][last_state['current_step']]
+                if last_thread:
+                    tmp_op = last_thread['commands'][last_thread['current_step']]
                 else:
-                    tmp_op = state['commands'][0]
+                    tmp_op = thread['commands'][0]
                 print(
                     '\tin ' + tmp_op['file_path'] + ':' + str(tmp_op['line_number'])\
                     + ': ' + tmp_op['str']
                 )
             except KeyError:
                 pass
-            last_state = state
+            last_thread = thread
         print('\tin ' + op['file_path'] + ':' + str(op['line_number']) + ': ' + op['str'])
         sys.exit(1)
 
-    def exec_func(self, func_body: list, with_state=True, default_variables={}):
+    def exec_func(self, func_body: list, with_thread=True, default_variables={}):
         """ Gets a list from commands and runs them as function or included script """
         old_dir = self.get_var('__dir__')
         old_file = self.get_var('__file__')
-        # create new state for this call
-        if with_state:
-            state_vars = dict(self.states[-1]['vars'])
+        # create new thread for this call
+        if with_thread:
+            thread_vars = dict(self.threads[-1]['vars'])
         else:
-            state_vars = self.states[-1]['vars']
+            thread_vars = self.threads[-1]['vars']
 
         for k in default_variables:
-            state_vars[k] = default_variables[k]
+            thread_vars[k] = default_variables[k]
         if len(func_body) > 0:
-            state_vars['__file__'] = func_body[0]['file_path']
-            if os.path.isfile(state_vars['__file__']):
-                state_vars['__dir__'] = os.path.dirname(state_vars['__file__'])
+            thread_vars['__file__'] = func_body[0]['file_path']
+            if os.path.isfile(thread_vars['__file__']):
+                thread_vars['__dir__'] = os.path.dirname(thread_vars['__file__'])
         used_namespaces = []
-        if not with_state:
-            used_namespaces = self.states[-1]['used_namespaces']
-        self.states.append({
+        if not with_thread:
+            used_namespaces = self.threads[-1]['used_namespaces']
+        self.threads.append({
             'current_step': 0,
             'commands': func_body,
-            'vars': state_vars,
+            'vars': thread_vars,
             'used_namespaces': used_namespaces,
         })
 
         # run function
-        self.start_state()
+        self.start_thread()
 
         self.set_var('__dir__', old_dir)
         self.set_var('__file__', old_file)
@@ -257,7 +257,7 @@ class Program(helpers.Helpers):
                         if word[0] == '$' and not '@' in word:
                             variables_in_code.append(word[1:])
                 for k in variables_in_code:
-                    self.variable_required(k, self.states[-1]['commands'][self.states[-1]['current_step']])
+                    self.variable_required(k, self.threads[-1]['commands'][self.threads[-1]['current_step']])
                     code = code.replace('$' + k, 'self.get_var("' + k + '")')
                 code = code.replace('->', '.')
                 code = code.replace('^', 'self.get_mem()')
@@ -414,7 +414,7 @@ class Program(helpers.Helpers):
             func_body = self.functions[self.current_namespace() + op_name]
         except KeyError:
             func_body = None
-            for used_namespace in self.states[-1]['used_namespaces']:
+            for used_namespace in self.threads[-1]['used_namespaces']:
                 try:
                     func_body = self.functions[used_namespace + '.' + op_name]
                 except KeyError:
@@ -437,11 +437,11 @@ class Program(helpers.Helpers):
                 self.mem = ''
 
             # execute function body
-            with_state = True
+            with_thread = True
             if op_name in ['import', 'mem', 'python', 'rmem', 'eval']:
-                with_state = False
+                with_thread = False
             default_variables = {}
-            self.exec_func(func_body.body, with_state, default_variables=default_variables)
+            self.exec_func(func_body.body, with_thread, default_variables=default_variables)
             return
         except Exception as ex:
             raise
@@ -493,44 +493,44 @@ class Program(helpers.Helpers):
                                 raise
                                 pass
 
-    def start_state(self):
-        """ Start running state thread """
+    def start_thread(self):
+        """ Start running last thread """
         is_in_func = False
-        self.states[-1]['current_step'] = 0
+        self.threads[-1]['current_step'] = 0
 
         # load the sections
         i = 0
-        while i < len(self.states[-1]['commands']):
-            current_op = self.set_command_index(self.states[-1]['commands'][i])
+        while i < len(self.threads[-1]['commands']):
+            current_op = self.set_command_index(self.threads[-1]['commands'][i])
             if current_op['command'] == 'section':
                 if not is_in_func:
                     arg = current_op['args'][0]
                     self.sections[arg] = i+1
-                    self.states[-1]['commands'][i] = parser.parse('pass', filepath='<system>')[0]
+                    self.threads[-1]['commands'][i] = parser.parse('pass', filepath='<system>')[0]
             elif current_op['command'] == 'func':
                 is_in_func = True
             elif current_op['command'] == 'endfunc':
                 is_in_func = False
             i += 1
 
-        self.states[-1]['current_step'] = 0
-        while self.states[-1]['current_step'] < len(self.states[-1]['commands']):
+        self.threads[-1]['current_step'] = 0
+        while self.threads[-1]['current_step'] < len(self.threads[-1]['commands']):
             try:
-                self.run(self.states[-1]['commands'][self.states[-1]['current_step']])
+                self.run(self.threads[-1]['commands'][self.threads[-1]['current_step']])
             except Exception as ex:
                 try:
-                    self.set_command_index(self.states[-1]['commands'][self.states[-1]['current_step']])
+                    self.set_command_index(self.threads[-1]['commands'][self.threads[-1]['current_step']])
                 except:
                     break
                 self.raise_error(
                     ex.__class__.__name__,
                     str(ex),
-                    self.set_command_index(self.states[-1]['commands'][self.states[-1]['current_step']])
+                    self.set_command_index(self.threads[-1]['commands'][self.threads[-1]['current_step']])
                 )
-            self.states[-1]['current_step'] += 1
+            self.threads[-1]['current_step'] += 1
 
-        if len(self.states) > 1:
-            self.states.pop()
+        if len(self.threads) > 1:
+            self.threads.pop()
 
     def start(self):
         """ Start running the program """
@@ -539,4 +539,4 @@ class Program(helpers.Helpers):
 
         self.bootstrap_modules()
 
-        self.start_state()
+        self.start_thread()

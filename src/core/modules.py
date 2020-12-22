@@ -119,7 +119,7 @@ func endns
 endnamespace
 endfunc
 func raise($exdata)
-python "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', self.states[-1]['commands'][self.states[-1]['current_step']])"
+python "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', self.threads[-1]['commands'][self.threads[-1]['current_step']])"
 endfunc
 func assert($value)
 if not $value
@@ -127,7 +127,7 @@ raise 'AssertError', 'asserting that false is true'
 endif
 endfunc
 func gset($args)
-python 'self.states[0]["vars"]["' + str($args[0]) + '"] = self.get_var("args")[1]'
+python 'self.threads[0]["vars"]["' + str($args[0]) + '"] = self.get_var("args")[1]'
 endfunc
 func println($value)
 print str($value) + '\\n'
