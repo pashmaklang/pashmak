@@ -60,6 +60,10 @@ class Class:
         for k in self.methods:
             self.methods[k].parent_object = self
             self.methods[k].prog = self.__prog__
+        for k in self.props:
+            if type(self.props[k]) == Class:
+                self.props[k].__prog__ = self.__prog__
+                self.props[k].__name__
         try:
             return self.props[attrname]
         except KeyError:

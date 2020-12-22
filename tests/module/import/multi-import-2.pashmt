@@ -23,6 +23,6 @@
 --test--
 multi import syntax works
 --file--
-import @sys,@time ,@file, @hash
-import @sys,@time,@file,@hash
-import @sys,@time ,@file, @hash
+import @sys,@time ,@test, @hash
+import @sys,@time,@test,@hash
+import @sys,@time ,@test, @hash

@@ -44,6 +44,7 @@ read the following Documentation to learn pashmak.
 - [OS Commands](#os-commands)
 - [Importing scripts](#importing-scripts)
 - [Namespaces](#namespaces)
+- [Working with files](#working-with-files)
 - [Classes](#Classes)
 - [Eval](#eval)
 - [Modules](#internal-modules)
@@ -1343,7 +1344,7 @@ you can add new item to an array by using python `append` and `insert` methods:
 $myarray = ['first', 'second']
 println($myarray)
 
-mem $myarray->append('new item')
+$myarray->append('new item')
 println($myarray)
 ```
 
@@ -1360,7 +1361,7 @@ also with `insert` method you can set the location of new item:
 $myarray = ['one', 'two', 'four']
 println($myarray)
 
-mem $myarray->insert(3, 'three')
+$myarray->insert(3, 'three')
 println($myarray)
 ```
 
@@ -1378,7 +1379,7 @@ you can delete an item from array by using python `pop` method:
 $myarray = ['first', 'second']
 println($myarray)
 
-mem $myarray->pop(1)
+$myarray->pop(1)
 println($myarray)
 ```
 
@@ -1408,7 +1409,7 @@ also you can do this on a subitem. look at this example:
 
 ```bash
 $my_list = []
-mem $my_list->append(['a'])
+$my_list->append(['a'])
 
 println($my_list[0]) # output: ['a']
 
@@ -2016,6 +2017,43 @@ in above example, we imported `foo.pashm` inside an namespace and content of `fo
 
 
 
+# Working with files
+working with files in pashmak is so easy.
+
+we have 4 main operations on files: Open, Read, Write, Close
+
+look at this example for reading content of a file:
+
+```bash
+$my_file = open('/path/to/some/file.txt', 'r')
+println $my_file->read()
+$my_file->close()
+```
+
+In above example, we opened our file, read content and then we closed that.
+
+the `$file->read()`, the `read` method reads content of file and returns that.
+
+you can put that in a variable:
+
+```bash
+$content = $file->read()
+```
+
+to write content of a file, we can use `write` method:
+
+```bash
+$my_file = open('/path/to/some/file.txt', 'w')
+$my_file->write('new content')
+$my_file->close()
+```
+
+The second argument for opening file is type of opening. `r` means Read and `w` means write.
+
+The file objects in pashmak are handled by python you can use all of python file features in pashmak like python.
+
+
+
 # Classes
 class is a system to declare a structure of data. actually, class is a model with some fields.
 
@@ -2360,7 +2398,7 @@ endclass
 # create a object from Cat
 $my_cat = %{new Cat}%
 
-mem $my_cat->mio()
+$my_cat->mio()
 ```
 
 output:
@@ -2385,7 +2423,7 @@ endclass
 # create a object from Cat
 $my_cat = %{new Cat}%
 $my_cat->name = 'gerdoo'
-mem $my_cat->mio()
+$my_cat->mio()
 ```
 
 output:
@@ -2413,9 +2451,9 @@ endclass
 
 $p = %{new Person}%
 
-mem $p->set_name('parsa')
+$p->set_name('parsa')
 
-mem $p->say_hi()
+$p->say_hi()
 ```
 
 output:
@@ -2429,7 +2467,7 @@ hello. my name is parsa
 total syntax:
 
 ```bash
-mem $object_name->method_name('arguments...', 'arg2...')
+$object->method_name('arguments...', 'arg2...')
 ```
 
 also all of classes extends parent methods.
@@ -2718,75 +2756,6 @@ import @random
 # generates a random float less that 1
 $rand = %{random.random}%
 println($rand)
-```
-
-### file module
-with this module, you can work with files smarter.
-
-##### file.open
-with this function, you can open a file:
-
-```bash
-import @file
-
-file.open('/path/to/file.txt', 'r') # first argument is file path, and second argument is open type. here is `r` means `read`
-
-# now, opened file is in the mem. we can copy it in a variable
-
-$f = ^
-
-# or
-
-$f = %{file.open('/path/to/file.txt', 'r')}%
-```
-
-##### file.read
-wtih this function, you can read opened file:
-
-```bash
-import @file
-
-$f = %{file.open('/path/to/file.txt', 'r')}%
-
-println %{file.read($f)}% # output is content of file
-```
-
-##### file.write
-with this function, you can write on opened file:
-
-```bash
-import @file
-
-$f = %{file.open('/path/to/file.txt', 'w')}% # open type is `w` (write)
-
-file.write($f, 'new content') # first arg is opened file and second arg is content.
-```
-
-now file is changed
-
-##### file.close
-with this function you can close file after your work:
-
-```bash
-import @file
-
-$f = %{file.open('/path/to/file.txt', 'r')}%
-
-# work with file
-
-file.close($f) # close file after work
-```
-
-##### example:
-
-```bash
-import @file
-
-$file = %{file.open('/path/to/file.txt', 'r')}%
-
-$content = %{file.read($file)}%
-
-print('content of file is: ' + $content)
 ```
 
 ### test module

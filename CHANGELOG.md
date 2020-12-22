@@ -30,6 +30,7 @@
 - deleted `loop` and `while` functions
 - deleted `out`, `fread`, `include` and `fwrite` commands because they was very low level and are not needed
 - deleted `$var = ^ command` syntax(use `$var = %{command}%` instead of that)
+- deleted `@file` module(use python file api instead of that)
 
 #### Other changes
 - change default `RuntimeError` name to the real python exception name in exception system

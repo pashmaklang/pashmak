@@ -1,5 +1,5 @@
 #
-# file.pashmt
+# method005.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,24 +21,34 @@
 #########################################################################
 
 --test--
-file module is working
+method calling syntax is working
+
 --file--
-import @file
-$tmp_file
-python "import tempfile, random\; self.mem = tempfile.gettempdir().replace('\\\\', '/') + '/' + 'pashmak-test-file-' + str(random.random())"
-$tmp_file = ^
+class Foo
+    func thefoo()
+        println('i am Foo')
+    endfunc
+endclass
 
-file.open [$tmp_file, 'w']
-$file = ^
+class Bar
+    func thebar()
+        println('i am bar')
+    endfunc
 
-file.write [$file, "content of file"]
-file.close $file
+    $foo = %{new Foo}%
+endclass
 
-file.open [$tmp_file, 'r']
-$file = ^
-print %{file.read $file}%
-file.close $file
+$bar = %{new Bar}%
 
-mem os.remove($tmp_file)
+$bar->thebar()
+$bar->foo->thefoo()
+
+$bar->thebar(2 == 2, z=12)
+$bar->foo->thefoo(2 == 2, z=12)
+
 --output--
-'content of file'
+"""i am bar
+i am Foo
+i am bar
+i am Foo
+"""

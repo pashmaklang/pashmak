@@ -1,21 +1,19 @@
 #!/usr/bin/env pashmak
 # Mixes the `doc/` folder parts into `README.md` file
 
-import @file
-
 func build_once($path)
     $doc_parts = os.listdir($path)
-    mem $doc_parts->remove('README.md')
-    mem $doc_parts->sort()
-    mem $doc_parts->insert(0, 'README.md')
+    $doc_parts->remove('README.md')
+    $doc_parts->sort()
+    $doc_parts->insert(0, 'README.md')
 
     $total_content = ''
 
     $i = 0
     section build_once_loop1
-        $f = %{file.open($path + '/' + $doc_parts[$i], 'r')}%
-        $content = %{file.read($f)}%
-        file.close($f)
+        $f = open($path + '/' + $doc_parts[$i], 'r')
+        $content = $f->read()
+        $f->close()
         $total_content = $total_content + $content + '\n\n\n'
         $i = $i + 1
     mem $i < len($doc_parts); gotoif build_once_loop1
@@ -30,9 +28,9 @@ func build_once($path)
     if $lang != 'en'
         $readme_path = $__dir__ + '/../README-' + $lang + '.md'
     endif
-    $readme_f = %{file.open($readme_path, 'w')}%
-    file.write($readme_f, $total_content)
-    file.close($readme_f)
+    $readme_f = open($readme_path, 'w')
+    $readme_f->write($total_content)
+    $readme_f->close()
 endfunc
 
 $langs = os.listdir($__dir__ + '/../doc/')

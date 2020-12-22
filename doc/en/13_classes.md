@@ -342,7 +342,7 @@ endclass
 # create a object from Cat
 $my_cat = %{new Cat}%
 
-mem $my_cat->mio()
+$my_cat->mio()
 ```
 
 output:
@@ -367,7 +367,7 @@ endclass
 # create a object from Cat
 $my_cat = %{new Cat}%
 $my_cat->name = 'gerdoo'
-mem $my_cat->mio()
+$my_cat->mio()
 ```
 
 output:
@@ -395,9 +395,9 @@ endclass
 
 $p = %{new Person}%
 
-mem $p->set_name('parsa')
+$p->set_name('parsa')
 
-mem $p->say_hi()
+$p->say_hi()
 ```
 
 output:
@@ -411,7 +411,7 @@ hello. my name is parsa
 total syntax:
 
 ```bash
-mem $object_name->method_name('arguments...', 'arg2...')
+$object->method_name('arguments...', 'arg2...')
 ```
 
 also all of classes extends parent methods.

@@ -9,7 +9,7 @@ func set_once_header($path)
     # open file and add header
     $f = open($path, 'r')
     $content = $f->read()
-    mem $f->close()
+    $f->close()
 
     $new_content = ''
 
@@ -30,8 +30,8 @@ func set_once_header($path)
     endif
 
     $f = open($path, 'w')
-    mem $f->write($new_content)
-    mem $f->close()
+    $f->write($new_content)
+    $f->close()
 endfunc
 
 ### This class crawls in a path and finds files with specify extension ###
@@ -58,9 +58,9 @@ class Crawler
         $i = 0
         section loop1
             if os.path.isdir($path + '/' + $files[$i])
-                mem $this->get($path + '/' + $files[$i], $extension)
+                $this->get($path + '/' + $files[$i], $extension)
             else
-                mem $this->add_once($path + '/' + $files[$i], $extension)
+                $this->add_once($path + '/' + $files[$i], $extension)
             endif
             $i = $i + 1
         mem $i < len($files); gotoif loop1

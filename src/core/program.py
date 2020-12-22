@@ -206,7 +206,7 @@ class Program(helpers.Helpers):
         self.set_var('__dir__', old_dir)
         self.set_var('__file__', old_file)
 
-    def eval(self, command, only_parse=False):
+    def eval(self, command, only_parse=False, varname_as_dict=False, only_str_parse=False, dont_check_vars=False):
         """ Runs eval on command """
         i = 0
         command = command.strip()
@@ -243,6 +243,9 @@ class Program(helpers.Helpers):
                 command_parts[-1][1] += command[i]
             i += 1
 
+        if only_str_parse:
+            return command_parts
+
         full_op = ''
         opened_inline_calls_count = 0
         for code in command_parts:
@@ -257,8 +260,12 @@ class Program(helpers.Helpers):
                         if word[0] == '$' and not '@' in word:
                             variables_in_code.append(word[1:])
                 for k in variables_in_code:
-                    self.variable_required(k, self.threads[-1]['commands'][self.threads[-1]['current_step']])
-                    code = code.replace('$' + k, 'self.get_var("' + k + '")')
+                    if dont_check_vars == False:
+                        self.variable_required(k, self.threads[-1]['commands'][self.threads[-1]['current_step']])
+                    if varname_as_dict:
+                        code = code.replace('$' + k, 'self.all_vars()["' + k + '"]')
+                    else:
+                        code = code.replace('$' + k, 'self.get_var("' + k + '")')
                 code = code.replace('->', '.')
                 code = code.replace('^', 'self.get_mem()')
                 z = 0
@@ -378,7 +385,11 @@ class Program(helpers.Helpers):
                 pass
             except AttributeError:
                 pass
-            parts = op['str'].strip().split('=', 1)
+            parts = self.split_by_equals(op['str'].strip()) # op['str'].strip().split('=', 1)
+            if len(parts) <= 1:
+                if '->' in op['str']:
+                    self.mem = self.eval(op['str'])
+                    return
             varname = parts[0].strip()
             full_varname = varname
             varname = varname.split('->', 1)

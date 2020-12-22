@@ -42,7 +42,7 @@ you can add new item to an array by using python `append` and `insert` methods:
 $myarray = ['first', 'second']
 println($myarray)
 
-mem $myarray->append('new item')
+$myarray->append('new item')
 println($myarray)
 ```
 
@@ -59,7 +59,7 @@ also with `insert` method you can set the location of new item:
 $myarray = ['one', 'two', 'four']
 println($myarray)
 
-mem $myarray->insert(3, 'three')
+$myarray->insert(3, 'three')
 println($myarray)
 ```
 
@@ -77,7 +77,7 @@ you can delete an item from array by using python `pop` method:
 $myarray = ['first', 'second']
 println($myarray)
 
-mem $myarray->pop(1)
+$myarray->pop(1)
 println($myarray)
 ```
 
@@ -107,7 +107,7 @@ also you can do this on a subitem. look at this example:
 
 ```bash
 $my_list = []
-mem $my_list->append(['a'])
+$my_list->append(['a'])
 
 println($my_list[0]) # output: ['a']
 

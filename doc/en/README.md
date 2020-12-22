@@ -41,6 +41,7 @@ read the following Documentation to learn pashmak.
 - [OS Commands](#os-commands)
 - [Importing scripts](#importing-scripts)
 - [Namespaces](#namespaces)
+- [Working with files](#working-with-files)
 - [Classes](#Classes)
 - [Eval](#eval)
 - [Modules](#internal-modules)

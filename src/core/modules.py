@@ -24,20 +24,6 @@
 
 modules = {}
 
-modules["file"] = """namespace file
-func open($args)
-return open($args[0], $args[1])
-endfunc
-func close($file)
-return $file->close()
-endfunc
-func read($file)
-return $file->read()
-endfunc
-func write($args)
-return $args[0].write($args[1])
-endfunc
-endns"""
 modules["hash"] = """namespace hash
 func blake2b($value)
 return hashlib.blake2b($value->encode())->hexdigest()

@@ -24,4 +24,4 @@
 import command with () and @module without quotes
 
 --file--
-import (@sys,@file, @hash ,@time)
+import (@sys,@test, @hash ,@time)

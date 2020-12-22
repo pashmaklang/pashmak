@@ -38,8 +38,8 @@ $someone->name = 'parsa'
 
 println($someone->name)
 
-mem $someone->say_hi()
+$someone->say_hi()
 
-mem $someone->set_name('Pashmak')
+$someone->set_name('Pashmak')
 
-mem $someone->say_hi()
+$someone->say_hi()
