@@ -1,11 +1,9 @@
 #!/usr/bin/env pashmak
 # Release new version
 
-import @file
-
 if len($argv) <= 1
-    println 'releaser: new version argument is required'
-    exit 1
+    println('releaser: new version argument is required')
+    exit(1)
 endif
 
 $new_version = $argv[1]
@@ -15,25 +13,25 @@ if $new_version[0] == 'v'
 endif
 
 # change version number
-$f = %{ file.open 'src/core/version.py', 'r' }%
-$content = %{ file.read $f }%
+$f = open('src/core/version.py', 'r')
+$content = $f->read()
 $content = $content->split('version = ')[0]
 $content = $content + 'version = \'v'
 $content = $content + $new_version
 $content = $content + '\'\n'
-file.close $f
+$f->close()
 
-$f = %{ file.open 'src/core/version.py', 'w' }%
-file.write $f, $content
-file.close $f
+$f = open('src/core/version.py', 'w')
+$f->write($content)
+$f->close()
 
-$f = %{ file.open('CHANGELOG.md', 'r') }%
-$content = %{ file.read $f }%
+$f = open('CHANGELOG.md', 'r')
+$content = $f->read()
 $date_str = datetime->date->today()
 $date_str = str($date_str->year) + '-' + str($date_str->month) + '-' + str($date_str->day)
 $content = $content->replace('\#\# next release', '\#\# ' + $new_version + ' (' + $date_str + ')')
-file.close $f
+$f->close()
 
-$f = %{ file.open 'CHANGELOG.md', 'w' }%
-file.write $f, $content
-file.close $f
+$f = open('CHANGELOG.md', 'w')
+$f->write($content)
+$f->close()

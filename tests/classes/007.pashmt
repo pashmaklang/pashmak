@@ -29,11 +29,11 @@ class Person
     $name
 endclass
 
-$&p = %{ new Person }%
+$&p = %{new Person}%
 
 $&p->name = 'hello world'
 
-println $&p->name
+println($&p->name)
 
 --output--
 'hello world\n'

@@ -36,9 +36,9 @@ namespace Foo
     endclass
 
     class Last
-        $hi = %{ new App.First }%
-        $some = %{ new Something }%
-        $some2 = %{ new Foo.Something }%
+        $hi = %{new App.First}%
+        $some = %{new Something}%
+        $some2 = %{new Foo.Something}%
     endclass
 endns
 

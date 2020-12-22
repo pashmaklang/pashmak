@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-eval function do not creates new state and runs on current state
+eval function do not creates new thread and runs on current thread
 
 --file--
 $name = 'hi'

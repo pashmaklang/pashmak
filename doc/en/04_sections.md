@@ -7,7 +7,7 @@ the section system is used to control program flow.
 look at this example:
 ```bash
 section my_loop
-    println 'hello world'
+    println('hello world')
 goto my_loop
 ```
 
@@ -23,7 +23,7 @@ look at this example:
 $i = 1
 
 section loop
-    println $i # print $i
+    println($i) # print $i
     $i = $i + 1 # add 1 to $i
 mem $i < 10; gotoif loop # check the condition in `mem` and use gotoif command
 ```
@@ -60,11 +60,11 @@ look at this example:
 
 ```bash
 # read age from user
-print 'enter your age: '
-$age = %{ read }%
+print('enter your age: ')
+$age = %{read()}%
 $age = int($age)
 # OR
-$age = int(%{ read }%)
+$age = int(%{read()}%)
 
 mem $age > 18; gotoif age_is_more_than_18 # if age is more than 18, goto age_is_more_than_18 section
 
@@ -73,16 +73,16 @@ goto age_is_less_than_18
 
 section age_is_more_than_18
 
-    println 'you are more than 18'
+    println('you are more than 18')
     goto after_if
 
 section age_is_less_than_18
 
-    println 'you are less than 18'
+    println('you are less than 18')
 
 section after_if
 
-println 'program ends'
+println('program ends')
 ```
 
 we run the program:

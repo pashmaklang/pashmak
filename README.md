@@ -9,7 +9,7 @@ Pashmak scripts have cool and pashmaki syntax.
 this is a simple hello world script in pashmak:
 
 ```bash
-println 'hello world'
+println('hello world')
 ```
 
 ## Online interpreter
@@ -44,6 +44,7 @@ read the following Documentation to learn pashmak.
 - [OS Commands](#os-commands)
 - [Importing scripts](#importing-scripts)
 - [Namespaces](#namespaces)
+- [Working with files](#working-with-files)
 - [Classes](#Classes)
 - [Eval](#eval)
 - [Modules](#internal-modules)
@@ -153,13 +154,13 @@ dist\pashmak.exe -v
 A simple printing in Pashmak:
 
 ```bash
-mem 'something to print\n'; print ^
+mem 'something to print\n'; print(^)
 ```
 
 or
 
 ```bash
-print 'something to print\n';
+print('something to print\n')
 ```
 
 #### how it works?
@@ -176,8 +177,8 @@ The base structure of pashmak syntax is this:
 In this example, we have two commands:
 
 ```bash
-mem 'something to print\n'; # first command
-print ^; # second command
+mem 'something to print\n' # first command
+print(^) # second command
 ```
 
 ##### NOTE: the `;` in the end of lines is not required. you can write your code without `;` IF you don't want to write two or more command in one line
@@ -211,7 +212,7 @@ mem is a temp place to make and calculate values.
 
 ```bash
 mem 'hello world'
-print ^ # the ^ is pointer of mem
+print(^) # the ^ is pointer of mem
 ```
 
 The `^` is pointer of the mem.
@@ -219,7 +220,7 @@ The `^` is pointer of the mem.
 You can also write the code like this to have shorter code (we have to use `;` to seprate them):
 
 ```bash
-mem 'hello world\n'; print ^
+mem 'hello world\n'; print(^)
 ```
 
 ###### NOTE: remember to put \n when you want to go to the next line
@@ -231,9 +232,9 @@ Look at this example:
 ```bash
 mem 'some thing\n'
 
-print ^ # output: some thing
+print(^) # output: some thing
 
-print ^ # output: None
+print(^) # output: None
 ```
 
 Why in the first time when mem value was read, the value correctly was printed on screen, but in the second time, the `None` was printed?
@@ -244,10 +245,10 @@ Look at this example:
 
 ```bash
 mem 'first value\n'
-print ^
+print(^)
 
 mem 'second value\n'
-print ^
+print(^)
 ```
 
 output of this code:
@@ -265,17 +266,17 @@ You can calculate every thing in the `mem`.
 For undrestanding this, look at the following examples:
 
 ```bash
-mem 'hi there'; print ^ # output: hi there
+mem 'hi there'; print(^) # output: hi there
 
 # you can paste strings
-mem 'first string ' + 'last string'; print ^ # output: first string last string
+mem 'first string ' + 'last string'; print(^) # output: first string last string
 
 # run math calculations
-mem 2*7; print ^ # output: 14
+mem 2*7; print(^) # output: 14
 
-mem 3*(2+1); print ^ # output: 9
+mem 3*(2+1); print(^) # output: 9
 
-mem str(7*7) + ' is sum'; print ^ # output: 49 is sum
+mem str(7*7) + ' is sum'; print(^) # output: 49 is sum
 # the `str` function gets a value and convert it to string.
 # in here you can not paste number to string. first need to convert num to str with str()
 ```
@@ -286,8 +287,8 @@ mem str(7*7) + ' is sum'; print ^ # output: 49 is sum
 For printing `;` and `#` special characters, put a `\` before them:
 
 ```bash
-mem 'this is \; semicolon\n'; print ^
-mem 'this is \# sharp\n'; print ^
+mem 'this is \; semicolon\n'; print(^)
+mem 'this is \# sharp\n'; print(^)
 ```
 
 output:
@@ -301,16 +302,16 @@ this is # sharp
 this is a easier syntax for printing:
 
 ```bash
-mem 'hello world\n'; print ^
+mem 'hello world\n'; print(^)
 
 # this is easier
-print 'hello world\n'
+print('hello world\n')
 
-print str(2*2)
+print(str(2*2))
 
-print 'hello ' + 'parsa\n'
+print('hello ' + 'parsa\n')
 
-print 'num is ' + str(100+7)
+print('num is ' + str(100+7))
 ```
 
 you can use all of features of `mem` in the argument of commands like above example.
@@ -324,7 +325,7 @@ If you want to print something and go next line, you have to put `\n` in the end
 But with `println` function, you don't need to use `\n` and that will put automaticaly:
 
 ```bash
-println 'hello world'
+println('hello world')
 ```
 
 output:
@@ -337,7 +338,7 @@ Also there is a alias for `println`, this is `printl`:
 
 ```bash
 #println "hello world"
-printl "hello world"
+printl("hello world")
 ```
 
 
@@ -351,7 +352,7 @@ Look at this example:
 ```bash
 $myvar = 'this is data'
 
-println $myvar # output: this is data
+println($myvar) # output: this is data
 ```
 
 ###### NOTE: always put $ before name of variable everywhere
@@ -372,14 +373,14 @@ look at this example:
 ```bash
 $name = 'parsa' # set name variable
 
-println 'hello ' + $name # output: hello parsa
+println('hello ' + $name) # output: hello parsa
 
 $num = 12
-println $num * 5 # output: 60
+println($num * 5) # output: 60
 
 $num2 = 4
 
-println $num * $num2 + 1 # output: 49
+println($num * $num2 + 1) # output: 49
 ```
 
 #### copy variables in other variables
@@ -390,17 +391,17 @@ look at this example:
 $var1 = 'hi'
 $var2 = 'bye'
 
-println $var1 # output: hi
-println $var2 # output: bye
+println($var1) # output: hi
+println($var2) # output: bye
 
 $var2 = $var1
 
-println $var1 # output: hi
-println $var2 # output: hi
+println($var1) # output: hi
+println($var2) # output: hi
 
 $name = 'parsa'
 $message = 'hello' + $parsa # you can use all of mem calculation features in here
-println $message # output: hello parsa
+println($message) # output: hello parsa
 ```
 
 #### NOTE: allowed characters for variable name are `A-Za-z`(or any alpha-bet characters in other languages), `&._` characters.
@@ -423,10 +424,10 @@ for example:
 ```bash
 mem 'parsa'
 $message = 'my name is ' + ^
-println $message # output: my name is parsa
+println($message) # output: my name is parsa
 
 mem 10
-println (^ + 5) * 2 # output: 30
+println((^ + 5) * 2) # output: 30
 ```
 
 ### free(delete) variables
@@ -455,10 +456,10 @@ look at this example:
 ```bash
 $somevar; $v # set `somevar` and `v` variables
 
-isset $somevar; println ^ # output: True
-isset $this_var_not_found; println ^ # output: False
-isset $somevar $sassadffgdty; println ^ # output: False
-isset $somevar $v; println ^ # output: True
+isset $somevar; println(^) # output: True
+isset $this_var_not_found; println(^) # output: False
+isset $somevar $sassadffgdty; println(^) # output: False
+isset $somevar $v; println(^) # output: True
 ```
 
 (The `True` and `False` are Python booleans).
@@ -479,11 +480,12 @@ $myint = 20
 $myfloat = 15.32
 $mybool = False
 
-typeof $mystr; println ^ # output: <class 'str'>
-typeof $myint; println ^ # output: <class 'int'>
-typeof($myfloat); println ^ # output: <class 'float'>
-typeof($mybool); println ^ # output: <class 'bool'>
-# NOTE: the `()` is not required
+typeof($mystr); println(^) # output: <class 'str'>
+typeof($myint); println(^) # output: <class 'int'>
+typeof($myfloat); println(^) # output: <class 'float'>
+typeof($mybool); println(^) # output: <class 'bool'>
+# also you can use this syntax
+println(%{typeof($myint)}%)
 ```
 
 This command puts the typeof variable in mem.
@@ -533,7 +535,7 @@ for example:
 
 ```bash
 $mystring = '  hello world          '
-println $mystring->strip() # output: `hello world`
+println($mystring->strip()) # output: `hello world`
 ```
 
 #### NOTE: in python, for calling function or access to property of a object, we use `.` character, but in pashmak we use `->` symbol(like php)
@@ -547,7 +549,7 @@ for example:
 # declare the const
 $&name = 'the value'
 
-println $&name
+println($&name)
 ```
 
 output:
@@ -588,7 +590,7 @@ $&name # only declare constant, default value is `None`
 # set value
 $&name = 'parsa'
 
-println $&name
+println($&name)
 ```
 
 output:
@@ -608,9 +610,9 @@ You can read input from user in stdin.
 look at this example:
 
 ```bash
-print 'what is your name? '
-$name = %{ read }% # read a input and put that in $name variable
-println 'hello ' + $name # say hello to $name :)
+print('what is your name? ')
+$name = %{read()}% # read a input and put that in $name variable
+println('hello ' + $name) # say hello to $name :)
 ```
 
 When we run this code, output is this:
@@ -631,16 +633,16 @@ also look at this example:
 ```bash
 $num1; $num2
 
-print 'enter first number: '
-$num1 = int(%{ read }%)
+print('enter first number: ')
+$num1 = int(%{read()}%)
 
-print 'enter second number: '
-$num2 = int(%{ read }%)
+print('enter second number: ')
+$num2 = int(%{read()}%)
 
 # now we want to plus them
 $sum = $num1 + $num2
 
-println str($sum)
+println(str($sum))
 ```
 
 program output:
@@ -660,7 +662,7 @@ this variable is a public variable and is list contains command line arguments.
 look at this example:
 
 ```bash
-println $argv[1]
+println($argv[1])
 ```
 
 we run above code:
@@ -688,7 +690,7 @@ the section system is used to control program flow.
 look at this example:
 ```bash
 section my_loop
-    println 'hello world'
+    println('hello world')
 goto my_loop
 ```
 
@@ -704,7 +706,7 @@ look at this example:
 $i = 1
 
 section loop
-    println $i # print $i
+    println($i) # print $i
     $i = $i + 1 # add 1 to $i
 mem $i < 10; gotoif loop # check the condition in `mem` and use gotoif command
 ```
@@ -741,11 +743,11 @@ look at this example:
 
 ```bash
 # read age from user
-print 'enter your age: '
-$age = %{ read }%
+print('enter your age: ')
+$age = %{read()}%
 $age = int($age)
 # OR
-$age = int(%{ read }%)
+$age = int(%{read()}%)
 
 mem $age > 18; gotoif age_is_more_than_18 # if age is more than 18, goto age_is_more_than_18 section
 
@@ -754,16 +756,16 @@ goto age_is_less_than_18
 
 section age_is_more_than_18
 
-    println 'you are more than 18'
+    println('you are more than 18')
     goto after_if
 
 section age_is_less_than_18
 
-    println 'you are less than 18'
+    println('you are less than 18')
 
 section after_if
 
-println 'program ends'
+println('program ends')
 ```
 
 we run the program:
@@ -794,7 +796,7 @@ example:
 
 ```bash
 if 2 == 2
-    println 'yes, 2 is 2'
+    println('yes, 2 is 2')
 endif
 ```
 
@@ -802,9 +804,9 @@ or:
 
 ```bash
 if 3 == 7
-    println '3 is 7'
+    println('3 is 7')
 else
-    println '3 is NOT 7'
+    println('3 is NOT 7')
 endif
 ```
 
@@ -824,7 +826,7 @@ for example:
 $age = 30
 
 if $age > 18
-    println 'Welcome!'
+    println('Welcome!')
 endif
 ```
 
@@ -838,7 +840,7 @@ Welcome!
 $age = 12
 
 if $age > 18
-    println 'Welcome!'
+    println('Welcome!')
 endif
 
 # above code haven't output
@@ -850,9 +852,9 @@ also you can use `else`:
 $age = 12
 
 if $age > 18
-    println 'Welcome!'
+    println('Welcome!')
 else
-    println 'you cannot access'
+    println('you cannot access')
 endif
 ```
 
@@ -864,13 +866,13 @@ also there is other keyword `elif`:
 $num = 17
 
 if $num == 5
-    println 'num is 5'
+    println('num is 5')
 elif $num == 6
-    println 'num is 6'
+    println('num is 6')
 elif $num == 17
-    println 'num is 17'
+    println('num is 17')
 else
-    println 'nothing'
+    println('nothing')
 endif
 ```
 
@@ -894,13 +896,13 @@ $test = True
 if $num == 18
     pass
 elif $num == 15
-    println 'num is 15'
+    println('num is 15')
 
     # another if in the parent if
     if $test
-        println 'this is a test'
+        println('this is a test')
     else
-        println 'this is not test'
+        println('this is not test')
     endif
 endif
 ```
@@ -923,9 +925,7 @@ func say_hello
     println 'hello world'
 endfunc
 
-say_hello
-# or with `()`
-#say_hello()
+say_hello()
 ```
 
 output:
@@ -940,7 +940,7 @@ func say_hello
 endfunc
 
 # we run this two times
-say_hello
+say_hello()
 say_hello()
 ```
 
@@ -962,10 +962,10 @@ mem 'program started\n'; print ^
 
 func say_hello
     $name = ^ # copy mem to $name
-    println 'hello ' + $name
+    println('hello ' + $name)
 endfunc
 
-mem 'parsa'; say_hello
+mem 'parsa'; say_hello()
 ```
 
 program output:
@@ -985,8 +985,6 @@ func myfunc
     print ^
 endfunc
 
-myfunc "hello"
-# or
 myfunc("hello")
 ```
 
@@ -999,25 +997,10 @@ hello
 This is exactly like
 
 ```
-mem 'something'; some_func
+mem 'something'; some_func()
 ```
 
-but with better syntax, you only need to run `some_func 'something'`.
-
-##### NOTE: using `()` in end of function is optional. for example:
-
-```bash
-myfunc
-myfunc()
-# above codes are not different
-```
-
-or with arguments:
-
-```bash
-myfunc "arg1", "arg2"
-myfunc("arg1", "arg2")
-```
+but with better syntax, you only need to run `some_func('something')`.
 
 ##### how it works?
 you can put a value after name of function. this value will put in mem and you can access this argument from mem.
@@ -1027,10 +1010,10 @@ look at this example:
 ```bash
 func say_hello
     $name = ^ # copy mem(the passed argument to function) to $name
-    println 'hello ' + $name
+    println('hello ' + $name)
 endfunc
 
-say_hello 'parsa'
+say_hello('parsa')
 ```
 
 output:
@@ -1046,10 +1029,10 @@ func say_hello
     $args = ^ # copy mem to $args
     $first_name = $args[0]
     $last_name = $args[1]
-    println 'hello ' + $first_name + ' ' + $last_name
+    println('hello ' + $first_name + ' ' + $last_name)
 endfunc
 
-say_hello 'parsa', 'shahmaleki'
+say_hello('parsa', 'shahmaleki')
 ```
 
 arguments should be split with `,` and this will make a array in mem and function can access that array and use arguments.
@@ -1059,20 +1042,20 @@ we to copy function argument (in mem) to a variable, using this syntax:
 ```bash
 func say_hello
     $name = ^
-    println 'hello ' + $name
+    println('hello ' + $name)
 endfunc
 
-say_hello 'parsa'
+say_hello('parsa')
 ```
 
 but also we can use this syntax to copy function argument to variable with better syntax:
 
 ```bash
 func say_hello ($name)
-    println 'hello ' + $name
+    println('hello ' + $name)
 endfunc
 
-say_hello 'parsa'
+say_hello('parsa')
 ```
 
 #### NOTE: that space between `hello` and `($name)` is not required.
@@ -1082,10 +1065,20 @@ also you can don't use `()` and you can write above code like this:
 
 ```bash
 func say_hello $name # without ()
-    println 'hello ' + $name
+    println('hello ' + $name)
 endfunc
 
-say_hello 'parsa'
+say_hello('parsa')
+```
+
+also you can use empty `()` to have better syntax:
+
+```bash
+func say_hello()
+    println('hello ' + ^)
+endfunc
+
+say_hello('parsa')
 ```
 
 also we can use mem symbol in argument of function.
@@ -1094,24 +1087,24 @@ for example:
 
 ```bash
 func say_hello $name # without ()
-    println 'hello ' + $name
+    println('hello ' + $name)
 endfunc
 
 mem 'parsa'
 
-say_hello ^
+say_hello(^)
 ```
 
 or:
 
 ```bash
 func say_hello $name # without ()
-    println 'hello ' + $name
+    println('hello ' + $name)
 endfunc
 
 mem 'parsa'
 
-say_hello ^ + ' shahmaleki'
+say_hello(^ + ' shahmaleki')
 ```
 
 #### how two handle multiple arguments?
@@ -1123,10 +1116,10 @@ to handle this, you can use something like this:
 func say_hi($args)
     $first_name = $args[0]
     $last_name = $args[1]
-    println 'hello ' + $first_name + ' ' + $last_name
+    println('hello ' + $first_name + ' ' + $last_name)
 endfunc
 
-say_hi 'parsa', 'shahmaleki'
+say_hi('parsa', 'shahmaleki')
 ```
 
 in above example, all of our arguments are in `$args`. that variable is a python tuple/list. we can handle multiple arguments like this example.
@@ -1138,15 +1131,15 @@ look at this example:
 ```bash
 func myfunc
     $name = 'new name'
-    println $name
+    println($name)
 endfunc
 
 $name = 'parsa'
-println $name
+println($name)
 
-myfunc
+myfunc()
 
-println $name
+println($name)
 ```
 
 output:
@@ -1172,16 +1165,16 @@ the answer is in `gset`:
 ```bash
 func myfunc
     $name = 'new name'
-    gset 'name', $name
-    println $name
+    gset('name', $name)
+    println($name)
 endfunc
 
 $name = 'parsa'
-println $name
+println($name)
 
-myfunc
+myfunc()
 
-println $name
+println($name)
 ```
 
 output:
@@ -1192,7 +1185,7 @@ new name
 new name
 ```
 
-here, `gset` command gets two parameters: first, global variable name and second, new value for that
+here, `gset` function gets two parameters: first, global variable name and second, new value for that
 
 this command sets value of that variable globaly.
 
@@ -1211,9 +1204,9 @@ func add_two_nums($nums)
 endfunc
 
 # now we call this function
-add_two_nums 10, 5
+add_two_nums(10, 5)
 $result = ^ # function output is in mem and we copy mem to variable $result
-println $result
+println($result)
 ```
 
 output:
@@ -1228,12 +1221,12 @@ for example:
 
 ```bash
 func get_data
-    println 'start'
+    println('start')
     return 'the data'
-    println 'end' # this will not be runed
+    println('end') # this will not be runed
 endfunc
 
-println %{ get_data() }%
+println(%{get_data()}%)
 ```
 
 output:
@@ -1252,12 +1245,12 @@ look at this example:
 
 ```bash
 # the say_hi function returns string `hello <$name>`
-func say_hi $name
+func say_hi($name)
     return 'hello ' + $name
 endfunc
 
 # we want to call this function and print the output of that
-println %{ say_hi "parsa" }%
+println %{say_hi("parsa")}%
 ```
 
 output:
@@ -1268,12 +1261,12 @@ hello parsa
 
 in the above example, we directly called a function and passed the output of that as argument of `println` function.
 
-you have to use `%{ }%` syntax and write you code between them. output of that function will be used instead of that.
+you have to use `%{}%` syntax and write you code between them. output of that function will be used instead of that.
 
 another example:
 
 ```bash
-func say_hi $name
+func say_hi($name)
     return 'hello ' + $name
 endfunc
 
@@ -1281,7 +1274,7 @@ func get_name
     return 'pashmak'
 endfunc
 
-println %{ say_hi %{ get_name }% }%
+println %{say_hi(%{get_name}%)}%
 ```
 
 output:
@@ -1290,7 +1283,7 @@ output:
 hello pashmak
 ```
 
-in the above example, we used `%{ }%` structure complicated.
+in the above example, we used `%{}%` structure complicated.
 
 another example:
 
@@ -1299,8 +1292,8 @@ func add_two_nums($nums)
     return $nums[0] + $nums[1]
 endfunc
 
-$result = %{ add_two_nums 10, 5 }%
-println 'sum is ' + str($result)
+$result = %{add_two_nums(10, 5)}%
+println('sum is ' + str($result))
 ```
 
 This is very useful.
@@ -1315,10 +1308,10 @@ look at this example:
 ```bash
 $names = ['parsa', 'pashmak', 'jack']
 
-println $names # output: ['parsa', 'pashmak', 'jack']
-println $names[0] # output: parsa
-println $names[1] # output: pashmak
-println $names[2] # output: jack
+println($names) # output: ['parsa', 'pashmak', 'jack']
+println($names[0]) # output: parsa
+println($names[1]) # output: pashmak
+println($names[2]) # output: jack
 ```
 
 this is a example about array and loop:
@@ -1329,7 +1322,7 @@ $names = ['parsa', 'pashmak', 'jack']
 $i = 0
 
 section loop
-    println $names[$i]
+    println($names[$i])
     $i = $i + 1
 mem $i < len($names); gotoif loop
 ```
@@ -1349,10 +1342,10 @@ you can add new item to an array by using python `append` and `insert` methods:
 
 ```bash
 $myarray = ['first', 'second']
-println $myarray
+println($myarray)
 
-mem $myarray->append('new item')
-println $myarray
+$myarray->append('new item')
+println($myarray)
 ```
 
 output:
@@ -1366,10 +1359,10 @@ also with `insert` method you can set the location of new item:
 
 ```bash
 $myarray = ['one', 'two', 'four']
-println $myarray
+println($myarray)
 
-mem $myarray->insert(3, 'three')
-println $myarray
+$myarray->insert(3, 'three')
+println($myarray)
 ```
 
 output:
@@ -1384,10 +1377,10 @@ you can delete an item from array by using python `pop` method:
 
 ```bash
 $myarray = ['first', 'second']
-println $myarray
+println($myarray)
 
-mem $myarray->pop(1)
-println $myarray
+$myarray->pop(1)
+println($myarray)
 ```
 
 output:
@@ -1404,10 +1397,10 @@ look at this example:
 
 ```bash
 $abc = ['a', 'b', 'c']
-println $abc # output: ['a', 'b', 'c']
+println($abc) # output: ['a', 'b', 'c']
 
 $abc[0] = '000'
-println $abc # output: ['000', 'b', 'c']
+println($abc) # output: ['000', 'b', 'c']
 ```
 
 like above example, we can set a specify item of array with a syntax like this: `$my_list[<index>] = <value>`.
@@ -1416,13 +1409,13 @@ also you can do this on a subitem. look at this example:
 
 ```bash
 $my_list = []
-mem $my_list->append(['a'])
+$my_list->append(['a'])
 
-println $my_list[0] # output: ['a']
+println($my_list[0]) # output: ['a']
 
 $my_list[0][0] = 'AAA'
 
-println $my_list[0] # output: ['AAA']
+println($my_list[0]) # output: ['AAA']
 ```
 
 ### Dictonaries
@@ -1433,9 +1426,9 @@ look at this example:
 ```bash
 $my_dict = {'hello': "Hello world", 'bye': 'Good bye!'}
 
-println $my_dict # output: {'hello': "Hello world", 'bye': 'Good bye!'}
+println($my_dict) # output: {'hello': "Hello world", 'bye': 'Good bye!'}
 
-println $my_dict['hello'] # output: Hello world
+println($my_dict['hello']) # output: Hello world
 ```
 
 like above example, we can use string as key instead of index number. in the above example, `hello` is the key.
@@ -1444,11 +1437,11 @@ also you can set the keys like lists(arrays):
 
 ```bash
 $my_dict = {'hello': "Hello world", 'bye': 'Good bye!'}
-println $my_dict['hello'] # output: Hello world
+println($my_dict['hello']) # output: Hello world
 
 $my_dict['hello'] = 'new hello'
 
-println $my_dict['hello'] # output: new hello
+println($my_dict['hello']) # output: new hello
 ```
 
 The **list(Array)** and **dict** are python datatypes(means you can use all of python list and dict methods on them).
@@ -1460,7 +1453,7 @@ The **list(Array)** and **dict** are python datatypes(means you can use all of p
 we may recive some errors in our program. for example:
 
 ```bash
-println $this_var_not_found
+println($this_var_not_found)
 ```
 
 output:
@@ -1474,7 +1467,7 @@ or:
 
 ```bash
 # undefined function
-printlgdfgfd ^
+printlgdfgfd(^)
 ```
 
 output:
@@ -1494,14 +1487,14 @@ look at this example:
 
 ```bash
 try handle_error
-    println $somevar
+    println($somevar)
 endtry
 
 goto after_error
 
 section handle_error
 
-mem 'some errors raised\n'; print ^
+println('some errors raised')
 
 section after_error
 ```
@@ -1515,7 +1508,7 @@ when error is raised in try statement, error data will put in mem (^):
 
 ```bash
 try handle_error
-    println $somevar
+    println($somevar)
 endtry
 
 goto after_error
@@ -1523,7 +1516,7 @@ goto after_error
 section handle_error
 
 $ex = ^ # copy mem (^) to $ex variable (this includes information about raised error)
-println $ex # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
+println($ex) # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
 
 section after_error
 ```
@@ -1534,13 +1527,11 @@ Your self can raise errors in the program.
 for example:
 
 ```bash
-println 'program started'
+println('program started')
 
-raise 'MyError', 'this is my error'
-# or
 raise('MyError', 'this is my error')
 
-println 'this will not print'
+println('this will not print')
 ```
 
 output:
@@ -1564,14 +1555,14 @@ here is some commands about OS.
 change directory. with this command you can change program working directory:
 
 ```bash
-chdir '/tmp'
+chdir('/tmp')
 ```
 
 ### cwd
 get current working directory.
 
 ```bash
-cwd
+cwd()
 println ^
 ```
 
@@ -1584,14 +1575,14 @@ output:
 or:
 
 ```bash
-$cwd = %{ cwd() }%
-println 'The current working directory is ' + $cwd
+$cwd = %{cwd()}%
+println('The current working directory is ' + $cwd)
 ```
 
 or:
 
 ```bash
-println %{ cwd }%
+println(%{cwd()}%)
 ```
 
 this command puts current working directory path into the mem.
@@ -1600,20 +1591,20 @@ this command puts current working directory path into the mem.
 you can run shell commands by this command:
 
 ```bash
-system 'ls /tmp'
+system('ls /tmp')
 ```
 
 also after run `system` function, exit code will put in `mem`:
 
 ```bash
-system 'ls /'
-println ^ # output: 0
+system('ls /')
+println(^) # output: 0
 ```
 
 or:
 
 ```bash
-println %{ system 'ls /' }%
+println(%{system 'ls /'}%)
 ```
 
 ### exit
@@ -1622,11 +1613,11 @@ this command exits program
 look at this example:
 
 ```bash
-println 'first print\n'
+println('first print')
 
-exit
+exit()
 
-println 'last print\n' # this will not print
+println('last print') # this will not print
 ```
 
 output:
@@ -1638,8 +1629,8 @@ first print
 ###### exit with exit code:
 
 ```bash
-println 'hello world\n'
-exit 1
+println('hello world')
+exit(1)
 ```
 
 exit code of program will be `1`
@@ -1650,8 +1641,8 @@ exit code of program will be `1`
 for example, if you run an script in `/home/parsa/myscript.pashm` with this content:
 
 ```bash
-println $__file__
-println $__dir__
+println($__file__)
+println($__dir__)
 ```
 
 output is:
@@ -1681,7 +1672,7 @@ func fib
     $b = 1
 
     section loop;
-        println $a
+        println($a)
 
         $tmp_a = $a
         $tmp_b = $b
@@ -1697,7 +1688,7 @@ endfunc
 ```bash
 import 'fib.pashm'
 
-fib
+fib()
 ```
 
 when we run `import` function and pass a file path to that, content of that file will be included in our code and will be runed. for example, here we used a function from the `fib.pashm` file.
@@ -1706,8 +1697,6 @@ also you can import more than 1 scripts in one command:
 
 ```bash
 # seprate them with `,` (actially a tuple or list)
-import 'a.pashm', '/path/to/b.pashm', 'dir/c.pashm'
-# or with () is not different
 import('a.pashm', '/path/to/b.pashm', 'dir/c.pashm')
 ```
 
@@ -1720,15 +1709,15 @@ for example, we have a file named `foo.pashm`:
 
 ```bash
 func hello
-    println 'hello'
+    println('hello')
 endfunc
 ```
 
 now, we import this file Two times:
 
 ```bash
-import 'foo.pashm'
-import 'foo.pashm'
+import('foo.pashm')
+import('foo.pashm')
 ```
 
 we will get this error:
@@ -1742,8 +1731,8 @@ because i imported this script two times and my code tryied to declare function 
 but if i use the `import_once` function:
 
 ```bash
-import_once 'foo.pashm'
-import_once 'foo.pashm'
+import_once('foo.pashm')
+import_once('foo.pashm')
 ```
 
 the above code will be runed successfully.
@@ -1766,9 +1755,9 @@ the `my_program.pashm` file is runed directly.
 ##### my_program.pashm:
 
 ```bash
-println $__ismain__
+println($__ismain__)
 
-import 'lib.pashm'
+import('lib.pashm')
 ```
 
 the above code, prints value of this variable and also imports `lib.pashm` file.
@@ -1776,7 +1765,7 @@ the above code, prints value of this variable and also imports `lib.pashm` file.
 ##### lib.pashm:
 
 ```bash
-println $__ismain__
+println($__ismain__)
 ```
 
 when i run `my_program.pashm`, output is this:
@@ -1811,10 +1800,10 @@ look at this example:
 ```bash
 namespace App
     func say_hello
-        println 'hello world'
+        println('hello world')
     endfunc
 
-    say_hello
+    say_hello()
 endnamespace
 
 App.say_hello
@@ -1842,18 +1831,18 @@ also look at this example:
 ```bash
 namespace First
     func dosomething
-        println 'i am from First'
+        println('i am from First')
     endfunc
 endnamespace
 
 namespace Last
     func dosomething
-        println 'i am from Last'
+        println('i am from Last')
     endfunc
 endnamespace
 
-First.dosomething
-Last.dosomething
+First.dosomething()
+Last.dosomething()
 ```
 
 output:
@@ -1868,13 +1857,13 @@ also you can use `endns` keyword insted of `endnamespace`:
 ```bash
 namespace App
     func say_hello
-        println 'hello world'
+        println('hello world')
     endfunc
 
-    say_hello
+    say_hello()
 endns
 
-App.say_hello
+App.say_hello()
 ```
 
 also namespace system is sync with variables:
@@ -1882,14 +1871,14 @@ also namespace system is sync with variables:
 ```bash
 namespace App
     $name = 'parsa'
-    println $name # output: parsa
-    println $App.name # output: parsa
+    println($name) # output: parsa
+    println($App.name) # output: parsa
 endns
 
-println $App.name # output: parsa
+println($App.name) # output: parsa
 
 # but this has error:
-println $name # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
+println($name) # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
 ```
 
 ##### NOTE: name of namespace should not have `.` character. if you want to do this, use [subnamespace](#namespace-in-namespace-subnamespace).
@@ -1904,14 +1893,14 @@ look at this example:
 ```bash
 namespace App
     func dosomething
-        println 'hello world'
+        println('hello world')
     endfunc
 
     $name = 'parsa'
 endns
 
-App.dosomething
-println $App.name
+App.dosomething()
+println($App.name)
 ```
 
 output:
@@ -1929,7 +1918,7 @@ look at this example:
 ```bash
 namespace App
     func dosomething
-        println 'hello world'
+        println('hello world')
     endfunc
 
     $name = 'parsa\n'
@@ -1937,11 +1926,11 @@ endns
 
 use App
 
-App.dosomething
-dosomething
+App.dosomething()
+dosomething()
 
-println $App.name
-println $name
+println($App.name)
+println($name)
 ```
 
 output:
@@ -1965,21 +1954,21 @@ look at this example:
 ```bash
 namespace App
     func hello
-        println 'hello world'
+        println('hello world')
     endfunc
 
     # declare namespace `Core` under `App`
     namespace Core
         func run
-            println 'the core'
+            println('the core')
         endfunc
     endns
 endns
 
 # now we use it
-App.hello
+App.hello()
 
-App.Core.run
+App.Core.run()
 ```
 
 output:
@@ -1999,32 +1988,69 @@ for example, we have `foo.pashm` and `bar.pashm` scripts.
 ```bash
 namespace foo
     func hello
-        println 'hello world'
+        println('hello world')
     endfunc
 endns
 
 func bye
-    println 'good bye'
+    println('good bye')
 endfunc
 ```
 
 ##### `bar.pashm`:
 
 ```bash
-import 'foo.pashm';
+import('foo.pashm')
 
-namespace App;
-    import 'foo.pashm';
-endns;
+namespace App
+    import('foo.pashm')
+endns
 
-foo.hello # output: hello world
-bye # output: good bye
+foo.hello() # output: hello world
+bye() # output: good bye
 
-App.foo.hello # output: hello world
-App.bye # output: good bye
+App.foo.hello() # output: hello world
+App.bye() # output: good bye
 ```
 
 in above example, we imported `foo.pashm` inside an namespace and content of `foo.pashm` is loaded under that namespace. for example, `foo.hello` function is loaded under `App` namespace, so finally will be set as `App.foo.hello`.
+
+
+
+# Working with files
+working with files in pashmak is so easy.
+
+we have 4 main operations on files: Open, Read, Write, Close
+
+look at this example for reading content of a file:
+
+```bash
+$my_file = open('/path/to/some/file.txt', 'r')
+println $my_file->read()
+$my_file->close()
+```
+
+In above example, we opened our file, read content and then we closed that.
+
+the `$file->read()`, the `read` method reads content of file and returns that.
+
+you can put that in a variable:
+
+```bash
+$content = $file->read()
+```
+
+to write content of a file, we can use `write` method:
+
+```bash
+$my_file = open('/path/to/some/file.txt', 'w')
+$my_file->write('new content')
+$my_file->close()
+```
+
+The second argument for opening file is type of opening. `r` means Read and `w` means write.
+
+The file objects in pashmak are handled by python you can use all of python file features in pashmak like python.
 
 
 
@@ -2050,9 +2076,9 @@ class Car
     $color
 endclass
 
-$my_car = %{ new Car }%
+$my_car = %{new Car()}%
 
-println $my_car
+println($my_car)
 ```
 
 output:
@@ -2069,11 +2095,11 @@ class Car
     $color
 endclass
 
-$my_car = %{ new Car }%
+$my_car = %{new Car}%
 $my_car->name = 'BMW'
 $my_car->color = 'white'
 
-println $my_car->name + ' ' + $my_car->color
+println($my_car->name + ' ' + $my_car->color)
 ```
 
 output:
@@ -2124,11 +2150,11 @@ class TheClassName
     $prop3; $prop4
 endclass
 
-$my_object = %{ new TheClassName }%
+$my_object = %{new TheClassName}%
 ```
 
 the `new` command gets name of class and creates an instance from that and puts that in the mem temp value.
-means, if i want to put created object in a variables, i need to write `$var = %{ new ClassName }%`.
+means, if i want to put created object in a variables, i need to write `$var = %{new ClassName}%`.
 
 now, we can create object from a class. how to access to the properties? look at this example:
 
@@ -2138,9 +2164,9 @@ class Car
     $color
 endclass
 
-$my_car = %{ new Car }%
+$my_car = %{new Car}%
 
-println $my_car->name # output: default name
+println($my_car->name) # output: default name
 ```
 
 we can access to the object properties by writing `$varname->property_name`
@@ -2155,13 +2181,13 @@ class Car
     $color
 endclass
 
-$my_car = %{ new Car }%
+$my_car = %{new Car}%
 
-println $my_car->name # output: default name
+println($my_car->name) # output: default name
 
 # setting the new value
 $my_car->name = 'new name'
-println $my_car->name # output: new name
+println($my_car->name) # output: new name
 ```
 
 ### classes in namespaces
@@ -2177,7 +2203,7 @@ namespace Models
     endclass
 endns
 
-$my_car = %{ new Models.Car }%
+$my_car = %{new Models.Car}%
 ```
 
 all of laws for **classes in namespaces** is like `functions` and `variables`.
@@ -2197,15 +2223,15 @@ class Car
     $color
 
     # the brand property is a object from Brand class
-    $brand = %{ new Brand }%
+    $brand = %{new Brand}%
 endclass
 
-$my_car = %{ new Car }%
+$my_car = %{new Car}%
 $my_car->name = 'my car'
 $my_car->brand->title = 'BMW'
 
-println $my_car->name
-println $my_car->brand->title
+println($my_car->name)
+println($my_car->brand->title)
 ```
 
 output:
@@ -2233,13 +2259,13 @@ class Car
     $color
 endclass
 
-$my_car = %{ new Car }%
+$my_car = %{new Car}%
 $my_car->name = 'my car'
 $my_car->color = 'red'
 
 $my_car->the_new_prop = 'the value'
 
-println $my_car->the_new_prop
+println($my_car->the_new_prop)
 ```
 
 output:
@@ -2260,7 +2286,7 @@ class Person
     $_age = 100 # age is const
 endclass
 
-$p = %{ new Person }%
+$p = %{new Person}%
 
 $p->_age = 50
 ```
@@ -2325,10 +2351,10 @@ class Child < Father
     $age = 100
 endclass
 
-$child = %{ new Child }%
+$child = %{new Child}%
 
-println $child->name # output: hello world
-println $child->age # output: 100
+println($child->name) # output: hello world
+println($child->age) # output: 100
 ```
 
 actually, the parent class has not properties of he's childs, but childs has all of parent's props.
@@ -2350,9 +2376,9 @@ class Person
 
 endclass
 
-$person = %{ new Person }%
+$person = %{new Person}%
 
-println $person->__name__ # output: Person
+println($person->__name__) # output: Person
 ```
 
 ### Class methods
@@ -2365,14 +2391,14 @@ class Cat
     $name
 
     func mio
-        println 'miooo...'
+        println('miooo...')
     endfunc
 endclass
 
 # create a object from Cat
-$my_cat = %{ new Cat }%
+$my_cat = %{new Cat}%
 
-$my_cat@mio
+$my_cat->mio()
 ```
 
 output:
@@ -2390,14 +2416,14 @@ class Cat
     $name
 
     func mio
-        println 'miooo... my name is ' + $this->name
+        println('miooo... my name is ' + $this->name)
     endfunc
 endclass
 
 # create a object from Cat
-$my_cat = %{ new Cat }%
+$my_cat = %{new Cat}%
 $my_cat->name = 'gerdoo'
-$my_cat@mio
+$my_cat->mio()
 ```
 
 output:
@@ -2419,15 +2445,15 @@ class Person
     endfunc
 
     func say_hi
-        println 'hello. my name is ' + $this->name
+        println('hello. my name is ' + $this->name)
     endfunc
 endclass
 
-$p = %{ new Person }%
+$p = %{new Person}%
 
-$p@set_name 'parsa'
+$p->set_name('parsa')
 
-$p@say_hi
+$p->say_hi()
 ```
 
 output:
@@ -2441,7 +2467,7 @@ hello. my name is parsa
 total syntax:
 
 ```bash
-$object_name@method_name 'arguments...'
+$object->method_name('arguments...', 'arg2...')
 ```
 
 also all of classes extends parent methods.
@@ -2452,15 +2478,15 @@ for example:
 class Father
     func hi
         # returnns this string
-        mem 'hello world'
+        return 'hello world'
     endfunc
 endclass
 
 class Child < Father; endclass
 
-$obj = %{ new Child %}
+$obj = %{new Child}%
 
-println %{ $obj@hi }%
+println($obj->hi())
 ```
 
 output:
@@ -2480,11 +2506,11 @@ look at this example:
 ```bash
 class Person
     func __init__
-        println 'a new Person is created'
+        println('a new Person is created')
     endfunc
 endclass
 
-$p = %{ new Person }%
+$p = %{new Person}%
 ```
 
 output:
@@ -2499,11 +2525,11 @@ also you can pass argument to `__init__` method. look at this example:
 class Person
     func __init__($name)
         $this->name = $name
-        println 'hello ' + $this->name
+        println('hello ' + $this->name)
     endfunc
 endclass
 
-$p = %{ new Person 'parsa' }%
+$p = %{new Person('parsa')}%
 println $p->name
 ```
 
@@ -2524,11 +2550,11 @@ class Person
     $name
 endclass
 
-$p = %{ new Person }%
+$p = %{new Person}%
 $p->name = 'parsa'
-println $p
+println($p)
 # OR
-println %{ new Person }%
+println(%{new Person}%)
 ```
 
 output:
@@ -2552,9 +2578,9 @@ class Person
     endfunc
 endclass
 
-$p = %{ new Person }%
+$p = %{new Person}%
 $p->name = 'parsa'
-println $p
+println($p)
 ```
 
 output:
@@ -2574,7 +2600,7 @@ you can run pashmak code from string.
 look at this example:
 
 ```bash
-eval 'println "hello world from string"'
+eval('println "hello world from string"')
 ```
 
 output:
@@ -2588,10 +2614,10 @@ this code is runed from a string.
 look at this example:
 
 ```bash
-print 'enter some code: '
-$code = %{ read }%
+print('enter some code: ')
+$code = %{read()}%
 
-eval $code
+eval($code)
 ```
 
 output:
@@ -2608,7 +2634,7 @@ you can run python code like `eval` with `python` command:
 
 ```bash
 $code = 'print("hello world from python")'
-python $code
+python($code)
 ```
 
 output:
@@ -2652,31 +2678,30 @@ with hash module, you can calculate hash sum of values:
 ```bash
 import @hash
 
-hash.sha256 "hello" # also you can use hash.md5 and...
-println ^ # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+hash.sha256("hello") # also you can use hash.md5 and...
+println(^) # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 # OR
-println %{ hash.sha256 "hello" }%
+println(%{hash.sha256 "hello"}%)
 ```
 
 ##### how it works?
 first, we call `hash.sha256` and pass `hello` string as argument (or put it in mem) to calculate sha256 hash. then, this function calculates hash sum of mem value and puts that into the mem. now you can access sum of that from mem.
 
 #### another hash algos
-- hash.blake2b (string)
-- hash.blake2s (string)
-- hash.md5 (string)
-- hash.sha1 (string)
-- hash.sha224 (string)
-- hash.sha256 (string)
-- hash.sha384 (string)
-- hash.sha3_224 (string)
-- hash.sha3_256 (string)
-- hash.sha3_384 (string)
-- hash.sha3_512 (string)
-- hash.sha512 (string)
-- hash.shake_128 (string, length)
-- hash.shake_256 (string, length)
-
+- hash.blake2b(string)
+- hash.blake2s(string)
+- hash.md5(string)
+- hash.sha1(string)
+- hash.sha224(string)
+- hash.sha256(string)
+- hash.sha384(string)
+- hash.sha3_224(string)
+- hash.sha3_256(string)
+- hash.sha3_384(string)
+- hash.sha3_512(string)
+- hash.sha512(string)
+- hash.shake_128(string, length)
+- hash.shake_256(string, length)
 
 ### time module
 with this module, you can work with time.
@@ -2687,7 +2712,7 @@ this function gives you current UNIX timestamp:
 ```bash
 import @time
 
-println %{ time.time() }% # output is some thing like this: `1600416438.687201`
+println(%{time.time()}%) # output is some thing like this: `1600416438.687201`
 ```
 
 when you call this function, this function puts the unix timestamp into mem and you can access and use that.
@@ -2698,7 +2723,7 @@ this function sleeps for secounds:
 ```bash
 import @time
 
-time.sleep 2 # sleeps for 2 secounds
+time.sleep(2) # sleeps for 2 secounds
 # mem 2.4; time.sleep; # sleepss for 2.4 secounds
 ```
 
@@ -2721,7 +2746,7 @@ this module makes random numbers
 import @random
 
 # generates a random int between 1 and 10
-println %{ random.randint 1, 10 }%
+println(%{random.randint(1, 10)}%)
 ```
 
 ##### random.random
@@ -2729,77 +2754,8 @@ println %{ random.randint 1, 10 }%
 import @random
 
 # generates a random float less that 1
-$rand = %{ random.random }%
-println $rand
-```
-
-### file module
-with this module, you can work with files smarter.
-
-##### file.open
-with this function, you can open a file:
-
-```bash
-import @file
-
-file.open '/path/to/file.txt', 'r' # first argument is file path, and second argument is open type. here is `r` means `read`
-
-# now, opened file is in the mem. we can copy it in a variable
-
-$f = ^
-
-# or
-
-$f = %{ file.open '/path/to/file.txt', 'r' }%
-```
-
-##### file.read
-wtih this function, you can read opened file:
-
-```bash
-import @file
-
-$f = %{ file.open '/path/to/file.txt', 'r' }%
-
-println %{ file.read $f }% # output is content of file
-```
-
-##### file.write
-with this function, you can write on opened file:
-
-```bash
-import @file
-
-$f = %{ file.open '/path/to/file.txt', 'w' }% # open type is `w` (write)
-
-file.write $f, 'new content' # first arg is opened file and second arg is content.
-```
-
-now file is changed
-
-##### file.close
-with this function you can close file after your work:
-
-```bash
-import @file
-
-$f = %{ file.open '/path/to/file.txt', 'r' }%
-
-# work with file
-
-file.close $f # close file after work
-```
-
-##### example:
-
-```bash
-import @file
-
-$file = %{ file.open '/path/to/file.txt', 'r' }%
-
-$content = %{ file.read $file }%
-
-print 'content of file is: ' + $content
+$rand = %{random.random}%
+println($rand)
 ```
 
 ### test module
@@ -2810,10 +2766,10 @@ this function is a function in the pashmak. this function gets a value and asser
 
 ```bash
 # NOTE: you don't need to import anything for use this function
-assert 2 == 2 # ok
-assert 4 > 1 # ok
-assert True # ok
-assert 'foo' == 'bar' # error: AssertError
+assert(2 == 2) # ok
+assert(4 > 1) # ok
+assert(True) # ok
+assert('foo' == 'bar') # error: AssertError
 ```
 
 ##### test.assertTrue
@@ -2822,9 +2778,9 @@ asserts true:
 ```bash
 import @test
 
-test.assertTrue True
-test.assertTrue 5 == 5
-test.assertTrue 10 > 5
+test.assertTrue(True)
+test.assertTrue(5 == 5)
+test.assertTrue(10 > 5)
 ```
 
 above code will be run without error.
@@ -2832,17 +2788,17 @@ above code will be run without error.
 this code will get `AssertError`:
 
 ```bash
-test.assertTrue False
-test.assertTrue 3 == 2
+test.assertTrue(False)
+test.assertTrue(3 == 2)
 ```
 
 ##### test.assertFalse
 this function is reverse of `test.assertTrue`.
 
 ```bash
-test.assertFalse False # run be run without error
-test.assertFalse 3 == 2 # run be run without error
-test.assertFalse 2 == 2 # AssertionError
+test.assertFalse(False) # run be run without error
+test.assertFalse(3 == 2) # run be run without error
+test.assertFalse(2 == 2) # AssertionError
 ```
 
 ##### test.assertEquals
@@ -2850,34 +2806,34 @@ this function asserts two values equals.
 
 ```bash
 # two arguments should be passed:
-test.assertEquals 'hello', 'hello' # successful
-test.assertEquals 2, 2 # successful
-test.assertEquals 'foo', 'bar' # AssertionError
+test.assertEquals('hello', 'hello') # successful
+test.assertEquals(2, 2) # successful
+test.assertEquals('foo', 'bar') # AssertionError
 ```
 
 ##### test.assertNotEquals
 this function is reverse of `test.assertEquals`.
 
 ```bash
-test.assertNotEquals 'foo', 'bar' # successful
-test.assertNotEquals 2, 7 # successful
-test.assertNotEquals 2, 2 # AssertionError
+test.assertNotEquals('foo', 'bar') # successful
+test.assertNotEquals(2, 7) # successful
+test.assertNotEquals(2, 2) # AssertionError
 ```
 
 ##### test.assertEmpty
 asserts the value is empty.
 
 ```bash
-test.assertEmpty None
-test.assertEmpty 'hello' # error
+test.assertEmpty(None)
+test.assertEmpty('hello') # error
 ```
 
 ##### test.assertNotEmpty
 asserts value is not empty
 
 ```bash
-test.assertNotEmpty 'hello'
-test.assertNotEmpty None # error
+test.assertNotEmpty('hello')
+test.assertNotEmpty(None) # error
 ```
 
 ### sys module
@@ -2895,7 +2851,7 @@ if you want to access to pashmak interpreter info, `sys` module has a variable n
 ```bash
 import @sys
 
-println $sys.pashmakinfo
+println($sys.pashmakinfo)
 ```
 
 output is something like this:
@@ -2910,7 +2866,7 @@ for example, to access pashmak version:
 ```bash
 import @sys
 
-println $sys.pashmakinfo['version']
+println($sys.pashmakinfo['version'])
 ```
 
 output:
@@ -2933,9 +2889,9 @@ you can use this python standard modules in pashmak directly in your code:
 for example:
 
 ```bash
-println os.getuid()
-println random.random()
-println 'hash is ' + hashlib.sha256('hello'.encode()).hexdigest()
+println(os.getuid())
+println(random.random())
+println('hash is ' + hashlib.sha256('hello'.encode()).hexdigest())
 $cwd = os.getcwd()
 $time = time.time() - 100
 # ...
@@ -3005,7 +2961,7 @@ for example:
 ```bash
 import @sys
 
-sys.path.add '/home/parsa/my-directory';
+sys.path.add('/home/parsa/my-directory');
 ```
 
 in above code, directory `/home/parsa/my-directory` will be added to the module path. after this action, you can import modules of that directory.
@@ -3015,7 +2971,7 @@ for example, we have `/home/parsa/my-directory/mylib.pashm` module and we can im
 ```bash
 import '@sys'
 
-sys.path.add '/home/parsa/my-directory';
+sys.path.add('/home/parsa/my-directory');
 
 import '@mylib'
 
@@ -3037,9 +2993,9 @@ also you can get list of module paths:
 ```bash
 import '@sys'
 
-$module_paths = %{ sys.path.list }%
+$module_paths = %{sys.path.list}%
 
-println $module_paths
+println($module_paths)
 ```
 
 output:
@@ -3132,7 +3088,7 @@ except KeyError:
     # section is not exists, raise the error
     return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
 # section exists, change the program current step to the section
-self.states[-1]['current_step'] = section_index-1
+self.threads[-1]['current_step'] = section_index-1
 ```
 
 The above code is a example.

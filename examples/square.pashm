@@ -29,10 +29,10 @@ func print_square($args)
     section loop1
         $j = 0
         section loop2
-            print '*'
+            print('*')
             $j = $j + 1
         mem $j < $y; gotoif loop2
-        println
+        println('')
         $i = $i + 1
     mem $i < $x; gotoif loop1
 endfunc

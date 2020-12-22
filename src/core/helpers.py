@@ -24,8 +24,7 @@
 
 import os
 from sys import exit
-from core import builtin_functions, modules
-from core import parser
+from core import builtin_functions, modules, parser
 
 class Helpers(builtin_functions.BuiltinFunctions):
     """ Partial of program object functions """
@@ -71,7 +70,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
         try:
             return self.all_vars()[self.current_namespace() + varname]
         except KeyError:
-            for used_namespace in self.used_namespaces:
+            for used_namespace in self.threads[-1]['used_namespaces']:
                 try:
                     return self.all_vars()[used_namespace + '.' + varname]
                 except KeyError:
@@ -84,7 +83,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
             do_raise_error = False
             try:
                 if self.all_vars()[self.current_namespace() + varname] != None:
-                    op = self.states[-1]['commands'][self.states[-1]['current_step']]
+                    op = self.threads[-1]['commands'][self.threads[-1]['current_step']]
                     do_raise_error = True
             except:
                 pass
@@ -95,7 +94,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
 
     def all_vars(self):
         """ Returns list of all of variables """
-        return self.states[-1]['vars']
+        return self.threads[-1]['vars']
 
     def multi_char_split(self, string, seprators, count=None):
         """ Splits string by multi seprators """
@@ -124,11 +123,11 @@ class Helpers(builtin_functions.BuiltinFunctions):
         if not self.is_test:
             exit(exit_code)
         else:
-            i = len(self.states)-1
+            i = len(self.threads)-1
             while i > 0:
-                self.states.pop()
+                self.threads.pop()
                 i -= 1
-            self.states[-1]['current_step'] = len(self.states[-1]['commands']) * 2
+            self.threads[-1]['current_step'] = len(self.threads[-1]['commands']) * 2
             self.exit_code = exit_code
 
     def pashmak_eval(self, code):
@@ -146,4 +145,31 @@ class Helpers(builtin_functions.BuiltinFunctions):
 
     def signal_handler(self, signal_code, frame):
         """ Raise error when signal exception raised """
-        self.raise_error('Signal', str(signal_code), self.states[-1]['commands'][self.states[-1]['current_step']])
+        self.raise_error('Signal', str(signal_code), self.threads[-1]['commands'][self.threads[-1]['current_step']])
+
+    def split_by_equals(self, string: str) -> list:
+        """ Parses `<something> = <something>` """
+        commands_parts = self.eval(string, only_str_parse=True)
+        parts = ['']
+        i = 0
+        block_depth = 0
+        while i < len(commands_parts):
+            if commands_parts[i][0] == True:
+                parts[-1] += commands_parts[i][1]
+            else:
+                j = 0
+                while j < len(commands_parts[i][1]):
+                    if j < len(commands_parts[i][1]) and j > 0:
+                        if commands_parts[i][1][j] == '=' and commands_parts[i][1][j-1] != '=' and commands_parts[i][1][j+1] != '=' and len(parts) == 1 and block_depth <= 0:
+                            parts.append('')
+                        else:
+                            if commands_parts[i][1][j] == '(':
+                                block_depth += 1
+                            elif commands_parts[i][1][j] == ')':
+                                block_depth -= 1
+                            parts[-1] += commands_parts[i][1][j]
+                    else:
+                        parts[-1] += commands_parts[i][1][j]
+                    j += 1
+            i += 1
+        return parts

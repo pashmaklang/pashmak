@@ -12,7 +12,7 @@ func fib
     $b = 1
 
     section loop;
-        println $a
+        println($a)
 
         $tmp_a = $a
         $tmp_b = $b
@@ -28,7 +28,7 @@ endfunc
 ```bash
 import 'fib.pashm'
 
-fib
+fib()
 ```
 
 when we run `import` function and pass a file path to that, content of that file will be included in our code and will be runed. for example, here we used a function from the `fib.pashm` file.
@@ -37,8 +37,6 @@ also you can import more than 1 scripts in one command:
 
 ```bash
 # seprate them with `,` (actially a tuple or list)
-import 'a.pashm', '/path/to/b.pashm', 'dir/c.pashm'
-# or with () is not different
 import('a.pashm', '/path/to/b.pashm', 'dir/c.pashm')
 ```
 
@@ -51,15 +49,15 @@ for example, we have a file named `foo.pashm`:
 
 ```bash
 func hello
-    println 'hello'
+    println('hello')
 endfunc
 ```
 
 now, we import this file Two times:
 
 ```bash
-import 'foo.pashm'
-import 'foo.pashm'
+import('foo.pashm')
+import('foo.pashm')
 ```
 
 we will get this error:
@@ -73,8 +71,8 @@ because i imported this script two times and my code tryied to declare function 
 but if i use the `import_once` function:
 
 ```bash
-import_once 'foo.pashm'
-import_once 'foo.pashm'
+import_once('foo.pashm')
+import_once('foo.pashm')
 ```
 
 the above code will be runed successfully.
@@ -97,9 +95,9 @@ the `my_program.pashm` file is runed directly.
 ##### my_program.pashm:
 
 ```bash
-println $__ismain__
+println($__ismain__)
 
-import 'lib.pashm'
+import('lib.pashm')
 ```
 
 the above code, prints value of this variable and also imports `lib.pashm` file.
@@ -107,7 +105,7 @@ the above code, prints value of this variable and also imports `lib.pashm` file.
 ##### lib.pashm:
 
 ```bash
-println $__ismain__
+println($__ismain__)
 ```
 
 when i run `my_program.pashm`, output is this:

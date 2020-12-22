@@ -1,5 +1,5 @@
 #
-# set.pashmt
+# function.py
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,44 +20,22 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
---test--
-variable defining system is working
+class Function:
+    """ the pashmak function object """
+    def __init__(self, name, prog):
+        self.name = name
+        self.body = []
+        self.prog = prog
 
---file--
-$myvar
-$var1; $var2
-$v3; $aaa; $hoho
-$var1
-$test = 'hello'
-print $test
-print $test
-$x = 'the value'
-$y
-$a1 = 'parsa'
-$a2 = 'hello ' + $a1 + '\n'
-print $a2
-mem 'hi mem'
-$themem = ^
-func testfunc $n
-    mem 'the func' + $n
-endfunc
-$s = %{testfunc 'A'}%
-
---vars--
-{
-            'myvar': None,
-            'var1': None,
-            'var2': None,
-            'v3': None,
-            'aaa': None,
-            'hoho': None,
-            'test': 'hello',
-            'x': 'the value',
-            'y': None,
-            'a1': 'parsa',
-            'a2': 'hello parsa\n',
-            'themem': 'hi mem',
-            's': 'the funcA'
-}
---output--
-'hellohellohello parsa\n'
+    def __call__(self, *args, **kwargs):
+        self.prog.mem = args
+        if len(self.prog.mem) == 1:
+            self.prog.mem = self.prog.mem[0]
+        default_vars = {}
+        try:
+            self.parent_object
+            default_vars['this'] = self.parent_object
+        except:
+            pass
+        self.prog.exec_func(self.body, True, default_vars)
+        return self.prog.get_mem()

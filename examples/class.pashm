@@ -25,7 +25,7 @@ class Human
     $age = 12
 
     func say_hi
-        println 'hello. my name is ' + $this->name
+        println('hello. my name is ' + $this->name)
     endfunc
 
     func set_name($name)
@@ -33,13 +33,13 @@ class Human
     endfunc
 endclass
 
-$someone = %{ new Human }%
+$someone = %{new Human}%
 $someone->name = 'parsa'
 
-println $someone->name
+println($someone->name)
 
-$someone@say_hi()
+$someone->say_hi()
 
-$someone@set_name('Pashmak')
+$someone->set_name('Pashmak')
 
-$someone@say_hi()
+$someone->say_hi()

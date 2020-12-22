@@ -25,5 +25,5 @@ println 'i am included'
 $included_var = 'included value'
 
 func testfunc
-    println 'i am included func'
+    println('i am included func')
 endfunc

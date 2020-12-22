@@ -1,5 +1,5 @@
 #
-# file.pashm
+# bug001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,20 +20,8 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-namespace file
-    func open($args)
-        return open($args[0], $args[1])
-    endfunc
+--test--
+import command with () and @module without quotes
 
-    func close($file)
-        return $file->close()
-    endfunc
-
-    func read($file)
-        return $file->read()
-    endfunc
-
-    func write($args)
-        return $args[0].write($args[1])
-    endfunc
-endns
+--file--
+import (@sys,@test, @hash ,@time)

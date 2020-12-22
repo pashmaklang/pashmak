@@ -7,10 +7,10 @@ look at this example:
 ```bash
 namespace App
     func say_hello
-        println 'hello world'
+        println('hello world')
     endfunc
 
-    say_hello
+    say_hello()
 endnamespace
 
 App.say_hello
@@ -38,18 +38,18 @@ also look at this example:
 ```bash
 namespace First
     func dosomething
-        println 'i am from First'
+        println('i am from First')
     endfunc
 endnamespace
 
 namespace Last
     func dosomething
-        println 'i am from Last'
+        println('i am from Last')
     endfunc
 endnamespace
 
-First.dosomething
-Last.dosomething
+First.dosomething()
+Last.dosomething()
 ```
 
 output:
@@ -64,13 +64,13 @@ also you can use `endns` keyword insted of `endnamespace`:
 ```bash
 namespace App
     func say_hello
-        println 'hello world'
+        println('hello world')
     endfunc
 
-    say_hello
+    say_hello()
 endns
 
-App.say_hello
+App.say_hello()
 ```
 
 also namespace system is sync with variables:
@@ -78,14 +78,14 @@ also namespace system is sync with variables:
 ```bash
 namespace App
     $name = 'parsa'
-    println $name # output: parsa
-    println $App.name # output: parsa
+    println($name) # output: parsa
+    println($App.name) # output: parsa
 endns
 
-println $App.name # output: parsa
+println($App.name) # output: parsa
 
 # but this has error:
-println $name # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
+println($name) # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
 ```
 
 ##### NOTE: name of namespace should not have `.` character. if you want to do this, use [subnamespace](#namespace-in-namespace-subnamespace).
@@ -100,14 +100,14 @@ look at this example:
 ```bash
 namespace App
     func dosomething
-        println 'hello world'
+        println('hello world')
     endfunc
 
     $name = 'parsa'
 endns
 
-App.dosomething
-println $App.name
+App.dosomething()
+println($App.name)
 ```
 
 output:
@@ -125,7 +125,7 @@ look at this example:
 ```bash
 namespace App
     func dosomething
-        println 'hello world'
+        println('hello world')
     endfunc
 
     $name = 'parsa\n'
@@ -133,11 +133,11 @@ endns
 
 use App
 
-App.dosomething
-dosomething
+App.dosomething()
+dosomething()
 
-println $App.name
-println $name
+println($App.name)
+println($name)
 ```
 
 output:
@@ -161,21 +161,21 @@ look at this example:
 ```bash
 namespace App
     func hello
-        println 'hello world'
+        println('hello world')
     endfunc
 
     # declare namespace `Core` under `App`
     namespace Core
         func run
-            println 'the core'
+            println('the core')
         endfunc
     endns
 endns
 
 # now we use it
-App.hello
+App.hello()
 
-App.Core.run
+App.Core.run()
 ```
 
 output:
@@ -195,29 +195,29 @@ for example, we have `foo.pashm` and `bar.pashm` scripts.
 ```bash
 namespace foo
     func hello
-        println 'hello world'
+        println('hello world')
     endfunc
 endns
 
 func bye
-    println 'good bye'
+    println('good bye')
 endfunc
 ```
 
 ##### `bar.pashm`:
 
 ```bash
-import 'foo.pashm';
+import('foo.pashm')
 
-namespace App;
-    import 'foo.pashm';
-endns;
+namespace App
+    import('foo.pashm')
+endns
 
-foo.hello # output: hello world
-bye # output: good bye
+foo.hello() # output: hello world
+bye() # output: good bye
 
-App.foo.hello # output: hello world
-App.bye # output: good bye
+App.foo.hello() # output: hello world
+App.bye() # output: good bye
 ```
 
 in above example, we imported `foo.pashm` inside an namespace and content of `foo.pashm` is loaded under that namespace. for example, `foo.hello` function is loaded under `App` namespace, so finally will be set as `App.foo.hello`.

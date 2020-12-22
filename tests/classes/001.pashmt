@@ -25,8 +25,8 @@ class can be declared
 --file--
 class Person
 endclass
-println list(self.classes.keys())
-println self.classes['Person'].props
+println(list(self.classes.keys()))
+println(self.classes['Person'].props)
 --output--
 """["""+self.default_classes_list_str+""", 'Person']
 {'__parent__': 'Object', '__name__': 'Person'}

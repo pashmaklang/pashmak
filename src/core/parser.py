@@ -50,7 +50,7 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
     op['str'] = op_str # command plain string
     op_parts = op_str.split(' ')
     op['command'] = op_parts[0]
-    op['command'] = op['command'].split('(')
+    op['command'] = op['command'].split('(', 1)
     if len(op['command']) > 1:
         op_parts[0] = op['command'][0]
         op_parts.insert(1, '(' + op['command'][1])
@@ -58,10 +58,29 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
     op_parts.pop(0)
     op['args_str'] = ''
     op['args'] = []
+    if op['command'] == 'import':
+        new_op_parts = []
+        i = 0
+        while i < len(op_parts):
+            if '@' in op_parts[i] and ',' in op_parts[i]:
+                op_parts[i] = op_parts[i].replace(',', ', ')
+                tmp = op_parts[i].split(' ')
+                if len(tmp) > 1:
+                    op_parts[i] = tmp[0]
+                    tmp[1:]
+                    z = 0
+                    while z < len(tmp):
+                        new_op_parts.append(tmp[z])
+                        z += 1
+            else:
+                new_op_parts.append(op_parts[i])
+            i += 1
+        op_parts = new_op_parts
     # set command arguments
     for op_part in op_parts:
         if op_part != '' or op['command'] == 'mem':
             if op['command'] == 'import':
+                op_part = op_part.strip().strip(')').strip('(')
                 if op_part:
                     if op_part[0] == '@':
                         op_part = '"' + op_part

@@ -24,6 +24,7 @@
 
 from core.class_system import Class
 from core import parser
+from core.function import Function
 import copy
 import random
 
@@ -56,7 +57,7 @@ class BuiltinFunctions:
         try:
             del self.current_func
         except AttributeError:
-            pass
+            self.raise_error('SyntaxError', 'unexpected "endfunc" when function block is not opened', op)
 
     def run_goto(self, op: dict):
         """ Changes program current step to a specify section """
@@ -66,7 +67,7 @@ class BuiltinFunctions:
             section_index = self.sections[arg]
         except KeyError:
             return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
-        self.states[-1]['current_step'] = section_index-1
+        self.threads[-1]['current_step'] = section_index-1
 
     def run_gotoif(self, op: dict):
         """ Changes program current step to a specify section IF mem is True """
@@ -77,7 +78,7 @@ class BuiltinFunctions:
         except KeyError:
             return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
         if self.mem:
-            self.states[-1]['current_step'] = section_index-1
+            self.threads[-1]['current_step'] = section_index-1
 
     def run_isset(self, op: dict):
         """ Checks variable(s) exists and puts result to mem """
@@ -103,6 +104,8 @@ class BuiltinFunctions:
         """ Closes the try-endtry block """
         if self.try_endtry:
             self.try_endtry.pop()
+        else:
+            self.raise_error('SyntaxError', 'unexpected "endtry" when try block is not opened', op)
 
     def run_namespace(self, op: dict):
         """ Starts the namespace block """
@@ -118,19 +121,21 @@ class BuiltinFunctions:
         """ Closes the namespace block """
         if self.namespaces_tree:
             self.namespaces_tree.pop()
+        else:
+            self.raise_error('SyntaxError', 'unexpected "endnamespace" when namespace block is not opened', op)
 
     def run_use(self, op: dict):
         """ Adds a namespace to used namespaces """
         self.require_one_argument(op, 'use command requires namespace argument')
         arg = op['args'][0]
-        self.used_namespaces.append(arg)
+        self.threads[-1]['used_namespaces'].append(arg)
 
     def run_endclass(self, op: dict):
         """ Closes the class declaration block """
         try:
             del self.current_class
         except AttributeError:
-            pass
+            self.raise_error('SyntaxError', 'unexpected "endclass" when class block is not opened', op)
 
     def run_class(self, op: dict):
         """ Starts the class declaration block """
@@ -141,12 +146,10 @@ class BuiltinFunctions:
         if len(arg) > 1:
             parent = arg[1].strip()
         arg = arg[0].strip()
-
         if '.' in arg:
             return self.raise_error(
                 'ClassNameContainsDotError', 'name "' + arg + '" for class contains `.` character', op
             )
-
         # check parent exists
         parent_real_name = None
         if parent != None:
@@ -155,7 +158,7 @@ class BuiltinFunctions:
                 parent_real_name = self.current_namespace() + parent
             except KeyError:
                 parent_obj = None
-                for used_namespace in self.used_namespaces:
+                for used_namespace in self.threads[-1]['used_namespaces']:
                     try:
                         parent_obj = self.classes[used_namespace + '.' + parent]
                         parent_real_name = used_namespace + '.' + parent
@@ -167,7 +170,6 @@ class BuiltinFunctions:
                         parent_real_name = parent
                     except KeyError:
                         return self.raise_error('ClassError', 'undefined class "' + parent + '"', op)
-
         # check class already declared
         try:
             self.classes[self.current_namespace() + arg]
@@ -178,7 +180,6 @@ class BuiltinFunctions:
             )
         except KeyError:
             pass
-
         if parent_real_name != None:
             self.classes[self.current_namespace() + arg] = copy.deepcopy(self.classes[parent_real_name])
             self.classes[self.current_namespace() + arg].props['__parent__'] = parent_real_name
@@ -194,11 +195,10 @@ class BuiltinFunctions:
                 self.classes[self.current_namespace() + arg].props['__name__'] = 'Object'
         self.current_class = self.current_namespace() + arg
 
-
     def run_new(self, op: dict):
         """ Creates a object from class """
         self.require_one_argument(op, 'missing class name')
-        arg = op['args'][0]
+        arg = op['args'][0].split('(', 1)[0]
         # check class exists
         class_real_name = None
         try:
@@ -206,7 +206,7 @@ class BuiltinFunctions:
             class_real_name = self.current_namespace() + arg
         except KeyError:
             aclass = None
-            for used_namespace in self.used_namespaces:
+            for used_namespace in self.threads[-1]['used_namespaces']:
                 try:
                     aclass = self.classes[used_namespace + '.' + arg]
                     class_real_name = used_namespace + '.' + arg
@@ -219,9 +219,9 @@ class BuiltinFunctions:
                 except KeyError:
                     return self.raise_error('ClassError', 'undefined class "' + arg + '"', op)
         class_copy = copy.deepcopy(aclass)
-        init_args = op['args_str'].split(' ', 1)
+        init_args = op['args_str'].split('(', 1)
         if len(init_args) > 1:
-            init_args = init_args[-1].strip()
+            init_args = '(' + init_args[-1]
         else:
             init_args = ''
         if init_args == '':
@@ -232,9 +232,10 @@ class BuiltinFunctions:
             tmp_variable = tmp_variable + str(random.random()).replace('.', '')
         class_copy.__prog__ = self
         self.mem = class_copy
+        self.mem.__name__
         code_commands = """
         $""" + tmp_variable + """ = ^
-        $""" + self.current_namespace() + tmp_variable + """@__init__ """ + init_args + """
+        mem $""" + self.current_namespace() + tmp_variable + """->methods["__init__"](""" + init_args + """)
         mem $""" + self.current_namespace() + tmp_variable + """
         free $""" + self.current_namespace() + tmp_variable + """
         """
@@ -271,19 +272,20 @@ class BuiltinFunctions:
         try:
             self.current_class
             self.current_func = arg
-            self.classes[self.current_class].methods[self.current_func] = []
+            self.classes[self.current_class].methods[self.current_func] = Function(name=self.current_func, prog=self)
             is_method = True
         except:
             self.current_func = self.current_namespace() + arg
-            self.functions[self.current_func] = []
+            self.functions[self.current_func] = Function(name=self.current_func, prog=self)
         # check for argument variable
         if len(self.multi_char_split(op['args_str'], ' (', 1)) > 1:
             arg_var = self.multi_char_split(op['args_str'], ' (', 1)[1].strip(')').strip('(').strip()
-            self.arg_should_be_variable(arg_var, op)
-            if is_method:
-                self.classes[self.current_class].methods[self.current_func].append(parser.parse(arg_var + ' = ^', '<system>')[0])
-            else:
-                self.functions[self.current_func].append(parser.parse(arg_var + ' = ^', '<system>')[0])
+            if arg_var != '':
+                self.arg_should_be_variable(arg_var, op)
+                if is_method:
+                    self.classes[self.current_class].methods[self.current_func].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
+                else:
+                    self.functions[self.current_func].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
 
     def run_return(self, op: dict):
         """ Returns a value in function """
@@ -292,9 +294,8 @@ class BuiltinFunctions:
             value = None
         else:
             value = self.eval(value)
-
         self.mem = value
-        if len(self.states) > 1:
-            self.states[-1]['current_step'] = len(self.states[-1]['commands']) * 2
+        if len(self.threads) > 1:
+            self.threads[-1]['current_step'] = len(self.threads[-1]['commands']) * 2
         else:
             self.exit_program(value)

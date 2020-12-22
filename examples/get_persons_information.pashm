@@ -29,11 +29,11 @@ $persons = []
 
 $i = 0
 section loop
-    $p = %{ new Person }%
-    print 'enter your name: '
-    $p->name = %{ read }%
-    print 'enter your age: '
-    $p->age = %{ read }%
+    $p = %{new Person}%
+    print('enter your name: ')
+    $p->name = %{read}%
+    print('enter your age: ')
+    $p->age = %{read}%
 
     mem $persons->append($p)
 
@@ -42,6 +42,6 @@ mem $i < 3; gotoif loop
 
 $i = 0
 section loop2
-    println 'hello ' + $persons[$i]->name + ' ' + $persons[$i]->age
+    println('hello ' + $persons[$i]->name + ' ' + $persons[$i]->age)
     $i = $i + 1
 mem $i < len($persons); gotoif loop2

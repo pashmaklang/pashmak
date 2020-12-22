@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-eval command state bug is fixed
+eval command thread bug is fixed
 
 --file--
 $name = 'parsa'

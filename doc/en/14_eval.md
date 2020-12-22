@@ -5,7 +5,7 @@ you can run pashmak code from string.
 look at this example:
 
 ```bash
-eval 'println "hello world from string"'
+eval('println "hello world from string"')
 ```
 
 output:
@@ -19,10 +19,10 @@ this code is runed from a string.
 look at this example:
 
 ```bash
-print 'enter some code: '
-$code = %{ read }%
+print('enter some code: ')
+$code = %{read()}%
 
-eval $code
+eval($code)
 ```
 
 output:
@@ -39,7 +39,7 @@ you can run python code like `eval` with `python` command:
 
 ```bash
 $code = 'print("hello world from python")'
-python $code
+python($code)
 ```
 
 output:

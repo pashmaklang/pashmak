@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-return command exits program when is used in main program state
+return command exits program when is used in main program thread
 
 --file--
 print 'first'

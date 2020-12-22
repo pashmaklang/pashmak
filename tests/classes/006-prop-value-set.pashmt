@@ -31,21 +31,21 @@ endclass
 class Human
     $name
     $age
-    $foo = %{ new Foo }%
+    $foo = %{new Foo}%
 endclass
 
-$someone = %{ new Human }%
+$someone = %{new Human}%
 $someone->name = 'hello world'
 $someone->age = 18
 
-println $someone->name
-println $someone->foo->title
+println($someone->name)
+println($someone->foo->title)
 
 $someone->foo->title = 'new title'
-println $someone->foo->title
+println($someone->foo->title)
 
 $someone->name = $someone->name + '.'
-println $someone->name
+println($someone->name)
 
 --output--
 """hello world

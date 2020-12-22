@@ -51,13 +51,23 @@ class Class:
 
     def __str__(self):
         str_magic_method = self.methods['__str__']
-        self.__prog__.exec_func(str_magic_method, True, {'this': self})
+        self.__prog__.exec_func(str_magic_method.body, True, {'this': self})
         return str(self.__prog__.get_mem())
 
     def __getattr__(self, attrname):
-        if attrname == 'props':
+        if attrname == 'props' or attrname == 'methods' or attrname == '__prog__':
             return super().__getattr__(attrname)
+        for k in self.methods:
+            self.methods[k].parent_object = self
+            self.methods[k].prog = self.__prog__
+        for k in self.props:
+            if type(self.props[k]) == Class:
+                self.props[k].__prog__ = self.__prog__
+                self.props[k].__name__
         try:
             return self.props[attrname]
         except KeyError:
-            raise AttributeError(attrname)
+            try:
+                return self.methods[attrname]
+            except KeyError:
+                raise AttributeError(attrname)

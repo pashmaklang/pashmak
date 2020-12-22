@@ -26,14 +26,14 @@ class init method can recive argument
 --file--
 class Hi
     func __init__ $name
-        println 'hi ' + $name
+        println('hi ' + $name)
         $this->name = $name
     endfunc
 endclass
 
-$hi = %{ new Hi 'parsa' }%
+$hi = %{new Hi('parsa')}%
 
-println $hi->name
+println($hi->name)
 
 --output--
 '''hi parsa

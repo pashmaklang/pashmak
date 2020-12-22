@@ -31,31 +31,30 @@ with hash module, you can calculate hash sum of values:
 ```bash
 import @hash
 
-hash.sha256 "hello" # also you can use hash.md5 and...
-println ^ # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+hash.sha256("hello") # also you can use hash.md5 and...
+println(^) # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 # OR
-println %{ hash.sha256 "hello" }%
+println(%{hash.sha256 "hello"}%)
 ```
 
 ##### how it works?
 first, we call `hash.sha256` and pass `hello` string as argument (or put it in mem) to calculate sha256 hash. then, this function calculates hash sum of mem value and puts that into the mem. now you can access sum of that from mem.
 
 #### another hash algos
-- hash.blake2b (string)
-- hash.blake2s (string)
-- hash.md5 (string)
-- hash.sha1 (string)
-- hash.sha224 (string)
-- hash.sha256 (string)
-- hash.sha384 (string)
-- hash.sha3_224 (string)
-- hash.sha3_256 (string)
-- hash.sha3_384 (string)
-- hash.sha3_512 (string)
-- hash.sha512 (string)
-- hash.shake_128 (string, length)
-- hash.shake_256 (string, length)
-
+- hash.blake2b(string)
+- hash.blake2s(string)
+- hash.md5(string)
+- hash.sha1(string)
+- hash.sha224(string)
+- hash.sha256(string)
+- hash.sha384(string)
+- hash.sha3_224(string)
+- hash.sha3_256(string)
+- hash.sha3_384(string)
+- hash.sha3_512(string)
+- hash.sha512(string)
+- hash.shake_128(string, length)
+- hash.shake_256(string, length)
 
 ### time module
 with this module, you can work with time.
@@ -66,7 +65,7 @@ this function gives you current UNIX timestamp:
 ```bash
 import @time
 
-println %{ time.time() }% # output is some thing like this: `1600416438.687201`
+println(%{time.time()}%) # output is some thing like this: `1600416438.687201`
 ```
 
 when you call this function, this function puts the unix timestamp into mem and you can access and use that.
@@ -77,7 +76,7 @@ this function sleeps for secounds:
 ```bash
 import @time
 
-time.sleep 2 # sleeps for 2 secounds
+time.sleep(2) # sleeps for 2 secounds
 # mem 2.4; time.sleep; # sleepss for 2.4 secounds
 ```
 
@@ -100,7 +99,7 @@ this module makes random numbers
 import @random
 
 # generates a random int between 1 and 10
-println %{ random.randint 1, 10 }%
+println(%{random.randint(1, 10)}%)
 ```
 
 ##### random.random
@@ -108,77 +107,8 @@ println %{ random.randint 1, 10 }%
 import @random
 
 # generates a random float less that 1
-$rand = %{ random.random }%
-println $rand
-```
-
-### file module
-with this module, you can work with files smarter.
-
-##### file.open
-with this function, you can open a file:
-
-```bash
-import @file
-
-file.open '/path/to/file.txt', 'r' # first argument is file path, and second argument is open type. here is `r` means `read`
-
-# now, opened file is in the mem. we can copy it in a variable
-
-$f = ^
-
-# or
-
-$f = %{ file.open '/path/to/file.txt', 'r' }%
-```
-
-##### file.read
-wtih this function, you can read opened file:
-
-```bash
-import @file
-
-$f = %{ file.open '/path/to/file.txt', 'r' }%
-
-println %{ file.read $f }% # output is content of file
-```
-
-##### file.write
-with this function, you can write on opened file:
-
-```bash
-import @file
-
-$f = %{ file.open '/path/to/file.txt', 'w' }% # open type is `w` (write)
-
-file.write $f, 'new content' # first arg is opened file and second arg is content.
-```
-
-now file is changed
-
-##### file.close
-with this function you can close file after your work:
-
-```bash
-import @file
-
-$f = %{ file.open '/path/to/file.txt', 'r' }%
-
-# work with file
-
-file.close $f # close file after work
-```
-
-##### example:
-
-```bash
-import @file
-
-$file = %{ file.open '/path/to/file.txt', 'r' }%
-
-$content = %{ file.read $file }%
-
-print 'content of file is: ' + $content
+$rand = %{random.random}%
+println($rand)
 ```
 
 ### test module
@@ -189,10 +119,10 @@ this function is a function in the pashmak. this function gets a value and asser
 
 ```bash
 # NOTE: you don't need to import anything for use this function
-assert 2 == 2 # ok
-assert 4 > 1 # ok
-assert True # ok
-assert 'foo' == 'bar' # error: AssertError
+assert(2 == 2) # ok
+assert(4 > 1) # ok
+assert(True) # ok
+assert('foo' == 'bar') # error: AssertError
 ```
 
 ##### test.assertTrue
@@ -201,9 +131,9 @@ asserts true:
 ```bash
 import @test
 
-test.assertTrue True
-test.assertTrue 5 == 5
-test.assertTrue 10 > 5
+test.assertTrue(True)
+test.assertTrue(5 == 5)
+test.assertTrue(10 > 5)
 ```
 
 above code will be run without error.
@@ -211,17 +141,17 @@ above code will be run without error.
 this code will get `AssertError`:
 
 ```bash
-test.assertTrue False
-test.assertTrue 3 == 2
+test.assertTrue(False)
+test.assertTrue(3 == 2)
 ```
 
 ##### test.assertFalse
 this function is reverse of `test.assertTrue`.
 
 ```bash
-test.assertFalse False # run be run without error
-test.assertFalse 3 == 2 # run be run without error
-test.assertFalse 2 == 2 # AssertionError
+test.assertFalse(False) # run be run without error
+test.assertFalse(3 == 2) # run be run without error
+test.assertFalse(2 == 2) # AssertionError
 ```
 
 ##### test.assertEquals
@@ -229,34 +159,34 @@ this function asserts two values equals.
 
 ```bash
 # two arguments should be passed:
-test.assertEquals 'hello', 'hello' # successful
-test.assertEquals 2, 2 # successful
-test.assertEquals 'foo', 'bar' # AssertionError
+test.assertEquals('hello', 'hello') # successful
+test.assertEquals(2, 2) # successful
+test.assertEquals('foo', 'bar') # AssertionError
 ```
 
 ##### test.assertNotEquals
 this function is reverse of `test.assertEquals`.
 
 ```bash
-test.assertNotEquals 'foo', 'bar' # successful
-test.assertNotEquals 2, 7 # successful
-test.assertNotEquals 2, 2 # AssertionError
+test.assertNotEquals('foo', 'bar') # successful
+test.assertNotEquals(2, 7) # successful
+test.assertNotEquals(2, 2) # AssertionError
 ```
 
 ##### test.assertEmpty
 asserts the value is empty.
 
 ```bash
-test.assertEmpty None
-test.assertEmpty 'hello' # error
+test.assertEmpty(None)
+test.assertEmpty('hello') # error
 ```
 
 ##### test.assertNotEmpty
 asserts value is not empty
 
 ```bash
-test.assertNotEmpty 'hello'
-test.assertNotEmpty None # error
+test.assertNotEmpty('hello')
+test.assertNotEmpty(None) # error
 ```
 
 ### sys module
@@ -274,7 +204,7 @@ if you want to access to pashmak interpreter info, `sys` module has a variable n
 ```bash
 import @sys
 
-println $sys.pashmakinfo
+println($sys.pashmakinfo)
 ```
 
 output is something like this:
@@ -289,7 +219,7 @@ for example, to access pashmak version:
 ```bash
 import @sys
 
-println $sys.pashmakinfo['version']
+println($sys.pashmakinfo['version'])
 ```
 
 output:
@@ -312,9 +242,9 @@ you can use this python standard modules in pashmak directly in your code:
 for example:
 
 ```bash
-println os.getuid()
-println random.random()
-println 'hash is ' + hashlib.sha256('hello'.encode()).hexdigest()
+println(os.getuid())
+println(random.random())
+println('hash is ' + hashlib.sha256('hello'.encode()).hexdigest())
 $cwd = os.getcwd()
 $time = time.time() - 100
 # ...
@@ -384,7 +314,7 @@ for example:
 ```bash
 import @sys
 
-sys.path.add '/home/parsa/my-directory';
+sys.path.add('/home/parsa/my-directory');
 ```
 
 in above code, directory `/home/parsa/my-directory` will be added to the module path. after this action, you can import modules of that directory.
@@ -394,7 +324,7 @@ for example, we have `/home/parsa/my-directory/mylib.pashm` module and we can im
 ```bash
 import '@sys'
 
-sys.path.add '/home/parsa/my-directory';
+sys.path.add('/home/parsa/my-directory');
 
 import '@mylib'
 
@@ -416,9 +346,9 @@ also you can get list of module paths:
 ```bash
 import '@sys'
 
-$module_paths = %{ sys.path.list }%
+$module_paths = %{sys.path.list}%
 
-println $module_paths
+println($module_paths)
 ```
 
 output:

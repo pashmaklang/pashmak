@@ -1,5 +1,5 @@
 #
-# set.pashmt
+# bug001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,43 +21,14 @@
 #########################################################################
 
 --test--
-variable defining system is working
+using empty () while declaring function bug
 
 --file--
-$myvar
-$var1; $var2
-$v3; $aaa; $hoho
-$var1
-$test = 'hello'
-print $test
-print $test
-$x = 'the value'
-$y
-$a1 = 'parsa'
-$a2 = 'hello ' + $a1 + '\n'
-print $a2
-mem 'hi mem'
-$themem = ^
-func testfunc $n
-    mem 'the func' + $n
+func hi()
+println 'hello'
 endfunc
-$s = %{testfunc 'A'}%
 
---vars--
-{
-            'myvar': None,
-            'var1': None,
-            'var2': None,
-            'v3': None,
-            'aaa': None,
-            'hoho': None,
-            'test': 'hello',
-            'x': 'the value',
-            'y': None,
-            'a1': 'parsa',
-            'a2': 'hello parsa\n',
-            'themem': 'hi mem',
-            's': 'the funcA'
-}
+hi()
+
 --output--
-'hellohellohello parsa\n'
+"hello\n"

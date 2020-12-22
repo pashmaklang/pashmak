@@ -33,6 +33,6 @@ namespace Models
     endns
 endns
 
-print list(self.classes.keys())
+print(list(self.classes.keys()))
 --output--
 "["+self.default_classes_list_str+", 'Models.Car', 'Models.Foo.Bar']"

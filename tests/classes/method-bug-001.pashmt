@@ -1,5 +1,5 @@
 #
-# file.pashmt
+# method-bug-001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,24 +21,16 @@
 #########################################################################
 
 --test--
-file module is working
+method not found error bug is fixed
+
 --file--
-import @file
-$tmp_file
-python "import tempfile, random\; self.mem = tempfile.gettempdir().replace('\\\\', '/') + '/' + 'pashmak-test-file-' + str(random.random())"
-$tmp_file = ^
 
-file.open [$tmp_file, 'w']
-$file = ^
+class Hello
+endclass
 
-file.write [$file, "content of file"]
-file.close $file
+$a = %{new Hello}%
 
-file.open [$tmp_file, 'r']
-$file = ^
-print %{ file.read $file }%
-file.close $file
+mem $a->ffghfgjghjh()
 
-mem os.remove($tmp_file)
---output--
-'content of file'
+--with-error--
+"AttributeError"

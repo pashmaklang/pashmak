@@ -1,5 +1,5 @@
 #
-# set.pashmt
+# method005.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,43 +21,34 @@
 #########################################################################
 
 --test--
-variable defining system is working
+method calling syntax is working
 
 --file--
-$myvar
-$var1; $var2
-$v3; $aaa; $hoho
-$var1
-$test = 'hello'
-print $test
-print $test
-$x = 'the value'
-$y
-$a1 = 'parsa'
-$a2 = 'hello ' + $a1 + '\n'
-print $a2
-mem 'hi mem'
-$themem = ^
-func testfunc $n
-    mem 'the func' + $n
-endfunc
-$s = %{testfunc 'A'}%
+class Foo
+    func thefoo()
+        println('i am Foo')
+    endfunc
+endclass
 
---vars--
-{
-            'myvar': None,
-            'var1': None,
-            'var2': None,
-            'v3': None,
-            'aaa': None,
-            'hoho': None,
-            'test': 'hello',
-            'x': 'the value',
-            'y': None,
-            'a1': 'parsa',
-            'a2': 'hello parsa\n',
-            'themem': 'hi mem',
-            's': 'the funcA'
-}
+class Bar
+    func thebar()
+        println('i am bar')
+    endfunc
+
+    $foo = %{new Foo}%
+endclass
+
+$bar = %{new Bar}%
+
+$bar->thebar()
+$bar->foo->thefoo()
+
+$bar->thebar(2 == 2, z=12)
+$bar->foo->thefoo(2 == 2, z=12)
+
 --output--
-'hellohellohello parsa\n'
+"""i am bar
+i am Foo
+i am bar
+i am Foo
+"""

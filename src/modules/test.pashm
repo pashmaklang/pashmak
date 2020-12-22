@@ -22,34 +22,34 @@
 
 namespace test
     func doAssert($value)
-        assert $value
+        assert($value)
     endfunc
 
     func assertTrue($value)
-        test.doAssert $value
+        test.doAssert($value)
     endfunc
 
     func assertFalse($value)
-        test.doAssert not $value
+        test.doAssert(not $value)
     endfunc
 
     func assertEquals($args)
         $a = $args[0]
         $b = $args[1]
-        test.doAssert $a == $b
+        test.doAssert($a == $b)
     endfunc
 
     func assertNotEquals($args)
         $a = $args[0]
         $b = $args[1]
-        test.doAssert $a != $b
+        test.doAssert($a != $b)
     endfunc
 
     func assertEmpty($value)
-        test.doAssert $valie == None
+        test.doAssert($valie == None)
     endfunc
 
     func assertNotEmpty($value)
-        test.doAssert $valie != None
+        test.doAssert($valie != None)
     endfunc
 endns

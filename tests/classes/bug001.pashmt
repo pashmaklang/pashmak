@@ -29,15 +29,15 @@ class Person
     $name; $age = 10
 endclass
 
-$p1 = %{ new Person }%
+$p1 = %{new Person}%
 $p1->age = 20
 
-$p2 = %{ new Person }%
+$p2 = %{new Person}%
 $p2->age = 77
 
-println self.classes['Person'].props
-println $p1->age
-println $p2->age
+println(self.classes['Person'].props)
+println($p1->age)
+println($p2->age)
 
 --output--
 """{'__parent__': 'Object', '__name__': 'Person', 'name': None, 'age': 10}
