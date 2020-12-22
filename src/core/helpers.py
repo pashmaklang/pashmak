@@ -70,7 +70,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
         try:
             return self.all_vars()[self.current_namespace() + varname]
         except KeyError:
-            for used_namespace in self.used_namespaces:
+            for used_namespace in self.states[-1]['used_namespaces']:
                 try:
                     return self.all_vars()[used_namespace + '.' + varname]
                 except KeyError:

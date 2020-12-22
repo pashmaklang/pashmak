@@ -128,7 +128,7 @@ class BuiltinFunctions:
         """ Adds a namespace to used namespaces """
         self.require_one_argument(op, 'use command requires namespace argument')
         arg = op['args'][0]
-        self.used_namespaces.append(arg)
+        self.states[-1]['used_namespaces'].append(arg)
 
     def run_endclass(self, op: dict):
         """ Closes the class declaration block """
@@ -158,7 +158,7 @@ class BuiltinFunctions:
                 parent_real_name = self.current_namespace() + parent
             except KeyError:
                 parent_obj = None
-                for used_namespace in self.used_namespaces:
+                for used_namespace in self.states[-1]['used_namespaces']:
                     try:
                         parent_obj = self.classes[used_namespace + '.' + parent]
                         parent_real_name = used_namespace + '.' + parent
@@ -206,7 +206,7 @@ class BuiltinFunctions:
             class_real_name = self.current_namespace() + arg
         except KeyError:
             aclass = None
-            for used_namespace in self.used_namespaces:
+            for used_namespace in self.states[-1]['used_namespaces']:
                 try:
                     aclass = self.classes[used_namespace + '.' + arg]
                     class_real_name = used_namespace + '.' + arg

@@ -39,6 +39,7 @@ class Program(helpers.Helpers):
         self.states = [{
             'current_step': 0,
             'commands': [parser.parse('pass')[0]],
+            'used_namespaces': [],
             'vars': {
                 'argv': args,
                 'argc': len(args)
@@ -57,7 +58,6 @@ class Program(helpers.Helpers):
         self.runtime_error = None # program raised error (for testing state)
         self.try_endtry = [] # says program is in try-endtry block
         self.namespaces_tree = [] # namespaces tree
-        self.used_namespaces = [] # list of used namespaces
         self.included_modules = [] # list of included modules to stop repeating imports
 
         self.allowed_pashmak_extensions = ['pashm']
@@ -190,10 +190,14 @@ class Program(helpers.Helpers):
             state_vars['__file__'] = func_body[0]['file_path']
             if os.path.isfile(state_vars['__file__']):
                 state_vars['__dir__'] = os.path.dirname(state_vars['__file__'])
+        used_namespaces = []
+        if not with_state:
+            used_namespaces = self.states[-1]['used_namespaces']
         self.states.append({
             'current_step': 0,
             'commands': func_body,
             'vars': state_vars,
+            'used_namespaces': used_namespaces,
         })
 
         # run function
@@ -410,7 +414,7 @@ class Program(helpers.Helpers):
             func_body = self.functions[self.current_namespace() + op_name]
         except KeyError:
             func_body = None
-            for used_namespace in self.used_namespaces:
+            for used_namespace in self.states[-1]['used_namespaces']:
                 try:
                     func_body = self.functions[used_namespace + '.' + op_name]
                 except KeyError:
