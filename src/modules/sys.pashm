@@ -25,7 +25,7 @@ namespace sys
 
     namespace path
         func add($new_path)
-            python 'os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"'
+            python('os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"')
             mem self.bootstrap_modules()
         endfunc
 

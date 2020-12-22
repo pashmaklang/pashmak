@@ -7,9 +7,7 @@ func say_hello
     println 'hello world'
 endfunc
 
-say_hello
-# or with `()`
-#say_hello()
+say_hello()
 ```
 
 output:
@@ -24,7 +22,7 @@ func say_hello
 endfunc
 
 # we run this two times
-say_hello
+say_hello()
 say_hello()
 ```
 
@@ -46,10 +44,10 @@ mem 'program started\n'; print ^
 
 func say_hello
     $name = ^ # copy mem to $name
-    println 'hello ' + $name
+    println('hello ' + $name)
 endfunc
 
-mem 'parsa'; say_hello
+mem 'parsa'; say_hello()
 ```
 
 program output:
@@ -69,8 +67,6 @@ func myfunc
     print ^
 endfunc
 
-myfunc "hello"
-# or
 myfunc("hello")
 ```
 
@@ -83,25 +79,10 @@ hello
 This is exactly like
 
 ```
-mem 'something'; some_func
+mem 'something'; some_func()
 ```
 
-but with better syntax, you only need to run `some_func 'something'`.
-
-##### NOTE: using `()` in end of function is optional. for example:
-
-```bash
-myfunc
-myfunc()
-# above codes are not different
-```
-
-or with arguments:
-
-```bash
-myfunc "arg1", "arg2"
-myfunc("arg1", "arg2")
-```
+but with better syntax, you only need to run `some_func('something')`.
 
 ##### how it works?
 you can put a value after name of function. this value will put in mem and you can access this argument from mem.
@@ -111,10 +92,10 @@ look at this example:
 ```bash
 func say_hello
     $name = ^ # copy mem(the passed argument to function) to $name
-    println 'hello ' + $name
+    println('hello ' + $name)
 endfunc
 
-say_hello 'parsa'
+say_hello('parsa')
 ```
 
 output:
@@ -130,10 +111,10 @@ func say_hello
     $args = ^ # copy mem to $args
     $first_name = $args[0]
     $last_name = $args[1]
-    println 'hello ' + $first_name + ' ' + $last_name
+    println('hello ' + $first_name + ' ' + $last_name)
 endfunc
 
-say_hello 'parsa', 'shahmaleki'
+say_hello('parsa', 'shahmaleki')
 ```
 
 arguments should be split with `,` and this will make a array in mem and function can access that array and use arguments.
@@ -143,20 +124,20 @@ we to copy function argument (in mem) to a variable, using this syntax:
 ```bash
 func say_hello
     $name = ^
-    println 'hello ' + $name
+    println('hello ' + $name)
 endfunc
 
-say_hello 'parsa'
+say_hello('parsa')
 ```
 
 but also we can use this syntax to copy function argument to variable with better syntax:
 
 ```bash
 func say_hello ($name)
-    println 'hello ' + $name
+    println('hello ' + $name)
 endfunc
 
-say_hello 'parsa'
+say_hello('parsa')
 ```
 
 #### NOTE: that space between `hello` and `($name)` is not required.
@@ -166,10 +147,10 @@ also you can don't use `()` and you can write above code like this:
 
 ```bash
 func say_hello $name # without ()
-    println 'hello ' + $name
+    println('hello ' + $name)
 endfunc
 
-say_hello 'parsa'
+say_hello('parsa')
 ```
 
 also we can use mem symbol in argument of function.
@@ -178,24 +159,24 @@ for example:
 
 ```bash
 func say_hello $name # without ()
-    println 'hello ' + $name
+    println('hello ' + $name)
 endfunc
 
 mem 'parsa'
 
-say_hello ^
+say_hello(^)
 ```
 
 or:
 
 ```bash
 func say_hello $name # without ()
-    println 'hello ' + $name
+    println('hello ' + $name)
 endfunc
 
 mem 'parsa'
 
-say_hello ^ + ' shahmaleki'
+say_hello(^ + ' shahmaleki')
 ```
 
 #### how two handle multiple arguments?
@@ -207,10 +188,10 @@ to handle this, you can use something like this:
 func say_hi($args)
     $first_name = $args[0]
     $last_name = $args[1]
-    println 'hello ' + $first_name + ' ' + $last_name
+    println('hello ' + $first_name + ' ' + $last_name)
 endfunc
 
-say_hi 'parsa', 'shahmaleki'
+say_hi('parsa', 'shahmaleki')
 ```
 
 in above example, all of our arguments are in `$args`. that variable is a python tuple/list. we can handle multiple arguments like this example.
@@ -222,15 +203,15 @@ look at this example:
 ```bash
 func myfunc
     $name = 'new name'
-    println $name
+    println($name)
 endfunc
 
 $name = 'parsa'
-println $name
+println($name)
 
-myfunc
+myfunc()
 
-println $name
+println($name)
 ```
 
 output:
@@ -256,16 +237,16 @@ the answer is in `gset`:
 ```bash
 func myfunc
     $name = 'new name'
-    gset 'name', $name
-    println $name
+    gset('name', $name)
+    println($name)
 endfunc
 
 $name = 'parsa'
-println $name
+println($name)
 
-myfunc
+myfunc()
 
-println $name
+println($name)
 ```
 
 output:
@@ -276,7 +257,7 @@ new name
 new name
 ```
 
-here, `gset` command gets two parameters: first, global variable name and second, new value for that
+here, `gset` function gets two parameters: first, global variable name and second, new value for that
 
 this command sets value of that variable globaly.
 
@@ -295,9 +276,9 @@ func add_two_nums($nums)
 endfunc
 
 # now we call this function
-add_two_nums 10, 5
+add_two_nums(10, 5)
 $result = ^ # function output is in mem and we copy mem to variable $result
-println $result
+println($result)
 ```
 
 output:
@@ -312,12 +293,12 @@ for example:
 
 ```bash
 func get_data
-    println 'start'
+    println('start')
     return 'the data'
-    println 'end' # this will not be runed
+    println('end') # this will not be runed
 endfunc
 
-println %{get_data()}%
+println(%{get_data()}%)
 ```
 
 output:
@@ -336,12 +317,12 @@ look at this example:
 
 ```bash
 # the say_hi function returns string `hello <$name>`
-func say_hi $name
+func say_hi($name)
     return 'hello ' + $name
 endfunc
 
 # we want to call this function and print the output of that
-println %{say_hi "parsa"}%
+println %{say_hi("parsa")}%
 ```
 
 output:
@@ -357,7 +338,7 @@ you have to use `%{}%` syntax and write you code between them. output of that fu
 another example:
 
 ```bash
-func say_hi $name
+func say_hi($name)
     return 'hello ' + $name
 endfunc
 
@@ -365,7 +346,7 @@ func get_name
     return 'pashmak'
 endfunc
 
-println %{say_hi %{get_name}%}%
+println %{say_hi(%{get_name}%)}%
 ```
 
 output:
@@ -383,8 +364,8 @@ func add_two_nums($nums)
     return $nums[0] + $nums[1]
 endfunc
 
-$result = %{add_two_nums 10, 5}%
-println 'sum is ' + str($result)
+$result = %{add_two_nums(10, 5)}%
+println('sum is ' + str($result))
 ```
 
 This is very useful.

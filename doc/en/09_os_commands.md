@@ -6,14 +6,14 @@ here is some commands about OS.
 change directory. with this command you can change program working directory:
 
 ```bash
-chdir '/tmp'
+chdir('/tmp')
 ```
 
 ### cwd
 get current working directory.
 
 ```bash
-cwd
+cwd()
 println ^
 ```
 
@@ -27,13 +27,13 @@ or:
 
 ```bash
 $cwd = %{cwd()}%
-println 'The current working directory is ' + $cwd
+println('The current working directory is ' + $cwd)
 ```
 
 or:
 
 ```bash
-println %{cwd}%
+println(%{cwd()}%)
 ```
 
 this command puts current working directory path into the mem.
@@ -42,20 +42,20 @@ this command puts current working directory path into the mem.
 you can run shell commands by this command:
 
 ```bash
-system 'ls /tmp'
+system('ls /tmp')
 ```
 
 also after run `system` function, exit code will put in `mem`:
 
 ```bash
-system 'ls /'
-println ^ # output: 0
+system('ls /')
+println(^) # output: 0
 ```
 
 or:
 
 ```bash
-println %{system 'ls /'}%
+println(%{system 'ls /'}%)
 ```
 
 ### exit
@@ -64,11 +64,11 @@ this command exits program
 look at this example:
 
 ```bash
-println 'first print\n'
+println('first print')
 
-exit
+exit()
 
-println 'last print\n' # this will not print
+println('last print') # this will not print
 ```
 
 output:
@@ -80,8 +80,8 @@ first print
 ###### exit with exit code:
 
 ```bash
-println 'hello world\n'
-exit 1
+println('hello world')
+exit(1)
 ```
 
 exit code of program will be `1`
@@ -92,8 +92,8 @@ exit code of program will be `1`
 for example, if you run an script in `/home/parsa/myscript.pashm` with this content:
 
 ```bash
-println $__file__
-println $__dir__
+println($__file__)
+println($__dir__)
 ```
 
 output is:

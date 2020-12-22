@@ -3,7 +3,7 @@
 we may recive some errors in our program. for example:
 
 ```bash
-println $this_var_not_found
+println($this_var_not_found)
 ```
 
 output:
@@ -17,7 +17,7 @@ or:
 
 ```bash
 # undefined function
-printlgdfgfd ^
+printlgdfgfd(^)
 ```
 
 output:
@@ -37,14 +37,14 @@ look at this example:
 
 ```bash
 try handle_error
-    println $somevar
+    println($somevar)
 endtry
 
 goto after_error
 
 section handle_error
 
-mem 'some errors raised\n'; print ^
+println('some errors raised')
 
 section after_error
 ```
@@ -58,7 +58,7 @@ when error is raised in try statement, error data will put in mem (^):
 
 ```bash
 try handle_error
-    println $somevar
+    println($somevar)
 endtry
 
 goto after_error
@@ -66,7 +66,7 @@ goto after_error
 section handle_error
 
 $ex = ^ # copy mem (^) to $ex variable (this includes information about raised error)
-println $ex # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
+println($ex) # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
 
 section after_error
 ```
@@ -77,13 +77,11 @@ Your self can raise errors in the program.
 for example:
 
 ```bash
-println 'program started'
+println('program started')
 
-raise 'MyError', 'this is my error'
-# or
 raise('MyError', 'this is my error')
 
-println 'this will not print'
+println('this will not print')
 ```
 
 output:

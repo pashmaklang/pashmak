@@ -22,4 +22,4 @@
 
 print 'what is your name? '
 $name = %{read}%
-println 'hello ' + $name
+println('hello ' + $name)

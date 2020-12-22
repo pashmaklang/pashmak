@@ -28,22 +28,22 @@ class init method is working
 class Hello
     func __init__ $name
         $this->name = $name
-        println 'the ' + $name + ' was created'
+        println('the ' + $name + ' was created')
     endfunc
 endclass
 
-$hello = %{new Hello 'parsa'}%
-println $hello->name
+$hello = %{new Hello('parsa')}%
+println($hello->name)
 
 class Bye < Hello
     func __init__ $something
-        println 'hello ' + $something
+        println('hello ' + $something)
         $this->something = $something
     endfunc
 endclass
 
-$bye = %{new Bye 'parsa'}%
-println $bye->something
+$bye = %{new Bye('parsa')}%
+println($bye->something)
 
 --output--
 """the parsa was created

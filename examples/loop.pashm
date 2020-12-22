@@ -27,11 +27,11 @@ func myfunc($n)
 
     $i = 1
     section loop
-        println str($i)
+        println($i)
         $i = $i + 1
     mem $i < $n; gotoif loop
 
-    println 'finished'
+    println('finished')
 endfunc
 
 myfunc(100)

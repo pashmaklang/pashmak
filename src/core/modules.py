@@ -119,21 +119,21 @@ func endns
 endnamespace
 endfunc
 func raise($exdata)
-python "self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', self.threads[-1]['commands'][self.threads[-1]['current_step']])"
+python("self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', self.threads[-1]['commands'][self.threads[-1]['current_step']])")
 endfunc
 func assert($value)
 if not $value
-raise 'AssertError', 'asserting that false is true'
+raise('AssertError', 'asserting that false is true')
 endif
 endfunc
 func gset($args)
-python 'self.threads[0]["vars"]["' + str($args[0]) + '"] = self.get_var("args")[1]'
+python('self.threads[0]["vars"]["' + str($args[0]) + '"] = self.get_var("args")[1]')
 endfunc
 func println($value)
-print str($value) + '\\n'
+print(str($value) + '\\n')
 endfunc
 func printl($value)
-println $value
+println($value)
 endfunc
 func cwd
 return os.getcwd()
@@ -156,7 +156,7 @@ modules["sys"] = """namespace sys
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
 namespace path
 func add($new_path)
-python 'os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"'
+python('os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"')
 mem self.bootstrap_modules()
 endfunc
 func list
@@ -168,29 +168,29 @@ endns
 endns"""
 modules["test"] = """namespace test
 func doAssert($value)
-assert $value
+assert($value)
 endfunc
 func assertTrue($value)
-test.doAssert $value
+test.doAssert($value)
 endfunc
 func assertFalse($value)
-test.doAssert not $value
+test.doAssert(not $value)
 endfunc
 func assertEquals($args)
 $a = $args[0]
 $b = $args[1]
-test.doAssert $a == $b
+test.doAssert($a == $b)
 endfunc
 func assertNotEquals($args)
 $a = $args[0]
 $b = $args[1]
-test.doAssert $a != $b
+test.doAssert($a != $b)
 endfunc
 func assertEmpty($value)
-test.doAssert $valie == None
+test.doAssert($valie == None)
 endfunc
 func assertNotEmpty($value)
-test.doAssert $valie != None
+test.doAssert($valie != None)
 endfunc
 endns"""
 modules["time"] = """namespace time

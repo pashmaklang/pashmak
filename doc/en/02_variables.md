@@ -7,7 +7,7 @@ Look at this example:
 ```bash
 $myvar = 'this is data'
 
-println $myvar # output: this is data
+println($myvar) # output: this is data
 ```
 
 ###### NOTE: always put $ before name of variable everywhere
@@ -28,14 +28,14 @@ look at this example:
 ```bash
 $name = 'parsa' # set name variable
 
-println 'hello ' + $name # output: hello parsa
+println('hello ' + $name) # output: hello parsa
 
 $num = 12
-println $num * 5 # output: 60
+println($num * 5) # output: 60
 
 $num2 = 4
 
-println $num * $num2 + 1 # output: 49
+println($num * $num2 + 1) # output: 49
 ```
 
 #### copy variables in other variables
@@ -46,17 +46,17 @@ look at this example:
 $var1 = 'hi'
 $var2 = 'bye'
 
-println $var1 # output: hi
-println $var2 # output: bye
+println($var1) # output: hi
+println($var2) # output: bye
 
 $var2 = $var1
 
-println $var1 # output: hi
-println $var2 # output: hi
+println($var1) # output: hi
+println($var2) # output: hi
 
 $name = 'parsa'
 $message = 'hello' + $parsa # you can use all of mem calculation features in here
-println $message # output: hello parsa
+println($message) # output: hello parsa
 ```
 
 #### NOTE: allowed characters for variable name are `A-Za-z`(or any alpha-bet characters in other languages), `&._` characters.
@@ -79,10 +79,10 @@ for example:
 ```bash
 mem 'parsa'
 $message = 'my name is ' + ^
-println $message # output: my name is parsa
+println($message) # output: my name is parsa
 
 mem 10
-println (^ + 5) * 2 # output: 30
+println((^ + 5) * 2) # output: 30
 ```
 
 ### free(delete) variables
@@ -111,10 +111,10 @@ look at this example:
 ```bash
 $somevar; $v # set `somevar` and `v` variables
 
-isset $somevar; println ^ # output: True
-isset $this_var_not_found; println ^ # output: False
-isset $somevar $sassadffgdty; println ^ # output: False
-isset $somevar $v; println ^ # output: True
+isset $somevar; println(^) # output: True
+isset $this_var_not_found; println(^) # output: False
+isset $somevar $sassadffgdty; println(^) # output: False
+isset $somevar $v; println(^) # output: True
 ```
 
 (The `True` and `False` are Python booleans).
@@ -135,11 +135,12 @@ $myint = 20
 $myfloat = 15.32
 $mybool = False
 
-typeof $mystr; println ^ # output: <class 'str'>
-typeof $myint; println ^ # output: <class 'int'>
-typeof($myfloat); println ^ # output: <class 'float'>
-typeof($mybool); println ^ # output: <class 'bool'>
-# NOTE: the `()` is not required
+typeof($mystr); println(^) # output: <class 'str'>
+typeof($myint); println(^) # output: <class 'int'>
+typeof($myfloat); println(^) # output: <class 'float'>
+typeof($mybool); println(^) # output: <class 'bool'>
+# also you can use this syntax
+println(%{typeof($myint)}%)
 ```
 
 This command puts the typeof variable in mem.
@@ -189,7 +190,7 @@ for example:
 
 ```bash
 $mystring = '  hello world          '
-println $mystring->strip() # output: `hello world`
+println($mystring->strip()) # output: `hello world`
 ```
 
 #### NOTE: in python, for calling function or access to property of a object, we use `.` character, but in pashmak we use `->` symbol(like php)
@@ -203,7 +204,7 @@ for example:
 # declare the const
 $&name = 'the value'
 
-println $&name
+println($&name)
 ```
 
 output:
@@ -244,7 +245,7 @@ $&name # only declare constant, default value is `None`
 # set value
 $&name = 'parsa'
 
-println $&name
+println($&name)
 ```
 
 output:

@@ -20,9 +20,9 @@ class Car
     $color
 endclass
 
-$my_car = %{new Car}%
+$my_car = %{new Car()}%
 
-println $my_car
+println($my_car)
 ```
 
 output:
@@ -43,7 +43,7 @@ $my_car = %{new Car}%
 $my_car->name = 'BMW'
 $my_car->color = 'white'
 
-println $my_car->name + ' ' + $my_car->color
+println($my_car->name + ' ' + $my_car->color)
 ```
 
 output:
@@ -110,7 +110,7 @@ endclass
 
 $my_car = %{new Car}%
 
-println $my_car->name # output: default name
+println($my_car->name) # output: default name
 ```
 
 we can access to the object properties by writing `$varname->property_name`
@@ -127,11 +127,11 @@ endclass
 
 $my_car = %{new Car}%
 
-println $my_car->name # output: default name
+println($my_car->name) # output: default name
 
 # setting the new value
 $my_car->name = 'new name'
-println $my_car->name # output: new name
+println($my_car->name) # output: new name
 ```
 
 ### classes in namespaces
@@ -174,8 +174,8 @@ $my_car = %{new Car}%
 $my_car->name = 'my car'
 $my_car->brand->title = 'BMW'
 
-println $my_car->name
-println $my_car->brand->title
+println($my_car->name)
+println($my_car->brand->title)
 ```
 
 output:
@@ -209,7 +209,7 @@ $my_car->color = 'red'
 
 $my_car->the_new_prop = 'the value'
 
-println $my_car->the_new_prop
+println($my_car->the_new_prop)
 ```
 
 output:
@@ -297,8 +297,8 @@ endclass
 
 $child = %{new Child}%
 
-println $child->name # output: hello world
-println $child->age # output: 100
+println($child->name) # output: hello world
+println($child->age) # output: 100
 ```
 
 actually, the parent class has not properties of he's childs, but childs has all of parent's props.
@@ -322,7 +322,7 @@ endclass
 
 $person = %{new Person}%
 
-println $person->__name__ # output: Person
+println($person->__name__) # output: Person
 ```
 
 ### Class methods
@@ -335,7 +335,7 @@ class Cat
     $name
 
     func mio
-        println 'miooo...'
+        println('miooo...')
     endfunc
 endclass
 
@@ -360,7 +360,7 @@ class Cat
     $name
 
     func mio
-        println 'miooo... my name is ' + $this->name
+        println('miooo... my name is ' + $this->name)
     endfunc
 endclass
 
@@ -389,7 +389,7 @@ class Person
     endfunc
 
     func say_hi
-        println 'hello. my name is ' + $this->name
+        println('hello. my name is ' + $this->name)
     endfunc
 endclass
 
@@ -430,7 +430,7 @@ class Child < Father; endclass
 
 $obj = %{new Child}%
 
-println $obj->hi()
+println($obj->hi())
 ```
 
 output:
@@ -450,7 +450,7 @@ look at this example:
 ```bash
 class Person
     func __init__
-        println 'a new Person is created'
+        println('a new Person is created')
     endfunc
 endclass
 
@@ -469,11 +469,11 @@ also you can pass argument to `__init__` method. look at this example:
 class Person
     func __init__($name)
         $this->name = $name
-        println 'hello ' + $this->name
+        println('hello ' + $this->name)
     endfunc
 endclass
 
-$p = %{new Person 'parsa'}%
+$p = %{new Person('parsa')}%
 println $p->name
 ```
 
@@ -496,9 +496,9 @@ endclass
 
 $p = %{new Person}%
 $p->name = 'parsa'
-println $p
+println($p)
 # OR
-println %{new Person}%
+println(%{new Person}%)
 ```
 
 output:
@@ -524,7 +524,7 @@ endclass
 
 $p = %{new Person}%
 $p->name = 'parsa'
-println $p
+println($p)
 ```
 
 output:

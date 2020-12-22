@@ -21,11 +21,11 @@
 #########################################################################
 
 try handle_error
-    println 'A'
+    println('A')
     fghgfhg
-    println 'B'
+    println('B')
 endtry
 
 goto after_handle_error; section handle_error
-    println 'the error!'
+    println('the error!')
 section after_handle_error

@@ -50,7 +50,7 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
     op['str'] = op_str # command plain string
     op_parts = op_str.split(' ')
     op['command'] = op_parts[0]
-    op['command'] = op['command'].split('(')
+    op['command'] = op['command'].split('(', 1)
     if len(op['command']) > 1:
         op_parts[0] = op['command'][0]
         op_parts.insert(1, '(' + op['command'][1])

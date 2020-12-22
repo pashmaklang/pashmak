@@ -428,13 +428,11 @@ class Program(helpers.Helpers):
         # run function
         try:
             # put argument in the mem
-            if op['args_str'] != '':
+            if op['args_str'] != '' and op['args_str'].strip() != '()':
                 if op['command'] != 'rmem':
                     self.mem = self.eval(op['args_str'])
                 else:
                     self.eval(op['args_str'])
-            else:
-                self.mem = ''
 
             # execute function body
             with_thread = True

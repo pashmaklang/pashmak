@@ -28,7 +28,7 @@ class Car
     $color = 'red'
 endclass
 
-$my_car = %{new Car}%
+$my_car = %{new Car()}%
 
 namespace Foo
     class Bar
@@ -48,8 +48,8 @@ use Foo.Sub
 
 $my_hi = %{new Hello}%
 
-println $my_bar->title
-println $my_car->color
+println($my_bar->title)
+println($my_car->color)
 
 --output--
 """the bar

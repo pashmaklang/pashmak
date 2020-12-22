@@ -29,6 +29,6 @@ $names = ['parsa', 'pashmak', 'something']
 $i = 0
 
 section loop
-    println $names[$i]
+    println($names[$i])
     $i = $i + 1
 mem $i < len($names); gotoif loop

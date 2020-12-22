@@ -69,16 +69,16 @@ endclass
 
 $total_paths = []
 
-$c = %{new Crawler $__dir__ + '/../src', '.py'}%
+$c = %{new Crawler($__dir__ + '/../src', '.py')}%
 $total_paths = [*$total_paths, *$c->files_list]
 
-$c = %{new Crawler $__dir__ + '/../tests', '.pashmt'}%
+$c = %{new Crawler($__dir__ + '/../tests', '.pashmt')}%
 $total_paths = [*$total_paths, *$c->files_list]
 
-$c = %{new Crawler $__dir__ + '/../src/modules', '.pashm'}%
+$c = %{new Crawler($__dir__ + '/../src/modules', '.pashm')}%
 $total_paths = [*$total_paths, *$c->files_list]
 
-$c = %{new Crawler $__dir__ + '/../examples', '.pashm'}%
+$c = %{new Crawler($__dir__ + '/../examples', '.pashm')}%
 $total_paths = [*$total_paths, *$c->files_list]
 
 mem $total_paths->sort()
@@ -89,4 +89,4 @@ section loop2
     $i = $i + 1
 mem $i < len($total_paths); gotoif loop2
 
-println '\033[32mHeaders updated successfully\033[0m'
+println('\033[32mHeaders updated successfully\033[0m')

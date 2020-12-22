@@ -6,7 +6,7 @@ example:
 
 ```bash
 if 2 == 2
-    println 'yes, 2 is 2'
+    println('yes, 2 is 2')
 endif
 ```
 
@@ -14,9 +14,9 @@ or:
 
 ```bash
 if 3 == 7
-    println '3 is 7'
+    println('3 is 7')
 else
-    println '3 is NOT 7'
+    println('3 is NOT 7')
 endif
 ```
 
@@ -36,7 +36,7 @@ for example:
 $age = 30
 
 if $age > 18
-    println 'Welcome!'
+    println('Welcome!')
 endif
 ```
 
@@ -50,7 +50,7 @@ Welcome!
 $age = 12
 
 if $age > 18
-    println 'Welcome!'
+    println('Welcome!')
 endif
 
 # above code haven't output
@@ -62,9 +62,9 @@ also you can use `else`:
 $age = 12
 
 if $age > 18
-    println 'Welcome!'
+    println('Welcome!')
 else
-    println 'you cannot access'
+    println('you cannot access')
 endif
 ```
 
@@ -76,13 +76,13 @@ also there is other keyword `elif`:
 $num = 17
 
 if $num == 5
-    println 'num is 5'
+    println('num is 5')
 elif $num == 6
-    println 'num is 6'
+    println('num is 6')
 elif $num == 17
-    println 'num is 17'
+    println('num is 17')
 else
-    println 'nothing'
+    println('nothing')
 endif
 ```
 
@@ -106,13 +106,13 @@ $test = True
 if $num == 18
     pass
 elif $num == 15
-    println 'num is 15'
+    println('num is 15')
 
     # another if in the parent if
     if $test
-        println 'this is a test'
+        println('this is a test')
     else
-        println 'this is not test'
+        println('this is not test')
     endif
 endif
 ```

@@ -198,7 +198,7 @@ class BuiltinFunctions:
     def run_new(self, op: dict):
         """ Creates a object from class """
         self.require_one_argument(op, 'missing class name')
-        arg = op['args'][0]
+        arg = op['args'][0].split('(', 1)[0]
         # check class exists
         class_real_name = None
         try:
@@ -219,9 +219,9 @@ class BuiltinFunctions:
                 except KeyError:
                     return self.raise_error('ClassError', 'undefined class "' + arg + '"', op)
         class_copy = copy.deepcopy(aclass)
-        init_args = op['args_str'].split(' ', 1)
+        init_args = op['args_str'].split('(', 1)
         if len(init_args) > 1:
-            init_args = init_args[-1].strip()
+            init_args = '(' + init_args[-1]
         else:
             init_args = ''
         if init_args == '':
