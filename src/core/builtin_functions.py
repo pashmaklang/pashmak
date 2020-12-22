@@ -280,11 +280,12 @@ class BuiltinFunctions:
         # check for argument variable
         if len(self.multi_char_split(op['args_str'], ' (', 1)) > 1:
             arg_var = self.multi_char_split(op['args_str'], ' (', 1)[1].strip(')').strip('(').strip()
-            self.arg_should_be_variable(arg_var, op)
-            if is_method:
-                self.classes[self.current_class].methods[self.current_func].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
-            else:
-                self.functions[self.current_func].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
+            if arg_var != '':
+                self.arg_should_be_variable(arg_var, op)
+                if is_method:
+                    self.classes[self.current_class].methods[self.current_func].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
+                else:
+                    self.functions[self.current_func].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
 
     def run_return(self, op: dict):
         """ Returns a value in function """

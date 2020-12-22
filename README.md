@@ -1070,6 +1070,16 @@ endfunc
 say_hello('parsa')
 ```
 
+also you can use empty `()` to have better syntax:
+
+```bash
+func say_hello()
+    println('hello ' + ^)
+endfunc
+
+say_hello('parsa')
+```
+
 also we can use mem symbol in argument of function.
 
 for example:
