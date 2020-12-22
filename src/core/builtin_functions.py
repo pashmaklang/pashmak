@@ -145,12 +145,10 @@ class BuiltinFunctions:
         if len(arg) > 1:
             parent = arg[1].strip()
         arg = arg[0].strip()
-
         if '.' in arg:
             return self.raise_error(
                 'ClassNameContainsDotError', 'name "' + arg + '" for class contains `.` character', op
             )
-
         # check parent exists
         parent_real_name = None
         if parent != None:
@@ -171,7 +169,6 @@ class BuiltinFunctions:
                         parent_real_name = parent
                     except KeyError:
                         return self.raise_error('ClassError', 'undefined class "' + parent + '"', op)
-
         # check class already declared
         try:
             self.classes[self.current_namespace() + arg]
@@ -182,7 +179,6 @@ class BuiltinFunctions:
             )
         except KeyError:
             pass
-
         if parent_real_name != None:
             self.classes[self.current_namespace() + arg] = copy.deepcopy(self.classes[parent_real_name])
             self.classes[self.current_namespace() + arg].props['__parent__'] = parent_real_name
@@ -295,7 +291,6 @@ class BuiltinFunctions:
             value = None
         else:
             value = self.eval(value)
-
         self.mem = value
         if len(self.states) > 1:
             self.states[-1]['current_step'] = len(self.states[-1]['commands']) * 2
