@@ -28,6 +28,7 @@ import signal
 from pathlib import Path
 from core import helpers, version, modules, jit, parser
 from core.class_system import Class
+from core.function import Function
 
 import hashlib, time, random, datetime
 
@@ -44,8 +45,8 @@ class Program(helpers.Helpers):
             }
         }] # list of states
         self.functions = {
-            "mem": [], # mem is a empty function just for save mem in code
-            "rmem": [],
+            "mem": Function(name='mem', prog=self), # mem is a empty function just for save mem in code
+            "rmem": Function(name='rmem', prog=self),
         } # declared functions <function-name>:[<list-of-body-commands>]
         self.sections = {} # list of declared sections <section-name>:<index-of-command-to-jump>
         self.classes = {} # list of declared classes
@@ -313,9 +314,9 @@ class Program(helpers.Helpers):
             self.current_func
             try:
                 self.current_class
-                self.classes[self.current_class].methods[self.current_func].append(op)
+                self.classes[self.current_class].methods[self.current_func].body.append(op)
             except:
-                self.functions[self.current_func].append(op)
+                self.functions[self.current_func].body.append(op)
             return
         except NameError:
             pass
@@ -457,7 +458,7 @@ class Program(helpers.Helpers):
             default_variables = {}
             if is_method != False:
                 default_variables['this'] = is_method
-            self.exec_func(func_body, with_state, default_variables=default_variables)
+            self.exec_func(func_body.body, with_state, default_variables=default_variables)
             return
         except Exception as ex:
             raise

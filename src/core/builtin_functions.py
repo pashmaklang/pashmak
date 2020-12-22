@@ -24,6 +24,7 @@
 
 from core.class_system import Class
 from core import parser
+from core.function import Function
 import copy
 import random
 
@@ -270,19 +271,19 @@ class BuiltinFunctions:
         try:
             self.current_class
             self.current_func = arg
-            self.classes[self.current_class].methods[self.current_func] = []
+            self.classes[self.current_class].methods[self.current_func] = Function(name=self.current_func, prog=self)
             is_method = True
         except:
             self.current_func = self.current_namespace() + arg
-            self.functions[self.current_func] = []
+            self.functions[self.current_func] = Function(name=self.current_func, prog=self)
         # check for argument variable
         if len(self.multi_char_split(op['args_str'], ' (', 1)) > 1:
             arg_var = self.multi_char_split(op['args_str'], ' (', 1)[1].strip(')').strip('(').strip()
             self.arg_should_be_variable(arg_var, op)
             if is_method:
-                self.classes[self.current_class].methods[self.current_func].append(parser.parse(arg_var + ' = ^', '<system>')[0])
+                self.classes[self.current_class].methods[self.current_func].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
             else:
-                self.functions[self.current_func].append(parser.parse(arg_var + ' = ^', '<system>')[0])
+                self.functions[self.current_func].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
 
     def run_return(self, op: dict):
         """ Returns a value in function """
