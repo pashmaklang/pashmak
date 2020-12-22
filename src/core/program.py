@@ -20,7 +20,7 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Pashmak program object """
+""" Pashmak program Exceutor """
 
 import sys
 import os
@@ -362,14 +362,7 @@ class Program(helpers.Helpers):
                 op_func(op)
             return
 
-        # check command syntax is variable value setting
-        tmp_bool = True
         if op['str'][0] == '$':
-            tmp_parts = op['str'].strip().split('@', 1)
-            if self.variable_exists(tmp_parts[0].strip()[1:]) and len(tmp_parts) > 1:
-                tmp_bool = False
-
-        if op['str'][0] == '$' and tmp_bool:
             # if a class is started, append current command as a property to class
             is_in_class = False
             try:
