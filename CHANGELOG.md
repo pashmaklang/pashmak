@@ -24,6 +24,7 @@
 - fixed a bug in `$__dir__` and `$__file__` variables in function
 - fixed a bug in multi importing syntax
 - fixed some bugs in `end*` commands
+- fixed import command bug while using `()`
 
 #### Removed
 - deleted `loop` and `while` functions

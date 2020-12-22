@@ -80,6 +80,7 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
     for op_part in op_parts:
         if op_part != '' or op['command'] == 'mem':
             if op['command'] == 'import':
+                op_part = op_part.strip().strip(')').strip('(')
                 if op_part:
                     if op_part[0] == '@':
                         op_part = '"' + op_part
