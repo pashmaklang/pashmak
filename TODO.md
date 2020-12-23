@@ -1,6 +1,5 @@
 # TODO
 
-- fix inline method calling bug
 - put error data as a object in error system
 - block using special characters in namespaces, functions, classes and variables name
 - handle accessing parent class methods and props in class system
