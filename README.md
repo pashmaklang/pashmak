@@ -2050,6 +2050,8 @@ $my_file->close()
 
 The second argument for opening file is type of opening. `r` means Read and `w` means write.
 
+Also you can use `fopen` function instead of `open`. this is not different, just is an alias.
+
 The file objects in pashmak are handled by python you can use all of python file features in pashmak like python.
 
 
