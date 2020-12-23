@@ -30,7 +30,7 @@ from core import helpers, version, modules, jit, parser
 from core.class_system import Class
 from core.function import Function
 
-import hashlib, time, random, datetime
+import hashlib, time, random, datetime, json
 
 def fopen(filepath: str, open_type='r'):
     return open(filepath, open_type)
