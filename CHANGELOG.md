@@ -14,6 +14,7 @@
 - added inline function calling feature, for example `println %{my_func_or_command %{another_command_as_arg}%}%`
 - added general variable `$__ismain__`
 - added **Jit** compiler
+- added `fopen` alias for `open` function
 
 #### Bug Fixes
 - fixed a bug in `eval` function

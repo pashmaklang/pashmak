@@ -32,6 +32,9 @@ from core.function import Function
 
 import hashlib, time, random, datetime
 
+def fopen(filepath: str, open_type='r'):
+    return open(filepath, open_type)
+
 class Program(helpers.Helpers):
     """ Pashmak program object """
 
