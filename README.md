@@ -2933,10 +2933,12 @@ and `$sys.pashmakinfo['pythoninfo']` shows info of python.
 you can use this python standard modules in pashmak directly in your code:
 
 - `os`
+- `sys`
 - `time`
 - `hashlib`
 - `random`
 - `datetime`
+- `json`
 
 for example:
 

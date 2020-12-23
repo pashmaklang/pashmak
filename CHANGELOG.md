@@ -15,6 +15,7 @@
 - added general variable `$__ismain__`
 - added **Jit** compiler
 - added `fopen` alias for `open` function
+- added python `json` library support
 
 #### Bug Fixes
 - fixed a bug in `eval` function
