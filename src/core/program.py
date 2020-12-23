@@ -32,6 +32,9 @@ from core.function import Function
 
 import hashlib, time, random, datetime
 
+def fopen(filepath: str, open_type='r'):
+    return open(filepath, open_type)
+
 class Program(helpers.Helpers):
     """ Pashmak program object """
 
@@ -252,20 +255,26 @@ class Program(helpers.Helpers):
             if code[0] == False:
                 code = code[1]
                 # replace variable names with value of them
-                variables_in_code = []
                 literals = '()+-/*%=}{<> [],'
                 code_words = self.multi_char_split(code, literals)
                 for word in code_words:
                     if word:
-                        if word[0] == '$' and not '@' in word:
-                            variables_in_code.append(word[1:])
-                for k in variables_in_code:
-                    if dont_check_vars == False:
-                        self.variable_required(k, self.threads[-1]['commands'][self.threads[-1]['current_step']])
-                    if varname_as_dict:
-                        code = code.replace('$' + k, 'self.all_vars()["' + k + '"]')
-                    else:
-                        code = code.replace('$' + k, 'self.get_var("' + k + '")')
+                        if word[0] == '$':
+                            if dont_check_vars == False:
+                                self.variable_required(word[1:], self.threads[-1]['commands'][self.threads[-1]['current_step']])
+                            if varname_as_dict:
+                                code = code.replace('$' + word[1:], 'self.all_vars()["' + word[1:] + '"]', 1)
+                            else:
+                                code = code.replace('$' + word[1:], 'self.get_var("' + word[1:] + '")', 1)
+                        else:
+                            try:
+                                self.functions[word]
+                                tmp_index = code.find(word)
+                                if code[tmp_index-2:tmp_index] != '->':
+                                    self.functions[word].prog = self
+                                    code = code.replace(word, 'self.functions["' + word + '"]', 1)
+                            except KeyError:
+                                pass                    
                 code = code.replace('->', '.')
                 code = code.replace('^', 'self.get_mem()')
                 z = 0
@@ -387,7 +396,7 @@ class Program(helpers.Helpers):
                 pass
             parts = self.split_by_equals(op['str'].strip()) # op['str'].strip().split('=', 1)
             if len(parts) <= 1:
-                if '->' in op['str']:
+                if '->' in op['str'] or '(' in op['str'] or ')' in op['str']:
                     self.mem = self.eval(op['str'])
                     return
             varname = parts[0].strip()

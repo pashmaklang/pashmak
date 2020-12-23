@@ -25,8 +25,8 @@ read command can read multiple values in one command
 
 --file--
 $var; $v2;
-$var = %{read}%
-$v2 = %{read}%
+$var = read()
+$v2 = read()
 
 --stdin--
 ['pashmak', 'hello']
