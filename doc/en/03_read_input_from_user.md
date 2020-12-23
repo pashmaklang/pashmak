@@ -6,7 +6,7 @@ look at this example:
 
 ```bash
 print('what is your name? ')
-$name = %{read()}% # read a input and put that in $name variable
+$name = read() # read a input and put that in $name variable
 println('hello ' + $name) # say hello to $name :)
 ```
 
@@ -29,10 +29,10 @@ also look at this example:
 $num1; $num2
 
 print('enter first number: ')
-$num1 = int(%{read()}%)
+$num1 = int(read())
 
 print('enter second number: ')
-$num2 = int(%{read()}%)
+$num2 = int(read())
 
 # now we want to plus them
 $sum = $num1 + $num2

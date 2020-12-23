@@ -26,14 +26,14 @@ output:
 or:
 
 ```bash
-$cwd = %{cwd()}%
+$cwd = cwd()
 println('The current working directory is ' + $cwd)
 ```
 
 or:
 
 ```bash
-println(%{cwd()}%)
+println(cwd())
 ```
 
 this command puts current working directory path into the mem.
@@ -55,7 +55,7 @@ println(^) # output: 0
 or:
 
 ```bash
-println(%{system 'ls /'}%)
+println(system('ls /'))
 ```
 
 ### exit

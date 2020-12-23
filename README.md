@@ -484,8 +484,8 @@ typeof($mystr); println(^) # output: <class 'str'>
 typeof($myint); println(^) # output: <class 'int'>
 typeof($myfloat); println(^) # output: <class 'float'>
 typeof($mybool); println(^) # output: <class 'bool'>
-# also you can use this syntax
-println(%{typeof($myint)}%)
+# also you can use this syntax and use function directly
+println(typeof($myint))
 ```
 
 This command puts the typeof variable in mem.
@@ -611,7 +611,7 @@ look at this example:
 
 ```bash
 print('what is your name? ')
-$name = %{read()}% # read a input and put that in $name variable
+$name = read() # read a input and put that in $name variable
 println('hello ' + $name) # say hello to $name :)
 ```
 
@@ -634,10 +634,10 @@ also look at this example:
 $num1; $num2
 
 print('enter first number: ')
-$num1 = int(%{read()}%)
+$num1 = int(read())
 
 print('enter second number: ')
-$num2 = int(%{read()}%)
+$num2 = int(read())
 
 # now we want to plus them
 $sum = $num1 + $num2
@@ -744,10 +744,10 @@ look at this example:
 ```bash
 # read age from user
 print('enter your age: ')
-$age = %{read()}%
+$age = read()
 $age = int($age)
 # OR
-$age = int(%{read()}%)
+$age = int(read())
 
 mem $age > 18; gotoif age_is_more_than_18 # if age is more than 18, goto age_is_more_than_18 section
 
@@ -1226,7 +1226,7 @@ func get_data
     println('end') # this will not be runed
 endfunc
 
-println(%{get_data()}%)
+println(get_data())
 ```
 
 output:
@@ -1250,7 +1250,7 @@ func say_hi($name)
 endfunc
 
 # we want to call this function and print the output of that
-println %{say_hi("parsa")}%
+println(say_hi("parsa"))
 ```
 
 output:
@@ -1260,8 +1260,6 @@ hello parsa
 ```
 
 in the above example, we directly called a function and passed the output of that as argument of `println` function.
-
-you have to use `%{}%` syntax and write you code between them. output of that function will be used instead of that.
 
 another example:
 
@@ -1274,7 +1272,7 @@ func get_name
     return 'pashmak'
 endfunc
 
-println %{say_hi(%{get_name}%)}%
+println(say_hi(get_name()))
 ```
 
 output:
@@ -1283,8 +1281,6 @@ output:
 hello pashmak
 ```
 
-in the above example, we used `%{}%` structure complicated.
-
 another example:
 
 ```bash
@@ -1292,11 +1288,65 @@ func add_two_nums($nums)
     return $nums[0] + $nums[1]
 endfunc
 
-$result = %{add_two_nums(10, 5)}%
+$result = add_two_nums(10, 5)
 println('sum is ' + str($result))
 ```
 
 This is very useful.
+
+### Puting functions into variables
+Functions are like variables, you can put them into variables and use them.
+
+look at this example:
+
+```bash
+func hello($name)
+    println('hello ' + $name)
+endfunc
+
+hello('parsa')
+
+# puting the function into the variable
+$myfunc = hello
+
+# calling the variable
+$myfunc('pashmak')
+```
+
+output:
+
+```
+hello parsa
+hello pashmak
+```
+
+another example:
+
+```bash
+func somefunc()
+    println 'hello. I was runed'
+endfunc
+
+$myfunc = somefunc
+$myfunc()
+```
+
+
+also look at this example:
+
+```bash
+func run_the_func($func)
+    println('start')
+    $func()
+    println('finish')
+endfunc
+
+func hi
+    println 'hello world'
+endfunc
+
+run_the_func(hi)
+```
 
 
 
@@ -1575,14 +1625,14 @@ output:
 or:
 
 ```bash
-$cwd = %{cwd()}%
+$cwd = cwd()
 println('The current working directory is ' + $cwd)
 ```
 
 or:
 
 ```bash
-println(%{cwd()}%)
+println(cwd())
 ```
 
 this command puts current working directory path into the mem.
@@ -1604,7 +1654,7 @@ println(^) # output: 0
 or:
 
 ```bash
-println(%{system 'ls /'}%)
+println(system('ls /'))
 ```
 
 ### exit
@@ -2617,7 +2667,7 @@ look at this example:
 
 ```bash
 print('enter some code: ')
-$code = %{read()}%
+$code = read()
 
 eval($code)
 ```
@@ -2683,7 +2733,7 @@ import @hash
 hash.sha256("hello") # also you can use hash.md5 and...
 println(^) # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 # OR
-println(%{hash.sha256 "hello"}%)
+println(hash.sha256("hello"))
 ```
 
 ##### how it works?
@@ -2714,7 +2764,7 @@ this function gives you current UNIX timestamp:
 ```bash
 import @time
 
-println(%{time.time()}%) # output is some thing like this: `1600416438.687201`
+println(time.time()) # output is some thing like this: `1600416438.687201`
 ```
 
 when you call this function, this function puts the unix timestamp into mem and you can access and use that.
@@ -2748,7 +2798,7 @@ this module makes random numbers
 import @random
 
 # generates a random int between 1 and 10
-println(%{random.randint(1, 10)}%)
+println(random.randint(1, 10))
 ```
 
 ##### random.random
@@ -2756,7 +2806,7 @@ println(%{random.randint(1, 10)}%)
 import @random
 
 # generates a random float less that 1
-$rand = %{random.random}%
+$rand = random.random()
 println($rand)
 ```
 
@@ -2995,7 +3045,7 @@ also you can get list of module paths:
 ```bash
 import '@sys'
 
-$module_paths = %{sys.path.list}%
+$module_paths = sys.path.list()
 
 println($module_paths)
 ```
