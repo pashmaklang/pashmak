@@ -39,10 +39,8 @@ if __name__ == '__main__':
     # set the python path
     try:
         py_path = os.environ['PYTHONPATH'].split(':')
-        for path in py_path:
-            path = path.strip()
-            if path != '':
-                sys.path.append(path)
+        py_path = [p for p in py_path if p != '']
+        sys.path = [*py_path, *sys.path]
     except:
         pass
 
