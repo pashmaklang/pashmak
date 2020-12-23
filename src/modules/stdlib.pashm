@@ -42,10 +42,10 @@ func import_once
 endfunc
 
 func exit($code)
-    if type($code) != int
+    if typeof($code) != int
         $code = 0
     endif
-    mem self.exit_program($code)
+    python("self.exit_program(self.get_var('code'))")
 endfunc
 
 func eval
@@ -57,7 +57,7 @@ func endns
 endfunc
 
 func raise($exdata)
-	python("self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', self.threads[-1]['commands'][self.threads[-1]['current_step']])")
+	python("self.raise_error('" + str($exdata[0]) + "', '" + str($exdata[1]) + "', self.threads[-1]['commands'][self.threads[-1]['current_step']])")
 endfunc
 
 func assert($value)
@@ -79,19 +79,19 @@ func printl($value)
 endfunc
 
 func cwd
-    return os.getcwd()
+    python("self.mem = os.getcwd()")
 endfunc
 
 func chdir($path)
-    return os.chdir($path)
+    python("self.mem = os.chdir(self.get_var('path'))")
 endfunc
 
 func typeof($obj)
-    return type($obj)
+    python("self.mem = type(self.get_var('obj'))")
 endfunc
 
 func system($cmd)
-    return os.system($cmd)
+    python("self.mem = os.system(self.get_var('cmd'))")
 endfunc
 
 func python
@@ -99,4 +99,8 @@ func python
 endfunc
 
 func required
+endfunc
+
+func read
+    read
 endfunc

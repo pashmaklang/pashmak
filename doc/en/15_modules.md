@@ -34,7 +34,7 @@ import @hash
 hash.sha256("hello") # also you can use hash.md5 and...
 println(^) # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 # OR
-println(%{hash.sha256 "hello"}%)
+println(hash.sha256("hello"))
 ```
 
 ##### how it works?
@@ -65,7 +65,7 @@ this function gives you current UNIX timestamp:
 ```bash
 import @time
 
-println(%{time.time()}%) # output is some thing like this: `1600416438.687201`
+println(time.time()) # output is some thing like this: `1600416438.687201`
 ```
 
 when you call this function, this function puts the unix timestamp into mem and you can access and use that.
@@ -99,7 +99,7 @@ this module makes random numbers
 import @random
 
 # generates a random int between 1 and 10
-println(%{random.randint(1, 10)}%)
+println(random.randint(1, 10))
 ```
 
 ##### random.random
@@ -107,7 +107,7 @@ println(%{random.randint(1, 10)}%)
 import @random
 
 # generates a random float less that 1
-$rand = %{random.random}%
+$rand = random.random()
 println($rand)
 ```
 
@@ -346,7 +346,7 @@ also you can get list of module paths:
 ```bash
 import '@sys'
 
-$module_paths = %{sys.path.list}%
+$module_paths = sys.path.list()
 
 println($module_paths)
 ```

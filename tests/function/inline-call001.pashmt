@@ -32,8 +32,8 @@ func get_name
     mem 'parsa'
 endfunc
 
-println %{sayhi 'pashmak'}%
-println %{sayhi %{get_name}%}%
+println sayhi('pashmak')
+println sayhi(get_name())
 
 --output--
 """hello pashmak

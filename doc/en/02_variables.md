@@ -139,8 +139,8 @@ typeof($mystr); println(^) # output: <class 'str'>
 typeof($myint); println(^) # output: <class 'int'>
 typeof($myfloat); println(^) # output: <class 'float'>
 typeof($mybool); println(^) # output: <class 'bool'>
-# also you can use this syntax
-println(%{typeof($myint)}%)
+# also you can use this syntax and use function directly
+println(typeof($myint))
 ```
 
 This command puts the typeof variable in mem.

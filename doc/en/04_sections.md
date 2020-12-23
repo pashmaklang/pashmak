@@ -61,10 +61,10 @@ look at this example:
 ```bash
 # read age from user
 print('enter your age: ')
-$age = %{read()}%
+$age = read()
 $age = int($age)
 # OR
-$age = int(%{read()}%)
+$age = int(read())
 
 mem $age > 18; gotoif age_is_more_than_18 # if age is more than 18, goto age_is_more_than_18 section
 

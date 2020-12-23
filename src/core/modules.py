@@ -26,54 +26,54 @@ modules = {}
 
 modules["hash"] = """namespace hash
 func blake2b($value)
-return hashlib.blake2b($value->encode())->hexdigest()
+python("self.mem = hashlib.blake2b(self.get_var('value').encode()).hexdigest()")
 endfunc
 func blake2s($value)
-return hashlib.blake2s($value->encode())->hexdigest()
+python("self.mem = hashlib.blake2s(self.get_var('value').encode()).hexdigest()")
 endfunc
 func md5($value)
-return hashlib.md5($value->encode())->hexdigest()
+python("self.mem = hashlib.md5(self.get_var('value').encode()).hexdigest()")
 endfunc
 func sha1($value)
-return hashlib.sha1($value->encode())->hexdigest()
+python("self.mem = hashlib.sha1(self.get_var('value').encode()).hexdigest()")
 endfunc
 func sha224($value)
-return hashlib.sha224($value->encode())->hexdigest()
+python("self.mem = hashlib.sha224(self.get_var('value').encode()).hexdigest()")
 endfunc
 func sha256($value)
-return hashlib.sha256($value->encode())->hexdigest()
+python("self.mem = hashlib.sha256(self.get_var('value').encode()).hexdigest()")
 endfunc
 func sha384($value)
-return hashlib.sha384($value->encode())->hexdigest()
+python("self.mem = hashlib.sha384(self.get_var('value').encode()).hexdigest()")
 endfunc
 func sha3_224($value)
-return hashlib.sha3_224($value->encode())->hexdigest()
+python("self.mem = hashlib.sha3_224(self.get_var('value').encode()).hexdigest()")
 endfunc
 func sha3_256($value)
-return hashlib.sha3_256($value->encode())->hexdigest()
+python("self.mem = hashlib.sha3_256(self.get_var('value').encode()).hexdigest()")
 endfunc
 func sha3_384($value)
-return hashlib.sha3_384($value->encode())->hexdigest()
+python("self.mem = hashlib.sha3_384(self.get_var('value').encode()).hexdigest()")
 endfunc
 func sha3_512($value)
-return hashlib.sha3_512($value->encode())->hexdigest()
+python("self.mem = hashlib.sha3_512(self.get_var('value').encode()).hexdigest()")
 endfunc
 func sha512($value)
-return hashlib.sha512($value->encode())->hexdigest()
+python("self.mem = hashlib.sha512(self.get_var('value').encode()).hexdigest()")
 endfunc
 func shake_128($value)
-return hashlib.shake_128(str($value[0])->encode()).hexdigest($value[1])
+python("self.mem = hashlib.shake_128(str(self.get_var('value')[0]).encode()).hexdigest(self.get_var('value')[1])")
 endfunc
 func shake_256($value)
-return hashlib.shake_256(str($value[0])->encode()).hexdigest($value[1])
+python("self.mem = hashlib.shake_256(str(self.get_var('value')[0]).encode()).hexdigest(self.get_var('value')[1])")
 endfunc
 endns"""
 modules["random"] = """namespace random
 func randint($args)
-return random.randint($args[0], $args[1])
+python("self.mem = random.randint(self.get_var('args')[0], self.get_var('args')[1])")
 endfunc
 func random
-return random.random()
+python("self.mem = random.random()")
 endfunc
 endns"""
 modules["stdlib"] = """class Object
@@ -93,10 +93,10 @@ func import_once
 mem self.import_script(^, True)
 endfunc
 func exit($code)
-if type($code) != int
+if typeof($code) != int
 $code = 0
 endif
-mem self.exit_program($code)
+python("self.exit_program(self.get_var('code'))")
 endfunc
 func eval
 mem self.pashmak_eval(^)
@@ -105,7 +105,7 @@ func endns
 endnamespace
 endfunc
 func raise($exdata)
-python("self.raise_error('" + $exdata[0] + "', '" + $exdata[1] + "', self.threads[-1]['commands'][self.threads[-1]['current_step']])")
+python("self.raise_error('" + str($exdata[0]) + "', '" + str($exdata[1]) + "', self.threads[-1]['commands'][self.threads[-1]['current_step']])")
 endfunc
 func assert($value)
 if not $value
@@ -122,31 +122,34 @@ func printl($value)
 println($value)
 endfunc
 func cwd
-return os.getcwd()
+python("self.mem = os.getcwd()")
 endfunc
 func chdir($path)
-return os.chdir($path)
+python("self.mem = os.chdir(self.get_var('path'))")
 endfunc
 func typeof($obj)
-return type($obj)
+python("self.mem = type(self.get_var('obj'))")
 endfunc
 func system($cmd)
-return os.system($cmd)
+python("self.mem = os.system(self.get_var('cmd'))")
 endfunc
 func python
 rmem exec(^)
 endfunc
 func required
+endfunc
+func read
+read
 endfunc"""
 modules["sys"] = """namespace sys
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
 namespace path
 func add($new_path)
 python('os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"')
-mem self.bootstrap_modules()
+python("self.bootstrap_modules()")
 endfunc
 func list
-$paths_list = os.environ["PASHMAKPATH"]->strip()->split(':')
+$paths_list = python("self.mem = os.environ['PASHMAKPATH'].strip().split(':')")
 $paths_list = [item.strip() for item in $paths_list if item != '']
 return $paths_list
 endfunc
@@ -181,18 +184,18 @@ endfunc
 endns"""
 modules["time"] = """namespace time
 func time
-return time.time()
+python("self.mem = time.time()")
 endfunc
 func sleep($time_to_sleep)
-return time.sleep($time_to_sleep)
+python("time.sleep(self.get_var('time_to_sleep'))")
 endfunc
 func ctime
-return time.ctime()
+python("self.mem = time.ctime()")
 endfunc
 func gmtime
-return time.gmtime()
+python("self.mem = time.gmtime()")
 endfunc
 func localtime
-return time.localtime()
+python("self.mem = time.localtime()")
 endfunc
 endnamespace"""

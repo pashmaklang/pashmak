@@ -31,9 +31,9 @@ $i = 0
 section loop
     $p = %{new Person}%
     print('enter your name: ')
-    $p->name = %{read}%
+    $p->name = read()
     print('enter your age: ')
-    $p->age = %{read}%
+    $p->age = read()
 
     mem $persons->append($p)
 

@@ -26,11 +26,11 @@ namespace sys
     namespace path
         func add($new_path)
             python('os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"')
-            mem self.bootstrap_modules()
+            python("self.bootstrap_modules()")
         endfunc
 
         func list
-            $paths_list = os.environ["PASHMAKPATH"]->strip()->split(':')
+            $paths_list = python("self.mem = os.environ['PASHMAKPATH'].strip().split(':')")
             $paths_list = [item.strip() for item in $paths_list if item != '']
             return $paths_list
         endfunc
