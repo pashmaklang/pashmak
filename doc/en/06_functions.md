@@ -57,7 +57,7 @@ program started
 hello parsa
 ```
 
-##### NOTE: name of functions should not have `.` character. for example, name `foo.bar` for function is invalid and you will get error `FunctionNameContainsDotError`
+##### NOTE: function name should not contains `()+-/*%=}{<>[],. ` chars(literal chars)
 
 ### passing argument to Functions
 for pass argument to the Functions, you can put value after name of function:

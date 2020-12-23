@@ -28,6 +28,7 @@
 - fixed a bug in multi importing syntax
 - fixed some bugs in `end*` commands
 - fixed import command bug while using `()`
+- blocked using literal chars in names(function/class/namespace)
 
 #### Removed
 - deleted `loop` and `while` functions

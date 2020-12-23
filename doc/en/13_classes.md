@@ -134,6 +134,8 @@ $my_car->name = 'new name'
 println($my_car->name) # output: new name
 ```
 
+##### NOTE: class name should not contains `()+-/*%=}{<>[],. ` chars(literal chars)
+
 ### classes in namespaces
 you can declare classes inside the namespaces like variables and functions.
 

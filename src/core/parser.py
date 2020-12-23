@@ -25,6 +25,9 @@
 import random
 import time
 
+literals = '()+-/*%=}{<>[], '
+""" The literal characters """
+
 def handle_special_char(op_str: str, ch: str) -> list:
     ''' Handle \\<special-char> as clean text '''
 

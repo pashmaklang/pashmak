@@ -355,7 +355,7 @@ $myvar = 'this is data'
 println($myvar) # output: this is data
 ```
 
-###### NOTE: always put $ before name of variable everywhere
+##### NOTE: always put $ before name of variable everywhere
 
 Declaring variables is so easy, only you have to write `$<name_of_variable>`.
 
@@ -365,6 +365,8 @@ Also you can set variables without value like this example:
 $var1
 $var2; $var3 # default value is null
 ```
+
+##### NOTE: variable name should not contains `()+-/*%=}{<>[], ` chars(literal chars)
 
 ### Using variables in mem calculation
 
@@ -975,7 +977,7 @@ program started
 hello parsa
 ```
 
-##### NOTE: name of functions should not have `.` character. for example, name `foo.bar` for function is invalid and you will get error `FunctionNameContainsDotError`
+##### NOTE: function name should not contains `()+-/*%=}{<>[],. ` chars(literal chars)
 
 ### passing argument to Functions
 for pass argument to the Functions, you can put value after name of function:
@@ -1931,7 +1933,7 @@ println($App.name) # output: parsa
 println($name) # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
 ```
 
-##### NOTE: name of namespace should not have `.` character. if you want to do this, use [subnamespace](#namespace-in-namespace-subnamespace).
+##### NOTE: variable name should not contains `()+-/*%=}{<>[],. ` chars(literal chars)
 
 this system is very useful.
 
@@ -2241,6 +2243,8 @@ println($my_car->name) # output: default name
 $my_car->name = 'new name'
 println($my_car->name) # output: new name
 ```
+
+##### NOTE: class name should not contains `()+-/*%=}{<>[],. ` chars(literal chars)
 
 ### classes in namespaces
 you can declare classes inside the namespaces like variables and functions.

@@ -255,7 +255,7 @@ class Program(helpers.Helpers):
             if code[0] == False:
                 code = code[1]
                 # replace variable names with value of them
-                literals = '()+-/*%=}{<> [],'
+                literals = parser.literals
                 code_words = self.multi_char_split(code, literals)
                 for word in code_words:
                     if word:
