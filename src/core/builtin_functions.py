@@ -22,11 +22,11 @@
 
 """ Pashmak Builtin functions """
 
+import copy
+import random
 from core.class_system import Class
 from core import parser
 from core.function import Function
-import copy
-import random
 
 class BuiltinFunctions:
     """ Builtin functions """
@@ -111,10 +111,11 @@ class BuiltinFunctions:
         """ Starts the namespace block """
         self.require_one_argument(op, 'namespace function requires namespace argument')
         arg = op['args'][0]
-        if '.' in arg:
-            return self.raise_error(
-                'NamespaceContainsDotError', 'name "' + arg + '" for namespace contains `.` character', op
-            )
+        for ch in parser.literals + '.':
+            if ch in arg:
+                return self.raise_error(
+                    'SyntaxError', 'unexpected "' + ch + '"', op
+                )
         self.namespaces_tree.append(arg)
 
     def run_endnamespace(self, op: dict):
@@ -146,10 +147,11 @@ class BuiltinFunctions:
         if len(arg) > 1:
             parent = arg[1].strip()
         arg = arg[0].strip()
-        if '.' in arg:
-            return self.raise_error(
-                'ClassNameContainsDotError', 'name "' + arg + '" for class contains `.` character', op
-            )
+        for ch in parser.literals + '.':
+            if ch in arg:
+                return self.raise_error(
+                    'SyntaxError', 'unexpected "' + ch + '"', op
+                )
         # check parent exists
         parent_real_name = None
         if parent != None:
@@ -253,10 +255,11 @@ class BuiltinFunctions:
         """ Starts function declaration block """
         self.require_one_argument(op, 'missing function name')
         arg = self.multi_char_split(op['args_str'], ' (', 1)[0]
-        if '.' in arg:
-            return self.raise_error(
-                'FunctionNameContainsDotError', 'name "' + arg + '" for function contains `.` character', op
-            )
+        for ch in parser.literals + '.':
+            if ch in arg:
+                return self.raise_error(
+                    'SyntaxError', 'unexpected "' + ch + '"', op
+                )
         # check function already declared
         try:
             self.functions[self.current_namespace() + arg]

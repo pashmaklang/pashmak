@@ -88,7 +88,7 @@ println($App.name) # output: parsa
 println($name) # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
 ```
 
-##### NOTE: name of namespace should not have `.` character. if you want to do this, use [subnamespace](#namespace-in-namespace-subnamespace).
+##### NOTE: variable name should not contains `()+-/*%=}{<>[],. ` chars(literal chars)
 
 this system is very useful.
 

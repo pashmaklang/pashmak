@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 0.6, 0.6-beta7
+## 0.6, 0.6-beta8
 
 #### New features
 - added **Class** system
@@ -15,6 +15,8 @@
 - added general variable `$__ismain__`
 - added **Jit** compiler
 - added `fopen` alias for `open` function
+- added `py_load_file` function to load python scripts as object (GH-35)
+- added python `json` library support
 
 #### Bug Fixes
 - fixed a bug in `eval` function
@@ -26,6 +28,7 @@
 - fixed a bug in multi importing syntax
 - fixed some bugs in `end*` commands
 - fixed import command bug while using `()`
+- blocked using literal chars in names(function/class/namespace)
 
 #### Removed
 - deleted `loop` and `while` functions

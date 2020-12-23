@@ -1,5 +1,5 @@
 #
-# version.py
+# py-load-file-001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,14 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+--test--
+py_load_file function is working
+--file--
 
-# pashmak version
-version = 'v0.6-beta8'
+$pyobj = py_load_file($__dir__ + '/tests/test-module-path/testpyfile.py')
+print($pyobj->the_var)
+$pyobj->the_func()
+
+--output--
+"The value of python var"
+

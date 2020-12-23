@@ -1,5 +1,5 @@
 #
-# version.py
+# literals-error-in-names001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,13 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+--test--
+namespace name cannot have literal chars
 
-# pashmak version
-version = 'v0.6-beta8'
+--file--
+namespace Hel.%{lo
+
+endns
+
+--with-error--
+"SyntaxError"

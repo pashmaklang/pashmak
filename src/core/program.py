@@ -30,7 +30,7 @@ from core import helpers, version, modules, jit, parser
 from core.class_system import Class
 from core.function import Function
 
-import hashlib, time, random, datetime
+import hashlib, time, random, datetime, json
 
 def fopen(filepath: str, open_type='r'):
     return open(filepath, open_type)
@@ -255,7 +255,7 @@ class Program(helpers.Helpers):
             if code[0] == False:
                 code = code[1]
                 # replace variable names with value of them
-                literals = '()+-/*%=}{<> [],'
+                literals = parser.literals
                 code_words = self.multi_char_split(code, literals)
                 for word in code_words:
                     if word:
@@ -269,12 +269,21 @@ class Program(helpers.Helpers):
                         else:
                             try:
                                 self.functions[word]
-                                tmp_index = code.find(word)
-                                if code[tmp_index-2:tmp_index] != '->':
-                                    self.functions[word].prog = self
-                                    code = code.replace(word, 'self.functions["' + word + '"]', 1)
+                                tmp_counter = 0
+                                while tmp_counter < len(code):
+                                    tmp_index = code.find(word, tmp_counter)
+                                    if tmp_index < 0:
+                                        tmp_counter = (+tmp_counter) + 1
+                                    else:
+                                        tmp_counter = tmp_index + 1
+                                    if code[tmp_index-2:tmp_index] != '->':
+                                        if code[tmp_index-1:tmp_index] in literals + '"\'':
+                                            if code[tmp_index+len(word):tmp_index+len(word)+1] in literals + '"\'':
+                                                self.functions[word].prog = self
+                                                code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.functions["' + word + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
+                                                break
                             except KeyError:
-                                pass                    
+                                pass
                 code = code.replace('->', '.')
                 code = code.replace('^', 'self.get_mem()')
                 z = 0

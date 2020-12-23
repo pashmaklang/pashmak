@@ -10,7 +10,7 @@ $myvar = 'this is data'
 println($myvar) # output: this is data
 ```
 
-###### NOTE: always put $ before name of variable everywhere
+##### NOTE: always put $ before name of variable everywhere
 
 Declaring variables is so easy, only you have to write `$<name_of_variable>`.
 
@@ -20,6 +20,8 @@ Also you can set variables without value like this example:
 $var1
 $var2; $var3 # default value is null
 ```
+
+##### NOTE: variable name should not contains `()+-/*%=}{<>[], ` chars(literal chars)
 
 ### Using variables in mem calculation
 
