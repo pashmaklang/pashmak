@@ -1,6 +1,5 @@
 # TODO
 
-- fix inline function calling bug
 - some changes in syntax of class initiation
 - add **parent** and **self** features for classes
 - add `isinstanceof` function for objects
