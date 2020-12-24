@@ -17,6 +17,7 @@
 - added `fopen` alias for `open` function
 - added `py_load_file` function to load python scripts as object (GH-35)
 - added python `json` library support
+- added `function.{list,delete,exists}`, `class.{list,delete,exists}` super functions
 
 #### Bug Fixes
 - fixed a bug in `eval` function
