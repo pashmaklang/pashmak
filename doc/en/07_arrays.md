@@ -59,7 +59,7 @@ also with `insert` method you can set the location of new item:
 $myarray = ['one', 'two', 'four']
 println($myarray)
 
-$myarray->insert(3, 'three')
+$myarray->insert(2, 'three')
 println($myarray)
 ```
 
