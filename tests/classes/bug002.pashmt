@@ -44,9 +44,9 @@ endns
 
 $l = %{new Foo.Last}%
 
-println $l->hi
-println $l->some
-println $l->some2
+println($l->hi)
+println($l->some)
+println($l->some2)
 
 --output--
 """[PashmakClass name="App.First"]

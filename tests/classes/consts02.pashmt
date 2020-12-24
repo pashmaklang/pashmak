@@ -33,11 +33,11 @@ $test = %{new Test}%
 
 $test->name = 'new name'
 
-println $test->name
+println($test->name)
 
 $test->_age = 100
 
-println $test->_age
+println($test->_age)
 
 $test->_age = 1001
 

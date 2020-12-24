@@ -14,7 +14,7 @@ get current working directory.
 
 ```bash
 cwd()
-println ^
+println(^)
 ```
 
 output:

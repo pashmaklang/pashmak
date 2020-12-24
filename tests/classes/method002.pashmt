@@ -42,7 +42,7 @@ mem $p->set_name('parsa')
 
 $name = $p->get_name()
 
-println $name
+println($name)
 
 --output--
 'parsa\n'

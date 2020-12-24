@@ -38,9 +38,9 @@ endclass
 
 $obj = %{new Child}%
 
-println $obj->foo
-println $obj->name
-println $obj->size
+println($obj->foo)
+println($obj->name)
+println($obj->size)
 
 --output--
 

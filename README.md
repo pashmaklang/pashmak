@@ -316,7 +316,7 @@ print('num is ' + str(100+7))
 
 you can use all of features of `mem` in the argument of commands like above example.
 
-after this, we never use `mem <something>; print ^` pattern for printing, and we just use `print` command.
+after this, we never use `mem <something>; print(^)` pattern for printing, and we just use `print` command.
 
 ### println
 
@@ -337,7 +337,7 @@ hello world<nextline>
 Also there is a alias for `println`, this is `printl`:
 
 ```bash
-#println "hello world"
+#println("hello world")
 printl("hello world")
 ```
 
@@ -437,11 +437,11 @@ When you set a variable, that var is in memory. you can delete that var with `fr
 
 ```bash
 $somevar = 'some value'
-println $somevar # output: some value
+println($somevar) # output: some value
 
 free $somevar
 
-println $somevar # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
+println($somevar) # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
 ```
 
 Also you can make free more than one variables with `free` command:
@@ -700,7 +700,7 @@ this code prints `hello world` non-stop.
 
 Actually when my code starts, prints hello world and then `goto` commands directs program step to the `my_loop` section and it will repeat again and again.
 
-###### NOTE: that TAB before `println 'hello world'...` line is not required. this is writen only to have beautiful code
+###### NOTE: that TAB before `println('hello world')...` line is not required. this is writen only to have beautiful code
 
 look at this example:
 
@@ -708,7 +708,7 @@ look at this example:
 $i = 1
 
 section loop
-    println($i) # print $i
+    println($i) # print($i)
     $i = $i + 1 # add 1 to $i
 mem $i < 10; gotoif loop # check the condition in `mem` and use gotoif command
 ```
@@ -924,7 +924,7 @@ Function is a system to make alias for some codes (function).
 look at this example:
 ```bash
 func say_hello
-    println 'hello world'
+    println('hello world')
 endfunc
 
 say_hello()
@@ -938,7 +938,7 @@ hello world
 
 ```bash
 func say_hello
-    println 'hello world'
+    println('hello world')
 endfunc
 
 # we run this two times
@@ -960,7 +960,7 @@ for declare a function you have to write `func <name-of-function>` and write cod
 
 look at this smarter function:
 ```bash
-mem 'program started\n'; print ^
+mem 'program started\n'; print(^)
 
 func say_hello
     $name = ^ # copy mem to $name
@@ -984,7 +984,7 @@ for pass argument to the Functions, you can put value after name of function:
 
 ```bash
 func myfunc
-    print ^
+    print(^)
 endfunc
 
 myfunc("hello")
@@ -1326,7 +1326,7 @@ another example:
 
 ```bash
 func somefunc()
-    println 'hello. I was runed'
+    println('hello. I was runed')
 endfunc
 
 $myfunc = somefunc
@@ -1344,7 +1344,7 @@ func run_the_func($func)
 endfunc
 
 func hi
-    println 'hello world'
+    println('hello world')
 endfunc
 
 run_the_func(hi)
@@ -1615,7 +1615,7 @@ get current working directory.
 
 ```bash
 cwd()
-println ^
+println(^)
 ```
 
 output:
@@ -2078,7 +2078,7 @@ look at this example for reading content of a file:
 
 ```bash
 $my_file = open('/path/to/some/file.txt', 'r')
-println $my_file->read()
+println($my_file->read())
 $my_file->close()
 ```
 
@@ -2586,7 +2586,7 @@ class Person
 endclass
 
 $p = %{new Person('parsa')}%
-println $p->name
+println($p->name)
 ```
 
 output:
@@ -2656,7 +2656,7 @@ you can run pashmak code from string.
 look at this example:
 
 ```bash
-eval('println "hello world from string"')
+eval('println("hello world from string")')
 ```
 
 output:
@@ -2679,7 +2679,7 @@ eval($code)
 output:
 
 ```
-enter some code: <input>mem 'hi\n'; print ^;
+enter some code: <input>mem 'hi\n'; print(^);
 hi
 ```
 
@@ -3139,7 +3139,7 @@ The output of parser is like this:
 for example, look at this code:
 
 ```
-println 'hello world'
+println('hello world')
 ```
 
 output of parser is this:
@@ -3147,9 +3147,9 @@ output of parser is this:
 ```json
 {
     "command": "println",
-    "str": "println 'hello world'",
-    "args": ["'hello", "world'"],
-    "args_str": "'hello world'",
+    "str": "println('hello world')",
+    "args": ["('hello", "world')"],
+    "args_str": "('hello world')",
     "file_path": "/path/to/script/file/this/code/is/in/that",
     "line_number": 1
 }

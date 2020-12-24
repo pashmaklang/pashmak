@@ -7,7 +7,7 @@ look at this example for reading content of a file:
 
 ```bash
 $my_file = open('/path/to/some/file.txt', 'r')
-println $my_file->read()
+println($my_file->read())
 $my_file->close()
 ```
 

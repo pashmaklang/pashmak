@@ -4,7 +4,7 @@ Function is a system to make alias for some codes (function).
 look at this example:
 ```bash
 func say_hello
-    println 'hello world'
+    println('hello world')
 endfunc
 
 say_hello()
@@ -18,7 +18,7 @@ hello world
 
 ```bash
 func say_hello
-    println 'hello world'
+    println('hello world')
 endfunc
 
 # we run this two times
@@ -40,7 +40,7 @@ for declare a function you have to write `func <name-of-function>` and write cod
 
 look at this smarter function:
 ```bash
-mem 'program started\n'; print ^
+mem 'program started\n'; print(^)
 
 func say_hello
     $name = ^ # copy mem to $name
@@ -64,7 +64,7 @@ for pass argument to the Functions, you can put value after name of function:
 
 ```bash
 func myfunc
-    print ^
+    print(^)
 endfunc
 
 myfunc("hello")
@@ -406,7 +406,7 @@ another example:
 
 ```bash
 func somefunc()
-    println 'hello. I was runed'
+    println('hello. I was runed')
 endfunc
 
 $myfunc = somefunc
@@ -424,7 +424,7 @@ func run_the_func($func)
 endfunc
 
 func hi
-    println 'hello world'
+    println('hello world')
 endfunc
 
 run_the_func(hi)

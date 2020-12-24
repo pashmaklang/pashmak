@@ -23,7 +23,7 @@
 # This is a simple loop printing numbers from 1 to 99
 
 func myfunc($n)
-    println 'starting...'
+    println('starting...')
 
     $i = 1
     section loop

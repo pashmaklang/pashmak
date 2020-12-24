@@ -24,9 +24,9 @@
 The $argv variable has correct value
 
 --file--
-print $argv[0]
-print $argv[1]
-print $argc
+print($argv[0])
+print($argv[1])
+print($argc)
 
 --cliargs--
 ['hi', 'bye']

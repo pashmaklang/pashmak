@@ -92,11 +92,11 @@ When you set a variable, that var is in memory. you can delete that var with `fr
 
 ```bash
 $somevar = 'some value'
-println $somevar # output: some value
+println($somevar) # output: some value
 
 free $somevar
 
-println $somevar # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
+println($somevar) # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
 ```
 
 Also you can make free more than one variables with `free` command:

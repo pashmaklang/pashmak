@@ -165,7 +165,7 @@ print('num is ' + str(100+7))
 
 you can use all of features of `mem` in the argument of commands like above example.
 
-after this, we never use `mem <something>; print ^` pattern for printing, and we just use `print` command.
+after this, we never use `mem <something>; print(^)` pattern for printing, and we just use `print` command.
 
 ### println
 
@@ -186,6 +186,6 @@ hello world<nextline>
 Also there is a alias for `println`, this is `printl`:
 
 ```bash
-#println "hello world"
+#println("hello world")
 printl("hello world")
 ```

@@ -20,6 +20,6 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-print 'what is your name? '
+print('what is your name? ')
 $name = read()
 println('hello ' + $name)

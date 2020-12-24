@@ -27,7 +27,7 @@ child class has all of parent methods
 
 class Parent
     func hi
-        println 'i am parent'
+        println('i am parent')
     endfunc
 endclass
 

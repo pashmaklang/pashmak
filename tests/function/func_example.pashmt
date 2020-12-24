@@ -27,21 +27,21 @@ Example test functions
 
 $n = 'parsa'
 func myfunc
-    println $n
+    println($n)
     $n = 'myfunc'
-    println $n;
+    println($n)
 endfunc
 
 func tststs
-    println $n
+    println($n)
     $n = 'tststs'
     myfunc()
-    println $n;
+    println($n)
 endfunc
 
-println $n
-tststs
-println $n
+println($n)
+tststs()
+println($n)
 
 --output--
 """parsa

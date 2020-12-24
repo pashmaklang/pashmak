@@ -33,7 +33,7 @@ $test = %{new Test}%
 
 $test->name = 'new name'
 
-print $test->name
+print($test->name)
 
 $test->_age = 100
 

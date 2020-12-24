@@ -26,11 +26,11 @@ class method can be declared
 --file--
 class Person
     func hello
-        println 'Person > hello was runed'
+        println('Person > hello was runed')
     endfunc
 
     func with_arg $arg
-        println 'hello ' + $arg
+        println('hello ' + $arg)
     endfunc
 endclass
 

@@ -22,7 +22,7 @@ The output of parser is like this:
 for example, look at this code:
 
 ```
-println 'hello world'
+println('hello world')
 ```
 
 output of parser is this:
@@ -30,9 +30,9 @@ output of parser is this:
 ```json
 {
     "command": "println",
-    "str": "println 'hello world'",
-    "args": ["'hello", "world'"],
-    "args_str": "'hello world'",
+    "str": "println('hello world')",
+    "args": ["('hello", "world')"],
+    "args_str": "('hello world')",
     "file_path": "/path/to/script/file/this/code/is/in/that",
     "line_number": 1
 }

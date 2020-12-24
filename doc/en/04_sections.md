@@ -15,7 +15,7 @@ this code prints `hello world` non-stop.
 
 Actually when my code starts, prints hello world and then `goto` commands directs program step to the `my_loop` section and it will repeat again and again.
 
-###### NOTE: that TAB before `println 'hello world'...` line is not required. this is writen only to have beautiful code
+###### NOTE: that TAB before `println('hello world')...` line is not required. this is writen only to have beautiful code
 
 look at this example:
 
@@ -23,7 +23,7 @@ look at this example:
 $i = 1
 
 section loop
-    println($i) # print $i
+    println($i) # print($i)
     $i = $i + 1 # add 1 to $i
 mem $i < 10; gotoif loop # check the condition in `mem` and use gotoif command
 ```

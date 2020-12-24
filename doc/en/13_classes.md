@@ -476,7 +476,7 @@ class Person
 endclass
 
 $p = %{new Person('parsa')}%
-println $p->name
+println($p->name)
 ```
 
 output:

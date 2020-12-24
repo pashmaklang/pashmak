@@ -20,7 +20,7 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-println 'i am included'
+println('i am included')
 
 $included_var = 'included value'
 

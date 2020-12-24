@@ -139,7 +139,7 @@ this is content of that:
 This is a example test
 --file--
 # this is my code
-print 'hello world'
+print('hello world')
 --output--
 "hello world"
 ```
@@ -152,7 +152,7 @@ you have to write `--<section-name>--` in a line and write value in next lines.
 for example, `--test--` option sets a short description for the test.
 and `--file--` set the code. and `--output--` asserts output.
 
-totally, the above test runs `print "hello world"` code and asserts output of that code is `"hello world"`
+totally, the above test runs `print("hello world")` code and asserts output of that code is `"hello world"`
 
 if you adding a feature or changing feature, change/add test for that feature
 
@@ -174,7 +174,7 @@ example:
 Example test
 --file--
 # this is my code
-println 'hello world'
+println('hello world')
 $foo = 'bar'
 $name = 'pashmak'
 mem 'the mem'
