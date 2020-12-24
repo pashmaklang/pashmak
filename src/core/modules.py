@@ -144,6 +144,18 @@ endfunc
 func py_load_file($path)
 python("import importlib.util\; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path'))\; m = importlib.util.module_from_spec(spec)\; spec.loader.exec_module(m)\; self.mem = m")
 endfunc
+func fopen($args)
+if typeof($args) != list and typeof($args) != tuple
+$args = [$args]
+endif
+$path = $args[0]
+if len($args) > 1
+$type = $args[1]
+else
+$type = 'r'
+endif
+python("self.mem = open(self.get_var('path'), self.get_var('type'))")
+endfunc
 class Error
 $type
 $messae

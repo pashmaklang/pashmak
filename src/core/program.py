@@ -33,9 +33,6 @@ from core.function import Function
 
 import hashlib, time, random, datetime, json
 
-def fopen(filepath: str, open_type='r'):
-    return open(filepath, open_type)
-
 class Program(helpers.Helpers):
     """ Pashmak program object """
 
@@ -316,8 +313,8 @@ class Program(helpers.Helpers):
                                     else:
                                         tmp_counter = tmp_index + 1
                                     if code[tmp_index-2:tmp_index] != '->':
-                                        if code[tmp_index-1:tmp_index] in literals + '"\'':
-                                            if code[tmp_index+len(word):tmp_index+len(word)+1] in literals + '"\'':
+                                        if code[tmp_index-1:tmp_index] in literals:
+                                            if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
                                                 self.functions[func_real_name].prog = self
                                                 code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.functions["' + func_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
                                                 break
