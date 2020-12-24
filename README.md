@@ -13,7 +13,7 @@ println('hello world')
 ```
 
 ## Online interpreter
-if you want to test pashmak without installing and need to run it online, go to [Pashmak online interpreter](https://pashmio-parsampsh.fandogh.cloud/)
+if you want to test pashmak without installing and need to run it online, go to [Pashmak online interpreter](https://pashmak-parsampsh.fandogh.cloud/)
 
 ## Authors
 pashmak is written by [parsampsh](https://github.com/parsampsh) and [contributors](https://github.com/pashmaklang/pashmak/graphs/contributors)
