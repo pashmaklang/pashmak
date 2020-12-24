@@ -1568,9 +1568,25 @@ goto after_error
 section handle_error
 
 $ex = ^ # copy mem (^) to $ex variable (this includes information about raised error)
-println($ex) # output: {"type": "VariableError", "message": "undefined variable $somevar"}...
+println($ex) # output: VariableError: undefined variable $somevar
 
 section after_error
+```
+
+The raised error data has more properties. This is a [Class object](#classes). You will learn about classes in next sections.
+
+```bash
+try error
+    gfgdhf
+endtry
+
+section error
+
+$ex = ^ # raised error
+println($ex->type) # output: VariableError
+println($ex->message) # output: undefined variable $not_found
+println($ex->file_path) # output: /path/to/script.pashm
+println($ex->line_number) # output: 2
 ```
 
 #### raising errors
@@ -1581,7 +1597,7 @@ for example:
 ```bash
 println('program started')
 
-raise('MyError', 'this is my error')
+raise(%{new Error('MyError', 'this is my error')}%)
 
 println('this will not print')
 ```
@@ -1595,7 +1611,9 @@ MyError: this is my error
 
 The `raise` function can raise errors in program.
 
-first argument `'TheError'` is error type and second error `'this is my error'` is error message.
+You should pass a object from class `Error` as argument for this.
+
+To do this, you need to write `%{new Error('TypeOfError', 'message of error')}%`. You will learn about classes in next sections.
 
 
 

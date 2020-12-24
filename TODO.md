@@ -1,6 +1,5 @@
 # TODO
 
-- put error data as a object in error system
 - add **parent** and **self** features for classes
 - create more magic methods for classes
 - add `function.{list,delete,exists}`, `class.{list,delete,exists}` functions(for 0.7)

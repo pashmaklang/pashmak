@@ -25,6 +25,7 @@
 import sys
 import os
 import signal
+import copy
 from pathlib import Path
 from core import helpers, version, modules, jit, parser
 from core.class_system import Class
@@ -139,22 +140,38 @@ class Program(helpers.Helpers):
         self.mem = None
         return mem
 
-    def raise_error(self, error_type: str, message: str, op: dict):
+    def raise_error(self, error_type: str, message: str, op=None):
         """ Raise error in program """
+        if op == None:
+            op = self.threads[-1]['commands'][self.threads[-1]['current_step']]
         # check is in try
         if self.try_endtry:
             section_index = self.try_endtry[-1]
             self.try_endtry.pop()
             new_step = self.sections[str(section_index)]
-            self.threads[-1]['current_step'] = new_step-1
+            while True:
+                try:
+                    if self.threads[-1]['commands'][new_step-1]['command'] == 'pass':
+                        self.threads[-1]['current_step'] = new_step-1
+                        break
+                    else:
+                        self.threads.pop()
+                except:
+                    self.threads.pop()
 
             # put error data in mem
-            self.mem = {'type': error_type, 'message': message, 'index': op['index']}
+            self.mem = copy.deepcopy(self.classes['Error'])
+            self.mem.__prog__ = self
+            self.mem.type = error_type
+            self.mem.message = message
+            self.mem.file_path = op['file_path']
+            self.mem.line_number = op['line_number']
             return
         # raise error
         if self.is_test:
             self.runtime_error = {'type': error_type, 'message': message, 'index': op['index']}
             if self.stop_after_error:
+                self.threads = self.threads[:1]
                 self.threads[-1]['current_step'] = len(self.threads[-1]['commands'])*2
             return
 

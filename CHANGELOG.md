@@ -40,3 +40,4 @@
 - change default `RuntimeError` name to the real python exception name in exception system
 - some optimizations in mem eval parser
 - some optimizations in interpreter code
+- changed raised error data from dictonary to `Error` object

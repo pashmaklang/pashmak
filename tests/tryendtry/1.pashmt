@@ -33,7 +33,7 @@ goto 20
 section 10
 
 $ex = ^
-print $ex['type'] + ':' + $ex['message']
+print $ex->type + ':' + $ex->message
 goto 30
 
 section 20

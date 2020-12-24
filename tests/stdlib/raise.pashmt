@@ -25,7 +25,7 @@ stdlib raise function raises error
 
 --file--
 
-raise 'SomeError', 'this is error'
+raise(%{new Error('SomeError', 'this is error')}%)
 
 --with-error--
 'SomeError'

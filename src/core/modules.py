@@ -105,11 +105,11 @@ func endns
 endnamespace
 endfunc
 func raise($exdata)
-python("self.raise_error('" + str($exdata[0]) + "', '" + str($exdata[1]) + "', self.threads[-1]['commands'][self.threads[-1]['current_step']])")
+python("self.raise_error('" + str($exdata->type) + "', '" + str($exdata->message) + "')")
 endfunc
 func assert($value)
 if not $value
-raise('AssertError', 'asserting that false is true')
+raise(%{new Error('AssertError', 'asserting that false is true')}%)
 endif
 endfunc
 func gset($args)
@@ -143,7 +143,18 @@ read
 endfunc
 func py_load_file($path)
 python("import importlib.util\; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path'))\; m = importlib.util.module_from_spec(spec)\; spec.loader.exec_module(m)\; self.mem = m")
-endfunc"""
+endfunc
+class Error
+$type
+$messae
+func __init__($args)
+$this->type = $args[0]
+$this->message = $args[1]
+endfunc
+func __str__
+return $this->type + ': ' + $this->message
+endfunc
+endclass"""
 modules["sys"] = """namespace sys
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
 namespace path
