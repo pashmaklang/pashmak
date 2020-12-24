@@ -33,9 +33,6 @@ from core.function import Function
 
 import hashlib, time, random, datetime, json
 
-def fopen(filepath: str, open_type='r'):
-    return open(filepath, open_type)
-
 class Program(helpers.Helpers):
     """ Pashmak program object """
 
@@ -226,6 +223,28 @@ class Program(helpers.Helpers):
         self.set_var('__dir__', old_dir)
         self.set_var('__file__', old_file)
 
+    def get_func_real_name(self, name: str):
+        """ Returns function real name """
+        real_name = False
+        try:
+            func_body = self.functions[self.current_namespace() + name]
+            real_name = self.current_namespace() + name
+        except KeyError:
+            func_body = False
+            for used_namespace in self.threads[-1]['used_namespaces']:
+                try:
+                    func_body = self.functions[used_namespace + '.' + name]
+                    real_name = used_namespace + '.' + name
+                except KeyError:
+                    pass
+            if not func_body:
+                try:
+                    func_body = self.functions[name]
+                    real_name = name
+                except KeyError:
+                    real_name = False
+        return real_name
+
     def eval(self, command, only_parse=False, varname_as_dict=False, only_str_parse=False, dont_check_vars=False):
         """ Runs eval on command """
         i = 0
@@ -284,8 +303,8 @@ class Program(helpers.Helpers):
                             else:
                                 code = code.replace('$' + word[1:], 'self.get_var("' + word[1:] + '")', 1)
                         else:
-                            try:
-                                self.functions[word]
+                            func_real_name = self.get_func_real_name(word)
+                            if func_real_name != False:
                                 tmp_counter = 0
                                 while tmp_counter < len(code):
                                     tmp_index = code.find(word, tmp_counter)
@@ -294,13 +313,11 @@ class Program(helpers.Helpers):
                                     else:
                                         tmp_counter = tmp_index + 1
                                     if code[tmp_index-2:tmp_index] != '->':
-                                        if code[tmp_index-1:tmp_index] in literals + '"\'':
-                                            if code[tmp_index+len(word):tmp_index+len(word)+1] in literals + '"\'':
-                                                self.functions[word].prog = self
-                                                code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.functions["' + word + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
+                                        if code[tmp_index-1:tmp_index] in literals:
+                                            if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
+                                                self.functions[func_real_name].prog = self
+                                                code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.functions["' + func_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
                                                 break
-                            except KeyError:
-                                pass
                 code = code.replace('->', '.')
                 code = code.replace('^', 'self.get_mem()')
                 z = 0
@@ -455,21 +472,11 @@ class Program(helpers.Helpers):
                         self.set_var(varname[1:], value)
             return
 
-        # check function exists
-        try:
-            func_body = self.functions[self.current_namespace() + op_name]
-        except KeyError:
-            func_body = None
-            for used_namespace in self.threads[-1]['used_namespaces']:
-                try:
-                    func_body = self.functions[used_namespace + '.' + op_name]
-                except KeyError:
-                    pass
-            if not func_body:
-                try:
-                    func_body = self.functions[op_name]
-                except KeyError:
-                    return self.raise_error('SyntaxError', 'undefined function "' + op_name + '"', op)
+        # check function exists TODO
+        func_real_name = self.get_func_real_name(op_name)
+        if func_real_name == False:
+            return self.raise_error('SyntaxError', 'undefined function "' + op_name + '"', op)
+        func_body = self.functions[func_real_name]
 
         # run function
         try:

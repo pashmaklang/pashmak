@@ -1,5 +1,5 @@
 #
-# version.py
+# super-functions-002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,12 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+--test--
+func.delete function raises error when function not found
 
-# pashmak version
-version = 'v0.6-beta9'
+--file--
+
+func.delete('test_not_found_function')
+
+--with-error--
+"FunctionNotFound"

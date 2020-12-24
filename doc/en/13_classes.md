@@ -536,3 +536,39 @@ hello. my name is parsa
 ```
 
 in the above example, we declared `__str__` method for the class. then, when class is printed, output of `__str__` method will be used instead of that default string (output of method should be put in `mem`).
+
+### Class super functions
+there is some **Super functions** to handle classes at runtime.
+
+#### Checking class exists
+You can check a class exists with `class.exists` function:
+
+```bash
+if class.exists('some_class')
+    # ...
+endif
+```
+
+#### Geting list of all of classes
+You can get list of all of classes with `class.list` function:
+
+```bash
+$classes = class.list()
+
+println($classes)
+```
+
+output:
+
+```
+['a', 'b', '...']
+```
+
+The output is a list.
+
+#### Deleting a class
+You can delete a class at runtime with `func.delete` function:
+
+```bash
+class.delete('some_class')
+```

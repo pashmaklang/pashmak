@@ -1,5 +1,5 @@
 #
-# version.py
+# super-functions-001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,30 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+--test--
+the func.* super functions are working
 
-# pashmak version
-version = 'v0.6-beta9'
+--file--
+println('class Person exists? ' + str(class.exists('Person')))
+
+class Person
+endclass
+
+println('class Person exists? ' + str(class.exists('Person')))
+
+class.delete('Person')
+
+println('class Person exists? ' + str(class.exists('Person')))
+
+class.list()
+
+class.delete('Object')
+
+--output--
+"""class Person exists? False
+class Person exists? True
+class Person exists? False
+"""
+
+--with-error--
+"ClassCannotBeDeleted"

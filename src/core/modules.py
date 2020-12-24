@@ -144,6 +144,18 @@ endfunc
 func py_load_file($path)
 python("import importlib.util\; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path'))\; m = importlib.util.module_from_spec(spec)\; spec.loader.exec_module(m)\; self.mem = m")
 endfunc
+func fopen($args)
+if typeof($args) != list and typeof($args) != tuple
+$args = [$args]
+endif
+$path = $args[0]
+if len($args) > 1
+$type = $args[1]
+else
+$type = 'r'
+endif
+python("self.mem = open(self.get_var('path'), self.get_var('type'))")
+endfunc
 class Error
 $type
 $messae
@@ -154,7 +166,49 @@ endfunc
 func __str__
 return $this->type + ': ' + $this->message
 endfunc
-endclass"""
+endclass
+namespace func
+func list
+python("self.mem = list(self.functions.keys())")
+endfunc
+func exists($name)
+$name = str($name)
+return $name in func.list()
+endfunc
+func delete($name)
+$name = str($name)
+if not func.exists($name)
+raise(%{new Error('FunctionNotFound', 'function "' + $name + '" not found')}%)
+return
+endif
+$undeletable_functions = ['func.list', 'func.delete', 'func.exists', 'gset', 'py_load_file', 'system', 'typeof', 'required', 'print', 'import', 'println', 'printl', 'import_once', 'mem', 'rmem', 'python', 'endns', 'exit', 'eval', 'raise', 'assert', 'read']
+if $name in $undeletable_functions
+raise(%{new Error('FunctionCannotBeDeleted', 'function "' + $name + '" is a builtin function and cannot be deleted')}%)
+endif
+python("del self.functions[self.get_var('name')]")
+endfunc
+endns
+namespace class
+func list
+python("self.mem = list(self.classes.keys())")
+endfunc
+func exists($name)
+$name = str($name)
+return $name in class.list()
+endfunc
+func delete($name)
+$name = str($name)
+if not class.exists($name)
+raise(%{new Error('ClassNotFound', 'class "' + $name + '" not found')}%)
+return
+endif
+$undeletable_classes = ['Object', 'Error']
+if $name in $undeletable_classes
+raise(%{new Error('ClassCannotBeDeleted', 'class "' + $name + '" is a builtin class and cannot be deleted')}%)
+endif
+python("del self.classes[self.get_var('name')]")
+endfunc
+endns"""
 modules["sys"] = """namespace sys
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
 namespace path

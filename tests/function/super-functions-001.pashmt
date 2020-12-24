@@ -1,5 +1,5 @@
 #
-# version.py
+# super-functions.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,31 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+--test--
+the func.* super functions are working
 
-# pashmak version
-version = 'v0.6-beta9'
+--file--
+
+println('func hello exists? ' + str(func.exists('hello')))
+
+func hello
+endfunc
+
+println('func hello exists? ' + str(func.exists('hello')))
+
+func.delete('hello')
+
+println('func hello exists? ' + str(func.exists('hello')))
+
+func.list()
+
+func.delete('println')
+
+--output--
+"""func hello exists? False
+func hello exists? True
+func hello exists? False
+"""
+
+--with-error--
+"FunctionCannotBeDeleted"
