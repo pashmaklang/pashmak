@@ -176,7 +176,7 @@ $name = 'pashmak'
 mem 'the mem'
 exit 5
 
---output
+--output--
 "hello world\n"
 
 --vars--
