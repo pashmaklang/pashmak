@@ -74,16 +74,16 @@ if you maked some changes in documentation, run this command to mix change into 
 ##### make module
 this command makes file `src/core/modules.py`.
 
-this command loads pashmak modules from `modules/` folder and put them in `src/core/modules.py` file.
+this command loads pashmak modules from `src/modules/` folder and put them in `src/core/modules.py` file.
 
-if you maked changes in modules in `modules/`, run this command.
+if you maked changes in modules in `src/modules/`, run this command.
 
 ```bash
 make module
 ```
 
 ##### make update-headers
-this command updates all of `.py` scripts copyright header in project. if you added a file to the project, run this command.
+this command updates all of `.py`, `.pashm` and `.pashmt` scripts copyright header in project. if you added a file to the project, run this command.
 
 ```bash
 make update-headers
@@ -115,10 +115,6 @@ you can run pashmak project tests via 5 ways:
 
 ```bash
 make test
-# OR
-./scripts.py test
-# OR
-python3 scripts.py test
 # OR
 ./tests/run.py
 # OR
