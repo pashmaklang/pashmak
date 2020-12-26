@@ -33,7 +33,7 @@ class Human
     endfunc
 endclass
 
-$someone = %{new Human}%
+$someone = Human
 $someone->name = 'parsa'
 
 println($someone->name)

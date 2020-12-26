@@ -35,10 +35,10 @@ class Bar
         println('i am bar')
     endfunc
 
-    $foo = %{new Foo}%
+    $foo = Foo
 endclass
 
-$bar = %{new Bar}%
+$bar = Bar
 
 $bar->thebar()
 $bar->foo->thefoo()

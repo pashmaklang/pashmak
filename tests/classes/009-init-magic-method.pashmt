@@ -32,7 +32,7 @@ class Hello
     endfunc
 endclass
 
-$hello = %{new Hello('parsa')}%
+$hello = Hello('parsa')
 println($hello->name)
 
 class Bye < Hello
@@ -42,7 +42,7 @@ class Bye < Hello
     endfunc
 endclass
 
-$bye = %{new Bye('parsa')}%
+$bye = Bye('parsa')
 println($bye->something)
 
 --output--

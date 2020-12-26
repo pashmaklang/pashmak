@@ -245,6 +245,28 @@ class Program(helpers.Helpers):
                     real_name = False
         return real_name
 
+    def get_class_real_name(self, name: str):
+        """ Returns class real name """
+        real_name = False
+        try:
+            class_body = self.classes[self.current_namespace() + name]
+            real_name = self.current_namespace() + name
+        except KeyError:
+            class_body = False
+            for used_namespace in self.threads[-1]['used_namespaces']:
+                try:
+                    class_body = self.classes[used_namespace + '.' + name]
+                    real_name = used_namespace + '.' + name
+                except KeyError:
+                    pass
+            if not class_body:
+                try:
+                    class_body = self.classes[name]
+                    real_name = name
+                except KeyError:
+                    real_name = False
+        return real_name
+
     def eval(self, command, only_parse=False, varname_as_dict=False, only_str_parse=False, dont_check_vars=False):
         """ Runs eval on command """
         i = 0
@@ -318,6 +340,24 @@ class Program(helpers.Helpers):
                                                 self.functions[func_real_name].prog = self
                                                 code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.functions["' + func_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
                                                 break
+                            else:
+                                # This is a class
+                                class_real_name = self.get_class_real_name(word)
+                                if class_real_name != False:
+                                    tmp_counter = 0
+                                    while tmp_counter < len(code):
+                                        tmp_index = code.find(word, tmp_counter)
+                                        if tmp_index < 0:
+                                            tmp_counter = (+tmp_counter) + 1
+                                        else:
+                                            tmp_counter = tmp_index + 1
+                                        if code[tmp_index-2:tmp_index] != '->':
+                                            if code[tmp_index-1:tmp_index] in literals:
+                                                if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
+                                                    self.classes[class_real_name].__prog__ = self
+                                                    code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.classes["' + class_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
+                                                    break
+
                 code = code.replace('->', '.')
                 code = code.replace('^', 'self.get_mem()')
                 z = 0
@@ -332,7 +372,7 @@ class Program(helpers.Helpers):
                             else:
                                 new_code += code[z]
                             opened_inline_calls_count += 1
-                        elif code[z-1] + code[z] == '}%':
+                        elif code[z-1] + code[z] == '':
                             if opened_inline_calls_count <= 1:
                                 new_code = new_code[:len(new_code)-1]
                                 new_code += '""")'

@@ -69,16 +69,16 @@ endclass
 
 $total_paths = []
 
-$c = %{new Crawler($__dir__ + '/../src', '.py')}%
+$c = Crawler($__dir__ + '/../src', '.py')
 $total_paths = [*$total_paths, *$c->files_list]
 
-$c = %{new Crawler($__dir__ + '/../tests', '.pashmt')}%
+$c = Crawler($__dir__ + '/../tests', '.pashmt')
 $total_paths = [*$total_paths, *$c->files_list]
 
-$c = %{new Crawler($__dir__ + '/../src/modules', '.pashm')}%
+$c = Crawler($__dir__ + '/../src/modules', '.pashm')
 $total_paths = [*$total_paths, *$c->files_list]
 
-$c = %{new Crawler($__dir__ + '/../examples', '.pashm')}%
+$c = Crawler($__dir__ + '/../examples', '.pashm')
 $total_paths = [*$total_paths, *$c->files_list]
 
 mem $total_paths->sort()

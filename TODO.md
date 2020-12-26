@@ -1,6 +1,5 @@
 # TODO
 
-- some changes in syntax of class initiation
 - add **parent** and **self** features for classes
 - add `isinstanceof` function for objects
 - create more magic methods for classes
