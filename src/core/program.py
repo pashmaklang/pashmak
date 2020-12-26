@@ -27,9 +27,9 @@ import os
 import signal
 import copy
 from pathlib import Path
-from core import helpers, version, modules, jit, parser
-from core.class_system import Class, ClassObject
-from core.function import Function
+from . import helpers, version, modules, jit, parser
+from .class_system import Class, ClassObject
+from .function import Function
 
 import hashlib, time, random, datetime, json
 

@@ -23,7 +23,7 @@
 """ Classes """
 
 import copy
-from core import parser
+from . import parser
 
 class ClassConstError(Exception):
     pass

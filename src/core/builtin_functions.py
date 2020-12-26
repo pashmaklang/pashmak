@@ -24,9 +24,9 @@
 
 import copy
 import random
-from core.class_system import Class
-from core import parser
-from core.function import Function
+from .class_system import Class
+from . import parser
+from .function import Function
 
 class BuiltinFunctions:
     """ Builtin functions """
