@@ -36,13 +36,13 @@ namespace Foo
     endclass
 
     class Last
-        $hi = App.First
-        $some = Something
-        $some2 = Foo.Something
+        $hi = App.First()
+        $some = Something()
+        $some2 = Foo.Something()
     endclass
 endns
 
-$l = Foo.Last
+$l = Foo.Last()
 
 println($l->hi)
 println($l->some)

@@ -28,7 +28,7 @@ import signal
 import copy
 from pathlib import Path
 from core import helpers, version, modules, jit, parser
-from core.class_system import Class
+from core.class_system import Class, ClassObject
 from core.function import Function
 
 import hashlib, time, random, datetime, json
@@ -198,6 +198,9 @@ class Program(helpers.Helpers):
         # create new thread for this call
         if with_thread:
             thread_vars = dict(self.threads[-1]['vars'])
+            for k in thread_vars:
+                if type(thread_vars[k]) == ClassObject:
+                    thread_vars[k].__prog__ = self
         else:
             thread_vars = self.threads[-1]['vars']
 

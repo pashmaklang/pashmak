@@ -52,6 +52,31 @@ class Class:
         self.props = ClassProps(props)
         self.methods = {}
 
+    def __call__(self, *args, **kwargs):
+        """ Make new object from class """
+        class_copy = ClassObject(copy.deepcopy(self.props), copy.deepcopy(self.methods))
+        class_copy.__prog__ = self.__prog__
+        class_copy.__theclass__ = copy.deepcopy(self)
+        class_copy.__name__
+        tmp_is_in_class = False
+        try:
+            tmp_is_in_class = copy.deepcopy(self.__prog__.current_class)
+            del self.__prog__.current_class
+        except:
+            pass
+        if len(args) == 1:
+            args = args[0]
+        class_copy.methods['__init__'](args)
+        if tmp_is_in_class:
+            self.__prog__.current_class = tmp_is_in_class
+        return class_copy
+
+class ClassObject:
+    """ Class initiated object """
+    def __init__(self, props: ClassProps, methods: dict):
+        self.props = props
+        self.methods = methods
+
     def __str__(self):
         str_magic_method = self.methods['__str__']
         self.__prog__.exec_func(str_magic_method.body, True, {'this': self})
@@ -68,27 +93,11 @@ class Class:
                 self.props[k].__prog__ = self.__prog__
                 self.props[k].__name__
         try:
+            if type(self.props[attrname]) == ClassObject:
+                self.props[attrname].__prog__ = self.__prog__
             return self.props[attrname]
         except KeyError:
             try:
                 return self.methods[attrname]
             except KeyError:
                 raise AttributeError(attrname)
-
-    def __call__(self, *args, **kwargs):
-        """ Make new object from class """
-        class_copy = copy.deepcopy(self)
-        class_copy.__prog__ = self.__prog__
-        class_copy.__name__
-        tmp_is_in_class = False
-        try:
-            tmp_is_in_class = copy.deepcopy(self.__prog__.current_class)
-            del self.__prog__.current_class
-        except:
-            pass
-        if len(args) == 1:
-            args = args[0]
-        class_copy.methods['__init__'](args)
-        if tmp_is_in_class:
-            self.__prog__.current_class = tmp_is_in_class
-        return class_copy

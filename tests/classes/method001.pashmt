@@ -34,7 +34,7 @@ class Person
     endfunc
 endclass
 
-$p = Person
+$p = Person()
 
 mem $p->hello()
 

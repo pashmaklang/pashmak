@@ -29,7 +29,7 @@ class Test
     $_age
 endclass
 
-$test = Test
+$test = Test()
 
 $test->name = 'new name'
 

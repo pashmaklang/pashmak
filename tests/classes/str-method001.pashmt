@@ -28,7 +28,7 @@ class __str__ method working
 class First
 endclass
 
-$first = First
+$first = First()
 
 println $first
 
@@ -39,7 +39,7 @@ class Second
     endfunc
 endclass
 
-$second = Second
+$second = Second()
 
 println $second
 

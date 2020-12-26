@@ -34,8 +34,8 @@ class Hello < Test
 endclass
 
 
-$test = Test
-$hello = Hello
+$test = Test()
+$hello = Hello()
 
 println($test->props)
 println($hello->props)

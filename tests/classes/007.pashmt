@@ -29,7 +29,7 @@ class Person
     $name
 endclass
 
-$&p = Person
+$&p = Person()
 
 $&p->name = 'hello world'
 
