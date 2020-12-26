@@ -2330,7 +2330,7 @@ class Car
     $color
 
     # the brand property is a object from Brand class
-    $brand = Brand
+    $brand = Brand()
 endclass
 
 $my_car = Car()

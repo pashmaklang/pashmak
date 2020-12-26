@@ -412,7 +412,6 @@ class Program(helpers.Helpers):
             'use': self.run_use,
             'class': self.run_class,
             'endclass': self.run_endclass,
-            'new': self.run_new,
             'return': self.run_return,
             'pass': None,
             'if': None,

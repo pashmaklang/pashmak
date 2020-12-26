@@ -197,60 +197,6 @@ class BuiltinFunctions:
                 self.classes[self.current_namespace() + arg].props['__name__'] = 'Object'
         self.current_class = self.current_namespace() + arg
 
-    def run_new(self, op: dict):
-        """ Creates a object from class """
-        self.require_one_argument(op, 'missing class name')
-        arg = op['args'][0].split('(', 1)[0]
-        # check class exists
-        class_real_name = None
-        try:
-            aclass = self.classes[self.current_namespace() + arg]
-            class_real_name = self.current_namespace() + arg
-        except KeyError:
-            aclass = None
-            for used_namespace in self.threads[-1]['used_namespaces']:
-                try:
-                    aclass = self.classes[used_namespace + '.' + arg]
-                    class_real_name = used_namespace + '.' + arg
-                except KeyError:
-                    pass
-            if not aclass:
-                try:
-                    aclass = self.classes[arg]
-                    class_real_name = arg
-                except KeyError:
-                    return self.raise_error('ClassError', 'undefined class "' + arg + '"', op)
-        class_copy = copy.deepcopy(aclass)
-        init_args = op['args_str'].split('(', 1)
-        if len(init_args) > 1:
-            init_args = '(' + init_args[-1]
-        else:
-            init_args = ''
-        if init_args == '':
-            init_args = 'None'
-        # run the constructor
-        tmp_variable = 'the_temp_variable_for_class_init_' + str(random.random()).replace('.', '')
-        while self.variable_exists(tmp_variable):
-            tmp_variable = tmp_variable + str(random.random()).replace('.', '')
-        class_copy.__prog__ = self
-        self.mem = class_copy
-        self.mem.__name__
-        code_commands = """
-        $""" + tmp_variable + """ = ^
-        mem $""" + self.current_namespace() + tmp_variable + """->methods["__init__"](""" + init_args + """)
-        mem $""" + self.current_namespace() + tmp_variable + """
-        free $""" + self.current_namespace() + tmp_variable + """
-        """
-        tmp_is_in_class = False
-        try:
-            tmp_is_in_class = copy.deepcopy(self.current_class)
-            del self.current_class
-        except:
-            pass
-        self.exec_func(parser.parse(code_commands), False)
-        if tmp_is_in_class:
-            self.current_class = tmp_is_in_class
-
     def run_func(self, op: dict):
         """ Starts function declaration block """
         self.require_one_argument(op, 'missing function name')
