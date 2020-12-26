@@ -198,9 +198,9 @@ class Program(helpers.Helpers):
         # create new thread for this call
         if with_thread:
             thread_vars = dict(self.threads[-1]['vars'])
-            for k in thread_vars:
+            """for k in thread_vars:
                 if type(thread_vars[k]) == ClassObject:
-                    thread_vars[k].__prog__ = self
+                    thread_vars[k].__prog__ = self"""
         else:
             thread_vars = self.threads[-1]['vars']
 
