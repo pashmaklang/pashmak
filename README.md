@@ -2192,7 +2192,7 @@ println($my_car)
 output:
 
 ```
-[PashmakClass name="Car"]
+[PashmakObject name="Car"]
 ```
 
 now, we want to set the properties:
@@ -2667,7 +2667,7 @@ println(Person())
 output:
 
 ```
-[PashmakClass name="Person"]
+[PashmakObject name="Person"]
 ```
 
 in the above example, when we print a object, default string value is the above output.

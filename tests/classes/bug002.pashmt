@@ -49,7 +49,7 @@ println($l->some)
 println($l->some2)
 
 --output--
-"""[PashmakClass name="App.First"]
-[PashmakClass name="Foo.Something"]
-[PashmakClass name="Foo.Something"]
+"""[PashmakObject name="App.First"]
+[PashmakObject name="Foo.Something"]
+[PashmakObject name="Foo.Something"]
 """

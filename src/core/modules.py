@@ -80,7 +80,7 @@ modules["stdlib"] = """class Object
 func __init__
 endfunc
 func __str__
-return '[PashmakClass name="' + $this->__name__ + '"]'
+return '[PashmakObject name="' + $this->__name__ + '"]'
 endfunc
 endclass
 func print

@@ -44,6 +44,6 @@ $second = Second()
 println $second
 
 --output--
-"""[PashmakClass name="First"]
+"""[PashmakObject name="First"]
 hello world. i am a Second class
 """
