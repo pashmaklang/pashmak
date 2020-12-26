@@ -360,43 +360,12 @@ class Program(helpers.Helpers):
 
                 code = code.replace('->', '.')
                 code = code.replace('^', 'self.get_mem()')
-                z = 0
-                new_code = ''
-                while z < len(code):
-                    if z > 0:
-                        if code[z-1] + code[z] == '%{':
-                            if opened_inline_calls_count == 0:
-                                new_code = new_code[:len(new_code)-1]
-                                new_code += 'self.call_inline_func("""'
-                                pass # replace
-                            else:
-                                new_code += code[z]
-                            opened_inline_calls_count += 1
-                        elif code[z-1] + code[z] == '':
-                            if opened_inline_calls_count <= 1:
-                                new_code = new_code[:len(new_code)-1]
-                                new_code += '""")'
-                            else:
-                                new_code += code[z]
-                            opened_inline_calls_count -= 1
-                        else:
-                            new_code += code[z]
-                    else:
-                        new_code += code[z]
-                    z += 1
-                code = new_code
             else:
                 code = code[1]
             full_op += code
         if only_parse:
             return full_op
         return eval(full_op)
-
-    def call_inline_func(self, code: str):
-        """ Runs the internal function call "%{func_or_command }" """
-        commands = parser.parse(code)
-        self.exec_func(commands, False)
-        return self.get_mem()
 
     def run(self, op: dict):
         """ Run once command """

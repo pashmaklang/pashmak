@@ -24,7 +24,7 @@
 namespace name cannot have literal chars
 
 --file--
-namespace Hel.%{lo
+namespace Hel.%h{lo
 
 endns
 
