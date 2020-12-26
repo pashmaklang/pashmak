@@ -36,7 +36,7 @@ class Person
     endfunc
 endclass
 
-$p = %{new Person}%
+$p = Person
 
 mem $p->set_name('parsa')
 

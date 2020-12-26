@@ -31,15 +31,15 @@ class Hi
     endfunc
 endclass
 
-$a = %{new Hi}%
+$a = Hi()
 $a->name = 'parsa'
 
-$b = %{new Hi}%
+$b = Hi()
 $b->name = 'pashmak'
 
 
 mem $a->bye(2)
-mem $b->bye(5)
+$b->bye(5)
 
 --output--
 

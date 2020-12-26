@@ -1633,7 +1633,7 @@ for example:
 ```bash
 println('program started')
 
-raise(%{new Error('MyError', 'this is my error')}%)
+raise(Error('MyError', 'this is my error'))
 
 println('this will not print')
 ```
@@ -1649,7 +1649,7 @@ The `raise` function can raise errors in program.
 
 You should pass a object from class `Error` as argument for this.
 
-To do this, you need to write `%{new Error('TypeOfError', 'message of error')}%`. You will learn about classes in next sections.
+To do this, you need to write `Error('TypeOfError', 'message of error')`. You will learn about classes in next sections.
 
 
 
@@ -2184,7 +2184,7 @@ class Car
     $color
 endclass
 
-$my_car = %{new Car()}%
+$my_car = Car()
 
 println($my_car)
 ```
@@ -2203,7 +2203,7 @@ class Car
     $color
 endclass
 
-$my_car = %{new Car}%
+$my_car = Car()
 $my_car->name = 'BMW'
 $my_car->color = 'white'
 
@@ -2258,11 +2258,8 @@ class TheClassName
     $prop3; $prop4
 endclass
 
-$my_object = %{new TheClassName}%
+$my_object = TheClassName()
 ```
-
-the `new` command gets name of class and creates an instance from that and puts that in the mem temp value.
-means, if i want to put created object in a variables, i need to write `$var = %{new ClassName}%`.
 
 now, we can create object from a class. how to access to the properties? look at this example:
 
@@ -2272,7 +2269,7 @@ class Car
     $color
 endclass
 
-$my_car = %{new Car}%
+$my_car = Car()
 
 println($my_car->name) # output: default name
 ```
@@ -2289,7 +2286,7 @@ class Car
     $color
 endclass
 
-$my_car = %{new Car}%
+$my_car = Car()
 
 println($my_car->name) # output: default name
 
@@ -2313,7 +2310,7 @@ namespace Models
     endclass
 endns
 
-$my_car = %{new Models.Car}%
+$my_car = Models.Car()
 ```
 
 all of laws for **classes in namespaces** is like `functions` and `variables`.
@@ -2333,10 +2330,10 @@ class Car
     $color
 
     # the brand property is a object from Brand class
-    $brand = %{new Brand}%
+    $brand = Brand()
 endclass
 
-$my_car = %{new Car}%
+$my_car = Car()
 $my_car->name = 'my car'
 $my_car->brand->title = 'BMW'
 
@@ -2369,7 +2366,7 @@ class Car
     $color
 endclass
 
-$my_car = %{new Car}%
+$my_car = Car()
 $my_car->name = 'my car'
 $my_car->color = 'red'
 
@@ -2396,7 +2393,7 @@ class Person
     $_age = 100 # age is const
 endclass
 
-$p = %{new Person}%
+$p = Person()
 
 $p->_age = 50
 ```
@@ -2461,7 +2458,7 @@ class Child < Father
     $age = 100
 endclass
 
-$child = %{new Child}%
+$child = Child()
 
 println($child->name) # output: hello world
 println($child->age) # output: 100
@@ -2486,7 +2483,7 @@ class Person
 
 endclass
 
-$person = %{new Person}%
+$person = Person()
 
 println($person->__name__) # output: Person
 ```
@@ -2506,7 +2503,7 @@ class Cat
 endclass
 
 # create a object from Cat
-$my_cat = %{new Cat}%
+$my_cat = Cat()
 
 $my_cat->mio()
 ```
@@ -2531,7 +2528,7 @@ class Cat
 endclass
 
 # create a object from Cat
-$my_cat = %{new Cat}%
+$my_cat = Cat()
 $my_cat->name = 'gerdoo'
 $my_cat->mio()
 ```
@@ -2559,7 +2556,7 @@ class Person
     endfunc
 endclass
 
-$p = %{new Person}%
+$p = Person()
 
 $p->set_name('parsa')
 
@@ -2594,7 +2591,7 @@ endclass
 
 class Child < Father; endclass
 
-$obj = %{new Child}%
+$obj = Child()
 
 println($obj->hi())
 ```
@@ -2620,7 +2617,7 @@ class Person
     endfunc
 endclass
 
-$p = %{new Person}%
+$p = Person()
 ```
 
 output:
@@ -2639,7 +2636,7 @@ class Person
     endfunc
 endclass
 
-$p = %{new Person('parsa')}%
+$p = Person('parsa')
 println($p->name)
 ```
 
@@ -2660,11 +2657,11 @@ class Person
     $name
 endclass
 
-$p = %{new Person}%
+$p = Person()
 $p->name = 'parsa'
 println($p)
 # OR
-println(%{new Person}%)
+println(Person())
 ```
 
 output:
@@ -2688,7 +2685,7 @@ class Person
     endfunc
 endclass
 
-$p = %{new Person}%
+$p = Person()
 $p->name = 'parsa'
 println($p)
 ```

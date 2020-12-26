@@ -29,7 +29,7 @@ $persons = []
 
 $i = 0
 section loop
-    $p = %{new Person}%
+    $p = Person()
     print('enter your name: ')
     $p->name = read()
     print('enter your age: ')

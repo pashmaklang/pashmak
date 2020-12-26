@@ -34,8 +34,8 @@ class Hello < Test
 endclass
 
 
-$test = %{new Test}%
-$hello = %{new Hello}%
+$test = Test
+$hello = Hello
 
 println($test->props)
 println($hello->props)
