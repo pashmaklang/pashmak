@@ -95,7 +95,7 @@ for example:
 ```bash
 println('program started')
 
-raise(%{new Error('MyError', 'this is my error')}%)
+raise(Error('MyError', 'this is my error'))
 
 println('this will not print')
 ```
@@ -111,4 +111,4 @@ The `raise` function can raise errors in program.
 
 You should pass a object from class `Error` as argument for this.
 
-To do this, you need to write `%{new Error('TypeOfError', 'message of error')}%`. You will learn about classes in next sections.
+To do this, you need to write `Error('TypeOfError', 'message of error')`. You will learn about classes in next sections.

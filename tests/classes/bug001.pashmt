@@ -29,10 +29,10 @@ class Person
     $name; $age = 10
 endclass
 
-$p1 = %{new Person}%
+$p1 = Person()
 $p1->age = 20
 
-$p2 = %{new Person}%
+$p2 = Person()
 $p2->age = 77
 
 println(self.classes['Person'].props)

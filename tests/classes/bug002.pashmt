@@ -36,13 +36,13 @@ namespace Foo
     endclass
 
     class Last
-        $hi = %{new App.First}%
-        $some = %{new Something}%
-        $some2 = %{new Foo.Something}%
+        $hi = App.First
+        $some = Something
+        $some2 = Foo.Something
     endclass
 endns
 
-$l = %{new Foo.Last}%
+$l = Foo.Last
 
 println($l->hi)
 println($l->some)

@@ -62,7 +62,7 @@ endfunc
 
 func assert($value)
     if not $value
-        raise(%{new Error('AssertError', 'asserting that false is true')}%)
+        raise(Error('AssertError', 'asserting that false is true'))
     endif
 endfunc
 
@@ -155,13 +155,13 @@ namespace func
         # deletes a function
         $name = str($name)
         if not func.exists($name)
-            raise(%{new Error('FunctionNotFound', 'function "' + $name + '" not found')}%)
+            raise(Error('FunctionNotFound', 'function "' + $name + '" not found'))
             return
         endif
 
         $undeletable_functions = ['func.list', 'func.delete', 'func.exists', 'gset', 'py_load_file', 'system', 'typeof', 'required', 'print', 'import', 'println', 'printl', 'import_once', 'mem', 'rmem', 'python', 'endns', 'exit', 'eval', 'raise', 'assert', 'read'] # list of undeletable functions
         if $name in $undeletable_functions
-            raise(%{new Error('FunctionCannotBeDeleted', 'function "' + $name + '" is a builtin function and cannot be deleted')}%)
+            raise(Error('FunctionCannotBeDeleted', 'function "' + $name + '" is a builtin function and cannot be deleted'))
         endif
 
         # delete the function
@@ -186,13 +186,13 @@ namespace class
         # deletes a class
         $name = str($name)
         if not class.exists($name)
-            raise(%{new Error('ClassNotFound', 'class "' + $name + '" not found')}%)
+            raise(Error('ClassNotFound', 'class "' + $name + '" not found'))
             return
         endif
 
         $undeletable_classes = ['Object', 'Error'] # list of undeletable classes
         if $name in $undeletable_classes
-            raise(%{new Error('ClassCannotBeDeleted', 'class "' + $name + '" is a builtin class and cannot be deleted')}%)
+            raise(Error('ClassCannotBeDeleted', 'class "' + $name + '" is a builtin class and cannot be deleted'))
         endif
 
         # delete the class

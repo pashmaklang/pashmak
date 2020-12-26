@@ -109,7 +109,7 @@ python("self.raise_error('" + str($exdata->type) + "', '" + str($exdata->message
 endfunc
 func assert($value)
 if not $value
-raise(%{new Error('AssertError', 'asserting that false is true')}%)
+raise(Error('AssertError', 'asserting that false is true'))
 endif
 endfunc
 func gset($args)
@@ -178,12 +178,12 @@ endfunc
 func delete($name)
 $name = str($name)
 if not func.exists($name)
-raise(%{new Error('FunctionNotFound', 'function "' + $name + '" not found')}%)
+raise(Error('FunctionNotFound', 'function "' + $name + '" not found'))
 return
 endif
 $undeletable_functions = ['func.list', 'func.delete', 'func.exists', 'gset', 'py_load_file', 'system', 'typeof', 'required', 'print', 'import', 'println', 'printl', 'import_once', 'mem', 'rmem', 'python', 'endns', 'exit', 'eval', 'raise', 'assert', 'read']
 if $name in $undeletable_functions
-raise(%{new Error('FunctionCannotBeDeleted', 'function "' + $name + '" is a builtin function and cannot be deleted')}%)
+raise(Error('FunctionCannotBeDeleted', 'function "' + $name + '" is a builtin function and cannot be deleted'))
 endif
 python("del self.functions[self.get_var('name')]")
 endfunc
@@ -199,12 +199,12 @@ endfunc
 func delete($name)
 $name = str($name)
 if not class.exists($name)
-raise(%{new Error('ClassNotFound', 'class "' + $name + '" not found')}%)
+raise(Error('ClassNotFound', 'class "' + $name + '" not found'))
 return
 endif
 $undeletable_classes = ['Object', 'Error']
 if $name in $undeletable_classes
-raise(%{new Error('ClassCannotBeDeleted', 'class "' + $name + '" is a builtin class and cannot be deleted')}%)
+raise(Error('ClassCannotBeDeleted', 'class "' + $name + '" is a builtin class and cannot be deleted'))
 endif
 python("del self.classes[self.get_var('name')]")
 endfunc

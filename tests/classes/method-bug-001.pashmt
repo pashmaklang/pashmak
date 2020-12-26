@@ -28,7 +28,7 @@ method not found error bug is fixed
 class Hello
 endclass
 
-$a = %{new Hello}%
+$a = Hello
 
 mem $a->ffghfgjghjh()
 
