@@ -37,8 +37,8 @@ endclass
 $test = Test()
 $hello = Hello()
 
-println($test->props)
-println($hello->props)
+println($test->__props__)
+println($hello->__props__)
 
 --output--
 """{'__parent__': 'Object', '__name__': 'Test'}

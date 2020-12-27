@@ -175,17 +175,17 @@ class BuiltinFunctions:
             pass
         if parent_real_name != None:
             self.classes[self.current_namespace() + arg] = copy.deepcopy(self.classes[parent_real_name])
-            self.classes[self.current_namespace() + arg].props['__parent__'] = parent_real_name
-            self.classes[self.current_namespace() + arg].props['__name__'] = self.current_namespace() + arg
+            self.classes[self.current_namespace() + arg].__props__['__parent__'] = parent_real_name
+            self.classes[self.current_namespace() + arg].__props__['__name__'] = self.current_namespace() + arg
         else:
             if self.current_namespace() + arg != 'Object':
                 self.classes[self.current_namespace() + arg] = copy.deepcopy(self.classes['Object'])
-                self.classes[self.current_namespace() + arg].props['__parent__'] = 'Object'
-                self.classes[self.current_namespace() + arg].props['__name__'] = self.current_namespace() + arg
+                self.classes[self.current_namespace() + arg].__props__['__parent__'] = 'Object'
+                self.classes[self.current_namespace() + arg].__props__['__name__'] = self.current_namespace() + arg
             else:
                 self.classes[self.current_namespace() + arg] = copy.deepcopy(Class(self.current_namespace() + arg, {}))
-                self.classes[self.current_namespace() + arg].props['__parent__'] = None
-                self.classes[self.current_namespace() + arg].props['__name__'] = 'Object'
+                self.classes[self.current_namespace() + arg].__props__['__parent__'] = None
+                self.classes[self.current_namespace() + arg].__props__['__name__'] = 'Object'
         self.current_class = self.current_namespace() + arg
 
     def run_func(self, op: dict):
@@ -199,20 +199,23 @@ class BuiltinFunctions:
                 )
         # check function already declared
         try:
-            self.functions[self.current_namespace() + arg]
-            return self.raise_error(
-                'FunctionError',
-                'function "' + self.current_namespace() + arg + '" already declared',
-                op
-            )
-        except KeyError:
-            pass
+            self.current_class
+        except:
+            try:
+                self.functions[self.current_namespace() + arg]
+                return self.raise_error(
+                    'FunctionError',
+                    'function "' + self.current_namespace() + arg + '" already declared',
+                    op
+                )
+            except KeyError:
+                pass
         # declare function
         is_method = False
         try:
             self.current_class
             self.current_func = arg
-            self.classes[self.current_class].methods[self.current_func] = Function(name=self.current_func)
+            self.classes[self.current_class].__methods__[self.current_func] = Function(name=self.current_func)
             is_method = True
         except:
             self.current_func = self.current_namespace() + arg
@@ -223,7 +226,7 @@ class BuiltinFunctions:
             if arg_var != '':
                 self.arg_should_be_variable(arg_var, op)
                 if is_method:
-                    self.classes[self.current_class].methods[self.current_func].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
+                    self.classes[self.current_class].__methods__[self.current_func].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
                 else:
                     self.functions[self.current_func].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
 

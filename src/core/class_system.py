@@ -29,7 +29,7 @@ class ClassConstError(Exception):
     pass
 
 class ClassProps(dict):
-    """ The `obj.props` """
+    """ The `obj.__props__` """
     def __getattr__(self, attrname):
         try:
             return self[attrname]
@@ -49,13 +49,13 @@ class ClassProps(dict):
 class Class:
     """ Class model """
     def __init__(self, name: str, props: dict):
-        self.props = ClassProps(props)
-        self.methods = {}
+        self.__props__ = ClassProps(props)
+        self.__methods__ = {}
 
     def __call__(self, *args, **kwargs):
         """ Make new object from class """
         from .current_prog import current_prog
-        class_copy = ClassObject(copy.deepcopy(self.props), copy.deepcopy(self.methods))
+        class_copy = ClassObject(copy.deepcopy(self.__props__), copy.deepcopy(self.__methods__))
         class_copy.__theclass__ = copy.deepcopy(self)
         class_copy.__name__
         tmp_is_in_class = False
@@ -66,7 +66,7 @@ class Class:
             pass
         if len(args) == 1:
             args = args[0]
-        class_copy.methods['__init__'](args)
+        class_copy.__methods__['__init__'](args)
         if tmp_is_in_class:
             current_prog.current_class = tmp_is_in_class
         return class_copy
@@ -74,26 +74,31 @@ class Class:
 class ClassObject:
     """ Class initiated object """
     def __init__(self, props: ClassProps, methods: dict):
-        self.props = props
-        self.methods = methods
-        for k in self.methods:
-            self.methods[k].parent_object = self
+        self.__props__ = props
+        self.__methods__ = methods
+        for k in self.__methods__:
+            self.__methods__[k].parent_object = self
 
     def __str__(self):
         from .current_prog import current_prog
-        str_magic_method = self.methods['__str__']
+        str_magic_method = self.__methods__['__str__']
         current_prog.exec_func(str_magic_method.body, True, {'this': self})
         return str(current_prog.get_mem())
 
     def __getattr__(self, attrname):
         from .current_prog import current_prog
-        if attrname == 'props' or attrname == 'methods':
+        if attrname == '__props__' or attrname == '__methods__' or attrname == '__theclass__':
             return super().__getattr__(attrname)
         try:
-            return self.props[attrname]
+            return self.__props__[attrname]
         except KeyError:
             try:
-                self.methods[attrname].parent_object = self
-                return self.methods[attrname]
+                self.__methods__[attrname].parent_object = self
+                return self.__methods__[attrname]
             except KeyError:
                 raise AttributeError(attrname)
+
+    def __setattr__(self, attrname, value):
+        if attrname == '__props__' or attrname == '__methods__' or attrname == '__theclass__':
+            return super().__setattr__(attrname, value)
+        self.__props__[attrname] = value
