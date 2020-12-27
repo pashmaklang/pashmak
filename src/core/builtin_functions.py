@@ -24,9 +24,9 @@
 
 import copy
 import random
-from core.class_system import Class
-from core import parser
-from core.function import Function
+from .class_system import Class
+from . import parser
+from .function import Function
 
 class BuiltinFunctions:
     """ Builtin functions """
@@ -221,11 +221,11 @@ class BuiltinFunctions:
         try:
             self.current_class
             self.current_func = arg
-            self.classes[self.current_class].methods[self.current_func] = Function(name=self.current_func, prog=self)
+            self.classes[self.current_class].methods[self.current_func] = Function(name=self.current_func)
             is_method = True
         except:
             self.current_func = self.current_namespace() + arg
-            self.functions[self.current_func] = Function(name=self.current_func, prog=self)
+            self.functions[self.current_func] = Function(name=self.current_func)
         # check for argument variable
         if len(self.multi_char_split(op['args_str'], ' (', 1)) > 1:
             arg_var = self.multi_char_split(op['args_str'], ' (', 1)[1].strip(')').strip('(').strip()

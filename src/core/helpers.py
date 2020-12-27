@@ -24,7 +24,7 @@
 
 import os
 from sys import exit
-from core import builtin_functions, modules, parser
+from . import builtin_functions, modules, parser
 
 class Helpers(builtin_functions.BuiltinFunctions):
     """ Partial of program object functions """

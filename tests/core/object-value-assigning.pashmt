@@ -1,5 +1,5 @@
 #
-# str-method001.pashmt
+# object-value-assigning.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,29 +21,49 @@
 #########################################################################
 
 --test--
-class __str__ method working
+objects(functions and classes) values can be changed
 
 --file--
 
-class First
+func hi()
+    println('Hi!')
+endfunc
+
+func bye()
+    println('Bye!')
+endfunc
+
+hi()
+bye()
+
+hi = bye
+
+hi()
+bye()
+
+class Foo
+    $name = 'the foo'
 endclass
 
-$first = First()
-
-println $first
-
-class Second
-    func __str__
-        $the_str = 'hello world. i am a Second class'
-        return $the_str
-    endfunc
+class Bar
+    $name = 'the bar'
 endclass
 
-$second = Second()
+println(Foo()->name)
+println(Bar()->name)
 
-println $second
+Foo = Bar
+
+println(Foo()->name)
+println(Bar()->name)
 
 --output--
-"""[PashmakObject name="First"]
-hello world. i am a Second class
+"""Hi!
+Bye!
+Bye!
+Bye!
+the foo
+the bar
+the bar
+the bar
 """

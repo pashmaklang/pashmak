@@ -31,10 +31,10 @@ endclass
 class Human
     $name
     $age
-    $foo = Foo
+    $foo = Foo()
 endclass
 
-$someone = Human
+$someone = Human()
 $someone->name = 'hello world'
 $someone->age = 18
 

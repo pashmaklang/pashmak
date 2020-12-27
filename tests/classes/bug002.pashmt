@@ -36,20 +36,20 @@ namespace Foo
     endclass
 
     class Last
-        $hi = App.First
-        $some = Something
-        $some2 = Foo.Something
+        $hi = App.First()
+        $some = Something()
+        $some2 = Foo.Something()
     endclass
 endns
 
-$l = Foo.Last
+$l = Foo.Last()
 
 println($l->hi)
 println($l->some)
 println($l->some2)
 
 --output--
-"""[PashmakClass name="App.First"]
-[PashmakClass name="Foo.Something"]
-[PashmakClass name="Foo.Something"]
+"""[PashmakObject name="App.First"]
+[PashmakObject name="Foo.Something"]
+[PashmakObject name="Foo.Something"]
 """

@@ -22,20 +22,22 @@
 
 class Function:
     """ the pashmak function object """
-    def __init__(self, name, prog):
+    def __init__(self, name):
         self.name = name
         self.body = []
-        self.prog = prog
 
     def __call__(self, *args, **kwargs):
-        self.prog.mem = args
-        if len(self.prog.mem) == 1:
-            self.prog.mem = self.prog.mem[0]
+        from .current_prog import current_prog
+        current_prog.mem = args
+        if len(current_prog.mem) == 1:
+            current_prog.mem = current_prog.mem[0]
         default_vars = {}
+        with_thread = True
         try:
             self.parent_object
             default_vars['this'] = self.parent_object
         except:
-            pass
-        self.prog.exec_func(self.body, True, default_vars)
-        return self.prog.get_mem()
+            if self.name in ['import', 'mem', 'python', 'rmem', 'eval']:
+                with_thread = False
+        current_prog.exec_func(self.body, with_thread, default_vars)
+        return current_prog.get_mem()

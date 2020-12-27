@@ -27,15 +27,14 @@ import os
 import signal
 import copy
 from pathlib import Path
-from core import helpers, version, modules, jit, parser
-from core.class_system import Class
-from core.function import Function
+from . import helpers, version, modules, jit, parser, current_prog
+from .class_system import Class, ClassObject
+from .function import Function
 
 import hashlib, time, random, datetime, json
 
 class Program(helpers.Helpers):
     """ Pashmak program object """
-
     def __init__(self, is_test=False, args=[]):
         self.threads = [{
             'current_step': 0,
@@ -47,8 +46,8 @@ class Program(helpers.Helpers):
             }
         }] # list of threads
         self.functions = {
-            "mem": Function(name='mem', prog=self), # mem is a empty function just for save mem in code
-            "rmem": Function(name='rmem', prog=self),
+            "mem": Function(name='mem'), # mem is a empty function just for save mem in code
+            "rmem": Function(name='rmem'),
         } # declared functions <function-name>:[<list-of-body-commands>]
         self.sections = {} # list of declared sections <section-name>:<index-of-command-to-jump>
         self.classes = {} # list of declared classes
@@ -71,13 +70,15 @@ class Program(helpers.Helpers):
         self.set_var('argv', args)
         self.set_var('argc', len(self.get_var('argv')))
 
+        current_prog.current_prog = self
+
     def import_script(self, paths, import_once=False):
         """ Imports scripts/modules """
         op = self.threads[-1]['commands'][self.threads[-1]['current_step']]
 
         if type(paths) == str:
             paths = [paths]
-        elif type(paths) != list and type(paths) != tuple:
+        elif type(paths) != tuple:
             return self.raise_error('ArgumentError', 'invalid argument type', op)
 
         for path in paths:
@@ -158,7 +159,6 @@ class Program(helpers.Helpers):
 
             # put error data in mem
             self.mem = copy.deepcopy(self.classes['Error'])
-            self.mem.__prog__ = self
             self.mem.type = error_type
             self.mem.message = message
             self.mem.file_path = op['file_path']
@@ -337,7 +337,6 @@ class Program(helpers.Helpers):
                                     if code[tmp_index-2:tmp_index] != '->':
                                         if code[tmp_index-1:tmp_index] in literals:
                                             if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
-                                                self.functions[func_real_name].prog = self
                                                 code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.functions["' + func_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
                                                 break
                             else:
@@ -354,7 +353,6 @@ class Program(helpers.Helpers):
                                         if code[tmp_index-2:tmp_index] != '->':
                                             if code[tmp_index-1:tmp_index] in literals:
                                                 if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
-                                                    self.classes[class_real_name].__prog__ = self
                                                     code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.classes["' + class_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
                                                     break
 
@@ -445,7 +443,7 @@ class Program(helpers.Helpers):
                 pass
             except AttributeError:
                 pass
-            parts = self.split_by_equals(op['str'].strip()) # op['str'].strip().split('=', 1)
+            parts = self.split_by_equals(op['str'].strip())
             if len(parts) <= 1:
                 if '->' in op['str'] or '(' in op['str'] or ')' in op['str']:
                     self.mem = self.eval(op['str'])
@@ -480,7 +478,14 @@ class Program(helpers.Helpers):
                         self.set_var(varname[1:], value)
             return
 
-        # check function exists TODO
+        parts = self.split_by_equals(op['str'].strip())
+        if len(parts) > 1:
+            part1 = self.eval(parts[0], only_parse=True)
+            part2 = self.eval(parts[1], only_parse=True)
+            exec(part1 + ' = ' + part2)
+            return
+
+        # check function exists
         func_real_name = self.get_func_real_name(op_name)
         if func_real_name == False:
             return self.raise_error('SyntaxError', 'undefined function "' + op_name + '"', op)
@@ -490,17 +495,20 @@ class Program(helpers.Helpers):
         try:
             # put argument in the mem
             if op['args_str'] != '' and op['args_str'].strip() != '()':
-                if op['command'] != 'rmem':
-                    self.mem = self.eval(op['args_str'])
-                else:
+                if op['command'] == 'rmem':
                     self.eval(op['args_str'])
+                    return
+                else:
+                    func_arg = self.eval(op['args_str'])
+            else:
+                func_arg = None
 
             # execute function body
+            self.mem = func_arg
             with_thread = True
             if op_name in ['import', 'mem', 'python', 'rmem', 'eval']:
                 with_thread = False
-            default_variables = {}
-            self.exec_func(func_body.body, with_thread, default_variables=default_variables)
+            self.exec_func(func_body.body, with_thread)
             return
         except Exception as ex:
             raise

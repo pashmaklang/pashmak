@@ -1,5 +1,5 @@
 #
-# str-method001.pashmt
+# current_prog.py
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,30 +20,6 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
---test--
-class __str__ method working
+""" This file only have a variable to keep current program object """
 
---file--
-
-class First
-endclass
-
-$first = First()
-
-println $first
-
-class Second
-    func __str__
-        $the_str = 'hello world. i am a Second class'
-        return $the_str
-    endfunc
-endclass
-
-$second = Second()
-
-println $second
-
---output--
-"""[PashmakObject name="First"]
-hello world. i am a Second class
-"""
+current_prog = None

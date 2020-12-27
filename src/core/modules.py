@@ -80,7 +80,7 @@ modules["stdlib"] = """class Object
 func __init__
 endfunc
 func __str__
-return '[PashmakClass name="' + $this->__name__ + '"]'
+return '[PashmakObject name="' + $this->__name__ + '"]'
 endfunc
 endclass
 func print
@@ -145,7 +145,7 @@ func py_load_file($path)
 python("import importlib.util\; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path'))\; m = importlib.util.module_from_spec(spec)\; spec.loader.exec_module(m)\; self.mem = m")
 endfunc
 func fopen($args)
-if typeof($args) != list and typeof($args) != tuple
+if typeof($args) != tuple
 $args = [$args]
 endif
 $path = $args[0]

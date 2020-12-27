@@ -36,7 +36,7 @@ class Person
     endfunc
 endclass
 
-$p = Person
+$p = Person()
 
 mem $p->set_name('parsa')
 
