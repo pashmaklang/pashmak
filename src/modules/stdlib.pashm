@@ -110,7 +110,7 @@ func py_load_file($path)
 endfunc
 
 func fopen($args)
-    if typeof($args) != list and typeof($args) != tuple
+    if typeof($args) != tuple
         $args = [$args]
     endif
 

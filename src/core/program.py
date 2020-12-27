@@ -78,7 +78,7 @@ class Program(helpers.Helpers):
 
         if type(paths) == str:
             paths = [paths]
-        elif type(paths) != list and type(paths) != tuple:
+        elif type(paths) != tuple:
             return self.raise_error('ArgumentError', 'invalid argument type', op)
 
         for path in paths:
@@ -478,7 +478,14 @@ class Program(helpers.Helpers):
                         self.set_var(varname[1:], value)
             return
 
-        # check function exists TODO
+        parts = self.split_by_equals(op['str'].strip())
+        if len(parts) > 1:
+            part1 = self.eval(parts[0], only_parse=True)
+            part2 = self.eval(parts[1], only_parse=True)
+            exec(part1 + ' = ' + part2)
+            return
+
+        # check function exists
         func_real_name = self.get_func_real_name(op_name)
         if func_real_name == False:
             return self.raise_error('SyntaxError', 'undefined function "' + op_name + '"', op)
@@ -488,17 +495,20 @@ class Program(helpers.Helpers):
         try:
             # put argument in the mem
             if op['args_str'] != '' and op['args_str'].strip() != '()':
-                if op['command'] != 'rmem':
-                    self.mem = self.eval(op['args_str'])
-                else:
+                if op['command'] == 'rmem':
                     self.eval(op['args_str'])
+                    return
+                else:
+                    func_arg = self.eval(op['args_str'])
+            else:
+                func_arg = None
 
             # execute function body
+            self.mem = func_arg
             with_thread = True
             if op_name in ['import', 'mem', 'python', 'rmem', 'eval']:
                 with_thread = False
-            default_variables = {}
-            self.exec_func(func_body.body, with_thread, default_variables=default_variables)
+            self.exec_func(func_body.body, with_thread)
             return
         except Exception as ex:
             raise

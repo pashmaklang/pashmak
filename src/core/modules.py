@@ -145,7 +145,7 @@ func py_load_file($path)
 python("import importlib.util\; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path'))\; m = importlib.util.module_from_spec(spec)\; spec.loader.exec_module(m)\; self.mem = m")
 endfunc
 func fopen($args)
-if typeof($args) != list and typeof($args) != tuple
+if typeof($args) != tuple
 $args = [$args]
 endif
 $path = $args[0]

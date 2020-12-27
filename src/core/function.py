@@ -32,10 +32,12 @@ class Function:
         if len(current_prog.mem) == 1:
             current_prog.mem = current_prog.mem[0]
         default_vars = {}
+        with_thread = True
         try:
             self.parent_object
             default_vars['this'] = self.parent_object
         except:
-            pass
-        current_prog.exec_func(self.body, True, default_vars)
+            if self.name in ['import', 'mem', 'python', 'rmem', 'eval']:
+                with_thread = False
+        current_prog.exec_func(self.body, with_thread, default_vars)
         return current_prog.get_mem()

@@ -1770,7 +1770,7 @@ you can distribute your code in more than 1 files.
 for example, we have 2 files: `app.pashm`, `fib.pashm`.
 `app.pashm` is main file. `fib.pashm` contains a function to show fibonaccy algo.
 
-###### fib.pashm:
+##### fib.pashm:
 ```bash
 # this function prints fibonacci pattern
 func fib
