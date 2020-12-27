@@ -443,7 +443,7 @@ class Program(helpers.Helpers):
                 pass
             except AttributeError:
                 pass
-            parts = self.split_by_equals(op['str'].strip()) # op['str'].strip().split('=', 1)
+            parts = self.split_by_equals(op['str'].strip())
             if len(parts) <= 1:
                 if '->' in op['str'] or '(' in op['str'] or ')' in op['str']:
                     self.mem = self.eval(op['str'])
