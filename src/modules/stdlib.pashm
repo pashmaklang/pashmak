@@ -102,7 +102,7 @@ func required
 endfunc
 
 func read
-    read
+    python("self.io_read()")
 endfunc
 
 func py_load_file($path)

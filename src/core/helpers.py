@@ -118,6 +118,15 @@ class Helpers(builtin_functions.BuiltinFunctions):
         else:
             self.output += str(obj)
 
+    def io_read(self):
+        """ Reads input from stdin """
+        if not self.is_test:
+            readed_data = input()
+        else:
+            readed_data = self.read_data[0]
+            self.read_data.pop(0)
+        self.mem = readed_data
+
     def exit_program(self, exit_code):
         """ Exits the program """
         if not self.is_test:

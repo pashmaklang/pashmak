@@ -398,7 +398,6 @@ class Program(helpers.Helpers):
         # list of commands
         commands_dict = {
             'free': self.run_free,
-            'read': self.run_read,
             'func': self.run_func,
             'goto': self.run_goto,
             'gotoif': self.run_gotoif,

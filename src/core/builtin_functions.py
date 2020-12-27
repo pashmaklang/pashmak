@@ -43,15 +43,6 @@ class BuiltinFunctions:
                 except KeyError:
                     pass
 
-    def run_read(self, op: dict):
-        """ Reads input from stdin """
-        if not self.is_test:
-            readed_data = input()
-        else:
-            readed_data = self.read_data[0]
-            self.read_data.pop(0)
-        self.mem = readed_data
-
     def run_endfunc(self, op: dict):
         """ Closes the functon declaration block """
         try:
