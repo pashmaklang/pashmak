@@ -27,7 +27,7 @@ import os
 import signal
 import copy
 from pathlib import Path
-from . import helpers, version, modules, jit, parser
+from . import helpers, version, modules, jit, parser, current_prog
 from .class_system import Class, ClassObject
 from .function import Function
 
@@ -35,7 +35,6 @@ import hashlib, time, random, datetime, json
 
 class Program(helpers.Helpers):
     """ Pashmak program object """
-
     def __init__(self, is_test=False, args=[]):
         self.threads = [{
             'current_step': 0,
@@ -47,8 +46,8 @@ class Program(helpers.Helpers):
             }
         }] # list of threads
         self.functions = {
-            "mem": Function(name='mem', prog=self), # mem is a empty function just for save mem in code
-            "rmem": Function(name='rmem', prog=self),
+            "mem": Function(name='mem'), # mem is a empty function just for save mem in code
+            "rmem": Function(name='rmem'),
         } # declared functions <function-name>:[<list-of-body-commands>]
         self.sections = {} # list of declared sections <section-name>:<index-of-command-to-jump>
         self.classes = {} # list of declared classes
@@ -70,6 +69,8 @@ class Program(helpers.Helpers):
         # set argument variables
         self.set_var('argv', args)
         self.set_var('argc', len(self.get_var('argv')))
+
+        current_prog.current_prog = self
 
     def import_script(self, paths, import_once=False):
         """ Imports scripts/modules """
@@ -158,7 +159,6 @@ class Program(helpers.Helpers):
 
             # put error data in mem
             self.mem = copy.deepcopy(self.classes['Error'])
-            self.mem.__prog__ = self
             self.mem.type = error_type
             self.mem.message = message
             self.mem.file_path = op['file_path']
@@ -198,9 +198,6 @@ class Program(helpers.Helpers):
         # create new thread for this call
         if with_thread:
             thread_vars = dict(self.threads[-1]['vars'])
-            """for k in thread_vars:
-                if type(thread_vars[k]) == ClassObject:
-                    thread_vars[k].__prog__ = self"""
         else:
             thread_vars = self.threads[-1]['vars']
 
@@ -340,7 +337,6 @@ class Program(helpers.Helpers):
                                     if code[tmp_index-2:tmp_index] != '->':
                                         if code[tmp_index-1:tmp_index] in literals:
                                             if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
-                                                self.functions[func_real_name].prog = self
                                                 code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.functions["' + func_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
                                                 break
                             else:
@@ -357,7 +353,6 @@ class Program(helpers.Helpers):
                                         if code[tmp_index-2:tmp_index] != '->':
                                             if code[tmp_index-1:tmp_index] in literals:
                                                 if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
-                                                    self.classes[class_real_name].__prog__ = self
                                                     code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.classes["' + class_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
                                                     break
 

@@ -1,5 +1,5 @@
 #
-# function.py
+# current_prog.py
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,22 +20,6 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-class Function:
-    """ the pashmak function object """
-    def __init__(self, name):
-        self.name = name
-        self.body = []
+""" This file only have a variable to keep current program object """
 
-    def __call__(self, *args, **kwargs):
-        from .current_prog import current_prog
-        current_prog.mem = args
-        if len(current_prog.mem) == 1:
-            current_prog.mem = current_prog.mem[0]
-        default_vars = {}
-        try:
-            self.parent_object
-            default_vars['this'] = self.parent_object
-        except:
-            pass
-        current_prog.exec_func(self.body, True, default_vars)
-        return current_prog.get_mem()
+current_prog = None

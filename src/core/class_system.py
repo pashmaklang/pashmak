@@ -54,21 +54,21 @@ class Class:
 
     def __call__(self, *args, **kwargs):
         """ Make new object from class """
+        from .current_prog import current_prog
         class_copy = ClassObject(copy.deepcopy(self.props), copy.deepcopy(self.methods))
-        class_copy.__prog__ = self.__prog__
         class_copy.__theclass__ = copy.deepcopy(self)
         class_copy.__name__
         tmp_is_in_class = False
         try:
-            tmp_is_in_class = copy.deepcopy(self.__prog__.current_class)
-            del self.__prog__.current_class
+            tmp_is_in_class = copy.deepcopy(current_prog.current_class)
+            del current_prog.current_class
         except:
             pass
         if len(args) == 1:
             args = args[0]
         class_copy.methods['__init__'](args)
         if tmp_is_in_class:
-            self.__prog__.current_class = tmp_is_in_class
+            current_prog.current_class = tmp_is_in_class
         return class_copy
 
 class ClassObject:
@@ -78,23 +78,18 @@ class ClassObject:
         self.methods = methods
 
     def __str__(self):
+        from .current_prog import current_prog
         str_magic_method = self.methods['__str__']
-        self.__prog__.exec_func(str_magic_method.body, True, {'this': self})
-        return str(self.__prog__.get_mem())
+        current_prog.exec_func(str_magic_method.body, True, {'this': self})
+        return str(current_prog.get_mem())
 
     def __getattr__(self, attrname):
-        if attrname == 'props' or attrname == 'methods' or attrname == '__prog__':
+        from .current_prog import current_prog
+        if attrname == 'props' or attrname == 'methods':
             return super().__getattr__(attrname)
         for k in self.methods:
             self.methods[k].parent_object = self
-            self.methods[k].prog = self.__prog__
-        for k in self.props:
-            if type(self.props[k]) == Class:
-                self.props[k].__prog__ = self.__prog__
-                self.props[k].__name__
         try:
-            if type(self.props[attrname]) == ClassObject:
-                self.props[attrname].__prog__ = self.__prog__
             return self.props[attrname]
         except KeyError:
             try:
