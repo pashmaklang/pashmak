@@ -430,6 +430,45 @@ endfunc
 run_the_func(hi)
 ```
 
+Also you can change value of functions. functions are like variables and can be changed.
+
+For example:
+
+```bash
+func hi
+    println('Hi')
+endfunc
+
+func bye
+    println('Bye')
+endfunc
+
+hi()
+bye()
+```
+
+output:
+
+```
+Hi
+Bye
+```
+
+Now We can change value of this functions:
+
+```bash
+hi = bye
+hi()
+```
+
+output:
+
+```
+Bye
+```
+
+Actually, in above example, We are setting `bye` into `hi`.
+
 ### Function super functions
 there is some **Super functions** to handle functions at runtime.
 
