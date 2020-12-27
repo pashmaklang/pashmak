@@ -76,6 +76,8 @@ class ClassObject:
     def __init__(self, props: ClassProps, methods: dict):
         self.props = props
         self.methods = methods
+        for k in self.methods:
+            self.methods[k].parent_object = self
 
     def __str__(self):
         from .current_prog import current_prog
@@ -87,12 +89,11 @@ class ClassObject:
         from .current_prog import current_prog
         if attrname == 'props' or attrname == 'methods':
             return super().__getattr__(attrname)
-        for k in self.methods:
-            self.methods[k].parent_object = self
         try:
             return self.props[attrname]
         except KeyError:
             try:
+                self.methods[attrname].parent_object = self
                 return self.methods[attrname]
             except KeyError:
                 raise AttributeError(attrname)
