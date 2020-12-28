@@ -31,7 +31,7 @@ from . import helpers, version, modules, jit, parser, current_prog
 from .class_system import Class, ClassObject
 from .function import Function
 
-import hashlib, time, random, datetime, json
+import hashlib, time, random, datetime, json, http, http.cookies, http.server, http.client, http.cookiejar
 
 class Program(helpers.Helpers):
     """ Pashmak program object """
