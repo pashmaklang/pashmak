@@ -208,7 +208,24 @@ raise(Error('ClassCannotBeDeleted', 'class "' + $name + '" is a builtin class an
 endif
 python("del self.classes[self.get_var('name')]")
 endfunc
-endns"""
+endns
+func out_start
+python("self.out_started = True")
+endfunc
+func out_end
+python("self.out_started = False")
+endfunc
+func out_clean
+python("self.out_content = ''")
+endfunc
+func out_get
+python("self.mem = self.out_content")
+endfunc
+func out_get_clean
+$content = out_get()
+out_clean()
+return $content
+endfunc"""
 modules["sys"] = """namespace sys
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
 namespace path

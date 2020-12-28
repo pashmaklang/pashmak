@@ -18,6 +18,7 @@
 - added `py_load_file` function to load python scripts as object (GH-35)
 - added python `json` library support
 - added `function.{list,delete,exists}`, `class.{list,delete,exists}` super functions
+- added `out_*` magic functions to handle program stdout output in advance level
 
 #### Bug Fixes
 - fixed a bug in `eval` function

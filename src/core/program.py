@@ -70,6 +70,9 @@ class Program(helpers.Helpers):
         self.set_var('argv', args)
         self.set_var('argc', len(self.get_var('argv')))
 
+        self.out_started = False
+        self.out_content = ''
+
         current_prog.current_prog = self
 
     def import_script(self, paths, import_once=False):
