@@ -70,6 +70,9 @@ class Program(helpers.Helpers):
         self.set_var('argv', args)
         self.set_var('argc', len(self.get_var('argv')))
 
+        self.out_started = False
+        self.out_content = ''
+
         current_prog.current_prog = self
 
     def import_script(self, paths, import_once=False):
@@ -384,7 +387,7 @@ class Program(helpers.Helpers):
             self.current_func
             try:
                 self.current_class
-                self.classes[self.current_class].methods[self.current_func].body.append(op)
+                self.classes[self.current_class].__methods__[self.current_func].body.append(op)
             except:
                 self.functions[self.current_func].body.append(op)
             return
@@ -398,7 +401,6 @@ class Program(helpers.Helpers):
         # list of commands
         commands_dict = {
             'free': self.run_free,
-            'read': self.run_read,
             'func': self.run_func,
             'goto': self.run_goto,
             'gotoif': self.run_gotoif,
@@ -453,11 +455,11 @@ class Program(helpers.Helpers):
             varname = varname.split('->', 1)
             is_class_setting = False
             if len(varname) > 1:
-                is_class_setting = varname[1].replace('->', '.props.')
+                is_class_setting = varname[1].replace('->', '.')
             varname = varname[0]
             if len(parts) <= 1:
                 if is_in_class:
-                    self.classes[self.current_class].props[varname[1:]] = None
+                    self.classes[self.current_class].__props__[varname[1:]] = None
                 else:
                     self.set_var(varname[1:], None)
                 return
@@ -466,10 +468,10 @@ class Program(helpers.Helpers):
                 value = self.eval(parts[1].strip())
             if is_class_setting != False:
                 tmp_real_var = self.eval(varname)
-                exec('tmp_real_var.props.' + is_class_setting + ' = value')
+                exec('tmp_real_var.__props__.' + is_class_setting + ' = value')
             else:
                 if is_in_class:
-                    self.classes[self.current_class].props[varname[1:]] = value
+                    self.classes[self.current_class].__props__[varname[1:]] = value
                 else:
                     if '[' in varname or ']' in varname:
                         the_target = self.eval(varname, only_parse=True)

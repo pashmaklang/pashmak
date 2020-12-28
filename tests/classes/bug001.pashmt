@@ -35,7 +35,7 @@ $p1->age = 20
 $p2 = Person()
 $p2->age = 77
 
-println(self.classes['Person'].props)
+println(self.classes['Person'].__props__)
 println($p1->age)
 println($p2->age)
 

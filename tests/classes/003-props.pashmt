@@ -28,7 +28,7 @@ class Car
     $price = 100
 endclass
 
-print(self.classes['Car'].props)
+print(self.classes['Car'].__props__)
 
 --output--
 "{'__parent__': 'Object', '__name__': 'Car', 'name': None, 'price': 100}"
