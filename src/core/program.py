@@ -96,9 +96,7 @@ class Program(helpers.Helpers):
                 code_location = path
                 module_name = path[1:]
                 try:
-                    namespaces_prefix = ''
-                    for part in self.namespaces_tree:
-                        namespaces_prefix += part + '.'
+                    namespaces_prefix = self.current_namespace()
                     namespaces_prefix += '@'
                     if not namespaces_prefix + module_name in self.included_modules:
                         content = modules.modules[module_name]
@@ -471,10 +469,10 @@ class Program(helpers.Helpers):
 
             # execute function body
             self.mem = func_arg
-            with_thread = True
             if op_name in ['import', 'mem', 'python', 'rmem', 'eval']:
-                with_thread = False
-            self.exec_func(func_body.body, with_thread)
+                self.exec_func(func_body.body, False)
+            else:
+                self.mem = func_body(self.mem)
             return
         except Exception as ex:
             raise
