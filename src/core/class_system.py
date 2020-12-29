@@ -51,6 +51,8 @@ class Class:
     def __init__(self, name: str, props: dict):
         self.__props__ = ClassProps(props)
         self.__methods__ = {}
+        self.__inheritance_tree__ = []
+        self.__classname__ = name
 
     def __call__(self, *args, **kwargs):
         """ Make new object from class """
@@ -58,6 +60,7 @@ class Class:
         class_copy = ClassObject(copy.deepcopy(self.__props__), copy.deepcopy(self.__methods__))
         class_copy.__theclass__ = copy.deepcopy(self)
         class_copy.__name__
+        class_copy.__inheritance_tree__ = self.__inheritance_tree__
         tmp_is_in_class = False
         try:
             tmp_is_in_class = copy.deepcopy(current_prog.current_class)
@@ -73,7 +76,7 @@ class Class:
 
     def __getattr__(self, attrname):
         from .current_prog import current_prog
-        if attrname == '__props__' or attrname == '__methods__':
+        if attrname == '__props__' or attrname == '__methods__' or attrname == '__inheritance_tree__' or attrname == '__classname__':
             return super().__getattr__(attrname)
         try:
             return self.__props__[attrname]
@@ -85,7 +88,7 @@ class Class:
                 raise AttributeError(attrname)
 
     def __setattr__(self, attrname, value):
-        if attrname == '__props__' or attrname == '__methods__':
+        if attrname == '__props__' or attrname == '__methods__' or attrname == '__inheritance_tree__' or attrname == '__classname__':
             return super().__setattr__(attrname, value)
         self.__props__[attrname] = value
 
@@ -105,7 +108,7 @@ class ClassObject:
 
     def __getattr__(self, attrname):
         from .current_prog import current_prog
-        if attrname == '__props__' or attrname == '__methods__' or attrname == '__theclass__':
+        if attrname == '__props__' or attrname == '__methods__' or attrname == '__theclass__' or attrname == '__inheritance_tree__':
             return super().__getattr__(attrname)
         try:
             return self.__props__[attrname]
@@ -117,6 +120,6 @@ class ClassObject:
                 raise AttributeError(attrname)
 
     def __setattr__(self, attrname, value):
-        if attrname == '__props__' or attrname == '__methods__' or attrname == '__theclass__':
+        if attrname == '__props__' or attrname == '__methods__' or attrname == '__theclass__' or attrname == '__inheritance_tree__':
             return super().__setattr__(attrname, value)
         self.__props__[attrname] = value

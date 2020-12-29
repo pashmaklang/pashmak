@@ -177,15 +177,18 @@ class BuiltinFunctions:
             self.classes[self.current_namespace() + arg] = copy.deepcopy(self.classes[parent_real_name])
             self.classes[self.current_namespace() + arg].__props__['__parent__'] = parent_real_name
             self.classes[self.current_namespace() + arg].__props__['__name__'] = self.current_namespace() + arg
+            self.classes[self.current_namespace() + arg].__inheritance_tree__ = [*self.classes[parent_real_name].__inheritance_tree__, self.classes[self.current_namespace() + arg].__props__['__name__']]
         else:
             if self.current_namespace() + arg != 'Object':
                 self.classes[self.current_namespace() + arg] = copy.deepcopy(self.classes['Object'])
                 self.classes[self.current_namespace() + arg].__props__['__parent__'] = 'Object'
                 self.classes[self.current_namespace() + arg].__props__['__name__'] = self.current_namespace() + arg
+                self.classes[self.current_namespace() + arg].__inheritance_tree__ = ['Object', self.classes[self.current_namespace() + arg].__props__['__name__']]
             else:
                 self.classes[self.current_namespace() + arg] = copy.deepcopy(Class(self.current_namespace() + arg, {}))
                 self.classes[self.current_namespace() + arg].__props__['__parent__'] = None
                 self.classes[self.current_namespace() + arg].__props__['__name__'] = 'Object'
+                self.classes[self.current_namespace() + arg].__inheritance_tree__ = ['Object']
         self.current_class.append(self.current_namespace() + arg)
 
     def run_func(self, op: dict):
