@@ -221,3 +221,7 @@ func out_get_clean
     out_clean()
     return $content
 endfunc
+
+func __namespace__
+    python("self.mem = self.current_namespace()")
+endfunc

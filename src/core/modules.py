@@ -225,6 +225,9 @@ func out_get_clean
 $content = out_get()
 out_clean()
 return $content
+endfunc
+func __namespace__
+python("self.mem = self.current_namespace()")
 endfunc"""
 modules["sys"] = """namespace sys
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}

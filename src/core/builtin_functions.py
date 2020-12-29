@@ -45,9 +45,9 @@ class BuiltinFunctions:
 
     def run_endfunc(self, op: dict):
         """ Closes the functon declaration block """
-        try:
-            del self.current_func
-        except AttributeError:
+        if len(self.current_func) > 0:
+            self.current_func.pop()
+        else:
             self.raise_error('SyntaxError', 'unexpected "endfunc" when function block is not opened', op)
 
     def run_goto(self, op: dict):
@@ -124,9 +124,9 @@ class BuiltinFunctions:
 
     def run_endclass(self, op: dict):
         """ Closes the class declaration block """
-        try:
-            del self.current_class
-        except AttributeError:
+        if len(self.current_class) > 0:
+            self.current_class.pop()
+        else:
             self.raise_error('SyntaxError', 'unexpected "endclass" when class block is not opened', op)
 
     def run_class(self, op: dict):
@@ -186,7 +186,7 @@ class BuiltinFunctions:
                 self.classes[self.current_namespace() + arg] = copy.deepcopy(Class(self.current_namespace() + arg, {}))
                 self.classes[self.current_namespace() + arg].__props__['__parent__'] = None
                 self.classes[self.current_namespace() + arg].__props__['__name__'] = 'Object'
-        self.current_class = self.current_namespace() + arg
+        self.current_class.append(self.current_namespace() + arg)
 
     def run_func(self, op: dict):
         """ Starts function declaration block """
@@ -198,9 +198,9 @@ class BuiltinFunctions:
                     'SyntaxError', 'unexpected "' + ch + '"', op
                 )
         # check function already declared
-        try:
-            self.current_class
-        except:
+        if len(self.current_class) > 0:
+            pass
+        else:
             try:
                 self.functions[self.current_namespace() + arg]
                 return self.raise_error(
@@ -212,23 +212,22 @@ class BuiltinFunctions:
                 pass
         # declare function
         is_method = False
-        try:
-            self.current_class
-            self.current_func = arg
-            self.classes[self.current_class].__methods__[self.current_func] = Function(name=self.current_func)
+        if len(self.current_class) > 0:
+            self.current_func.append(arg)
+            self.classes[self.current_class[-1]].__methods__[self.current_func[-1]] = Function(name=self.current_func[-1])
             is_method = True
-        except:
-            self.current_func = self.current_namespace() + arg
-            self.functions[self.current_func] = Function(name=self.current_func)
+        else:
+            self.current_func.append(self.current_namespace() + arg)
+            self.functions[self.current_func[-1]] = Function(name=self.current_func[-1])
         # check for argument variable
         if len(self.multi_char_split(op['args_str'], ' (', 1)) > 1:
             arg_var = self.multi_char_split(op['args_str'], ' (', 1)[1].strip(')').strip('(').strip()
             if arg_var != '':
                 self.arg_should_be_variable(arg_var, op)
                 if is_method:
-                    self.classes[self.current_class].__methods__[self.current_func].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
+                    self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
                 else:
-                    self.functions[self.current_func].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
+                    self.functions[self.current_func[-1]].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
 
     def run_return(self, op: dict):
         """ Returns a value in function """

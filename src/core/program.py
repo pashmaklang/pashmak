@@ -73,6 +73,11 @@ class Program(helpers.Helpers):
         self.out_started = False
         self.out_content = ''
 
+        self.current_func = []
+        self.current_class = []
+
+        self.func_depth = 0
+
         current_prog.current_prog = self
 
     def import_script(self, paths, import_once=False):
@@ -341,29 +346,27 @@ class Program(helpers.Helpers):
         op = self.set_command_index(op)
         op_name = op['command']
 
+        if op_name == 'func':
+            self.func_depth += 1
+
         if op_name == 'endfunc':
-            self.run_endfunc(op)
+            if self.func_depth <= 1:
+                self.run_endfunc(op)
+                self.func_depth -= 1
+                return
+            self.func_depth -= 1
+
+        # if a function is started, append current command to the function body
+        if len(self.current_func) > 0:
+            if len(self.current_class) > 0:
+                self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].body.append(op)
+            else:
+                self.functions[self.current_func[-1]].body.append(op)
             return
 
         if op_name == 'endclass':
             self.run_endclass(op)
             return
-
-        # if a function is started, append current command to the function body
-        try:
-            self.current_func
-            try:
-                self.current_class
-                self.classes[self.current_class].__methods__[self.current_func].body.append(op)
-            except:
-                self.functions[self.current_func].body.append(op)
-            return
-        except NameError:
-            pass
-        except KeyError:
-            pass
-        except AttributeError:
-            pass
 
         # list of commands
         commands_dict = {
@@ -403,15 +406,8 @@ class Program(helpers.Helpers):
         if op['str'][0] == '$':
             # if a class is started, append current command as a property to class
             is_in_class = False
-            try:
-                self.current_class
+            if len(self.current_class) > 0:
                 is_in_class = True
-            except NameError:
-                pass
-            except KeyError:
-                pass
-            except AttributeError:
-                pass
             parts = self.split_by_equals(op['str'].strip())
             if len(parts) <= 1:
                 if '->' in op['str'] or '(' in op['str'] or ')' in op['str']:
@@ -426,7 +422,7 @@ class Program(helpers.Helpers):
             varname = varname[0]
             if len(parts) <= 1:
                 if is_in_class:
-                    self.classes[self.current_class].__props__[varname[1:]] = None
+                    self.classes[self.current_class[-1]].__props__[varname[1:]] = None
                 else:
                     self.set_var(varname[1:], None)
                 return
@@ -438,7 +434,7 @@ class Program(helpers.Helpers):
                 exec('tmp_real_var.__props__.' + is_class_setting + ' = value')
             else:
                 if is_in_class:
-                    self.classes[self.current_class].__props__[varname[1:]] = value
+                    self.classes[self.current_class[-1]].__props__[varname[1:]] = value
                 else:
                     if '[' in varname or ']' in varname:
                         the_target = self.eval(varname, only_parse=True)

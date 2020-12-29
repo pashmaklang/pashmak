@@ -61,7 +61,7 @@ class Class:
         tmp_is_in_class = False
         try:
             tmp_is_in_class = copy.deepcopy(current_prog.current_class)
-            del current_prog.current_class
+            current_prog.current_class = []
         except:
             pass
         if len(args) == 1:
