@@ -29,7 +29,7 @@ $f = open('CHANGELOG.md', 'r')
 $content = $f->read()
 $date_str = datetime->date->today()
 $date_str = str($date_str->year) + '-' + str($date_str->month) + '-' + str($date_str->day)
-$content = $content->replace('\#\# next release', '\#\# ' + $new_version + ' (' + $date_str + ')')
+$content = $content->replace('## next release', '## ' + $new_version + ' (' + $date_str + ')')
 $f->close()
 
 $f = open('CHANGELOG.md', 'w')

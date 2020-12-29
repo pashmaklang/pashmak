@@ -52,6 +52,23 @@ def load(path: str, code_location: str, self=None) -> list:
     If file is already caches and file is not changed, returns the cache
     but if not, caches the file and then returns the commands
     """
+    # check is jit disabled
+    is_jit_disabled = False
+    try:
+        is_jit_disabled = bool(os.environ['PASHMAK_DISABLE_JIT'])
+    except:
+        pass
+    if is_jit_disabled:
+        f = open(path, 'r')
+        content = f.read()
+        f.close()
+        if self != None:
+            content = '$__ismain__ = False; $__file__ = "' + path.replace('\\', '\\\\') + '";\n$__dir__ = "' + os.path.dirname(path).replace('\\', '\\\\') + '"\n' + content
+            content += '\n$__file__ = "' + self.get_var('__file__').replace('\\', '\\\\') + '"'
+            content += '\n$__dir__ = "' + self.get_var('__dir__').replace('\\', '\\\\') + '"'
+            content += '\n$__ismain__ = "' + str(bool(self.get_var('__ismain__'))) + '"'
+        return parser.parse(content, filepath=code_location)
+
     file_hash = calc_file_sha256(path)
     path = path.replace('\\', '/')
     only_file_name = path.split('/')[-1]
@@ -89,7 +106,7 @@ def load(path: str, code_location: str, self=None) -> list:
         code_commands = parser.parse(content, filepath=code_location, only_parse=True)
         new_content = file_hash + '\n'
         for op in code_commands:
-            new_content += op['str'].replace('#', '\\#').replace(';', '\\;') + '\n'
+            new_content += op['str'] + '\n'
         new_content = new_content.strip()
         cache_f = open(the_cache_file, 'w')
         cache_f.write(new_content)

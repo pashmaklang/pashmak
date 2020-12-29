@@ -1,7 +1,8 @@
 #
-# 1.pashmt
+# multiline.pashmt
 #
-# The Pashmak Project
+# 
+The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
@@ -21,25 +22,20 @@
 #########################################################################
 
 --test--
-raised error data is put into mem
+multiline syntax works
+
 --file--
-try 10
-# a code with error
-mmdgfgdhgfhjh
-endtry
 
-goto 20
+println('hello\
+ world')
 
-section 10
+println(\
+    'this is a test\n\
+new line'\
+)
 
-$ex = ^
-print $ex->type + ':' + $ex->message
-goto 30
-
-section 20
-
-print 'without error'
-
-section 30;
 --output--
-"NameError:name 'mmdgfgdhgfhjh' is not defined"
+"""hello world
+this is a test
+new line
+"""

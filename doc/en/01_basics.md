@@ -132,21 +132,6 @@ mem str(7*7) + ' is sum'; print(^) # output: 49 is sum
 
 **The mem structure, is handled by Python(eval function) and you can use all of python features in the mem calculation**
 
-#### Print `;` and `#`
-For printing `;` and `#` special characters, put a `\` before them:
-
-```bash
-mem 'this is \; semicolon\n'; print(^)
-mem 'this is \# sharp\n'; print(^)
-```
-
-output:
-
-```
-this is ; semicolon
-this is # sharp
-```
-
 ### Printing without using mem
 this is a easier syntax for printing:
 
@@ -189,3 +174,38 @@ Also there is a alias for `println`, this is `printl`:
 #println("hello world")
 printl("hello world")
 ```
+
+### Multi line
+You can write one command in more than one line. This helps you to write a clean code.
+
+For example:
+
+```bash
+println('hello\
+ world')
+```
+
+output:
+
+```
+hello world
+```
+
+another example:
+
+```bash
+println(\
+    'hello world\
+\nthis is a simple multiline\
+    '\
+)
+```
+
+output:
+
+```
+hello world
+this is a simple multiline
+```
+
+You need to put a `\` in end of lines to continue them in next line.

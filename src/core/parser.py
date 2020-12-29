@@ -28,25 +28,6 @@ import time
 literals = '()+-/*%=}{<>[], '
 """ The literal characters """
 
-def handle_special_char(op_str: str, ch: str) -> list:
-    ''' Handle \\<special-char> as clean text '''
-
-    # replace \<char> with a random string to replace it after argument parsing
-    str_to_replace_with_semicolon = '<semicolon' + str(random.random()) + '>'
-
-    # make sure generated random string is not currently in this line
-    while str_to_replace_with_semicolon in op_str:
-        str_to_replace_with_semicolon = '<semicolon' + str(random.random()) + '>'
-
-    op_str = op_str.replace('\\' + ch, str_to_replace_with_semicolon)
-
-    return [op_str, str_to_replace_with_semicolon]
-
-def ignore_comment(op_str: str) -> str:
-    ''' Remove comments from code line '''
-    parts = op_str.split('#', 1) # just part of before `#` is the code and after that is comment
-    return parts[0]
-
 def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
     ''' Parse a command from text to object '''
     op = {}
@@ -104,24 +85,53 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
     ''' Parse code from text and return list of commands '''
     # split the lines
     lines = content.split('\n')
+    # handle multiline
+    new_lines = ['']
+    for line in lines:
+        if line:
+            if line[-1] == '\\':
+                new_lines[-1] += line[:-1]
+            else:
+                new_lines[-1] += line
+                new_lines.append('')
+        else:
+            new_lines.append(line)
+    lines = new_lines
     line_counter = 1
     commands = []
     for line in lines:
         # clean line, remove comments from that
         line = line.strip()
-        tmp = handle_special_char(line, '#')
-        line = tmp[0]
-        line = ignore_comment(line)
-        line = line.replace(tmp[1], '#')
-        tmp = handle_special_char(line, ';')
-        line = tmp[0]
-        clean_semicolon = tmp[1]
+        if line:
+            if line[0] == '#':
+                continue
+        line_str_parts = parse_string(line)
+        new_line = ''
+        for line_part in line_str_parts:
+            if line_part[0] == True:
+                new_line += line_part[1]
+            else:
+                new_line += line_part[1].split('#', 1)[0]
+                if '#' in line_part[1]:
+                    break
+        line = new_line
 
         # get commands by spliting line by ;
-        ops = line.split(';')
+        line_str_parts = parse_string(line)
+        new_lines = ['']
+        for line_part in line_str_parts:
+            if line_part[0] == True:
+                new_lines[-1] += line_part[1]
+            else:
+                tmp = line_part[1].split(';')
+                new_lines[-1] += tmp[0]
+                if len(tmp) > 1:
+                    tmp = tmp[1:]
+                    new_lines = [*new_lines, *tmp]
+        ops = new_lines
         for op in ops:
             op = op.strip()
-            op = op.replace(clean_semicolon, ';')
+            #op = op.replace(clean_semicolon, ';')
             if op != '':
                 # parse once command and append it to the list
                 op = parse_op(op)
@@ -170,3 +180,41 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
         i += 1
 
     return commands
+
+def parse_string(command: str):
+    """ Splits strings and codes """
+    i = 0
+    command = command.strip()
+    is_in_string = False
+    command_parts = [[False, '']]
+    while i < len(command):
+        is_string_start = False
+        if command[i] == '"' or command[i] == "'":
+            before_backslashes_count = 0
+            try:
+                x = i-1
+                while x >= 0:
+                    if command[x] == '\\':
+                        before_backslashes_count += 1
+                    else:
+                        x = -1
+                    x -= 1
+            except:
+                pass
+            if is_in_string:
+                if before_backslashes_count % 2 != 0 and before_backslashes_count != 0:
+                    pass
+                elif is_in_string == command[i]:
+                    is_in_string = False
+                    command_parts[-1][1] += command[i]
+                    is_string_start = True
+                    command_parts.append([False, ''])
+            else:
+                is_in_string = command[i]
+                command_parts.append([True, ''])
+                command_parts[-1][1] += command[i]
+                is_string_start = True
+        if not is_string_start:
+            command_parts[-1][1] += command[i]
+        i += 1
+    return command_parts

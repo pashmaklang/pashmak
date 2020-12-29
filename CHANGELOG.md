@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 0.6, 0.6-beta12
+## 0.6, 0.6-beta13
 
 #### New features
 - added **Class** system
@@ -19,6 +19,9 @@
 - added python `json` library support
 - added `function.{list,delete,exists}`, `class.{list,delete,exists}` super functions
 - added `out_*` magic functions to handle program stdout output in advance level
+- added multiline using `\` character in end of lines
+- added complicated declaring class and function
+- added `__namespace__()` function to return current namespace as string
 
 #### Bug Fixes
 - fixed a bug in `eval` function
@@ -43,3 +46,4 @@
 - some optimizations in mem eval parser
 - some optimizations in interpreter code
 - changed raised error data from dictonary to `Error` object
+- allow using `;` and `#` inside string without `\`

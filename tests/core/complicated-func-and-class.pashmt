@@ -1,0 +1,114 @@
+#
+# complicated-func-and-class.pashmt
+#
+# The Pashmak Project
+# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+complicated class and func
+
+--file--
+
+func hi
+    println('start')
+
+    func bye
+        println('bye')
+    endfunc
+
+    func foo
+        println('foo start')
+        func bar
+            println('bar')
+        endfunc
+        bar()
+        println('foo end')
+    endfunc
+
+    bye()
+
+    foo()
+
+    println('end')
+endfunc
+
+hi()
+bye()
+
+func do
+    class Person
+        $name = 'someone'
+    endclass
+
+    println(Person()->name)
+endfunc
+
+do()
+println(Person()->name)
+
+class First
+    $first = 'the first'
+    class Last
+        $last = 'the last'
+    endclass
+
+    func do
+        class DoClass
+            $name = 'the do class'
+        endclass
+    endfunc
+endclass
+
+println(First()->first)
+println(Last()->last)
+
+$a = First()
+$a->do()
+println(DoClass()->name)
+
+func one
+    func two
+        println('the two')
+    endfunc
+
+    two()
+
+    func.delete(__namespace__() + 'two')
+endfunc
+
+one()
+
+println(func.exists('two'))
+
+--output--
+"""start
+bye
+foo start
+bar
+foo end
+end
+bye
+someone
+someone
+the first
+the last
+the do class
+the two
+False
+"""

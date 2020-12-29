@@ -1,10 +1,27 @@
 #!/usr/bin/env pashmak
 # Updates files copyright headers
 
-$header_text = '\#\n\# The Pashmak Project\n\# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>\n\#\n\# This file is part of Pashmak.\n\#\n\# Pashmak is free software: you can redistribute it and/or modify\n\# it under the terms of the GNU General Public License as published by\n\# the Free Software Foundation, either version 3 of the License, or\n\# (at your option) any later version.\n\#\n\# Pashmak is distributed in the hope that it will be useful,\n\# but WITHOUT ANY WARRANTY\; without even the implied warranty of\n\# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n\# GNU General Public License for more details.\n\#\n\# You should have received a copy of the GNU General Public License\n\# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.\n'
+$header_text = '#\n# \
+The Pashmak Project\
+\n# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>\
+\n#\
+\n# This file is part of Pashmak.\
+\n#\
+\n# Pashmak is free software: you can redistribute it and/or modify\
+\n# it under the terms of the GNU General Public License as published by\
+\n# the Free Software Foundation, either version 3 of the License, or\
+\n# (at your option) any later version.\
+\n#\
+\n# Pashmak is distributed in the hope that it will be useful,\
+\n# but WITHOUT ANY WARRANTY; without even the implied warranty of\
+\n# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\
+\n# GNU General Public License for more details.\
+\n#\
+\n# You should have received a copy of the GNU General Public License\
+\n# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.\n'
 
 func set_once_header($path)
-    $spliter = ('\#' * 73) + '\n\n'
+    $spliter = ('#' * 73) + '\n\n'
     
     # open file and add header
     $f = open($path, 'r')
@@ -23,10 +40,10 @@ func set_once_header($path)
 
     # add current filename to header
     $only_file_name = $path->replace('\\', '/')->split('/')[-1]
-    $new_content = '\#\n\# ' + $only_file_name + '\n' + $new_content
+    $new_content = '#\n# ' + $only_file_name + '\n' + $new_content
 
     if $path->replace('\\', '/')->endswith('src' + '/' + 'pashmak.py') or $path->replace('\\', '/')->endswith('tests' + '/' + 'run.py')
-        $new_content = '\#!/usr/bin/env python3\n' + $new_content
+        $new_content = '#!/usr/bin/env python3\n' + $new_content
     endif
 
     $f = open($path, 'w')

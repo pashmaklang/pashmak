@@ -1,6 +1,5 @@
 # TODO
 
-- allow using `;` and `#` inside string without `\`
 - add **parent** and **self** features for classes
 - add `isinstanceof` function for objects
 - create more magic methods for classes

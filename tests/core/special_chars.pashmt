@@ -24,12 +24,12 @@
 special characters can be printed
 --file--
 
+print 'this is ; semicolon'
 print 'this is \; semicolon'
-print 'this is \\; semicolon'
+print 'this is # sharp'
 print 'this is \# sharp'
-print 'this is \\# sharp'
-print 'foo \# \; bar'
+print 'foo # ; bar'
 
 --output--
 
-"this is ; semicolonthis is \\; semicolonthis is # sharpthis is \\# sharpfoo # ; bar"
+"this is ; semicolonthis is \; semicolonthis is # sharpthis is \# sharpfoo # ; bar"

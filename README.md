@@ -49,6 +49,7 @@ read the following Documentation to learn pashmak.
 - [Eval](#eval)
 - [Modules](#internal-modules)
 - [Jit compiler](#the-pashmak-jit-compiler)
+- [Advance](#advance)
 
 
 
@@ -282,21 +283,6 @@ mem str(7*7) + ' is sum'; print(^) # output: 49 is sum
 
 **The mem structure, is handled by Python(eval function) and you can use all of python features in the mem calculation**
 
-#### Print `;` and `#`
-For printing `;` and `#` special characters, put a `\` before them:
-
-```bash
-mem 'this is \; semicolon\n'; print(^)
-mem 'this is \# sharp\n'; print(^)
-```
-
-output:
-
-```
-this is ; semicolon
-this is # sharp
-```
-
 ### Printing without using mem
 this is a easier syntax for printing:
 
@@ -339,6 +325,41 @@ Also there is a alias for `println`, this is `printl`:
 #println("hello world")
 printl("hello world")
 ```
+
+### Multi line
+You can write one command in more than one line. This helps you to write a clean code.
+
+For example:
+
+```bash
+println('hello\
+ world')
+```
+
+output:
+
+```
+hello world
+```
+
+another example:
+
+```bash
+println(\
+    'hello world\
+\nthis is a simple multiline\
+    '\
+)
+```
+
+output:
+
+```
+hello world
+this is a simple multiline
+```
+
+You need to put a `\` in end of lines to continue them in next line.
 
 
 
@@ -1424,6 +1445,108 @@ You can delete a function at runtime with `func.delete` function:
 func.delete('some_func')
 ```
 
+### Complicated function declaration
+You can declare functions-in-functions.
+
+Look at this example:
+
+```bash
+func foo
+    func bar
+        println('bar')
+    endfunc
+
+    bar()
+
+    println('foo')
+endfunc
+
+foo()
+bar()
+```
+
+output:
+
+```
+bar
+foo
+bar
+```
+
+Also look at this example:
+
+```bash
+func first
+    println('first start')
+    func second
+        println('second start')
+        func last
+            println('last')
+        endfunc
+        last()
+        println('second end')
+    endfunc
+    second()
+    println('first end')
+endfunc
+
+first()
+```
+
+output:
+
+```
+first start
+second start
+last
+second end
+first end
+```
+
+**The declared function in function is accessible from outside.**
+
+For example:
+
+```bash
+func foo
+    func bar
+        println('the bar')
+    endfunc
+endfunc
+
+foo()
+
+bar()
+```
+
+**How to make a function in function local?**
+
+You should delete the function in end of parent function:
+
+```bash
+func foo
+    func bar
+        println('the bar')
+    endfunc
+
+    # use the function...
+
+    func.delete(__namespace__() + 'bar')
+endfunc
+
+foo()
+
+bar()
+```
+
+output:
+
+```
+NameError: undefined 'bar'...
+```
+
+> You will learn about that `__namespace__()` function in next sections...
+
 
 
 # Arrays
@@ -1599,8 +1722,7 @@ printlgdfgfd(^)
 output:
 
 ```
-SyntaxError:
-        undefined function "printlgdfgfd"
+NameError: undefined "printlgdfgfd"
 ```
 
 they are errors.
@@ -2158,6 +2280,28 @@ App.bye() # output: good bye
 ```
 
 in above example, we imported `foo.pashm` inside an namespace and content of `foo.pashm` is loaded under that namespace. for example, `foo.hello` function is loaded under `App` namespace, so finally will be set as `App.foo.hello`.
+
+### `__namespace__()` function
+There is function named `__namespace__`. this function returns the current namespace as string.
+
+Look at this example:
+
+```bash
+namespace app
+    namespace core
+        println(__namespace__())
+    endns
+endns
+
+println(__namespace__())
+```
+
+output:
+
+```
+app.core.
+
+```
 
 
 
@@ -2841,6 +2985,141 @@ the bar
 the bar
 ```
 
+### Complicated class declaration
+You can declare class-in-class (like functions).
+
+Look at this example:
+
+```bash
+class Foo
+    $name = 'the foo'
+
+    class Bar
+        $name = 'the bar'
+    endclass
+endclass
+
+println(Foo()->name)
+println(Bar()->name)
+```
+
+output:
+
+```
+the foo
+the bar
+```
+
+Also look at this example:
+
+```bash
+class First
+    $name = 'first'
+    class Second
+        $name = 'second'
+
+        class Last
+            $name = 'last'
+        endclass
+
+        class Person
+            $name = 'person'
+        endclass
+    endclass
+
+    $the_second = Second()
+endclass
+
+println(First()->name)
+println(Second()->name)
+println(Last()->name)
+println(Person()->name)
+
+println(First()->the_second->name)
+```
+
+output:
+
+```
+first
+second
+last
+person
+second
+```
+
+### class Static methods & properties
+Classes can have **Static** methods or properties. The static means that for using them we not need to create a object from them and we can use them directly on class.
+
+For example:
+
+```bash
+class Person
+    $static_prop = 'the static prop'
+
+    func some_static_method
+        println('the static method')
+    endfunc
+endclass
+
+println(Person->static_prop)
+Person->some_static_method()
+```
+
+output:
+
+```
+the static prop
+the static method
+```
+
+The static properties and functions are EVENT LIKE normal declaration of them.
+
+Also they can recive the value:
+
+```bash
+class Person
+    $someprop = 'hello world'
+endclass
+
+println(Person->someprop)
+
+Person->someprop = 'new value'
+
+println(Person->someprop)
+```
+
+output:
+
+```
+hello world
+new value
+```
+
+Also they are accessible in objects:
+
+```bash
+class Person
+    $static_prop
+
+    func show_static_prop
+        println('value: ' + $this->static_prop)
+    endfunc
+endclass
+
+Person->static_prop = 'hello world'
+
+$p = Person()
+
+$p->show_static_prop()
+```
+
+output:
+
+```
+value: hello world
+```
+
 
 
 # Eval
@@ -3173,6 +3452,8 @@ you can use this python standard modules in pashmak directly in your code:
 - `random`
 - `datetime`
 - `json`
+- `http`
+- `base64`
 
 for example:
 
@@ -3306,6 +3587,13 @@ this system, compresses the content of scripts and saves them to `__pashmam__` d
 you can see `__pashmam__` directory alongside your scripts. this directory contains cached codes.
 
 Also, make sure to add `__pashmam__` file to your **gitignore**.
+
+To disable the jit, you can use `PASHMAK_DISABLE_JIT` environment variable with value `1` while running the pashmak interpreter.
+for example:
+
+```bash
+$ PASHMAK_DISABLE_JIT=1 pashmak somefile.pashm
+```
 
 
 

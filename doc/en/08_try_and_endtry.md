@@ -23,8 +23,7 @@ printlgdfgfd(^)
 output:
 
 ```
-SyntaxError:
-        undefined function "printlgdfgfd"
+NameError: undefined "printlgdfgfd"
 ```
 
 they are errors.

@@ -1,5 +1,5 @@
 #
-# dir-and-file-vars.pashmt
+# static-props.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,25 +21,25 @@
 #########################################################################
 
 --test--
-the $__dir__ and $__file__ variables are valid
+class static properties working
 
 --file--
-println $__dir__, $__file__
 
-import 'tests/test-module-path/dir-and-file.pashm'
+class Test
+    func static_func
+        println('the static function')
+    endfunc
 
-println $__dir__, $__file__
+    $name = 'the static name'
+endclass
 
-empty_func()
-
-hello()
+Test->static_func()
+Test->prop = 'hello'
+println(Test->prop)
+println(Test->name)
 
 --output--
-"""('""" + os.getcwd() + """', '""" + os.getcwd() + """/__main__')
-('""" + os.getcwd() + """/tests/test-module-path', '""" + os.getcwd() + """/tests/test-module-path/dir-and-file.pashm')
-('""" + os.getcwd() + """/tests/test-module-path', '""" + os.getcwd() + """/tests/test-module-path/dir-and-file.pashm')
-('""" + os.getcwd() + """', '""" + os.getcwd() + """/__main__')
-('""" + os.getcwd() + """/tests/test-module-path', '""" + os.getcwd() + """/tests/test-module-path/dir-and-file.pashm')
+"""the static function
+hello
+the static name
 """
-
---skip--
