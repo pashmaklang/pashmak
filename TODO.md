@@ -1,6 +1,5 @@
 # TODO
 
-- add multiline using `\` character
 - add **parent** and **self** features for classes
 - add `isinstanceof` function for objects
 - create more magic methods for classes

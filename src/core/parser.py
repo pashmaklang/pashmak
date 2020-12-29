@@ -85,6 +85,18 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
     ''' Parse code from text and return list of commands '''
     # split the lines
     lines = content.split('\n')
+    # handle multiline
+    new_lines = ['']
+    for line in lines:
+        if line:
+            if line[-1] == '\\':
+                new_lines[-1] += line[:-1]
+            else:
+                new_lines[-1] += line
+                new_lines.append('')
+        else:
+            new_lines.append(line)
+    lines = new_lines
     line_counter = 1
     commands = []
     for line in lines:

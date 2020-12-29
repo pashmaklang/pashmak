@@ -326,6 +326,41 @@ Also there is a alias for `println`, this is `printl`:
 printl("hello world")
 ```
 
+### Multi line
+You can write one command in more than one line. This helps you to write a clean code.
+
+For example:
+
+```bash
+println('hello\
+ world')
+```
+
+output:
+
+```
+hello world
+```
+
+another example:
+
+```bash
+println(\
+    'hello world\
+\nthis is a simple multiline\
+    '\
+)
+```
+
+output:
+
+```
+hello world
+this is a simple multiline
+```
+
+You need to put a `\` in end of lines to continue them in next line.
+
 
 
 ## Variables

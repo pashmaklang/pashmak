@@ -19,6 +19,7 @@
 - added python `json` library support
 - added `function.{list,delete,exists}`, `class.{list,delete,exists}` super functions
 - added `out_*` magic functions to handle program stdout output in advance level
+- added multiline using `\` character in end of lines
 
 #### Bug Fixes
 - fixed a bug in `eval` function
