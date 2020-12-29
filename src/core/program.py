@@ -133,11 +133,6 @@ class Program(helpers.Helpers):
         # set commands on program object
         self.threads[-1]['commands'] = commands
 
-    def set_command_index(self, op: dict) -> dict:
-        """ Add command index to command dictonary """
-        op['index'] = self.threads[-1]['current_step']
-        return op
-
     def get_mem(self):
         """ Return memory value and empty that """
         mem = self.mem
@@ -172,7 +167,7 @@ class Program(helpers.Helpers):
             return
         # raise error
         if self.is_test:
-            self.runtime_error = {'type': error_type, 'message': message, 'index': op['index']}
+            self.runtime_error = {'type': error_type, 'message': message}
             if self.stop_after_error:
                 self.threads = self.threads[:1]
                 self.threads[-1]['current_step'] = len(self.threads[-1]['commands'])*2
@@ -341,7 +336,6 @@ class Program(helpers.Helpers):
     def run(self, op: dict):
         """ Run once command """
 
-        op = self.set_command_index(op)
         op_name = op['command']
 
         if op_name == 'func':
@@ -532,7 +526,7 @@ class Program(helpers.Helpers):
         # load the sections
         i = 0
         while i < len(self.threads[-1]['commands']):
-            current_op = self.set_command_index(self.threads[-1]['commands'][i])
+            current_op = self.threads[-1]['commands'][i]
             if current_op['command'] == 'section':
                 if not is_in_func:
                     arg = current_op['args'][0]
@@ -550,13 +544,13 @@ class Program(helpers.Helpers):
                 self.run(self.threads[-1]['commands'][self.threads[-1]['current_step']])
             except Exception as ex:
                 try:
-                    self.set_command_index(self.threads[-1]['commands'][self.threads[-1]['current_step']])
+                    self.threads[-1]['commands'][self.threads[-1]['current_step']]
                 except:
                     break
                 self.raise_error(
                     ex.__class__.__name__,
                     str(ex),
-                    self.set_command_index(self.threads[-1]['commands'][self.threads[-1]['current_step']])
+                    self.threads[-1]['commands'][self.threads[-1]['current_step']]
                 )
             self.threads[-1]['current_step'] += 1
 
