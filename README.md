@@ -3160,6 +3160,7 @@ you can use this python standard modules in pashmak directly in your code:
 - `datetime`
 - `json`
 - `http`
+- `base64`
 
 for example:
 
