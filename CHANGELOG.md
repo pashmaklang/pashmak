@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 0.6, 0.6-beta13
+## 0.6, 0.6-beta14
 
 #### New features
 - added **Class** system
