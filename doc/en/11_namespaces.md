@@ -221,3 +221,25 @@ App.bye() # output: good bye
 ```
 
 in above example, we imported `foo.pashm` inside an namespace and content of `foo.pashm` is loaded under that namespace. for example, `foo.hello` function is loaded under `App` namespace, so finally will be set as `App.foo.hello`.
+
+### `__namespace__()` function
+There is function named `__namespace__`. this function returns the current namespace as string.
+
+Look at this example:
+
+```bash
+namespace app
+    namespace core
+        println(__namespace__())
+    endns
+endns
+
+println(__namespace__())
+```
+
+output:
+
+```
+app.core.
+
+```

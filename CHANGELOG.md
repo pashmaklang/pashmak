@@ -21,6 +21,7 @@
 - added `out_*` magic functions to handle program stdout output in advance level
 - added multiline using `\` character in end of lines
 - added complicated declaring class and function
+- added `__namespace__()` function to return current namespace as string
 
 #### Bug Fixes
 - fixed a bug in `eval` function
