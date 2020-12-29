@@ -272,40 +272,7 @@ class Program(helpers.Helpers):
 
     def eval(self, command, only_parse=False, varname_as_dict=False, only_str_parse=False, dont_check_vars=False):
         """ Runs eval on command """
-        i = 0
-        command = command.strip()
-        is_in_string = False
-        command_parts = [[False, '']]
-        while i < len(command):
-            is_string_start = False
-            if command[i] == '"' or command[i] == "'":
-                before_backslashes_count = 0
-                try:
-                    x = i-1
-                    while x >= 0:
-                        if command[x] == '\\':
-                            before_backslashes_count += 1
-                        else:
-                            x = -1
-                        x -= 1
-                except:
-                    pass
-                if is_in_string:
-                    if before_backslashes_count % 2 != 0 and before_backslashes_count != 0:
-                        pass
-                    elif is_in_string == command[i]:
-                        is_in_string = False
-                        command_parts[-1][1] += command[i]
-                        is_string_start = True
-                        command_parts.append([False, ''])
-                else:
-                    is_in_string = command[i]
-                    command_parts.append([True, ''])
-                    command_parts[-1][1] += command[i]
-                    is_string_start = True
-            if not is_string_start:
-                command_parts[-1][1] += command[i]
-            i += 1
+        command_parts = parser.parse_string(command)
 
         if only_str_parse:
             return command_parts

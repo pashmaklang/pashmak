@@ -43,3 +43,4 @@
 - some optimizations in mem eval parser
 - some optimizations in interpreter code
 - changed raised error data from dictonary to `Error` object
+- allow using `;` and `#` inside string without `\`

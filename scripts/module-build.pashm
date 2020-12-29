@@ -27,7 +27,7 @@ section loop2
     $j = 0
     $lines = $tmp_module_content->strip()->split('\n')
     section loop1_3
-        $line = $lines[$j]->strip()->split('\#')[0]->strip()
+        $line = $lines[$j]->strip()->split('#')[0]->strip()
         if $line != ''
             $new_module_content = $new_module_content + $line + '\n'
         endif

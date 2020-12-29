@@ -89,7 +89,7 @@ def load(path: str, code_location: str, self=None) -> list:
         code_commands = parser.parse(content, filepath=code_location, only_parse=True)
         new_content = file_hash + '\n'
         for op in code_commands:
-            new_content += op['str'].replace('#', '\\#').replace(';', '\\;') + '\n'
+            new_content += op['str'] + '\n'
         new_content = new_content.strip()
         cache_f = open(the_cache_file, 'w')
         cache_f.write(new_content)

@@ -132,21 +132,6 @@ mem str(7*7) + ' is sum'; print(^) # output: 49 is sum
 
 **The mem structure, is handled by Python(eval function) and you can use all of python features in the mem calculation**
 
-#### Print `;` and `#`
-For printing `;` and `#` special characters, put a `\` before them:
-
-```bash
-mem 'this is \; semicolon\n'; print(^)
-mem 'this is \# sharp\n'; print(^)
-```
-
-output:
-
-```
-this is ; semicolon
-this is # sharp
-```
-
 ### Printing without using mem
 this is a easier syntax for printing:
 
