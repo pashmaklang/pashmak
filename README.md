@@ -3330,6 +3330,13 @@ you can see `__pashmam__` directory alongside your scripts. this directory conta
 
 Also, make sure to add `__pashmam__` file to your **gitignore**.
 
+To disable the jit, you can use `PASHMAK_DISABLE_JIT` environment variable with value `1` while running the pashmak interpreter.
+for example:
+
+```bash
+$ PASHMAK_DISABLE_JIT=1 pashmak somefile.pashm
+```
+
 
 
 # Advance
