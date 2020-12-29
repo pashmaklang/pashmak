@@ -71,6 +71,24 @@ class Class:
             current_prog.current_class = tmp_is_in_class
         return class_copy
 
+    def __getattr__(self, attrname):
+        from .current_prog import current_prog
+        if attrname == '__props__' or attrname == '__methods__':
+            return super().__getattr__(attrname)
+        try:
+            return self.__props__[attrname]
+        except KeyError:
+            try:
+                self.__methods__[attrname].parent_object = self
+                return self.__methods__[attrname]
+            except KeyError:
+                raise AttributeError(attrname)
+
+    def __setattr__(self, attrname, value):
+        if attrname == '__props__' or attrname == '__methods__':
+            return super().__setattr__(attrname, value)
+        self.__props__[attrname] = value
+
 class ClassObject:
     """ Class initiated object """
     def __init__(self, props: ClassProps, methods: dict):

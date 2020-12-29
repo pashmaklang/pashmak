@@ -453,7 +453,8 @@ class Program(helpers.Helpers):
         # check function exists
         func_real_name = self.get_func_real_name(op_name)
         if func_real_name == False:
-            return self.raise_error('SyntaxError', 'undefined function "' + op_name + '"', op)
+            self.mem = self.eval(op['str'])
+            return
         func_body = self.functions[func_real_name]
 
         # run function

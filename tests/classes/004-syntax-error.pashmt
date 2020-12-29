@@ -28,4 +28,4 @@ class Foo
     gdfghfjh
 endclass
 --with-error--
-'SyntaxError'
+'NameError'

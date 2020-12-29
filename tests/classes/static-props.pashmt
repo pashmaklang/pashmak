@@ -1,5 +1,5 @@
 #
-# 1.pashmt
+# static-props.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,25 +21,25 @@
 #########################################################################
 
 --test--
-raised error data is put into mem
+class static properties working
+
 --file--
-try 10
-# a code with error
-mmdgfgdhgfhjh
-endtry
 
-goto 20
+class Test
+    func static_func
+        println('the static function')
+    endfunc
 
-section 10
+    $name = 'the static name'
+endclass
 
-$ex = ^
-print $ex->type + ':' + $ex->message
-goto 30
+Test->static_func()
+Test->prop = 'hello'
+println(Test->prop)
+println(Test->name)
 
-section 20
-
-print 'without error'
-
-section 30;
 --output--
-"NameError:name 'mmdgfgdhgfhjh' is not defined"
+"""the static function
+hello
+the static name
+"""
