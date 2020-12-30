@@ -29,6 +29,9 @@ from .function import Function
 class ClassConstError(Exception):
     pass
 
+class SuperError(Exception):
+    pass
+
 class Class:
     """ Class model """
     def __init__(self, name: str):
@@ -89,9 +92,15 @@ class Class:
         self.__props__[attrname] = value
 
 class ClassPropAndMethodCollection:
-    def __init__(self, methods, props):
-        self.__methods__ = methods
-        self.__props__ = props
+    def __init__(self, *args):
+        try:
+            self.__methods__
+            self.__props__
+            return self.__methods__['__init__'](args)
+        except:
+            pass
+        self.__methods__ = args[0]
+        self.__props__ = args[1]
 
     def __getattr__(self, attrname):
         if attrname == '__props__' or attrname == '__methods__':
@@ -108,6 +117,9 @@ class ClassPropAndMethodCollection:
         if attrname == '__props__' or attrname == '__methods__':
             return super().__setattr__(attrname, value)
         self.__props__[attrname] = value
+
+    def __str__(self):
+        return self.__methods__['__str__']()
 
 class ClassObject:
     """ Class initiated object """
@@ -129,16 +141,18 @@ class ClassObject:
     def super(self, name: str):
         i = len(self.__inheritance_tree__)-1
         found_index = False
+        is_found = False
         while i >= 0:
             try:
                 if self.__inheritance_tree__[i] == name:
                     found_index = i
+                    is_found = True
                     break
             except IndexError:
                 pass
             i -= 1
-        if found_index == False:
-            pass # TODO : raise error
+        if is_found == False:
+            raise SuperError('unknow parent "' + name + '"')
             return
         return ClassPropAndMethodCollection(self.__methods__[found_index], self.__props__[found_index])
 
