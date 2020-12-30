@@ -52,9 +52,6 @@ if you haven't any idea for contributing, you can see [Issues](https://github.co
 ### Branch
 alwasy send your merge requests to `master` branch.
 
-### Documentation
-If you are contributing to the documentaion, do not change `README.md` file directly. this file is auto generated from [doc](doc) folder. you should change `doc` folder files. your changes in documentation will built from that files into the [README.md](README.md) file.
-
 ### Makefile scripts
 this scripts are helpful for development:
 
