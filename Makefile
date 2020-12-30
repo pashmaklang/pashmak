@@ -4,7 +4,7 @@ SCRIPTS = $(PYTHON) ./src/pashmak.py scripts/
 INSTALLATION_PATH = /usr/bin/pashmak
 
 .DEFAULT_GOAL := main
-.PHONY := main compile clean update-headers test docs module all install uninstall pylint
+.PHONY := main compile clean update-headers test module all install uninstall pylint
 
 GIT_IS_INSTALLED = 0
 ifneq (,$(shell command -v git))
@@ -26,13 +26,10 @@ update-headers:
 test:
 	@$(PYTHON) ./tests/run.py
 
-docs:
-	@$(SCRIPTS)doc-build.pashm
-
 module:
 	@$(SCRIPTS)module-build.pashm
 
-all: module update-headers docs test
+all: module update-headers test
 ifeq ($(GIT_IS_INSTALLED),1)
 	-@git status
 endif
