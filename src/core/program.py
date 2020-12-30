@@ -423,7 +423,7 @@ class Program(helpers.Helpers):
                 value = self.eval(parts[1].strip())
             if is_class_setting != False:
                 tmp_real_var = self.eval(varname)
-                exec('tmp_real_var.__props__.' + is_class_setting + ' = value')
+                exec('tmp_real_var.' + is_class_setting + ' = value')
             else:
                 if is_in_class:
                     self.classes[self.current_class[-1]].__props__[varname[1:]] = value

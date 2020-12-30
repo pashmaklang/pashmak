@@ -1,5 +1,5 @@
 #
-# 008.pashmt
+# 014-super-error.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,26 +21,16 @@
 #########################################################################
 
 --test--
-class objects have __parent__ and __name__ properties
+super() raises error when parent not exists
 
 --file--
 
 class Test
-
 endclass
 
-class Hello < Test
+$a = Test()
 
-endclass
+$a->super('Something')
 
-
-$test = Test()
-$hello = Hello()
-
-println($test->__props__[-1])
-println($hello->__props__[-1])
-
---output--
-"""{'__parent__': 'Object', '__name__': 'Test'}
-{'__parent__': 'Test', '__name__': 'Hello'}
-"""
+--with-error--
+"SuperError"
