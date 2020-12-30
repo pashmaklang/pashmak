@@ -82,6 +82,12 @@ endfunc
 func __str__
 return '[PashmakObject name="' + $this->__name__ + '"]'
 endfunc
+func isinstanceof($class)
+if typeof($class) != str
+$class = $class->__name__
+endif
+return $class in $this->__inheritance_tree__
+endfunc
 endclass
 func print
 mem self.print(^)

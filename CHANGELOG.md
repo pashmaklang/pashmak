@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 0.6, 0.6-beta13
+## 0.6, 0.6-rc0
 
 #### New features
 - added **Class** system
@@ -33,7 +33,8 @@
 - fixed a bug in multi importing syntax
 - fixed some bugs in `end*` commands
 - fixed import command bug while using `()`
-- blocked using literal chars in names(function/class/namespace)
+- blocked using literal chars in names(function/class/namespace
+- fixed namespace function bug while calling another function in that namespace
 
 #### Removed
 - deleted `loop` and `while` functions

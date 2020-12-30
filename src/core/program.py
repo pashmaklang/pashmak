@@ -96,9 +96,7 @@ class Program(helpers.Helpers):
                 code_location = path
                 module_name = path[1:]
                 try:
-                    namespaces_prefix = ''
-                    for part in self.namespaces_tree:
-                        namespaces_prefix += part + '.'
+                    namespaces_prefix = self.current_namespace()
                     namespaces_prefix += '@'
                     if not namespaces_prefix + module_name in self.included_modules:
                         content = modules.modules[module_name]
@@ -135,11 +133,6 @@ class Program(helpers.Helpers):
         # set commands on program object
         self.threads[-1]['commands'] = commands
 
-    def set_command_index(self, op: dict) -> dict:
-        """ Add command index to command dictonary """
-        op['index'] = self.threads[-1]['current_step']
-        return op
-
     def get_mem(self):
         """ Return memory value and empty that """
         mem = self.mem
@@ -174,7 +167,7 @@ class Program(helpers.Helpers):
             return
         # raise error
         if self.is_test:
-            self.runtime_error = {'type': error_type, 'message': message, 'index': op['index']}
+            self.runtime_error = {'type': error_type, 'message': message}
             if self.stop_after_error:
                 self.threads = self.threads[:1]
                 self.threads[-1]['current_step'] = len(self.threads[-1]['commands'])*2
@@ -343,7 +336,6 @@ class Program(helpers.Helpers):
     def run(self, op: dict):
         """ Run once command """
 
-        op = self.set_command_index(op)
         op_name = op['command']
 
         if op_name == 'func':
@@ -431,7 +423,7 @@ class Program(helpers.Helpers):
                 value = self.eval(parts[1].strip())
             if is_class_setting != False:
                 tmp_real_var = self.eval(varname)
-                exec('tmp_real_var.__props__.' + is_class_setting + ' = value')
+                exec('tmp_real_var.' + is_class_setting + ' = value')
             else:
                 if is_in_class:
                     self.classes[self.current_class[-1]].__props__[varname[1:]] = value
@@ -471,10 +463,10 @@ class Program(helpers.Helpers):
 
             # execute function body
             self.mem = func_arg
-            with_thread = True
             if op_name in ['import', 'mem', 'python', 'rmem', 'eval']:
-                with_thread = False
-            self.exec_func(func_body.body, with_thread)
+                self.exec_func(func_body.body, False)
+            else:
+                self.mem = func_body(self.mem)
             return
         except Exception as ex:
             raise
@@ -534,7 +526,7 @@ class Program(helpers.Helpers):
         # load the sections
         i = 0
         while i < len(self.threads[-1]['commands']):
-            current_op = self.set_command_index(self.threads[-1]['commands'][i])
+            current_op = self.threads[-1]['commands'][i]
             if current_op['command'] == 'section':
                 if not is_in_func:
                     arg = current_op['args'][0]
@@ -552,13 +544,13 @@ class Program(helpers.Helpers):
                 self.run(self.threads[-1]['commands'][self.threads[-1]['current_step']])
             except Exception as ex:
                 try:
-                    self.set_command_index(self.threads[-1]['commands'][self.threads[-1]['current_step']])
+                    self.threads[-1]['commands'][self.threads[-1]['current_step']]
                 except:
                     break
                 self.raise_error(
                     ex.__class__.__name__,
                     str(ex),
-                    self.set_command_index(self.threads[-1]['commands'][self.threads[-1]['current_step']])
+                    self.threads[-1]['commands'][self.threads[-1]['current_step']]
                 )
             self.threads[-1]['current_step'] += 1
 

@@ -20,6 +20,11 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
+""" Pashmak function system """
+
+import copy
+from . import parser
+
 class Function:
     """ the pashmak function object """
     def __init__(self, name):
@@ -39,5 +44,13 @@ class Function:
         except:
             if self.name in ['import', 'mem', 'python', 'rmem', 'eval']:
                 with_thread = False
-        current_prog.exec_func(self.body, with_thread, default_vars)
+        tmp_body = copy.deepcopy(self.body)
+        tmp_func_parts = self.name.split('.')
+        if len(tmp_func_parts) > 1:
+            func_namespace = ''
+            for part in tmp_func_parts[:-1]:
+                func_namespace += part + '.'
+            func_namespace = func_namespace.strip('.')
+            tmp_body.insert(0, parser.parse('use ' + func_namespace)[0])
+        current_prog.exec_func(tmp_body, with_thread, default_vars)
         return current_prog.get_mem()
