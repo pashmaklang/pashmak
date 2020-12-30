@@ -1,5 +1,5 @@
 #
-# 008.pashmt
+# 012.pashmt
 #
 # The Pashmak Project
 # Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,26 +21,42 @@
 #########################################################################
 
 --test--
-class objects have __parent__ and __name__ properties
+overwriting methods and props in inheritance
 
 --file--
 
-class Test
+class Father
+    $name = 'the Father'
 
+    func hello
+        println('Hello! i am Father')
+    endfunc
 endclass
 
-class Hello < Test
+class Child < Father
+    $name = 'the Child'
 
+    func hello
+        println('Hello! i am Child')
+    endfunc
+
+    func dosomething
+        $this->super('Father')->hello()
+        println($this->super('Father')->name)
+    endfunc
 endclass
 
+$f = Father()
+println($f->name)
+$f->hello()
 
-$test = Test()
-$hello = Hello()
-
-println($test->__props__[-1])
-println($hello->__props__[-1])
+$f = Child()
+println($f->name)
+$f->hello()
 
 --output--
-"""{'__parent__': 'Object', '__name__': 'Test'}
-{'__parent__': 'Test', '__name__': 'Hello'}
+"""the Father
+Hello! i am Father
+the Child
+Hello! i am Child
 """
