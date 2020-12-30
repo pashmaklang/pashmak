@@ -1,8 +1,4 @@
-# Advance
-
----
-
-## output handling magic functions
+# output handling magic functions
 There is some magic functions in pashmak to handle program output dynamically.
 
 For example, we want to write a program to run a function and return that thing that function is printed.

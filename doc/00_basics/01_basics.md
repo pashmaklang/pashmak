@@ -1,4 +1,4 @@
-## Basics
+# Basics
 
 A simple printing in Pashmak:
 

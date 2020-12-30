@@ -1,6 +1,6 @@
-## Installation
+# Installation
 
-### GNU/Linux/Unix
+## GNU/Linux/Unix
 This installation guide is for GNU/Linux/UNIX systems. Also compile process needs `pyinstaller` pip library.
 If you don't have Pyinstaller, run `pip3 install pyinstaller` command in terminal.
 
@@ -65,7 +65,7 @@ Or manually remove `/usr/bin/pashmak`.
 
 Pashmak will be remove from your system.
 
-### Windows
+## Windows
 In Windows, you can run program with python interpreter without compiling:
 
 ```bash
