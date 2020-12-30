@@ -24,32 +24,15 @@
 
 import copy
 from . import parser
+from .function import Function
 
 class ClassConstError(Exception):
     pass
 
-class ClassProps(dict):
-    """ The `obj.__props__` """
-    def __getattr__(self, attrname):
-        try:
-            return self[attrname]
-        except KeyError:
-            raise AttributeError(attrname)
-
-    def __setattr__(self, attrname, value):
-        try:
-            self[attrname]
-            if self[attrname] != None:
-                if attrname[0] == '_':
-                    raise ClassConstError('property "' + attrname + '" is const and cannot be changed')
-        except KeyError:
-            pass
-        self[attrname] = value
-
 class Class:
     """ Class model """
     def __init__(self, name: str, props: dict):
-        self.__props__ = ClassProps(props)
+        self.__props__ = props
         self.__methods__ = {}
         self.__inheritance_tree__ = []
         self.__classname__ = name
@@ -94,11 +77,14 @@ class Class:
 
 class ClassObject:
     """ Class initiated object """
-    def __init__(self, props: ClassProps, methods: dict):
+    def __init__(self, props: dict, methods: dict):
         self.__props__ = props
         self.__methods__ = methods
         for k in self.__methods__:
             self.__methods__[k].parent_object = self
+        for k in self.__props__:
+            if type(self.__props__[k]) == Function:
+                self.__props__[k].parent_object = self
 
     def __str__(self):
         from .current_prog import current_prog
@@ -111,6 +97,8 @@ class ClassObject:
         if attrname == '__props__' or attrname == '__methods__' or attrname == '__theclass__' or attrname == '__inheritance_tree__':
             return super().__getattr__(attrname)
         try:
+            if type(self.__props__[attrname]) == Function:
+                self.__props__[attrname].parent_object = self
             return self.__props__[attrname]
         except KeyError:
             try:
@@ -122,4 +110,12 @@ class ClassObject:
     def __setattr__(self, attrname, value):
         if attrname == '__props__' or attrname == '__methods__' or attrname == '__theclass__' or attrname == '__inheritance_tree__':
             return super().__setattr__(attrname, value)
+        try:
+            self.__props__[attrname]
+            if self.__props__[attrname] != None:
+                if attrname[0] == '_':
+                    raise ClassConstError('property "' + attrname + '" is const and cannot be changed')
+                    return
+        except KeyError:
+            pass
         self.__props__[attrname] = value
