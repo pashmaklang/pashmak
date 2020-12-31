@@ -1,25 +1,3 @@
-#
-# modules.py
-#
-# The Pashmak Project
-# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
-#
-# This file is part of Pashmak.
-#
-# Pashmak is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Pashmak is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
-#########################################################################
-
 """ Internal modules """
 
 modules = {}
@@ -68,6 +46,17 @@ func shake_256($value)
 python("self.mem = hashlib.shake_256(str(self.get_var('value')[0]).encode()).hexdigest(self.get_var('value')[1])")
 endfunc
 endns"""
+modules["os"] = """namespace os
+func chdir($path)
+python("os.chdir(self.get_var(path)")
+endfunc
+func cpu_count
+python("self.mem = os.cpu_count()")
+endfunc
+func mkdir($dir_name)
+python("os.mkdir(self.get_var(dir_name))")
+endfunc
+endnamespace"""
 modules["random"] = """namespace random
 func randint($args)
 python("self.mem = random.randint(self.get_var('args')[0], self.get_var('args')[1])")
@@ -81,12 +70,6 @@ func __init__
 endfunc
 func __str__
 return '[PashmakObject name="' + $this->__name__ + '"]'
-endfunc
-func isinstanceof($class)
-if typeof($class) != str
-$class = $class->__name__
-endif
-return $class in $this->__inheritance_tree__
 endfunc
 endclass
 func print
@@ -148,7 +131,7 @@ func read
 python("self.io_read()")
 endfunc
 func py_load_file($path)
-python("import importlib.util; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path')); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); self.mem = m")
+python("import importlib.util\; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path'))\; m = importlib.util.module_from_spec(spec)\; spec.loader.exec_module(m)\; self.mem = m")
 endfunc
 func fopen($args)
 if typeof($args) != tuple
@@ -231,9 +214,6 @@ func out_get_clean
 $content = out_get()
 out_clean()
 return $content
-endfunc
-func __namespace__
-python("self.mem = self.current_namespace()")
 endfunc"""
 modules["sys"] = """namespace sys
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
