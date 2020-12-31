@@ -20,13 +20,13 @@ class Crawler
 
         $files = os.listdir($path)
         $i = 0
-        section crawler_loop1
+        while $i < len($files)
             if os.path.isdir($path + '/' + $files[$i])
                 $this->get($path + '/' + $files[$i], $extension)
             else
                 $this->add_once($path + '/' + $files[$i], $extension)
             endif
             $i = $i + 1
-        mem $i < len($files); gotoif crawler_loop1
+        endwhile
     endfunc
 endclass

@@ -26,10 +26,10 @@ func myfunc($n)
     println('starting...')
 
     $i = 1
-    section loop
+    while $i < $n
         println($i)
         $i = $i + 1
-    mem $i < $n; gotoif loop
+    endwhile
 
     println('finished')
 endfunc

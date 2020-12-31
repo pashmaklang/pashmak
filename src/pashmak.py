@@ -69,10 +69,10 @@ if __name__ == '__main__':
         println('---------------------------------')
         $modules = list(modules.modules.keys())
         $i = 0
-        section loop
+        while $i < len($modules)
             println($modules[$i])
             $i = $i + 1
-        mem $i < len($modules); gotoif loop
+        endwhile
         '''
 
     if sys.argv[1] == '-r':

@@ -11,7 +11,7 @@ func fib
     $a = 1
     $b = 1
 
-    section loop;
+    while $a < 10000
         println($a)
 
         $tmp_a = $a
@@ -20,7 +20,7 @@ func fib
         $a = $tmp_b
 
         $b = $tmp_a + $tmp_b
-    mem $a < 10000; gotoif loop
+    endwhile
 endfunc
 ```
 

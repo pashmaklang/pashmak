@@ -70,9 +70,9 @@ $total_paths = [*$total_paths, *$c->files_list]
 mem $total_paths->sort()
 
 $i = 0
-section loop2
+while $i < len($total_paths)
     set_once_header($total_paths[$i])
     $i = $i + 1
-mem $i < len($total_paths); gotoif loop2
+endwhile
 
 println('\033[32mHeaders updated successfully\033[0m')
