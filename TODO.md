@@ -1,5 +1,6 @@
 # TODO
 
+- fix recursion bug
 - import more python standard modules
 - create `while` loop
 - add documentation for `datatypes`, `conditions` and more links to python doc
