@@ -23,7 +23,7 @@
 
 namespace os
     func chdir($path)
-        python("os.chdir(self.get_var("path")")
+        python("os.chdir(self.get_var('path')")
     endfunc
 
     func cpu_count
@@ -31,21 +31,34 @@ namespace os
     endfunc
 
     func mkdir($dir_name)
-        python("os.mkdir(self.get_var("dir_name"))")
+        python("os.mkdir(self.get_var('dir_name'))")
     endfunc
-    $curdir = python(os.curdir)
-    func kill ($pid , $signal)
-        python("os.kill(self.get_var("pid"),self.get_var("signal"))")
+
+    $curdir = python("self.mem = os.curdir")
+
+    func kill($args)
+        $pid = $args[0]
+        $signal = $args[1]
+        python("os.kill(self.get_var('pid'), self.get_var('signal'))")
     endfunc
+
     func rmdir($path)
-        python("os.rmdir(self.get_var("path"))")
+        python("os.rmdir(self.get_var('path'))")
     endfunc
-    $osname = python("os.name")
-    $pardir = python("os.path.pardir")
+
+    $osname = python('self.mem = os.name')
+
+    $pardir = python('self.mem = os.path.pardir')
+
     func isdir($path)
-        python("os.path.isdir(self.get_var("path")))
+        python("self.mem = os.path.isdir(self.get_var('path')))
     endfunc
+
     func isfile($path)
-        python("os.path.isfile(self.get_var("path")))
+        python("self.mem = os.path.isfile(self.get_var('path')))
+    endfunc
+    
+    func exists($path)
+        python("self.mem = os.path.exists(self.get_var('path')))
     endfunc
 endnamespace
