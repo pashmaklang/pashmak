@@ -76,7 +76,7 @@ func cpu_count
 python("self.mem = os.cpu_count()")
 endfunc
 func mkdir($dir_name)
-python("os.mkdir(self.get_var(dir_name))")
+python("os.mkdir(self.get_var('dir_name'))")
 endfunc
 endnamespace"""
 modules["random"] = """namespace random
