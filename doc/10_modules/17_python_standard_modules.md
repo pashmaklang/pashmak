@@ -10,6 +10,9 @@ you can use this python standard modules in pashmak directly in your code:
 - `json`
 - `http`
 - `base64`
+- `socket`
+- `socketserver`
+- `math`
 
 for example:
 
