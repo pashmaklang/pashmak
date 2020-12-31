@@ -1,24 +1,25 @@
-#	
-# modules.py	
-#	
-# The Pashmak Project	
-# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>	
-#	
-# This file is part of Pashmak.	
-#	
-# Pashmak is free software: you can redistribute it and/or modify	
-# it under the terms of the GNU General Public License as published by	
-# the Free Software Foundation, either version 3 of the License, or	
-# (at your option) any later version.	
-#	
-# Pashmak is distributed in the hope that it will be useful,	
-# but WITHOUT ANY WARRANTY; without even the implied warranty of	
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the	
-# GNU General Public License for more details.	
-#	
-# You should have received a copy of the GNU General Public License	
-# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.	
+#
+# modules.py
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
+
 """ Internal modules """
 
 modules = {}
@@ -92,6 +93,12 @@ endfunc
 func __str__
 return '[PashmakObject name="' + $this->__name__ + '"]'
 endfunc
+func isinstanceof($class)
+if typeof($class) != str
+$class = $class->__name__
+endif
+return $class in $this->__inheritance_tree__
+endfunc
 endclass
 func print
 mem self.print(^)
@@ -152,7 +159,7 @@ func read
 python("self.io_read()")
 endfunc
 func py_load_file($path)
-python("import importlib.util\; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path'))\; m = importlib.util.module_from_spec(spec)\; spec.loader.exec_module(m)\; self.mem = m")
+python("import importlib.util; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path')); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); self.mem = m")
 endfunc
 func fopen($args)
 if typeof($args) != tuple
@@ -235,6 +242,9 @@ func out_get_clean
 $content = out_get()
 out_clean()
 return $content
+endfunc
+func __namespace__
+python("self.mem = self.current_namespace()")
 endfunc"""
 modules["sys"] = """namespace sys
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
