@@ -90,13 +90,13 @@ endfunc
 $osname = python('self.mem = os.name')
 $pardir = python('self.mem = os.path.pardir')
 func isdir($path)
-python("self.mem = os.path.isdir(self.get_var('path')))
+python("self.mem = os.path.isdir(self.get_var('path'))")
 endfunc
 func isfile($path)
-python("self.mem = os.path.isfile(self.get_var('path')))
+python("self.mem = os.path.isfile(self.get_var('path'))")
 endfunc
 func exists($path)
-python("self.mem = os.path.exists(self.get_var('path')))
+python("self.mem = os.path.exists(self.get_var('path'))")
 endfunc
 endnamespace"""
 modules["random"] = """namespace random
