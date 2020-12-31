@@ -22,7 +22,7 @@
 - added multiline using `\` character in end of lines
 - added complicated declaring class and function
 - added `__namespace__()` function to return current namespace as string
-- added `os` module
+- added `os` module (GH-45)
 
 #### Bug Fixes
 - fixed a bug in `eval` function
@@ -42,7 +42,7 @@
 - deleted `out`, `fread`, `include` and `fwrite` commands because they was very low level and are not needed
 - deleted `$var = ^ command` syntax(use `$var = command()` instead of that)
 - deleted `@file` module(use python file api instead of that)
-- removed `chdir` function
+- removed `chdir` function (GH-45)
 
 #### Other changes
 - change default `RuntimeError` name to the real python exception name in exception system
