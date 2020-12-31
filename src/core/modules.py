@@ -68,6 +68,17 @@ func shake_256($value)
 python("self.mem = hashlib.shake_256(str(self.get_var('value')[0]).encode()).hexdigest(self.get_var('value')[1])")
 endfunc
 endns"""
+modules["os"] = """namespace os
+func chdir($path)
+python("os.chdir(self.get_var(path)")
+endfunc
+func cpu_count
+python("self.mem = os.cpu_count()")
+endfunc
+func mkdir($dir_name)
+python("os.mkdir(self.get_var('dir_name'))")
+endfunc
+endnamespace"""
 modules["random"] = """namespace random
 func randint($args)
 python("self.mem = random.randint(self.get_var('args')[0], self.get_var('args')[1])")
@@ -129,9 +140,6 @@ println($value)
 endfunc
 func cwd
 python("self.mem = os.getcwd()")
-endfunc
-func chdir($path)
-python("self.mem = os.chdir(self.get_var('path'))")
 endfunc
 func typeof($obj)
 python("self.mem = type(self.get_var('obj'))")
