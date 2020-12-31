@@ -69,16 +69,34 @@ python("self.mem = hashlib.shake_256(str(self.get_var('value')[0]).encode()).hex
 endfunc
 endns"""
 modules["os"] = """namespace os
-func chdir($path)
-python("os.chdir(self.get_var('path')")
-endfunc
-func cpu_count
-python("self.mem = os.cpu_count()")
-endfunc
-func mkdir($dir_name)
-python("os.mkdir(self.get_var('dir_name'))")
-endfunc
-endnamespace"""
+    func chdir($path)
+        python("os.chdir(self.get_var("path")")
+    endfunc
+
+    func cpu_count
+        python("self.mem = os.cpu_count()")
+    endfunc
+
+    func mkdir($dir_name)
+        python("os.mkdir(self.get_var("dir_name"))")
+    endfunc
+    $curdir = python(os.curdir)
+    func kill ($pid , $signal)
+        python("os.kill(self.get_var("pid"),self.get_var("signal"))")
+    endfunc
+    func rmdir($path)
+        python("os.rmdir(self.get_var("path"))")
+    endfunc
+    $osname = python("os.name")
+    $pardir = python("os.path.pardir")
+    func isdir($path)
+        python("os.path.isdir(self.get_var("path")))
+    endfunc
+    func isfile($path)
+        python("os.path.isfile(self.get_var("path")))
+    endfunc
+endnamespace
+"""
 modules["random"] = """namespace random
 func randint($args)
 python("self.mem = random.randint(self.get_var('args')[0], self.get_var('args')[1])")
