@@ -1,0 +1,254 @@
+#
+# 001.pashmt
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+while loop working correct
+
+--file--
+
+$i = 0
+while $i < 10
+    println($i)
+    $i = $i + 1
+endwhile
+
+$i = 0
+while $i < 10
+    $j = 0
+    while $j < 10
+        $j = $j + 1
+        println(str($i) + ' : ' + str($j))
+    endwhile
+    $i = $i + 1
+endwhile
+
+while False
+    println('not run')
+endwhile
+
+$i = 0
+while $i < 10
+    println("loop3: " + str($i))
+    if $i == 5
+        break
+    endif
+    $i = $i + 1
+endwhile
+
+$i = 0
+while $i < 10
+    println("loop3: " + str($i))
+    if $i == 5
+        break
+    endif
+
+    $j = 0
+    while $j < $i
+        println('J: ' + str($j))
+        $j = $j + 1
+    endwhile
+
+    $i = $i + 1
+endwhile
+
+$i = 0
+while $i < 10
+    if $i == 7
+        $i = 9
+        continue
+    endif
+    println('I: ' + str($i))
+    $i = $i + 1
+endwhile
+
+$i = 0
+while $i < 10
+    if $i == 7
+        $i = 9
+
+        $x = 0
+        while $x < 5
+            println('X: ' + str($x))
+            $x = $x + 1
+        endwhile
+
+        continue
+    endif
+    println('I: ' + str($i))
+    $i = $i + 1
+endwhile
+
+--output--
+"""0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0 : 1
+0 : 2
+0 : 3
+0 : 4
+0 : 5
+0 : 6
+0 : 7
+0 : 8
+0 : 9
+0 : 10
+1 : 1
+1 : 2
+1 : 3
+1 : 4
+1 : 5
+1 : 6
+1 : 7
+1 : 8
+1 : 9
+1 : 10
+2 : 1
+2 : 2
+2 : 3
+2 : 4
+2 : 5
+2 : 6
+2 : 7
+2 : 8
+2 : 9
+2 : 10
+3 : 1
+3 : 2
+3 : 3
+3 : 4
+3 : 5
+3 : 6
+3 : 7
+3 : 8
+3 : 9
+3 : 10
+4 : 1
+4 : 2
+4 : 3
+4 : 4
+4 : 5
+4 : 6
+4 : 7
+4 : 8
+4 : 9
+4 : 10
+5 : 1
+5 : 2
+5 : 3
+5 : 4
+5 : 5
+5 : 6
+5 : 7
+5 : 8
+5 : 9
+5 : 10
+6 : 1
+6 : 2
+6 : 3
+6 : 4
+6 : 5
+6 : 6
+6 : 7
+6 : 8
+6 : 9
+6 : 10
+7 : 1
+7 : 2
+7 : 3
+7 : 4
+7 : 5
+7 : 6
+7 : 7
+7 : 8
+7 : 9
+7 : 10
+8 : 1
+8 : 2
+8 : 3
+8 : 4
+8 : 5
+8 : 6
+8 : 7
+8 : 8
+8 : 9
+8 : 10
+9 : 1
+9 : 2
+9 : 3
+9 : 4
+9 : 5
+9 : 6
+9 : 7
+9 : 8
+9 : 9
+9 : 10
+loop3: 0
+loop3: 1
+loop3: 2
+loop3: 3
+loop3: 4
+loop3: 5
+loop3: 0
+loop3: 1
+J: 0
+loop3: 2
+J: 0
+J: 1
+loop3: 3
+J: 0
+J: 1
+J: 2
+loop3: 4
+J: 0
+J: 1
+J: 2
+J: 3
+loop3: 5
+I: 0
+I: 1
+I: 2
+I: 3
+I: 4
+I: 5
+I: 6
+I: 9
+I: 0
+I: 1
+I: 2
+I: 3
+I: 4
+I: 5
+I: 6
+X: 0
+X: 1
+X: 2
+X: 3
+X: 4
+I: 9
+"""

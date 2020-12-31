@@ -23,6 +23,7 @@
 - added complicated declaring class and function
 - added `__namespace__()` function to return current namespace as string
 - added `os` module (GH-45)
+- added `while` loop system
 
 #### Bug Fixes
 - fixed a bug in `eval` function
