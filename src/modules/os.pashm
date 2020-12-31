@@ -31,6 +31,6 @@ namespace os
     endfunc
 
     func mkdir($dir_name)
-        python("os.mkdir(self.get_var(dir_name))")
+        python("os.mkdir(self.get_var('dir_name'))")
     endfunc
 endnamespace
