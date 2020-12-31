@@ -90,10 +90,6 @@ func cwd
     python("self.mem = os.getcwd()")
 endfunc
 
-func chdir($path)
-    python("self.mem = os.chdir(self.get_var('path'))")
-endfunc
-
 func typeof($obj)
     python("self.mem = type(self.get_var('obj'))")
 endfunc
