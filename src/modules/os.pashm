@@ -23,7 +23,7 @@
 
 namespace os
     func chdir($path)
-        python("os.chdir(self.get_var(path)")
+        python("os.chdir(self.get_var('path')")
     endfunc
 
     func cpu_count

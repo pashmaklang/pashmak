@@ -70,7 +70,7 @@ endfunc
 endns"""
 modules["os"] = """namespace os
 func chdir($path)
-python("os.chdir(self.get_var(path)")
+python("os.chdir(self.get_var('path')")
 endfunc
 func cpu_count
 python("self.mem = os.cpu_count()")
