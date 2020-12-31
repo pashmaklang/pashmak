@@ -5,7 +5,7 @@
 ## Table of content
 
 - [basics and variables](00_basics)
-- [sections and if](01_sections_and_if)
+- [If and Loop](01_if_and_loop)
 - [functions](02_functions)
 - [try-endtry statement](03_try_endtry)
 - [os commands](04_os_commands)
