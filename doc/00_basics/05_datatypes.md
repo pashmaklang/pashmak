@@ -25,5 +25,6 @@ This is table of all of datatypes:
 |`int`|The integer numbers|`12`, `146433`...|
 |`float`|The float numbers|`124.345`, `1.543657`...|
 |`list`, `tuple`, `dict`|List of variables|Learn about them in next part [Arrays](06_arrays.md)
+|`bool`|The `True` or `False`. This type is used in condition system|`True`, `False`
 
 [You can see FULL Documentation of python datatypes in here](https://docs.python.org/3/library/stdtypes.html).
