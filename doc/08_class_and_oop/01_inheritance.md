@@ -1,4 +1,4 @@
-## inheritance
+# inheritance
 the inheritance in classes means classes can be child of another classes. this means the child class has all of he's/she's parent properties.
 
 look at this example:
@@ -76,6 +76,6 @@ $a = Child()
 $a->hello()
 ```
 
-#### All of classes extends `Object` class
+### All of classes extends `Object` class
 all of classes by default extedns from a class named `Object`. this class is a internal pashmak class.
 all of classes are child of this class.

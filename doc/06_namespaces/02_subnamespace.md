@@ -1,4 +1,4 @@
-## namespace in namespace (subnamespace)
+# namespace in namespace (subnamespace)
 you can declare a namespace in a namespace
 
 look at this example:

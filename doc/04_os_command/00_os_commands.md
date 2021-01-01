@@ -70,7 +70,7 @@ output:
 first print
 ```
 
-##### exit with exit code:
+#### exit with exit code:
 
 ```bash
 println('hello world')

@@ -13,9 +13,9 @@ endif
 
 Here, you can learn all of condition features.
 
-### Operators
+## Operators
 
-#### `<`: less than operator
+### `<`: less than operator
 This operator checks **Is a value less than other value**.
 
 for example:
@@ -32,7 +32,7 @@ if $age < 70
 endif
 ```
 
-#### `>`: grater than operator
+### `>`: grater than operator
 This operator checks **Is a value grater than other value**.
 
 for example:
@@ -49,7 +49,7 @@ if $age > 18
 endif
 ```
 
-#### `<=` less or equals operator, `>=` grater or equals operator
+### `<=` less or equals operator, `>=` grater or equals operator
 this operator checks **is a value less/grater or equals another value**.
 
 for example:
@@ -69,7 +69,7 @@ println($age >= 100) # False
 # ...
 ```
 
-#### `==` equals operator, `!=` not equals operator
+### `==` equals operator, `!=` not equals operator
 This operator checks that **Is a value equals/not equals another value**.
 
 for example:
@@ -84,7 +84,7 @@ if $age != 100
 endif
 ```
 
-#### `and` & `or`
+### `and` & `or`
 This is a very important and useful logic. this helps you to combination conditions.
 
 for example:
@@ -114,7 +114,7 @@ if $age > 18 and $age < 50 or $name == 'manager'
 endif
 ```
 
-#### `not` keyword
+### `not` keyword
 The `not` keyword in the first of condition, reverses that.
 
 for example:
@@ -124,7 +124,7 @@ if not $age > 18
 endif
 ```
 
-#### Condition order
+### Condition order
 To set order of conditions(Like math operators), you should use `()`.
 
 for example:

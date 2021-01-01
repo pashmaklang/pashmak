@@ -1,4 +1,4 @@
-## Puting functions into variables
+# Puting functions into variables
 Functions are like variables, you can put them into variables and use them.
 
 look at this example:

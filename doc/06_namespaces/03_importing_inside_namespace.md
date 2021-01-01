@@ -3,7 +3,7 @@ you can import an script inside an namespace.
 
 for example, we have `foo.pashm` and `bar.pashm` scripts.
 
-##### `foo.pashm`:
+#### `foo.pashm`:
 
 ```bash
 namespace foo
@@ -17,7 +17,7 @@ func bye
 endfunc
 ```
 
-##### `bar.pashm`:
+#### `bar.pashm`:
 
 ```bash
 import('foo.pashm')

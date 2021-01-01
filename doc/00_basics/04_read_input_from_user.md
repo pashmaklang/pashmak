@@ -50,7 +50,7 @@ enter second number: <input>2
 
 this example gets two numbers from user and shows sum of them.
 
-### Reading command line arguments
+## Reading command line arguments
 To access command line arguments, you can use `$argv` variable.
 this variable is a public variable and is list contains command line arguments.
 

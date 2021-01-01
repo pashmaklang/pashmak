@@ -1,4 +1,4 @@
-## class Static methods & properties
+# class Static methods & properties
 Classes can have **Static** methods or properties. The static means that for using them we not need to create a object from them and we can use them directly on class.
 
 For example:

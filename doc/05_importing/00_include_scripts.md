@@ -4,7 +4,7 @@ you can distribute your code in more than 1 files.
 for example, we have 2 files: `app.pashm`, `fib.pashm`.
 `app.pashm` is main file. `fib.pashm` contains a function to show fibonaccy algo.
 
-##### fib.pashm:
+#### fib.pashm:
 ```bash
 # this function prints fibonacci pattern
 func fib
@@ -24,7 +24,7 @@ func fib
 endfunc
 ```
 
-###### app.pashm:
+#### app.pashm:
 ```bash
 import 'fib.pashm'
 
@@ -45,7 +45,7 @@ there is a command named `import_once`. this is excatly like `import` function, 
 
 for example, we have a file named `foo.pashm`:
 
-##### foo.pashm:
+#### foo.pashm:
 
 ```bash
 func hello
