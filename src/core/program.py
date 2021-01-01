@@ -205,7 +205,7 @@ class Program(helpers.Helpers):
         for k in default_variables:
             thread_vars[k] = default_variables[k]
         if len(func_body) > 0:
-            thread_vars['__file__'] = func_body[0]['file_path']
+            thread_vars['__file__'] = os.path.abspath(func_body[0]['file_path'])
             if os.path.isfile(thread_vars['__file__']):
                 thread_vars['__dir__'] = os.path.dirname(thread_vars['__file__'])
         used_namespaces = []
