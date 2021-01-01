@@ -295,6 +295,9 @@ return $content
 endfunc
 func __namespace__
 python("self.mem = self.current_namespace()")
+endfunc
+func var_dump($obj)
+python("class Tmp: \\n    def write(self, value):\\n        current_prog.current_prog.print(str(value))\\npprint.pprint(self.get_var('obj'), Tmp())")
 endfunc"""
 modules["sys"] = """namespace sys
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
