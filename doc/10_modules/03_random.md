@@ -9,6 +9,20 @@ import @random
 println(random.randint(1, 10))
 ```
 
+##### random.seed
+Initialize the random number generator
+```bash
+import @random
+random.seed(1000)
+```
+
+##### random.getstate
+Returns the current internal state of the random number generator
+```bash
+import @random
+print(random.getstate())
+```
+
 ##### random.random
 ```bash
 import @random
