@@ -25,115 +25,159 @@
 modules = {}
 
 modules["hash"] = """namespace hash
-func blake2b($value)
+func blake2b($args)
+$args = format_args($args)
+$value = $args[0]
 python("self.mem = hashlib.blake2b(self.get_var('value').encode()).hexdigest()")
 endfunc
-func blake2s($value)
+func blake2s($args)
+$args = format_args($args)
+$value = $args[0]
 python("self.mem = hashlib.blake2s(self.get_var('value').encode()).hexdigest()")
 endfunc
-func md5($value)
+func md5($args)
+$args = format_args($args)
+$value = $args[0]
 python("self.mem = hashlib.md5(self.get_var('value').encode()).hexdigest()")
 endfunc
-func sha1($value)
+func sha1($args)
+$args = format_args($args)
+$value = $args[0]
 python("self.mem = hashlib.sha1(self.get_var('value').encode()).hexdigest()")
 endfunc
-func sha224($value)
+func sha224($args)
+$args = format_args($args)
+$value = $args[0]
 python("self.mem = hashlib.sha224(self.get_var('value').encode()).hexdigest()")
 endfunc
-func sha256($value)
+func sha256($args)
+$args = format_args($args)
+$value = $args[0]
 python("self.mem = hashlib.sha256(self.get_var('value').encode()).hexdigest()")
 endfunc
-func sha384($value)
+func sha384($args)
+$args = format_args($args)
+$value = $args[0]
 python("self.mem = hashlib.sha384(self.get_var('value').encode()).hexdigest()")
 endfunc
-func sha3_224($value)
+func sha3_224($args)
+$args = format_args($args)
+$value = $args[0]
 python("self.mem = hashlib.sha3_224(self.get_var('value').encode()).hexdigest()")
 endfunc
-func sha3_256($value)
+func sha3_256($args)
+$args = format_args($args)
+$value = $args[0]
 python("self.mem = hashlib.sha3_256(self.get_var('value').encode()).hexdigest()")
 endfunc
-func sha3_384($value)
+func sha3_384($args)
+$args = format_args($args)
+$value = $args[0]
 python("self.mem = hashlib.sha3_384(self.get_var('value').encode()).hexdigest()")
 endfunc
-func sha3_512($value)
+func sha3_512($args)
+$args = format_args($args)
+$value = $args[0]
 python("self.mem = hashlib.sha3_512(self.get_var('value').encode()).hexdigest()")
 endfunc
-func sha512($value)
+func sha512($args)
+$args = format_args($args)
+$value = $args[0]
 python("self.mem = hashlib.sha512(self.get_var('value').encode()).hexdigest()")
 endfunc
-func shake_128($value)
-python("self.mem = hashlib.shake_128(str(self.get_var('value')[0]).encode()).hexdigest(self.get_var('value')[1])")
+func shake_128($args)
+$args = format_args($args)
+python("self.mem = hashlib.shake_128(str(self.get_var('args')[0]).encode()).hexdigest(self.get_var('args')[1])")
 endfunc
-func shake_256($value)
-python("self.mem = hashlib.shake_256(str(self.get_var('value')[0]).encode()).hexdigest(self.get_var('value')[1])")
+func shake_256($args)
+$args = format_args($args)
+python("self.mem = hashlib.shake_256(str(self.get_var('args')[0]).encode()).hexdigest(self.get_var('args')[1])")
 endfunc
 endns"""
 modules["os"] = """namespace os
-func chdir($path)
-python("os.chdir(self.get_var('path')")
+func chdir($args)
+$args = format_args($args)
+python("os.chdir(self.get_var('args')[0]")
 endfunc
 func cpu_count
 python("self.mem = os.cpu_count()")
 endfunc
-func mkdir($dir_name)
-python("os.mkdir(self.get_var('dir_name'))")
+func mkdir($args)
+$args = format_args($args)
+python("os.mkdir(self.get_var('args')[0])")
 endfunc
 $curdir = python("self.mem = os.curdir")
 func kill($args)
+$args = format_args($args)
 $pid = $args[0]
 $signal = $args[1]
 python("os.kill(self.get_var('pid'), self.get_var('signal'))")
 endfunc
-func rmdir($path)
-python("os.rmdir(self.get_var('path'))")
+func rmdir($args)
+$args = format_args($args)
+python("os.rmdir(self.get_var('args')[0])")
 endfunc
 $osname = python('self.mem = os.name')
 $pardir = python('self.mem = os.path.pardir')
-func isdir($path)
-python("self.mem = os.path.isdir(self.get_var('path'))")
+func isdir($args)
+$args = format_args($args)
+python("self.mem = os.path.isdir(self.get_var('args')[0])")
 endfunc
-func isfile($path)
-python("self.mem = os.path.isfile(self.get_var('path'))")
+func isfile($args)
+$args = format_args($args)
+python("self.mem = os.path.isfile(self.get_var('args')[0])")
 endfunc
-func exists($path)
-python("self.mem = os.path.exists(self.get_var('path'))")
+func exists($args)
+$args = format_args($args)
+python("self.mem = os.path.exists(self.get_var('args')[0])")
 endfunc
 endnamespace"""
 modules["random"] = """namespace random
 func randint($args)
+$args = format_args($args)
 python("self.mem = random.randint(self.get_var('args')[0], self.get_var('args')[1])")
 endfunc
 func seed($args)
-python("random.seed(self.get_var('args'))")
+$args = format_args($args)
+python("random.seed(self.get_var('args')[0])")
 endfunc
-func getstate($args)
+func getstate
 python("self.mem = random.getstate()")
 endfunc
 func setstate($args)
-python("random.setstate(self.get_var('args'))")
+$args = format_args($args)
+python("random.setstate(self.get_var('args')[0])")
 endfunc
 func getrandbits($args)
-python("self.mem = random.getrandbits(self.get_var('args'))")
+$args = format_args($args)
+python("self.mem = random.getrandbits(self.get_var('args')[0])")
 endfunc
 func randrange($args)
+$args = format_args($args)
 python("self.mem = random.randrange(self.get_var('args')[0], self.get_var('args')[1])")
 endfunc
 func choice($args)
-python("self.mem = random.choice(self.get_var('args'))")
+$args = format_args($args)
+python("self.mem = random.choice(self.get_var('args')[0])")
 endfunc
 func choices($args)
+$args = format_args($args)
 python("self.mem = random.choices(self.get_var('args')[0] , self.get_var('args')[1] , self.get_var('args')[2] , self.get_var('args')[3])")
 endfunc
 func shuffle($args)
+$args = format_args($args)
 python("random.shuffle(self.get_var('args')[0], self.get_var('args')[1])")
 endfunc
 func sample($args)
+$args = format_args($args)
 python("self.mem = random.sample(self.get_var('args')[0], self.get_var('args')[1])")
 endfunc
 func uniform($args)
+$args = format_args($args)
 python("self.mem = random.uniform(self.get_var('args')[0], self.get_var('args')[1])")
 endfunc
 func triangular($args)
+$args = format_args($args)
 python("self.mem = random.triangular(self.get_var('args')[0], self.get_var('args')[1], self.get_var('args')[2])")
 endfunc
 func random
@@ -146,7 +190,9 @@ endfunc
 func __str__
 return '[PashmakObject name="' + $this->__name__ + '"]'
 endfunc
-func isinstanceof($class)
+func isinstanceof($args)
+$args = format_args($args)
+$class = $args[0]
 if typeof($class) != str
 $class = $class->__name__
 endif
@@ -162,7 +208,9 @@ endfunc
 func import_once
 mem self.import_script(^, True)
 endfunc
-func exit($code)
+func exit($args)
+$args = format_args($args)
+$code = $args[0]
 if typeof($code) != int
 $code = 0
 endif
@@ -174,15 +222,20 @@ endfunc
 func endns
 endnamespace
 endfunc
-func raise($exdata)
-python("self.raise_error('" + str($exdata->type) + "', '" + str($exdata->message) + "')")
+func raise($args)
+$args = format_args($args)
+$ex = $args[0]
+python("self.raise_error('" + str($ex->type) + "', '" + str($ex->message) + "')")
 endfunc
-func assert($value)
+func assert($args)
+$args = format_args($args)
+$value = $args[0]
 if not $value
 raise(Error('AssertError', 'asserting that false is true'))
 endif
 endfunc
 func gset($args)
+$args = format_args($args)
 python('self.threads[0]["vars"]["' + str($args[0]) + '"] = self.get_var("args")[1]')
 endfunc
 func println($value)
@@ -197,7 +250,9 @@ endfunc
 func typeof($obj)
 python("self.mem = type(self.get_var('obj'))")
 endfunc
-func system($cmd)
+func system($args)
+$args = format_args($args)
+$cmd = $args[0]
 python("self.mem = os.system(self.get_var('cmd'))")
 endfunc
 func python
@@ -208,13 +263,13 @@ endfunc
 func read
 python("self.io_read()")
 endfunc
-func py_load_file($path)
+func py_load_file($args)
+$args = format_args($args)
+$path = $args[0]
 python("import importlib.util; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path')); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); self.mem = m")
 endfunc
 func fopen($args)
-if typeof($args) != tuple
-$args = [$args]
-endif
+$args = format_args($args)
 $path = $args[0]
 if len($args) > 1
 $type = $args[1]
@@ -227,6 +282,7 @@ class Error
 $type
 $messae
 func __init__($args)
+$args = format_args($args)
 $this->type = $args[0]
 $this->message = $args[1]
 endfunc
@@ -238,11 +294,15 @@ namespace func
 func list
 python("self.mem = list(self.functions.keys())")
 endfunc
-func exists($name)
+func exists($args)
+$args = format_args($args)
+$name = $args[0]
 $name = str($name)
 return $name in func.list()
 endfunc
-func delete($name)
+func delete($args)
+$args = format_args($args)
+$name = $args[0]
 $name = str($name)
 if not func.exists($name)
 raise(Error('FunctionNotFound', 'function "' + $name + '" not found'))
@@ -259,11 +319,15 @@ namespace class
 func list
 python("self.mem = list(self.classes.keys())")
 endfunc
-func exists($name)
+func exists($args)
+$args = format_args($args)
+$name = $args[0]
 $name = str($name)
 return $name in class.list()
 endfunc
-func delete($name)
+func delete($args)
+$args = format_args($args)
+$name = $args[0]
 $name = str($name)
 if not class.exists($name)
 raise(Error('ClassNotFound', 'class "' + $name + '" not found'))
@@ -297,13 +361,20 @@ func __namespace__
 python("self.mem = self.current_namespace()")
 endfunc
 func var_dump($obj)
-python("class Tmp: \\n    def write(self, value):\\n        current_prog.current_prog.print(str(value))\\npprint.pprint(self.get_var('obj'), Tmp())")
+python("class Tmp:\\n    def write(self, value):\\n        current_prog.current_prog.print(str(value))\\npprint.pprint(self.get_var('obj'), Tmp())")
+endfunc
+func format_args($args)
+if type($args) != tuple
+$args = $args,
+endif
+return $args
 endfunc"""
 modules["sys"] = """namespace sys
 $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
 namespace path
-func add($new_path)
-python('os.environ["PASHMAKPATH"] += ":' + str($new_path) + ':"')
+func add($args)
+$args = format_args($args)
+python('os.environ["PASHMAKPATH"] += ":' + str($args[0]) + ':"')
 python("self.bootstrap_modules()")
 endfunc
 func list
@@ -314,29 +385,41 @@ endfunc
 endns
 endns"""
 modules["test"] = """namespace test
-func doAssert($value)
+func doAssert($args)
+$args = format_args($args)
+$value = $args[0]
 assert($value)
 endfunc
-func assertTrue($value)
+func assertTrue($args)
+$args = format_args($args)
+$value = $args[0]
 test.doAssert($value)
 endfunc
-func assertFalse($value)
+func assertFalse($args)
+$args = format_args($args)
+$value = $args[0]
 test.doAssert(not $value)
 endfunc
 func assertEquals($args)
+$args = format_args($args)
 $a = $args[0]
 $b = $args[1]
 test.doAssert($a == $b)
 endfunc
 func assertNotEquals($args)
+$args = format_args($args)
 $a = $args[0]
 $b = $args[1]
 test.doAssert($a != $b)
 endfunc
-func assertEmpty($value)
+func assertEmpty($args)
+$args = format_args($args)
+$value = $args[0]
 test.doAssert($valie == None)
 endfunc
-func assertNotEmpty($value)
+func assertNotEmpty($args)
+$args = format_args($args)
+$value = $args[0]
 test.doAssert($valie != None)
 endfunc
 endns"""
@@ -344,8 +427,9 @@ modules["time"] = """namespace time
 func time
 python("self.mem = time.time()")
 endfunc
-func sleep($time_to_sleep)
-python("time.sleep(self.get_var('time_to_sleep'))")
+func sleep($args)
+$args = format_args($args)
+python("time.sleep(self.get_var('args')[0])")
 endfunc
 func ctime
 python("self.mem = time.ctime()")

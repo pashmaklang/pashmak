@@ -27,6 +27,7 @@
 - added new functions to `random` module (GH-49)
 - added function `var_dump()`
 - added `ns` alias for `namespace` keyword (GH-51)
+- added `format_args()` function
 
 #### Bug Fixes
 - fixed a bug in `eval` function

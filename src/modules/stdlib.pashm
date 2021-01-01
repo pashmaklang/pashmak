@@ -28,7 +28,9 @@ class Object
         return '[PashmakObject name="' + $this->__name__ + '"]'
     endfunc
 
-    func isinstanceof($class)
+    func isinstanceof($args)
+        $args = format_args($args)
+        $class = $args[0]
         if typeof($class) != str
             $class = $class->__name__
         endif
@@ -49,7 +51,9 @@ func import_once
     mem self.import_script(^, True)
 endfunc
 
-func exit($code)
+func exit($args)
+    $args = format_args($args)
+    $code = $args[0]
     if typeof($code) != int
         $code = 0
     endif
@@ -64,17 +68,22 @@ func endns
     endnamespace
 endfunc
 
-func raise($exdata)
-	python("self.raise_error('" + str($exdata->type) + "', '" + str($exdata->message) + "')")
+func raise($args)
+    $args = format_args($args)
+    $ex = $args[0]
+	python("self.raise_error('" + str($ex->type) + "', '" + str($ex->message) + "')")
 endfunc
 
-func assert($value)
+func assert($args)
+    $args = format_args($args)
+    $value = $args[0]
     if not $value
         raise(Error('AssertError', 'asserting that false is true'))
     endif
 endfunc
 
 func gset($args)
+    $args = format_args($args)
 	python('self.threads[0]["vars"]["' + str($args[0]) + '"] = self.get_var("args")[1]')
 endfunc
 
@@ -94,7 +103,9 @@ func typeof($obj)
     python("self.mem = type(self.get_var('obj'))")
 endfunc
 
-func system($cmd)
+func system($args)
+    $args = format_args($args)
+    $cmd = $args[0]
     python("self.mem = os.system(self.get_var('cmd'))")
 endfunc
 
@@ -109,15 +120,14 @@ func read
     python("self.io_read()")
 endfunc
 
-func py_load_file($path)
+func py_load_file($args)
+    $args = format_args($args)
+    $path = $args[0]
 	python("import importlib.util; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path')); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); self.mem = m")
 endfunc
 
 func fopen($args)
-    if typeof($args) != tuple
-        $args = [$args]
-    endif
-
+    $args = format_args($args)
     $path = $args[0]
     if len($args) > 1
         $type = $args[1]
@@ -133,6 +143,7 @@ class Error
     $messae
 
     func __init__($args)
+        $args = format_args($args)
         $this->type = $args[0]
         $this->message = $args[1]
     endfunc
@@ -149,13 +160,17 @@ namespace func
         python("self.mem = list(self.functions.keys())")
     endfunc
 
-    func exists($name)
+    func exists($args)
+        $args = format_args($args)
+        $name = $args[0]
         # checks a function exists or not
         $name = str($name)
         return $name in func.list()
     endfunc
 
-    func delete($name)
+    func delete($args)
+        $args = format_args($args)
+        $name = $args[0]
         # deletes a function
         $name = str($name)
         if not func.exists($name)
@@ -180,13 +195,17 @@ namespace class
         python("self.mem = list(self.classes.keys())")
     endfunc
 
-    func exists($name)
+    func exists($args)
+        $args = format_args($args)
+        $name = $args[0]
         # checks a class exists or not
         $name = str($name)
         return $name in class.list()
     endfunc
 
-    func delete($name)
+    func delete($args)
+        $args = format_args($args)
+        $name = $args[0]
         # deletes a class
         $name = str($name)
         if not class.exists($name)
@@ -231,5 +250,13 @@ func __namespace__
 endfunc
 
 func var_dump($obj)
-    python("class Tmp: \\n    def write(self, value):\\n        current_prog.current_prog.print(str(value))\\npprint.pprint(self.get_var('obj'), Tmp())")
+    python("class Tmp:\\n    def write(self, value):\\n        current_prog.current_prog.print(str(value))\\npprint.pprint(self.get_var('obj'), Tmp())")
+endfunc
+
+func format_args($args)
+    if type($args) != tuple
+        $args = $args,
+    endif
+
+    return $args
 endfunc
