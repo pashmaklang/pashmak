@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 0.6, 0.6-rc1
+## 0.6, 0.6-rc2
 
 #### New features
 - added **Class** system
