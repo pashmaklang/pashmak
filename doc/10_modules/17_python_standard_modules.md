@@ -14,6 +14,7 @@ you can use this python standard modules in pashmak directly in your code:
 - `socketserver`
 - `math`
 - `pprint`
+ - `subprocess`
 
 for example:
 
