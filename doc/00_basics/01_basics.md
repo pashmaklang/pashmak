@@ -12,7 +12,7 @@ or
 print('something to print\n')
 ```
 
-#### how it works?
+### how it works?
 
 First, we go through pashmak syntax structure.
 The base structure of pashmak syntax is this:
@@ -56,7 +56,7 @@ but how?
 
 First, `mem` command brings the string `'some thing to print'` in memory, and next `print` command prints the memory value on screen.
 
-### what is `mem`?
+## what is `mem`?
 mem is a temp place to make and calculate values.
 
 ```bash
@@ -74,7 +74,7 @@ mem 'hello world\n'; print(^)
 
 ###### NOTE: remember to put \n when you want to go to the next line
 
-#### mem is temp
+### mem is temp
 
 Look at this example:
 

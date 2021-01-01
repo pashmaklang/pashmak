@@ -2,7 +2,7 @@
 # program.py
 #
 # The Pashmak Project
-# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -31,7 +31,7 @@ from . import helpers, version, modules, jit, parser, current_prog
 from .class_system import Class, ClassObject
 from .function import Function
 
-import hashlib, time, random, datetime, base64, json, http, http.cookies, http.server, http.client, http.cookiejar
+import hashlib, time, random, datetime, base64, json, http, http.cookies, http.server, http.client, http.cookiejar, socket, socketserver, math
 
 class Program(helpers.Helpers):
     """ Pashmak program object """
@@ -375,6 +375,10 @@ class Program(helpers.Helpers):
             'class': self.run_class,
             'endclass': self.run_endclass,
             'return': self.run_return,
+            'while': self.run_while,
+            'endwhile': self.run_endwhile,
+            'break': self.run_break,
+            'continue': self.run_continue,
             'pass': None,
             'if': None,
             'elif': None,

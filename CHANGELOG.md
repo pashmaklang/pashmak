@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 0.6, 0.6-rc0
+## 0.6, 0.6-rc1
 
 #### New features
 - added **Class** system
@@ -16,12 +16,15 @@
 - added **Jit** compiler
 - added `fopen` alias for `open` function
 - added `py_load_file` function to load python scripts as object (GH-35)
-- added python `json` library support
+- added python `json`, `socket`, `socketserver`, `http`, `base64`, `math` library support
 - added `function.{list,delete,exists}`, `class.{list,delete,exists}` super functions
 - added `out_*` magic functions to handle program stdout output in advance level
 - added multiline using `\` character in end of lines
 - added complicated declaring class and function
 - added `__namespace__()` function to return current namespace as string
+- added `os` module (GH-45)
+- added `while` loop system
+- added new functions to `random` module (GH-49)
 
 #### Bug Fixes
 - fixed a bug in `eval` function
@@ -41,6 +44,7 @@
 - deleted `out`, `fread`, `include` and `fwrite` commands because they was very low level and are not needed
 - deleted `$var = ^ command` syntax(use `$var = command()` instead of that)
 - deleted `@file` module(use python file api instead of that)
+- removed `chdir` function (GH-45)
 
 #### Other changes
 - change default `RuntimeError` name to the real python exception name in exception system

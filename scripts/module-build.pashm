@@ -6,19 +6,19 @@ $module_files = os.listdir($__dir__ + '/../src/modules')
 $module_files->sort()
 
 $i = 0
-section loop1
+while $i < len($module_files)
     $f = open($__dir__ + '/../src/modules/' + $module_files[$i], 'r')
     $content = $f->read()
     $f->close()
     $module_name = $module_files[$i]->split('.')[0]
     $modules[$module_name] = $content
     $i = $i + 1
-mem $i < len($module_files); gotoif loop1
+endwhile
 
 $pycode = '""" Internal modules """\n\nmodules = {}\n'
 $i = 0
 $keys = list($modules->keys())
-section loop2
+while $i < len($keys)
     $k = $keys[$i]
     $tmp_module_content = $modules[$k]->replace('\n\n', '\n')
     $tmp_module_content = $tmp_module_content->replace('\n\n', '\n')
@@ -26,19 +26,19 @@ section loop2
 
     $j = 0
     $lines = $tmp_module_content->strip()->split('\n')
-    section loop1_3
+    while $j < len($lines)
         $line = $lines[$j]->strip()->split('#')[0]->strip()
         if $line != ''
             $new_module_content = $new_module_content + $line + '\n'
         endif
         $j = $j + 1
-    mem $j < len($lines); gotoif loop1_3
+    endwhile
 
     $new_module_content = $new_module_content->strip()
     $pycode = $pycode + '\nmodules["' + $k + '"] = """' + $new_module_content + '"""'
 
     $i = $i + 1
-mem $i < len($keys); gotoif loop2
+endwhile
 
 $pycode = $pycode + '\n'
 

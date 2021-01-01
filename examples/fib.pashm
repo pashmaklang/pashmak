@@ -2,7 +2,7 @@
 # fib.pashm
 #
 # The Pashmak Project
-# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -26,7 +26,7 @@ func fib($n)
     $a = 1
     $b = 1
 
-    section loop
+    while $a < $n
         println($a)
 
         $tmp_a = $a
@@ -35,7 +35,7 @@ func fib($n)
         $a = $tmp_b
 
         $b = $tmp_a + $tmp_b
-    mem $a < $n; gotoif loop
+     endwhile
 endfunc
 
 fib(10000)

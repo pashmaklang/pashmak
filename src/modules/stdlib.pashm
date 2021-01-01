@@ -2,7 +2,7 @@
 # stdlib.pashm
 #
 # The Pashmak Project
-# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -88,10 +88,6 @@ endfunc
 
 func cwd
     python("self.mem = os.getcwd()")
-endfunc
-
-func chdir($path)
-    python("self.mem = os.chdir(self.get_var('path'))")
 endfunc
 
 func typeof($obj)

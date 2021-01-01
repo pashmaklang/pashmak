@@ -1,4 +1,4 @@
-## `$__ismain__` variable
+# `$__ismain__` variable
 the `$__ismain__` variable, is a general Boolean variable. this variable is used to check the current file, is the **Main runed file** or not.
 
 for example, we have two files, `my_program.pashm` and `lib.pashm`. we want to know that in our scripts **Is the current script main directly runed file?**.
@@ -11,7 +11,7 @@ pashmak my_program.pashm
 
 the `my_program.pashm` file is runed directly.
 
-##### my_program.pashm:
+#### my_program.pashm:
 
 ```bash
 println($__ismain__)
@@ -21,7 +21,7 @@ import('lib.pashm')
 
 the above code, prints value of this variable and also imports `lib.pashm` file.
 
-##### lib.pashm:
+#### lib.pashm:
 
 ```bash
 println($__ismain__)

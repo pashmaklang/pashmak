@@ -1,4 +1,4 @@
-## Handling parent/self propeties/methods
+# Handling parent/self propeties/methods
 In inheritance system, Maybe we need to use some properties/methods in parent/other classes.
 
 to undrestand this, look at this example:

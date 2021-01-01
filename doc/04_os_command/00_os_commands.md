@@ -2,13 +2,6 @@
 
 here is some commands about OS.
 
-### chdir
-change directory. with this command you can change program working directory:
-
-```bash
-chdir('/tmp')
-```
-
 ### cwd
 get current working directory.
 
@@ -77,7 +70,7 @@ output:
 first print
 ```
 
-##### exit with exit code:
+#### exit with exit code:
 
 ```bash
 println('hello world')

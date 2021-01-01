@@ -2,7 +2,7 @@
 # square.pashm
 #
 # The Pashmak Project
-# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -26,15 +26,15 @@ func print_square($args)
     $x = $args[0]
     $y = $args[1]
     $i = 0
-    section loop1
+    while $i < $x
         $j = 0
-        section loop2
+        while $j < $y
             print('*')
             $j = $j + 1
-        mem $j < $y; gotoif loop2
+        endwhile
         println('')
         $i = $i + 1
-    mem $i < $x; gotoif loop1
+    endwhile
 endfunc
 
 print_square(10, 25)

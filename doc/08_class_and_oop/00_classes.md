@@ -133,7 +133,7 @@ println($my_car->name) # output: new name
 
 ##### NOTE: class name should not contains `()+-/*%=}{<>[],. ` chars(literal chars)
 
-### classes in namespaces
+## classes in namespaces
 you can declare classes inside the namespaces like variables and functions.
 
 for example:
@@ -151,7 +151,7 @@ $my_car = Models.Car()
 
 all of laws for **classes in namespaces** is like `functions` and `variables`.
 
-### Advance property usage
+## Advance property usage
 you can use more features of the properties. actually, you can create any structure in your properties.
 
 look at this example:
@@ -242,7 +242,7 @@ ClassConstError:...
 
 if you want to set a peoperty as constant, you have to put a `_` in the start of that name.
 
-### Class methods
+## Class methods
 you can declare function inside classes. the class's function is named **Method**.
 
 look at this example:

@@ -2,7 +2,7 @@
 # modules.py
 #
 # The Pashmak Project
-# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -68,9 +68,73 @@ func shake_256($value)
 python("self.mem = hashlib.shake_256(str(self.get_var('value')[0]).encode()).hexdigest(self.get_var('value')[1])")
 endfunc
 endns"""
+modules["os"] = """namespace os
+func chdir($path)
+python("os.chdir(self.get_var('path')")
+endfunc
+func cpu_count
+python("self.mem = os.cpu_count()")
+endfunc
+func mkdir($dir_name)
+python("os.mkdir(self.get_var('dir_name'))")
+endfunc
+$curdir = python("self.mem = os.curdir")
+func kill($args)
+$pid = $args[0]
+$signal = $args[1]
+python("os.kill(self.get_var('pid'), self.get_var('signal'))")
+endfunc
+func rmdir($path)
+python("os.rmdir(self.get_var('path'))")
+endfunc
+$osname = python('self.mem = os.name')
+$pardir = python('self.mem = os.path.pardir')
+func isdir($path)
+python("self.mem = os.path.isdir(self.get_var('path'))")
+endfunc
+func isfile($path)
+python("self.mem = os.path.isfile(self.get_var('path'))")
+endfunc
+func exists($path)
+python("self.mem = os.path.exists(self.get_var('path'))")
+endfunc
+endnamespace"""
 modules["random"] = """namespace random
 func randint($args)
 python("self.mem = random.randint(self.get_var('args')[0], self.get_var('args')[1])")
+endfunc
+func seed($args)
+python("random.seed(self.get_var('args'))")
+endfunc
+func getstate($args)
+python("self.mem = random.getstate()")
+endfunc
+func setstate($args)
+python("random.setstate(self.get_var('args'))")
+endfunc
+func getrandbits($args)
+python("self.mem = random.getrandbits(self.get_var('args'))")
+endfunc
+func randrange($args)
+python("self.mem = random.randrange(self.get_var('args')[0], self.get_var('args')[1])")
+endfunc
+func choice($args)
+python("self.mem = random.choice(self.get_var('args'))")
+endfunc
+func choices($args)
+python("self.mem = random.choices(self.get_var('args')[0] , self.get_var('args')[1] , self.get_var('args')[2] , self.get_var('args')[3])")
+endfunc
+func shuffle($args)
+python("random.shuffle(self.get_var('args')[0], self.get_var('args')[1])")
+endfunc
+func sample($args)
+python("self.mem = random.sample(self.get_var('args')[0], self.get_var('args')[1])")
+endfunc
+func uniform($args)
+python("self.mem = random.uniform(self.get_var('args')[0], self.get_var('args')[1])")
+endfunc
+func triangular($args)
+python("self.mem = random.triangular(self.get_var('args')[0], self.get_var('args')[1], self.get_var('args')[2])")
 endfunc
 func random
 python("self.mem = random.random()")
@@ -129,9 +193,6 @@ println($value)
 endfunc
 func cwd
 python("self.mem = os.getcwd()")
-endfunc
-func chdir($path)
-python("self.mem = os.chdir(self.get_var('path'))")
 endfunc
 func typeof($obj)
 python("self.mem = type(self.get_var('obj'))")

@@ -54,7 +54,7 @@ python3 src/pashmak.py
 ./src/pashmak.py
 ```
 
-#### uninstallation
+### uninstallation
 To uninstall Pashmak, run this make command in terminal:
 
 ```bash

@@ -107,6 +107,9 @@ this is very useful. this commands runs `module`, `update-headers`, `docs`, `tes
 make all
 ```
 
+#### On windows
+If you are developing on Windows, use `.\win-configure.bat` command instead of makefile scripts.
+
 ## Testing
 you can run pashmak project tests via 5 ways:
 

@@ -2,7 +2,7 @@
 # builtin_functions.py
 #
 # The Pashmak Project
-# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -245,3 +245,48 @@ class BuiltinFunctions:
             self.threads[-1]['current_step'] = len(self.threads[-1]['commands']) * 2
         else:
             self.exit_program(value)
+
+    def run_while(self, op: dict):
+        """ The while block start """
+        condition_result = self.eval(op['args_str'])
+        if condition_result:
+            return
+        # condition is not True, loop should be breaked
+        i = self.threads[-1]['current_step']+1
+        loop_depth = 0
+        while i < len(self.threads[-1]['commands']):
+            if self.threads[-1]['commands'][i]['command'] == 'while':
+                loop_depth += 1
+            elif self.threads[-1]['commands'][i]['command'] == 'endwhile':
+                if loop_depth > 0:
+                    loop_depth -= 1
+                else:
+                    self.threads[-1]['current_step'] = i
+                    return
+            i += 1
+
+    def run_endwhile(self, op: dict):
+        """ The While block end """
+        # Back to first of loop
+        i = self.threads[-1]['current_step']-1
+        loop_depth = 0
+        while i >= 0:
+            if self.threads[-1]['commands'][i]['command'] == 'endwhile':
+                loop_depth += 1
+            elif self.threads[-1]['commands'][i]['command'] == 'while':
+                if loop_depth > 0:
+                    loop_depth -=1
+                else:
+                    self.threads[-1]['current_step'] = i-1
+                    return
+            i -= 1
+
+    def run_break(self, op: dict):
+        """ Breaks the loop """
+        tmp_op = dict(op)
+        op['args_str'] = 'False'
+        self.run_while(op)
+
+    def run_continue(self, op: dict):
+        """ Continues the loop """
+        self.run_endwhile(op)

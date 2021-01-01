@@ -1,0 +1,64 @@
+#
+# os.pashm
+#
+# The Pashmak Project
+# This Pashmak module is created by mehan alavi majd <mehan.alavi.majd88@gmail.com> 
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+# 
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+namespace os
+    func chdir($path)
+        python("os.chdir(self.get_var('path')")
+    endfunc
+
+    func cpu_count
+        python("self.mem = os.cpu_count()")
+    endfunc
+
+    func mkdir($dir_name)
+        python("os.mkdir(self.get_var('dir_name'))")
+    endfunc
+
+    $curdir = python("self.mem = os.curdir")
+
+    func kill($args)
+        $pid = $args[0]
+        $signal = $args[1]
+        python("os.kill(self.get_var('pid'), self.get_var('signal'))")
+    endfunc
+
+    func rmdir($path)
+        python("os.rmdir(self.get_var('path'))")
+    endfunc
+
+    $osname = python('self.mem = os.name')
+
+    $pardir = python('self.mem = os.path.pardir')
+
+    func isdir($path)
+        python("self.mem = os.path.isdir(self.get_var('path'))")
+    endfunc
+
+    func isfile($path)
+        python("self.mem = os.path.isfile(self.get_var('path'))")
+    endfunc
+    
+    func exists($path)
+        python("self.mem = os.path.exists(self.get_var('path'))")
+    endfunc
+endnamespace

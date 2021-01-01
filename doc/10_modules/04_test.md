@@ -1,7 +1,7 @@
-## test module
+# test module
 the `test` module has some assertion functions to testing.
 
-##### default `assert` function
+### default `assert` function
 this function is a function in the pashmak. this function gets a value and asserts that is true:
 
 ```bash
@@ -12,7 +12,7 @@ assert(True) # ok
 assert('foo' == 'bar') # error: AssertError
 ```
 
-##### test.assertTrue
+### test.assertTrue
 asserts true:
 
 ```bash
@@ -32,7 +32,7 @@ test.assertTrue(False)
 test.assertTrue(3 == 2)
 ```
 
-##### test.assertFalse
+### test.assertFalse
 this function is reverse of `test.assertTrue`.
 
 ```bash
@@ -41,7 +41,7 @@ test.assertFalse(3 == 2) # run be run without error
 test.assertFalse(2 == 2) # AssertionError
 ```
 
-##### test.assertEquals
+### test.assertEquals
 this function asserts two values equals.
 
 ```bash
@@ -51,7 +51,7 @@ test.assertEquals(2, 2) # successful
 test.assertEquals('foo', 'bar') # AssertionError
 ```
 
-##### test.assertNotEquals
+### test.assertNotEquals
 this function is reverse of `test.assertEquals`.
 
 ```bash
@@ -60,7 +60,7 @@ test.assertNotEquals(2, 7) # successful
 test.assertNotEquals(2, 2) # AssertionError
 ```
 
-##### test.assertEmpty
+### test.assertEmpty
 asserts the value is empty.
 
 ```bash
@@ -68,7 +68,7 @@ test.assertEmpty(None)
 test.assertEmpty('hello') # error
 ```
 
-##### test.assertNotEmpty
+### test.assertNotEmpty
 asserts value is not empty
 
 ```bash

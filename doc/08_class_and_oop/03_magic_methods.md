@@ -1,7 +1,7 @@
-## Class magic methods
+# Class magic methods
 now, you know what is the class methods. some methods in classes are special.
 
-#### `__init__`
+### `__init__`
 the `__init__` method, will be runed when an object is created from a class.
 
 look at this example:
@@ -43,7 +43,7 @@ hello parsa
 parsa
 ```
 
-#### `__str__`
+### `__str__`
 the `__str__` method, is a method to customize object string value.
 
 look at this example:
@@ -92,4 +92,4 @@ output:
 hello. my name is parsa
 ```
 
-in the above example, we declared `__str__` method for the class. then, when class is printed, output of `__str__` method will be used instead of that default string (output of method should be put in `mem`).
+in the above example, we declared `__str__` method for the class. then, when class is printed, output of `__str__` method will be used instead of that default string.

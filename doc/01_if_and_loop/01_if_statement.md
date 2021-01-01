@@ -94,7 +94,7 @@ num is 17
 
 actually, `elif` block will be checked one by one. `elif` means `else if`.
 
-### If in If
+## If in If
 you can write ifs in ifs.
 
 look at this example:

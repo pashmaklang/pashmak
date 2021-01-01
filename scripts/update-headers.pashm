@@ -3,7 +3,7 @@
 
 $header_text = '#\n# \
 The Pashmak Project\
-\n# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>\
+\n# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>\
 \n#\
 \n# This file is part of Pashmak.\
 \n#\
@@ -70,9 +70,9 @@ $total_paths = [*$total_paths, *$c->files_list]
 mem $total_paths->sort()
 
 $i = 0
-section loop2
+while $i < len($total_paths)
     set_once_header($total_paths[$i])
     $i = $i + 1
-mem $i < len($total_paths); gotoif loop2
+endwhile
 
 println('\033[32mHeaders updated successfully\033[0m')

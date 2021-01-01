@@ -1,12 +1,12 @@
-## sys module
+# sys module
 this module has some functions to manage pashmak internal envrinonment.
 
-#### sys.path module
+### sys.path module
 this module is for manage module paths. you can add new module paths and load modules from everywhere at runtime with this module.
 
 to know about this module, go to next section [Module path system](#module-path-system).
 
-#### `$sys.pashmakinfo`, access to pashmakinfo
+### `$sys.pashmakinfo`, access to pashmakinfo
 
 if you want to access to pashmak interpreter info, `sys` module has a variable named `pashmakinfo`:
 

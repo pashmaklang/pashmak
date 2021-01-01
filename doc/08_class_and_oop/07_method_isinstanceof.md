@@ -1,4 +1,4 @@
-## `isinstanceof` method
+# `isinstanceof` method
 The `isinstanceof` method is a general method for all of classes. this method can check that an object is in instanceof a class.
 
 For example:

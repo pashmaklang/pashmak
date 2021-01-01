@@ -23,7 +23,7 @@ $var2; $var3 # default value is null
 
 ##### NOTE: variable name should not contains `()+-/*%=}{<>[], ` chars(literal chars)
 
-### Using variables in mem calculation
+## Using variables in mem calculation
 
 look at this example:
 
@@ -40,7 +40,7 @@ $num2 = 4
 println($num * $num2 + 1) # output: 49
 ```
 
-#### copy variables in other variables
+### copy variables in other variables
 
 look at this example:
 

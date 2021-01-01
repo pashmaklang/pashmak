@@ -1,4 +1,4 @@
-## hash module
+# hash module
 with hash module, you can calculate hash sum of values:
 
 ```bash
@@ -10,10 +10,10 @@ println(^) # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938
 println(hash.sha256("hello"))
 ```
 
-##### how it works?
+### how it works?
 first, we call `hash.sha256` and pass `hello` string as argument (or put it in mem) to calculate sha256 hash. then, this function calculates hash sum of mem value and puts that into the mem. now you can access sum of that from mem.
 
-#### another hash algos
+### another hash algos
 - hash.blake2b(string)
 - hash.blake2s(string)
 - hash.md5(string)

@@ -2,7 +2,7 @@
 # get_persons_information.pashm
 #
 # The Pashmak Project
-# Copyright 2020 parsa shahmaleki <parsampsh@gmail.com>
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
 #
 # This file is part of Pashmak.
 #
@@ -28,7 +28,7 @@ endclass
 $persons = []
 
 $i = 0
-section loop
+while $i < 3
     $p = Person()
     print('enter your name: ')
     $p->name = read()
@@ -38,10 +38,10 @@ section loop
     mem $persons->append($p)
 
     $i = $i + 1
-mem $i < 3; gotoif loop
+endwhile
 
 $i = 0
-section loop2
+while $i < len($persons)
     println('hello ' + $persons[$i]->name + ' ' + $persons[$i]->age)
     $i = $i + 1
-mem $i < len($persons); gotoif loop2
+endwhile

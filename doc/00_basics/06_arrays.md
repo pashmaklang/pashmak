@@ -19,10 +19,10 @@ $names = ['parsa', 'pashmak', 'jack']
 
 $i = 0
 
-section loop
+while $i < len($names)
     println($names[$i])
     $i = $i + 1
-mem $i < len($names); gotoif loop
+endwhile
 ```
 
 output:
@@ -35,7 +35,7 @@ jack
 
 the above code prints names one by one
 
-### adding new item to array
+## adding new item to array
 you can add new item to an array by using python `append` and `insert` methods:
 
 ```bash
@@ -70,7 +70,7 @@ output:
 ['one', 'two', 'three', 'four']
 ```
 
-### removing an item from array
+## removing an item from array
 you can delete an item from array by using python `pop` method:
 
 ```bash
@@ -90,7 +90,7 @@ output:
 
 also `pop` method without argument removes last item by default.
 
-### setting value of an item in array
+## setting value of an item in array
 look at this example:
 
 ```bash
@@ -116,7 +116,7 @@ $my_list[0][0] = 'AAA'
 println($my_list[0]) # output: ['AAA']
 ```
 
-### Dictonaries
+## Dictonaries
 dictonaries are like lists, but in dicts you can set a string as key instead of index number.
 
 look at this example:

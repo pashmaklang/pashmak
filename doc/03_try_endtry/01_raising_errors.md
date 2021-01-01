@@ -1,4 +1,4 @@
-## raising errors
+# raising errors
 Your self can raise errors in the program.
 
 for example:
