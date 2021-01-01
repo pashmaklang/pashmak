@@ -28,7 +28,7 @@ NameError: undefined "printlgdfgfd"
 
 they are errors.
 
-##### but how to handle errors?
+### but how to handle errors?
 
 we can handle errors with `try-endtry` statement.
 
@@ -51,7 +51,7 @@ section after_error
 when you write code between `try <section-name> ... endtry`, errors will not raised in them and if an error is raised, that section where passed to try command will run.
 actually, we say to the Pashmak to don't show error to user and do that thing I'm saying you instead of default error showing.
 
-#### how to access raised error data?
+### how to access raised error data?
 
 when error is raised in try statement, error data will put in mem (^):
 

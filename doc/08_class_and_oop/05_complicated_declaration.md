@@ -1,4 +1,4 @@
-## Complicated class declaration
+# Complicated class declaration
 You can declare class-in-class (like functions).
 
 Look at this example:

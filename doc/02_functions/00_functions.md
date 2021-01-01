@@ -59,7 +59,7 @@ hello parsa
 
 ##### NOTE: function name should not contains `()+-/*%=}{<>[],. ` chars(literal chars)
 
-### passing argument to Functions
+## passing argument to Functions
 for pass argument to the Functions, you can put value after name of function:
 
 ```bash
@@ -84,7 +84,7 @@ mem 'something'; some_func()
 
 but with better syntax, you only need to run `some_func('something')`.
 
-##### how it works?
+### how it works?
 you can put a value after name of function. this value will put in mem and you can access this argument from mem.
 
 look at this example:
@@ -189,7 +189,7 @@ mem 'parsa'
 say_hello(^ + ' shahmaleki')
 ```
 
-#### how two handle multiple arguments?
+### how two handle multiple arguments?
 in the above examples, all of created functions only have ONE argument. some times our functions recives more than one arguments. how we can handle this?
 
 to handle this, you can use something like this:

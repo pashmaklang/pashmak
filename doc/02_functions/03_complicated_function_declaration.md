@@ -1,4 +1,4 @@
-## Complicated function declaration
+# Complicated function declaration
 You can declare functions-in-functions.
 
 Look at this example:
@@ -99,4 +99,3 @@ NameError: undefined 'bar'...
 ```
 
 > You will learn about that `__namespace__()` function in next sections...
-

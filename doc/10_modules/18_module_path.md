@@ -27,7 +27,7 @@ also you can import an directory as module. for example, `/usr/lib/pashmak_modul
 
 for example:
 
-##### __init__.pashm:
+#### __init__.pashm:
 
 ```bash
 import $__dir__ + '/core.pashm'

@@ -1,4 +1,4 @@
-## Classes general attributes
+# Classes general attributes
 classes has some general properties:
 
 - `__name__`: name of the class

@@ -1,4 +1,4 @@
-## command `use`
+# command `use`
 the `use` command is a command to use content of a namespace.
 
 look at this example:
