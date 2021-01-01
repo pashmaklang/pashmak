@@ -104,16 +104,16 @@ func randint($args)
 python("self.mem = random.randint(self.get_var('args')[0], self.get_var('args')[1])")
 endfunc
 func seed($args)
-python("random.seed(self.get_var('args')[0])")
+python("random.seed(self.get_var('args'))")
 endfunc
 func getstate($args)
 python("self.mem = random.getstate()")
 endfunc
 func setstate($args)
-python("random.setstate(self.get_var('args')[0])")
+python("random.setstate(self.get_var('args'))")
 endfunc
 func getrandbits($args)
-python("self.mem = random.getrandbits(self.get_var('args')[0])")
+python("self.mem = random.getrandbits(self.get_var('args'))")
 endfunc
 func randrange($args)
 python("self.mem = random.randrange(self.get_var('args')[0], self.get_var('args')[1])")

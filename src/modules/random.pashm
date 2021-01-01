@@ -27,7 +27,7 @@ namespace random
     endfunc
 
     func seed($args)
-        python("random.seed(self.get_var('args')[0])")
+        python("random.seed(self.get_var('args'))")
     endfunc
     
     func getstate($args)
@@ -35,11 +35,11 @@ namespace random
     endfunc
 
     func setstate($args)
-        python("random.setstate(self.get_var('args')[0])")
+        python("random.setstate(self.get_var('args'))")
     endfunc
 
     func getrandbits($args)
-        python("self.mem = random.getrandbits(self.get_var('args')[0])")
+        python("self.mem = random.getrandbits(self.get_var('args'))")
     endfunc
 
     func randrange($args)

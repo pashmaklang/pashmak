@@ -29,3 +29,5 @@ $rand = ^
 assert($rand >= 5 and $rand <= 10)
 $r2 = random.random()
 assert($r2 < 1)
+random.seed(1000)
+println(random.getstate())
