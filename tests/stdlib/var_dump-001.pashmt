@@ -1,5 +1,5 @@
 #
-# class.pashm
+# var_dump-001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,28 +20,16 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-class Human
-    $name
-    $age = 12
+--test--
+function var_dump() works correct
 
-    func say_hi
-        println('hello. my name is ' + $this->name)
-    endfunc
+--file--
 
-    func set_name($args)
-        $args = format_args($args)
-        $name = $args[0]
-        $this->name = $name
-    endfunc
-endclass
+$name = 'pashmak'
 
-$someone = Human
-$someone->name = 'parsa'
+var_dump($name)
 
-println($someone->name)
+var_dump('other value')
 
-$someone->say_hi()
-
-$someone->set_name('Pashmak')
-
-$someone->say_hi()
+--output--
+"'pashmak'\n'other value'\n"

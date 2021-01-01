@@ -1,5 +1,5 @@
 #
-# class.pashm
+# ns-alias.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,28 +20,19 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-class Human
-    $name
-    $age = 12
+--test--
+alias ns for namespace works
 
-    func say_hi
-        println('hello. my name is ' + $this->name)
+--file--
+
+ns app
+    func hi
+        println 'hello world'
     endfunc
+endns
 
-    func set_name($args)
-        $args = format_args($args)
-        $name = $args[0]
-        $this->name = $name
-    endfunc
-endclass
+app.hi()
 
-$someone = Human
-$someone->name = 'parsa'
+--output--
+"hello world\n"
 
-println($someone->name)
-
-$someone->say_hi()
-
-$someone->set_name('Pashmak')
-
-$someone->say_hi()

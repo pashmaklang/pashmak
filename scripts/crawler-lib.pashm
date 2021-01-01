@@ -1,11 +1,13 @@
 
 class Crawler
     func __init__($args)
+        $args = format_args($args)
         $this->files_list = []
         mem $this->get($args[0], $args[1])
     endfunc
 
     func add_once($args)
+        $args = format_args($args)
         $path = $args[0]
         $extension = $args[1]
 
@@ -15,6 +17,7 @@ class Crawler
     endfunc
 
     func get($args)
+        $args = format_args($args)
         $path = $args[0]
         $extension = $args[1]
 

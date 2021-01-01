@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 0.6, 0.6-rc1
+## 0.6, 0.6-rc2
 
 #### New features
 - added **Class** system
@@ -16,7 +16,7 @@
 - added **Jit** compiler
 - added `fopen` alias for `open` function
 - added `py_load_file` function to load python scripts as object (GH-35)
-- added python `json`, `socket`, `socketserver`, `http`, `base64`, `math` library support
+- added python `json`, `socket`, `socketserver`, `http`, `base64`, `math`, `pprint`, `subprocess` library support
 - added `function.{list,delete,exists}`, `class.{list,delete,exists}` super functions
 - added `out_*` magic functions to handle program stdout output in advance level
 - added multiline using `\` character in end of lines
@@ -25,6 +25,10 @@
 - added `os` module (GH-45)
 - added `while` loop system
 - added new functions to `random` module (GH-49)
+- added function `var_dump()`
+- added `ns` alias for `namespace` keyword (GH-51)
+- added `format_args()` function
+- added `webserver` module
 
 #### Bug Fixes
 - fixed a bug in `eval` function
@@ -38,6 +42,7 @@
 - fixed import command bug while using `()`
 - blocked using literal chars in names(function/class/namespace
 - fixed namespace function bug while calling another function in that namespace
+- fixed a bug in function variable isolation
 
 #### Removed
 - deleted `loop` and `while` functions

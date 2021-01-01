@@ -1,5 +1,5 @@
 #
-# class.pashm
+# format_args.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,28 +20,29 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-class Human
-    $name
-    $age = 12
+--test--
+function format_args() works
 
-    func say_hi
-        println('hello. my name is ' + $this->name)
-    endfunc
+--file--
 
-    func set_name($args)
-        $args = format_args($args)
-        $name = $args[0]
-        $this->name = $name
-    endfunc
-endclass
+func bye($args)
+    println($args)
+endfunc
 
-$someone = Human
-$someone->name = 'parsa'
+func hello($args)
+    $args = format_args($args)
+    println($args)
+endfunc
 
-println($someone->name)
+hello('one')
+hello('one', 'two', 100)
 
-$someone->say_hi()
+bye('one')
+bye('one', 'two', 100)
 
-$someone->set_name('Pashmak')
-
-$someone->say_hi()
+--output--
+"""('one',)
+('one', 'two', 100)
+one
+('one', 'two', 100)
+"""

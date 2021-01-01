@@ -88,4 +88,12 @@ println($App.name) # output: parsa
 println($name) # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
 ```
 
+Also you can use `ns` alias instead of `namespace` keyword. for example:
+
+```bash
+ns app
+    # ...
+endns
+```
+
 ##### NOTE: variable name should not contains `()+-/*%=}{<>[],. ` chars(literal chars)

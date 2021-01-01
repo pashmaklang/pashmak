@@ -31,7 +31,7 @@ from . import helpers, version, modules, jit, parser, current_prog
 from .class_system import Class, ClassObject
 from .function import Function
 
-import hashlib, time, random, datetime, base64, json, http, http.cookies, http.server, http.client, http.cookiejar, socket, socketserver, math
+import hashlib, time, random, datetime, base64, json, http, http.cookies, http.server, http.client, http.cookiejar, socket, socketserver, math, pprint, subprocess
 
 class Program(helpers.Helpers):
     """ Pashmak program object """
@@ -198,14 +198,17 @@ class Program(helpers.Helpers):
         old_file = self.get_var('__file__')
         # create new thread for this call
         if with_thread:
-            thread_vars = dict(self.threads[-1]['vars'])
+            thread_vars = dict(self.threads[0]['vars'])
+            for k in self.all_vars():
+                if k in ['argv', 'argc', '__file__', '__dir__', '__ismain__']:
+                    thread_vars[k] = copy.deepcopy(self.get_var(k))
         else:
             thread_vars = self.threads[-1]['vars']
 
         for k in default_variables:
             thread_vars[k] = default_variables[k]
         if len(func_body) > 0:
-            thread_vars['__file__'] = func_body[0]['file_path']
+            thread_vars['__file__'] = os.path.abspath(func_body[0]['file_path'])
             if os.path.isfile(thread_vars['__file__']):
                 thread_vars['__dir__'] = os.path.dirname(thread_vars['__file__'])
         used_namespaces = []
@@ -370,6 +373,7 @@ class Program(helpers.Helpers):
             'try': self.run_try,
             'endtry': self.run_endtry,
             'namespace': self.run_namespace,
+            'ns': self.run_namespace,
             'endnamespace': self.run_endnamespace,
             'use': self.run_use,
             'class': self.run_class,

@@ -22,43 +22,50 @@
 #########################################################################
 
 namespace os
-    func chdir($path)
-        python("os.chdir(self.get_var('path')")
+    func chdir($args)
+        $args = format_args($args)
+        python("os.chdir(self.get_var('args')[0]")
     endfunc
 
     func cpu_count
         python("self.mem = os.cpu_count()")
     endfunc
 
-    func mkdir($dir_name)
-        python("os.mkdir(self.get_var('dir_name'))")
+    func mkdir($args)
+        $args = format_args($args)
+        python("os.mkdir(self.get_var('args')[0])")
     endfunc
 
     $curdir = python("self.mem = os.curdir")
 
     func kill($args)
+        $args = format_args($args)
         $pid = $args[0]
         $signal = $args[1]
         python("os.kill(self.get_var('pid'), self.get_var('signal'))")
     endfunc
 
-    func rmdir($path)
-        python("os.rmdir(self.get_var('path'))")
+    func rmdir($args)
+        $args = format_args($args)
+        python("os.rmdir(self.get_var('args')[0])")
     endfunc
 
     $osname = python('self.mem = os.name')
 
     $pardir = python('self.mem = os.path.pardir')
 
-    func isdir($path)
-        python("self.mem = os.path.isdir(self.get_var('path'))")
+    func isdir($args)
+        $args = format_args($args)
+        python("self.mem = os.path.isdir(self.get_var('args')[0])")
     endfunc
 
-    func isfile($path)
-        python("self.mem = os.path.isfile(self.get_var('path'))")
+    func isfile($args)
+        $args = format_args($args)
+        python("self.mem = os.path.isfile(self.get_var('args')[0])")
     endfunc
     
-    func exists($path)
-        python("self.mem = os.path.exists(self.get_var('path'))")
+    func exists($args)
+        $args = format_args($args)
+        python("self.mem = os.path.exists(self.get_var('args')[0])")
     endfunc
 endnamespace
