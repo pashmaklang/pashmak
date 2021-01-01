@@ -1,4 +1,4 @@
-# Documentation > Sections and if
+# Documentation > If and loop
 
 - [Sections](00_sections.md)
 - [If statement](01_if_statement.md)
