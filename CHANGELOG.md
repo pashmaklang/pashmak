@@ -24,6 +24,7 @@
 - added `__namespace__()` function to return current namespace as string
 - added `os` module (GH-45)
 - added `while` loop system
+- added new functions to `random` module (GH-49)
 
 #### Bug Fixes
 - fixed a bug in `eval` function
