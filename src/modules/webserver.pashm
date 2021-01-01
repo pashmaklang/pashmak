@@ -1,0 +1,76 @@
+#
+# webserver.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+namespace webserver
+    class WebServer
+        func __init__($args)
+            if typeof($args) != tuple
+                $args = $args,
+            endif
+
+            $this->host = $args[0]
+            $this->port = $args[1]
+
+            $this->do_get = None
+            $this->do_post = None
+        endfunc
+
+        func set_get($func)
+            $this->do_get = $func
+            return $this
+        endfunc
+
+        func set_post($func)
+            $this->do_post = $func
+            return $this
+        endfunc
+
+        func serve
+            $py_code = '\
+def serve(host, port, do_get=None, do_post=None):\n\
+    class TheServer(http.server.BaseHTTPRequestHandler):\n\
+        def do_GET(self):\n\
+            if self.get_event != None:\n\
+                self.get_event(self)\n\
+\
+        def do_POST(self):\n\
+            if self.post_event != None:\n\
+                self.post_event(self)\n\
+\
+    tmp_TheServer = copy.deepcopy(TheServer)\n\
+    tmp_TheServer.get_event = do_get\n\
+    tmp_TheServer.post_event = do_post\n\
+    webServer = http.server.HTTPServer((host, port), tmp_TheServer)\n\
+\
+    try:\n\
+        webServer.serve_forever()\n\
+    except KeyboardInterrupt:\n\
+        pass\n\
+\
+    webServer.server_close()\n\
+\
+serve(self.get_var("this").host, self.get_var("this").port, self.get_var("this").do_get, self.get_var("this").do_post)\n\
+            '
+            python($py_code)
+        endfunc
+    endclass
+endns

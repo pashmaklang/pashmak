@@ -441,3 +441,52 @@ func localtime
 python("self.mem = time.localtime()")
 endfunc
 endnamespace"""
+modules["webserver"] = """namespace webserver
+class WebServer
+func __init__($args)
+if typeof($args) != tuple
+$args = $args,
+endif
+$this->host = $args[0]
+$this->port = $args[1]
+$this->do_get = None
+$this->do_post = None
+endfunc
+func set_get($func)
+$this->do_get = $func
+return $this
+endfunc
+func set_post($func)
+$this->do_post = $func
+return $this
+endfunc
+func serve
+$py_code = '\
+def serve(host, port, do_get=None, do_post=None):\n\
+class TheServer(http.server.BaseHTTPRequestHandler):\n\
+def do_GET(self):\n\
+if self.get_event != None:\n\
+self.get_event(self)\n\
+\
+def do_POST(self):\n\
+if self.post_event != None:\n\
+self.post_event(self)\n\
+\
+tmp_TheServer = copy.deepcopy(TheServer)\n\
+tmp_TheServer.get_event = do_get\n\
+tmp_TheServer.post_event = do_post\n\
+webServer = http.server.HTTPServer((host, port), tmp_TheServer)\n\
+\
+try:\n\
+webServer.serve_forever()\n\
+except KeyboardInterrupt:\n\
+pass\n\
+\
+webServer.server_close()\n\
+\
+serve(self.get_var("this").host, self.get_var("this").port, self.get_var("this").do_get, self.get_var("this").do_post)\n\
+'
+python($py_code)
+endfunc
+endclass
+endns"""
