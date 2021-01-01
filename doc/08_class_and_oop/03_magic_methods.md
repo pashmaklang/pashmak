@@ -92,4 +92,4 @@ output:
 hello. my name is parsa
 ```
 
-in the above example, we declared `__str__` method for the class. then, when class is printed, output of `__str__` method will be used instead of that default string (output of method should be put in `mem`).
+in the above example, we declared `__str__` method for the class. then, when class is printed, output of `__str__` method will be used instead of that default string.
