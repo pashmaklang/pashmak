@@ -370,6 +370,7 @@ class Program(helpers.Helpers):
             'try': self.run_try,
             'endtry': self.run_endtry,
             'namespace': self.run_namespace,
+            'ns': self.run_namespace,
             'endnamespace': self.run_endnamespace,
             'use': self.run_use,
             'class': self.run_class,

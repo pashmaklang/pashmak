@@ -26,6 +26,7 @@
 - added `while` loop system
 - added new functions to `random` module (GH-49)
 - added function `var_dump()`
+- added `ns` alias for `namespace` keyword (GH-51)
 
 #### Bug Fixes
 - fixed a bug in `eval` function
