@@ -29,7 +29,49 @@ import @os
 
 println(os.cpu_count())
 
+println(os.isdir($__dir__ + '/tests'))
+println(os.isdir($__dir__ + '/README.md'))
+println(os.isdir($__dir__ + '/README.md4354'))
+
+println(os.isfile($__dir__ + '/README.md'))
+println(os.isfile($__dir__ + '/tests'))
+println(os.isfile($__dir__ + '/tests3435'))
+
+println(os.exists($__dir__ + '/tests'))
+println(os.exists($__dir__ + '/tests3546'))
+
+os.mkdir($__dir__ + '/tests/tmpdir')
+println(os.isdir($__dir__ + '/tests/tmpdir'))
+
+os.rmdir($__dir__ + '/tests/tmpdir')
+println(os.isdir($__dir__ + '/tests/tmpdir'))
+
 --output--
 str(os.cpu_count()) + """
+True
+False
+False
+True
+False
+False
+True
+Fxalse
+True
+False
+"""
+
+
+--output--
+str(os.cpu_count()) + """
+True
+False
+False
+True
+False
+False
+True
+False
+True
+False
 """
 
