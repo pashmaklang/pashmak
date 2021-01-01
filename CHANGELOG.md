@@ -41,6 +41,7 @@
 - fixed import command bug while using `()`
 - blocked using literal chars in names(function/class/namespace
 - fixed namespace function bug while calling another function in that namespace
+- fixed a bug in function variable isolation
 
 #### Removed
 - deleted `loop` and `while` functions

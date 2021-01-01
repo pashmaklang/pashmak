@@ -198,7 +198,10 @@ class Program(helpers.Helpers):
         old_file = self.get_var('__file__')
         # create new thread for this call
         if with_thread:
-            thread_vars = dict(self.threads[-1]['vars'])
+            thread_vars = dict(self.threads[0]['vars'])
+            for k in self.all_vars():
+                if k in ['argv', 'argc', '__file__', '__dir__', '__ismain__']:
+                    thread_vars[k] = copy.deepcopy(self.get_var(k))
         else:
             thread_vars = self.threads[-1]['vars']
 
