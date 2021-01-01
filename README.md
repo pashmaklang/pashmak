@@ -2,10 +2,16 @@
 Hi there. this is Pashmak programming language. Pashmak is an interpreter written in Python.
 Pashmak scripts have cool and pashmaki syntax.
 
-### Why pashmak?
+### Pashmak features
 Why this programming language is useful? Because:
 
-A space insensitive and clean syntax + Much flexibility + Python powered core = Pashmak
+- Has a space insensitive and clean syntax
+- Much flexibility
+- Python powered core
+
+### Pashmak problems
+
+- Low speed
 
 ### hello world!
 this is a simple hello world script in pashmak:
