@@ -22,6 +22,8 @@
 #########################################################################
 
 namespace os
+    $env = python("self.mem = os.environ")
+
     func chdir($args)
         $args = format_args($args)
         python("os.chdir(self.get_var('args')[0]")
