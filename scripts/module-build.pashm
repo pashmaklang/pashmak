@@ -27,7 +27,7 @@ while $i < len($keys)
     $j = 0
     $lines = $tmp_module_content->strip()->split('\n')
     while $j < len($lines)
-        $line = $lines[$j]->strip()->split('#')[0]->strip()
+        $line = $lines[$j]
         if $line != ''
             $new_module_content = $new_module_content + $line + '\n'
         endif
