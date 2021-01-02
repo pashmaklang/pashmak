@@ -95,6 +95,7 @@ python("self.mem = hashlib.shake_256(str(self.get_var('args')[0]).encode()).hexd
 endfunc
 endns"""
 modules["os"] = """namespace os
+$env = python("self.mem = os.environ")
 func chdir($args)
 $args = format_args($args)
 python("os.chdir(self.get_var('args')[0]")
