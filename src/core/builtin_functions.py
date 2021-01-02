@@ -58,7 +58,7 @@ class BuiltinFunctions:
             section_index = self.sections[arg]
         except KeyError:
             return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
-        self.threads[-1]['current_step'] = section_index-1
+        self.frames[-1]['current_step'] = section_index-1
 
     def run_gotoif(self, op: dict):
         """ Changes program current step to a specify section IF mem is True """
@@ -69,7 +69,7 @@ class BuiltinFunctions:
         except KeyError:
             return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
         if self.mem:
-            self.threads[-1]['current_step'] = section_index-1
+            self.frames[-1]['current_step'] = section_index-1
 
     def run_isset(self, op: dict):
         """ Checks variable(s) exists and puts result to mem """
@@ -120,7 +120,7 @@ class BuiltinFunctions:
         """ Adds a namespace to used namespaces """
         self.require_one_argument(op, 'use command requires namespace argument')
         arg = op['args'][0]
-        self.threads[-1]['used_namespaces'].append(arg)
+        self.frames[-1]['used_namespaces'].append(arg)
 
     def run_endclass(self, op: dict):
         """ Closes the class declaration block """
@@ -151,7 +151,7 @@ class BuiltinFunctions:
                 parent_real_name = self.current_namespace() + parent
             except KeyError:
                 parent_obj = None
-                for used_namespace in self.threads[-1]['used_namespaces']:
+                for used_namespace in self.frames[-1]['used_namespaces']:
                     try:
                         parent_obj = self.classes[used_namespace + '.' + parent]
                         parent_real_name = used_namespace + '.' + parent
@@ -241,8 +241,8 @@ class BuiltinFunctions:
         else:
             value = self.eval(value)
         self.mem = value
-        if len(self.threads) > 1:
-            self.threads[-1]['current_step'] = len(self.threads[-1]['commands']) * 2
+        if len(self.frames) > 1:
+            self.frames[-1]['current_step'] = len(self.frames[-1]['commands']) * 2
         else:
             self.exit_program(value)
 
@@ -252,32 +252,32 @@ class BuiltinFunctions:
         if condition_result:
             return
         # condition is not True, loop should be breaked
-        i = self.threads[-1]['current_step']+1
+        i = self.frames[-1]['current_step']+1
         loop_depth = 0
-        while i < len(self.threads[-1]['commands']):
-            if self.threads[-1]['commands'][i]['command'] == 'while':
+        while i < len(self.frames[-1]['commands']):
+            if self.frames[-1]['commands'][i]['command'] == 'while':
                 loop_depth += 1
-            elif self.threads[-1]['commands'][i]['command'] == 'endwhile':
+            elif self.frames[-1]['commands'][i]['command'] == 'endwhile':
                 if loop_depth > 0:
                     loop_depth -= 1
                 else:
-                    self.threads[-1]['current_step'] = i
+                    self.frames[-1]['current_step'] = i
                     return
             i += 1
 
     def run_endwhile(self, op: dict):
         """ The While block end """
         # Back to first of loop
-        i = self.threads[-1]['current_step']-1
+        i = self.frames[-1]['current_step']-1
         loop_depth = 0
         while i >= 0:
-            if self.threads[-1]['commands'][i]['command'] == 'endwhile':
+            if self.frames[-1]['commands'][i]['command'] == 'endwhile':
                 loop_depth += 1
-            elif self.threads[-1]['commands'][i]['command'] == 'while':
+            elif self.frames[-1]['commands'][i]['command'] == 'while':
                 if loop_depth > 0:
                     loop_depth -=1
                 else:
-                    self.threads[-1]['current_step'] = i-1
+                    self.frames[-1]['current_step'] = i-1
                     return
             i -= 1
 

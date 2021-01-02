@@ -45,32 +45,27 @@ namespace webserver
         endfunc
 
         func serve
-            $py_code = '\
-def serve(host, port, do_get=None, do_post=None):\n\
-    class TheServer(http.server.BaseHTTPRequestHandler):\n\
-        def do_GET(self):\n\
-            if self.get_event != None:\n\
-                self.get_event(self)\n\
-\
-        def do_POST(self):\n\
-            if self.post_event != None:\n\
-                self.post_event(self)\n\
-\
-    tmp_TheServer = copy.deepcopy(TheServer)\n\
-    tmp_TheServer.get_event = do_get\n\
-    tmp_TheServer.post_event = do_post\n\
-    webServer = http.server.HTTPServer((host, port), tmp_TheServer)\n\
-\
-    try:\n\
-        webServer.serve_forever()\n\
-    except KeyboardInterrupt:\n\
-        pass\n\
-\
-    webServer.server_close()\n\
-\
-serve(self.get_var("this").host, self.get_var("this").port, self.get_var("this").do_get, self.get_var("this").do_post)\n\
+            $py_code = '\\
+def serve(host, port, do_get=None, do_post=None):\\n\\
+    class TheServer(http.server.BaseHTTPRequestHandler):\\n\\
+        def do_GET(self):\\n\\
+            if self.get_event != None:\\n\\
+                self.get_event(self)\\n\\
+\\
+        def do_POST(self):\\n\\
+            if self.post_event != None:\\n\\
+                self.post_event(self)\\n\\
+\\
+    tmp_TheServer = copy.deepcopy(TheServer)\\n\\
+    tmp_TheServer.get_event = do_get\\n\\
+    tmp_TheServer.post_event = do_post\\n\\
+    webServer = http.server.HTTPServer((host, port), tmp_TheServer)\\n\\
+    return webServer\\n\\
+self.mem = serve(self.get_var("this").host, self.get_var("this").port, self.get_var("this").do_get, self.get_var("this").do_post)\\n\\
             '
-            python($py_code)
+            $this->server = python($py_code)
+
+            $this->server->serve_forever()
         endfunc
     endclass
 endns

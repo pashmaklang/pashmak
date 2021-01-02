@@ -37,13 +37,13 @@ class Function:
         if len(current_prog.mem) == 1:
             current_prog.mem = current_prog.mem[0]
         default_vars = {}
-        with_thread = True
+        with_frame = True
         try:
             self.parent_object
             default_vars['this'] = self.parent_object
         except:
             if self.name in ['import', 'mem', 'python', 'rmem', 'eval']:
-                with_thread = False
+                with_frame = False
         tmp_body = copy.deepcopy(self.body)
         tmp_func_parts = self.name.split('.')
         if len(tmp_func_parts) > 1:
@@ -52,5 +52,5 @@ class Function:
                 func_namespace += part + '.'
             func_namespace = func_namespace.strip('.')
             tmp_body.insert(0, parser.parse('use ' + func_namespace)[0])
-        current_prog.exec_func(tmp_body, with_thread, default_vars)
+        current_prog.exec_func(tmp_body, with_frame, default_vars)
         return current_prog.get_mem()

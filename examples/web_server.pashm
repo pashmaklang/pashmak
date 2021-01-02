@@ -1,5 +1,5 @@
 #
-# eval2.pashmt
+# web_server.pashm
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,16 +20,21 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
---test--
-eval function do not creates new frame and runs on current frame
+import @webserver
 
---file--
-$name = 'hi'
-println $name
-eval "$name = 'the new'"
-println $name
+# create a new webserver
+$server = webserver.WebServer('localhost', 8000)
 
---output--
-"""hi
-the new
-"""
+func get_handler($handler)
+    $handler->send_response(200)
+    $handler->send_header("Content-type", "text/html")
+    $handler->end_headers()
+
+    $handler->wfile->write(bytes('Hello World!', "utf-8"))
+endfunc
+
+# set GET request handler
+$server->set_get(get_handler)
+
+# start the server
+$server->serve()

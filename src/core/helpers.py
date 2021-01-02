@@ -70,7 +70,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
         try:
             return self.all_vars()[self.current_namespace() + varname]
         except KeyError:
-            for used_namespace in self.threads[-1]['used_namespaces']:
+            for used_namespace in self.frames[-1]['used_namespaces']:
                 try:
                     return self.all_vars()[used_namespace + '.' + varname]
                 except KeyError:
@@ -83,7 +83,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
             do_raise_error = False
             try:
                 if self.all_vars()[self.current_namespace() + varname] != None:
-                    op = self.threads[-1]['commands'][self.threads[-1]['current_step']]
+                    op = self.frames[-1]['commands'][self.frames[-1]['current_step']]
                     do_raise_error = True
             except:
                 pass
@@ -94,7 +94,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
 
     def all_vars(self):
         """ Returns list of all of variables """
-        return self.threads[-1]['vars']
+        return self.frames[-1]['vars']
 
     def multi_char_split(self, string, seprators, count=None):
         """ Splits string by multi seprators """
@@ -135,11 +135,11 @@ class Helpers(builtin_functions.BuiltinFunctions):
         if not self.is_test:
             exit(exit_code)
         else:
-            i = len(self.threads)-1
+            i = len(self.frames)-1
             while i > 0:
-                self.threads.pop()
+                self.frames.pop()
                 i -= 1
-            self.threads[-1]['current_step'] = len(self.threads[-1]['commands']) * 2
+            self.frames[-1]['current_step'] = len(self.frames[-1]['commands']) * 2
             self.exit_code = exit_code
 
     def pashmak_eval(self, code):
@@ -157,7 +157,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
 
     def signal_handler(self, signal_code, frame):
         """ Raise error when signal exception raised """
-        self.raise_error('Signal', str(signal_code), self.threads[-1]['commands'][self.threads[-1]['current_step']])
+        self.raise_error('Signal', str(signal_code), self.frames[-1]['commands'][self.frames[-1]['current_step']])
 
     def split_by_equals(self, string: str) -> list:
         """ Parses `<something> = <something>` """
