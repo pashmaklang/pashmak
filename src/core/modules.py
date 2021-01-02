@@ -660,17 +660,11 @@ def serve(host, port, do_get=None, do_post=None):\\n\\
     tmp_TheServer.get_event = do_get\\n\\
     tmp_TheServer.post_event = do_post\\n\\
     webServer = http.server.HTTPServer((host, port), tmp_TheServer)\\n\\
-\\
-    try:\\n\\
-        webServer.serve_forever()\\n\\
-    except KeyboardInterrupt:\\n\\
-        pass\\n\\
-\\
-    webServer.server_close()\\n\\
-\\
-serve(self.get_var("this").host, self.get_var("this").port, self.get_var("this").do_get, self.get_var("this").do_post)\\n\\
+    return webServer\\n\\
+self.mem = serve(self.get_var("this").host, self.get_var("this").port, self.get_var("this").do_get, self.get_var("this").do_post)\\n\\
             '
-            python($py_code)
+            $this->server = python($py_code)
+            $this->server->serve_forever()
         endfunc
     endclass
 endns"""
