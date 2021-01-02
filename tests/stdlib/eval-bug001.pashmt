@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-eval command thread bug is fixed
+eval command frame bug is fixed
 
 --file--
 $name = 'parsa'

@@ -73,7 +73,7 @@ class TestCore:
         prog.start()
 
         out = {}
-        out['vars'] = prog.threads[-1]['vars']
+        out['vars'] = prog.frames[-1]['vars']
         out['output'] = prog.output
         out['runtime_error'] = prog.runtime_error
         out['mem'] = prog.mem

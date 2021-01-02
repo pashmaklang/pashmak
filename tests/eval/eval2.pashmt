@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-eval function do not creates new thread and runs on current thread
+eval function do not creates new frame and runs on current frame
 
 --file--
 $name = 'hi'

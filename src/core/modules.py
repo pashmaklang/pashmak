@@ -237,7 +237,7 @@ endif
 endfunc
 func gset($args)
 $args = format_args($args)
-python('self.threads[0]["vars"]["' + str($args[0]) + '"] = self.get_var("args")[1]')
+python('self.frames[0]["vars"]["' + str($args[0]) + '"] = self.get_var("args")[1]')
 endfunc
 func println($value)
 print(str($value) + '\\n')
