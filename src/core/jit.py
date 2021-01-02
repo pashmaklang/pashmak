@@ -57,7 +57,15 @@ def load(path: str, code_location: str, self=None) -> list:
     try:
         is_jit_disabled = bool(os.environ['PASHMAK_DISABLE_JIT'])
     except:
-        pass
+        try:
+            if os.path.isdir(os.path.dirname(os.path.abspath(path)) + '/__pashmam__'):
+                if not os.access(os.path.dirname(os.path.abspath(path)) + '/__pashmam__', os.W_OK):
+                    is_jit_disabled = True
+            else:
+                if not os.access(os.path.dirname(os.path.abspath(path)), os.W_OK):
+                    is_jit_disabled = True
+        except:
+            is_jit_disabled = True
     if is_jit_disabled:
         f = open(path, 'r')
         content = f.read()
