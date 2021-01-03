@@ -152,7 +152,7 @@ println(Person(40) < Person(24)) # output: False
 - `__rshift__($other)`: Implements right bitwise shift using the >> operator.
 - `__and__($other)`: Implements bitwise and using the & operator.
 - `__or__($other)`: Implements bitwise or using the | operator.
-- `__xor__($other)`: Implements bitwise xor using the ^ operator. 
+- `__xor__($other)`: Implements bitwise xor using the ^^ operator. 
 
 - `__radd__($other)`: Implements reflected addition.
 - `__rsub__($other)`: Implements reflected subtraction.
@@ -166,4 +166,4 @@ println(Person(40) < Person(24)) # output: False
 - `__rrshift__($other)`: Implements reflected right bitwise shift using the >> operator.
 - `__rand__($other)`: Implements reflected bitwise and using the & operator.
 - `__ror__($other)`: Implements reflected bitwise or using the | operator.
-- `__rxor__($other)`: Implements reflected bitwise xor using the ^ operator. 
+- `__rxor__($other)`: Implements reflected bitwise xor using the ^^ operator. 
