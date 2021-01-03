@@ -1,0 +1,81 @@
+#
+# math.pashmt
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+module math working correct
+
+--skip--
+
+--file--
+
+import @math
+
+println(math.acos(0.43454))
+println(math.acos(-0.43454))
+
+println(math.acosh(1343))
+
+println(math.acosh(1.5465))
+println(math.acosh(1.1))
+println(math.acosh(1.6567))
+
+println(math.cos(1.6567))
+println(math.cos(-1.6567))
+
+println(math.degrees(-1.6567))
+println(math.degrees(45))
+
+println(math.factorial(45))
+
+println(math.floor(45.767))
+println(math.floor(45.1334))
+
+mem $math.pi
+
+println(math.pow(7, 15))
+
+println(math.sin(20))
+println(math.sin(-20))
+
+println(math.tan(279))
+println(math.tan(-279))
+
+--output--
+"""1.1212688537940032
+2.02032379979579
+7.895808238475254
+1.0029040589570635
+0.4435682543851154
+1.0911021073370903
+-0.08579805866576196
+-0.08579805866576196
+-94.92191791932349
+2578.3100780887044
+119622220865480194561963161495657715064383733760000000000
+45
+45
+4747561509943.0
+0.9129452507276277
+-0.9129452507276277
+-0.6867033291645273
+0.6867033291645273
+"""
