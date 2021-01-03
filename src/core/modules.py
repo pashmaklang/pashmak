@@ -243,6 +243,9 @@ namespace os
         $args = format_args($args)
         python("self.mem = os.path.exists(self.get_var('args')[0])")
     endfunc
+    func cwd
+        python("self.mem = os.getcwd()")
+    endfunc
 endnamespace"""
 modules["random"] = """#
 # random.pashm
@@ -404,9 +407,6 @@ endfunc
 # prints on stderr
 func perror($value)
     mem self.print($value, file=sys.stderr)
-endfunc
-func cwd
-    python("self.mem = os.getcwd()")
 endfunc
 func typeof($obj)
     python("self.mem = type(self.get_var('obj'))")

@@ -52,6 +52,7 @@
 - deleted `$var = ^ command` syntax(use `$var = command()` instead of that)
 - deleted `@file` module(use python file api instead of that)
 - removed `chdir` function (GH-45)
+ -removed `cwd` function (use `os.cwd()` instead of that)
 
 #### Other changes
 - change default `RuntimeError` name to the real python exception name in exception system

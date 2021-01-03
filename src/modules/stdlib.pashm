@@ -100,10 +100,6 @@ func perror($value)
     mem self.print($value, file=sys.stderr)
 endfunc
 
-func cwd
-    python("self.mem = os.getcwd()")
-endfunc
-
 func typeof($obj)
     python("self.mem = type(self.get_var('obj'))")
 endfunc
