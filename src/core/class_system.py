@@ -156,21 +156,23 @@ class ClassObject:
             return
         return ClassPropAndMethodCollection(self.__methods__[found_index], self.__props__[found_index])
 
-    def __str__(self):
+    def __get_method__(self, method_name: str):
+        """ Returns the method callable object """
         from .current_prog import current_prog
-        str_magic_method = None
+        method = None
         i = len(self.__methods__)-1
         while i >= 0:
             try:
-                str_magic_method = self.__methods__[i]['__str__']
+                method = self.__methods__[i][method_name]
                 break
             except KeyError:
                 pass
             i -= 1
-        str_magic_method.parent_object = self
-        return str_magic_method()
-        #current_prog.exec_func(str_magic_method.body, True, {'this': self})
-        #return str(current_prog.get_mem())
+        method.parent_object = self
+        return method
+
+    def __str__(self):
+        return self.__get_method__('__str__')()
 
     def __getattr__(self, attrname):
         from .current_prog import current_prog
@@ -189,14 +191,9 @@ class ClassObject:
             raise KeyError()
         except KeyError:
             try:
-                i = len(self.__methods__)-1
-                while i >= 0:
-                    try:
-                        self.__methods__[i][attrname].parent_object = self
-                        return self.__methods__[i][attrname]
-                    except KeyError:
-                        pass
-                    i -= 1
+                tmp_method = self.__get_method__(attrname)
+                if tmp_method != None:
+                    return tmp_method
                 raise KeyError()
             except KeyError:
                 raise AttributeError(attrname)
