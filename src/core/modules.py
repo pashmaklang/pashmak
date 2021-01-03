@@ -401,6 +401,10 @@ endfunc
 func printl($value)
     println($value)
 endfunc
+# prints on stderr
+func perror($value)
+    mem self.print($value, file=sys.stderr)
+endfunc
 func cwd
     python("self.mem = os.getcwd()")
 endfunc
