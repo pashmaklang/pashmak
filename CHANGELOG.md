@@ -30,6 +30,7 @@
 - added `format_args()` function
 - added `webserver` module
 - added `math` module
+- added `perror()` function
 
 #### Bug Fixes
 - fixed a bug in `eval` function
