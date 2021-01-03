@@ -93,3 +93,38 @@ hello. my name is parsa
 ```
 
 in the above example, we declared `__str__` method for the class. then, when class is printed, output of `__str__` method will be used instead of that default string.
+
+### Comparsion magic methods
+
+- `__eq__($other)`: Handles the equality operator, `==`
+- `__ne__($other)`: Handles the inequality operator, `!=`
+- `__lt__($other)`: Handles the less-than operator, `<`
+- `__gt__($other)`: Handles the greater-than operator, `>`
+- `__le__($other)`: Handles the less-than-or-equal-to operator, `<=`
+- `__ge__($other)`: Handles the greater-than-or-equal-to operator, `>=`
+
+Example:
+
+```bash
+class Person
+    func __init__($args)
+        $args = format_args($args)
+        $this->age = int($args[0])
+    endfunc
+
+    func __eq__($other)
+        # compare the ages and return the boolean result
+        return $this->age == $other->age
+    endfunc
+
+    func __lt__($other)
+        return $this->age < $other->age
+    endfunc
+
+    # ...
+endclass
+
+println(Person(20) == Person(18)) # output: False
+println(Person(70) > Person(30)) # output: True
+println(Person(40) < Person(24)) # output: False
+```

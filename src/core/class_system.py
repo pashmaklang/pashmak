@@ -171,8 +171,48 @@ class ClassObject:
             method.parent_object = self
         return method
 
+    # Magic methods start #
+
     def __str__(self):
         return self.__get_method__('__str__')()
+
+    def __eq__(self, other):
+        method = self.__get_method__('__eq__')
+        if method == None:
+            return super().__eq__(other)
+        return method(other)
+
+    def __ne__(self, other):
+        method = self.__get_method__('__ne__')
+        if method == None:
+            return super().__ne__(other)
+        return method(other)
+
+    def __lt__(self, other):
+        method = self.__get_method__('__lt__')
+        if method == None:
+            return super().__lt__(other)
+        return method(other)
+
+    def __gt__(self, other):
+        method = self.__get_method__('__gt__')
+        if method == None:
+            return super().__gt__(other)
+        return method(other)
+
+    def __le__(self, other):
+        method = self.__get_method__('__le__')
+        if method == None:
+            return super().__le__(other)
+        return method(other)
+
+    def __ge__(self, other):
+        method = self.__get_method__('__ge__')
+        if method == None:
+            return super().__ge__(other)
+        return method(other)
+
+    # Magic methods end #
 
     def __getattr__(self, attrname):
         from .current_prog import current_prog
