@@ -166,7 +166,7 @@ ns math
         $num = format_args($num)[0]
         python("self.mem = math.floor(self.get_var('num'))")
     endfunc
-    $pi = 3.141592653589793
+    $pi = python("self.mem = math.pi")
     func pow($args)
         $args = format_args($args)
         $num = $args[0]
