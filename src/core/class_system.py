@@ -171,10 +171,50 @@ class ClassObject:
             method.parent_object = self
         return method
 
+    def __getattr__(self, attrname):
+        from .current_prog import current_prog
+        if attrname == '__props__' or attrname == '__methods__' or attrname == '__theclass__' or attrname == '__inheritance_tree__':
+            return super().__getattr__(attrname)
+        try:
+            i = len(self.__props__)-1
+            while i >= 0:
+                try:
+                    if type(self.__props__[i][attrname]) == Function:
+                        self.__props__[i][attrname].parent_object = self
+                    return self.__props__[i][attrname]
+                except KeyError:
+                    pass
+                i -= 1
+            raise KeyError()
+        except KeyError:
+            try:
+                tmp_method = self.__get_method__(attrname)
+                if tmp_method != None:
+                    return tmp_method
+                raise KeyError()
+            except KeyError:
+                raise AttributeError(attrname)
+
+    def __setattr__(self, attrname, value):
+        if attrname == '__props__' or attrname == '__methods__' or attrname == '__theclass__' or attrname == '__inheritance_tree__':
+            return super().__setattr__(attrname, value)
+        try:
+            self.__props__[-1][attrname]
+            if self.__props__[-1][attrname] != None:
+                if attrname[0] == '_':
+                    raise ClassConstError('property "' + attrname + '" is const and cannot be changed')
+                    return
+        except KeyError:
+            pass
+        self.__props__[-1][attrname] = value
+
     # Magic methods start #
 
     def __str__(self):
-        return self.__get_method__('__str__')()
+        method = self.__get_method__('__str__')
+        if method == None:
+            return super().__str__()
+        return method()
 
     def __eq__(self, other):
         method = self.__get_method__('__eq__')
@@ -344,8 +384,6 @@ class ClassObject:
             return super().__xor__(other)
         return method(other)
 
-    ####################
-
     def __radd__(self, other):
         method = self.__get_method__('__radd__')
         if method == None:
@@ -430,41 +468,46 @@ class ClassObject:
             return super().__rxor__(other)
         return method(other)
 
+    def __repr__(self):
+        method = self.__get_method__("__repr__")
+        if method == None:
+            return super().__repr__()
+        return method()
+    
+    def __unicode__(self):
+        method = self.__get_method__("__unicode__")
+        if method == None:
+            return super().__unicode__()
+        return method()
+    
+    def __format__(self, formatstr):
+        method = self.__get_method__("__format__")
+        if method == None:
+            return super().__format__(formatstr)
+        return method(formatstr)
+    
+    def __hash__(self):
+        method = self.__get_method__("__hash__")
+        if method == None:
+            return super().__hash__()
+        return method()
+    
+    def __nonzero__(self):
+        method = self.__get_method__("__nonzero__")
+        if method == None:
+            return super().__nonzero__()
+        return method()
+    
+    def __dir__(self):
+        method = self.__get_method__("__dir__")
+        if method == None:
+            return super().__dir__()
+        return method()
+    
+    def __sizeof__(self):
+        method = self.__get_method__("__sizeof__")
+        if method == None:
+            return super().__sizeof__()
+        return method()
+
     # Magic methods end #
-
-    def __getattr__(self, attrname):
-        from .current_prog import current_prog
-        if attrname == '__props__' or attrname == '__methods__' or attrname == '__theclass__' or attrname == '__inheritance_tree__':
-            return super().__getattr__(attrname)
-        try:
-            i = len(self.__props__)-1
-            while i >= 0:
-                try:
-                    if type(self.__props__[i][attrname]) == Function:
-                        self.__props__[i][attrname].parent_object = self
-                    return self.__props__[i][attrname]
-                except KeyError:
-                    pass
-                i -= 1
-            raise KeyError()
-        except KeyError:
-            try:
-                tmp_method = self.__get_method__(attrname)
-                if tmp_method != None:
-                    return tmp_method
-                raise KeyError()
-            except KeyError:
-                raise AttributeError(attrname)
-
-    def __setattr__(self, attrname, value):
-        if attrname == '__props__' or attrname == '__methods__' or attrname == '__theclass__' or attrname == '__inheritance_tree__':
-            return super().__setattr__(attrname, value)
-        try:
-            self.__props__[-1][attrname]
-            if self.__props__[-1][attrname] != None:
-                if attrname[0] == '_':
-                    raise ClassConstError('property "' + attrname + '" is const and cannot be changed')
-                    return
-        except KeyError:
-            pass
-        self.__props__[-1][attrname] = value
