@@ -158,7 +158,6 @@ class ClassObject:
 
     def __get_method__(self, method_name: str):
         """ Returns the method callable object """
-        from .current_prog import current_prog
         method = None
         i = len(self.__methods__)-1
         while i >= 0:
