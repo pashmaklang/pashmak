@@ -154,16 +154,16 @@ println(Person(40) < Person(24)) # output: False
 - `__or__($other)`: Implements bitwise or using the | operator.
 - `__xor__($other)`: Implements bitwise xor using the ^ operator. 
 
-`__radd__($other)`: Implements reflected addition.
-`__rsub__($other)`: Implements reflected subtraction.
-`__rmul__($other)`: Implements reflected multiplication.
-`__rfloordiv__($other)`: Implements reflected integer division using the // operator.
-`__rdiv__($other)`: Implements reflected division using the / operator.
-`__rmod__($other)`: Implements reflected modulo using the % operator.
-`__rdivmod__($other)`: Implements behavior for long division using the divmod() built in function, when divmod(other, self) is called.
-`__rpow__()`: Implements behavior for reflected exponents using the ** operator.
-`__rlshift__($other)`: Implements reflected left bitwise shift using the << operator.
-`__rrshift__($other)`: Implements reflected right bitwise shift using the >> operator.
-`__rand__($other)`: Implements reflected bitwise and using the & operator.
-`__ror__($other)`: Implements reflected bitwise or using the | operator.
-`__rxor__($other)`: Implements reflected bitwise xor using the ^ operator. 
+- `__radd__($other)`: Implements reflected addition.
+- `__rsub__($other)`: Implements reflected subtraction.
+- `__rmul__($other)`: Implements reflected multiplication.
+- `__rfloordiv__($other)`: Implements reflected integer division using the // operator.
+- `__rdiv__($other)`: Implements reflected division using the / operator.
+- `__rmod__($other)`: Implements reflected modulo using the % operator.
+- `__rdivmod__($other)`: Implements behavior for long division using the divmod() built in function, when divmod(other, self) is called.
+- `__rpow__()`: Implements behavior for reflected exponents using the ** operator.
+- `__rlshift__($other)`: Implements reflected left bitwise shift using the << operator.
+- `__rrshift__($other)`: Implements reflected right bitwise shift using the >> operator.
+- `__rand__($other)`: Implements reflected bitwise and using the & operator.
+- `__ror__($other)`: Implements reflected bitwise or using the | operator.
+- `__rxor__($other)`: Implements reflected bitwise xor using the ^ operator. 
