@@ -70,4 +70,8 @@ namespace os
         $args = format_args($args)
         python("self.mem = os.path.exists(self.get_var('args')[0])")
     endfunc
+
+    func cwd
+        python("self.mem = os.getcwd()")
+    endfunc
 endnamespace
