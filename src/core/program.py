@@ -328,7 +328,10 @@ class Program(helpers.Helpers):
                                                     break
 
                 code = code.replace('->', '.')
+                tmp = '<<<tempstrforxor' + str(time.time()) + str(random.random()) + '>>>'
+                code = code.replace('^^', tmp)
                 code = code.replace('^', 'self.get_mem()')
+                code = code.replace(tmp, '^')
             else:
                 code = code[1]
             full_op += code

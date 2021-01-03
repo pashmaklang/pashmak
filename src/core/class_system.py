@@ -260,6 +260,176 @@ class ClassObject:
             return super().__trunc__()
         return method()
 
+    def __add__(self, other):
+        method = self.__get_method__('__add__')
+        if method == None:
+            return super().__add__(other)
+        return method(other)
+
+    def __sub__(self, other):
+        method = self.__get_method__('__sub__')
+        if method == None:
+            return super().__sub__(other)
+        return method(other)
+
+    def __mul__(self, other):
+        method = self.__get_method__('__mul__')
+        if method == None:
+            return super().__mul__(other)
+        return method(other)
+
+    def __floordiv__(self, other):
+        method = self.__get_method__('__floordiv__')
+        if method == None:
+            return super().__floordiv__(other)
+        return method(other)
+
+    def __div__(self, other):
+        method = self.__get_method__('__div__')
+        if method == None:
+            return super().__div__(other)
+        return method(other)
+
+    def __truediv__(self, other):
+        method = self.__get_method__('__truediv__')
+        if method == None:
+            return super().__truediv__(other)
+        return method(other)
+
+    def __mod__(self, other):
+        method = self.__get_method__('__mod__')
+        if method == None:
+            return super().__mod__(other)
+        return method(other)
+
+    def __divmod__(self, other):
+        method = self.__get_method__('__divmod__')
+        if method == None:
+            return super().__divmod__(other)
+        return method(other)
+
+    def __pow__(self):
+        method = self.__get_method__('__pow__')
+        if method == None:
+            return super().__pow__()
+        return method()
+
+    def __lshift__(self, other):
+        method = self.__get_method__('__lshift__')
+        if method == None:
+            return super().__lshift__(other)
+        return method(other)
+        
+    def __rshift__(self, other):
+        method = self.__get_method__('__rshift__')
+        if method == None:
+            return super().__rshift__(other)
+        return method(other)
+        
+    def __and__(self, other):
+        method = self.__get_method__('__and__')
+        if method == None:
+            return super().__and__(other)
+        return method(other)
+        
+    def __or__(self, other):
+        method = self.__get_method__('__or__')
+        if method == None:
+            return super().__or__(other)
+        return method(other)
+        
+    def __xor__(self, other):
+        method = self.__get_method__('__xor__')
+        if method == None:
+            return super().__xor__(other)
+        return method(other)
+
+    ####################
+
+    def __radd__(self, other):
+        method = self.__get_method__('__radd__')
+        if method == None:
+            return super().__radd__(other)
+        return method(other)
+
+    def __rsub__(self, other):
+        method = self.__get_method__('__rsub__')
+        if method == None:
+            return super().__rsub__(other)
+        return method(other)
+
+    def __rmul__(self, other):
+        method = self.__get_method__('__rmul__')
+        if method == None:
+            return super().__rmul__(other)
+        return method(other)
+
+    def __rfloordiv__(self, other):
+        method = self.__get_method__('__rfloordiv__')
+        if method == None:
+            return super().__rfloordiv__(other)
+        return method(other)
+
+    def __rdiv__(self, other):
+        method = self.__get_method__('__rdiv__')
+        if method == None:
+            return super().__rdiv__(other)
+        return method(other)
+
+    def __rtruediv__(self, other):
+        method = self.__get_method__('__rtruediv__')
+        if method == None:
+            return super().__rtruediv__(other)
+        return method(other)
+
+    def __rmod__(self, other):
+        method = self.__get_method__('__rmod__')
+        if method == None:
+            return super().__rmod__(other)
+        return method(other)
+
+    def __rdivmod__(self, other):
+        method = self.__get_method__('__rdivmod__')
+        if method == None:
+            return super().__rdivmod__(other)
+        return method(other)
+
+    def __rpow__(self):
+        method = self.__get_method__('__rpow__')
+        if method == None:
+            return super().__rpow__()
+        return method()
+
+    def __rlshift__(self, other):
+        method = self.__get_method__('__rlshift__')
+        if method == None:
+            return super().__rlshift__(other)
+        return method(other)
+
+    def __rrshift__(self, other):
+        method = self.__get_method__('__rrshift__')
+        if method == None:
+            return super().__rrshift__(other)
+        return method(other)
+
+    def __rand__(self, other):
+        method = self.__get_method__('__rand__')
+        if method == None:
+            return super().__rand__(other)
+        return method(other)
+
+    def __ror__(self, other):
+        method = self.__get_method__('__ror__')
+        if method == None:
+            return super().__ror__(other)
+        return method(other)
+
+    def __rxor__(self, other):
+        method = self.__get_method__('__rxor__')
+        if method == None:
+            return super().__rxor__(other)
+        return method(other)
+
     # Magic methods end #
 
     def __getattr__(self, attrname):

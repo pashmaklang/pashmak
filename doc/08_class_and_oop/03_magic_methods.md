@@ -138,4 +138,32 @@ println(Person(40) < Person(24)) # output: False
 - `__round__($n)`: Implements behavior for the built in round() function. n is the number of decimal places to round to.
 - `__floor__()`: Implements behavior for math.floor(), i.e., rounding down to the nearest integer.
 - `__ceil__()`: Implements behavior for math.ceil(), i.e., rounding up to the nearest integer.
-- `__trunc__()`: Implements behavior for math.trunc(), i.e., truncating to an integral. 
+- `__trunc__()`: Implements behavior for math.trunc(), i.e., truncating to an integral.
+
+- `__add__($other)`: Implements addition.
+- `__sub__($other)`: Implements subtraction.
+- `__mul__($other)`: Implements multiplication.
+- `__floordiv__($other)`: Implements integer division using the // operator.
+- `__div__($other)`: Implements division using the / operator.
+- `__mod__($other)`: Implements modulo using the % operator.
+- `__divmod__($other)`: Implements behavior for long division using the divmod() built in function.
+- `__pow__()`: Implements behavior for exponents using the `**` operator.
+- `__lshift__($other)`: Implements left bitwise shift using the << operator.
+- `__rshift__($other)`: Implements right bitwise shift using the >> operator.
+- `__and__($other)`: Implements bitwise and using the & operator.
+- `__or__($other)`: Implements bitwise or using the | operator.
+- `__xor__($other)`: Implements bitwise xor using the ^ operator. 
+
+`__radd__($other)`: Implements reflected addition.
+`__rsub__($other)`: Implements reflected subtraction.
+`__rmul__($other)`: Implements reflected multiplication.
+`__rfloordiv__($other)`: Implements reflected integer division using the // operator.
+`__rdiv__($other)`: Implements reflected division using the / operator.
+`__rmod__($other)`: Implements reflected modulo using the % operator.
+`__rdivmod__($other)`: Implements behavior for long division using the divmod() built in function, when divmod(other, self) is called.
+`__rpow__()`: Implements behavior for reflected exponents using the ** operator.
+`__rlshift__($other)`: Implements reflected left bitwise shift using the << operator.
+`__rrshift__($other)`: Implements reflected right bitwise shift using the >> operator.
+`__rand__($other)`: Implements reflected bitwise and using the & operator.
+`__ror__($other)`: Implements reflected bitwise or using the | operator.
+`__rxor__($other)`: Implements reflected bitwise xor using the ^ operator. 
