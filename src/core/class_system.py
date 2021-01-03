@@ -212,6 +212,54 @@ class ClassObject:
             return super().__ge__(other)
         return method(other)
 
+    def __pos__(self):
+        method = self.__get_method__('__pos__')
+        if method == None:
+            return super().__pos__()
+        return method()
+
+    def __neg__(self):
+        method = self.__get_method__('__neg__')
+        if method == None:
+            return super().__neg__()
+        return method()
+
+    def __abs__(self):
+        method = self.__get_method__('__abs__')
+        if method == None:
+            return super().__abs__()
+        return method()
+
+    def __invert__(self):
+        method = self.__get_method__('__invert__')
+        if method == None:
+            return super().__invert__()
+        return method()
+
+    def __round__(self, n):
+        method = self.__get_method__('__round__')
+        if method == None:
+            return super().__round__(n)
+        return method(n)
+
+    def __floor__(self):
+        method = self.__get_method__('__floor__')
+        if method == None:
+            return super().__floor__()
+        return method()
+
+    def __ceil__(self):
+        method = self.__get_method__('__ceil__')
+        if method == None:
+            return super().__ceil__()
+        return method()
+
+    def __trunc__(self):
+        method = self.__get_method__('__trunc__')
+        if method == None:
+            return super().__trunc__()
+        return method()
+
     # Magic methods end #
 
     def __getattr__(self, attrname):

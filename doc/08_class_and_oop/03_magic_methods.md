@@ -128,3 +128,14 @@ println(Person(20) == Person(18)) # output: False
 println(Person(70) > Person(30)) # output: True
 println(Person(40) < Person(24)) # output: False
 ```
+
+### Numeric magic methods
+
+- `__pos__()`: Implements behavior for unary positive (e.g. +$some_object)
+- `__neg__()`: Implements behavior for negation (e.g. -$some_object)
+- `__abs__()`: Implements behavior for the built in abs() function.
+- `__invert__()`: Implements behavior for inversion using the ~ operator.
+- `__round__($n)`: Implements behavior for the built in round() function. n is the number of decimal places to round to.
+- `__floor__()`: Implements behavior for math.floor(), i.e., rounding down to the nearest integer.
+- `__ceil__()`: Implements behavior for math.ceil(), i.e., rounding up to the nearest integer.
+- `__trunc__()`: Implements behavior for math.trunc(), i.e., truncating to an integral. 
