@@ -1,5 +1,5 @@
 #
-# version.py
+# numeric.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,57 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+--test--
+class numeric magic methods working
 
-# pashmak version
-version = 'v0.6-rc4'
+--file--
+
+class Person
+    func __pos__
+        return 'the pos'
+    endfunc
+
+    func __neg__
+        return 'the neg'
+    endfunc
+
+    func __abs__
+        return 'the abs'
+    endfunc
+
+    func __round__($n)
+        return 'the round with ' + str($n)
+    endfunc
+
+    func __floor__
+        return 'the floor'
+    endfunc
+
+    func __ceil__
+        return 'the ceil'
+    endfunc
+
+    func __trunc__
+        return 'the trunc'
+    endfunc
+endclass
+
+$p = Person()
+
+println(-$p)
+println(+$p)
+println(abs($p))
+println(round($p, 10))
+println(math.floor($p))
+println(math.ceil($p))
+println(math.trunc($p))
+
+--output--
+"""the neg
+the pos
+the abs
+the round with 10
+the floor
+the ceil
+the trunc
+"""

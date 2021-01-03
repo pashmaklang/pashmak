@@ -1,0 +1,112 @@
+#
+# comparison.pashmt
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+comparison magic methods working
+
+--file--
+
+class Person
+    func __init__($args)
+        $args = format_args($args)
+        $this->age = int($args[0])
+    endfunc
+
+    func __eq__($other)
+        println('LOG: eq')
+        return $this->age == $other->age
+    endfunc
+
+    func __ne__($other)
+        println('LOG: ne')
+        return $this->age != $other->age
+    endfunc
+
+    func __lt__($other)
+        println('LOG: lt')
+        return $this->age < $other->age
+    endfunc
+
+    func __gt__($other)
+        println('LOG: gt')
+        return $this->age > $other->age
+    endfunc
+
+    func __le__($other)
+        println('LOG: le')
+        return $this->age <= $other->age
+    endfunc
+
+    func __ge__($other)
+        println('LOG: ge')
+        return $this->age >= $other->age
+    endfunc
+endclass
+
+println(Person(40) == Person(18))
+println(Person(18) == Person(18))
+println(Person(18) != Person(18))
+println(Person(18) != Person(20))
+
+println(Person(18) < Person(20))
+println(Person(18) < Person(17))
+println(Person(18) > Person(20))
+println(Person(18) > Person(17))
+
+println(Person(18) <= Person(20))
+println(Person(20) <= Person(20))
+println(Person(20) <= Person(15))
+
+println(Person(18) >= Person(20))
+println(Person(20) >= Person(20))
+println(Person(20) >= Person(15))
+
+--output--
+"""LOG: eq
+False
+LOG: eq
+True
+LOG: ne
+False
+LOG: ne
+True
+LOG: lt
+True
+LOG: lt
+False
+LOG: gt
+False
+LOG: gt
+True
+LOG: le
+True
+LOG: le
+True
+LOG: le
+False
+LOG: ge
+False
+LOG: ge
+True
+LOG: ge
+True
+"""
