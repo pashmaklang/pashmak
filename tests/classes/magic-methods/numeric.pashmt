@@ -1,0 +1,76 @@
+#
+# numeric.pashmt
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+class numeric magic methods working
+
+--file--
+
+class Person
+    func __pos__
+        return 'the pos'
+    endfunc
+
+    func __neg__
+        return 'the neg'
+    endfunc
+
+    func __abs__
+        return 'the abs'
+    endfunc
+
+    func __round__($n)
+        return 'the round with ' + str($n)
+    endfunc
+
+    func __floor__
+        return 'the floor'
+    endfunc
+
+    func __ceil__
+        return 'the ceil'
+    endfunc
+
+    func __trunc__
+        return 'the trunc'
+    endfunc
+endclass
+
+$p = Person()
+
+println(-$p)
+println(+$p)
+println(abs($p))
+println(round($p, 10))
+println(math.floor($p))
+println(math.ceil($p))
+println(math.trunc($p))
+
+--output--
+"""the neg
+the pos
+the abs
+the round with 10
+the floor
+the ceil
+the trunc
+"""
