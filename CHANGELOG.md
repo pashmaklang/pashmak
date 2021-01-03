@@ -29,6 +29,7 @@
 - added `ns` alias for `namespace` keyword (GH-51)
 - added `format_args()` function
 - added `webserver` module
+- added `math` module
 
 #### Bug Fixes
 - fixed a bug in `eval` function
