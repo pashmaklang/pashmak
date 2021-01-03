@@ -20,37 +20,59 @@
 # You should have received a copy of the GNU General Public License
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
+
 ns math 
-    func acos ($num)
+    func acos($num)
+        $num = format_args($num)[0]
         python("math.acos(self.get_var('num'))")
     endfunc
-    func acosh ($num)
+
+    func acosh($num)
+        $num = format_args($num)[0]
         python("math.acosh(self.get_var('num'))")
     endfunc
-    func ceil ($num)
+
+    func ceil($num)
+        $num = format_args($num)[0]
         python("math.ceil(self.get_var('num'))")
     endfunc
-    func cos ($num)
+
+    func cos($num)
+        $num = format_args($num)[0]
         python("math.cos(self.get_var('num'))")
     endfunc
-    func degrees ($num)
+
+    func degrees($num)
+        $num = format_args($num)[0]
         python("math.degrees(self.get_var('num'))")
     endfunc
-    func factorial ($num)
+
+    func factorial($num)
+        $num = format_args($num)[0]
         python("math.factorial(self.get_var('num'))")
     endfunc
-    func floor ($num)
+
+    func floor($num)
+        $num = format_args($num)[0]
         python("math.floor(self.get_var('num'))")
     endfunc
+
     $pi =  3.141592653589793
-    func pow ($num , $nextnum)
-        python("math.pow(self.get_var('num'),self.get_var('nextnum'))")
+
+    func pow($args)
+        $args = format_args($args)
+        $num = $args[0]
+        $nextnum = $args[1]
+        python("math.pow(self.get_var('num'), self.get_var('nextnum'))")
     endfunc
-    func sin ($num)
+
+    func sin($num)
+        $num = format_args($num)[0]
         python("math.sin(self.get_var('num'))")
     endfunc
-    func tan ($num)
+
+    func tan($num)
+        $num = format_args($num)[0]
         python("math.tan(self.get_var('num'))")
-    endfunc
-    
+    endfunc    
 endns
