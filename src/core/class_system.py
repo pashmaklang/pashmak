@@ -168,7 +168,8 @@ class ClassObject:
             except KeyError:
                 pass
             i -= 1
-        method.parent_object = self
+        if method != None:
+            method.parent_object = self
         return method
 
     def __str__(self):
