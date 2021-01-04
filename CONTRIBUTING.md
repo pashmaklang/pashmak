@@ -24,8 +24,6 @@ then run built executable:
 
 ### start contributing
 
-**Make sure to read [Developer Guide](doc/en/99_developer_guide.md) before contributing**
-
 to start contributing:
 - fork this project
 - clone your fork
