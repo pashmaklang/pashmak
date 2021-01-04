@@ -18,7 +18,7 @@ But you can pass a Second argument as file. for example:
 ```bash
 $file = open('/path/to/file.txt', 'a') # append mode
 
-printd('hello', $file)
+printf('hello', $file)
 ```
 
 Now, string `hello` is appended to content of the file.
