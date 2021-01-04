@@ -81,7 +81,6 @@ class Class:
             return self.__props__[attrname]
         except KeyError:
             try:
-                self.__methods__[attrname].parent_object = self
                 return self.__methods__[attrname]
             except KeyError:
                 raise AttributeError(attrname)
