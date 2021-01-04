@@ -195,3 +195,7 @@ above test is wrong, but this is value:
 ```
 
 actually, you have to write `"` and... assert values.
+
+## Other notes
+If you are adding/changing **Features**, please add/change **Documentation** and **Tests** for that Feature.
+
