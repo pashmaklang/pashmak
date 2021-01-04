@@ -14,7 +14,8 @@ you can use this python standard modules in pashmak directly in your code:
 - `socketserver`
 - `math`
 - `pprint`
- - `subprocess`
+- `subprocess`
+- `sqlite3`
 
 for example:
 

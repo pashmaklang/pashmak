@@ -4,6 +4,7 @@
 (0.6.x)
 
 - also show error type and message in end of rendered error frames
+- imported `sqlite3` python module (GH-69)
 
 ## 0.6
 
