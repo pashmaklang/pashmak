@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 0.6, 0.6-rc4
+## 0.6
 
 #### New features
 - added **Class** system
@@ -29,6 +29,9 @@
 - added `ns` alias for `namespace` keyword (GH-51)
 - added `format_args()` function
 - added `webserver` module
+- added `math` module
+- added `perror()` function
+- added `printf()` function
 
 #### Bug Fixes
 - fixed a bug in `eval` function
@@ -50,6 +53,7 @@
 - deleted `$var = ^ command` syntax(use `$var = command()` instead of that)
 - deleted `@file` module(use python file api instead of that)
 - removed `chdir` function (GH-45)
+ -removed `cwd` function (use `os.cwd()` instead of that)
 
 #### Other changes
 - change default `RuntimeError` name to the real python exception name in exception system

@@ -115,6 +115,73 @@ namespace hash
 		python("self.mem = hashlib.shake_256(str(self.get_var('args')[0]).encode()).hexdigest(self.get_var('args')[1])")
 	endfunc
 endns"""
+modules["math"] = """#
+# math.pashm
+#
+# The Pashmak Project
+# This Pashmak module is created and developed by mehan alavi majd <mehan.alavi.majd88@gmail.com> 
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+# 
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+ns math 
+    func acos($num)
+        $num = format_args($num)[0]
+        python("self.mem = math.acos(self.get_var('num'))")
+    endfunc
+    func acosh($num)
+        $num = format_args($num)[0]
+        python("self.mem = math.acosh(self.get_var('num'))")
+    endfunc
+    func ceil($num)
+        $num = format_args($num)[0]
+        python("self.mem = math.ceil(self.get_var('num'))")
+    endfunc
+    func cos($num)
+        $num = format_args($num)[0]
+        python("self.mem = math.cos(self.get_var('num'))")
+    endfunc
+    func degrees($num)
+        $num = format_args($num)[0]
+        python("self.mem = math.degrees(self.get_var('num'))")
+    endfunc
+    func factorial($num)
+        $num = format_args($num)[0]
+        python("self.mem = math.factorial(self.get_var('num'))")
+    endfunc
+    func floor($num)
+        $num = format_args($num)[0]
+        python("self.mem = math.floor(self.get_var('num'))")
+    endfunc
+    $pi = python("self.mem = math.pi")
+    func pow($args)
+        $args = format_args($args)
+        $num = $args[0]
+        $nextnum = $args[1]
+        python("self.mem = math.pow(self.get_var('num'), self.get_var('nextnum'))")
+    endfunc
+    func sin($num)
+        $num = format_args($num)[0]
+        python("self.mem = math.sin(self.get_var('num'))")
+    endfunc
+    func tan($num)
+        $num = format_args($num)[0]
+        python("self.mem = math.tan(self.get_var('num'))")
+    endfunc    
+endns"""
 modules["os"] = """#
 # os.pashm
 #
@@ -175,6 +242,9 @@ namespace os
     func exists($args)
         $args = format_args($args)
         python("self.mem = os.path.exists(self.get_var('args')[0])")
+    endfunc
+    func cwd
+        python("self.mem = os.getcwd()")
     endfunc
 endnamespace"""
 modules["random"] = """#
@@ -334,8 +404,9 @@ endfunc
 func printl($value)
     println($value)
 endfunc
-func cwd
-    python("self.mem = os.getcwd()")
+# prints on stderr
+func perror($value)
+    mem self.print($value, file=sys.stderr)
 endfunc
 func typeof($obj)
     python("self.mem = type(self.get_var('obj'))")
@@ -468,6 +539,15 @@ func format_args($args)
         $args = $args,
     endif
     return $args
+endfunc
+func printf($args)
+    $args = format_args($args)
+    $obj = $args[0]
+    $file = python("self.mem = sys.stdout")
+    if len($args) > 1
+        $file = $args[1]
+    endif
+    $file->write(str($obj))
 endfunc"""
 modules["sys"] = """#
 # sys.pashm
@@ -490,8 +570,32 @@ modules["sys"] = """#
 # You should have received a copy of the GNU General Public License
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
+import @sys.path
 namespace sys
     $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
+endns"""
+modules["sys.path"] = """#
+# path.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+namespace sys
     namespace path
         func add($args)
             $args = format_args($args)

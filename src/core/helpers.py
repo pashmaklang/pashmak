@@ -23,6 +23,7 @@
 """ Partial of program object functions """
 
 import os
+import sys
 from sys import exit
 from . import builtin_functions, modules, parser
 
@@ -111,13 +112,13 @@ class Helpers(builtin_functions.BuiltinFunctions):
                 result[-1] += char
         return result
 
-    def print(self, obj):
+    def print(self, obj, file=sys.stdout):
         """ Prints a object """
         if self.out_started:
             self.out_content += str(obj)
             return
         if not self.is_test:
-            print(obj, end='', flush=True)
+            print(obj, end='', flush=True, file=file)
         else:
             self.output += str(obj)
 

@@ -24,8 +24,6 @@ then run built executable:
 
 ### start contributing
 
-**Make sure to read [Developer Guide](doc/en/99_developer_guide.md) before contributing**
-
 to start contributing:
 - fork this project
 - clone your fork
@@ -50,34 +48,25 @@ and then make pull request from your branch to `master`
 if you haven't any idea for contributing, you can see [Issues](https://github.com/pashmaklang/pashmak/issues) and [TODO File](/TODO.md)
 
 ### Branch
-alwasy send your merge requests to `master` branch.
+Send **New/Change Feature** changes to `master` branch(next release).
+
+Send **Bug Fixes** to **Older supported release** branch(for example `0.6.x`).
 
 ### Makefile scripts
 this scripts are helpful for development:
 
-##### make docs
-this command loads documentation from `doc/` folder and mix them in `README.md`
-
-```bash
-make docs
-```
-
-file `doc/README.md` will put in the first of `README.md`
-
-another files in `doc/` will sort and append one by one to `README.md`
-
-if you maked some changes in documentation, run this command to mix change into `README.md`
-
 ##### make module
 this command makes file `src/core/modules.py`.
 
-this command loads pashmak modules from `src/modules/` folder and put them in `src/core/modules.py` file.
+this command loads pashmak modules from `src/` folder and put them in `src/core/modules.py` file.
 
-if you maked changes in modules in `src/modules/`, run this command.
+if you maked changes in modules in `src/`'s `.pashm` files, run this command.
 
 ```bash
 make module
 ```
+
+For example, file `src/sys/path.pashm` will built as `sys.path` module(`import @sys.path`). and for example `src/os/__init__.pashm` will built as `os`(`import @os`).
 
 ##### make update-headers
 this command updates all of `.py`, `.pashm` and `.pashmt` scripts copyright header in project. if you added a file to the project, run this command.
@@ -206,3 +195,7 @@ above test is wrong, but this is value:
 ```
 
 actually, you have to write `"` and... assert values.
+
+## Other notes
+If you are adding/changing **Features**, please add/change **Documentation** and **Tests** for that Feature.
+

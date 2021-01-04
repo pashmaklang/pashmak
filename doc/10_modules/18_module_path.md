@@ -59,6 +59,8 @@ for example:
 
 ```bash
 import @sys
+# or
+import @sys.path # only loads sys.path contents
 
 sys.path.add('/home/parsa/my-directory');
 ```
@@ -68,7 +70,7 @@ in above code, directory `/home/parsa/my-directory` will be added to the module 
 for example, we have `/home/parsa/my-directory/mylib.pashm` module and we can import that:
 
 ```bash
-import '@sys'
+import '@sys.path'
 
 sys.path.add('/home/parsa/my-directory');
 
@@ -90,7 +92,7 @@ import $__dir__ + '/pashmak_modules/'
 also you can get list of module paths:
 
 ```bash
-import '@sys'
+import '@sys.path'
 
 $module_paths = sys.path.list()
 

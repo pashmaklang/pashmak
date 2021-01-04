@@ -1,5 +1,5 @@
 #
-# os.pashmt
+# bug002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,45 +21,9 @@
 #########################################################################
 
 --test--
-os module working correct
+parser parses import_once command like import command
 
 --file--
 
-import @os
-
-println(os.cpu_count())
-
-println(os.isdir($__dir__ + '/tests'))
-println(os.isdir($__dir__ + '/README.md'))
-println(os.isdir($__dir__ + '/README.md4354'))
-
-println(os.isfile($__dir__ + '/README.md'))
-println(os.isfile($__dir__ + '/tests'))
-println(os.isfile($__dir__ + '/tests3435'))
-
-println(os.exists($__dir__ + '/tests'))
-println(os.exists($__dir__ + '/tests3546'))
-
-os.mkdir($__dir__ + '/tests/tmpdir')
-println(os.isdir($__dir__ + '/tests/tmpdir'))
-
-os.rmdir($__dir__ + '/tests/tmpdir')
-println(os.isdir($__dir__ + '/tests/tmpdir'))
-
-println($os.env)
-
-println(os.cwd())
-
---output--
-str(os.cpu_count()) + """
-True
-False
-False
-True
-False
-False
-True
-False
-True
-False
-""" + str(os.environ) + '\n' + os.getcwd() + '\n'
+import_once @hash, @time
+import_once(@random ,@stdlib)
