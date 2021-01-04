@@ -570,8 +570,11 @@ modules["sys"] = """#
 # You should have received a copy of the GNU General Public License
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
+import @sys.path
 namespace sys
     $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
+endns"""
+modules["sys.path"] = """namespace sys
     namespace path
         func add($args)
             $args = format_args($args)
