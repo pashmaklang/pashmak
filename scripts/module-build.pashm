@@ -1,16 +1,29 @@
 #!/usr/bin/env pashmak
 # Mixes static pashmak internal modules from `modules/` directory to `src/core/modules.py` file
 
+import $__dir__ + '/crawler-lib.pashm'
+
+$base_modules_dir = $__dir__ + '/../src/modules'
 $modules = {}
-$module_files = os.listdir($__dir__ + '/../src/modules')
+$module_files = Crawler($base_modules_dir, '.pashm')->files_list
 $module_files->sort()
 
 $i = 0
 while $i < len($module_files)
-    $f = open($__dir__ + '/../src/modules/' + $module_files[$i], 'r')
+    $module_files[$i] = $module_files[$i][len(os.path.abspath($base_modules_dir)):]
+    $i = $i + 1
+endwhile
+
+$i = 0
+while $i < len($module_files)
+    $real_path = $base_modules_dir + $module_files[$i]
+    $f = open($real_path, 'r')
     $content = $f->read()
     $f->close()
-    $module_name = $module_files[$i]->split('.')[0]
+    $module_name = $module_files[$i]->split('.')[0].strip('/')->replace('/', '.')
+    if $module_name->endswith('.__init__')
+        $module_name = $module_name[:len($module_name)-9]
+    endif
     $modules[$module_name] = $content
     $i = $i + 1
 endwhile
