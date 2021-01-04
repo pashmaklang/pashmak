@@ -63,7 +63,7 @@ $total_paths = [*$total_paths, *$c->files_list]
 $c = Crawler($__dir__ + '/../tests', '.pashmt')
 $total_paths = [*$total_paths, *$c->files_list]
 
-$c = Crawler($__dir__ + '/../src/modules', '.pashm')
+$c = Crawler($__dir__ + '/../src', '.pashm')
 $total_paths = [*$total_paths, *$c->files_list]
 
 $c = Crawler($__dir__ + '/../examples', '.pashm')

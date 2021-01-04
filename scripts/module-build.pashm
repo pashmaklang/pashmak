@@ -1,9 +1,9 @@
 #!/usr/bin/env pashmak
-# Mixes static pashmak internal modules from `modules/` directory to `src/core/modules.py` file
+# Mixes static pashmak internal modules from `src/` directory to `src/core/modules.py` file
 
 import $__dir__ + '/crawler-lib.pashm'
 
-$base_modules_dir = $__dir__ + '/../src/modules'
+$base_modules_dir = $__dir__ + '/../src'
 $modules = {}
 $module_files = Crawler($base_modules_dir, '.pashm')->files_list
 $module_files->sort()
