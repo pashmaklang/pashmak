@@ -1,5 +1,5 @@
 #
-# sys.pashm
+# path.pashm
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,8 +21,6 @@
 #########################################################################
 
 namespace sys
-    $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
-
     namespace path
         func add($args)
             $args = format_args($args)
