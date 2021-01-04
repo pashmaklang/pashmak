@@ -48,7 +48,7 @@ and then make pull request from your branch to `master`
 if you haven't any idea for contributing, you can see [Issues](https://github.com/pashmaklang/pashmak/issues) and [TODO File](/TODO.md)
 
 ### Branch
-alwasy send your merge requests to `master` branch.
+always send your merge requests to `master` branch.
 
 ### Makefile scripts
 this scripts are helpful for development:
