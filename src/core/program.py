@@ -190,6 +190,8 @@ class Program(helpers.Helpers):
                 pass
             last_frame = frame
         print('\tin ' + op['file_path'] + ':' + str(op['line_number']) + ': ' + op['str'])
+        if len(self.frames[1:]) > 0:
+            print(error_type + ': ' + message + ':')
         sys.exit(1)
 
     def exec_func(self, func_body: list, with_frame=True, default_variables={}):
