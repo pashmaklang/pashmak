@@ -31,6 +31,7 @@
 - added `webserver` module
 - added `math` module
 - added `perror()` function
+- added `printf()` function
 
 #### Bug Fixes
 - fixed a bug in `eval` function

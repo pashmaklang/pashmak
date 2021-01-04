@@ -539,6 +539,15 @@ func format_args($args)
         $args = $args,
     endif
     return $args
+endfunc
+func printf($args)
+    $args = format_args($args)
+    $obj = $args[0]
+    $file = python("self.mem = sys.stdout")
+    if len($args) > 1
+        $file = $args[1]
+    endif
+    $file->write(str($obj))
 endfunc"""
 modules["sys"] = """#
 # sys.pashm
