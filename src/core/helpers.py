@@ -27,6 +27,9 @@ import sys
 from sys import exit
 from . import builtin_functions, modules, parser
 
+class VariableError(Exception):
+    pass
+
 class Helpers(builtin_functions.BuiltinFunctions):
     """ Partial of program object functions """
 
@@ -51,15 +54,24 @@ class Helpers(builtin_functions.BuiltinFunctions):
     def variable_exists(self, varname: str) -> bool:
         """ Checks a variable is exists or not """
         try:
-            self.get_var(varname, do_not_raise_error=True)
+            self.all_vars()[self.current_namespace() + varname]
             return True
         except KeyError:
-            return False
+            for used_namespace in self.frames[-1]['used_namespaces']:
+                try:
+                    self.all_vars()[used_namespace + '.' + varname]
+                    return True
+                except KeyError:
+                    pass
+            try:
+                self.all_vars()[varname]
+                return True
+            except KeyError:
+                return False
 
-    def variable_required(self, varname: str, op=None):
+    def variable_required(self, varname: str):
         """ Raises variable error if variable not exists """
-        if not self.variable_exists(varname):
-            self.raise_variable_error(varname, op)
+        self.get_var(varname)
 
     def require_one_argument(self, op: dict, error_message: str):
         """ Checks argument syntax to be variable name """
@@ -86,8 +98,6 @@ class Helpers(builtin_functions.BuiltinFunctions):
                 except:
                     pass
                 if do_raise_error and do_not_raise_error == False:
-                    class VariableError(Exception):
-                        pass
                     raise VariableError('undefined variable "' + varname + '"')
                     return
 

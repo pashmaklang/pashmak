@@ -1,5 +1,5 @@
 #
-# isset.pashmt
+# bug001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,12 +21,16 @@
 #########################################################################
 
 --test--
-isset command is working
+try endtry variable error bug is fixed
+
 --file--
-$var; isset $var; print ^
-free $var
-isset $var; print ^
-$two; isset $two $one; print ^
-$one; isset $two $one; print ^
+
+try error
+	mem $not
+endtry
+goto after_error; section error
+	println('error')
+section after_error
+
 --output--
-'TrueFalseFalseTrue'
+"error\n"
