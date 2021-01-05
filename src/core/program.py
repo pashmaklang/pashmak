@@ -287,7 +287,7 @@ class Program(helpers.Helpers):
                     if word:
                         if word[0] == '$':
                             if dont_check_vars == False:
-                                self.variable_required(word[1:], self.frames[-1]['commands'][self.frames[-1]['current_step']])
+                                self.variable_required(word[1:])
                             code = code.replace('$' + word[1:], 'self.get_var("' + word[1:] + '")', 1)
                         else:
                             func_real_name = self.get_func_real_name(word)

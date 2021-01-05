@@ -56,7 +56,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
         except KeyError:
             return False
 
-    def variable_required(self, varname: str, op: dict):
+    def variable_required(self, varname: str, op=None):
         """ Raises variable error if variable not exists """
         if not self.variable_exists(varname):
             self.raise_variable_error(varname, op)
@@ -80,9 +80,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
                 return self.all_vars()[varname]
             except KeyError:
                 if not do_not_raise_error:
-                    class VariableError(Exception):
-                        pass
-                    raise VariableError('undefined variable "' + varname + '"')
+                    self.raise_variable_error(varname)
                 else:
                     raise
 

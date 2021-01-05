@@ -1,0 +1,8 @@
+
+
+try error
+	mem $not
+endtry
+goto after_error; section error
+	println('error')
+section after_error
