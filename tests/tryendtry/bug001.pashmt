@@ -1,5 +1,5 @@
 #
-# required2.pashmt
+# bug001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,8 +21,16 @@
 #########################################################################
 
 --test--
-required command raises error when arguments has syntax error
+try endtry variable error bug is fixed
+
 --file--
-required $ffdggd, $sgdfg
---with-error--
-'VariableError'
+
+try error
+	mem $not
+endtry
+goto after_error; section error
+	println('error')
+section after_error
+
+--output--
+"error\n"

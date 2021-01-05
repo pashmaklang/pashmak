@@ -6,6 +6,7 @@
 - also show error type and message in end of rendered error frames
 - imported `sqlite3` python module (GH-69)
 - $this variable exists while calling static method bug in class is fixed (GH-71)
+- fixed try-endtry variable error handling bug
 
 ## 0.6
 
