@@ -24,8 +24,8 @@
 python exec system is working
 
 --file--
-python "self.all_vars()['myvar'] = 'the value'"
-python "self.mem = 'the mem'"
+python("self.all_vars()['myvar'] = 'the value'")
+python("self.mem = 'the mem'")
 
 --vars--
 {'myvar': 'the value'}
