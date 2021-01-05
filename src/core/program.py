@@ -62,13 +62,8 @@ class Program(helpers.Helpers):
 
         self.allowed_pashmak_extensions = ['pashm']
 
-        self.frames[-1]['current_step'] = 0
         self.stop_after_error = True
         self.main_filename = os.getcwd() + '/__main__'
-
-        # set argument variables
-        self.set_var('argv', args)
-        self.set_var('argc', len(self.get_var('argv')))
 
         self.out_started = False
         self.out_content = ''
@@ -548,7 +543,6 @@ class Program(helpers.Helpers):
                 is_in_func = False
             i += 1
 
-        self.frames[-1]['current_step'] = 0
         while self.frames[-1]['current_step'] < len(self.frames[-1]['commands']):
             try:
                 self.run(self.frames[-1]['commands'][self.frames[-1]['current_step']])
