@@ -273,7 +273,7 @@ class Program(helpers.Helpers):
                     real_name = False
         return real_name
 
-    def eval(self, command, only_parse=False, varname_as_dict=False, only_str_parse=False, dont_check_vars=False):
+    def eval(self, command, only_parse=False, only_str_parse=False, dont_check_vars=False):
         """ Runs eval on command """
         command_parts = parser.parse_string(command)
 
@@ -293,10 +293,7 @@ class Program(helpers.Helpers):
                         if word[0] == '$':
                             if dont_check_vars == False:
                                 self.variable_required(word[1:], self.frames[-1]['commands'][self.frames[-1]['current_step']])
-                            if varname_as_dict:
-                                code = code.replace('$' + word[1:], 'self.all_vars()["' + word[1:] + '"]', 1)
-                            else:
-                                code = code.replace('$' + word[1:], 'self.get_var("' + word[1:] + '")', 1)
+                            code = code.replace('$' + word[1:], 'self.get_var("' + word[1:] + '")', 1)
                         else:
                             func_real_name = self.get_func_real_name(word)
                             if func_real_name != False:
