@@ -1,14 +1,13 @@
 # Pashmak Changelog
 
-## next release
-(0.6.x)
+## 0.6.1 (2021-1-5)
 
 - also show error type and message in end of rendered error frames
 - imported `sqlite3` python module (GH-69)
 - $this variable exists while calling static method bug in class is fixed (GH-71)
 - fixed try-endtry variable error handling bug (GH-73)
 
-## 0.6
+## 0.6 (2021-1-4)
 
 #### New features
 - added **Class** system
