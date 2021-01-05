@@ -1,5 +1,5 @@
 #
-# required2.pashmt
+# bug003.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,8 +21,32 @@
 #########################################################################
 
 --test--
-required command raises error when arguments has syntax error
+$this variable exists while calling static method bug is fixed
+
 --file--
-required $ffdggd, $sgdfg
---with-error--
-'VariableError'
+
+class Person
+	func hello
+		try the_error
+			println($this)
+		endtry
+
+		goto after_error; section the_error
+			println('This not exists')
+		section after_error
+	endfunc
+endclass
+
+Person->hello()
+
+$a = Person()
+$a->hello()
+
+Person->hello()
+
+--output--
+"""This not exists
+[PashmakObject name="Person"]
+This not exists
+"""
+

@@ -31,7 +31,7 @@ from . import helpers, version, modules, jit, parser, current_prog
 from .class_system import Class, ClassObject
 from .function import Function
 
-import hashlib, time, random, datetime, base64, json, http, http.cookies, http.server, http.client, http.cookiejar, socket, socketserver, math, pprint, subprocess
+import hashlib, time, random, datetime, base64, json, http, http.cookies, http.server, http.client, http.cookiejar, socket, socketserver, math, pprint, subprocess, sqlite3
 
 class Program(helpers.Helpers):
     """ Pashmak program object """
@@ -62,13 +62,8 @@ class Program(helpers.Helpers):
 
         self.allowed_pashmak_extensions = ['pashm']
 
-        self.frames[-1]['current_step'] = 0
         self.stop_after_error = True
         self.main_filename = os.getcwd() + '/__main__'
-
-        # set argument variables
-        self.set_var('argv', args)
-        self.set_var('argc', len(self.get_var('argv')))
 
         self.out_started = False
         self.out_content = ''
@@ -190,6 +185,8 @@ class Program(helpers.Helpers):
                 pass
             last_frame = frame
         print('\tin ' + op['file_path'] + ':' + str(op['line_number']) + ': ' + op['str'])
+        if len(self.frames[1:]) > 0:
+            print(error_type + ': ' + message + ':')
         sys.exit(1)
 
     def exec_func(self, func_body: list, with_frame=True, default_variables={}):
@@ -271,7 +268,7 @@ class Program(helpers.Helpers):
                     real_name = False
         return real_name
 
-    def eval(self, command, only_parse=False, varname_as_dict=False, only_str_parse=False, dont_check_vars=False):
+    def eval(self, command, only_parse=False, only_str_parse=False, dont_check_vars=False):
         """ Runs eval on command """
         command_parts = parser.parse_string(command)
 
@@ -290,11 +287,8 @@ class Program(helpers.Helpers):
                     if word:
                         if word[0] == '$':
                             if dont_check_vars == False:
-                                self.variable_required(word[1:], self.frames[-1]['commands'][self.frames[-1]['current_step']])
-                            if varname_as_dict:
-                                code = code.replace('$' + word[1:], 'self.all_vars()["' + word[1:] + '"]', 1)
-                            else:
-                                code = code.replace('$' + word[1:], 'self.get_var("' + word[1:] + '")', 1)
+                                self.variable_required(word[1:])
+                            code = code.replace('$' + word[1:], 'self.get_var("' + word[1:] + '")', 1)
                         else:
                             func_real_name = self.get_func_real_name(word)
                             if func_real_name != False:
@@ -549,7 +543,6 @@ class Program(helpers.Helpers):
                 is_in_func = False
             i += 1
 
-        self.frames[-1]['current_step'] = 0
         while self.frames[-1]['current_step'] < len(self.frames[-1]['commands']):
             try:
                 self.run(self.frames[-1]['commands'][self.frames[-1]['current_step']])

@@ -27,23 +27,26 @@ import sys
 from sys import exit
 from . import builtin_functions, modules, parser
 
+class VariableError(Exception):
+    pass
+
 class Helpers(builtin_functions.BuiltinFunctions):
     """ Partial of program object functions """
 
-    def raise_variable_error(self, varname: str, op: dict):
+    def raise_variable_error(self, varname: str, op=None):
         """ Raise variable not found error """
         return self.raise_error('VariableError', 'undefined variable "' + str(varname) + '"', op)
 
-    def raise_syntax_error(self, string: str, op: dict):
+    def raise_syntax_error(self, string: str, op=None):
         """ Raises syntax error """
         return self.raise_error('SyntaxError', 'unexpected "' + string + '"', op)
 
-    def arg_should_be_variable(self, arg: str, op: dict):
+    def arg_should_be_variable(self, arg: str, op=None):
         """ Checks argument syntax is variable name """
         if arg[0] != '$':
             self.raise_syntax_error(arg[0], op)
 
-    def arg_should_be_variable_or_mem(self, arg: str, op: dict):
+    def arg_should_be_variable_or_mem(self, arg: str, op=None):
         """ Checks argument syntax is variable name or mem """
         if arg[0] != '$' and arg != '^':
             self.raise_syntax_error(arg[0], op)
@@ -51,22 +54,31 @@ class Helpers(builtin_functions.BuiltinFunctions):
     def variable_exists(self, varname: str) -> bool:
         """ Checks a variable is exists or not """
         try:
-            self.get_var(varname)
+            self.all_vars()[self.current_namespace() + varname]
             return True
         except KeyError:
-            return False
+            for used_namespace in self.frames[-1]['used_namespaces']:
+                try:
+                    self.all_vars()[used_namespace + '.' + varname]
+                    return True
+                except KeyError:
+                    pass
+            try:
+                self.all_vars()[varname]
+                return True
+            except KeyError:
+                return False
 
-    def variable_required(self, varname: str, op: dict):
+    def variable_required(self, varname: str):
         """ Raises variable error if variable not exists """
-        if not self.variable_exists(varname):
-            self.raise_variable_error(varname, op)
+        self.get_var(varname)
 
     def require_one_argument(self, op: dict, error_message: str):
         """ Checks argument syntax to be variable name """
         if len(op['args']) <= 0:
             self.raise_error('ArgumentError', error_message, op)
 
-    def get_var(self, varname: str):
+    def get_var(self, varname: str, do_not_raise_error=False):
         """ Gets a variable name and returns value of that """
         try:
             return self.all_vars()[self.current_namespace() + varname]
@@ -76,7 +88,18 @@ class Helpers(builtin_functions.BuiltinFunctions):
                     return self.all_vars()[used_namespace + '.' + varname]
                 except KeyError:
                     pass
-            return self.all_vars()[varname]
+            try:
+                return self.all_vars()[varname]
+            except KeyError:
+                do_raise_error = False
+                try:
+                    op = self.frames[-1]['commands'][self.frames[-1]['current_step']]
+                    do_raise_error = True
+                except:
+                    pass
+                if do_raise_error and do_not_raise_error == False:
+                    raise VariableError('undefined variable "' + varname + '"')
+                    return
 
     def set_var(self, varname: str, value):
         """ Gets name of a variable and sets value on that """
