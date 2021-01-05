@@ -83,7 +83,6 @@ class Helpers(builtin_functions.BuiltinFunctions):
                     #self.raise_variable_error(varname)
                     class VariableError(Exception):
                         pass
-                    print(self.try_endtry)
                     raise VariableError('undefined variable "' + varname + '"')
                 else:
                     raise
