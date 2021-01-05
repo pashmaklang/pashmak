@@ -80,7 +80,6 @@ class Helpers(builtin_functions.BuiltinFunctions):
                 return self.all_vars()[varname]
             except KeyError:
                 if not do_not_raise_error:
-                    #self.raise_variable_error(varname)
                     class VariableError(Exception):
                         pass
                     raise VariableError('undefined variable "' + varname + '"')
