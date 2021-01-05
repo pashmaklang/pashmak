@@ -30,3 +30,4 @@ $two; isset $two $one; print ^
 $one; isset $two $one; print ^
 --output--
 'TrueFalseFalseTrue'
+--skip--

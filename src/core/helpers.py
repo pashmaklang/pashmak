@@ -79,10 +79,17 @@ class Helpers(builtin_functions.BuiltinFunctions):
             try:
                 return self.all_vars()[varname]
             except KeyError:
-                if not do_not_raise_error:
-                    self.raise_variable_error(varname)
-                else:
-                    raise
+                do_raise_error = False
+                try:
+                    op = self.frames[-1]['commands'][self.frames[-1]['current_step']]
+                    do_raise_error = True
+                except:
+                    pass
+                if do_raise_error and do_not_raise_error == False:
+                    class VariableError(Exception):
+                        pass
+                    raise VariableError('undefined variable "' + varname + '"')
+                    return
 
     def set_var(self, varname: str, value):
         """ Gets name of a variable and sets value on that """

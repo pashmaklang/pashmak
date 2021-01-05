@@ -27,9 +27,8 @@ $this variable exists while calling static method bug is fixed
 
 class Person
 	func hello
-		$vars = self.all_vars()
 		try the_error
-			println($vars['this'])
+			println($this)
 		endtry
 
 		goto after_error; section the_error
