@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## next release
+(0.6.x)
+
+- added `urllib` to imported python standard modules
+
 ## 0.6.1 (2021-1-5)
 
 - also show error type and message in end of rendered error frames

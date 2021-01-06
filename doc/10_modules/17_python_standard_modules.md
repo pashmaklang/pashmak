@@ -16,6 +16,7 @@ you can use this python standard modules in pashmak directly in your code:
 - `pprint`
 - `subprocess`
 - `sqlite3`
+- `urllib`
 
 for example:
 
