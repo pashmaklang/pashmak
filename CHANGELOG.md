@@ -4,6 +4,7 @@
 (0.6.x)
 
 - added `urllib` to imported python standard modules
+- added `pashmak.zen()`
 
 ## 0.6.1 (2021-1-5)
 
