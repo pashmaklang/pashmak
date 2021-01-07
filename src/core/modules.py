@@ -548,7 +548,31 @@ func printf($args)
         $file = $args[1]
     endif
     $file->write(str($obj))
-endfunc"""
+endfunc
+namespace pashmak
+    func zen
+        println('Zen of Pashmak\\n\\
+\\n\\
+The Zen of Pashmak is a collection of "guiding principles" for writing computer programs that influence the design of the Pashmak programming language. (Like zen of python). This fucking list is written by Mohammad Esmaeili.\\n\\
+\\n\\
+    Fucking syntax is better than beautiful syntax\\n\\
+    English is better than Finglish\\n\\
+    Lossless slow is better than loosing fast\\n\\
+    CatShit is better than DogShit\\n\\
+    DogShit is better than BullShit\\n\\
+    Chaos is better than peace\\n\\
+    Enthropy is better than order\\n\\
+    Crazy is better than logic\\n\\
+    Fun is better than boring\\n\\
+    Happy is better than sad\\n\\
+    Pashm is better than Hash\\n\\
+    While is better than Do-While\\n\\
+    Space is better than Tab\\n\\
+    Also tab is better than Space\\n\\
+    -> is better than .\\n\\
+    if-else is better than switch-case')
+    endfunc
+endns"""
 modules["sys"] = """#
 # sys.pashm
 #
