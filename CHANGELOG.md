@@ -4,7 +4,7 @@
 (0.6.x)
 
 - added `urllib` to imported python standard modules (GH-75)
-- added `platform` to imported python standard modules
+- added `platform`, `sqlite3.dump`, `sqlite3.dbapi2` to imported python standard modules
 - added `pashmak.zen()` (GH-77)
 
 ## 0.6.1 (2021-1-5)
