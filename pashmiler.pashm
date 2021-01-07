@@ -1,8 +1,15 @@
 #!/usr/bin/env pashmak
 
+$version = '0.1'
+
 if len($argv) <= 1
     println('ERROR: script filename is required')
     exit(1)
+endif
+
+if $argv[1] == '-v' or $argv[1] == '--version'
+    println($version)
+    exit()
 endif
 
 class Mixer

@@ -18,6 +18,13 @@ then, you can run `out.pashm`:
 $ pashmak out.pashm
 ```
 
+check pashmiler version:
+
+```bash
+$ ./pashmiler.pashm -v
+$ ./pashmiler.pashm --version
+```
+
 Let's look at an example. we have 3 files: `app.pashm`, `lib.pashm`, `core.pashm`.
 
 ##### `app.pashm`:
