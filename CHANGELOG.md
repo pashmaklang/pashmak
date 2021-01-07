@@ -1,7 +1,6 @@
 # Pashmak Changelog
 
-## next release
-(0.6.x)
+## 0.6.2 (2021-1-7)
 
 - added `urllib` to imported python standard modules (GH-75)
 - added `platform`, `sqlite3.dump`, `sqlite3.dbapi2` to imported python standard modules
