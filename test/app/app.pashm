@@ -1,6 +1,8 @@
 $i = 324456
 println('hello')
 
+println($__ismain__)
+
 func something
     println('The something func')
 endfunc
@@ -18,5 +20,7 @@ while $z < 3
     println('z:' + str($z))
     $z = $z + 1
 endwhile
+
+println($__ismain__)
 
 println('end')

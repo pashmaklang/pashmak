@@ -1,4 +1,5 @@
 hello
+True
 i am second
 Second: the True
 y:0
@@ -6,9 +7,11 @@ y:1
 y:2
 hello i am last
 posix
+False
 The something func
 the True
 z:0
 z:1
 z:2
+True
 end

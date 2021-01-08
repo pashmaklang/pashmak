@@ -1,6 +1,6 @@
 println('i am second')
 
-if True
+if not $__ismain__
     println('Second: the True')
 else
     println('Second: the False')
