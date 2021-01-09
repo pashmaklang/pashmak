@@ -1,5 +1,9 @@
 # Pashmak Changelog
 
+## next release
+
+- some optimizations in module importing system
+
 ## 0.6.2 (2021-1-7)
 
 - added `urllib` to imported python standard modules (GH-75)
