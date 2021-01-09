@@ -514,10 +514,7 @@ class Program(helpers.Helpers):
                         except:
                             # module not found, we can add this
                             try:
-                                fo = open(f, 'r')
-                                content = fo.read()
-                                fo.close()
-                                content = '$__file__ = "' + os.path.abspath(f).replace('\\', '\\\\') + '";\n$__dir__ = "' + os.path.dirname(os.path.abspath(f)).replace('\\', '\\\\') + '";\n' + content
+                                content = 'import ' + repr(os.path.abspath(f))
                                 modules.modules[module_name] = content
                             except:
                                 raise
