@@ -71,10 +71,10 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False) -> lis
         content = f.read()
         f.close()
         if self != None:
-            content = '$__ismain__ = False; $__file__ = "' + path.replace('\\', '\\\\') + '";\n$__dir__ = "' + os.path.dirname(path).replace('\\', '\\\\') + '"\n' + content
-            content += '\n$__file__ = "' + self.get_var('__file__').replace('\\', '\\\\') + '"'
-            content += '\n$__dir__ = "' + self.get_var('__dir__').replace('\\', '\\\\') + '"'
-            content += '\n$__ismain__ = "' + str(bool(self.get_var('__ismain__'))) + '"'
+            content = '$__ismain__ = False; $__file__ = ' + repr(path.replace('\\', '\\\\')) + '\n$__dir__ = ' + repr(os.path.dirname(path).replace('\\', '\\\\')) + '\n' + content
+            content += '\n$__file__ = ' + repr(self.get_var('__file__').replace('\\', '\\\\'))
+            content += '\n$__dir__ = ' + repr(self.get_var('__dir__').replace('\\', '\\\\'))
+            content += '\n$__ismain__ = ' + str(bool(self.get_var('__ismain__')))
         return parser.parse(content, filepath=code_location)
 
     try:
@@ -105,10 +105,10 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False) -> lis
             content = f.read()
             f.close()
             if self != None:
-                content = '$__ismain__ = False; $__file__ = "' + path.replace('\\', '\\\\') + '";\n$__dir__ = "' + os.path.dirname(path).replace('\\', '\\\\') + '"\n' + content
-                content += '\n$__file__ = "' + self.get_var('__file__').replace('\\', '\\\\') + '"'
-                content += '\n$__dir__ = "' + self.get_var('__dir__').replace('\\', '\\\\') + '"'
-                content += '\n$__ismain__ = "' + str(bool(self.get_var('__ismain__'))) + '"'
+                content = '$__ismain__ = False; $__file__ = ' + repr(path.replace('\\', '\\\\')) + '\n$__dir__ = ' + repr(os.path.dirname(path).replace('\\', '\\\\')) + '\n' + content
+                content += '\n$__file__ = ' + repr(self.get_var('__file__').replace('\\', '\\\\'))
+                content += '\n$__dir__ = ' + repr(self.get_var('__dir__').replace('\\', '\\\\'))
+                content += '\n$__ismain__ = ' + str(bool(self.get_var('__ismain__')))
 
         # write the content on cache
         if is_new_cache:
