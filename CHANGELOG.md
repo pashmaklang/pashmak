@@ -2,9 +2,9 @@
 
 ## next release
 
-- some optimizations in module importing system
-- fixed a bug in importing scripts related to file path contains `"` or `'`
-- fixed `$__ismain__` alwasy is True bug
+- some optimizations in module importing system (GH-78)
+- fixed a bug in importing scripts related to file path contains `"` or `'` (GH-78)
+- fixed `$__ismain__` alwasy is True bug (GH-78)
 
 ## 0.6.2 (2021-1-7)
 
