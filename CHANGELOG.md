@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.6.3 (2021-1-9)
 
 - some optimizations in module importing system (GH-78)
 - fixed a bug in importing scripts related to file path contains `"` or `'` (GH-78)
