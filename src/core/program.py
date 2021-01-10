@@ -107,6 +107,8 @@ class Program(helpers.Helpers):
                     path = os.path.dirname(os.path.abspath(self.main_filename)) + '/' + path
                 if os.path.abspath(path) in self.imported_files and import_once:
                     return
+                if os.path.isdir(path):
+                    path += '/__init__.pashm'
                 try:
                     code_location = path
                     commands = jit.load(path, code_location, self)
