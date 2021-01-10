@@ -3,7 +3,7 @@
 ## next release
 
 - fixed import directory bug (GH-79)
-- added importing sub directories/files in modules loaded from module path system
+- added importing sub directories/files in modules loaded from module path system (GH-80)
 
 ## 0.6.3 (2021-1-9)
 
