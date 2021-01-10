@@ -54,3 +54,12 @@ namespace func
         python("del self.functions[self.get_var('name')]")
     endfunc
 endns
+
+func format_args($args)
+    if type($args) != tuple
+        $args = $args,
+    endif
+
+    return $args
+endfunc
+

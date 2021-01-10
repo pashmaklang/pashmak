@@ -566,7 +566,13 @@ namespace func
         # delete the function
         python("del self.functions[self.get_var('name')]")
     endfunc
-endns"""
+endns
+func format_args($args)
+    if type($args) != tuple
+        $args = $args,
+    endif
+    return $args
+endfunc"""
 modules["stdlib.io"] = """#
 # io.pashm
 #
@@ -636,12 +642,6 @@ func exit($args)
 endfunc
 func read
     python("self.io_read()")
-endfunc
-func format_args($args)
-    if type($args) != tuple
-        $args = $args,
-    endif
-    return $args
 endfunc
 func var_dump($obj)
     python("class Tmp:\\n    def write(self, value):\\n        current_prog.current_prog.print(str(value))\\npprint.pprint(self.get_var('obj'), Tmp())")
