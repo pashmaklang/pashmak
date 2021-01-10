@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.6.4 (2021-1-10)
 
 - fixed import directory bug (GH-79)
 - added importing sub directories/files in modules loaded from module path system (GH-80)
