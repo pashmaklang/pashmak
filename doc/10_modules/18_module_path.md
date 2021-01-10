@@ -104,3 +104,19 @@ output:
 ```
 ['/path1', '/path2', '...']
 ```
+
+### Importing sub directories/files from module path
+You can import sub dir/file of a section in your module path.
+
+For example, we added `/some/path` directory to our path.
+There is a directory named `/some/path/dir1`.
+Also there is a file named `/some/path/dir1/__init__.pashm`,
+and `/some/path/dir1/other.pashm`.
+
+Now, we can import them:
+
+```bash
+import @dir1 # imports `/some/path/dir1/__init__.pashm`
+import @dir1.other # imports `/some/path/dir1/other.pashm`
+import @dir1.subdir.somefile # imports `/some/path/dir1/subdir/somefile.pashm`
+```
