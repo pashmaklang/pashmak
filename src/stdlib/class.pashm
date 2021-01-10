@@ -1,0 +1,56 @@
+#
+# class.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+# The class super tools
+namespace class
+    func list
+        # returns list of classes
+        python("self.mem = list(self.classes.keys())")
+    endfunc
+
+    func exists($args)
+        $args = format_args($args)
+        $name = $args[0]
+        # checks a class exists or not
+        $name = str($name)
+        return $name in class.list()
+    endfunc
+
+    func delete($args)
+        $args = format_args($args)
+        $name = $args[0]
+        # deletes a class
+        $name = str($name)
+        if not class.exists($name)
+            raise(Error('ClassNotFound', 'class "' + $name + '" not found'))
+            return
+        endif
+
+        $undeletable_classes = ['Object', 'Error'] # list of undeletable classes
+        if $name in $undeletable_classes
+            raise(Error('ClassCannotBeDeleted', 'class "' + $name + '" is a builtin class and cannot be deleted'))
+        endif
+
+        # delete the class
+        python("del self.classes[self.get_var('name')]")
+    endfunc
+endns
