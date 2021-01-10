@@ -344,48 +344,17 @@ modules["stdlib"] = """#
 # You should have received a copy of the GNU General Public License
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
-class Object
-    func __init__
-    endfunc
-    func __str__
-        return '[PashmakObject name="' + $this->__name__ + '"]'
-    endfunc
-    func isinstanceof($args)
-        $args = format_args($args)
-        $class = $args[0]
-        if typeof($class) != str
-            $class = $class->__name__
-        endif
-        return $class in $this->__inheritance_tree__
-    endfunc
-endclass
-func print
-    mem self.print(^)
-endfunc
 func import
     mem self.import_script(^)
 endfunc
 func import_once
     mem self.import_script(^, True)
 endfunc
-func exit($args)
-    $args = format_args($args)
-    $code = $args[0]
-    if typeof($code) != int
-        $code = 0
-    endif
-    python("self.exit_program(self.get_var('code'))")
-endfunc
-func eval
-    mem self.pashmak_eval(^)
-endfunc
 func endns
     endnamespace
 endfunc
-func raise($args)
-    $args = format_args($args)
-    $ex = $args[0]
-	python("self.raise_error('" + str($ex->type) + "', '" + str($ex->message) + "')")
+func eval
+    mem self.pashmak_eval(^)
 endfunc
 func assert($args)
     $args = format_args($args)
@@ -397,16 +366,6 @@ endfunc
 func gset($args)
     $args = format_args($args)
 	python('self.frames[0]["vars"]["' + str($args[0]) + '"] = self.get_var("args")[1]')
-endfunc
-func println($value)
-    print(str($value) + '\\n')
-endfunc
-func printl($value)
-    println($value)
-endfunc
-# prints on stderr
-func perror($value)
-    mem self.print($value, file=sys.stderr)
 endfunc
 func typeof($obj)
     python("self.mem = type(self.get_var('obj'))")
@@ -420,9 +379,6 @@ func python
     rmem exec(^)
 endfunc
 func required
-endfunc
-func read
-    python("self.io_read()")
 endfunc
 func py_load_file($args)
     $args = format_args($args)
@@ -439,6 +395,110 @@ func fopen($args)
     endif
     python("self.mem = open(self.get_var('path'), self.get_var('type'))")
 endfunc
+func __namespace__
+    python("self.mem = self.current_namespace()")
+endfunc
+namespace pashmak
+    func zen
+        println('Zen of Pashmak\\n\\
+\\n\\
+The Zen of Pashmak is a collection of "guiding principles" for writing computer programs that influence the design of the Pashmak programming language. (Like zen of python). This fucking list is written by Mohammad Esmaeili.\\n\\
+\\n\\
+    Fucking syntax is better than beautiful syntax\\n\\
+    English is better than Finglish\\n\\
+    Lossless slow is better than loosing fast\\n\\
+    CatShit is better than DogShit\\n\\
+    DogShit is better than BullShit\\n\\
+    Chaos is better than peace\\n\\
+    Enthropy is better than order\\n\\
+    Crazy is better than logic\\n\\
+    Fun is better than boring\\n\\
+    Happy is better than sad\\n\\
+    Pashm is better than Hash\\n\\
+    While is better than Do-While\\n\\
+    Space is better than Tab\\n\\
+    Also tab is better than Space\\n\\
+    -> is better than .\\n\\
+    if-else is better than switch-case')
+    endfunc
+endns
+import @stdlib.obj
+import @stdlib.io
+import @stdlib.func
+import @stdlib.class
+import @stdlib.exception"""
+modules["stdlib.class"] = """#
+# class.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+# The class super tools
+namespace class
+    func list
+        # returns list of classes
+        python("self.mem = list(self.classes.keys())")
+    endfunc
+    func exists($args)
+        $args = format_args($args)
+        $name = $args[0]
+        # checks a class exists or not
+        $name = str($name)
+        return $name in class.list()
+    endfunc
+    func delete($args)
+        $args = format_args($args)
+        $name = $args[0]
+        # deletes a class
+        $name = str($name)
+        if not class.exists($name)
+            raise(Error('ClassNotFound', 'class "' + $name + '" not found'))
+            return
+        endif
+        $undeletable_classes = ['Object', 'Error'] # list of undeletable classes
+        if $name in $undeletable_classes
+            raise(Error('ClassCannotBeDeleted', 'class "' + $name + '" is a builtin class and cannot be deleted'))
+        endif
+        # delete the class
+        python("del self.classes[self.get_var('name')]")
+    endfunc
+endns"""
+modules["stdlib.exception"] = """#
+# exception.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
 class Error
     $type
     $messae
@@ -451,6 +511,32 @@ class Error
         return $this->type + ': ' + $this->message
     endfunc
 endclass
+func raise($args)
+    $args = format_args($args)
+    $ex = $args[0]
+	python("self.raise_error('" + str($ex->type) + "', '" + str($ex->message) + "')")
+endfunc"""
+modules["stdlib.func"] = """#
+# func.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
 # The function super tools
 namespace func
     func list
@@ -481,36 +567,54 @@ namespace func
         python("del self.functions[self.get_var('name')]")
     endfunc
 endns
-# The class super tools
-namespace class
-    func list
-        # returns list of classes
-        python("self.mem = list(self.classes.keys())")
-    endfunc
-    func exists($args)
-        $args = format_args($args)
-        $name = $args[0]
-        # checks a class exists or not
-        $name = str($name)
-        return $name in class.list()
-    endfunc
-    func delete($args)
-        $args = format_args($args)
-        $name = $args[0]
-        # deletes a class
-        $name = str($name)
-        if not class.exists($name)
-            raise(Error('ClassNotFound', 'class "' + $name + '" not found'))
-            return
-        endif
-        $undeletable_classes = ['Object', 'Error'] # list of undeletable classes
-        if $name in $undeletable_classes
-            raise(Error('ClassCannotBeDeleted', 'class "' + $name + '" is a builtin class and cannot be deleted'))
-        endif
-        # delete the class
-        python("del self.classes[self.get_var('name')]")
-    endfunc
-endns
+func format_args($args)
+    if type($args) != tuple
+        $args = $args,
+    endif
+    return $args
+endfunc"""
+modules["stdlib.io"] = """#
+# io.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+func print
+    mem self.print(^)
+endfunc
+func println($value)
+    print(str($value) + '\\n')
+endfunc
+func printl($value)
+    println($value)
+endfunc
+func perror($value)
+    mem self.print($value, file=sys.stderr)
+endfunc
+func printf($args)
+    $args = format_args($args)
+    $obj = $args[0]
+    $file = python("self.mem = sys.stdout")
+    if len($args) > 1
+        $file = $args[1]
+    endif
+    $file->write(str($obj))
+endfunc
 func out_start
     python("self.out_started = True")
 endfunc
@@ -528,51 +632,56 @@ func out_get_clean
     out_clean()
     return $content
 endfunc
-func __namespace__
-    python("self.mem = self.current_namespace()")
+func exit($args)
+    $args = format_args($args)
+    $code = $args[0]
+    if typeof($code) != int
+        $code = 0
+    endif
+    python("self.exit_program(self.get_var('code'))")
+endfunc
+func read
+    python("self.io_read()")
 endfunc
 func var_dump($obj)
     python("class Tmp:\\n    def write(self, value):\\n        current_prog.current_prog.print(str(value))\\npprint.pprint(self.get_var('obj'), Tmp())")
-endfunc
-func format_args($args)
-    if type($args) != tuple
-        $args = $args,
-    endif
-    return $args
-endfunc
-func printf($args)
-    $args = format_args($args)
-    $obj = $args[0]
-    $file = python("self.mem = sys.stdout")
-    if len($args) > 1
-        $file = $args[1]
-    endif
-    $file->write(str($obj))
-endfunc
-namespace pashmak
-    func zen
-        println('Zen of Pashmak\\n\\
-\\n\\
-The Zen of Pashmak is a collection of "guiding principles" for writing computer programs that influence the design of the Pashmak programming language. (Like zen of python). This fucking list is written by Mohammad Esmaeili.\\n\\
-\\n\\
-    Fucking syntax is better than beautiful syntax\\n\\
-    English is better than Finglish\\n\\
-    Lossless slow is better than loosing fast\\n\\
-    CatShit is better than DogShit\\n\\
-    DogShit is better than BullShit\\n\\
-    Chaos is better than peace\\n\\
-    Enthropy is better than order\\n\\
-    Crazy is better than logic\\n\\
-    Fun is better than boring\\n\\
-    Happy is better than sad\\n\\
-    Pashm is better than Hash\\n\\
-    While is better than Do-While\\n\\
-    Space is better than Tab\\n\\
-    Also tab is better than Space\\n\\
-    -> is better than .\\n\\
-    if-else is better than switch-case')
+endfunc"""
+modules["stdlib.obj"] = """#
+# obj.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+class Object
+    func __init__
     endfunc
-endns"""
+    func __str__
+        return '[PashmakObject name="' + $this->__name__ + '"]'
+    endfunc
+    func isinstanceof($args)
+        $args = format_args($args)
+        $class = $args[0]
+        if typeof($class) != str
+            $class = $class->__name__
+        endif
+        return $class in $this->__inheritance_tree__
+    endfunc
+endclass"""
 modules["sys"] = """#
 # sys.pashm
 #

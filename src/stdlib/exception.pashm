@@ -1,5 +1,5 @@
 #
-# 1.pashmt
+# exception.pashm
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,13 +20,23 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
---test--
-modules are loaded in module path system (2)
---skip--
---file--
-import @sys
-sys.path.add($__dir__ + '/tests/test-module-path')
-import @testdir2
-testdir2.run()
---output--
-'hello testdir2\n'
+class Error
+    $type
+    $messae
+
+    func __init__($args)
+        $args = format_args($args)
+        $this->type = $args[0]
+        $this->message = $args[1]
+    endfunc
+
+    func __str__
+        return $this->type + ': ' + $this->message
+    endfunc
+endclass
+
+func raise($args)
+    $args = format_args($args)
+    $ex = $args[0]
+	python("self.raise_error('" + str($ex->type) + "', '" + str($ex->message) + "')")
+endfunc

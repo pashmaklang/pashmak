@@ -1,5 +1,17 @@
 # Pashmak Changelog
 
+## 0.6.4 (2021-1-10)
+
+- fixed import directory bug (GH-79)
+- added importing sub directories/files in modules loaded from module path system (GH-80)
+- removed cli option `-m|--modules`
+
+## 0.6.3 (2021-1-9)
+
+- some optimizations in module importing system (GH-78)
+- fixed a bug in importing scripts related to file path contains `"` or `'` (GH-78)
+- fixed `$__ismain__` alwasy is True bug (GH-78)
+
 ## 0.6.2 (2021-1-7)
 
 - added `urllib` to imported python standard modules (GH-75)

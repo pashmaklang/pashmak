@@ -48,9 +48,7 @@ and then make pull request from your branch to `master`
 if you haven't any idea for contributing, you can see [Issues](https://github.com/pashmaklang/pashmak/issues) and [TODO File](/TODO.md)
 
 ### Branch
-Send **New/Change Feature** changes to `master` branch(next release).
-
-Send **Bug Fixes** to **Older supported release** branch(for example `0.6.x`).
+Send your patches to branch `master`.
 
 ### Makefile scripts
 this scripts are helpful for development:

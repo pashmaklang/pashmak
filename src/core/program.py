@@ -73,6 +73,8 @@ class Program(helpers.Helpers):
 
         self.func_depth = 0
 
+        self.module_path = []
+
         current_prog.current_prog = self
 
     def import_script(self, paths, import_once=False):
@@ -94,8 +96,21 @@ class Program(helpers.Helpers):
                     namespaces_prefix = self.current_namespace()
                     namespaces_prefix += '@'
                     if not namespaces_prefix + module_name in self.included_modules:
-                        content = modules.modules[module_name]
-                        commands = parser.parse(content, filepath=code_location)
+                        try:
+                            # search modules from builtin modules
+                            commands = parser.parse(modules.modules[module_name], filepath='@' + module_name)
+                        except KeyError:
+                            # find modules from path
+                            commands = False
+                            for path in self.module_path:
+                                full_path = path + '/' + module_name.replace('.', '/')
+                                if os.path.isfile(full_path + '.pashm'):
+                                    commands = jit.load(full_path + '.pashm', full_path + '.pashm', self)
+                                elif os.path.isdir(full_path):
+                                    if os.path.isfile(full_path + '/__init__.pashm'):
+                                        commands = jit.load(full_path + '/__init__.pashm', full_path + '/__init__.pashm', self)
+                            if commands == False:
+                                raise KeyError()
                         # add this module to imported modules
                         self.included_modules.append(namespaces_prefix + module_name)
                     else:
@@ -107,6 +122,8 @@ class Program(helpers.Helpers):
                     path = os.path.dirname(os.path.abspath(self.main_filename)) + '/' + path
                 if os.path.abspath(path) in self.imported_files and import_once:
                     return
+                if os.path.isdir(path):
+                    path += '/__init__.pashm'
                 try:
                     code_location = path
                     commands = jit.load(path, code_location, self)
@@ -487,41 +504,7 @@ class Program(helpers.Helpers):
         pashmak_module_paths = os.environ['PASHMAKPATH']
         paths = pashmak_module_paths.strip().split(':')
         paths = [path.strip() for path in paths if path.strip() != '']
-        for path in paths:
-            try:
-                path_files = os.listdir(path)
-            except:
-                continue
-            for f in path_files:
-                module_name = None
-                if os.path.isdir(path + '/' + f):
-                    if os.path.isfile(path + '/' + f + '/__init__.pashm'):
-                        module_name = f.split('/')[-1].split('.')[0]
-                        f = path + '/' + f + '/__init__.pashm'
-                    else:
-                        f = path + '/' + f
-                else:
-                    f = path + '/' + f
-
-                if f.split('.')[-1] in self.allowed_pashmak_extensions:
-                    if os.path.isfile(f):
-                        # check module exists
-                        f_name = f.split('/')[-1]
-                        if module_name == None:
-                            module_name = f_name.split('.')[0]
-                        try:
-                            modules.modules[module_name]
-                        except:
-                            # module not found, we can add this
-                            try:
-                                fo = open(f, 'r')
-                                content = fo.read()
-                                fo.close()
-                                content = '$__file__ = "' + os.path.abspath(f).replace('\\', '\\\\') + '";\n$__dir__ = "' + os.path.dirname(os.path.abspath(f)).replace('\\', '\\\\') + '";\n' + content
-                                modules.modules[module_name] = content
-                            except:
-                                raise
-                                pass
+        self.module_path = paths
 
     def start_frame(self):
         """ Start running last frame """

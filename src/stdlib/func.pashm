@@ -1,0 +1,65 @@
+#
+# func.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+# The function super tools
+namespace func
+    func list
+        # returns list of functions
+        python("self.mem = list(self.functions.keys())")
+    endfunc
+
+    func exists($args)
+        $args = format_args($args)
+        $name = $args[0]
+        # checks a function exists or not
+        $name = str($name)
+        return $name in func.list()
+    endfunc
+
+    func delete($args)
+        $args = format_args($args)
+        $name = $args[0]
+        # deletes a function
+        $name = str($name)
+        if not func.exists($name)
+            raise(Error('FunctionNotFound', 'function "' + $name + '" not found'))
+            return
+        endif
+
+        $undeletable_functions = ['func.list', 'func.delete', 'func.exists', 'gset', 'py_load_file', 'system', 'typeof', 'required', 'print', 'import', 'println', 'printl', 'import_once', 'mem', 'rmem', 'python', 'endns', 'exit', 'eval', 'raise', 'assert', 'read'] # list of undeletable functions
+        if $name in $undeletable_functions
+            raise(Error('FunctionCannotBeDeleted', 'function "' + $name + '" is a builtin function and cannot be deleted'))
+        endif
+
+        # delete the function
+        python("del self.functions[self.get_var('name')]")
+    endfunc
+endns
+
+func format_args($args)
+    if type($args) != tuple
+        $args = $args,
+    endif
+
+    return $args
+endfunc
+

@@ -42,15 +42,6 @@ the default module paths in pashmak are:
 - `<home-directory>/.local/lib/pashmak_modules`
 - `/usr/lib/pashmak_modules` (only in UNIX systems)
 
-### Show list of available modules
-to see list of available modules, run this command:
-
-```bash
-pashmak -m
-# or
-pashmak --modules
-```
-
 ### Adding module paths at runtime (sys.path module)
 there is an namespace named `sys.path` in the `sys` module, this module is for adding new module paths at the runtime.
 with this feature, you can add another directories to your path and load modules from them in your program.
@@ -103,4 +94,20 @@ output:
 
 ```
 ['/path1', '/path2', '...']
+```
+
+### Importing sub directories/files from module path
+You can import sub dir/file of a section in your module path.
+
+For example, we added `/some/path` directory to our path.
+There is a directory named `/some/path/dir1`.
+Also there is a file named `/some/path/dir1/__init__.pashm`,
+and `/some/path/dir1/other.pashm`.
+
+Now, we can import them:
+
+```bash
+import @dir1 # imports `/some/path/dir1/__init__.pashm`
+import @dir1.other # imports `/some/path/dir1/other.pashm`
+import @dir1.subdir.somefile # imports `/some/path/dir1/subdir/somefile.pashm`
 ```

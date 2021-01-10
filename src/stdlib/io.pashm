@@ -1,0 +1,87 @@
+#
+# io.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+func print
+    mem self.print(^)
+endfunc
+
+func println($value)
+    print(str($value) + '\\n')
+endfunc
+
+func printl($value)
+    println($value)
+endfunc
+
+func perror($value)
+    mem self.print($value, file=sys.stderr)
+endfunc
+
+func printf($args)
+    $args = format_args($args)
+    $obj = $args[0]
+    $file = python("self.mem = sys.stdout")
+    if len($args) > 1
+        $file = $args[1]
+    endif
+
+    $file->write(str($obj))
+endfunc
+
+func out_start
+    python("self.out_started = True")
+endfunc
+
+func out_end
+    python("self.out_started = False")
+endfunc
+
+func out_clean
+    python("self.out_content = ''")
+endfunc
+
+func out_get
+    python("self.mem = self.out_content")
+endfunc
+
+func out_get_clean
+    $content = out_get()
+    out_clean()
+    return $content
+endfunc
+
+func exit($args)
+    $args = format_args($args)
+    $code = $args[0]
+    if typeof($code) != int
+        $code = 0
+    endif
+    python("self.exit_program(self.get_var('code'))")
+endfunc
+
+func read
+    python("self.io_read()")
+endfunc
+
+func var_dump($obj)
+    python("class Tmp:\\n    def write(self, value):\\n        current_prog.current_prog.print(str(value))\\npprint.pprint(self.get_var('obj'), Tmp())")
+endfunc
