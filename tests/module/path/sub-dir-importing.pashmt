@@ -1,5 +1,5 @@
 #
-# 1.pashmt
+# sub-dir-importing.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,12 +21,22 @@
 #########################################################################
 
 --test--
-modules are loaded in module path system (2)
---skip--
+import command can import sub dirs/files from module path
+
 --file--
-import @sys
+
+import @sys.path
 sys.path.add($__dir__ + '/tests/test-module-path')
-import @testdir2
+
+import @testdir2.core
+
 testdir2.run()
+
+import @testdir3
+
+the_test_in_init()
+
 --output--
-'hello testdir2\n'
+"""hello testdir2
+Hello! i am a test
+"""
