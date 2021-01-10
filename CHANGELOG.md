@@ -2,7 +2,7 @@
 
 ## next release
 
-- fixed import directory bug
+- fixed import directory bug (GH-79)
 
 ## 0.6.3 (2021-1-9)
 
