@@ -35,6 +35,7 @@ while $i < len($keys)
     $k = $keys[$i]
     $tmp_module_content = $modules[$k]->replace('\n\n', '\n')
     $tmp_module_content = $tmp_module_content->replace('\n\n', '\n')
+    $tmp_module_content = $tmp_module_content->replace('\\\\n\\\\', '\\n\\')
     $new_module_content = ''
 
     $j = 0
