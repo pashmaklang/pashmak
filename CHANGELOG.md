@@ -4,6 +4,7 @@
 
 - fixed import directory bug (GH-79)
 - added importing sub directories/files in modules loaded from module path system (GH-80)
+- removed cli option `-m|--modules`
 
 ## 0.6.3 (2021-1-9)
 

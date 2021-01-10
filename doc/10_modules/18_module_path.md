@@ -42,15 +42,6 @@ the default module paths in pashmak are:
 - `<home-directory>/.local/lib/pashmak_modules`
 - `/usr/lib/pashmak_modules` (only in UNIX systems)
 
-### Show list of available modules
-to see list of available modules, run this command:
-
-```bash
-pashmak -m
-# or
-pashmak --modules
-```
-
 ### Adding module paths at runtime (sys.path module)
 there is an namespace named `sys.path` in the `sys` module, this module is for adding new module paths at the runtime.
 with this feature, you can add another directories to your path and load modules from them in your program.
