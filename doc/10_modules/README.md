@@ -9,6 +9,7 @@
 - [Module os](06_os.md)
 - [Module webserver](07_webserver.md)
 - [Module math](08_math.md)
+- [Module string](09_string.md)
 - [Python standard modules](17_python_standard_modules.md)
 - [Module Path system](18_module_path.md)
 - [Another libraries](19_another_libraries.md)
