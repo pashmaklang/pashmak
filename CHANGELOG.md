@@ -1,5 +1,9 @@
 # Pashmak Changelog
 
+## next release
+
+- added module `string` (GH-82)
+
 ## 0.6.4 (2021-1-10)
 
 - fixed import directory bug (GH-79)

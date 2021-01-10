@@ -1,0 +1,59 @@
+#
+# string.pashm
+#
+# The Pashmak Project
+# This Pashmak module is created by Sam Ghasemi or sami2020pro <samprogram2007@gmail.com> 
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+# 
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+ns string
+	func concat($args)
+		$args = format_args($args)
+		return $args[0] + $args[1]
+	endfunc 
+	
+	func remove_last($str)
+		$str = format_args($str)[0]
+		python("self.mem = self.get_var('str')[:-1] ")
+	endfunc
+
+	func remove_first($str)
+		$str = format_args($str)[0]
+		python("self.mem = self.get_var('str')[1:]")
+	endfunc
+
+	func length($str)
+		$str = format_args($str)[0]
+		python("self.mem = len(self.get_var('str'))")
+	endfunc
+
+	func cut($args)
+		$args = format_args($args)
+		python("self.mem = self.get_var('args')[0][self.get_var('args')[1]:self.get_var('args')[2]]")
+	endfunc 
+
+	func upcase($args)
+		$args = format_args($args)[0]
+		python("self.mem = self.get_var('args').upper()")
+	endfunc
+
+	func lowcase($args)
+		$args = format_args($args)[0]
+		python("self.mem = self.get_var('args').lower()")
+	endfunc
+endns
