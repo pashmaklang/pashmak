@@ -78,3 +78,14 @@ import_once('foo.pashm')
 the above code will be runed successfully.
 
 because, `import_once` function checks the file, and if files already imported, don't imports again.
+
+### Importing directory
+You can import directories, the directory should have `__init__.pashm` file.
+
+for example:
+
+```bash
+import '/path/to/some/dir' # means import `/path/to/some/dir/__init__.pashm`
+```
+
+when you import a directory, `__init__.pashm` file in that directory will be imported.

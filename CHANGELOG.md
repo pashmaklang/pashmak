@@ -1,5 +1,9 @@
 # Pashmak Changelog
 
+## next release
+
+- fixed import directory bug
+
 ## 0.6.3 (2021-1-9)
 
 - some optimizations in module importing system (GH-78)
