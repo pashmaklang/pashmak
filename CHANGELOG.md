@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## (0.7) next release
+
+- added `import_run` and `import_run_once` functions
+- added cli feature to run modules
+
 ## 0.6.5 (2021-1-11)
 
 - added module `string` (GH-82)
