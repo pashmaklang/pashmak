@@ -103,12 +103,14 @@ class Program(helpers.Helpers):
                             # find modules from path
                             commands = False
                             for path in self.module_path:
+                                path = os.path.abspath(path)
                                 full_path = path + '/' + module_name.replace('.', '/')
+                                full_path = os.path.abspath(full_path)
                                 if os.path.isfile(full_path + '.pashm'):
-                                    commands = jit.load(full_path + '.pashm', full_path + '.pashm', self)
+                                    commands = jit.load(os.path.abspath(full_path + '.pashm'), os.path.abspath(full_path + '.pashm'), self)
                                 elif os.path.isdir(full_path):
-                                    if os.path.isfile(full_path + '/__init__.pashm'):
-                                        commands = jit.load(full_path + '/__init__.pashm', full_path + '/__init__.pashm', self)
+                                    if os.path.isfile(os.path.abspath(full_path + '/__init__.pashm')):
+                                        commands = jit.load(os.path.abspath(full_path + '/__init__.pashm'), os.path.abspath(full_path + '/__init__.pashm'), self)
                             if commands == False:
                                 raise KeyError()
                         # add this module to imported modules

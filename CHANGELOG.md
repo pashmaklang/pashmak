@@ -3,6 +3,7 @@
 ## next release
 
 - added module `string` (GH-82)
+- fixed a bug in module path system about `$__dir__` and `$__file__`
 
 ## 0.6.4 (2021-1-10)
 
