@@ -83,3 +83,23 @@ App: end
 Excatly even the normal run output.
 
 This helps you to build you project from lot of files to one file(Mix them).
+
+## Installation
+You can mix and install this tool on your Unix/GNU/Linux:
+
+```bash
+make
+sudo make install
+```
+
+Now, you can run it:
+
+```bash
+pashmiler -v
+```
+
+To remove it, you can run:
+
+```bash
+sudo make remove
+```
