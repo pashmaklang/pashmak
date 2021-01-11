@@ -949,7 +949,7 @@ namespace tengine
 endns
 if $__ismain__
 	if len($argv) > 1
-        print(tengine.run_file($argv[1], True))
+        tengine.run_file($argv[1], True)
 	else
         println('tengine: File name is required')
         exit(1)
