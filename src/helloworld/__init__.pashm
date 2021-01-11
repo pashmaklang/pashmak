@@ -1,5 +1,5 @@
 #
-# import-run.pashmt
+# __init__.pashm
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,19 +20,6 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
---test--
-import_run and import_run_once works
-
---file--
-
-import $__dir__ + '/tests/test-module-path/import-run-test.pashm'
-import_run $__dir__ + '/tests/test-module-path/import-run-test.pashm'
-import_run_once $__dir__ + '/tests/test-module-path/import-run-test.pashm'
-
-import_run @helloworld
-
---output--
-"""i am NOT main
-i am main
-Hello world!
-"""
+if $__ismain__
+    println('Hello world!')
+endif

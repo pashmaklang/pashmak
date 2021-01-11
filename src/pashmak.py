@@ -59,6 +59,15 @@ if __name__ == '__main__':
         print(version.version)
         sys.exit(0)
 
+    if sys.argv[1][0] == '@':
+        module_name = sys.argv[1]
+        sys.argv[1] = '-r'
+        try:
+            sys.argv[2]
+        except:
+            sys.argv.append('')
+        sys.argv[2] = 'import_run ' + module_name
+
     if sys.argv[1] == '-r':
         if len(sys.argv) <= 2:
             print(sys.argv[0] + ': `-r` option requires code as argument: -r [code...]')
