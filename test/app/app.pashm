@@ -25,4 +25,10 @@ println($__ismain__)
 
 import $__dir__ + '/thedir'
 
+$i = 0
+while $i < 3
+    import $__dir__ + '/other.pashm'
+    $i = $i + 1
+endwhile
+
 println('end')

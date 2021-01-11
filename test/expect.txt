@@ -16,4 +16,7 @@ z:2
 True
 the dir init
 the dir other
+i am other
+i am other
+i am other
 end

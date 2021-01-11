@@ -41,7 +41,7 @@ class Mixer
         # find the import commands
         $i = 0
         while $i < len($parsed_code)
-            if $parsed_code[$i]['command'] == 'import'
+            if $parsed_code[$i]['command'] == 'import' or $parsed_code[$i]['command'] == 'import_once'
                 $import_cmd_arg = False
                 try error
                     $__old_dir__ = $__dir__
@@ -68,7 +68,7 @@ class Mixer
                             endif
                         endif
                         $import_cmd_arg[$x] = os.path.abspath($import_cmd_arg[$x])
-                        if $import_cmd_arg[$x] not in $this->imported_files
+                        if ($import_cmd_arg[$x] not in $this->imported_files) or $parsed_code[$i]['command'] != 'import_once'
                             $this->total_content = $this->total_content + '$__ismain__ = False\n'
                             $tmp_last_is_main = $this->last_is_main
                             $this->last_is_main = 'False'

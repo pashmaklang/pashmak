@@ -3,7 +3,7 @@ println('hello i am last')
 import @os
 println($os.osname)
 
-import $__dir__ + '/second.pashm'
+import_once $__dir__ + '/second.pashm'
 
 println($__ismain__)
 
