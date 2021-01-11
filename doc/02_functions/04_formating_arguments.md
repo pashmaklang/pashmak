@@ -1,5 +1,5 @@
 # Formating function arguments
-The pashmak function argument handling is **Dynamic**. this means that, you can dynamicaly handle arguments in your functions and you don't need to staticaly declare arguments.
+The Pashmak function argument handling is **Dynamic**. this means that, you can dynamicaly handle arguments in your functions and you don't need to staticaly declare arguments.
 
 for example, in lot of languages, you should write something like this:
 
@@ -10,7 +10,7 @@ function hello($name, $family){
 }
 ```
 
-But in pashmak, you will recive arguments in a variable as tuple. for example:
+But in Pashmak, you will recive arguments in a variable as tuple. for example:
 
 ```bash
 func hello($args) # you should write only ONE variable name

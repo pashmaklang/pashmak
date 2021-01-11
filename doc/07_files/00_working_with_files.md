@@ -1,5 +1,5 @@
 # Working with files
-working with files in pashmak is so easy.
+working with files in Pashmak is so easy.
 
 we have 4 main operations on files: Open, Read, Write, Close
 
@@ -33,4 +33,4 @@ The second argument for opening file is type of opening. `r` means Read and `w` 
 
 Also you can use `fopen` function instead of `open`. this is not different, just is an alias.
 
-The file objects in pashmak are handled by python you can use all of python file features in pashmak like python.
+The file objects in Pashmak are handled by python you can use all of python file features in Pashmak like python.

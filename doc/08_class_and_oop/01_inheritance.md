@@ -77,5 +77,5 @@ $a->hello()
 ```
 
 ### All of classes extends `Object` class
-all of classes by default extedns from a class named `Object`. this class is a internal pashmak class.
+all of classes by default extedns from a class named `Object`. this class is a internal Pashmak class.
 all of classes are child of this class.

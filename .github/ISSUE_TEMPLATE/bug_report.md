@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: If you detected a bug in the pashmak, you can report it to help us
+about: If you detected a bug in the Pashmak, you can report it to help us
 title: ''
 labels: bug
 assignees: ''

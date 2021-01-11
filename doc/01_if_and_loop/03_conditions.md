@@ -134,5 +134,5 @@ if $x and ($y or $x)
 endif
 ```
 
-The pashmak condition system is handled by python.
+The Pashmak condition system is handled by python.
 [You can read more about conditions here](https://docs.python.org/3/reference/expressions.html#conditional-expressions).
