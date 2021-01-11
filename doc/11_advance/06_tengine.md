@@ -156,11 +156,11 @@ loops:
 ```html
 {
     $i = 0
-    section loop1
+    while $i < 10
 }<div>hello {{ $i }}</div>
 {
     $i = $i + 1
-    mem $i < 10; gotoif loop1
+    endwhile
 }
 ```
 
