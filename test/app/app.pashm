@@ -23,4 +23,6 @@ endwhile
 
 println($__ismain__)
 
+import $__dir__ + '/thedir'
+
 println('end')

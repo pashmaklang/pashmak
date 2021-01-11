@@ -28,6 +28,10 @@ class Mixer
 
         $path = os.path.abspath($path)
 
+	if os.path.isdir($path)
+	    $path = $path + '/__init__.pashm'
+	endif
+
         $f = open($path, 'r')
         $content = $f->read()
         $f->close()
