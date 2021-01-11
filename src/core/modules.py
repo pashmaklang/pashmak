@@ -363,13 +363,13 @@ namespace pashm_html
 			if $pashm_html_parts[$pashm_html_i][0] == True
 				if $pashm_html_parts[$pashm_html_i][1]
 					if $pashm_html_parts[$pashm_html_i][1][0] == '='
-						$pashm_html_code = $pashm_html_code + ('\nprint(' + $pashm_html_parts[$pashm_html_i][1][1:] + ')')
+						$pashm_html_code = $pashm_html_code + ('\\nprint(' + $pashm_html_parts[$pashm_html_i][1][1:] + ')')
 					else
-						$pashm_html_code = $pashm_html_code + ('\n' + $pashm_html_parts[$pashm_html_i][1])
+						$pashm_html_code = $pashm_html_code + ('\\n' + $pashm_html_parts[$pashm_html_i][1])
 					endif
 				endif
 			else
-				$pashm_html_code = $pashm_html_code + ('\nprint(base64.b64decode("' + base64.b64encode($pashm_html_parts[$pashm_html_i][1]->encode())->decode() + '")->decode())')
+				$pashm_html_code = $pashm_html_code + ('\\nprint(base64.b64decode("' + base64.b64encode($pashm_html_parts[$pashm_html_i][1]->encode())->decode() + '")->decode())')
 			endif
 			$pashm_html_i = $pashm_html_i + 1
 		mem $pashm_html_i < len($pashm_html_parts); gotoif pashm_html_loop2
@@ -384,7 +384,6 @@ namespace pashm_html
 		endif
 	endfunc
 endns
-println(typeof($__ismain__), $__ismain__)
 if $__ismain__
 	if len($argv) > 1
         print(pashm_html.run_file($argv[1], True))
