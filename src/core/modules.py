@@ -324,6 +324,16 @@ namespace pashm_html
 		$__htmldir__ = $__dir__
 		$__htmlfile__ = $__htmldir__ + '/-'
 		$content = $args[0]
+		$content = $content->split('\\n', 1)
+		if len($content) > 1
+			if $content[0]->startswith('#!/')
+				$content = $content[1]
+			else
+				$content = '\\n'->join($content)
+			endif
+		else
+			$content = $content[0]
+		endif
 		if len($args) > 1
 			$realtime_run = $args[1]
 		endif
