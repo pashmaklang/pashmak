@@ -1,12 +1,12 @@
 # Contributing
-if you want to contribute to the pashmak project, this contributing guide is helpful.
+if you want to contribute to the Pashmak project, this contributing guide is helpful.
 
 ### run/build
 to run program, do following steps:
 
 ```bash
 cd /path/to/project/folder
-./src/pashmak.py # this is pashmak interpreter main executable file
+./src/pashmak.py # this is Pashmak interpreter main executable file
 ```
 
 also you can compile program with `pyinstaller`:
@@ -58,7 +58,7 @@ this scripts are helpful for development:
 ##### make module
 this command makes file `src/core/modules.py`.
 
-this command loads pashmak modules from `src/` folder and put them in `src/core/modules.py` file.
+this command loads Pashmak modules from `src/` folder and put them in `src/core/modules.py` file.
 
 if you maked changes in modules in `src/`'s `.pashm` files, run this command.
 
@@ -119,7 +119,7 @@ for example:
 ```
 
 ## Testing
-you can run pashmak project tests via 5 ways:
+you can run Pashmak project tests via 5 ways:
 
 ```bash
 make test

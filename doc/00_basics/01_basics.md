@@ -14,8 +14,8 @@ print('something to print\n')
 
 ### how it works?
 
-First, we go through pashmak syntax structure.
-The base structure of pashmak syntax is this:
+First, we go through Pashmak syntax structure.
+The base structure of Pashmak syntax is this:
 
 ```bash
 <command> [arguments]
@@ -43,7 +43,7 @@ when you run the script in terminal:
 pashmak myscript.pashm # or any filename you saved code in that
 ```
 
-##### NOTE: the `.pashm` extension for pashmak scripts is not required. you can run any file with any name as pashmak script
+##### NOTE: the `.pashm` extension for Pashmak scripts is not required. you can run any file with any name as Pashmak script
 
 you will get this output:
 

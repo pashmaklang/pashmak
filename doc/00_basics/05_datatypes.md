@@ -1,5 +1,5 @@
 # Datatypes
-ALL of pashmak variable datatypes system is handled by python. Python is a programming language pashmak written with that.
+ALL of Pashmak variable datatypes system is handled by python. Python is a programming language Pashmak written with that.
 
 ### What is datatype
 In the prevoius parts, you learned about **Variables**.

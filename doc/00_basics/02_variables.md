@@ -147,7 +147,7 @@ println(typeof($myint))
 
 This command puts the typeof variable in mem.
 
-(All of pashmak datatypes are handled by python and you can use all of python variables features).
+(All of Pashmak datatypes are handled by python and you can use all of python variables features).
 
 ### required command
 
@@ -186,7 +186,7 @@ required $a, $b
 ```
 
 ### python datatype methods
-datatype of the pashmak variables, is handled by python. this means you can use all python methods on them.
+datatype of the Pashmak variables, is handled by python. this means you can use all python methods on them.
 
 for example:
 
@@ -195,4 +195,4 @@ $mystring = '  hello world          '
 println($mystring->strip()) # output: `hello world`
 ```
 
-#### NOTE: in python, for calling function or access to property of a object, we use `.` character, but in pashmak we use `->` symbol(like php)
+#### NOTE: in python, for calling function or access to property of a object, we use `.` character, but in Pashmak we use `->` symbol(like php)
