@@ -1,0 +1,5 @@
+if $__ismain__
+    println('i am main')
+else
+    println('i am NOT main')
+endif

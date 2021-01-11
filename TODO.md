@@ -1,6 +1,5 @@
 # TODO
 
-- add `import_run` function
 - add cli option to run modules
 - add pashm-html engine as a internal module
 - ide plugins (GH-76)

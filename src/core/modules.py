@@ -115,6 +115,30 @@ namespace hash
 		python("self.mem = hashlib.shake_256(str(self.get_var('args')[0]).encode()).hexdigest(self.get_var('args')[1])")
 	endfunc
 endns"""
+modules["helloworld"] = """#
+# __init__.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+if $__ismain__
+    println('Hello world!')
+endif"""
 modules["math"] = """#
 # math.pashm
 #
@@ -349,6 +373,12 @@ func import
 endfunc
 func import_once
     mem self.import_script(^, True)
+endfunc
+func import_run
+    mem self.import_script(^, False, ismain_default=True)
+endfunc
+func import_run_once
+    mem self.import_script(^, True, ismain_default=True)
 endfunc
 func endns
     endnamespace

@@ -77,7 +77,7 @@ class Program(helpers.Helpers):
 
         current_prog.current_prog = self
 
-    def import_script(self, paths, import_once=False):
+    def import_script(self, paths, import_once=False, ismain_default=False):
         """ Imports scripts/modules """
         op = self.frames[-1]['commands'][self.frames[-1]['current_step']]
 
@@ -107,10 +107,10 @@ class Program(helpers.Helpers):
                                 full_path = path + '/' + module_name.replace('.', '/')
                                 full_path = os.path.abspath(full_path)
                                 if os.path.isfile(full_path + '.pashm'):
-                                    commands = jit.load(os.path.abspath(full_path + '.pashm'), os.path.abspath(full_path + '.pashm'), self)
+                                    commands = jit.load(os.path.abspath(full_path + '.pashm'), os.path.abspath(full_path + '.pashm'), self, ismain_default=ismain_default)
                                 elif os.path.isdir(full_path):
                                     if os.path.isfile(os.path.abspath(full_path + '/__init__.pashm')):
-                                        commands = jit.load(os.path.abspath(full_path + '/__init__.pashm'), os.path.abspath(full_path + '/__init__.pashm'), self)
+                                        commands = jit.load(os.path.abspath(full_path + '/__init__.pashm'), os.path.abspath(full_path + '/__init__.pashm'), self, ismain_default=ismain_default)
                             if commands == False:
                                 raise KeyError()
                         # add this module to imported modules
@@ -128,7 +128,7 @@ class Program(helpers.Helpers):
                     path += '/__init__.pashm'
                 try:
                     code_location = path
-                    commands = jit.load(path, code_location, self)
+                    commands = jit.load(path, code_location, self, ismain_default=ismain_default)
                     self.imported_files.append(os.path.abspath(code_location))
                 except FileNotFoundError as ex:
                     return self.raise_error('FileError', str(ex), op)
