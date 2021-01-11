@@ -101,4 +101,12 @@ class Mixer
 endclass
 
 $mix = Mixer($argv[1])
-println($mix->total_content)
+
+if len($argv) <= 2
+    println($mix->total_content)
+else
+    $out_file_path = $argv[2]
+    $f = open($out_file_path, 'w')
+    $f->write($mix->total_content)
+    $f->close()
+endif

@@ -9,7 +9,7 @@ Maybe your project has lot of files which them importing together. This tool hel
 Let's get started:
 
 ```bash
-$ ./pashmiler.pashm /path/to/my-program/main.pashm > out.pashm
+$ ./pashmiler.pashm /path/to/my-program/main.pashm out.pashm
 ```
 
 then, you can run `out.pashm`:
@@ -67,7 +67,7 @@ App: end
 now, i can mix this 3 files to one file:
 
 ```bash
-$ ./pashmiler.pashm app.pashm > out.pashm
+$ ./pashmiler.pashm app.pashm out.pashm
 ```
 
 now, when i run generated `out.pashm` output is:
