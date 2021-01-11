@@ -98,7 +98,7 @@ class Program(helpers.Helpers):
                     if not namespaces_prefix + module_name in self.included_modules:
                         try:
                             # search modules from builtin modules
-                            commands = parser.parse(modules.modules[module_name], filepath='@' + module_name)
+                            commands = parser.parse('$__ismain__ = False\n' + modules.modules[module_name] + '\n$__ismain__ = ' + str(self.get_var('__ismain__')) + '\n', filepath='@' + module_name)
                         except KeyError:
                             # find modules from path
                             commands = False

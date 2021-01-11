@@ -1,5 +1,9 @@
 # Pashmak Changelog
 
+## (0.6.x) next release
+
+- fixed a bug in `$__ismain__` variable for builtin modules
+
 ## 0.6.5 (2021-1-11)
 
 - added module `string` (GH-82)
