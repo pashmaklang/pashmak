@@ -293,7 +293,6 @@ modules["pashmhtml"] = """#
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 namespace pashm_html
-	$version = '0.1.1'
 	func include($args)
 		$args = format_args($args)
 		$path = $args[0]

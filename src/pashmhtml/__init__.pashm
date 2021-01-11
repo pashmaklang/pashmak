@@ -21,8 +21,6 @@
 #########################################################################
 
 namespace pashm_html
-	$version = '0.1.1'
-
 	func include($args)
 		$args = format_args($args)
 
