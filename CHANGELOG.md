@@ -4,6 +4,7 @@
 
 - added `import_run` and `import_run_once` functions (GH-84)
 - added cli feature to run modules (GH-84)
+- moved `tengine(pashmhtml)` engine from a external library to a builtin module (GH-85)
 
 ## (0.6.x) next release
 
