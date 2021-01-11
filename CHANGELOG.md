@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## (0.6.x) next release
+## 0.6.6 (2021-1-11)
 
 - fixed a bug in `$__ismain__` variable for builtin modules
 
