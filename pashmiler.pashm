@@ -21,6 +21,18 @@ class Mixer
         $this->last_is_main = 'True'
 
         $this->crawl($args[0])
+
+        $parsed_code = parser.parse($this->total_content, filepath=$args[0], only_parse=True)
+
+        $new_content = ''
+
+        $i = 0
+        while $i < len($parsed_code)
+            $new_content = $new_content + $parsed_code[$i]['str'] + ';'
+            $i = $i + 1
+        endwhile
+
+        $this->total_content = $new_content->strip()
     endfunc
 
     func crawl($args)
