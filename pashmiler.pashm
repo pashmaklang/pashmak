@@ -24,7 +24,7 @@ class Mixer
 
         $parsed_code = parser.parse($this->total_content, filepath=$args[0], only_parse=True)
 
-        $new_content = ''
+        $new_content = '#!/usr/bin/env pashmak\n'
 
         $i = 0
         while $i < len($parsed_code)
