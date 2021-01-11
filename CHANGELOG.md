@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.6.5 (2021-1-11)
 
 - added module `string` (GH-82)
 - fixed a bug in module path system about `$__dir__` and `$__file__`
