@@ -1,5 +1,5 @@
-# Pashm-Html render Engine
-The pashm-html is a engine to render pashmak code inside the Html/Text code.
+# T-engine render Engine
+The tengine is a engine to render pashmak code inside the Html/Text code(T-Engine: Text engine).
 
 For example:
 
@@ -21,7 +21,7 @@ For example:
 then we can render this code using this command:
 
 ```bash
-$ pashmak @pashmhtml myfile.html
+$ pashmak @tengine myfile.html
 ```
 
 output:
@@ -88,7 +88,7 @@ output:
 You only need to run:
 
 ```bash
-$ pashmak @pashmhtml /path/to/file.html
+$ pashmak @tengine /path/to/file.html
 ```
 
 ## Use as library
@@ -97,24 +97,24 @@ Also you can use this system as a library in your pashmak code.
 Example:
 
 ```bash
-import @pashmhtml
+import @tengine
 
-$output = pashm_html.run_file('/path/to/file.html')
-$output = pashm_html.run('<code as string>')
+$output = tengine.run_file('/path/to/file.html')
+$output = tengine.run('<code as string>')
 ```
 
 The `run_file` function gets file path and runs that and returns the output.
 `run` function gets code as string and runs that and returns the output.
 
-Also you can pass a **Second Argument** to them. This argument should be a boolean. if this is `True`, this engine runs code directly and shows the output. but if this is `False`(default is false), pashm-html runs the code and returns output as string.
+Also you can pass a **Second Argument** to them. This argument should be a boolean. if this is `True`, this engine runs code directly and shows the output. but if this is `False`(default is false), tengine runs the code and returns output as string.
 
 for example:
 
 ```bash
-import @pashmhtml
+import @tengine
 
-$output = pashm_html.run_file('/path/to/file.html', True)
-$output = pashm_html.run('<code as string>', True)
+$output = tengine.run_file('/path/to/file.html', True)
+$output = tengine.run('<code as string>', True)
 ```
 
 ## Using `{` and `}` characters inside code
@@ -194,7 +194,7 @@ for example, we have `foo.html` and `bar.html`:
 <h1>Hello world</h1>
 
 {
-    pashm_html.include($__htmldir__ + '/bar.html') # include the bar.html
+    tengine.include($__htmldir__ + '/bar.html') # include the bar.html
 }
 
 <h3>Good bye</h3>
@@ -216,12 +216,12 @@ when we run `foo.html`, output is this:
 <h3>Good bye</h3>
 ```
 
-You can include other html files using `pashm_html.include` function and pass file path to that.
+You can include other html files using `tengine.include` function and pass file path to that.
 
 Also you can send the data while including a file. for example:
 
 ```html
-{ pashm_html.include('other.html', \{'key1': 'value1', 'key2': 'value2'\}) }
+{ tengine.include('other.html', \{'key1': 'value1', 'key2': 'value2'\}) }
 ```
 
 Then that data is accessible in `other.html` with `$htmldata` variable.

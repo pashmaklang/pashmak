@@ -21,12 +21,12 @@
 #########################################################################
 
 --test--
-pashmhtml engine working correct
+tengine engine working correct
 
 --file--
-import @pashmhtml
+import @tengine
 
-$output = pashm_html.run_file($__dir__ + '/tests/pashmhtml/test.html')
+$output = tengine.run_file($__dir__ + '/tests/tengine/test.html')
 
 assert($output == '<html lang="en">\n\
 <head>\n\

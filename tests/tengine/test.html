@@ -31,7 +31,7 @@
     { $i = 0; section loop1 }
     <h6>{{ $i }}</h6>
     { $i = $i + 1; mem $i < 10; gotoif loop1 }
-    { pashm_html.include($__htmldir__ + '/other.html') }
-    { pashm_html.include($__htmldir__ + '/other.html', \{'foo': 'bar'\}) }
+    { tengine.include($__htmldir__ + '/other.html') }
+    { tengine.include($__htmldir__ + '/other.html', \{'foo': 'bar'\}) }
 </body>
 </html>
