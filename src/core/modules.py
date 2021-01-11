@@ -350,6 +350,12 @@ endfunc
 func import_once
     mem self.import_script(^, True)
 endfunc
+func import_run
+    mem self.import_script(^, False, ismain_default=True)
+endfunc
+func import_run_once
+    mem self.import_script(^, True, ismain_default=True)
+endfunc
 func endns
     endnamespace
 endfunc

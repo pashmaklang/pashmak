@@ -47,7 +47,7 @@ def calc_file_sha256(filepath: str) -> str:
         sha256_hash.update(byte_block)
     return sha256_hash.hexdigest()
 
-def load(path: str, code_location: str, self=None, is_jit_disabled=False) -> list:
+def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain_default=False) -> list:
     """ Loads a script
 
     If file is already caches and file is not changed, returns the cache
@@ -71,7 +71,7 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False) -> lis
         content = f.read()
         f.close()
         if self != None:
-            content = '$__ismain__ = False; $__file__ = ' + repr(path.replace('\\', '\\\\')) + '\n$__dir__ = ' + repr(os.path.dirname(path).replace('\\', '\\\\')) + '\n' + content
+            content = '$__ismain__ = ' + str(ismain_default) + '; $__file__ = ' + repr(path.replace('\\', '\\\\')) + '\n$__dir__ = ' + repr(os.path.dirname(path).replace('\\', '\\\\')) + '\n' + content
             content += '\n$__file__ = ' + repr(self.get_var('__file__').replace('\\', '\\\\'))
             content += '\n$__dir__ = ' + repr(self.get_var('__dir__').replace('\\', '\\\\'))
             content += '\n$__ismain__ = ' + str(bool(self.get_var('__ismain__')))
@@ -96,6 +96,11 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False) -> lis
                 the_hash = cache_f_content[0]
                 if the_hash == file_hash:
                     content = cache_f_content[1]
+                    if len(content) > 0:
+                        if content[0]['str'].startswith('$__ismain__ = '):
+                            content[0]['str'] = '$__ismain__ = ' + str(ismain_default)
+                            content[0]['args_str'] = '= ' + str(ismain_default)
+                            content[0]['args'] = ['=', str(ismain_default)]
         except:
             pass
 
@@ -105,7 +110,7 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False) -> lis
             content = f.read()
             f.close()
             if self != None:
-                content = '$__ismain__ = False; $__file__ = ' + repr(path.replace('\\', '\\\\')) + '\n$__dir__ = ' + repr(os.path.dirname(path).replace('\\', '\\\\')) + '\n' + content
+                content = '$__ismain__ = ' + str(ismain_default) + '; $__file__ = ' + repr(path.replace('\\', '\\\\')) + '\n$__dir__ = ' + repr(os.path.dirname(path).replace('\\', '\\\\')) + '\n' + content
                 content += '\n$__file__ = ' + repr(self.get_var('__file__').replace('\\', '\\\\'))
                 content += '\n$__dir__ = ' + repr(self.get_var('__dir__').replace('\\', '\\\\'))
                 content += '\n$__ismain__ = ' + str(bool(self.get_var('__ismain__')))
@@ -113,13 +118,12 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False) -> lis
         # write the content on cache
         if is_new_cache:
             content = parser.parse(content, filepath=code_location)
-            #new_content = file_hash + '\n'
-            #for op in code_commands:
-            #    new_content += op['str'] + '\n'
-            #new_content = new_content.strip()
             cache_f = open(the_cache_file, 'wb')
             pickle.dump([file_hash, content], cache_f)
             cache_f.close()
+
+        #print(content[0]['str'])
+        #print(content[-1]['str'])
 
         return content
     except:
