@@ -1,6 +1,8 @@
 # T-engine render Engine
 The tengine is a engine to render pashmak code inside the Html/Text code(T-Engine: Text engine).
 
+T-Engine is something like PHP's structure to write the code inside other formats(for example `Hello <?php echo $name; ?>`).
+
 For example:
 
 ```html
@@ -225,3 +227,30 @@ Also you can send the data while including a file. for example:
 ```
 
 Then that data is accessible in `other.html` with `$htmldata` variable.
+
+## Make executable scripts with T-Engine format
+You can write your script and add a shebang for this and make it executable file. For example:
+
+```html
+#!/usr/bin/pashmak @tengine
+{$name = 'parsa'}
+<h1>Hello {= $name }</h1>
+```
+
+Then:
+
+```bash
+$ chmod +x myfile.html
+```
+
+Now you can run it:
+
+```bash
+$ ./myfile.html
+```
+
+output:
+
+```html
+<h1>Hello parsa</h1>
+```
