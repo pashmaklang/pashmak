@@ -1,0 +1,37 @@
+{
+    $name = 'parsa'
+
+    import @sys # only test that import works
+
+    func hello
+        return 'hello world'
+    endfunc
+}<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    hello {{ $name }}
+    something: {= 'hi' }
+    {{ hello() }}
+    {= 'hello \{\}' }
+    { print('the \{\}') }
+
+    { if False }
+    <div>Hello!</div>  
+    { endif }
+
+    { if 10 > 5 }
+    <div>test!</div>  
+    { endif }
+
+    { $i = 0; section loop1 }
+    <h6>{{ $i }}</h6>
+    { $i = $i + 1; mem $i < 10; gotoif loop1 }
+    { pashm_html.include($__htmldir__ + '/other.html') }
+    { pashm_html.include($__htmldir__ + '/other.html', \{'foo': 'bar'\}) }
+</body>
+</html>

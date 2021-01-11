@@ -271,6 +271,128 @@ namespace os
         python("self.mem = os.getcwd()")
     endfunc
 endnamespace"""
+modules["pashmhtml"] = """#
+# __init__.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+namespace pashm_html
+	$version = '0.1.1'
+	func include($args)
+		$args = format_args($args)
+		$path = $args[0]
+		$htmldata = {}
+		if len($args) > 1
+			$htmldata = $args[1]
+		endif
+		pashm_html.run_file($path, True, $htmldata)
+	endfunc
+	func run_file($args)
+		$args = format_args($args)
+		$realtime_run = False
+		$htmldata = {}
+		$path = $args[0]
+		if len($args) > 1
+			$realtime_run = $args[1]
+		endif
+		if len($args) > 2
+			$htmldata = $args[2]
+		endif
+		$f = fopen($path, 'r')
+		$content = $f->read()
+		$f->close()
+		return pashm_html.run($content, $realtime_run, $path, $htmldata)
+	endfunc
+	func run($args)
+		$args = format_args($args)
+		$realtime_run = False
+		$__htmldir__ = $__dir__
+		$__htmlfile__ = $__htmldir__ + '/-'
+		$content = $args[0]
+		if len($args) > 1
+			$realtime_run = $args[1]
+		endif
+		if len($args) > 2
+			$__htmlfile__ = os.path.abspath($args[2])
+			$__htmldir__ = os.path.dirname($__htmlfile__)
+		endif
+		if len($args) > 3
+			$htmldata = $args[3]
+		endif
+		$randstr_1 = '<<<therandomstringforpashmhtml' + str(time.time()) + str(random.random()) + '>>>'
+		$randstr_2 = '<<<therandomstringforpashmhtml' + str(time.time()) + str(random.random()) + '>>>'
+		$content = $content->replace('\{', $randstr_1)
+		$content = $content->replace('\}', $randstr_2)
+		$content = $content->replace('{{', '{=')
+		$content = $content->replace('}}', '}')
+		$parts = $content->split('{')
+		$i = 0
+		$new_parts = []
+		section pashm_html_loop1
+			$tmp = $parts[$i]->split('}', 1)
+			if len($tmp) > 1
+				$new_parts->append([True, $tmp[0]->replace($randstr_1, '{')->replace($randstr_2, '}')])
+				$new_parts->append([False, $tmp[1]->replace($randstr_1, '{')->replace($randstr_2, '}')])
+			else
+				$new_parts->append([False, $tmp[0]->replace($randstr_1, '{')->replace($randstr_2, '}')])
+			endif
+			$i = $i + 1
+		mem $i < len($parts); gotoif pashm_html_loop1
+		
+		$pashm_html_i = 0
+		$pashm_html_parts = $new_parts
+		$pashm_html_code = ''
+		free $i $new_parts $parts $content $randstr_1 $randstr_2 $tmp
+		section pashm_html_loop2
+			if $pashm_html_parts[$pashm_html_i][0] == True
+				if $pashm_html_parts[$pashm_html_i][1]
+					if $pashm_html_parts[$pashm_html_i][1][0] == '='
+						$pashm_html_code = $pashm_html_code + ('\nprint(' + $pashm_html_parts[$pashm_html_i][1][1:] + ')')
+					else
+						$pashm_html_code = $pashm_html_code + ('\n' + $pashm_html_parts[$pashm_html_i][1])
+					endif
+				endif
+			else
+				$pashm_html_code = $pashm_html_code + ('\nprint(base64.b64decode("' + base64.b64encode($pashm_html_parts[$pashm_html_i][1]->encode())->decode() + '")->decode())')
+			endif
+			$pashm_html_i = $pashm_html_i + 1
+		mem $pashm_html_i < len($pashm_html_parts); gotoif pashm_html_loop2
+		free $pashm_html_i $pashm_html_parts
+		if $realtime_run
+			eval($pashm_html_code)
+		else
+			out_start()
+			eval($pashm_html_code)
+			out_end()
+			return out_get_clean()
+		endif
+	endfunc
+endns
+println(typeof($__ismain__), $__ismain__)
+if $__ismain__
+	if len($argv) > 1
+        print(pashm_html.run_file($argv[1], True))
+	else
+        println('pashmhtml: File name is required')
+        exit(1)
+	endif
+endif"""
 modules["random"] = """#
 # random.pashm
 #
