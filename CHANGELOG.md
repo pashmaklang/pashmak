@@ -6,7 +6,7 @@
 - added cli feature to run modules (GH-84)
 - moved `tengine(pashmhtml)` engine from a external library to a builtin module (GH-85)
 
-## (0.6.x) next release
+## 0.6.6 (2021-1-11)
 
 - fixed a bug in `$__ismain__` variable for builtin modules
 
