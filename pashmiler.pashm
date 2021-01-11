@@ -1,6 +1,6 @@
 #!/usr/bin/env pashmak
 
-$version = '0.1.2'
+$version = '0.2'
 
 if len($argv) <= 1
     println('ERROR: script filename is required')
