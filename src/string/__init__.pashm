@@ -37,6 +37,16 @@ ns string
 		python("self.mem = self.get_var('str')[1:]")
 	endfunc
 
+	func add_last($args)
+		$args = format_args($args)
+		python("self.mem = self.get_var('args')[0] + self.get_var('args')[1]")
+	endfunc
+
+	func add_first($args)
+		$args = format_args($args)
+		python("self.mem = self.get_var('args')[1] + self.get_var('args')[0]")
+	endfunc 
+
 	func length($str)
 		$str = format_args($str)[0]
 		python("self.mem = len(self.get_var('str'))")
