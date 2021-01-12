@@ -77,7 +77,7 @@ class Program(helpers.Helpers):
 
         current_prog.current_prog = self
 
-    def import_script(self, paths, import_once=False):
+    def import_script(self, paths, import_once=False, ismain_default=False):
         """ Imports scripts/modules """
         op = self.frames[-1]['commands'][self.frames[-1]['current_step']]
 
@@ -98,17 +98,19 @@ class Program(helpers.Helpers):
                     if not namespaces_prefix + module_name in self.included_modules:
                         try:
                             # search modules from builtin modules
-                            commands = parser.parse(modules.modules[module_name], filepath='@' + module_name)
+                            commands = parser.parse('$__ismain__ = ' + str(ismain_default) + '\n' + modules.modules[module_name] + '\n$__ismain__ = ' + str(self.get_var('__ismain__')) + '\n', filepath='@' + module_name)
                         except KeyError:
                             # find modules from path
                             commands = False
                             for path in self.module_path:
+                                path = os.path.abspath(path)
                                 full_path = path + '/' + module_name.replace('.', '/')
+                                full_path = os.path.abspath(full_path)
                                 if os.path.isfile(full_path + '.pashm'):
-                                    commands = jit.load(full_path + '.pashm', full_path + '.pashm', self)
+                                    commands = jit.load(os.path.abspath(full_path + '.pashm'), os.path.abspath(full_path + '.pashm'), self, ismain_default=ismain_default)
                                 elif os.path.isdir(full_path):
-                                    if os.path.isfile(full_path + '/__init__.pashm'):
-                                        commands = jit.load(full_path + '/__init__.pashm', full_path + '/__init__.pashm', self)
+                                    if os.path.isfile(os.path.abspath(full_path + '/__init__.pashm')):
+                                        commands = jit.load(os.path.abspath(full_path + '/__init__.pashm'), os.path.abspath(full_path + '/__init__.pashm'), self, ismain_default=ismain_default)
                             if commands == False:
                                 raise KeyError()
                         # add this module to imported modules
@@ -126,7 +128,7 @@ class Program(helpers.Helpers):
                     path += '/__init__.pashm'
                 try:
                     code_location = path
-                    commands = jit.load(path, code_location, self)
+                    commands = jit.load(path, code_location, self, ismain_default=ismain_default)
                     self.imported_files.append(os.path.abspath(code_location))
                 except FileNotFoundError as ex:
                     return self.raise_error('FileError', str(ex), op)

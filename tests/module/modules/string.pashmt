@@ -1,5 +1,5 @@
 #
-# version.py
+# string.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,39 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+--test--
+module string working correct
 
-# pashmak version
-version = 'v0.7-alpha0'
+--file--
+
+import @string
+use string
+
+println(concat('pashm', 'ak'))
+println(remove_last('pashmak'))
+println(remove_first('pashmak'))
+println(length('pashmak'))
+println(cut('pashmak', 1, 4))
+println(upcase('pashmak'))
+println(lowcase('PASHMAK'))
+println(add_last('pashma', 'k'))
+println(add_first('ashmak', 'p'))
+println(reverse('pashmak'))
+println(to_str(100))
+println(type(to_str(100)))
+
+--output--
+"""pashmak
+pashma
+ashmak
+7
+ash
+PASHMAK
+pashmak
+pashmak
+pashmak
+kamhsap
+100
+<class 'str'>
+"""
+

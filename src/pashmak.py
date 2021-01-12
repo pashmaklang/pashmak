@@ -59,6 +59,13 @@ if __name__ == '__main__':
         print(version.version)
         sys.exit(0)
 
+    is_module_run = False
+    if sys.argv[1][0] == '@':
+        module_name = sys.argv[1]
+        is_module_run = module_name
+        sys.argv[1] = '-r'
+        sys.argv.insert(2, 'import_run ' + module_name)
+
     if sys.argv[1] == '-r':
         if len(sys.argv) <= 2:
             print(sys.argv[0] + ': `-r` option requires code as argument: -r [code...]')
@@ -81,7 +88,11 @@ if __name__ == '__main__':
             script_commands = jit.load(filename, code_location=filename)
 
     # make pashmak program object
-    prog = program.Program(args=sys.argv[1:])
+    if is_module_run:
+        sys.argv[2] = is_module_run
+        prog = program.Program(args=sys.argv[2:])
+    else:
+        prog = program.Program(args=sys.argv[1:])
     prog.main_filename = filename
     prog.set_commands(script_commands)
     prog.start()

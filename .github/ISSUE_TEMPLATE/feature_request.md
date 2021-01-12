@@ -9,7 +9,7 @@ assignees: ''
 
 **Fillable**
 you are suggesting **New feature** or **Changing feature**? new/changing
-- [ ] did you read the pashmak documentation?
+- [ ] did you read the Pashmak documentation?
 - [ ] are you sure this feature already not exists?
 
 **The title**

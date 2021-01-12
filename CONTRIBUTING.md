@@ -1,12 +1,12 @@
 # Contributing
-if you want to contribute to the pashmak project, this contributing guide is helpful.
+if you want to contribute to the Pashmak project, this contributing guide is helpful.
 
 ### run/build
 to run program, do following steps:
 
 ```bash
 cd /path/to/project/folder
-./src/pashmak.py # this is pashmak interpreter main executable file
+./src/pashmak.py # this is Pashmak interpreter main executable file
 ```
 
 also you can compile program with `pyinstaller`:
@@ -48,7 +48,9 @@ and then make pull request from your branch to `master`
 if you haven't any idea for contributing, you can see [Issues](https://github.com/pashmaklang/pashmak/issues) and [TODO File](/TODO.md)
 
 ### Branch
-Send your patches to branch `master`.
+Send **New/Change Features** to branch `master`(`master` is develop stage for next release).
+
+Send **Bug Fixes** to branch `0.6.x`(older supported release).
 
 ### Makefile scripts
 this scripts are helpful for development:
@@ -56,7 +58,7 @@ this scripts are helpful for development:
 ##### make module
 this command makes file `src/core/modules.py`.
 
-this command loads pashmak modules from `src/` folder and put them in `src/core/modules.py` file.
+this command loads Pashmak modules from `src/` folder and put them in `src/core/modules.py` file.
 
 if you maked changes in modules in `src/`'s `.pashm` files, run this command.
 
@@ -97,8 +99,27 @@ make all
 #### On windows
 If you are developing on Windows, use `.\win-configure.bat` command instead of makefile scripts.
 
+## Documentation
+If you are adding/changing a feature, add/change documentation of that feature.
+
+For example, if you are adding a new standard module, add documentation for that in `doc/10_modules/<x>.md`.
+
+## Changelog
+Write your changes into the `CHANGELOG.md` file(under the `next release` title).
+
+for example:
+
+```markdown
+## next release
+
+- ...
+- fixed bug x
+- added x
+- ...
+```
+
 ## Testing
-you can run pashmak project tests via 5 ways:
+you can run Pashmak project tests via 5 ways:
 
 ```bash
 make test

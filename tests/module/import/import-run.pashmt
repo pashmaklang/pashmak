@@ -1,5 +1,5 @@
 #
-# version.py
+# import-run.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,19 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+--test--
+import_run and import_run_once works
 
-# pashmak version
-version = 'v0.7-alpha0'
+--file--
+
+import $__dir__ + '/tests/test-module-path/import-run-test.pashm'
+import_run $__dir__ + '/tests/test-module-path/import-run-test.pashm'
+import_run_once $__dir__ + '/tests/test-module-path/import-run-test.pashm'
+
+import_run @helloworld
+
+--output--
+"""i am NOT main
+i am main
+Hello world!
+"""

@@ -1,6 +1,6 @@
 # Eval
 
-you can run pashmak code from string.
+you can run Pashmak code from string.
 
 look at this example:
 
