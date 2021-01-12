@@ -1,8 +1,8 @@
 # Module string
-This module has some functions for working with strings
+This module has some functions for working with strings.
 
 ### concat
-This function concats two strings
+This function concats two strings.
 
 ```bash
 import @string
@@ -25,14 +25,14 @@ println(string.remove_first('pashmak')) # ashmak
 ```
 
 ### add_last
-This function add a string to last of string
+This function adds a string to last of other string.
 
 ```bash
 println(string.add_last('pashma', 'k'))
 ```
 
 ### add_first
-This function add a string to first of string
+This function adds a string to first of other string.
 
 ```bash
 println(string.add_first('ashmak', 'p'))
@@ -67,14 +67,14 @@ println(string.lowcase('PASHMAK')) # pashmak
 ```
 
 ### reverse
-This function reverse string
+This function reverses a string.
 
 ```bash
 println(string.reverse('pashmak'))
 ```
 
 ### to_str
-This function convert any type to string type
+This function converts any type to string.
 
 ```bash
 println(string.to_str(100))
