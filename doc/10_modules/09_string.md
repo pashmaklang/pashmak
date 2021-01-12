@@ -52,3 +52,17 @@ This function makes lower case string.
 println(string.lowcase('PASHMAK')) # pashmak
 ```
 
+### reverse
+This function reverse string
+
+```bash
+println(string.reverse('pashmak'))
+```
+
+### to_str
+This function convert any type to string type
+
+```bash
+println(string.to_str(100))
+println(type(to_str(100))) # test
+```
