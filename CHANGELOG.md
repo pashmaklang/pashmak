@@ -1,5 +1,9 @@
 # Pashmak Changelog
 
+## next release (0.7-dev)
+
+- added new functions to module `string`
+
 ## next release
 
 - added module `string` (GH-82)
