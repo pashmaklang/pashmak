@@ -6,6 +6,7 @@
 - added cli feature to run modules (GH-84)
 - moved `tengine(pashmhtml)` engine from a external library to a builtin module (GH-85)
 - added new functions to module `string` (GH-86)
+- fixed bug cached `$__ismain__` while directly running a file in command line
 
 ## 0.6.6 (2021-1-11)
 
