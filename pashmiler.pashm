@@ -2,14 +2,16 @@
 
 $version = '0.2'
 
-if len($argv) <= 1
-    println('ERROR: script filename is required')
-    exit(1)
-endif
+if $__ismain__
+    if len($argv) <= 1
+        println('ERROR: script filename is required')
+        exit(1)
+    endif
 
-if $argv[1] == '-v' or $argv[1] == '--version'
-    println($version)
-    exit()
+    if $argv[1] == '-v' or $argv[1] == '--version'
+        println($version)
+        exit()
+    endif
 endif
 
 class Mixer
@@ -100,13 +102,16 @@ class Mixer
     endfunc
 endclass
 
-$mix = Mixer($argv[1])
+if $__ismain__
+    $mix = Mixer($argv[1])
 
-if len($argv) <= 2
-    println($mix->total_content)
-else
-    $out_file_path = $argv[2]
-    $f = open($out_file_path, 'w')
-    $f->write($mix->total_content)
-    $f->close()
+    if len($argv) <= 2
+        println($mix->total_content)
+    else
+        $out_file_path = $argv[2]
+        $f = open($out_file_path, 'w')
+        $f->write($mix->total_content)
+        $f->close()
+    endif
 endif
+
