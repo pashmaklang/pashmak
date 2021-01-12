@@ -21,28 +21,28 @@ println(string.remove_last('pashmak')) # pashma
 This function removes first character of a string.
 
 ```bash
-println(string.println(remove_first('pashmak'))) # ashmak
+println(string.remove_first('pashmak')) # ashmak
 ```
 
 ### add_last
 This function add a string to last of string
 
 ```bash
-println(add_last('pashma', 'k'))
+println(string.add_last('pashma', 'k'))
 ```
 
 ### add_first
 This function add a string to first of string
 
 ```bash
-println(add_first('ashmak', 'p'))
+println(string.add_first('ashmak', 'p'))
 ```
 
 ### length
 This function returns length of a string.
 
 ```bash
-println(string.println(length('pashmak'))) # 7
+println(string.length('pashmak')) # 7
 ```
 
 ### cut
@@ -78,5 +78,5 @@ This function convert any type to string type
 
 ```bash
 println(string.to_str(100))
-println(type(to_str(100))) # test
+println(typeof(string.to_str(100))) # test
 ```
