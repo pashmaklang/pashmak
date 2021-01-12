@@ -85,7 +85,7 @@ if __name__ == '__main__':
             sys.exit(1)
         else:
             # read content of file and parse it with the parser
-            script_commands = jit.load(filename, code_location=filename)
+            script_commands = jit.load(filename, code_location=filename, ismain_default=True)
 
     # make pashmak program object
     if is_module_run:
