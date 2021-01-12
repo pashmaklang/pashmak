@@ -12,4 +12,5 @@
 - [Module string](09_string.md)
 - [Python standard modules](17_python_standard_modules.md)
 - [Module Path system](18_module_path.md)
-- [Another libraries](19_another_libraries.md)
+- [Running modules in cli](19_running_modules_in_cli.md)
+- [Another libraries](20_another_libraries.md)

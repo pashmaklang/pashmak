@@ -47,3 +47,29 @@ if $__ismain__
     # do something
 endif
 ```
+
+### `import_run` and `import_run_once` functions
+Now, you undrestand the `$__ismain__` variable, But sometimes you need to run a file with `True` value for `$__ismain__`! This is too easy, you should use `import_run` instead of `import` and `import_run_once` instead of `import_once`.
+
+for example, in `main.pashm`:
+
+```bash
+println('i am main program')
+import $__dir__ + '/other.pashm'
+import_run $__dir__ + '/other.pashm'
+```
+
+content of `other.pashm`:
+
+```bash
+println($__ismain__)
+```
+
+output of `main.pashm`:
+
+```
+False
+True
+```
+
+Why? because in second import we used `import_run` instead of `import`, so, value of `$__ismain__` is `True`.

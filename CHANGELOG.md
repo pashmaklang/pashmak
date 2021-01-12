@@ -2,11 +2,19 @@
 
 ## next release (0.7-dev)
 
+- added `import_run` and `import_run_once` functions (GH-84)
+- added cli feature to run modules (GH-84)
+- moved `tengine(pashmhtml)` engine from a external library to a builtin module (GH-85)
 - added new functions to module `string`
 
-## next release
+## 0.6.6 (2021-1-11)
+
+- fixed a bug in `$__ismain__` variable for builtin modules
+
+## 0.6.5 (2021-1-11)
 
 - added module `string` (GH-82)
+- fixed a bug in module path system about `$__dir__` and `$__file__`
 
 ## 0.6.4 (2021-1-10)
 

@@ -36,8 +36,8 @@ Above commands install latest (development) state of the program.
 Now you can run Interpreter in terminal:
 
 ```bash
-pashmak --info # shows info about pashmak
-pashmak -v # --version, shows version of pashmak
+pashmak --info # shows info about Pashmak
+pashmak -v # --version, shows version of Pashmak
 pashmak app.pashm
 pashmak /path/to/script.pashm # runs file
 pashmak - # gets code from stdin and run that

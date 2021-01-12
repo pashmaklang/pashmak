@@ -115,6 +115,30 @@ namespace hash
 		python("self.mem = hashlib.shake_256(str(self.get_var('args')[0]).encode()).hexdigest(self.get_var('args')[1])")
 	endfunc
 endns"""
+modules["helloworld"] = """#
+# __init__.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+if $__ismain__
+    println('Hello world!')
+endif"""
 modules["math"] = """#
 # math.pashm
 #
@@ -350,6 +374,12 @@ endfunc
 func import_once
     mem self.import_script(^, True)
 endfunc
+func import_run
+    mem self.import_script(^, False, ismain_default=True)
+endfunc
+func import_run_once
+    mem self.import_script(^, True, ismain_default=True)
+endfunc
 func endns
     endnamespace
 endfunc
@@ -400,25 +430,25 @@ func __namespace__
 endfunc
 namespace pashmak
     func zen
-        println('Zen of Pashmak\\n\\
-\\n\\
-The Zen of Pashmak is a collection of "guiding principles" for writing computer programs that influence the design of the Pashmak programming language. (Like zen of python). This fucking list is written by Mohammad Esmaeili.\\n\\
-\\n\\
-    Fucking syntax is better than beautiful syntax\\n\\
-    English is better than Finglish\\n\\
-    Lossless slow is better than loosing fast\\n\\
-    CatShit is better than DogShit\\n\\
-    DogShit is better than BullShit\\n\\
-    Chaos is better than peace\\n\\
-    Enthropy is better than order\\n\\
-    Crazy is better than logic\\n\\
-    Fun is better than boring\\n\\
-    Happy is better than sad\\n\\
-    Pashm is better than Hash\\n\\
-    While is better than Do-While\\n\\
-    Space is better than Tab\\n\\
-    Also tab is better than Space\\n\\
-    -> is better than .\\n\\
+        println('Zen of Pashmak\n\
+\n\
+The Zen of Pashmak is a collection of "guiding principles" for writing computer programs that influence the design of the Pashmak programming language. (Like zen of python). This fucking list is written by Mohammad Esmaeili.\n\
+\n\
+    Fucking syntax is better than beautiful syntax\n\
+    English is better than Finglish\n\
+    Lossless slow is better than loosing fast\n\
+    CatShit is better than DogShit\n\
+    DogShit is better than BullShit\n\
+    Chaos is better than peace\n\
+    Enthropy is better than order\n\
+    Crazy is better than logic\n\
+    Fun is better than boring\n\
+    Happy is better than sad\n\
+    Pashm is better than Hash\n\
+    While is better than Do-While\n\
+    Space is better than Tab\n\
+    Also tab is better than Space\n\
+    -> is better than .\n\
     if-else is better than switch-case')
     endfunc
 endns
@@ -811,6 +841,136 @@ namespace sys
         endfunc
     endns
 endns"""
+modules["tengine"] = """#
+# __init__.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+namespace tengine
+	func include($args)
+		$args = format_args($args)
+		$path = $args[0]
+		$htmldata = {}
+		if len($args) > 1
+			$htmldata = $args[1]
+		endif
+		tengine.run_file($path, True, $htmldata)
+	endfunc
+	func run_file($args)
+		$args = format_args($args)
+		$realtime_run = False
+		$htmldata = {}
+		$path = $args[0]
+		if len($args) > 1
+			$realtime_run = $args[1]
+		endif
+		if len($args) > 2
+			$htmldata = $args[2]
+		endif
+		$f = fopen($path, 'r')
+		$content = $f->read()
+		$f->close()
+		return tengine.run($content, $realtime_run, $path, $htmldata)
+	endfunc
+	func run($args)
+		$args = format_args($args)
+		$realtime_run = False
+		$__htmldir__ = $__dir__
+		$__htmlfile__ = $__htmldir__ + '/-'
+		$content = $args[0]
+		$content = $content->split('\\n', 1)
+		if len($content) > 1
+			if $content[0]->startswith('#!/')
+				$content = $content[1]
+			else
+				$content = '\\n'->join($content)
+			endif
+		else
+			$content = $content[0]
+		endif
+		if len($args) > 1
+			$realtime_run = $args[1]
+		endif
+		if len($args) > 2
+			$__htmlfile__ = os.path.abspath($args[2])
+			$__htmldir__ = os.path.dirname($__htmlfile__)
+		endif
+		if len($args) > 3
+			$htmldata = $args[3]
+		endif
+		$randstr_1 = '<<<therandomstringfortengine' + str(time.time()) + str(random.random()) + '>>>'
+		$randstr_2 = '<<<therandomstringfortengine' + str(time.time()) + str(random.random()) + '>>>'
+		$content = $content->replace('\{', $randstr_1)
+		$content = $content->replace('\}', $randstr_2)
+		$content = $content->replace('{{', '{=')
+		$content = $content->replace('}}', '}')
+		$parts = $content->split('{')
+		$i = 0
+		$new_parts = []
+		section tengine_loop1
+			$tmp = $parts[$i]->split('}', 1)
+			if len($tmp) > 1
+				$new_parts->append([True, $tmp[0]->replace($randstr_1, '{')->replace($randstr_2, '}')])
+				$new_parts->append([False, $tmp[1]->replace($randstr_1, '{')->replace($randstr_2, '}')])
+			else
+				$new_parts->append([False, $tmp[0]->replace($randstr_1, '{')->replace($randstr_2, '}')])
+			endif
+			$i = $i + 1
+		mem $i < len($parts); gotoif tengine_loop1
+		
+		$tengine_i = 0
+		$tengine_parts = $new_parts
+		$tengine_code = ''
+		free $i $new_parts $parts $content $randstr_1 $randstr_2 $tmp
+		section tengine_loop2
+			if $tengine_parts[$tengine_i][0] == True
+				if $tengine_parts[$tengine_i][1]
+					if $tengine_parts[$tengine_i][1][0] == '='
+						$tengine_code = $tengine_code + ('\\nprint(' + $tengine_parts[$tengine_i][1][1:] + ')')
+					else
+						$tengine_code = $tengine_code + ('\\n' + $tengine_parts[$tengine_i][1])
+					endif
+				endif
+			else
+				$tengine_code = $tengine_code + ('\\nprint(base64.b64decode("' + base64.b64encode($tengine_parts[$tengine_i][1]->encode())->decode() + '")->decode())')
+			endif
+			$tengine_i = $tengine_i + 1
+		mem $tengine_i < len($tengine_parts); gotoif tengine_loop2
+		free $tengine_i $tengine_parts
+		if $realtime_run
+			eval($tengine_code)
+		else
+			out_start()
+			eval($tengine_code)
+			out_end()
+			return out_get_clean()
+		endif
+	endfunc
+endns
+if $__ismain__
+	if len($argv) > 1
+        tengine.run_file($argv[1], True)
+	else
+        println('tengine: File name is required')
+        exit(1)
+	endif
+endif"""
 modules["test"] = """#
 # test.pashm
 #
@@ -952,22 +1112,22 @@ namespace webserver
         endfunc
         func serve
             $py_code = '\\
-def serve(host, port, do_get=None, do_post=None):\\n\\
-    class TheServer(http.server.BaseHTTPRequestHandler):\\n\\
-        def do_GET(self):\\n\\
-            if self.get_event != None:\\n\\
-                self.get_event(self)\\n\\
+def serve(host, port, do_get=None, do_post=None):\n\
+    class TheServer(http.server.BaseHTTPRequestHandler):\n\
+        def do_GET(self):\n\
+            if self.get_event != None:\n\
+                self.get_event(self)\n\
 \\
-        def do_POST(self):\\n\\
-            if self.post_event != None:\\n\\
-                self.post_event(self)\\n\\
+        def do_POST(self):\n\
+            if self.post_event != None:\n\
+                self.post_event(self)\n\
 \\
-    tmp_TheServer = copy.deepcopy(TheServer)\\n\\
-    tmp_TheServer.get_event = do_get\\n\\
-    tmp_TheServer.post_event = do_post\\n\\
-    webServer = http.server.HTTPServer((host, port), tmp_TheServer)\\n\\
-    return webServer\\n\\
-self.mem = serve(self.get_var("this").host, self.get_var("this").port, self.get_var("this").do_get, self.get_var("this").do_post)\\n\\
+    tmp_TheServer = copy.deepcopy(TheServer)\n\
+    tmp_TheServer.get_event = do_get\n\
+    tmp_TheServer.post_event = do_post\n\
+    webServer = http.server.HTTPServer((host, port), tmp_TheServer)\n\
+    return webServer\n\
+self.mem = serve(self.get_var("this").host, self.get_var("this").port, self.get_var("this").do_get, self.get_var("this").do_post)\n\
             '
             $this->server = python($py_code)
             $this->server->serve_forever()
