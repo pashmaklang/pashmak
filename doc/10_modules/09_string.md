@@ -24,6 +24,20 @@ This function removes first character of a string.
 println(string.println(remove_first('pashmak'))) # ashmak
 ```
 
+### add_last
+This function add a string to last of string
+
+```bash
+println(add_last('pashma', 'k'))
+```
+
+### add_first
+This function add a string to first of string
+
+```bash
+println(add_first('ashmak', 'p'))
+```
+
 ### length
 This function returns length of a string.
 
