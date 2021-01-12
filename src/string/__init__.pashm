@@ -37,6 +37,16 @@ ns string
 		python("self.mem = self.get_var('str')[1:]")
 	endfunc
 
+	func add_last($args)
+		$args = format_args($args)
+		python("self.mem = self.get_var('args')[0] + self.get_var('args')[1]")
+	endfunc
+
+	func add_first($args)
+		$args = format_args($args)
+		python("self.mem = self.get_var('args')[1] + self.get_var('args')[0]")
+	endfunc 
+
 	func length($str)
 		$str = format_args($str)[0]
 		python("self.mem = len(self.get_var('str'))")
@@ -47,13 +57,23 @@ ns string
 		python("self.mem = self.get_var('args')[0][self.get_var('args')[1]:self.get_var('args')[2]]")
 	endfunc 
 
-	func upcase($args)
-		$args = format_args($args)[0]
-		python("self.mem = self.get_var('args').upper()")
+	func upcase($str)
+		$str = format_args($str)[0]
+		python("self.mem = self.get_var('str').upper()")
 	endfunc
 
-	func lowcase($args)
-		$args = format_args($args)[0]
-		python("self.mem = self.get_var('args').lower()")
+	func lowcase($str)
+		$str = format_args($str)[0]
+		python("self.mem = self.get_var('str').lower()")
+	endfunc
+
+	func reverse($str)
+		$str = format_args($str)[0]
+		python("self.mem = self.get_var('str')[::-1]")
+	endfunc
+
+	func to_str($var)
+		$var = format_args($var)[0]
+		python("self.mem = repr(self.get_var('var'))")
 	endfunc
 endns
