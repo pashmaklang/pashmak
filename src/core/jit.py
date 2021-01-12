@@ -101,6 +101,11 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain
                             content[0]['str'] = '$__ismain__ = ' + str(ismain_default)
                             content[0]['args_str'] = '= ' + str(ismain_default)
                             content[0]['args'] = ['=', str(ismain_default)]
+                            if len(content) > 1 and self != None:
+                                if content[-1]['str'].startswith('$__ismain__ = '):
+                                    content[-1]['str'] = '$__ismain__ = ' + str(self.get_var('__ismain__'))
+                                    content[-1]['args_str'] = '= ' + str(self.get_var('__ismain__'))
+                                    content[-1]['args'] = ['=', str(self.get_var('__ismain__'))]
         except:
             pass
 
@@ -121,9 +126,6 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain
             cache_f = open(the_cache_file, 'wb')
             pickle.dump([file_hash, content], cache_f)
             cache_f.close()
-
-        #print(content[0]['str'])
-        #print(content[-1]['str'])
 
         return content
     except:
