@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release (0.7-dev)
+## (0.7-alpha0) next release
 
 - added `import_run` and `import_run_once` functions (GH-84)
 - added cli feature to run modules (GH-84)
