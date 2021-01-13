@@ -8,6 +8,10 @@
 - added new functions to module `string` (GH-86)
 - fixed bug cached `$__ismain__` while directly running a file in command line
 
+## (0.6.7) next release
+
+- fixed class property setting syntax bug (GH-88)
+
 ## 0.6.6 (2021-1-11)
 
 - fixed a bug in `$__ismain__` variable for builtin modules
