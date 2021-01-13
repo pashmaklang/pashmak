@@ -1,5 +1,9 @@
 # Pashmak Changelog
 
+## (0.6.7) next release
+
+- fixed class property setting syntax bug (GH-88)
+
 ## 0.6.6 (2021-1-11)
 
 - fixed a bug in `$__ismain__` variable for builtin modules
