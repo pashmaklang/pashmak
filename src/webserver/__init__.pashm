@@ -69,3 +69,92 @@ self.mem = serve(self.get_var("this").host, self.get_var("this").port, self.get_
         endfunc
     endclass
 endns
+
+if $__ismain__
+    if '--help' in $argv
+        println('Serve a simple webserver for development environment')
+        println('')
+        println('Usage:   pashmak @webserver <port>')
+        println('         pashmak @webserver <host> <port>')
+        println('         pashmak @webserver <host> <port> <directory>')
+        println('Example: pashmak @webserver 8080')
+        println('         pashmak @webserver 0.0.0.0 8080')
+        println('         pashmak @webserver 0.0.0.0 8080 path/to/public/html')
+        exit()
+    endif
+
+    $port = 8000
+    $host = 'localhost'
+    $dir = os.getcwd()
+    if len($argv) > 2
+        $host = $argv[1]
+        $port = int($argv[2])
+        if len($argv) > 3
+            $dir = $argv[3]
+        endif
+    elif len($argv) > 1
+        $port = int($argv[1])
+    endif
+
+    os.chdir($dir)
+
+    $server = webserver.WebServer($host, $port)
+
+    # a handler for POST and GET methods
+    func the_handler($handler)
+        if os.path.isfile(os.getcwd() + '/' + $handler->path)
+            $full_path = os.path.abspath(os.getcwd() + '/' + $handler->path)
+            $mime = mimetypes.guess_type($full_path)[0]
+
+            if $full_path->endswith('.pashm')
+                import @sys
+                $result = subprocess.run([$sys.pashmakexe, $full_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                # TODO : use stderr for headers
+                $handler->send_response(200)
+                $handler->send_header("Content-type", "text/html")
+                $handler->end_headers()
+                if $result->stderr == None
+                    $result->stderr = ''
+                endif
+                $handler->wfile->write($result->stdout + $result->stderr)
+                return
+            endif
+
+            try handle_file_error
+                $f = open($full_path, 'r')
+                $content = $f->read()
+                $f->read()
+            endtry
+            goto after_handle_file_error; section handle_file_error
+                $handler->send_response(403)
+                $handler->send_header("Content-type", "text/html")
+                $handler->end_headers()
+                $handler->wfile->write(bytes('403 - Access Denied', "utf-8"))
+                return
+            section after_handle_file_error
+
+            $handler->send_response(200)
+            if $mime == None
+                $mime = 'text/plain'
+            endif
+            $handler->send_header("Content-type", $mime)
+            $handler->end_headers()
+            $handler->wfile->write(bytes($content, "utf-8"))
+            return
+        else
+            $handler->send_response(404)
+            $handler->send_header("Content-type", "text/html")
+            $handler->end_headers()
+            $handler->wfile->write(bytes('404 - Not Found', "utf-8"))
+            return
+        endif
+    endfunc
+
+    # set request handlers
+    $server->set_get(the_handler)
+    $server->set_post(the_handler)
+
+    # start the server
+    println('Serving the development server on http://' + $host + ':' + str($port) + ' - Do not use this on production')
+    $server->serve()
+endif
