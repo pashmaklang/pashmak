@@ -25,7 +25,7 @@ func print
 endfunc
 
 func println($value)
-    print(str($value) + '\\n')
+    print(str($value) + '\n')
 endfunc
 
 func printl($value)
@@ -83,5 +83,5 @@ func read
 endfunc
 
 func var_dump($obj)
-    python("class Tmp:\\n    def write(self, value):\\n        current_prog.current_prog.print(str(value))\\npprint.pprint(self.get_var('obj'), Tmp())")
+    python("class Tmp:\n    def write(self, value):\n        current_prog.current_prog.print(str(value))\npprint.pprint(self.get_var('obj'), Tmp())")
 endfunc

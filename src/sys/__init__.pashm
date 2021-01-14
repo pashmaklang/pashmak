@@ -23,5 +23,5 @@
 import @sys.path
 
 namespace sys
-    $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
+    $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\n", "")}
 endns
