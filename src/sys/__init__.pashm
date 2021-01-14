@@ -24,4 +24,5 @@ import @sys.path
 
 namespace sys
     $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
+    $pashmakexe = sys.argv[0]
 endns

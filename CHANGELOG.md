@@ -9,6 +9,7 @@
 - fixed bug cached `$__ismain__` while directly running a file in command line
 - added python `mimetypes` module
 - added `gget` function
+- added `pashmakexe` variable to module `sys`
 
 ## (0.6.7) next release
 
