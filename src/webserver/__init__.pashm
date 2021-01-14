@@ -153,7 +153,7 @@ if $__ismain__
                     $key = $tmp_stderr[$i]->split(':', 1)
                     $value = $key[-1]
                     $key = $key[0]
-                    if $key == 'X-Res-Code'
+                    if $key == 'Status'
                         $res_code = int($value)
                     else
                         $headers->append([$key->strip(), $value->strip()])

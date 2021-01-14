@@ -131,3 +131,4 @@ import @stdlib.io
 import @stdlib.func
 import @stdlib.class
 import @stdlib.exception
+import @stdlib.web
