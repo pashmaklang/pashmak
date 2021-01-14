@@ -1,0 +1,5 @@
+Notes and TODO for Pashmak web feature:
+- sync `web_init` with other web servers
+- add a guide to run under the webservers
+- add main file script option for builtin webserver
+- add `$web_post` and `$web_get` variables
