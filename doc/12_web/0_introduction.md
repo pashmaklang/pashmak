@@ -86,4 +86,4 @@ Save the file with `.pashm.html` extension. for example: `hello.pashm.html`.
 
 Now, run the server and go to http://localhost:8000/hello.pashm.html and you will see `Hello parsa` in `h1` tag.
 
-REMEMBER to put `#!/usr/bin/pashmak @tengine` shebang in the first of your file. This is important.
+REMEMBER to put `#!/usr/bin/pashmak @tengine` shebang in the first of your file. This is important(Also do this if your are in windows or non-UNIX like OS).
