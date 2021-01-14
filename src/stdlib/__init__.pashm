@@ -54,7 +54,12 @@ endfunc
 
 func gset($args)
     $args = format_args($args)
-	python('self.frames[0]["vars"]["' + str($args[0]) + '"] = self.get_var("args")[1]')
+	python('self.frames[0]["vars"][' + repr($args[0]) + '] = self.get_var("args")[1]')
+endfunc
+
+func gget($args)
+    $args = format_args($args)
+	python('self.mem = self.frames[0]["vars"][' + repr($args[0]) + ']')
 endfunc
 
 func typeof($obj)

@@ -8,6 +8,7 @@
 - added new functions to module `string` (GH-86)
 - fixed bug cached `$__ismain__` while directly running a file in command line
 - added python `mimetypes` module
+- added `gget` function
 
 ## (0.6.7) next release
 
