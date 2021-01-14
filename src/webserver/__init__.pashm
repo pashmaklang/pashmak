@@ -116,16 +116,45 @@ if $__ismain__
                 if $content->split('\n', 1)[0]->endswith('@tengine') and $content->split('\n', 1)[0]->startswith('#!/')
                     $command->insert(1, '@tengine')
                 endif
-                # TODO : put request data into envvars
-                $result = subprocess.run($command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                # TODO : use stderr for headers
-                $handler->send_response(200)
-                $handler->send_header("Content-type", "text/html")
-                $handler->end_headers()
+                # load request headers
+                $env = {"REMOTE_ADDR": $handler->client_address[0], "REMOTE_PORT": str($handler->client_address[1])}
+                $request_headers = str($handler->headers)->strip()->split('\n')
+                $i = 0
+                while $i < len($request_headers)
+                    $key = $request_headers[$i]->split(':', 1)
+                    $value = $key[-1]
+                    $key = $key[0]
+                    $key = $key->replace('-', '_')->upper()
+                    $env[$key] = $value->strip()
+                    $i = $i + 1
+                endwhile
+                $result = subprocess.run($command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=$env)
                 if $result->stderr == None
                     $result->stderr = ''
                 endif
-                $handler->wfile->write($result->stdout + $result->stderr)
+                $headers = [['Content-type', 'text/html']]
+                $tmp_stderr = str($result->stderr->decode())->strip()->split('\n')
+                $i = 0
+                $res_code = 200
+                while $i < len($tmp_stderr)
+                    $key = $tmp_stderr[$i]->split(':', 1)
+                    $value = $key[-1]
+                    $key = $key[0]
+                    if $key == 'X-Res-Code'
+                        $res_code = int($value)
+                    else
+                        $headers->append([$key->strip(), $value->strip()])
+                    endif
+                    $i = $i + 1
+                endwhile
+                $i = 0
+                $handler->send_response($res_code)
+                while $i < len($headers)
+                    $handler->send_header($headers[$i][0], $headers[$i][1])
+                    $i = $i + 1
+                endwhile
+                $handler->end_headers()
+                $handler->wfile->write($result->stdout)
                 return
             endif
 
