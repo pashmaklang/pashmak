@@ -33,23 +33,10 @@ $i = 0
 $keys = list($modules->keys())
 while $i < len($keys)
     $k = $keys[$i]
-    $tmp_module_content = $modules[$k]->replace('\n\n', '\n')
-    $tmp_module_content = $tmp_module_content->replace('\n\n', '\n')
-    $tmp_module_content = $tmp_module_content->replace('\\n\\', '\\\\n\\\\')
-    $new_module_content = ''
-
-    $j = 0
-    $lines = $tmp_module_content->strip()->split('\n')
-    while $j < len($lines)
-        $line = $lines[$j]
-        if $line != ''
-            $new_module_content = $new_module_content + $line + '\n'
-        endif
-        $j = $j + 1
-    endwhile
-
+    $new_module_content = $modules[$k]->replace('\n\n', '\n')
+    $new_module_content = $new_module_content->replace('\n\n', '\n')
     $new_module_content = $new_module_content->strip()
-    $pycode = $pycode + '\nmodules["' + $k + '"] = """' + $new_module_content + '"""'
+    $pycode = $pycode + '\nmodules["' + $k + '"] = ' + repr($new_module_content)
 
     $i = $i + 1
 endwhile
