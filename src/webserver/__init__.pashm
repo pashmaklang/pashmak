@@ -45,17 +45,17 @@ namespace webserver
         endfunc
 
         func serve
-            $py_code = '\\
+            $py_code = '\
 def serve(host, port, do_get=None, do_post=None):\n\
     class TheServer(http.server.BaseHTTPRequestHandler):\n\
         def do_GET(self):\n\
             if self.get_event != None:\n\
                 self.get_event(self)\n\
-\\
+\
         def do_POST(self):\n\
             if self.post_event != None:\n\
                 self.post_event(self)\n\
-\\
+\
     tmp_TheServer = copy.deepcopy(TheServer)\n\
     tmp_TheServer.get_event = do_get\n\
     tmp_TheServer.post_event = do_post\n\
@@ -71,6 +71,8 @@ self.mem = serve(self.get_var("this").host, self.get_var("this").port, self.get_
 endns
 
 if $__ismain__
+    import @sys
+
     if '--help' in $argv
         println('Serve a simple webserver for development environment')
         println('')
@@ -106,9 +108,16 @@ if $__ismain__
             $full_path = os.path.abspath(os.getcwd() + '/' + $handler->path)
             $mime = mimetypes.guess_type($full_path)[0]
 
-            if $full_path->endswith('.pashm')
-                import @sys
-                $result = subprocess.run([$sys.pashmakexe, $full_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            if $full_path->endswith('.pashm') or $full_path->endswith('.tengine') or $full_path->endswith('.pashm.html')
+                $command = [$sys.pashmakexe, $full_path]
+                $f = open($full_path, 'r')
+                $content = $f->read()
+                $f->close()
+                if $content->split('\n', 1)[0]->endswith('@tengine') and $content->split('\n', 1)[0]->startswith('#!/')
+                    $command->insert(1, '@tengine')
+                endif
+                # TODO : put request data into envvars
+                $result = subprocess.run($command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 # TODO : use stderr for headers
                 $handler->send_response(200)
                 $handler->send_header("Content-type", "text/html")
