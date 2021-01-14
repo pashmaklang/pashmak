@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-parser parses import_once command like import command
+lexer parses import_once command like import command
 
 --file--
 

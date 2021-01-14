@@ -1,5 +1,5 @@
 #
-# parser.py
+# lexer.py
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,7 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-''' Pashmak syntax parser '''
+''' Pashmak syntax lexer '''
 
 import random
 import time

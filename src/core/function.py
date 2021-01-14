@@ -23,7 +23,7 @@
 """ Pashmak function system """
 
 import copy
-from . import parser
+from . import lexer
 
 class Function:
     """ the pashmak function object """
@@ -51,6 +51,6 @@ class Function:
             for part in tmp_func_parts[:-1]:
                 func_namespace += part + '.'
             func_namespace = func_namespace.strip('.')
-            tmp_body.insert(0, parser.parse('use ' + func_namespace)[0])
+            tmp_body.insert(0, lexer.parse('use ' + func_namespace)[0])
         current_prog.exec_func(tmp_body, with_frame, default_vars)
         return current_prog.get_mem()

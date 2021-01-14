@@ -27,7 +27,7 @@ import os
 import signal
 import copy
 from pathlib import Path
-from . import helpers, version, modules, jit, parser, current_prog
+from . import helpers, version, modules, jit, lexer, current_prog
 from .class_system import Class, ClassObject
 from .function import Function
 
@@ -38,7 +38,7 @@ class Program(helpers.Helpers):
     def __init__(self, is_test=False, args=[]):
         self.frames = [{
             'current_step': 0,
-            'commands': [parser.parse('pass')[0]],
+            'commands': [lexer.parse('pass')[0]],
             'used_namespaces': [],
             'vars': {
                 'argv': args,
@@ -98,7 +98,7 @@ class Program(helpers.Helpers):
                     if not namespaces_prefix + module_name in self.included_modules:
                         try:
                             # search modules from builtin modules
-                            commands = parser.parse('$__ismain__ = ' + str(ismain_default) + '\n' + modules.modules[module_name] + '\n$__ismain__ = ' + str(self.get_var('__ismain__')) + '\n', filepath='@' + module_name)
+                            commands = lexer.parse('$__ismain__ = ' + str(ismain_default) + '\n' + modules.modules[module_name] + '\n$__ismain__ = ' + str(self.get_var('__ismain__')) + '\n', filepath='@' + module_name)
                         except KeyError:
                             # find modules from path
                             commands = False
@@ -289,7 +289,7 @@ class Program(helpers.Helpers):
 
     def eval(self, command, only_parse=False, only_str_parse=False, dont_check_vars=False):
         """ Runs eval on command """
-        command_parts = parser.parse_string(command)
+        command_parts = lexer.parse_string(command)
 
         if only_str_parse:
             return command_parts
@@ -300,7 +300,7 @@ class Program(helpers.Helpers):
             if code[0] == False:
                 code = code[1]
                 # replace variable names with value of them
-                literals = parser.literals
+                literals = lexer.literals
                 code_words = self.multi_char_split(code, literals)
                 for word in code_words:
                     if word:
@@ -522,7 +522,7 @@ class Program(helpers.Helpers):
                 if not is_in_func:
                     arg = current_op['args'][0]
                     self.sections[arg] = i+1
-                    self.frames[-1]['commands'][i] = parser.parse('pass', filepath='<system>')[0]
+                    self.frames[-1]['commands'][i] = lexer.parse('pass', filepath='<system>')[0]
             elif current_op['command'] == 'func':
                 is_in_func = True
             elif current_op['command'] == 'endfunc':
