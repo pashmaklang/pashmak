@@ -11,6 +11,7 @@
 - added `gget` function
 - added `pashmakexe` variable to module `sys`
 - added a small internal web server for pashmak in module `webserver`
+- added base of web development features for backend with pashmak
 
 ## (0.6.7) next release
 
