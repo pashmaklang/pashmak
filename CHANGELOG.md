@@ -7,6 +7,7 @@
 - moved `tengine(pashmhtml)` engine from a external library to a builtin module (GH-85)
 - added new functions to module `string` (GH-86)
 - fixed bug cached `$__ismain__` while directly running a file in command line
+- added python `mimetypes` module
 
 ## (0.6.7) next release
 
