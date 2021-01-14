@@ -1,7 +1,7 @@
 # Web Development with Pashmak
 Pashmak is a general programming language. means that this language is not for a specific work and you can use it anywhere. But Pashmak has potential of web development. You can run pashmak at server to develop website backend.
 
-## Basics
+## Get started
 This is a very basic example:
 
 ```bash
@@ -15,6 +15,8 @@ Then, you can run this using `@webserver` module:
 ```bash
 $ pashmak @webserver 8000
 ```
+
+Now, you can go into http://localhost:8000/myfile.pashm (Write path of your script instead of `myfile.pashm`), and you will see `Hello world!` in the browser.
 
 ## Headers
 The headers in HTTP are important things(You should now about them before reading this guide). In pashmak, for setting the headers, you should use `web_set_header($name, $value)` function. This function sets the header.
