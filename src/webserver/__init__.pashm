@@ -98,14 +98,24 @@ if $__ismain__
         $port = int($argv[1])
     endif
 
-    os.chdir($dir)
-
     $server = webserver.WebServer($host, $port)
 
+    func get_handler($handler)
+        the_handler($handler, 'GET')
+    endfunc
+
+    func post_handler($handler)
+        the_handler($handler, 'POST')
+    endfunc
+
     # a handler for POST and GET methods
-    func the_handler($handler)
-        if os.path.isfile(os.getcwd() + '/' + $handler->path)
-            $full_path = os.path.abspath(os.getcwd() + '/' + $handler->path)
+    func the_handler($args)
+        $args = format_args($args)
+        $handler = $args[0]
+        $request_method = $args[1]
+        free $args
+        if os.path.isfile($dir + '/' + $handler->path)
+            $full_path = os.path.abspath($dir + '/' + $handler->path)
             $mime = mimetypes.guess_type($full_path)[0]
 
             if $full_path->endswith('.pashm') or $full_path->endswith('.tengine') or $full_path->endswith('.pashm.html')
@@ -117,17 +127,20 @@ if $__ismain__
                     $command->insert(1, '@tengine')
                 endif
                 # load request headers
-                $env = {"REMOTE_ADDR": $handler->client_address[0], "REMOTE_PORT": str($handler->client_address[1])}
+                $env = {"REQUEST_URI": $handler->path, "REQUEST_METHOD": $request_method, "REMOTE_ADDR": $handler->client_address[0], "REMOTE_PORT": str($handler->client_address[1])}
                 $request_headers = str($handler->headers)->strip()->split('\n')
                 $i = 0
                 while $i < len($request_headers)
                     $key = $request_headers[$i]->split(':', 1)
                     $value = $key[-1]
                     $key = $key[0]
-                    $key = $key->replace('-', '_')->upper()
+                    $key = 'HTTP_' + $key->replace('-', '_')->upper()
                     $env[$key] = $value->strip()
                     $i = $i + 1
                 endwhile
+                if $request_method == 'POST'
+                    $env['HTTP_POST_DATA'] = $handler->rfile->read(int($env['HTTP_CONTENT_LENGTH']))
+                endif
                 $result = subprocess.run($command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=$env)
                 if $result->stderr == None
                     $result->stderr = ''
@@ -189,8 +202,8 @@ if $__ismain__
     endfunc
 
     # set request handlers
-    $server->set_get(the_handler)
-    $server->set_post(the_handler)
+    $server->set_get(get_handler)
+    $server->set_post(post_handler)
 
     # start the server
     println('Serving the development server on http://' + $host + ':' + str($port) + ' - Do not use this on production')
