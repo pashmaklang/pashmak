@@ -395,7 +395,11 @@ func assert($args)
 endfunc
 func gset($args)
     $args = format_args($args)
-	python('self.frames[0]["vars"]["' + str($args[0]) + '"] = self.get_var("args")[1]')
+	python('self.frames[0]["vars"][' + repr($args[0]) + '] = self.get_var("args")[1]')
+endfunc
+func gget($args)
+    $args = format_args($args)
+	python('self.mem = self.frames[0]["vars"][' + repr($args[0]) + ']')
 endfunc
 func typeof($obj)
     python("self.mem = type(self.get_var('obj'))")
@@ -430,25 +434,25 @@ func __namespace__
 endfunc
 namespace pashmak
     func zen
-        println('Zen of Pashmak\n\
-\n\
-The Zen of Pashmak is a collection of "guiding principles" for writing computer programs that influence the design of the Pashmak programming language. (Like zen of python). This fucking list is written by Mohammad Esmaeili.\n\
-\n\
-    Fucking syntax is better than beautiful syntax\n\
-    English is better than Finglish\n\
-    Lossless slow is better than loosing fast\n\
-    CatShit is better than DogShit\n\
-    DogShit is better than BullShit\n\
-    Chaos is better than peace\n\
-    Enthropy is better than order\n\
-    Crazy is better than logic\n\
-    Fun is better than boring\n\
-    Happy is better than sad\n\
-    Pashm is better than Hash\n\
-    While is better than Do-While\n\
-    Space is better than Tab\n\
-    Also tab is better than Space\n\
-    -> is better than .\n\
+        println('Zen of Pashmak\\n\\
+\\n\\
+The Zen of Pashmak is a collection of "guiding principles" for writing computer programs that influence the design of the Pashmak programming language. (Like zen of python). This fucking list is written by Mohammad Esmaeili.\\n\\
+\\n\\
+    Fucking syntax is better than beautiful syntax\\n\\
+    English is better than Finglish\\n\\
+    Lossless slow is better than loosing fast\\n\\
+    CatShit is better than DogShit\\n\\
+    DogShit is better than BullShit\\n\\
+    Chaos is better than peace\\n\\
+    Enthropy is better than order\\n\\
+    Crazy is better than logic\\n\\
+    Fun is better than boring\\n\\
+    Happy is better than sad\\n\\
+    Pashm is better than Hash\\n\\
+    While is better than Do-While\\n\\
+    Space is better than Tab\\n\\
+    Also tab is better than Space\\n\\
+    -> is better than .\\n\\
     if-else is better than switch-case')
     endfunc
 endns
@@ -1112,22 +1116,22 @@ namespace webserver
         endfunc
         func serve
             $py_code = '\\
-def serve(host, port, do_get=None, do_post=None):\n\
-    class TheServer(http.server.BaseHTTPRequestHandler):\n\
-        def do_GET(self):\n\
-            if self.get_event != None:\n\
-                self.get_event(self)\n\
+def serve(host, port, do_get=None, do_post=None):\\n\\
+    class TheServer(http.server.BaseHTTPRequestHandler):\\n\\
+        def do_GET(self):\\n\\
+            if self.get_event != None:\\n\\
+                self.get_event(self)\\n\\
 \\
-        def do_POST(self):\n\
-            if self.post_event != None:\n\
-                self.post_event(self)\n\
+        def do_POST(self):\\n\\
+            if self.post_event != None:\\n\\
+                self.post_event(self)\\n\\
 \\
-    tmp_TheServer = copy.deepcopy(TheServer)\n\
-    tmp_TheServer.get_event = do_get\n\
-    tmp_TheServer.post_event = do_post\n\
-    webServer = http.server.HTTPServer((host, port), tmp_TheServer)\n\
-    return webServer\n\
-self.mem = serve(self.get_var("this").host, self.get_var("this").port, self.get_var("this").do_get, self.get_var("this").do_post)\n\
+    tmp_TheServer = copy.deepcopy(TheServer)\\n\\
+    tmp_TheServer.get_event = do_get\\n\\
+    tmp_TheServer.post_event = do_post\\n\\
+    webServer = http.server.HTTPServer((host, port), tmp_TheServer)\\n\\
+    return webServer\\n\\
+self.mem = serve(self.get_var("this").host, self.get_var("this").port, self.get_var("this").do_get, self.get_var("this").do_post)\\n\\
             '
             $this->server = python($py_code)
             $this->server->serve_forever()
