@@ -2,12 +2,10 @@
 
 ## (0.7-alpha0) next release
 
+#### New Features
 - added `import_run` and `import_run_once` functions (GH-84)
 - added cli feature to run modules (GH-84)
-- moved `tengine(pashmhtml)` engine from a external library to a builtin module (GH-85)
 - added new functions to module `string` (GH-86)
-- fixed bug cached `$__ismain__` while directly running a file in command line
-
 - added python `mimetypes` module
 - added `gget` function
 - added `pashmakexe` variable to module `sys`
@@ -15,6 +13,10 @@
 - added base of web development features for backend with pashmak
 - added a cli behavior for `time` module to show current time (GH-89)
 - added `null` keyword as a alias for `None` (GH-90)
+- moved `tengine(pashmhtml)` engine from a external library to a builtin module (GH-85)
+
+#### Bug Fixes
+- fixed bug cached `$__ismain__` while directly running a file in command line
 
 ## 0.6.7 (2021-1-15)
 
