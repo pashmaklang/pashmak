@@ -21,8 +21,22 @@
 #########################################################################
 
 func web_init
-    # currently this function does not anything,
-    # but something maybe added in the future
+    # load the cookies
+    import @os
+    if 'HTTP_COOKIE' in list($os.env->keys())
+        $base_cookie = http.cookies.BaseCookie()
+        $base_cookie->load($os.env['HTTP_COOKIE'])
+        $i = 0
+        $items = $base_cookie->items()
+        $cookies = {}
+        while $i < len($items)
+            $cookies[$items[$i][0]] = $items[$i][1]->value
+            $i = $i + 1
+        endwhile
+        gset('web_cookies', $cookies)
+    else
+        gset('web_cookies', {})
+    endif
 endfunc
 
 func web_set_header($args)
@@ -33,4 +47,18 @@ endfunc
 func web_status($code)
     $code = format_args($code)[0]
     web_set_header('Status', str($code))
+endfunc
+
+func web_set_cookie($args)
+    $args = format_args($args)
+    $options = dict($args[0])
+    $options->setdefault('value', '')
+    $base_cookie = http.cookies.BaseCookie()
+    $base_cookie[$args['name']] = $options['value']
+    $i = 0
+    $keys = $options->keys()
+    while $i < len($keys)
+        $base_cookie[$args['name']][$keys[$i]] = $options[$keys[$i]]
+    endwhile
+    perror($base_cookie->output())
 endfunc
