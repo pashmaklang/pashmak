@@ -31,7 +31,7 @@ from . import helpers, version, modules, jit, lexer, current_prog
 from .class_system import Class, ClassObject
 from .function import Function
 
-import hashlib, time, random, datetime, base64, json, http, http.cookies, http.server, http.client, http.cookiejar, socket, socketserver, math, pprint, subprocess, sqlite3, sqlite3.dump, sqlite3.dbapi2, urllib, urllib.error, urllib.parse, urllib.request, urllib.response, urllib.robotparser, platform, mimetypes
+import hashlib, time, random, datetime, base64, json, http, http.cookies, http.server, http.client, http.cookiejar, socket, socketserver, math, pprint, subprocess, sqlite3, sqlite3.dump, sqlite3.dbapi2, urllib, urllib.error, urllib.parse, urllib.request, urllib.response, urllib.robotparser, platform, mimetypes, re
 
 class Program(helpers.Helpers):
     """ Pashmak program object """
@@ -74,6 +74,8 @@ class Program(helpers.Helpers):
         self.func_depth = 0
 
         self.module_path = []
+
+        self.shutdown_event = []
 
         current_prog.current_prog = self
 
@@ -547,6 +549,10 @@ class Program(helpers.Helpers):
 
         if len(self.frames) > 1:
             self.frames.pop()
+        else:
+            # run shutdown events
+            for ev in self.shutdown_event:
+                ev()
 
     def start(self):
         """ Start running the program """

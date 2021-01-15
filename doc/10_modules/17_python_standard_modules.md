@@ -19,6 +19,7 @@ you can use this python standard modules in pashmak directly in your code:
 - `urllib`
 - `platform`
 - `mimetypes`
+- `re`
 
 for example:
 
