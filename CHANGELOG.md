@@ -8,6 +8,7 @@
 - added new functions to module `string` (GH-86)
 - fixed bug cached `$__ismain__` while directly running a file in command line
 - added a cli behavior for `time` module to show current time
+- added `null` keyword as a alias for `None`
 
 ## (0.6.7) next release
 
