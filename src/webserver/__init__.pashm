@@ -79,20 +79,26 @@ if $__ismain__
         println('Usage:   pashmak @webserver <port>')
         println('         pashmak @webserver <host> <port>')
         println('         pashmak @webserver <host> <port> <directory>')
+        println('         pashmak @webserver <host> <port> <directory> <main-script: main file is request handler>')
         println('Example: pashmak @webserver 8080')
         println('         pashmak @webserver 0.0.0.0 8080')
         println('         pashmak @webserver 0.0.0.0 8080 path/to/public/html')
+        println('         pashmak @webserver 0.0.0.0 8080 path/to/public/html path/to/public/html/server.pashm')
         exit()
     endif
 
     $port = 8000
     $host = 'localhost'
     $dir = os.getcwd()
+    $main = None
     if len($argv) > 2
         $host = $argv[1]
         $port = int($argv[2])
         if len($argv) > 3
             $dir = $argv[3]
+            if len($argv) > 4
+                $main = $argv[4]
+            endif
         endif
     elif len($argv) > 1
         $port = int($argv[1])
@@ -114,11 +120,14 @@ if $__ismain__
         $handler = $args[0]
         $request_method = $args[1]
         free $args
-        if os.path.isfile($dir + '/' + $handler->path)
+        if os.path.isfile($dir + '/' + $handler->path) or $main != None
             $full_path = os.path.abspath($dir + '/' + $handler->path)
             $mime = mimetypes.guess_type($full_path)[0]
 
-            if $full_path->endswith('.pashm') or $full_path->endswith('.tengine') or $full_path->endswith('.pashm.html')
+            if $full_path->endswith('.pashm') or $full_path->endswith('.tengine') or $full_path->endswith('.pashm.html') or $main != None
+                if $main != None
+                    $full_path = $main
+                endif
                 $command = [$sys.pashmakexe, $full_path]
                 $f = open($full_path, 'r')
                 $content = $f->read()

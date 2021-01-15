@@ -87,3 +87,28 @@ Save the file with `.pashm.html` extension. for example: `hello.pashm.html`.
 Now, run the server and go to http://localhost:8000/hello.pashm.html and you will see `Hello parsa` in `h1` tag.
 
 REMEMBER to put `#!/usr/bin/pashmak @tengine` shebang in the first of your file. This is important(Also do this if your are in windows or non-UNIX like OS).
+
+## Webserver cli options
+You can use `pashmak @webserver --help` command to see the help:
+
+```
+Usage:   pashmak @webserver <port>
+         pashmak @webserver <host> <port>
+         pashmak @webserver <host> <port> <directory>
+         pashmak @webserver <host> <port> <directory> <main-script: main file is request handler>
+Example: pashmak @webserver 8080
+         pashmak @webserver 0.0.0.0 8080
+         pashmak @webserver 0.0.0.0 8080 path/to/public/html
+         pashmak @webserver 0.0.0.0 8080 path/to/public/html path/to/public/html/server.pashm
+```
+
+## Request handler
+When you serve a server in a directory, if request of user is `/some/dir/and/file.pashm`, webserver searches for `/some/dir/and/file.pashm` in that directory. But sometimes you want to set webserver to send All of requests to a specify file.
+
+You can use the 4th argument for webserver cli:
+
+```bash
+$ pashmak @webserver localhost 8080 . ./server.pashm
+```
+
+Now, all of requests will be send to `server.pashm` and youself can handle them by this script. for example, you can handle routing with this feature.
