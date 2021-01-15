@@ -121,6 +121,11 @@ The Zen of Pashmak is a collection of "guiding principles" for writing computer 
     endfunc
 endns
 
+func register_shutdown($func)
+    $func = format_args($func)[0]
+    python("self.shutdown_event.append(self.get_var('func'))")
+endfunc
+
 import @stdlib.obj
 import @stdlib.io
 import @stdlib.func

@@ -9,6 +9,7 @@
 - added a cli behavior for `time` module to show current time (GH-89)
 - added `null` keyword as a alias for `None` (GH-90)
 - moved `tengine(pashmhtml)` engine from a external library to a builtin module (GH-85)
+- added shutdown event system and function `register_shutdown()` (GH-91)
 
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line
