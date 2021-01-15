@@ -75,6 +75,8 @@ class Program(helpers.Helpers):
 
         self.module_path = []
 
+        self.shutdown_event = []
+
         current_prog.current_prog = self
 
     def import_script(self, paths, import_once=False, ismain_default=False):
@@ -547,6 +549,10 @@ class Program(helpers.Helpers):
 
         if len(self.frames) > 1:
             self.frames.pop()
+        else:
+            # run shutdown events
+            for ev in self.shutdown_event:
+                ev()
 
     def start(self):
         """ Start running the program """
