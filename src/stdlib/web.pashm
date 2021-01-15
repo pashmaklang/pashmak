@@ -27,7 +27,7 @@ func web_init
         $base_cookie = http.cookies.BaseCookie()
         $base_cookie->load($os.env['HTTP_COOKIE'])
         $i = 0
-        $items = $base_cookie->items()
+        $items = list($base_cookie->items())
         $cookies = {}
         while $i < len($items)
             $cookies[$items[$i][0]] = $items[$i][1]->value
@@ -54,11 +54,16 @@ func web_set_cookie($args)
     $options = dict($args[0])
     $options->setdefault('value', '')
     $base_cookie = http.cookies.BaseCookie()
-    $base_cookie[$args['name']] = $options['value']
+    $base_cookie[$options['name']] = $options['value']
     $i = 0
-    $keys = $options->keys()
+    $keys = list($options->keys())
     while $i < len($keys)
-        $base_cookie[$args['name']][$keys[$i]] = $options[$keys[$i]]
+        if $keys[$i] not in ['name', 'value']
+            $base_cookie[$options['name']][$keys[$i]] = $options[$keys[$i]]
+        endif
+        $i = $i + 1
     endwhile
+    $real_cookies = gget('web_cookies')
+    $real_cookies[$options['name']] = $options['value']
     perror($base_cookie->output())
 endfunc

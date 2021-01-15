@@ -1,3 +1,4 @@
 # Documentation > Web
 
-[Introduction](0_introduction.md)
+[Introduction](00_introduction.md)
+[Cookies](01_cookies.md)
