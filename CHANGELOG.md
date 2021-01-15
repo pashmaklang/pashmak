@@ -7,8 +7,8 @@
 - moved `tengine(pashmhtml)` engine from a external library to a builtin module (GH-85)
 - added new functions to module `string` (GH-86)
 - fixed bug cached `$__ismain__` while directly running a file in command line
-- added a cli behavior for `time` module to show current time
-- added `null` keyword as a alias for `None`
+- added a cli behavior for `time` module to show current time (GH-89)
+- added `null` keyword as a alias for `None` (GH-90)
 
 ## (0.6.7) next release
 
