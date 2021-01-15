@@ -1,5 +1,5 @@
 #
-# func_re_declaring_error.pashmt
+# bug004.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,16 +21,14 @@
 #########################################################################
 
 --test--
-function system raises error when re-declaring a function
+module variable conflicting bug is fixed
 
 --file--
-func myfunc
-    print 'hello'
+
+func hello
+    import @sys
+    println($sys.pashmakinfo['version'])
 endfunc
 
-func myfunc
-    print 'something'
-endfunc
-
---with-error--
-'FunctionError'
+hello()
+hello()

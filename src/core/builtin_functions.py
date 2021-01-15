@@ -163,16 +163,6 @@ class BuiltinFunctions:
                         parent_real_name = parent
                     except KeyError:
                         return self.raise_error('ClassError', 'undefined class "' + parent + '"', op)
-        # check class already declared
-        try:
-            self.classes[self.current_namespace() + arg]
-            return self.raise_error(
-                'ClassError',
-                'class "' + self.current_namespace() + arg + '" already declared',
-                op
-            )
-        except KeyError:
-            pass
         if parent_real_name != None:
             #self.classes[self.current_namespace() + arg] = copy.deepcopy(self.classes[parent_real_name])
             self.classes[self.current_namespace() + arg] = Class(self.current_namespace() + arg)
@@ -201,19 +191,6 @@ class BuiltinFunctions:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op
                 )
-        # check function already declared
-        if len(self.current_class) > 0:
-            pass
-        else:
-            try:
-                self.functions[self.current_namespace() + arg]
-                return self.raise_error(
-                    'FunctionError',
-                    'function "' + self.current_namespace() + arg + '" already declared',
-                    op
-                )
-            except KeyError:
-                pass
         # declare function
         is_method = False
         if len(self.current_class) > 0:
