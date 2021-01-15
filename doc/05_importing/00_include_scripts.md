@@ -48,34 +48,44 @@ for example, we have a file named `foo.pashm`:
 #### foo.pashm:
 
 ```bash
-func hello
-    println('hello')
-endfunc
+$a = 100
 ```
 
 now, we import this file Two times:
 
 ```bash
 import('foo.pashm')
+println($a)
+$a = 300
 import('foo.pashm')
+println($a)
 ```
 
-we will get this error:
+output:
 
 ```
-FunctionError: function "hello" already declared...
+100
+100
 ```
 
-because i imported this script two times and my code tryied to declare function `hello` two times, so, we get the error.
+because i imported this script two times and my code sets `$i` two times.
 
 but if i use the `import_once` function:
 
 ```bash
 import_once('foo.pashm')
+println($a)
+$a = 300
 import_once('foo.pashm')
+println($a)
 ```
 
-the above code will be runed successfully.
+output:
+
+```
+100
+300
+```
 
 because, `import_once` function checks the file, and if files already imported, don't imports again.
 
