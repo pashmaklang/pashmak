@@ -61,17 +61,17 @@ test.assertNotEquals(2, 2) # AssertionError
 ```
 
 ### test.assertEmpty
-asserts the value is empty.
+asserts the value is empty(null).
 
 ```bash
-test.assertEmpty(None)
+test.assertEmpty(null)
 test.assertEmpty('hello') # error
 ```
 
 ### test.assertNotEmpty
-asserts value is not empty
+asserts value is not empty(null).
 
 ```bash
 test.assertNotEmpty('hello')
-test.assertNotEmpty(None) # error
+test.assertNotEmpty(null) # error
 ```

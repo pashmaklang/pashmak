@@ -294,6 +294,7 @@ class Program(helpers.Helpers):
         if only_str_parse:
             return command_parts
 
+        null = None
         full_op = ''
         opened_inline_calls_count = 0
         for code in command_parts:

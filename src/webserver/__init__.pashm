@@ -30,8 +30,8 @@ namespace webserver
             $this->host = $args[0]
             $this->port = $args[1]
 
-            $this->do_get = None
-            $this->do_post = None
+            $this->do_get = null
+            $this->do_post = null
         endfunc
 
         func set_get($func)
