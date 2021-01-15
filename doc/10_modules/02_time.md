@@ -32,3 +32,10 @@ you have to put a int or float into mem or pass as argument and next call `time.
 - time.ctime
 - time.gmtime
 - time.localtime
+
+### cli usage
+You can use this module in command line to see current UNIX timestamp:
+
+```bash
+$ pashmak @time
+```

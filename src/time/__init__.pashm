@@ -42,3 +42,7 @@ namespace time
         python("self.mem = time.localtime()")
     endfunc
 endnamespace
+
+if $__ismain__
+    println("Current UNIX timestamp: " + str(time.time()))
+endif
