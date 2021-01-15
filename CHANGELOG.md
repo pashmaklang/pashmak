@@ -20,6 +20,12 @@
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line
 
+## (0.6.x) next release
+
+#### Bug Fixes
+- fixed a bug in importing modules environment conflicting
+- fixed a bug in `import_once`, `import_run` and `import_run_once` functions
+
 ## 0.6.7 (2021-1-15)
 
 #### Bug Fixes
