@@ -1,5 +1,5 @@
 #
-# sys.pashm
+# gget001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,9 +20,22 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-import @sys.path
+--test--
+function gget() is working
 
-namespace sys
-    $pashmakinfo = {"version": version.version, "pythoninfo": sys.version.replace("\\n", "")}
-    $pashmakexe = sys.argv[0]
-endns
+--file--
+
+func hello
+    $name = 'new'
+    println($name)
+    println(gget('name'))
+endfunc
+
+$name = 'pashmak'
+
+hello()
+
+--output--
+"""new
+pashmak
+"""

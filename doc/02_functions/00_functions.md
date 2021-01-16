@@ -271,6 +271,12 @@ here, `gset` function gets two parameters: first, global variable name and secon
 
 this command sets value of that variable globaly.
 
+also you can Get a global variable using `gget` function:
+
+```bash
+println(gget('var_name'))
+```
+
 ##### NOTE: after running gset, new value will set for global variable but it will not set also localy. so, after use gset, also use copy to update value localy (if you want)
 
 ### handle functions output
