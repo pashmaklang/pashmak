@@ -1,18 +1,26 @@
+#
+# __init__.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
 #!/usr/bin/env pashmak
-
-$version = '0.2'
-
-if $__ismain__
-    if len($argv) <= 1
-        println('ERROR: script filename is required')
-        exit(1)
-    endif
-
-    if $argv[1] == '-v' or $argv[1] == '--version'
-        println($version)
-        exit()
-    endif
-endif
 
 class Mixer
     func __init__($args)
@@ -24,7 +32,7 @@ class Mixer
 
         $this->crawl($args[0])
 
-        $parsed_code = parser.parse($this->total_content, filepath=$args[0], only_parse=True)
+        $parsed_code = lexer.parse($this->total_content, filepath=$args[0], only_parse=True)
 
         $new_content = '#!/usr/bin/env pashmak\n'
 
@@ -50,7 +58,7 @@ class Mixer
         $content = $f->read()
         $f->close()
 
-        $parsed_code = parser.parse($content, filepath=$path, only_parse=True)
+        $parsed_code = lexer.parse($content, filepath=$path, only_parse=True)
 
         # find the import commands
         $i = 0
@@ -103,6 +111,11 @@ class Mixer
 endclass
 
 if $__ismain__
+    if len($argv) <= 1
+        println('ERROR: script filename is required')
+        exit(1)
+    endif
+
     $mix = Mixer($argv[1])
 
     if len($argv) <= 2
@@ -114,4 +127,3 @@ if $__ismain__
         $f->close()
     endif
 endif
-

@@ -1,0 +1,61 @@
+#
+# 001.pashmt
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+compiler works correct
+
+--file--
+
+out_start()
+$argv->append('pashmak')
+$argv->append($__dir__ + '/tests/compiler/app/app.pashm')
+import_run @compiler
+$output = out_get_clean()
+eval($output)
+$output = out_get_clean()->strip()
+out_end()
+println($output)
+
+--output--
+"""hello
+True
+i am second
+Second: the True
+y:0
+y:1
+y:2
+hello i am last
+posix
+False
+The something func
+the True
+z:0
+z:1
+z:2
+True
+the dir init
+the dir other
+i am other
+i am other
+i am other
+end
+"""

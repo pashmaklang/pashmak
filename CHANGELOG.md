@@ -17,6 +17,7 @@
 - added shutdown event system and function `register_shutdown()` (GH-91)
 - added `re` python regex library
 - added function `die`
+- moved `pashmiler` from a external library to a builtin module and renamed to `compiler`
 
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line
