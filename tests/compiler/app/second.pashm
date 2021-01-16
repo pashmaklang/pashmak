@@ -1,0 +1,13 @@
+println('i am second')
+
+if not $__ismain__
+    println('Second: the True')
+else
+    println('Second: the False')
+endif
+
+$z = 0
+while $z < 3
+    println('y:' + str($z))
+    $z = $z + 1
+endwhile

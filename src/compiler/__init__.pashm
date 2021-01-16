@@ -1,0 +1,127 @@
+#
+# __init__.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+class Mixer
+    func __init__($args)
+        $args = format_args($args)
+
+        $this->total_content = ''
+        $this->imported_files = []
+        $this->last_is_main = 'True'
+
+        $this->crawl($args[0])
+
+        $parsed_code = lexer.parse($this->total_content, filepath=$args[0], only_parse=True)
+
+        $new_content = '#!/usr/bin/env pashmak\n'
+
+        $i = 0
+        while $i < len($parsed_code)
+            $new_content = $new_content + $parsed_code[$i]['str'] + ';'
+            $i = $i + 1
+        endwhile
+
+        $this->total_content = $new_content->strip()
+    endfunc
+
+    func crawl($args)
+        $path = format_args($args)[0]
+
+        $path = os.path.abspath($path)
+
+	if os.path.isdir($path)
+	    $path = $path + '/__init__.pashm'
+	endif
+
+        $f = open($path, 'r')
+        $content = $f->read()
+        $f->close()
+
+        $parsed_code = lexer.parse($content, filepath=$path, only_parse=True)
+
+        # find the import commands
+        $i = 0
+        while $i < len($parsed_code)
+            if $parsed_code[$i]['command'] == 'import' or $parsed_code[$i]['command'] == 'import_once'
+                $import_cmd_arg = False
+                try error
+                    $__old_dir__ = $__dir__
+                    $__old_file__ = $__file__
+                    $__dir__ = os.path.dirname($path)
+                    $__file__ = $path
+                    $import_cmd_arg = python('self.mem = self.eval(' + repr($parsed_code[$i]['args_str']) + ')')
+                    $__dir__ = $__old_dir__
+                    $__file__ = $__old_file__
+                endtry; goto after_error; section error
+                section after_error
+                if $import_cmd_arg != False
+                    if typeof($import_cmd_arg) != tuple
+                        $import_cmd_arg = $import_cmd_arg,
+                    endif
+                    $import_cmd_arg = list($import_cmd_arg)
+                    $x = 0
+                    while $x < len($import_cmd_arg)
+                        if $import_cmd_arg[$x]
+                            if $import_cmd_arg[$x][0] == '@'
+                                $this->total_content = $this->total_content + $parsed_code[$i]['str'] + '\n'
+                                $x = $x + 1
+                                continue
+                            endif
+                        endif
+                        $import_cmd_arg[$x] = os.path.abspath($import_cmd_arg[$x])
+                        if ($import_cmd_arg[$x] not in $this->imported_files) or $parsed_code[$i]['command'] != 'import_once'
+                            $this->total_content = $this->total_content + '$__ismain__ = False\n'
+                            $tmp_last_is_main = $this->last_is_main
+                            $this->last_is_main = 'False'
+                            $this->crawl($import_cmd_arg[$x])
+                            $this->imported_files->append($import_cmd_arg[$x])
+                            $this->total_content = $this->total_content + '$__ismain__ = ' + $tmp_last_is_main + '\n'
+                            $this->last_is_main = $tmp_last_is_main
+                        endif
+                        $x = $x + 1
+                    endwhile
+                endif
+            else
+                $this->total_content = $this->total_content + $parsed_code[$i]['str'] + '\n'
+            endif
+            $i = $i + 1
+        endwhile
+    endfunc
+endclass
+
+if $__ismain__
+    if len($argv) <= 1
+        println('ERROR: script filename is required')
+        exit(1)
+    endif
+
+    $mix = Mixer($argv[1])
+
+    if len($argv) <= 2
+        println($mix->total_content)
+    else
+        $out_file_path = $argv[2]
+        $f = open($out_file_path, 'w')
+        $f->write($mix->total_content)
+        $f->close()
+    endif
+endif
