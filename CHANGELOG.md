@@ -16,6 +16,7 @@
 - moved `tengine(pashmhtml)` engine from a external library to a builtin module (GH-85)
 - added shutdown event system and function `register_shutdown()` (GH-91)
 - added `re` python regex library
+- added function `die`
 
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line
