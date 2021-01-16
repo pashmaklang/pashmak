@@ -150,7 +150,7 @@ if $__ismain__
                 if $request_method == 'POST'
                     $env['HTTP_POST_DATA'] = $handler->rfile->read(int($env['HTTP_CONTENT_LENGTH']))
                 endif
-                $result = subprocess.run($command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=$env)
+                $result = subprocess.run($command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=$env, shell=True)
                 if $result->stderr == null
                     $result->stderr = ''
                 endif
