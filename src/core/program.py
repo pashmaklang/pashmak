@@ -95,7 +95,11 @@ class Program(helpers.Helpers):
                 try:
                     namespaces_prefix = self.current_namespace()
                     namespaces_prefix += '@'
-                    if not str(id(self.frames[-1])) + namespaces_prefix + module_name in self.included_modules:
+                    try:
+                        frame_id = str(id(self.frames[-2]))
+                    except:
+                        frame_id = str(id(self.frames[-1]))
+                    if not frame_id + namespaces_prefix + module_name in self.included_modules:
                         try:
                             # search modules from builtin modules
                             commands = parser.parse('$__ismain__ = False\n' + modules.modules[module_name] + '\n$__ismain__ = ' + str(self.get_var('__ismain__')) + '\n', filepath='@' + module_name)
@@ -114,7 +118,7 @@ class Program(helpers.Helpers):
                             if commands == False:
                                 raise KeyError()
                         # add this module to imported modules
-                        self.included_modules.append(str(id(self.frames[-1])) + namespaces_prefix + module_name)
+                        self.included_modules.append(frame_id + namespaces_prefix + module_name)
                     else:
                         return
                 except KeyError:
