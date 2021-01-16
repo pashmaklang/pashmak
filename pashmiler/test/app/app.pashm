@@ -1,0 +1,34 @@
+$i = 324456
+println('hello')
+
+println($__ismain__)
+
+func something
+    println('The something func')
+endfunc
+
+import $__dir__ + '/second.pashm', $__dir__ + '/last.pashm'
+
+if True
+    println('the True')
+else
+    println('the False')
+endif
+
+$z = 0
+while $z < 3
+    println('z:' + str($z))
+    $z = $z + 1
+endwhile
+
+println($__ismain__)
+
+import $__dir__ + '/thedir'
+
+$i = 0
+while $i < 3
+    import $__dir__ + '/other.pashm'
+    $i = $i + 1
+endwhile
+
+println('end')

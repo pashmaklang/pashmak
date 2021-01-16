@@ -1,0 +1,17 @@
+#!/usr/bin/env pashmak
+
+out_start()
+$argv->append($__dir__ + '/app/app.pashm')
+import $__dir__ + '/../pashmiler.pashm'
+$output = out_get_clean()
+eval($output)
+out_end()
+$output = out_get_clean()->strip()
+
+$expect_f = open($__dir__ + '/expect.txt', 'r')
+$expect = $expect_f->read()->strip()
+$expect_f->close()
+
+assert($expect == $output)
+
+println('Test was passed.')
