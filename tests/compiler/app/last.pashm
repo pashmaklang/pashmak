@@ -1,0 +1,10 @@
+println('hello i am last')
+
+import @os
+println($os.osname)
+
+import_once $__dir__ + '/second.pashm'
+
+println($__ismain__)
+
+something()

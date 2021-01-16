@@ -25,7 +25,7 @@
 import copy
 import random
 from .class_system import Class
-from . import parser
+from . import lexer
 from .function import Function
 
 class BuiltinFunctions:
@@ -102,7 +102,7 @@ class BuiltinFunctions:
         """ Starts the namespace block """
         self.require_one_argument(op, 'namespace function requires namespace argument')
         arg = op['args'][0]
-        for ch in parser.literals + '.':
+        for ch in lexer.literals + '.':
             if ch in arg:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op
@@ -138,7 +138,7 @@ class BuiltinFunctions:
         if len(arg) > 1:
             parent = arg[1].strip()
         arg = arg[0].strip()
-        for ch in parser.literals + '.':
+        for ch in lexer.literals + '.':
             if ch in arg:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op
@@ -163,16 +163,6 @@ class BuiltinFunctions:
                         parent_real_name = parent
                     except KeyError:
                         return self.raise_error('ClassError', 'undefined class "' + parent + '"', op)
-        # check class already declared
-        try:
-            self.classes[self.current_namespace() + arg]
-            return self.raise_error(
-                'ClassError',
-                'class "' + self.current_namespace() + arg + '" already declared',
-                op
-            )
-        except KeyError:
-            pass
         if parent_real_name != None:
             #self.classes[self.current_namespace() + arg] = copy.deepcopy(self.classes[parent_real_name])
             self.classes[self.current_namespace() + arg] = Class(self.current_namespace() + arg)
@@ -196,24 +186,11 @@ class BuiltinFunctions:
         """ Starts function declaration block """
         self.require_one_argument(op, 'missing function name')
         arg = self.multi_char_split(op['args_str'], ' (', 1)[0]
-        for ch in parser.literals + '.':
+        for ch in lexer.literals + '.':
             if ch in arg:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op
                 )
-        # check function already declared
-        if len(self.current_class) > 0:
-            pass
-        else:
-            try:
-                self.functions[self.current_namespace() + arg]
-                return self.raise_error(
-                    'FunctionError',
-                    'function "' + self.current_namespace() + arg + '" already declared',
-                    op
-                )
-            except KeyError:
-                pass
         # declare function
         is_method = False
         if len(self.current_class) > 0:
@@ -229,9 +206,9 @@ class BuiltinFunctions:
             if arg_var != '':
                 self.arg_should_be_variable(arg_var, op)
                 if is_method:
-                    self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
+                    self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].body.append(lexer.parse(arg_var + ' = ^', '<system>')[0])
                 else:
-                    self.functions[self.current_func[-1]].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
+                    self.functions[self.current_func[-1]].body.append(lexer.parse(arg_var + ' = ^', '<system>')[0])
 
     def run_return(self, op: dict):
         """ Returns a value in function """

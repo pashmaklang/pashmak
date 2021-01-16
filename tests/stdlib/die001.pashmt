@@ -1,5 +1,5 @@
 #
-# func_re_declaring_error.pashmt
+# die001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,16 +21,19 @@
 #########################################################################
 
 --test--
-function system raises error when re-declaring a function
+function die() works (1)
 
 --file--
-func myfunc
-    print 'hello'
-endfunc
 
-func myfunc
-    print 'something'
-endfunc
+println('A')
 
---with-error--
-'FunctionError'
+die()
+
+println('B')
+
+--output--
+"""A
+"""
+
+--exit-code--
+1

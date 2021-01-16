@@ -28,3 +28,15 @@ This is table of all of datatypes:
 |`bool`|The `True` or `False`. This type is used in condition system|`True`, `False`
 
 [You can see FULL Documentation of python datatypes in here](https://docs.python.org/3/library/stdtypes.html).
+
+### null(None)
+null or None is type of a value. They mean Empty.
+
+for example:
+
+```bash
+$something = None
+$something = null
+```
+
+The `None` and `null` keywords are Exactly like together and are not diffrent(`null` is a alias for `None`).

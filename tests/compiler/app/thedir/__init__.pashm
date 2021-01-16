@@ -1,0 +1,2 @@
+println('the dir init')
+import $__dir__ + '/other.pashm'

@@ -18,6 +18,8 @@ you can use this python standard modules in pashmak directly in your code:
 - `sqlite3`
 - `urllib`
 - `platform`
+- `mimetypes`
+- `re`
 
 for example:
 

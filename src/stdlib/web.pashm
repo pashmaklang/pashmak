@@ -1,0 +1,69 @@
+#
+# web.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+func web_init
+    # load the cookies
+    import @os
+    if 'HTTP_COOKIE' in list($os.env->keys())
+        $base_cookie = http.cookies.BaseCookie()
+        $base_cookie->load($os.env['HTTP_COOKIE'])
+        $i = 0
+        $items = list($base_cookie->items())
+        $cookies = {}
+        while $i < len($items)
+            $cookies[$items[$i][0]] = $items[$i][1]->value
+            $i = $i + 1
+        endwhile
+        gset('web_cookies', $cookies)
+    else
+        gset('web_cookies', {})
+    endif
+endfunc
+
+func web_set_header($args)
+    $args = format_args($args)
+    perror(str($args[0]) + ': ' + str($args[1]) + '\n')
+endfunc
+
+func web_status($code)
+    $code = format_args($code)[0]
+    web_set_header('Status', str($code))
+endfunc
+
+func web_set_cookie($args)
+    $args = format_args($args)
+    $options = dict($args[0])
+    $options->setdefault('value', '')
+    $base_cookie = http.cookies.BaseCookie()
+    $base_cookie[$options['name']] = $options['value']
+    $i = 0
+    $keys = list($options->keys())
+    while $i < len($keys)
+        if $keys[$i] not in ['name', 'value']
+            $base_cookie[$options['name']][$keys[$i]] = $options[$keys[$i]]
+        endif
+        $i = $i + 1
+    endwhile
+    $real_cookies = gget('web_cookies')
+    $real_cookies[$options['name']] = $options['value']
+    perror($base_cookie->output())
+endfunc

@@ -1,5 +1,5 @@
 #
-# bug002.pashmt
+# 001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,9 +21,41 @@
 #########################################################################
 
 --test--
-lexer parses import_once command like import command
+compiler works correct
 
 --file--
 
-import_once @hash, @time
-import_once(@random ,@stdlib)
+out_start()
+$argv->append('pashmak')
+$argv->append($__dir__ + '/tests/compiler/app/app.pashm')
+import_run @compiler
+$output = out_get_clean()
+eval($output)
+$output = out_get_clean()->strip()
+out_end()
+println($output)
+
+--output--
+"""hello
+True
+i am second
+Second: the True
+y:0
+y:1
+y:2
+hello i am last
+posix
+False
+The something func
+the True
+z:0
+z:1
+z:2
+True
+the dir init
+the dir other
+i am other
+i am other
+i am other
+end
+"""

@@ -29,7 +29,7 @@ makes interpreter speed up
 import os
 import hashlib
 import pickle
-from . import parser
+from . import lexer
 
 def calc_file_sha256(filepath: str) -> str:
     """
@@ -75,7 +75,7 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain
             content += '\n$__file__ = ' + repr(self.get_var('__file__').replace('\\', '\\\\'))
             content += '\n$__dir__ = ' + repr(self.get_var('__dir__').replace('\\', '\\\\'))
             content += '\n$__ismain__ = ' + str(bool(self.get_var('__ismain__')))
-        return parser.parse(content, filepath=code_location)
+        return lexer.parse(content, filepath=code_location)
 
     try:
         file_hash = calc_file_sha256(path)
@@ -101,6 +101,11 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain
                             content[0]['str'] = '$__ismain__ = ' + str(ismain_default)
                             content[0]['args_str'] = '= ' + str(ismain_default)
                             content[0]['args'] = ['=', str(ismain_default)]
+                            if len(content) > 1 and self != None:
+                                if content[-1]['str'].startswith('$__ismain__ = '):
+                                    content[-1]['str'] = '$__ismain__ = ' + str(self.get_var('__ismain__'))
+                                    content[-1]['args_str'] = '= ' + str(self.get_var('__ismain__'))
+                                    content[-1]['args'] = ['=', str(self.get_var('__ismain__'))]
         except:
             pass
 
@@ -117,13 +122,10 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain
 
         # write the content on cache
         if is_new_cache:
-            content = parser.parse(content, filepath=code_location)
+            content = lexer.parse(content, filepath=code_location)
             cache_f = open(the_cache_file, 'wb')
             pickle.dump([file_hash, content], cache_f)
             cache_f.close()
-
-        #print(content[0]['str'])
-        #print(content[-1]['str'])
 
         return content
     except:

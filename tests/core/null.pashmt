@@ -1,5 +1,5 @@
 #
-# bug002.pashmt
+# null.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,9 +21,12 @@
 #########################################################################
 
 --test--
-lexer parses import_once command like import command
+keyword `null` working correct
 
 --file--
 
-import_once @hash, @time
-import_once(@random ,@stdlib)
+println(null == None)
+
+--output--
+"""True
+"""

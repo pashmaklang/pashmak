@@ -1,5 +1,5 @@
 #
-# bug002.pashmt
+# gget001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,9 +21,21 @@
 #########################################################################
 
 --test--
-lexer parses import_once command like import command
+function gget() is working
 
 --file--
 
-import_once @hash, @time
-import_once(@random ,@stdlib)
+func hello
+    $name = 'new'
+    println($name)
+    println(gget('name'))
+endfunc
+
+$name = 'pashmak'
+
+hello()
+
+--output--
+"""new
+pashmak
+"""

@@ -38,3 +38,10 @@ v1.x.y
 ```
 
 and `$sys.pashmakinfo['pythoninfo']` shows info of python.
+
+### `$sys.pashmakexe`: The pashmak's interpreter exe filename
+This variable contains pashmak's interpreter filename.
+
+```bash
+println($sys.pashmakexe)
+```

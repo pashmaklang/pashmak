@@ -30,8 +30,8 @@ namespace webserver
             $this->host = $args[0]
             $this->port = $args[1]
 
-            $this->do_get = None
-            $this->do_post = None
+            $this->do_get = null
+            $this->do_post = null
         endfunc
 
         func set_get($func)
@@ -45,17 +45,17 @@ namespace webserver
         endfunc
 
         func serve
-            $py_code = '\\
+            $py_code = '\
 def serve(host, port, do_get=None, do_post=None):\n\
     class TheServer(http.server.BaseHTTPRequestHandler):\n\
         def do_GET(self):\n\
             if self.get_event != None:\n\
                 self.get_event(self)\n\
-\\
+\
         def do_POST(self):\n\
             if self.post_event != None:\n\
                 self.post_event(self)\n\
-\\
+\
     tmp_TheServer = copy.deepcopy(TheServer)\n\
     tmp_TheServer.get_event = do_get\n\
     tmp_TheServer.post_event = do_post\n\
@@ -69,3 +69,152 @@ self.mem = serve(self.get_var("this").host, self.get_var("this").port, self.get_
         endfunc
     endclass
 endns
+
+if $__ismain__
+    import @sys
+
+    if '--help' in $argv
+        println('Serve a simple webserver for development environment')
+        println('')
+        println('Usage:   pashmak @webserver <port>')
+        println('         pashmak @webserver <host> <port>')
+        println('         pashmak @webserver <host> <port> <directory>')
+        println('         pashmak @webserver <host> <port> <directory> <main-script: main file is request handler>')
+        println('Example: pashmak @webserver 8080')
+        println('         pashmak @webserver 0.0.0.0 8080')
+        println('         pashmak @webserver 0.0.0.0 8080 path/to/public/html')
+        println('         pashmak @webserver 0.0.0.0 8080 path/to/public/html path/to/public/html/server.pashm')
+        exit()
+    endif
+
+    $port = 8000
+    $host = 'localhost'
+    $dir = os.getcwd()
+    $main = null
+    if len($argv) > 2
+        $host = $argv[1]
+        $port = int($argv[2])
+        if len($argv) > 3
+            $dir = $argv[3]
+            if len($argv) > 4
+                $main = $argv[4]
+            endif
+        endif
+    elif len($argv) > 1
+        $port = int($argv[1])
+    endif
+
+    $server = webserver.WebServer($host, $port)
+
+    func get_handler($handler)
+        the_handler($handler, 'GET')
+    endfunc
+
+    func post_handler($handler)
+        the_handler($handler, 'POST')
+    endfunc
+
+    # a handler for POST and GET methods
+    func the_handler($args)
+        $args = format_args($args)
+        $handler = $args[0]
+        $request_method = $args[1]
+        free $args
+        if os.path.isfile($dir + '/' + $handler->path) or $main != null
+            $full_path = os.path.abspath($dir + '/' + $handler->path)
+            $mime = mimetypes.guess_type($full_path)[0]
+
+            if $full_path->endswith('.pashm') or $full_path->endswith('.tengine') or $full_path->endswith('.pashm.html') or $main != null
+                if $main != null
+                    $full_path = $main
+                endif
+                $command = [$sys.pashmakexe, $full_path]
+                $f = open($full_path, 'r')
+                $content = $f->read()
+                $f->close()
+                if $content->split('\n', 1)[0]->endswith('@tengine') and $content->split('\n', 1)[0]->startswith('#!/')
+                    $command->insert(1, '@tengine')
+                endif
+                # load request headers
+                $env = {"REQUEST_URI": $handler->path, "REQUEST_METHOD": $request_method, "REMOTE_ADDR": $handler->client_address[0], "REMOTE_PORT": str($handler->client_address[1])}
+                $request_headers = str($handler->headers)->strip()->split('\n')
+                $i = 0
+                while $i < len($request_headers)
+                    $key = $request_headers[$i]->split(':', 1)
+                    $value = $key[-1]
+                    $key = $key[0]
+                    $key = 'HTTP_' + $key->replace('-', '_')->upper()
+                    $env[$key] = $value->strip()
+                    $i = $i + 1
+                endwhile
+                if $request_method == 'POST'
+                    $env['HTTP_POST_DATA'] = $handler->rfile->read(int($env['HTTP_CONTENT_LENGTH']))
+                endif
+                $result = subprocess.run($command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=$env)
+                if $result->stderr == null
+                    $result->stderr = ''
+                endif
+                $headers = [['Content-type', 'text/html']]
+                $tmp_stderr = str($result->stderr->decode())->strip()->split('\n')
+                $i = 0
+                $res_code = 200
+                while $i < len($tmp_stderr)
+                    $key = $tmp_stderr[$i]->split(':', 1)
+                    $value = $key[-1]
+                    $key = $key[0]
+                    if $key == 'Status'
+                        $res_code = int($value)
+                    else
+                        $headers->append([$key->strip(), $value->strip()])
+                    endif
+                    $i = $i + 1
+                endwhile
+                $i = 0
+                $handler->send_response($res_code)
+                while $i < len($headers)
+                    $handler->send_header($headers[$i][0], $headers[$i][1])
+                    $i = $i + 1
+                endwhile
+                $handler->end_headers()
+                $handler->wfile->write($result->stdout)
+                return
+            endif
+
+            try handle_file_error
+                $f = open($full_path, 'r')
+                $content = $f->read()
+                $f->read()
+            endtry
+            goto after_handle_file_error; section handle_file_error
+                $handler->send_response(403)
+                $handler->send_header("Content-type", "text/html")
+                $handler->end_headers()
+                $handler->wfile->write(bytes('403 - Access Denied', "utf-8"))
+                return
+            section after_handle_file_error
+
+            $handler->send_response(200)
+            if $mime == null
+                $mime = 'text/plain'
+            endif
+            $handler->send_header("Content-type", $mime)
+            $handler->end_headers()
+            $handler->wfile->write(bytes($content, "utf-8"))
+            return
+        else
+            $handler->send_response(404)
+            $handler->send_header("Content-type", "text/html")
+            $handler->end_headers()
+            $handler->wfile->write(bytes('404 - Not Found', "utf-8"))
+            return
+        endif
+    endfunc
+
+    # set request handlers
+    $server->set_get(get_handler)
+    $server->set_post(post_handler)
+
+    # start the server
+    println('Serving the development server on http://' + $host + ':' + str($port) + ' - Do not use this on production')
+    $server->serve()
+endif

@@ -1,5 +1,5 @@
 #
-# bug002.pashmt
+# syntax-bug002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,9 +21,23 @@
 #########################################################################
 
 --test--
-lexer parses import_once command like import command
+class property setting syntax bug is fixed
 
 --file--
 
-import_once @hash, @time
-import_once(@random ,@stdlib)
+class Hi
+	$dict = {}
+	func hello($n)
+		$this->dict[$n[0]] = $n[1]
+	endfunc
+endclass
+
+$a = Hi()
+
+$a->hello('hi', 'good bye')
+
+println $a->dict
+
+--output--
+"""{'hi': 'good bye'}
+"""

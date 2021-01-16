@@ -71,7 +71,7 @@ class TheClassName
 endclass
 ```
 
-default value for that properties is `None`.
+default value for that properties is `null`(`None`).
 
 also you can set the default value:
 

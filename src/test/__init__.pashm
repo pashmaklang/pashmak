@@ -56,12 +56,12 @@ namespace test
     func assertEmpty($args)
         $args = format_args($args)
         $value = $args[0]
-        test.doAssert($valie == None)
+        test.doAssert($valie == null)
     endfunc
 
     func assertNotEmpty($args)
         $args = format_args($args)
         $value = $args[0]
-        test.doAssert($valie != None)
+        test.doAssert($valie != null)
     endfunc
 endns

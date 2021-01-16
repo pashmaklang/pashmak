@@ -25,7 +25,7 @@
 import os
 import sys
 from sys import exit
-from . import builtin_functions, modules, parser
+from . import builtin_functions, modules, lexer
 
 class VariableError(Exception):
     pass
@@ -80,26 +80,27 @@ class Helpers(builtin_functions.BuiltinFunctions):
 
     def get_var(self, varname: str, do_not_raise_error=False):
         """ Gets a variable name and returns value of that """
-        try:
-            return self.all_vars()[self.current_namespace() + varname]
-        except KeyError:
-            for used_namespace in self.frames[-1]['used_namespaces']:
-                try:
-                    return self.all_vars()[used_namespace + '.' + varname]
-                except KeyError:
-                    pass
+        for frame in list(reversed(self.frames)):
             try:
-                return self.all_vars()[varname]
+                return frame['vars'][self.current_namespace() + varname]
             except KeyError:
-                do_raise_error = False
+                for used_namespace in self.frames[-1]['used_namespaces']:
+                    try:
+                        return frame['vars'][used_namespace + '.' + varname]
+                    except KeyError:
+                        pass
                 try:
-                    op = self.frames[-1]['commands'][self.frames[-1]['current_step']]
-                    do_raise_error = True
-                except:
-                    pass
-                if do_raise_error and do_not_raise_error == False:
-                    raise VariableError('undefined variable "' + varname + '"')
-                    return
+                    return frame['vars'][varname]
+                except KeyError:
+                    do_raise_error = False
+                    try:
+                        op = self.frames[-1]['commands'][self.frames[-1]['current_step']]
+                        do_raise_error = True
+                    except:
+                        pass
+        if do_raise_error and do_not_raise_error == False:
+            raise VariableError('undefined variable "' + varname + '"')
+            return
 
     def set_var(self, varname: str, value):
         """ Gets name of a variable and sets value on that """
@@ -169,7 +170,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
     def pashmak_eval(self, code):
         """ Runs the pashmak code from string """
         # run the code
-        code_commands = parser.parse(code, filepath='<eval>')
+        code_commands = lexer.parse(code, filepath='<eval>')
         self.exec_func(code_commands, False)
 
     def current_namespace(self):

@@ -54,7 +54,12 @@ endfunc
 
 func gset($args)
     $args = format_args($args)
-	python('self.frames[0]["vars"]["' + str($args[0]) + '"] = self.get_var("args")[1]')
+	python('self.frames[0]["vars"][' + repr($args[0]) + '] = self.get_var("args")[1]')
+endfunc
+
+func gget($args)
+    $args = format_args($args)
+	python('self.mem = self.frames[0]["vars"][' + repr($args[0]) + ']')
 endfunc
 
 func typeof($obj)
@@ -121,8 +126,14 @@ The Zen of Pashmak is a collection of "guiding principles" for writing computer 
     endfunc
 endns
 
+func register_shutdown($func)
+    $func = format_args($func)[0]
+    python("self.shutdown_event.append(self.get_var('func'))")
+endfunc
+
 import @stdlib.obj
 import @stdlib.io
 import @stdlib.func
 import @stdlib.class
 import @stdlib.exception
+import @stdlib.web

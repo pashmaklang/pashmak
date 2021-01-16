@@ -58,12 +58,12 @@ namespace tengine
 		$__htmldir__ = $__dir__
 		$__htmlfile__ = $__htmldir__ + '/-'
 		$content = $args[0]
-		$content = $content->split('\\n', 1)
+		$content = $content->split('\n', 1)
 		if len($content) > 1
 			if $content[0]->startswith('#!/')
 				$content = $content[1]
 			else
-				$content = '\\n'->join($content)
+				$content = '\n'->join($content)
 			endif
 		else
 			$content = $content[0]
@@ -107,13 +107,13 @@ namespace tengine
 			if $tengine_parts[$tengine_i][0] == True
 				if $tengine_parts[$tengine_i][1]
 					if $tengine_parts[$tengine_i][1][0] == '='
-						$tengine_code = $tengine_code + ('\\nprint(' + $tengine_parts[$tengine_i][1][1:] + ')')
+						$tengine_code = $tengine_code + ('\nprint(' + $tengine_parts[$tengine_i][1][1:] + ')')
 					else
-						$tengine_code = $tengine_code + ('\\n' + $tengine_parts[$tengine_i][1])
+						$tengine_code = $tengine_code + ('\n' + $tengine_parts[$tengine_i][1])
 					endif
 				endif
 			else
-				$tengine_code = $tengine_code + ('\\nprint(base64.b64decode("' + base64.b64encode($tengine_parts[$tengine_i][1]->encode())->decode() + '")->decode())')
+				$tengine_code = $tengine_code + ('\nprint(base64.b64decode("' + base64.b64encode($tengine_parts[$tengine_i][1]->encode())->decode() + '")->decode())')
 			endif
 			$tengine_i = $tengine_i + 1
 		mem $tengine_i < len($tengine_parts); gotoif tengine_loop2

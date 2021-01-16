@@ -1,5 +1,5 @@
 #
-# bug002.pashmt
+# bug004.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,9 +21,14 @@
 #########################################################################
 
 --test--
-lexer parses import_once command like import command
+module variable conflicting bug is fixed
 
 --file--
 
-import_once @hash, @time
-import_once(@random ,@stdlib)
+func hello
+    import @sys
+    println($sys.pashmakinfo['version'])
+endfunc
+
+hello()
+hello()

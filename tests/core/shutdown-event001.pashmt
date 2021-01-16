@@ -1,5 +1,5 @@
 #
-# bug002.pashmt
+# shutdown-event001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,9 +21,27 @@
 #########################################################################
 
 --test--
-lexer parses import_once command like import command
+shutdown event system working
 
 --file--
 
-import_once @hash, @time
-import_once(@random ,@stdlib)
+func end1
+    println('the end 1')
+endfunc
+
+func end2
+    println('the end 2')
+endfunc
+
+register_shutdown(end1)
+register_shutdown(end2)
+
+println('hello')
+println('world')
+
+--output--
+"""hello
+world
+the end 1
+the end 2
+"""

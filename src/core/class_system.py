@@ -23,7 +23,7 @@
 """ Classes """
 
 import copy
-from . import parser
+from . import lexer
 from .function import Function
 
 class ClassConstError(Exception):

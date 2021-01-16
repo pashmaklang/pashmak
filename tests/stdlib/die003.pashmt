@@ -1,5 +1,5 @@
 #
-# bug002.pashmt
+# die003.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,9 +21,20 @@
 #########################################################################
 
 --test--
-lexer parses import_once command like import command
+function die() works (2)
 
 --file--
 
-import_once @hash, @time
-import_once(@random ,@stdlib)
+println('A')
+
+die("Good bye\n", 11)
+
+println('B')
+
+--output--
+"""A
+Good bye
+"""
+
+--exit-code--
+11
