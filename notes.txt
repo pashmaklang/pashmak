@@ -1,3 +1,0 @@
-Notes and TODO for Pashmak web feature:
-- sync `web_init` with other web servers
-- add `$web_post`, `$web_get` variables
