@@ -20,8 +20,6 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-#!/usr/bin/env pashmak
-
 class Mixer
     func __init__($args)
         $args = format_args($args)

@@ -1,7 +1,0 @@
-
-out_start()
-$argv->append($__dir__ + '/tests/compiler/app/app.pashm')
-import_run @compiler
-$output = out_get_clean()
-out_end()
-eval($output)
