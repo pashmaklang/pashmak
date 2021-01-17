@@ -20,6 +20,11 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
+func @doc($doc)
+    $doc = str($doc)
+    python("self.last_docstring = self.get_var('doc')")
+endfunc
+
 func import
     mem self.import_script(^)
 endfunc

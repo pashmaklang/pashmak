@@ -41,6 +41,6 @@ println($test->__props__[-1])
 println($hello->__props__[-1])
 
 --output--
-"""{'__parent__': 'Object', '__name__': 'Test'}
-{'__parent__': 'Test', '__name__': 'Hello'}
+"""{'__parent__': 'Object', '__name__': 'Test', '__docstring__': ''}
+{'__parent__': 'Test', '__name__': 'Hello', '__docstring__': ''}
 """

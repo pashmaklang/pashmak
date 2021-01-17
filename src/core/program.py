@@ -76,6 +76,8 @@ class Program(helpers.Helpers):
 
         self.module_path = []
 
+        self.last_docstring = ''
+
         self.shutdown_event = []
 
         current_prog.current_prog = self
