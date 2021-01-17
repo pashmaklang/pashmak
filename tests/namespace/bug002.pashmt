@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-$__dir__, $__file__ and $__ismain__ variables bug in namespace bug is fixed
+$__dir__, $__file__ and $__ismain__ variables bug in namespace is fixed
 
 --file--
 
