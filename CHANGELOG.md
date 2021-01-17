@@ -1,5 +1,6 @@
 # Pashmak Changelog
 
+<<<<<<< HEAD
 ## (0.7-alpha1) next release
 
 #### New Features
@@ -23,7 +24,7 @@
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line
 
-## (0.6.x) next release
+## 0.6.8 (2021-1-17)
 
 #### Bug Fixes
 - fixed a bug in importing modules environment conflicting
