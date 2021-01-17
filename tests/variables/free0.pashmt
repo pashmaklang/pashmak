@@ -26,5 +26,6 @@ free command is working
 $somevar; $v1
 $hoho
 free $v1 $hoho
---vars--
-{'somevar':None}
+println($v1, $hoho)
+--with-error--
+"VariableError"

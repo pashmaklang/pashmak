@@ -20,10 +20,16 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
+@doc """\
+Prints a object on stdout.\
+"""
 func print
     mem self.print(^)
 endfunc
 
+@doc """\
+Prints a object on stdout and goes to next line.\
+"""
 func println($value)
     print(str($value) + '\n')
 endfunc
@@ -32,10 +38,18 @@ func printl($value)
     println($value)
 endfunc
 
+@doc """\
+Prints a object on stderr.\
+"""
 func perror($value)
     mem self.print($value, file=sys.stderr)
 endfunc
 
+@doc """\
+Prints a object on a file.\n\
+First argument is the object that you want to print.\n\
+Second argument is the file that you want to print on, but is optional. default is stdout file.\
+"""
 func printf($args)
     $args = format_args($args)
     $obj = $args[0]
@@ -47,28 +61,47 @@ func printf($args)
     $file->write(str($obj))
 endfunc
 
+@doc """\
+Opens the output buffer.\
+"""
 func out_start
     python("self.out_started = True")
 endfunc
 
+@doc """\
+Closes the output buffer.\
+"""
 func out_end
     python("self.out_started = False")
 endfunc
 
+@doc """\
+Clears the output buffer.\
+"""
 func out_clean
     python("self.out_content = ''")
 endfunc
 
+@doc """\
+Returns the output buffer as string.\
+"""
 func out_get
     python("self.mem = self.out_content")
 endfunc
 
+@doc """\
+Returns output buffer and clears that.\
+"""
 func out_get_clean
     $content = out_get()
     out_clean()
     return $content
 endfunc
 
+@doc """\
+Exits program.\n\
+The argument is the exit code(is optional, default is 0).\
+"""
 func exit($args)
     $args = format_args($args)
     $code = $args[0]
@@ -78,14 +111,25 @@ func exit($args)
     python("self.exit_program(self.get_var('code'))")
 endfunc
 
+@doc """\
+Reads a input from user from stdin.\
+"""
 func read
     python("self.io_read()")
 endfunc
 
+@doc """\
+Dumps a object.\
+"""
 func var_dump($obj)
     python("class Tmp:\n    def write(self, value):\n        current_prog.current_prog.print(str(value))\npprint.pprint(self.get_var('obj'), Tmp())")
 endfunc
 
+@doc """\
+Prints something and exits program.\n\
+The first argument is that thing you want to print(Optional,default is null).\n\
+The second argument is exit code(is optional, default is 1).\
+"""
 func die($args)
     $args = list(format_args($args))
     if len($args) <= 0

@@ -25,10 +25,10 @@ read command can read more that one argument
 
 --file--
 $input = read()
-print $input
+print($input)
 
 $input_1 = read()
-print $input_1
+print($input_1)
 
 --stdin--
 ['pashmak', 'parsa']

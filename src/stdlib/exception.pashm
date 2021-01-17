@@ -20,6 +20,11 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
+@doc """\
+A model for error exceptions.\n\
+Also is used by `raise` function.\n\
+Example: Error('ErrorType', 'message of error')\
+"""
 class Error
     $type
     $messae
@@ -35,6 +40,10 @@ class Error
     endfunc
 endclass
 
+@doc """\
+Raises a error.\n\
+Gets a object from `Error` class as error.\
+"""
 func raise($args)
     $args = format_args($args)
     $ex = $args[0]

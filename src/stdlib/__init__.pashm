@@ -20,35 +20,62 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
+func python
+    rmem exec(^)
+endfunc
+
 func @doc($doc)
     $doc = str($doc)->strip()
     python("self.last_docstring = self.get_var('doc')")
 endfunc
 
+@doc """\
+Imports a script or a module.\n\
+Gets script/module name as string.\
+"""
 func import
     mem self.import_script(^)
 endfunc
 
+@doc """\
+Is like `import()`, but checks if module or script already is imported, do not imports again.\
+Gets module or script name as string.\
+"""
 func import_once
     mem self.import_script(^, True)
 endfunc
 
+@doc """\
+Is like `import()`, But sets `$__ismain__` to `True` for module(run mode).\
+"""
 func import_run
     mem self.import_script(^, False, ismain_default=True)
 endfunc
 
+@doc """\
+Is like `import_run` but checks script is already imported like `import_once`.\
+"""
 func import_run_once
     mem self.import_script(^, True, ismain_default=True)
 endfunc
 
+@doc """\
+Is a alias for `endnamespace` keyword.\
+"""
 func endns
     endnamespace
 endfunc
 
+@doc """\
+Gets a Pashmak code as string and runs that.\
+"""
 func eval
     mem self.pashmak_eval(^)
 endfunc
 
+@doc """\
+Asserts a value, if it's not True, raises AssertError.\
+"""
 func assert($args)
     $args = format_args($args)
     $value = $args[0]
@@ -57,39 +84,56 @@ func assert($args)
     endif
 endfunc
 
+@doc """\
+Sets a global variable.\n\
+Gets variable name as first argument and value as second.\
+"""
 func gset($args)
     $args = format_args($args)
 	python('self.frames[0]["vars"][' + repr($args[0]) + '] = self.get_var("args")[1]')
 endfunc
 
+@doc """\
+Returns a global variable. Gets variable name as string.\
+"""
 func gget($args)
     $args = format_args($args)
 	python('self.mem = self.frames[0]["vars"][' + repr($args[0]) + ']')
 endfunc
 
+@doc """\
+Gets a object/variable and returns type of that.\
+"""
 func typeof($obj)
     python("self.mem = type(self.get_var('obj'))")
 endfunc
 
+@doc """\
+Runs a system shell command and returns exit code.\n\
+Gets command as string and returns exit code as int.\
+"""
 func system($args)
     $args = format_args($args)
     $cmd = $args[0]
     python("self.mem = os.system(self.get_var('cmd'))")
 endfunc
 
-func python
-    rmem exec(^)
-endfunc
-
 func required
 endfunc
 
+@doc """\
+Loads a python file script as a python module object.\n\
+Gets script file path as string and returns loaded object.\
+"""
 func py_load_file($args)
     $args = format_args($args)
     $path = $args[0]
 	python("import importlib.util; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path')); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); self.mem = m")
 endfunc
 
+@doc """\
+Is a alias for `open()` function.\
+"""
 func fopen($args)
     $args = format_args($args)
     $path = $args[0]
@@ -102,11 +146,17 @@ func fopen($args)
     python("self.mem = open(self.get_var('path'), self.get_var('type'))")
 endfunc
 
+@doc """\
+Returns current namespace as string.\
+"""
 func __namespace__
     python("self.mem = self.current_namespace()")
 endfunc
 
 namespace pashmak
+    @doc """\
+    Prints zen of Pashmak.\
+    """
     func zen
         println('Zen of Pashmak\n\
 \n\
@@ -131,6 +181,11 @@ The Zen of Pashmak is a collection of "guiding principles" for writing computer 
     endfunc
 endns
 
+@doc """\
+Adds a function to shutdown event.\n\
+Shutdown event functions will be run one by one in end of program.\n\
+Gets function object as argument.\
+"""
 func register_shutdown($func)
     $func = format_args($func)[0]
     python("self.shutdown_event.append(self.get_var('func'))")

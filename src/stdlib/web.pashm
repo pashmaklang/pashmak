@@ -20,6 +20,9 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
+@doc """\
+Initializes the web environment.\
+"""
 func web_init
     # load the cookies
     import @os
@@ -39,16 +42,28 @@ func web_init
     endif
 endfunc
 
+@doc """\
+Sets a http header.\n\
+First argument is name of header and last is value(both string).\
+"""
 func web_set_header($args)
     $args = format_args($args)
     perror(str($args[0]) + ': ' + str($args[1]) + '\n')
 endfunc
 
+@doc """\
+Sets http response code.\n\
+Gets code as int.\
+"""
 func web_status($code)
     $code = format_args($code)[0]
     web_set_header('Status', str($code))
 endfunc
 
+@doc """\
+Sets a HTTP cookie.\n\
+Gets options as dictionary.\
+"""
 func web_set_cookie($args)
     $args = format_args($args)
     $options = dict($args[0])

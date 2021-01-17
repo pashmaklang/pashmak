@@ -24,6 +24,7 @@
 $array->pop() works
 --file--
 $names = ['pashmak', 'parsa']
-mem $names->pop(1)
---vars--
-{'names': ['pashmak']}
+$names->pop(1)
+println($names)
+--output--
+"['pashmak']\n"

@@ -25,9 +25,10 @@ python exec system is working
 
 --file--
 python("self.all_vars()['myvar'] = 'the value'")
+println($myvar)
 python("self.mem = 'the mem'")
 
---vars--
-{'myvar': 'the value'}
+--output--
+'the value\n'
 --mem--
 'the mem'

@@ -34,5 +34,12 @@ $type_bool = typeof($mybool)
 
 free $mystr $myint $mybool
 
---vars--
-{'type_str': str, 'type_int': int, 'type_bool': bool}
+println($type_str)
+println($type_int)
+println($type_bool)
+
+--output--
+"""<class 'str'>
+<class 'int'>
+<class 'bool'>
+"""

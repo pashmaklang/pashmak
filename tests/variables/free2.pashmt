@@ -24,5 +24,3 @@
 free command has not any error on not found variable
 --file--
 free $not_found_var
---vars--
-{}
