@@ -25,9 +25,7 @@ $array->append() works
 
 --file--
 $names = ['pashmak', 'parsa']
-mem $names->append('newname')
---vars--
-
-{'names': [
-    'pashmak', 'parsa', 'newname'
-]}
+$names->append('newname')
+println($names)
+--output--
+"['pashmak', 'parsa', 'newname']\n"

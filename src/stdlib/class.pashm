@@ -22,11 +22,19 @@
 
 # The class super tools
 namespace class
+    @doc """\
+    Returns list of defined classes as list of strings(name of class).\
+    """
     func list
         # returns list of classes
         python("self.mem = list(self.classes.keys())")
     endfunc
 
+    @doc """\
+    Checks a class exists.\n\
+    Gets class name as string.\n\
+    Returns boolean.\
+    """
     func exists($args)
         $args = format_args($args)
         $name = $args[0]
@@ -35,6 +43,11 @@ namespace class
         return $name in class.list()
     endfunc
 
+    @doc """\
+    Deletes a class.\n\
+    Gets class name as string.\n\
+    (This Cannot delete builtin classes).\
+    """
     func delete($args)
         $args = format_args($args)
         $name = $args[0]

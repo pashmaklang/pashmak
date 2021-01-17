@@ -24,15 +24,26 @@
 namespace os
     $env = python("self.mem = os.environ")
 
+    @doc """\
+    Changes program working directory to new path.\n\
+    Gets path as string.\
+    """
     func chdir($args)
         $args = format_args($args)
         python("os.chdir(self.get_var('args')[0]")
     endfunc
 
+    @doc """\
+    Returns CPU count.\
+    """
     func cpu_count
         python("self.mem = os.cpu_count()")
     endfunc
 
+    @doc """\
+    Makes a directory.\n\
+    Gets directory path as string.\
+    """
     func mkdir($args)
         $args = format_args($args)
         python("os.mkdir(self.get_var('args')[0])")
@@ -40,6 +51,11 @@ namespace os
 
     $curdir = python("self.mem = os.curdir")
 
+    @doc """\
+    Kills a process.\n\
+    First argument is process ID as int.\n\
+    Second argument is the signal.\
+    """
     func kill($args)
         $args = format_args($args)
         $pid = $args[0]
@@ -47,6 +63,10 @@ namespace os
         python("os.kill(self.get_var('pid'), self.get_var('signal'))")
     endfunc
 
+    @doc """\
+    Removes a directory.\n\
+    Gets directory path as string.\
+    """
     func rmdir($args)
         $args = format_args($args)
         python("os.rmdir(self.get_var('args')[0])")
@@ -56,21 +76,39 @@ namespace os
 
     $pardir = python('self.mem = os.path.pardir')
 
+    @doc """\
+    Checks is a path directory.\n\
+    Gets path as string.\n\
+    Returns Boolean.\n\
+    """
     func isdir($args)
         $args = format_args($args)
         python("self.mem = os.path.isdir(self.get_var('args')[0])")
     endfunc
 
+    @doc """\
+    Checks is a path file.\n\
+    Gets path as string.\n\
+    Returns Boolean.\n\
+    """
     func isfile($args)
         $args = format_args($args)
         python("self.mem = os.path.isfile(self.get_var('args')[0])")
     endfunc
-    
+
+    @doc """\
+    Checks a path exists.\n\
+    Gets path as string.\n\
+    Returns Boolean.\
+    """
     func exists($args)
         $args = format_args($args)
         python("self.mem = os.path.exists(self.get_var('args')[0])")
     endfunc
 
+    @doc """\
+    Returns program current working directory as string.\
+    """
     func cwd
         python("self.mem = os.getcwd()")
     endfunc

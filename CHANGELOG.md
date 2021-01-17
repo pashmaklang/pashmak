@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## (0.7-alpha1) next release
+## 0.7-alpha2 (2021-1-17)
 
 #### New Features
 - added `import_run` and `import_run_once` functions (GH-84)
@@ -18,15 +18,18 @@
 - added `re` python regex library
 - added function `die`
 - moved `pashmiler` from a external library to a builtin module and renamed to `compiler` (GH-93)
+- added **Docstring** system (GH-94)
 
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line
 
-## (0.6.x) next release
+## 0.6.8 (2021-1-17)
 
 #### Bug Fixes
 - fixed a bug in importing modules environment conflicting
 - fixed a bug in `import_once`, `import_run` and `import_run_once` functions
+- fixed calling function in class block bug
+- fixed `$__dir__`, `$__file__` and `$__ismain__` variables bug in namespace block
 
 ## 0.6.7 (2021-1-15)
 

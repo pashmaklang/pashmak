@@ -22,16 +22,27 @@
 #########################################################################
 
 namespace random
+    @doc """\
+    Generates a random number between x and y.\n\
+    First and second arguments are x and y as number.\
+    """
     func randint($args)
         $args = format_args($args)
         python("self.mem = random.randint(self.get_var('args')[0], self.get_var('args')[1])")
     endfunc
 
+    @doc """\
+    Initializes Random number generator.\n\
+    Gets seed as integer.\
+    """
     func seed($args)
         $args = format_args($args)
         python("random.seed(self.get_var('args')[0])")
     endfunc
-    
+
+    @doc """\
+    Returns the current internal state of the random number generator.\
+    """
     func getstate
         python("self.mem = random.getstate()")
     endfunc
@@ -81,6 +92,9 @@ namespace random
         python("self.mem = random.triangular(self.get_var('args')[0], self.get_var('args')[1], self.get_var('args')[2])")
     endfunc
 
+    @doc """\
+    Generates a random float less that 1.\
+    """
     func random
         python("self.mem = random.random()")
     endfunc

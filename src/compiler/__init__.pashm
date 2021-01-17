@@ -20,6 +20,14 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
+@doc "\
+The Mixer class gets a file path and crawls in that, finds imports and mixes them\
+\n\
+Example:\
+    $mixer = Mixer('/path/to/file.pashm')\
+    # then, finally generated code is accessible:\
+    println($mixer->total_content)\
+"
 class Mixer
     func __init__($args)
         $args = format_args($args)
@@ -43,6 +51,11 @@ class Mixer
         $this->total_content = $new_content->strip()
     endfunc
 
+    @doc "\
+    Crawls in a path and finds imports\
+    \n\
+    This method is called recursively\
+    "
     func crawl($args)
         $path = format_args($args)[0]
 

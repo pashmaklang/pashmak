@@ -128,7 +128,7 @@ if $__ismain__
                 if $main != null
                     $full_path = $main
                 endif
-                $command = [$sys.pashmakexe, $full_path]
+                $command = [$sys.pashmakexe, repr($full_path)]
                 $f = open($full_path, 'r')
                 $content = $f->read()
                 $f->close()
@@ -150,7 +150,8 @@ if $__ismain__
                 if $request_method == 'POST'
                     $env['HTTP_POST_DATA'] = $handler->rfile->read(int($env['HTTP_CONTENT_LENGTH']))
                 endif
-                $result = subprocess.run($command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=$env)
+		$command_str = ' '.join($command)
+                $result = subprocess.run($command_str, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=$env, shell=True)
                 if $result->stderr == null
                     $result->stderr = ''
                 endif

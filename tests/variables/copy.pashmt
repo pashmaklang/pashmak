@@ -26,5 +26,12 @@ copy command is working
 $name; $family; $age
 $name = 'parsa'
 $family = $name
---vars--
-{'name': 'parsa', 'family': 'parsa', 'age': None}
+println($name)
+println($family)
+println($age)
+
+--output--
+"""parsa
+parsa
+None
+"""

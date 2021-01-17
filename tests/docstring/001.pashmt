@@ -1,5 +1,5 @@
 #
-# recursive.pashmt
+# 001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,14 +21,57 @@
 #########################################################################
 
 --test--
-recursive function calling
+docstring will be set for items
 
 --file--
 
-func hello
-    hello()
+@doc "This is a test\n\
+\n\
+This is a docstring"
+func hello()
+    # ...
 endfunc
-hello()
 
---with-error--
-"RecursionError"
+@doc "The docstring for class"
+class Person
+    @doc "docstring for method\n\
+Other line"
+    func something
+    endfunc
+endclass
+
+println(hello->__docstring__)
+println('')
+println(Person->__docstring__)
+println('')
+println(Person->something->__docstring__)
+
+func other
+endfunc
+
+println(other->__docstring__)
+
+@doc "\n\
+\
+\
+\n\
+hello\n\
+\n\
+"
+func hi
+endfunc
+
+println(hi->__docstring__)
+
+--output--
+"""This is a test
+
+This is a docstring
+
+The docstring for class
+
+docstring for method
+Other line
+
+hello
+"""

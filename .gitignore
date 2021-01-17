@@ -5,3 +5,4 @@ __pycache__
 /venv
 /pylint.out
 __pashmam__
+/.idea

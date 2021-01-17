@@ -20,6 +20,9 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
+@doc """\
+Is parent of all of classes.\
+"""
 class Object
     func __init__
     endfunc
@@ -28,6 +31,10 @@ class Object
         return '[PashmakObject name="' + $this->__name__ + '"]'
     endfunc
 
+    @doc """\
+    Checks is this object instance of a class.\n\
+    Gets that class as argument(You can pass class name as string or class object).\
+    """
     func isinstanceof($args)
         $args = format_args($args)
         $class = $args[0]

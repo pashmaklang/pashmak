@@ -43,21 +43,5 @@ func testfunc $n
 endfunc
 $s = testfunc('A')
 
---vars--
-{
-            'myvar': None,
-            'var1': None,
-            'var2': None,
-            'v3': None,
-            'aaa': None,
-            'hoho': None,
-            'test': 'hello',
-            'x': 'the value',
-            'y': None,
-            'a1': 'parsa',
-            'a2': 'hello parsa\n',
-            'themem': 'hi mem',
-            's': 'the funcA'
-}
 --output--
 'hellohellohello parsa\n'

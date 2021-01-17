@@ -1,5 +1,5 @@
 #
-# exception.pashm
+# bug002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,32 +20,20 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-@doc """\
-A model for error exceptions.\n\
-Also is used by `raise` function.\n\
-Example: Error('ErrorType', 'message of error')\
-"""
-class Error
-    $type
-    $messae
+--test--
+$__dir__, $__file__ and $__ismain__ variables bug in namespace is fixed
 
-    func __init__($args)
-        $args = format_args($args)
-        $this->type = $args[0]
-        $this->message = $args[1]
-    endfunc
+--file--
 
-    func __str__
-        return $this->type + ': ' + $this->message
-    endfunc
-endclass
+func hi
+endfunc 
 
-@doc """\
-Raises a error.\n\
-Gets a object from `Error` class as error.\
-"""
-func raise($args)
-    $args = format_args($args)
-    $ex = $args[0]
-	python("self.raise_error('" + str($ex->type) + "', '" + str($ex->message) + "')")
-endfunc
+hi()
+
+ns app
+hi()
+
+endns
+
+--vars--
+{}

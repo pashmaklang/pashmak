@@ -28,9 +28,7 @@ println 'before include'
 import 'examples/will_be_include.pashm'
 println 'after include'
 testfunc
+println($included_var)
 
 --output--
-'before include\ni am included\nafter include\ni am included func\n'
-
---vars--
-{'included_var': 'included value'}
+'before include\ni am included\nafter include\ni am included func\nincluded value\n'

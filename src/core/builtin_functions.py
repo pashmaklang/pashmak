@@ -22,8 +22,6 @@
 
 """ Pashmak Builtin functions """
 
-import copy
-import random
 from .class_system import Class
 from . import lexer
 from .function import Function
@@ -112,6 +110,22 @@ class BuiltinFunctions:
     def run_endnamespace(self, op: dict):
         """ Closes the namespace block """
         if self.namespaces_tree:
+            # delete unused variables before end namespace
+            current_namespace = self.current_namespace()
+            try:
+                del self.all_vars()[current_namespace + '__dir__']
+            except KeyError:
+                pass
+            try:
+                del self.all_vars()[current_namespace + '__file__']
+            except KeyError:
+                pass
+            try:
+                del self.all_vars()[current_namespace + '__ismain__']
+                print('A')
+            except KeyError:
+                pass
+
             self.namespaces_tree.pop()
         else:
             self.raise_error('SyntaxError', 'unexpected "endnamespace" when namespace block is not opened', op)
@@ -164,22 +178,27 @@ class BuiltinFunctions:
                     except KeyError:
                         return self.raise_error('ClassError', 'undefined class "' + parent + '"', op)
         if parent_real_name != None:
-            #self.classes[self.current_namespace() + arg] = copy.deepcopy(self.classes[parent_real_name])
             self.classes[self.current_namespace() + arg] = Class(self.current_namespace() + arg)
             self.classes[self.current_namespace() + arg].__props__['__parent__'] = parent_real_name
             self.classes[self.current_namespace() + arg].__props__['__name__'] = self.current_namespace() + arg
             self.classes[self.current_namespace() + arg].__inheritance_tree__ = [*self.classes[parent_real_name].__inheritance_tree__, self.classes[self.current_namespace() + arg].__props__['__name__']]
+            self.classes[self.current_namespace() + arg].__docstring__ = self.last_docstring
+            self.last_docstring = ''
         else:
             if self.current_namespace() + arg != 'Object':
                 self.classes[self.current_namespace() + arg] = Class(self.current_namespace() + arg)
                 self.classes[self.current_namespace() + arg].__props__['__parent__'] = 'Object'
                 self.classes[self.current_namespace() + arg].__props__['__name__'] = self.current_namespace() + arg
                 self.classes[self.current_namespace() + arg].__inheritance_tree__ = ['Object', self.classes[self.current_namespace() + arg].__props__['__name__']]
+                self.classes[self.current_namespace() + arg].__docstring__ = self.last_docstring
+                self.last_docstring = ''
             else:
                 self.classes[self.current_namespace() + arg] = Class(self.current_namespace() + arg)
                 self.classes[self.current_namespace() + arg].__props__['__parent__'] = None
                 self.classes[self.current_namespace() + arg].__props__['__name__'] = 'Object'
                 self.classes[self.current_namespace() + arg].__inheritance_tree__ = ['Object']
+                self.classes[self.current_namespace() + arg].__docstring__ = self.last_docstring
+                self.last_docstring = ''
         self.current_class.append(self.current_namespace() + arg)
 
     def run_func(self, op: dict):
@@ -196,10 +215,14 @@ class BuiltinFunctions:
         if len(self.current_class) > 0:
             self.current_func.append(arg)
             self.classes[self.current_class[-1]].__methods__[self.current_func[-1]] = Function(name=self.current_func[-1])
+            self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].__docstring__ = self.last_docstring
+            self.last_docstring = ''
             is_method = True
         else:
             self.current_func.append(self.current_namespace() + arg)
             self.functions[self.current_func[-1]] = Function(name=self.current_func[-1])
+            self.functions[self.current_func[-1]].__docstring__ = self.last_docstring
+            self.last_docstring = ''
         # check for argument variable
         if len(self.multi_char_split(op['args_str'], ' (', 1)) > 1:
             arg_var = self.multi_char_split(op['args_str'], ' (', 1)[1].strip(')').strip('(').strip()
