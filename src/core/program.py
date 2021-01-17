@@ -40,6 +40,7 @@ class Program(helpers.Helpers):
             'current_step': 0,
             'commands': [parser.parse('pass')[0]],
             'used_namespaces': [],
+            'imported_modules': [],
             'vars': {
                 'argv': args,
                 'argc': len(args)
@@ -95,11 +96,14 @@ class Program(helpers.Helpers):
                 try:
                     namespaces_prefix = self.current_namespace()
                     namespaces_prefix += '@'
-                    try:
-                        frame_id = str(id(self.frames[-2]))
-                    except:
-                        frame_id = str(id(self.frames[-1]))
-                    if not frame_id + namespaces_prefix + module_name in self.included_modules:
+                    is_currently_imported = False
+                    z = len(self.frames)-1
+                    while z >= 0:
+                        if namespaces_prefix + module_name in self.frames[z]['imported_modules']:
+                            is_currently_imported = True
+                            z = -1
+                        z -= 1
+                    if not is_currently_imported:
                         try:
                             # search modules from builtin modules
                             commands = parser.parse('$__ismain__ = False\n' + modules.modules[module_name] + '\n$__ismain__ = ' + str(self.get_var('__ismain__')) + '\n', filepath='@' + module_name)
@@ -118,7 +122,7 @@ class Program(helpers.Helpers):
                             if commands == False:
                                 raise KeyError()
                         # add this module to imported modules
-                        self.included_modules.append(frame_id + namespaces_prefix + module_name)
+                        self.frames[-1]['imported_modules'].append(namespaces_prefix + module_name)
                     else:
                         return
                 except KeyError:
@@ -126,14 +130,22 @@ class Program(helpers.Helpers):
             else:
                 if path[0] != '/':
                     path = os.path.dirname(os.path.abspath(self.main_filename)) + '/' + path
-                if os.path.abspath(path) in self.imported_files and import_once:
+                namespaces_prefix = self.current_namespace() + '@'
+                is_currently_imported = False
+                z = len(self.frames) - 1
+                while z >= 0:
+                    if namespaces_prefix + os.path.abspath(path) in self.frames[z]['imported_modules']:
+                        is_currently_imported = True
+                        z = -1
+                    z -= 1
+                if is_currently_imported and import_once:
                     return
                 if os.path.isdir(path):
                     path += '/__init__.pashm'
                 try:
                     code_location = path
                     commands = jit.load(path, code_location, self)
-                    self.imported_files.append(os.path.abspath(code_location))
+                    self.frames[-1]['imported_modules'].append(namespaces_prefix + os.path.abspath(path))
                 except FileNotFoundError as ex:
                     return self.raise_error('FileError', str(ex), op)
                 except PermissionError as ex:
@@ -222,8 +234,10 @@ class Program(helpers.Helpers):
             for k in self.all_vars():
                 if k in ['argv', 'argc', '__file__', '__dir__', '__ismain__']:
                     frame_vars[k] = copy.deepcopy(self.get_var(k))
+            imported_modules = []
         else:
             frame_vars = self.frames[-1]['vars']
+            imported_modules = self.frames[-1]['imported_modules']
 
         for k in default_variables:
             frame_vars[k] = default_variables[k]
@@ -239,6 +253,7 @@ class Program(helpers.Helpers):
             'commands': func_body,
             'vars': frame_vars,
             'used_namespaces': used_namespaces,
+            'imported_modules': imported_modules,
         })
 
         # run function
