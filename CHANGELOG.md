@@ -18,7 +18,7 @@
 - added `re` python regex library
 - added function `die`
 - moved `pashmiler` from a external library to a builtin module and renamed to `compiler` (GH-93)
-- added **Docstring** system
+- added **Docstring** system (GH-94)
 
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line
