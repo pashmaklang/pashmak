@@ -1,6 +1,5 @@
 # Pashmak Changelog
 
-<<<<<<< HEAD
 ## (0.7-alpha1) next release
 
 #### New Features
