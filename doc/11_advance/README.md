@@ -10,3 +10,4 @@
 - [Shutdown event](07_shutdown_event.md)
 - [die()](08_function_die.md)
 - [Pashmiler compiler](09_compiler.md)
+- [Docstrings](10_docstring.md)
