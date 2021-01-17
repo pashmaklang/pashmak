@@ -27,6 +27,7 @@
 #### Bug Fixes
 - fixed a bug in importing modules environment conflicting
 - fixed a bug in `import_once`, `import_run` and `import_run_once` functions
+- fixed calling function in class block bug
 
 ## 0.6.7 (2021-1-15)
 
