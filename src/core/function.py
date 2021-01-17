@@ -33,6 +33,12 @@ class Function:
 
     def __call__(self, *args, **kwargs):
         from .current_prog import current_prog
+        tmp_is_in_class = False
+        try:
+            tmp_is_in_class = copy.deepcopy(current_prog.current_class)
+            current_prog.current_class = []
+        except:
+            pass
         current_prog.mem = args
         if len(current_prog.mem) == 1:
             current_prog.mem = current_prog.mem[0]
@@ -53,4 +59,6 @@ class Function:
             func_namespace = func_namespace.strip('.')
             tmp_body.insert(0, lexer.parse('use ' + func_namespace)[0])
         current_prog.exec_func(tmp_body, with_frame, default_vars)
+        if tmp_is_in_class:
+            current_prog.current_class = tmp_is_in_class
         return current_prog.get_mem()
