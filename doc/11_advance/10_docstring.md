@@ -64,3 +64,31 @@ endclass
 general syntax, is that write `@doc` and a string on forward. also you can use multi line.
 
 and the docstring is accessible with `__docstring__` property.
+
+
+also classes can extends their docstrings. for example:
+
+```bash
+@doc "some docstring"
+class Parent
+endclass
+
+class Child < Parent
+endclass
+
+@doc "other docstring"
+class Other < Child
+endclass
+
+println(Parent->__docstring__)
+println(Child->__docstring__)
+println(Other->__docstring__)
+```
+
+output:
+
+```
+some docstring
+some docstring
+other docstring
+```
