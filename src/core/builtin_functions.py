@@ -166,22 +166,16 @@ class BuiltinFunctions:
             self.classes[self.current_namespace() + arg].__props__['__parent__'] = parent_real_name
             self.classes[self.current_namespace() + arg].__props__['__name__'] = self.current_namespace() + arg
             self.classes[self.current_namespace() + arg].__inheritance_tree__ = [*self.classes[parent_real_name].__inheritance_tree__, self.classes[self.current_namespace() + arg].__props__['__name__']]
-            if self.last_docstring != '':
-                self.classes[self.current_namespace() + arg].__docstring__ = self.last_docstring
-                self.last_docstring = ''
-            else:
-                self.classes[self.current_namespace() + arg].__docstring__ = self.classes[parent_real_name].__docstring__
+            self.classes[self.current_namespace() + arg].__docstring__ = self.last_docstring
+            self.last_docstring = ''
         else:
             if self.current_namespace() + arg != 'Object':
                 self.classes[self.current_namespace() + arg] = Class(self.current_namespace() + arg)
                 self.classes[self.current_namespace() + arg].__props__['__parent__'] = 'Object'
                 self.classes[self.current_namespace() + arg].__props__['__name__'] = self.current_namespace() + arg
                 self.classes[self.current_namespace() + arg].__inheritance_tree__ = ['Object', self.classes[self.current_namespace() + arg].__props__['__name__']]
-                if self.last_docstring != '':
-                    self.classes[self.current_namespace() + arg].__docstring__ = self.last_docstring
-                    self.last_docstring = ''
-                else:
-                    self.classes[self.current_namespace() + arg].__docstring__ = ''
+                self.classes[self.current_namespace() + arg].__docstring__ = self.last_docstring
+                self.last_docstring = ''
             else:
                 self.classes[self.current_namespace() + arg] = Class(self.current_namespace() + arg)
                 self.classes[self.current_namespace() + arg].__props__['__parent__'] = None
