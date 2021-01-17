@@ -1,5 +1,5 @@
 #
-# 003-props.pashmt
+# 001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,14 +21,44 @@
 #########################################################################
 
 --test--
-class properties can be declared
+docstring will be set for items
+
 --file--
-class Car
-    $name
-    $price = 100
+
+@doc "This is a test\n\
+\n\
+This is a docstring"
+func hello()
+    # ...
+endfunc
+
+@doc "The docstring for class"
+class Person
+    @doc "docstring for method\n\
+Other line"
+    func something
+    endfunc
 endclass
 
-print(self.classes['Car'].__props__)
+println(hello->__docstring__)
+println('')
+println(Person->__docstring__)
+println('')
+println(Person->something->__docstring__)
+
+func other
+endfunc
+
+println(other->__docstring__)
 
 --output--
-"{'__parent__': 'Object', '__name__': 'Car', '__docstring__': '', 'name': None, 'price': 100}"
+"""This is a test
+
+This is a docstring
+
+The docstring for class
+
+docstring for method
+Other line
+
+"""
