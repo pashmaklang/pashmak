@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## (0.6.x) next release
+## 0.6.8 (2021-1-17)
 
 #### Bug Fixes
 - fixed a bug in importing modules environment conflicting
