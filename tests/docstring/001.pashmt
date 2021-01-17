@@ -51,6 +51,18 @@ endfunc
 
 println(other->__docstring__)
 
+@doc "\n\
+\
+\
+\n\
+hello\n\
+\n\
+"
+func hi
+endfunc
+
+println(hi->__docstring__)
+
 --output--
 """This is a test
 
@@ -61,4 +73,5 @@ The docstring for class
 docstring for method
 Other line
 
+hello
 """

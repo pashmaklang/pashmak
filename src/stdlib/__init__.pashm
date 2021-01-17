@@ -21,7 +21,7 @@
 #########################################################################
 
 func @doc($doc)
-    $doc = str($doc)
+    $doc = str($doc)->strip()
     python("self.last_docstring = self.get_var('doc')")
 endfunc
 
