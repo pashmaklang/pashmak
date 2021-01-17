@@ -34,8 +34,7 @@ endfunc
 
 @doc "The docstring for class"
 class Person
-    # TODO : uncomment this line
-    #@doc "docstring for method\n\
+    @doc "docstring for method\n\
 Other line"
     func something
     endfunc
@@ -47,6 +46,11 @@ println(Person->__docstring__)
 println('')
 println(Person->something->__docstring__)
 
+func other
+endfunc
+
+println(other->__docstring__)
+
 --output--
 """This is a test
 
@@ -54,5 +58,7 @@ This is a docstring
 
 The docstring for class
 
-The docstring for class
+docstring for method
+Other line
+
 """

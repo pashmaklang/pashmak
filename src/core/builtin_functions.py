@@ -167,6 +167,7 @@ class BuiltinFunctions:
             self.classes[self.current_namespace() + arg].__props__['__name__'] = self.current_namespace() + arg
             self.classes[self.current_namespace() + arg].__inheritance_tree__ = [*self.classes[parent_real_name].__inheritance_tree__, self.classes[self.current_namespace() + arg].__props__['__name__']]
             self.classes[self.current_namespace() + arg].__docstring__ = self.last_docstring
+            self.last_docstring = ''
         else:
             if self.current_namespace() + arg != 'Object':
                 self.classes[self.current_namespace() + arg] = Class(self.current_namespace() + arg)
@@ -174,12 +175,14 @@ class BuiltinFunctions:
                 self.classes[self.current_namespace() + arg].__props__['__name__'] = self.current_namespace() + arg
                 self.classes[self.current_namespace() + arg].__inheritance_tree__ = ['Object', self.classes[self.current_namespace() + arg].__props__['__name__']]
                 self.classes[self.current_namespace() + arg].__docstring__ = self.last_docstring
+                self.last_docstring = ''
             else:
                 self.classes[self.current_namespace() + arg] = Class(self.current_namespace() + arg)
                 self.classes[self.current_namespace() + arg].__props__['__parent__'] = None
                 self.classes[self.current_namespace() + arg].__props__['__name__'] = 'Object'
                 self.classes[self.current_namespace() + arg].__inheritance_tree__ = ['Object']
                 self.classes[self.current_namespace() + arg].__docstring__ = self.last_docstring
+                self.last_docstring = ''
         self.current_class.append(self.current_namespace() + arg)
 
     def run_func(self, op: dict):
@@ -197,11 +200,13 @@ class BuiltinFunctions:
             self.current_func.append(arg)
             self.classes[self.current_class[-1]].__methods__[self.current_func[-1]] = Function(name=self.current_func[-1])
             self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].__docstring__ = self.last_docstring
+            self.last_docstring = ''
             is_method = True
         else:
             self.current_func.append(self.current_namespace() + arg)
             self.functions[self.current_func[-1]] = Function(name=self.current_func[-1])
             self.functions[self.current_func[-1]].__docstring__ = self.last_docstring
+            self.last_docstring = ''
         # check for argument variable
         if len(self.multi_char_split(op['args_str'], ' (', 1)) > 1:
             arg_var = self.multi_char_split(op['args_str'], ' (', 1)[1].strip(')').strip('(').strip()
