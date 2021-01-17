@@ -410,6 +410,7 @@ class Program(helpers.Helpers):
             'namespace': self.run_namespace,
             'ns': self.run_namespace,
             'endnamespace': self.run_endnamespace,
+            'endns': self.run_endnamespace,
             'use': self.run_use,
             'class': self.run_class,
             'endclass': self.run_endclass,

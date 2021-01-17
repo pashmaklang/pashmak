@@ -28,10 +28,6 @@ func import_once
     mem self.import_script(^, True)
 endfunc
 
-func endns
-    endnamespace
-endfunc
-
 func eval
     mem self.pashmak_eval(^)
 endfunc
