@@ -1,5 +1,5 @@
 #
-# recursive.pashmt
+# bug-func001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,14 +21,22 @@
 #########################################################################
 
 --test--
-recursive function calling
+calling function insdie class block bug is fixed
 
 --file--
 
-func hello
-    hello()
+func hello($a)
+    return 'the value: ' + str($a)
 endfunc
-hello()
 
---with-error--
-"RecursionError"
+class Person
+    $p = hello('something')
+endclass
+
+$a = Person()
+
+println($a->p)
+
+--output--
+"""the value: something
+"""
