@@ -110,6 +110,22 @@ class BuiltinFunctions:
     def run_endnamespace(self, op: dict):
         """ Closes the namespace block """
         if self.namespaces_tree:
+            # delete unused variables before end namespace
+            current_namespace = self.current_namespace()
+            try:
+                del self.all_vars()[current_namespace + '__dir__']
+            except KeyError:
+                pass
+            try:
+                del self.all_vars()[current_namespace + '__file__']
+            except KeyError:
+                pass
+            try:
+                del self.all_vars()[current_namespace + '__ismain__']
+                print('A')
+            except KeyError:
+                pass
+
             self.namespaces_tree.pop()
         else:
             self.raise_error('SyntaxError', 'unexpected "endnamespace" when namespace block is not opened', op)
