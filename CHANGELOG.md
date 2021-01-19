@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## 0.7-alpha2 (2021-1-17)
+## (0.7-alpha3) next release
 
 #### New Features
 - added `import_run` and `import_run_once` functions (GH-84)
