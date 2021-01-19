@@ -20,13 +20,9 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
+@doc "Runs a python code from string"
 func python
     rmem exec(^)
-endfunc
-
-func @doc($doc)
-    $doc = str($doc)->strip()
-    python("self.last_docstring = self.get_var('doc')")
 endfunc
 
 @doc """\

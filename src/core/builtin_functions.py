@@ -290,3 +290,9 @@ class BuiltinFunctions:
     def run_continue(self, op: dict):
         """ Continues the loop """
         self.run_endwhile(op)
+
+    def run_atdoc(self, op: dict):
+        """ @doc sets last docstring """
+        docstr = str(self.eval(op['args_str'])).strip()
+        self.last_docstring = docstr
+

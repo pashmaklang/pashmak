@@ -424,6 +424,7 @@ class Program(helpers.Helpers):
             'endwhile': self.run_endwhile,
             'break': self.run_break,
             'continue': self.run_continue,
+            '@doc': self.run_atdoc,
             'pass': None,
             'if': None,
             'elif': None,
