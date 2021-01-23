@@ -94,7 +94,7 @@ When you set a variable, that var is in memory. you can delete that var with `fr
 $somevar = 'some value'
 println($somevar) # output: some value
 
-free $somevar
+free('somevar')
 
 println($somevar) # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
 ```
@@ -102,7 +102,7 @@ println($somevar) # you will get VariableError: undefined variable $somevar (bec
 Also you can make free more than one variables with `free` command:
 
 ```bash
-free $var1 $var2 $var3 # ...
+free('var_name')
 ```
 
 ### Checking a variable isset
@@ -113,10 +113,9 @@ look at this example:
 ```bash
 $somevar; $v # set `somevar` and `v` variables
 
-isset $somevar; println(^) # output: True
-isset $this_var_not_found; println(^) # output: False
-isset $somevar $sassadffgdty; println(^) # output: False
-isset $somevar $v; println(^) # output: True
+println(isset('somevar')) # True
+println(isset('v')) # True
+println(isset('not_found')) # False
 ```
 
 (The `True` and `False` are Python booleans).
@@ -148,42 +147,6 @@ println(typeof($myint))
 This command puts the typeof variable in mem.
 
 (All of Pashmak datatypes are handled by python and you can use all of python variables features).
-
-### required command
-
-The required command requiring an variable existens.
-
-look at this example:
-
-```bash
-$name
-
-required $name
-```
-
-when we run this code, program will run successful.
-
-but now we comment the first line:
-
-```bash
-#$name
-required $name
-```
-
-now `$name` variable is not exists, and you will get this error:
-
-```
-VariableError: undefined variable $name
-```
-
-The `required` command checks a variable is exists, if no, raises VariableError.
-
-also you can check more than one variables:
-
-```bash
-required $a, $b
-# you have to seprate them with `,`
-```
 
 ### python datatype methods
 datatype of the Pashmak variables, is handled by python. this means you can use all python methods on them.

@@ -28,19 +28,6 @@ from .function import Function
 
 class BuiltinFunctions:
     """ Builtin functions """
-    def run_free(self, op: dict):
-        """ Deletes variables """
-        args = op['args']
-        for arg in args:
-            self.arg_should_be_variable_or_mem(arg, op)
-            if arg == '^':
-                self.mem = None
-            else:
-                try:
-                    del self.all_vars()[arg[1:]]
-                except KeyError:
-                    pass
-
     def run_endfunc(self, op: dict):
         """ Closes the functon declaration block """
         if len(self.current_func) > 0:
@@ -68,16 +55,6 @@ class BuiltinFunctions:
             return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
         if self.mem:
             self.frames[-1]['current_step'] = section_index-1
-
-    def run_isset(self, op: dict):
-        """ Checks variable(s) exists and puts result to mem """
-        args = op['args']
-        for arg in args:
-            self.arg_should_be_variable(arg, op)
-            if not self.variable_exists(arg[1:]):
-                self.mem = False
-                return
-        self.mem = True
 
     def run_try(self, op: dict):
         """ Starts the try-endtry block """

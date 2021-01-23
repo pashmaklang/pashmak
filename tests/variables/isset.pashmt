@@ -22,11 +22,16 @@
 
 --test--
 isset command is working
+
 --file--
-$var; isset $var; print ^
-free $var
-isset $var; print ^
-$two; isset $two $one; print ^
-$one; isset $two $one; print ^
+
+println(isset('name'))
+
+$name = 'parsa'
+
+println(isset('name'))
+
 --output--
-'TrueFalseFalseTrue'
+"""False
+True
+"""

@@ -25,9 +25,14 @@
 #### Changes
 
 - some optimizations in multiline syntax
+- changed syntax of `free` and `isset` functions
 
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line
+
+#### Removed
+
+- removed unused function `required`
 
 ## 0.6.8 (2021-1-17)
 

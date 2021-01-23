@@ -102,7 +102,13 @@ namespace tengine
 		$tengine_i = 0
 		$tengine_parts = $new_parts
 		$tengine_code = ''
-		free $i $new_parts $parts $content $randstr_1 $randstr_2 $tmp
+		free('i')
+		free('new_parts')
+		free('parts')
+		free('content')
+		free('randstr_1')
+		free('randstr_2')
+		free('tmp')
 		section tengine_loop2
 			if $tengine_parts[$tengine_i][0] == True
 				if $tengine_parts[$tengine_i][1]
@@ -118,7 +124,8 @@ namespace tengine
 			$tengine_i = $tengine_i + 1
 		mem $tengine_i < len($tengine_parts); gotoif tengine_loop2
 
-		free $tengine_i $tengine_parts
+		free('tengine_i')
+		free('tengine_parts')
 
 		if $realtime_run
 			eval($tengine_code)

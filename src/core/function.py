@@ -27,6 +27,7 @@ from . import lexer
 
 class Function:
     """ the pashmak function object """
+    BUILTIN_WITHOUT_FRAME_ISOLATION_FUNCTIONS = ['import', 'import_once', 'import_run', 'import_run_once', 'mem', 'python', 'rmem', 'eval', 'set', 'get', 'free']
     def __init__(self, name):
         self.name = name
         self.body = []
@@ -48,7 +49,7 @@ class Function:
             self.parent_object
             default_vars['this'] = self.parent_object
         except:
-            if self.name in ['import', 'import_once', 'import_run', 'import_run_once', 'mem', 'python', 'rmem', 'eval', 'set', 'get']:
+            if self.name in self.BUILTIN_WITHOUT_FRAME_ISOLATION_FUNCTIONS:
                 with_frame = False
         tmp_body = copy.deepcopy(self.body)
         tmp_func_parts = self.name.split('.')

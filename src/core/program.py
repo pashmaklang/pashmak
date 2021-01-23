@@ -424,11 +424,9 @@ class Program(helpers.Helpers):
 
         # list of commands
         commands_dict = {
-            'free': self.run_free,
             'func': self.run_func,
             'goto': self.run_goto,
             'gotoif': self.run_gotoif,
-            'isset': self.run_isset,
             'try': self.run_try,
             'endtry': self.run_endtry,
             'namespace': self.run_namespace,
@@ -533,7 +531,7 @@ class Program(helpers.Helpers):
 
             # execute function body
             self.mem = func_arg
-            if op_name in ['import', 'import_once', 'import_run', 'import_run_once', 'mem', 'python', 'rmem', 'eval', 'set', 'get']:
+            if op_name in Function.BUILTIN_WITHOUT_FRAME_ISOLATION_FUNCTIONS:
                 self.exec_func(func_body.body, False)
             else:
                 self.mem = func_body(self.mem)
