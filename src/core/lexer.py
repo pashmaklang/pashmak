@@ -97,6 +97,56 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
         else:
             new_lines.append(line)
     lines = new_lines
+
+    # handle `([{` and `}])` chars
+    p_counter = 0
+    b_counter = 0
+    a_counter = 0
+    i = 0
+    while i < len(lines):
+        if lines[i]:
+            line_parts = parse_string(lines[i])
+            for part in line_parts:
+                if part[0] == False:
+                    j = 0
+                    while j < len(part[1]):
+                        if part[1][j] == '(':
+                            p_counter += 1
+                        elif part[1][j] == '[':
+                            b_counter += 1
+                        elif part[1][j] == '{':
+                            a_counter += 1
+                        elif part[1][j] == '}':
+                            a_counter -= 1
+                        elif part[1][j] == ']':
+                            b_counter -= 1
+                        elif part[1][j] == ')':
+                            p_counter -= 1
+                        if p_counter < 0:
+                            p_counter = 0
+                        if b_counter < 0:
+                            b_counter = 0
+                        if a_counter < 0:
+                            a_counter = 0
+                        j += 1
+            if p_counter > 0 or b_counter > 0 or a_counter > 0:
+                if lines[i][-1] != '\\':
+                    lines[i] += '\\'
+        i += 1
+
+    # check \ in end of line again
+    new_lines = ['']
+    for line in lines:
+        if line:
+            if line[-1] == '\\':
+                new_lines[-1] += line[:-1]
+            else:
+                new_lines[-1] += line
+                new_lines.append('')
+        else:
+            new_lines.append(line)
+    lines = new_lines
+
     line_counter = 1
     commands = []
     for line in lines:

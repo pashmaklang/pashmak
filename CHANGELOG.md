@@ -22,6 +22,10 @@
 - added `set` and `get` functions
 - added name define system and `define`, `is_defined`, `undefine`, `all_defines` and `redefine` functions
 
+#### Changes
+
+- some optimizations in multiline syntax
+
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line
 

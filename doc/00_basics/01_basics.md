@@ -178,6 +178,18 @@ printl("hello world")
 ### Multi line
 You can write one command in more than one line. This helps you to write a clean code.
 
+example:
+
+```bash
+println(
+    'Hello ' +
+    'World'
+)
+```
+
+#### Writing multiline string
+multiline syntax for String(text) is different. you should put a `\` in end of lines.
+
 For example:
 
 ```bash
