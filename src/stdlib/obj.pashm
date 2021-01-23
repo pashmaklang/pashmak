@@ -45,3 +45,18 @@ class Object
         return $class in $this->__inheritance_tree__
     endfunc
 endclass
+
+@doc "Returns value of a variable by name of variable as string"
+func get($args)
+    $args = format_args($args)
+    python("self.mem = self.get_var(self.get_var('args')[0])")
+endfunc
+
+@doc """\
+Sets value of a variable by name of variable as first argument as string\
+And value as second argument\
+"""
+func set($args)
+    $args = format_args($args)
+    python("self.set_var(self.get_var('args')[0], self.get_var('args')[1])")
+endfunc

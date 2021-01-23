@@ -196,3 +196,38 @@ println($mystring->strip()) # output: `hello world`
 ```
 
 #### NOTE: in python, for calling function or access to property of a object, we use `.` character, but in Pashmak we use `->` symbol(like php)
+
+### `get()` and `set()` functions
+`get()` function can return value of a variable by name as string.
+
+For example:
+
+```bash
+$name = 'parsa'
+
+println(get('name'))
+```
+
+output:
+
+```
+parsa
+```
+
+Also `set` function sets value of a variable by name and value:
+
+```bash
+$name = 'parsa'
+println(get('name'))
+
+set('name', 'pashmak')
+
+println($name)
+```
+
+output:
+
+```
+parsa
+pashmak
+```

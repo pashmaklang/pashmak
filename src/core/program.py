@@ -514,7 +514,7 @@ class Program(helpers.Helpers):
 
             # execute function body
             self.mem = func_arg
-            if op_name in ['import', 'import_once', 'import_run', 'import_run_once', 'mem', 'python', 'rmem', 'eval']:
+            if op_name in ['import', 'import_once', 'import_run', 'import_run_once', 'mem', 'python', 'rmem', 'eval', 'set', 'get']:
                 self.exec_func(func_body.body, False)
             else:
                 self.mem = func_body(self.mem)

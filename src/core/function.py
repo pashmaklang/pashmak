@@ -48,7 +48,7 @@ class Function:
             self.parent_object
             default_vars['this'] = self.parent_object
         except:
-            if self.name in ['import', 'import_once', 'import_run', 'import_run_once', 'mem', 'python', 'rmem', 'eval']:
+            if self.name in ['import', 'import_once', 'import_run', 'import_run_once', 'mem', 'python', 'rmem', 'eval', 'set', 'get']:
                 with_frame = False
         tmp_body = copy.deepcopy(self.body)
         tmp_func_parts = self.name.split('.')

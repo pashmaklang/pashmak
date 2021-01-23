@@ -19,6 +19,7 @@
 - added function `die`
 - moved `pashmiler` from a external library to a builtin module and renamed to `compiler` (GH-93)
 - added **Docstring** system (GH-94)
+- added `set` and `get` functions
 
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line

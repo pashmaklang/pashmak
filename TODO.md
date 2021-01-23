@@ -1,6 +1,5 @@
 # TODO
 
-- add `set` and `get` functions
 - add `define`, `is_defined`, `undefine`, `all_defines` and `redefine` functions
 - some clean ups in lexer and parser
 - handle multiple arguments for functions
