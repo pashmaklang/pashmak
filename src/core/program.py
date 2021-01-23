@@ -325,6 +325,9 @@ class Program(helpers.Helpers):
         if only_parse:
             return result
 
+        # set aliases
+        true = True
+        false = False
         null = None
 
         return eval(result)

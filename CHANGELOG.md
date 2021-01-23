@@ -21,6 +21,7 @@
 - added **Docstring** system (GH-94)
 - added `set` and `get` functions
 - added name define system and `define`, `is_defined`, `undefine`, `all_defines` and `redefine` functions
+- added `true` and `false` aliases for `True` and `False` keywords
 
 #### Changes
 
