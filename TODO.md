@@ -1,5 +1,6 @@
 # TODO
 
+- change `isset` and `free` functions
 - some clean ups in lexer and parser
 - handle multiple arguments for functions
 - complete web system
