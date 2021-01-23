@@ -27,7 +27,7 @@ import os
 import signal
 import copy
 from pathlib import Path
-from . import helpers, version, modules, jit, parser, current_prog
+from . import helpers, version, modules, jit, parser, current_prog, lexer
 from .class_system import Class, ClassObject
 from .function import Function
 
@@ -314,86 +314,20 @@ class Program(helpers.Helpers):
 
     def eval(self, command, only_parse=False, only_str_parse=False, dont_check_vars=False):
         """ Runs eval on command """
-        command_parts = parser.parse_string(command)
+        result, vars_to_check = lexer.parse_eval(command, only_str_parse=only_str_parse, self=self)
 
         if only_str_parse:
-            return command_parts
+            return result
+
+        for var in vars_to_check:
+            self.variable_required(var)
+
+        if only_parse:
+            return result
 
         null = None
-        full_op = ''
-        opened_inline_calls_count = 0
-        for code in command_parts:
-            if code[0] == False:
-                code = code[1]
-                # replace variable names with value of them
-                literals = parser.literals
-                code_words = self.multi_char_split(code, literals)
-                for word in code_words:
-                    if word:
-                        if word[0] == '$':
-                            if dont_check_vars == False:
-                                self.variable_required(word[1:])
-                            code = code.replace('$' + word[1:], 'self.get_var("' + word[1:] + '")', 1)
-                        else:
-                            func_real_name = self.get_func_real_name(word)
-                            if func_real_name != False:
-                                tmp_counter = 0
-                                while tmp_counter < len(code):
-                                    tmp_index = code.find(word, tmp_counter)
-                                    if tmp_index < 0:
-                                        tmp_counter = (+tmp_counter) + 1
-                                    else:
-                                        tmp_counter = tmp_index + 1
-                                    if code[tmp_index-2:tmp_index] != '->':
-                                        if code[tmp_index-1:tmp_index] in literals:
-                                            if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
-                                                code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.functions["' + func_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
-                                                break
-                            else:
-                                # This is a class
-                                class_real_name = self.get_class_real_name(word)
-                                if class_real_name != False:
-                                    tmp_counter = 0
-                                    while tmp_counter < len(code):
-                                        tmp_index = code.find(word, tmp_counter)
-                                        if tmp_index < 0:
-                                            tmp_counter = (+tmp_counter) + 1
-                                        else:
-                                            tmp_counter = tmp_index + 1
-                                        if code[tmp_index-2:tmp_index] != '->':
-                                            if code[tmp_index-1:tmp_index] in literals:
-                                                if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
-                                                    code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.classes["' + class_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
-                                                    break
-                                else:
-                                    try:
-                                        self.defines[word]
-                                        tmp_counter = 0
-                                        while tmp_counter < len(code):
-                                            tmp_index = code.find(word, tmp_counter)
-                                            if tmp_index < 0:
-                                                tmp_counter = (+tmp_counter) + 1
-                                            else:
-                                                tmp_counter = tmp_index + 1
-                                            if code[tmp_index-2:tmp_index] != '->':
-                                                if code[tmp_index-1:tmp_index] in literals:
-                                                    if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
-                                                        code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.defines["' + word + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
-                                                        break
-                                    except:
-                                        pass
 
-                code = code.replace('->', '.')
-                tmp = '<<<tempstrforxor' + str(time.time()) + str(random.random()) + '>>>'
-                code = code.replace('^^', tmp)
-                code = code.replace('^', 'self.get_mem()')
-                code = code.replace(tmp, '^')
-            else:
-                code = code[1]
-            full_op += code
-        if only_parse:
-            return full_op
-        return eval(full_op)
+        return eval(result)
 
     def run(self, op: dict):
         """ Run once command """

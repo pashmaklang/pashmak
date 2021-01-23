@@ -24,62 +24,7 @@
 
 import random
 import time
-
-literals = '()+-/*%=}{<>[], '
-""" The literal characters """
-
-def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
-    ''' Parse a command from text to object '''
-    op = {}
-    op['str'] = op_str # command plain string
-    op_parts = op_str.split(' ')
-    op['command'] = op_parts[0]
-    op['command'] = op['command'].split('(', 1)
-    if len(op['command']) > 1:
-        op_parts[0] = op['command'][0]
-        op_parts.insert(1, '(' + op['command'][1])
-    op['command'] = op['command'][0]
-    op_parts.pop(0)
-    op['args_str'] = ''
-    op['args'] = []
-    if op['command'] == 'import' or op['command'] == 'import_once':
-        new_op_parts = []
-        i = 0
-        while i < len(op_parts):
-            if '@' in op_parts[i] and ',' in op_parts[i]:
-                op_parts[i] = op_parts[i].replace(',', ', ')
-                tmp = op_parts[i].split(' ')
-                if len(tmp) > 1:
-                    op_parts[i] = tmp[0]
-                    tmp[1:]
-                    z = 0
-                    while z < len(tmp):
-                        new_op_parts.append(tmp[z])
-                        z += 1
-            else:
-                new_op_parts.append(op_parts[i])
-            i += 1
-        op_parts = new_op_parts
-    # set command arguments
-    for op_part in op_parts:
-        if op_part != '' or op['command'] == 'mem':
-            if op['command'] in ['import', 'import_once', 'import_run', 'import_run_once']:
-                op_part = op_part.strip().strip(')').strip('(')
-                if op_part:
-                    if op_part[0] == '@':
-                        op_part = '"' + op_part
-                        if op_part[-1] == ',':
-                            op_part = op_part[:len(op_part)-1] + '",'
-                        else:
-                            op_part = op_part + '"'
-            op['args'].append(op_part)
-            op['args_str'] += op_part
-        op['args_str'] += ' '
-    op['args_str'] = op['args_str'].strip()
-    op['str'] = op['command'] + ' ' + op['args_str']
-    op['file_path'] = file_path
-    op['line_number'] = line_number
-    return op
+from .lexer import literals, parse_op, parse_string
 
 def parse(content: str, filepath='<system>', only_parse=False) -> list:
     ''' Parse code from text and return list of commands '''
@@ -230,41 +175,3 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
         i += 1
 
     return commands
-
-def parse_string(command: str):
-    """ Splits strings and codes """
-    i = 0
-    command = command.strip()
-    is_in_string = False
-    command_parts = [[False, '']]
-    while i < len(command):
-        is_string_start = False
-        if command[i] == '"' or command[i] == "'":
-            before_backslashes_count = 0
-            try:
-                x = i-1
-                while x >= 0:
-                    if command[x] == '\\':
-                        before_backslashes_count += 1
-                    else:
-                        x = -1
-                    x -= 1
-            except:
-                pass
-            if is_in_string:
-                if before_backslashes_count % 2 != 0 and before_backslashes_count != 0:
-                    pass
-                elif is_in_string == command[i]:
-                    is_in_string = False
-                    command_parts[-1][1] += command[i]
-                    is_string_start = True
-                    command_parts.append([False, ''])
-            else:
-                is_in_string = command[i]
-                command_parts.append([True, ''])
-                command_parts[-1][1] += command[i]
-                is_string_start = True
-        if not is_string_start:
-            command_parts[-1][1] += command[i]
-        i += 1
-    return command_parts

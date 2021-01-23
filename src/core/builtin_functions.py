@@ -25,6 +25,7 @@
 from .class_system import Class
 from . import parser
 from .function import Function
+from . import lexer
 
 class BuiltinFunctions:
     """ Builtin functions """
@@ -181,7 +182,7 @@ class BuiltinFunctions:
     def run_func(self, op: dict):
         """ Starts function declaration block """
         self.require_one_argument(op, 'missing function name')
-        arg = self.multi_char_split(op['args_str'], ' (', 1)[0]
+        arg = lexer.multi_char_split(op['args_str'], ' (', 1)[0]
         for ch in parser.literals + '.':
             if ch in arg:
                 return self.raise_error(
@@ -201,8 +202,8 @@ class BuiltinFunctions:
             self.functions[self.current_func[-1]].__docstring__ = self.last_docstring
             self.last_docstring = ''
         # check for argument variable
-        if len(self.multi_char_split(op['args_str'], ' (', 1)) > 1:
-            arg_var = self.multi_char_split(op['args_str'], ' (', 1)[1].strip(')').strip('(').strip()
+        if len(lexer.multi_char_split(op['args_str'], ' (', 1)) > 1:
+            arg_var = lexer.multi_char_split(op['args_str'], ' (', 1)[1].strip(')').strip('(').strip()
             if arg_var != '':
                 self.arg_should_be_variable(arg_var, op)
                 if is_method:
