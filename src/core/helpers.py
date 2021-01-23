@@ -25,7 +25,7 @@
 import os
 import sys
 from sys import exit
-from . import builtin_functions, modules, lexer
+from . import builtin_functions, modules, parser
 
 class VariableError(Exception):
     pass
@@ -170,7 +170,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
     def pashmak_eval(self, code):
         """ Runs the pashmak code from string """
         # run the code
-        code_commands = lexer.parse(code, filepath='<eval>')
+        code_commands = parser.parse(code, filepath='<eval>')
         self.exec_func(code_commands, False)
 
     def current_namespace(self):

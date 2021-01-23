@@ -38,7 +38,7 @@ class Mixer
 
         $this->crawl($args[0])
 
-        $parsed_code = lexer.parse($this->total_content, filepath=$args[0], only_parse=True)
+        $parsed_code = parser.parse($this->total_content, filepath=$args[0], only_parse=True)
 
         $new_content = '#!/usr/bin/env pashmak\n'
 
@@ -69,7 +69,7 @@ class Mixer
         $content = $f->read()
         $f->close()
 
-        $parsed_code = lexer.parse($content, filepath=$path, only_parse=True)
+        $parsed_code = parser.parse($content, filepath=$path, only_parse=True)
 
         # find the import commands
         $i = 0
