@@ -80,6 +80,8 @@ class Program(helpers.Helpers):
 
         self.shutdown_event = []
 
+        self.defines = {}
+
         current_prog.current_prog = self
 
     def import_script(self, paths, import_once=False, ismain_default=False):
@@ -363,6 +365,23 @@ class Program(helpers.Helpers):
                                                 if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
                                                     code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.classes["' + class_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
                                                     break
+                                else:
+                                    try:
+                                        self.defines[word]
+                                        tmp_counter = 0
+                                        while tmp_counter < len(code):
+                                            tmp_index = code.find(word, tmp_counter)
+                                            if tmp_index < 0:
+                                                tmp_counter = (+tmp_counter) + 1
+                                            else:
+                                                tmp_counter = tmp_index + 1
+                                            if code[tmp_index-2:tmp_index] != '->':
+                                                if code[tmp_index-1:tmp_index] in literals:
+                                                    if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
+                                                        code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.defines["' + word + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
+                                                        break
+                                    except:
+                                        pass
 
                 code = code.replace('->', '.')
                 tmp = '<<<tempstrforxor' + str(time.time()) + str(random.random()) + '>>>'

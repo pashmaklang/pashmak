@@ -1,0 +1,66 @@
+#
+# defines001.pashmt
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+name defining system works correctly
+
+--file--
+
+println('is defined: ' + str(is_defined('THE_NAME')))
+
+define('THE_NAME', 'parsa')
+
+println('is defined: ' + str(is_defined('THE_NAME')))
+
+println(all_defines())
+
+undefine('THE_NAME')
+
+println('is defined: ' + str(is_defined('THE_NAME')))
+
+println(all_defines())
+
+define('THE_NAME', 'parsa')
+
+println('is defined: ' + str(is_defined('THE_NAME')))
+
+println(all_defines())
+
+redefine('THE_NAME', 'new')
+
+println(THE_NAME)
+
+define('THE_NAME', 'new')
+
+--output--
+"""is defined: False
+is defined: True
+{'THE_NAME': 'parsa'}
+is defined: False
+{}
+is defined: True
+{'THE_NAME': 'parsa'}
+new
+"""
+
+--with-error--
+"DefineError"

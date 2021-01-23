@@ -20,6 +20,7 @@
 - moved `pashmiler` from a external library to a builtin module and renamed to `compiler` (GH-93)
 - added **Docstring** system (GH-94)
 - added `set` and `get` functions
+- added name define system and `define`, `is_defined`, `undefine`, `all_defines` and `redefine` functions
 
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line

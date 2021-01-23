@@ -1,0 +1,61 @@
+#
+# defines.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+@doc "Defines a name. First argument is the name and second argument is the value"
+func define($args)
+    $args = format_args($args)
+    if is_defined($args[0])
+        raise Error('DefineError', 'name "' + $args[0] + '" already defined')
+        return
+    endif
+    python("self.defines[self.get_var('args')[0]] = self.get_var('args')[1]")
+endfunc
+
+@doc "Returns all of defined names as a dictionary"
+func all_defines
+    python('self.mem = self.defines')
+endfunc
+
+@doc "Gets a name and checks is defined and return boolean"
+func is_defined($args)
+    $args = format_args($args)
+    return $args[0] in list(all_defines()->keys())
+endfunc
+
+@doc "Deletes a defined name. Gets name as string"
+func undefine($args)
+    $args = format_args($args)
+    if not is_defined($args[0])
+        raise Error('DefineError', 'name "' + $args[0] + '" is not defined')
+        return
+    endif
+    python("del self.defines[self.get_var('args')[0]]")
+endfunc
+
+@doc "Re-Defines a name. If name exists, undefines that and defines new value, and if name currently not exists, defines new name"
+func redefine($args)
+    $args = format_args($args)
+    if is_defined($args[0])
+        undefine($args[0])
+    endif
+    define($args[0], $args[1])
+endfunc
