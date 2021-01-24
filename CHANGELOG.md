@@ -27,6 +27,7 @@
 
 - some optimizations in multiline syntax
 - changed syntax of `free` and `isset` functions
+- fixed some bugs and some optimizations in eval
 
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line
