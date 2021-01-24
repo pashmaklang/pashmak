@@ -22,7 +22,7 @@
 
 # Printing the fibonacci pattern
 
-func fib($n=1000)
+func fib(int $n=1000)
     $a = 1
     $b = 1
 

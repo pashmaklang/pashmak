@@ -22,7 +22,7 @@
 
 # Print an square
 
-func print_square($x, $y)
+func print_square(int $x, int $y)
     $i = 0
     while $i < $x
         $j = 0
