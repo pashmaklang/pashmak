@@ -25,7 +25,7 @@ namespace time
         python("self.mem = time.time()")
     endfunc
 
-    func sleep($args)
+    func sleep(*$args)
         $args = format_args($args)
         python("time.sleep(self.get_var('args')[0])")
     endfunc

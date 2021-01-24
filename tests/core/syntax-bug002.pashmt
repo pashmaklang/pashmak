@@ -27,7 +27,7 @@ class property setting syntax bug is fixed
 
 class Hi
 	$dict = {}
-	func hello($n)
+	func hello(*$n)
 		$this->dict[$n[0]] = $n[1]
 	endfunc
 endclass

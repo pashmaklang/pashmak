@@ -35,7 +35,7 @@ namespace func
     Gets function name as string.\n\
     Returns boolean.\
     """
-    func exists($args)
+    func exists(*$args)
         $args = format_args($args)
         $name = $args[0]
         # checks a function exists or not
@@ -48,7 +48,7 @@ namespace func
     Gets function name as string.\n\
     (This Cannot delete builtin functions).\
     """
-    func delete($args)
+    func delete(*$args)
         $args = format_args($args)
         $name = $args[0]
         # deletes a function
@@ -71,7 +71,7 @@ endns
 @doc """\
 Formats arguments of function to a tuple.\
 """
-func format_args($args)
+func format_args(*$args)
     if type($args) != tuple
         $args = $args,
     endif

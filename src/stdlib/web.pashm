@@ -46,7 +46,7 @@ endfunc
 Sets a http header.\n\
 First argument is name of header and last is value(both string).\
 """
-func web_set_header($args)
+func web_set_header(*$args)
     $args = format_args($args)
     perror(str($args[0]) + ': ' + str($args[1]) + '\n')
 endfunc
@@ -55,7 +55,7 @@ endfunc
 Sets http response code.\n\
 Gets code as int.\
 """
-func web_status($code)
+func web_status(*$code)
     $code = format_args($code)[0]
     web_set_header('Status', str($code))
 endfunc
@@ -64,7 +64,7 @@ endfunc
 Sets a HTTP cookie.\n\
 Gets options as dictionary.\
 """
-func web_set_cookie($args)
+func web_set_cookie(*$args)
     $args = format_args($args)
     $options = dict($args[0])
     $options->setdefault('value', '')

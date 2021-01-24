@@ -25,7 +25,7 @@ recursive functions working
 
 --file--
 
-func hello($i)
+func hello(*$i)
     if $i > 1
         println 'hello' + str($i)
         hello($i-1)

@@ -21,7 +21,7 @@
 #########################################################################
 
 namespace tengine
-	func include($args)
+	func include(*$args)
 		$args = format_args($args)
 
 		$path = $args[0]
@@ -34,7 +34,7 @@ namespace tengine
 		tengine.run_file($path, True, $htmldata)
 	endfunc
 
-	func run_file($args)
+	func run_file(*$args)
 		$args = format_args($args)
 		$realtime_run = False
 		$htmldata = {}
@@ -52,7 +52,7 @@ namespace tengine
 		return tengine.run($content, $realtime_run, $path, $htmldata)
 	endfunc
 
-	func run($args)
+	func run(*$args)
 		$args = format_args($args)
 		$realtime_run = False
 		$__htmldir__ = $__dir__

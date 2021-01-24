@@ -16,7 +16,7 @@ $server = webserver.WebServer('localhost', 8000)
 # then, you need to set a handler for GET and POST requests
 # you should declare a function and pass it to $server object
 # for example:
-func get_handler($handler)
+func get_handler(*$handler)
     $handler->send_response(200)
     $handler->send_header("Content-type", "text/html")
     $handler->end_headers()

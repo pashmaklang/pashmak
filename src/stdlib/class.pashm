@@ -35,7 +35,7 @@ namespace class
     Gets class name as string.\n\
     Returns boolean.\
     """
-    func exists($args)
+    func exists(*$args)
         $args = format_args($args)
         $name = $args[0]
         # checks a class exists or not
@@ -48,7 +48,7 @@ namespace class
     Gets class name as string.\n\
     (This Cannot delete builtin classes).\
     """
-    func delete($args)
+    func delete(*$args)
         $args = format_args($args)
         $name = $args[0]
         # deletes a class

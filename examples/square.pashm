@@ -22,7 +22,7 @@
 
 # Print an square
 
-func print_square($args)
+func print_square(*$args)
     $args = format_args($args)
     $x = $args[0]
     $y = $args[1]

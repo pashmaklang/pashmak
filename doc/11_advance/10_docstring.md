@@ -23,7 +23,7 @@ Look at this example:
 Example:\n\
 somefunc(2, 10) -> returns 12\n\
 "
-func calc_sum($args)
+func calc_sum(*$args)
     $args = format_args($args)
     return $args[0] + $args[1]
 endfunc

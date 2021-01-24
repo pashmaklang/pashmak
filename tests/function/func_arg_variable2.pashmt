@@ -24,7 +24,7 @@
 functions argument variable is working with parentheses
 
 --file--
-func say_hi ($name)
+func say_hi (*$name)
     println $name
 endfunc
 say_hi 'parsa'

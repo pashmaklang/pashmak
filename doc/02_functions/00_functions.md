@@ -195,7 +195,7 @@ in the above examples, all of created functions only have ONE argument. some tim
 to handle this, you can use something like this:
 
 ```bash
-func say_hi($args)
+func say_hi(*$args)
     $first_name = $args[0]
     $last_name = $args[1]
     println('hello ' + $first_name + ' ' + $last_name)

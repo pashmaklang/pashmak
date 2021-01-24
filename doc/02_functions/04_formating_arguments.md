@@ -13,7 +13,7 @@ function hello($name, $family){
 But in Pashmak, you will recive arguments in a variable as tuple. for example:
 
 ```bash
-func hello($args) # you should write only ONE variable name
+func hello(*$args) # you should write only ONE variable name
     println($args)
 endfunc
 
@@ -42,7 +42,7 @@ To do this, you can use `format_args` function.
 for example:
 
 ```bash
-func hello($args)
+func hello(*$args)
     $args = format_args($args)
     # ...
 endfunc

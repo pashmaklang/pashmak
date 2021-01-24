@@ -28,14 +28,14 @@ class Human
         println('hello. my name is ' + $this->name)
     endfunc
 
-    func set_name($args)
+    func set_name(*$args)
         $args = format_args($args)
         $name = $args[0]
         $this->name = $name
     endfunc
 endclass
 
-$someone = Human
+$someone = Human()
 $someone->name = 'parsa'
 
 println($someone->name)

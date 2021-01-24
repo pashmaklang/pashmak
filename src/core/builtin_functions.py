@@ -205,6 +205,10 @@ class BuiltinFunctions:
         if len(lexer.multi_char_split(op['args_str'], ' (', 1)) > 1:
             arg_var = lexer.multi_char_split(op['args_str'], ' (', 1)[1].strip(')').strip('(').strip()
             if arg_var != '':
+                if arg_var[0] != '*':
+                    self.raise_error('MyTempError', 'function has not start')
+                    return
+                arg_var = arg_var[1:]
                 self.arg_should_be_variable(arg_var, op)
                 if is_method:
                     self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])

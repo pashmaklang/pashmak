@@ -27,7 +27,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func blake2b($args)
+	func blake2b(*$args)
 		$args = format_args($args)
 		$value = $args[0]
 		python("self.mem = hashlib.blake2b(self.get_var('value').encode()).hexdigest()")
@@ -39,7 +39,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func blake2s($args)
+	func blake2s(*$args)
 		$args = format_args($args)
 		$value = $args[0]
 		python("self.mem = hashlib.blake2s(self.get_var('value').encode()).hexdigest()")
@@ -51,7 +51,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func md5($args)
+	func md5(*$args)
 		$args = format_args($args)
 		$value = $args[0]
 		python("self.mem = hashlib.md5(self.get_var('value').encode()).hexdigest()")
@@ -63,7 +63,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func sha1($args)
+	func sha1(*$args)
 		$args = format_args($args)
 		$value = $args[0]
 		python("self.mem = hashlib.sha1(self.get_var('value').encode()).hexdigest()")
@@ -75,7 +75,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func sha224($args)
+	func sha224(*$args)
 		$args = format_args($args)
 		$value = $args[0]
 		python("self.mem = hashlib.sha224(self.get_var('value').encode()).hexdigest()")
@@ -87,7 +87,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func sha256($args)
+	func sha256(*$args)
 		$args = format_args($args)
 		$value = $args[0]
 		python("self.mem = hashlib.sha256(self.get_var('value').encode()).hexdigest()")
@@ -99,7 +99,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func sha384($args)
+	func sha384(*$args)
 		$args = format_args($args)
 		$value = $args[0]
 		python("self.mem = hashlib.sha384(self.get_var('value').encode()).hexdigest()")
@@ -111,7 +111,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func sha3_224($args)
+	func sha3_224(*$args)
 		$args = format_args($args)
 		$value = $args[0]
 		python("self.mem = hashlib.sha3_224(self.get_var('value').encode()).hexdigest()")
@@ -123,7 +123,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func sha3_256($args)
+	func sha3_256(*$args)
 		$args = format_args($args)
 		$value = $args[0]
 		python("self.mem = hashlib.sha3_256(self.get_var('value').encode()).hexdigest()")
@@ -135,7 +135,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func sha3_384($args)
+	func sha3_384(*$args)
 		$args = format_args($args)
 		$value = $args[0]
 		python("self.mem = hashlib.sha3_384(self.get_var('value').encode()).hexdigest()")
@@ -147,7 +147,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func sha3_512($args)
+	func sha3_512(*$args)
 		$args = format_args($args)
 		$value = $args[0]
 		python("self.mem = hashlib.sha3_512(self.get_var('value').encode()).hexdigest()")
@@ -159,7 +159,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func sha512($args)
+	func sha512(*$args)
 		$args = format_args($args)
 		$value = $args[0]
 		python("self.mem = hashlib.sha512(self.get_var('value').encode()).hexdigest()")
@@ -172,7 +172,7 @@ namespace hash
         0. value: value that you want to hash\
         1. length\
     """
-	func shake_128($args)
+	func shake_128(*$args)
 		$args = format_args($args)
 		python("self.mem = hashlib.shake_128(str(self.get_var('args')[0]).encode()).hexdigest(self.get_var('args')[1])")
 	endfunc
@@ -184,7 +184,7 @@ namespace hash
         0. value: value that you want to hash\
         1. length\
     """
-	func shake_256($args)
+	func shake_256(*$args)
 		$args = format_args($args)
 		python("self.mem = hashlib.shake_256(str(self.get_var('args')[0]).encode()).hexdigest(self.get_var('args')[1])")
 	endfunc

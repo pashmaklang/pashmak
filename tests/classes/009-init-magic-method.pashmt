@@ -26,7 +26,7 @@ class init method is working
 --file--
 
 class Hello
-    func __init__ $name
+    func __init__(*$name)
         $this->name = $name
         println('the ' + $name + ' was created')
     endfunc
@@ -36,7 +36,7 @@ $hello = Hello('parsa')
 println($hello->name)
 
 class Bye < Hello
-    func __init__ $something
+    func __init__(*$something)
         println('hello ' + $something)
         $this->something = $something
     endfunc

@@ -24,7 +24,7 @@
 inline function calling working
 
 --file--
-func sayhi $name
+func sayhi(*$name)
     mem 'hello ' + $name
 endfunc
 

@@ -35,7 +35,7 @@ class Object
     Checks is this object instance of a class.\n\
     Gets that class as argument(You can pass class name as string or class object).\
     """
-    func isinstanceof($args)
+    func isinstanceof(*$args)
         $args = format_args($args)
         $class = $args[0]
         if typeof($class) != str
@@ -47,7 +47,7 @@ class Object
 endclass
 
 @doc "Returns value of a variable by name of variable as string"
-func get($args)
+func get(*$args)
     $args = format_args($args)
     python("self.mem = self.get_var(self.get_var('args')[0])")
 endfunc
@@ -56,17 +56,17 @@ endfunc
 Sets value of a variable by name of variable as first argument as string\
 And value as second argument\
 """
-func set($args)
+func set(*$args)
     $args = format_args($args)
     python("self.set_var(self.get_var('args')[0], self.get_var('args')[1])")
 endfunc
 
-func isset($args)
+func isset(*$args)
     $args = format_args($args)
     python('self.mem = self.variable_exists(self.get_var("args")[0])')
 endfunc
 
-func free($args)
+func free(*$args)
     $args = format_args($args)
     python('try:\n\tdel self.all_vars()[self.get_var("args")[0]]\nexcept KeyError:\n\tpass')
 endfunc

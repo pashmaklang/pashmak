@@ -4,7 +4,7 @@ Functions are like variables, you can put them into variables and use them.
 look at this example:
 
 ```bash
-func hello($name)
+func hello(*$name)
     println('hello ' + $name)
 endfunc
 
@@ -39,7 +39,7 @@ $myfunc()
 also look at this example:
 
 ```bash
-func run_the_func($func)
+func run_the_func(*$func)
     println('start')
     $func()
     println('finish')

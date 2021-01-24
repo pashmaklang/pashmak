@@ -29,7 +29,7 @@ Example:\
     println($mixer->total_content)\
 "
 class Mixer
-    func __init__($args)
+    func __init__(*$args)
         $args = format_args($args)
 
         $this->total_content = ''
@@ -56,7 +56,7 @@ class Mixer
     \n\
     This method is called recursively\
     "
-    func crawl($args)
+    func crawl(*$args)
         $path = format_args($args)[0]
 
         $path = os.path.abspath($path)

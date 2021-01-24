@@ -25,7 +25,7 @@ calling function insdie class block bug is fixed
 
 --file--
 
-func hello($a)
+func hello(*$a)
     return 'the value: ' + str($a)
 endfunc
 

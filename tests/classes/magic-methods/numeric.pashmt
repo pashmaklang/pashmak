@@ -38,7 +38,7 @@ class Person
         return 'the abs'
     endfunc
 
-    func __round__($n)
+    func __round__(*$n)
         return 'the round with ' + str($n)
     endfunc
 

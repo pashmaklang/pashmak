@@ -107,7 +107,7 @@ Example:
 
 ```bash
 class Person
-    func __init__($args)
+    func __init__(*$args)
         $args = format_args($args)
         $this->age = int($args[0])
     endfunc

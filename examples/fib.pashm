@@ -22,7 +22,7 @@
 
 # Printing the fibonacci pattern
 
-func fib($args)
+func fib(*$args)
     $args = format_args($args)
     $n = $args[0]
 

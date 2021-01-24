@@ -28,7 +28,7 @@ namespace os
     Changes program working directory to new path.\n\
     Gets path as string.\
     """
-    func chdir($args)
+    func chdir(*$args)
         $args = format_args($args)
         python("os.chdir(self.get_var('args')[0]")
     endfunc
@@ -44,7 +44,7 @@ namespace os
     Makes a directory.\n\
     Gets directory path as string.\
     """
-    func mkdir($args)
+    func mkdir(*$args)
         $args = format_args($args)
         python("os.mkdir(self.get_var('args')[0])")
     endfunc
@@ -56,7 +56,7 @@ namespace os
     First argument is process ID as int.\n\
     Second argument is the signal.\
     """
-    func kill($args)
+    func kill(*$args)
         $args = format_args($args)
         $pid = $args[0]
         $signal = $args[1]
@@ -67,7 +67,7 @@ namespace os
     Removes a directory.\n\
     Gets directory path as string.\
     """
-    func rmdir($args)
+    func rmdir(*$args)
         $args = format_args($args)
         python("os.rmdir(self.get_var('args')[0])")
     endfunc
@@ -81,7 +81,7 @@ namespace os
     Gets path as string.\n\
     Returns Boolean.\n\
     """
-    func isdir($args)
+    func isdir(*$args)
         $args = format_args($args)
         python("self.mem = os.path.isdir(self.get_var('args')[0])")
     endfunc
@@ -91,7 +91,7 @@ namespace os
     Gets path as string.\n\
     Returns Boolean.\n\
     """
-    func isfile($args)
+    func isfile(*$args)
         $args = format_args($args)
         python("self.mem = os.path.isfile(self.get_var('args')[0])")
     endfunc
@@ -101,7 +101,7 @@ namespace os
     Gets path as string.\n\
     Returns Boolean.\
     """
-    func exists($args)
+    func exists(*$args)
         $args = format_args($args)
         python("self.mem = os.path.exists(self.get_var('args')[0])")
     endfunc

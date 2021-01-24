@@ -29,7 +29,7 @@ class Person
         println('Person > hello was runed')
     endfunc
 
-    func with_arg $arg
+    func with_arg(*$arg)
         println('hello ' + $arg)
     endfunc
 endclass

@@ -25,7 +25,7 @@ ns math
     @doc """\
     Returns the arc cosine of a number. Recives a number between `1` and `-1`.\
     """
-    func acos($num)
+    func acos(*$num)
         $num = format_args($num)[0]
         python("self.mem = math.acos(self.get_var('num'))")
     endfunc
@@ -33,7 +33,7 @@ ns math
     @doc """\
     Returns the inverse hyperbolic cosine of a number.\
     """
-    func acosh($num)
+    func acosh(*$num)
         $num = format_args($num)[0]
         python("self.mem = math.acosh(self.get_var('num'))")
     endfunc
@@ -41,7 +41,7 @@ ns math
     @doc """\
     Rounds a number upward to its nearest integer.\
     """
-    func ceil($num)
+    func ceil(*$num)
         $num = format_args($num)[0]
         python("self.mem = math.ceil(self.get_var('num'))")
     endfunc
@@ -49,7 +49,7 @@ ns math
     @doc """\
     Finds the cosine of a number.\
     """
-    func cos($num)
+    func cos(*$num)
         $num = format_args($num)[0]
         python("self.mem = math.cos(self.get_var('num'))")
     endfunc
@@ -57,7 +57,7 @@ ns math
     @doc """\
     Converts angles from radians to degrees.\
     """
-    func degrees($num)
+    func degrees(*$num)
         $num = format_args($num)[0]
         python("self.mem = math.degrees(self.get_var('num'))")
     endfunc
@@ -65,7 +65,7 @@ ns math
     @doc """\
     Finds the factorial of a number.\
     """
-    func factorial($num)
+    func factorial(*$num)
         $num = format_args($num)[0]
         python("self.mem = math.factorial(self.get_var('num'))")
     endfunc
@@ -73,7 +73,7 @@ ns math
     @doc """\
     Rounds numbers down to the nearest integer.\
     """
-    func floor($num)
+    func floor(*$num)
         $num = format_args($num)[0]
         python("self.mem = math.floor(self.get_var('num'))")
     endfunc
@@ -84,7 +84,7 @@ ns math
     Finds the value of x raised to the power of y.\n\
     Example: math.pow(9, 3)\
     """
-    func pow($args)
+    func pow(*$args)
         $args = format_args($args)
         $num = $args[0]
         $nextnum = $args[1]
@@ -94,7 +94,7 @@ ns math
     @doc """\
     Finds the sine of a number.\
     """
-    func sin($num)
+    func sin(*$num)
         $num = format_args($num)[0]
         python("self.mem = math.sin(self.get_var('num'))")
     endfunc
@@ -102,7 +102,7 @@ ns math
     @doc """\
     Finds the tangent of a number (angle).\
     """
-    func tan($num)
+    func tan(*$num)
         $num = format_args($num)[0]
         python("self.mem = math.tan(self.get_var('num'))")
     endfunc

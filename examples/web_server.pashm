@@ -25,7 +25,7 @@ import @webserver
 # create a new webserver
 $server = webserver.WebServer('localhost', 8000)
 
-func get_handler($handler)
+func get_handler(*$handler)
     $handler->send_response(200)
     $handler->send_header("Content-type", "text/html")
     $handler->end_headers()
