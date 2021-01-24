@@ -1,5 +1,5 @@
 #
-# syntax-bug002.pashmt
+# arg-type.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,23 +21,21 @@
 #########################################################################
 
 --test--
-class property setting syntax bug is fixed
+error will be raised when argument type is invalid
 
 --file--
 
-class Hi
-	$dict = {}
-	func hello($key, $value)
-		$this->dict[$key] = $value
-	endfunc
-endclass
+func hello(str $name, int $age)
+    println($name + ' ' + str($age))
+endfunc
 
-$a = Hi()
+hello('parsa', 15)
 
-$a->hello('hi', 'good bye')
+hello(10, 10)
 
-println $a->dict
+--with-error--
+"InvalidArgument"
 
 --output--
-"""{'hi': 'good bye'}
+"""parsa 15
 """

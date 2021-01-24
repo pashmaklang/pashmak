@@ -21,38 +21,18 @@
 #########################################################################
 
 namespace tengine
-	func include($args)
-		$args = format_args($args)
-
-		$path = $args[0]
-		$htmldata = {}
-
-		if len($args) > 1
-			$htmldata = $args[1]
-		endif
-
-		tengine.run_file($path, True, $htmldata)
+	func include(str $path, dict $htmldata={})
+		run_file($path, True, $htmldata)
 	endfunc
 
-	func run_file($args)
-		$args = format_args($args)
-		$realtime_run = False
-		$htmldata = {}
-		$path = $args[0]
-		if len($args) > 1
-			$realtime_run = $args[1]
-		endif
-		if len($args) > 2
-			$htmldata = $args[2]
-		endif
-
+	func run_file(str $path, bool $realtime_run=true, dict $htmldata={})
 		$f = fopen($path, 'r')
 		$content = $f->read()
 		$f->close()
-		return tengine.run($content, $realtime_run, $path, $htmldata)
+		return run($content, $realtime_run, $path, $htmldata)
 	endfunc
 
-	func run($args)
+	func run(*$args)
 		$args = format_args($args)
 		$realtime_run = False
 		$__htmldir__ = $__dir__
@@ -88,7 +68,7 @@ namespace tengine
 		$parts = $content->split('{')
 		$i = 0
 		$new_parts = []
-		section tengine_loop1
+		while $i < len($parts)
 			$tmp = $parts[$i]->split('}', 1)
 			if len($tmp) > 1
 				$new_parts->append([True, $tmp[0]->replace($randstr_1, '{')->replace($randstr_2, '}')])
@@ -97,7 +77,7 @@ namespace tengine
 				$new_parts->append([False, $tmp[0]->replace($randstr_1, '{')->replace($randstr_2, '}')])
 			endif
 			$i = $i + 1
-		mem $i < len($parts); gotoif tengine_loop1
+		endwhile
 		
 		$tengine_i = 0
 		$tengine_parts = $new_parts
@@ -109,7 +89,7 @@ namespace tengine
 		free('randstr_1')
 		free('randstr_2')
 		free('tmp')
-		section tengine_loop2
+		while $tengine_i < len($tengine_parts)
 			if $tengine_parts[$tengine_i][0] == True
 				if $tengine_parts[$tengine_i][1]
 					if $tengine_parts[$tengine_i][1][0] == '='
@@ -122,7 +102,7 @@ namespace tengine
 				$tengine_code = $tengine_code + ('\nprint(base64.b64decode("' + base64.b64encode($tengine_parts[$tengine_i][1]->encode())->decode() + '")->decode())')
 			endif
 			$tengine_i = $tengine_i + 1
-		mem $tengine_i < len($tengine_parts); gotoif tengine_loop2
+		endwhile
 
 		free('tengine_i')
 		free('tengine_parts')

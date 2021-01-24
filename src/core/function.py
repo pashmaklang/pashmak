@@ -27,13 +27,19 @@ from . import parser
 
 class Function:
     """ the pashmak function object """
-    BUILTIN_WITHOUT_FRAME_ISOLATION_FUNCTIONS = ['import', 'import_once', 'import_run', 'import_run_once', 'mem', 'python', 'rmem', 'eval', 'set', 'get', 'free']
+    BUILTIN_WITHOUT_FRAME_ISOLATION_FUNCTIONS = ['import', 'import_once', 'import_run', 'import_run_once', 'mem', 'python', 'rmem', 'eval']
     def __init__(self, name):
         self.name = name
         self.body = []
+        self.args = []
 
     def __call__(self, *args, **kwargs):
         from .current_prog import current_prog
+        if len(self.args) > 0:
+            tmp_args = list(args)
+            if len(tmp_args) == 1:
+                if type(tmp_args[0]) == tuple:
+                    tmp_args = list(tmp_args[0])
         tmp_is_in_class = False
         try:
             tmp_is_in_class = copy.deepcopy(current_prog.current_class)
@@ -51,6 +57,47 @@ class Function:
         except:
             if self.name in self.BUILTIN_WITHOUT_FRAME_ISOLATION_FUNCTIONS:
                 with_frame = False
+
+        # handle arguments
+        if len(self.args) > 0:
+            for arg in self.args:
+                arg_name = arg[0].split(' ', 1)
+                if len(arg_name) > 1:
+                    arg_type = arg_name[0]
+                    arg_name = arg_name[1]
+                else:
+                    arg_name = arg_name[0]
+                if arg_name != '':
+                    try:
+                        default_vars[arg_name[1:]] = kwargs[arg_name[1:]]
+                    except KeyError:
+                        if len(arg) > 1:
+                            default_vars[arg_name[1:]] = current_prog.eval(arg[1])
+
+            for arg in self.args:
+                arg_name = arg[0].split(' ', 1)
+                arg_type = None
+                if len(arg_name) > 1:
+                    arg_type = arg_name[0]
+                    arg_name = arg_name[1]
+                else:
+                    arg_name = arg_name[0]
+                if arg_name != '':
+                    if len(tmp_args) == 0:
+                        try:
+                            default_vars[arg_name[1:]]
+                        except:
+                            current_prog.raise_error('ArgumentError', 'too few arguments passed to function "' + self.name + '"')
+                            return
+                    else:
+                        default_vars[arg_name[1:]] = tmp_args[0]
+                        tmp_args.pop(0)
+                    if arg_type != None:
+                        arg_type_obj = eval(arg_type)
+                        if type(default_vars[arg_name[1:]]) != arg_type_obj:
+                            current_prog.raise_error('InvalidArgument', 'invalid argument type passed to "' + self.name + '" as "' + arg_name + '", it should be ' + arg_type + ', but ' + str(type(default_vars[arg_name[1:]])) + ' given')
+                            return
+
         tmp_body = copy.deepcopy(self.body)
         tmp_func_parts = self.name.split('.')
         if len(tmp_func_parts) > 1:

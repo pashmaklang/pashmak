@@ -21,13 +21,12 @@
 #########################################################################
 
 @doc "Defines a name. First argument is the name and second argument is the value"
-func define($args)
-    $args = format_args($args)
-    if is_defined($args[0])
-        raise Error('DefineError', 'name "' + $args[0] + '" already defined')
+func define($name, $value)
+    if is_defined($name)
+        raise Error('DefineError', 'name "' + $name + '" already defined')
         return
     endif
-    python("self.defines[self.get_var('args')[0]] = self.get_var('args')[1]")
+    python("self.defines[self.get_var('name')] = self.get_var('value')")
 endfunc
 
 @doc "Returns all of defined names as a dictionary"
@@ -36,26 +35,23 @@ func all_defines
 endfunc
 
 @doc "Gets a name and checks is defined and return boolean"
-func is_defined($args)
-    $args = format_args($args)
-    return $args[0] in list(all_defines()->keys())
+func is_defined($name)
+    return $name in list(all_defines()->keys())
 endfunc
 
 @doc "Deletes a defined name. Gets name as string"
-func undefine($args)
-    $args = format_args($args)
-    if not is_defined($args[0])
-        raise Error('DefineError', 'name "' + $args[0] + '" is not defined')
+func undefine($name)
+    if not is_defined($name)
+        raise Error('DefineError', 'name "' + $name + '" is not defined')
         return
     endif
-    python("del self.defines[self.get_var('args')[0]]")
+    python("del self.defines[self.get_var('name')]")
 endfunc
 
 @doc "Re-Defines a name. If name exists, undefines that and defines new value, and if name currently not exists, defines new name"
-func redefine($args)
-    $args = format_args($args)
-    if is_defined($args[0])
-        undefine($args[0])
+func redefine($name, $value)
+    if is_defined($name)
+        undefine($name)
     endif
-    define($args[0], $args[1])
+    define($name, $value)
 endfunc

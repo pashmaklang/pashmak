@@ -21,47 +21,31 @@
 #########################################################################
 
 namespace test
-    func doAssert($args)
-        $args = format_args($args)
-        $value = $args[0]
+    func doAssert($value)
         assert($value)
     endfunc
 
-    func assertTrue($args)
-        $args = format_args($args)
-        $value = $args[0]
+    func assertTrue($value)
         test.doAssert($value)
     endfunc
 
-    func assertFalse($args)
-        $args = format_args($args)
-        $value = $args[0]
+    func assertFalse($value)
         test.doAssert(not $value)
     endfunc
 
-    func assertEquals($args)
-        $args = format_args($args)
-        $a = $args[0]
-        $b = $args[1]
+    func assertEquals($a, $b)
         test.doAssert($a == $b)
     endfunc
 
-    func assertNotEquals($args)
-        $args = format_args($args)
-        $a = $args[0]
-        $b = $args[1]
+    func assertNotEquals($a, $b)
         test.doAssert($a != $b)
     endfunc
 
-    func assertEmpty($args)
-        $args = format_args($args)
-        $value = $args[0]
+    func assertEmpty($value)
         test.doAssert($valie == null)
     endfunc
 
-    func assertNotEmpty($args)
-        $args = format_args($args)
-        $value = $args[0]
+    func assertNotEmpty($value)
         test.doAssert($valie != null)
     endfunc
 endns

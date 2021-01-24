@@ -202,14 +202,43 @@ class BuiltinFunctions:
             self.functions[self.current_func[-1]].__docstring__ = self.last_docstring
             self.last_docstring = ''
         # check for argument variable
-        if len(lexer.multi_char_split(op['args_str'], ' (', 1)) > 1:
-            arg_var = lexer.multi_char_split(op['args_str'], ' (', 1)[1].strip(')').strip('(').strip()
+        if len(op['args_str'].split('(', 1)) > 1:
+            arg_var = op['args_str'].split('(', 1)[-1].strip()
             if arg_var != '':
-                self.arg_should_be_variable(arg_var, op)
-                if is_method:
-                    self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
+                if arg_var[-1] == ')':
+                    arg_var = arg_var[:len(arg_var)-1]
+            if arg_var != '':
+                if arg_var[0] == '*':
+                    arg_var = arg_var[1:]
+                    self.arg_should_be_variable(arg_var, op)
+                    if is_method:
+                        self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
+                    else:
+                        self.functions[self.current_func[-1]].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
                 else:
-                    self.functions[self.current_func[-1]].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
+                    parsed_string = lexer.parse_string(arg_var)
+                    arg_parts = ['']
+                    for part in parsed_string:
+                        if part[0] == False:
+                            arg_parts = [*arg_parts, *part[1].split(',')]
+                        else:
+                            arg_parts[-1] += part[1]
+                    if arg_parts[0] == '':
+                        arg_parts.pop(0)
+                    if arg_parts:
+                        if arg_parts[-1] == '':
+                            arg_parts.pop(-1)
+                    i = 0
+                    while i < len(arg_parts):
+                        arg_parts[i] = arg_parts[i].strip().split('=', 1)
+                        arg_parts[i][0] = arg_parts[i][0].strip()
+                        if len(arg_parts[i]) > 1:
+                            arg_parts[i][1] = arg_parts[i][1].strip()
+                        i += 1
+                    if is_method:
+                        self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].args = arg_parts
+                    else:
+                        self.functions[self.current_func[-1]].args = arg_parts
 
     def run_return(self, op: dict):
         """ Returns a value in function """

@@ -143,68 +143,71 @@ say_hello('parsa')
 #### NOTE: that space between `hello` and `($name)` is not required.
 
 we can put `($varname)` after name of function (with a space between them) and mem will copy automatic in that variable.
-also you can don't use `()` and you can write above code like this:
+
+Also you can pass more than 1 argument to functions:
 
 ```bash
-func say_hello $name # without ()
-    println('hello ' + $name)
+func say_hello($name, $family)
+    println('hello ' + $name + ' ' + $family)
 endfunc
 
-say_hello('parsa')
+say_hello('parsa', 'shahmaleki')
 ```
 
-also you can use empty `()` to have better syntax:
+You should split them with `,`.
+
+### Arguments default values
+You can set some default values for arguments:
 
 ```bash
-func say_hello()
-    println('hello ' + ^)
+func hello($name, $end='!')
+    println('Hello ' + $name + $end)
 endfunc
 
-say_hello('parsa')
+hello('parsa')
 ```
 
-also we can use mem symbol in argument of function.
+output:
 
-for example:
+```
+Hello parsa!
+```
+
+Also we can change default:
 
 ```bash
-func say_hello $name # without ()
-    println('hello ' + $name)
+func hello($name, $end='!')
+    println('Hello ' + $name + $end)
 endfunc
 
-mem 'parsa'
-
-say_hello(^)
+hello('parsa', '.')
 ```
 
-or:
+output:
+
+```
+Hello parsa.
+```
+
+### Keyword arguments
+Also functions can get **Keyword arguments**.
+
+For example:
 
 ```bash
-func say_hello $name # without ()
-    println('hello ' + $name)
+func hello($name, $word='Hello', $end='!')
+    println($word + ' ' + $name + $end)
 endfunc
 
-mem 'parsa'
+hello('parsa') # output: Hello parsa!
+hello('parsa', 'Hi') # output: Hi parsa!
+hello('parsa', 'Hi', '.') # output: Hi parsa.
 
-say_hello(^ + ' shahmaleki')
+# But you can use keyword arguments:
+hello('parsa', end='.') # output: Hello parsa.
 ```
 
-### how two handle multiple arguments?
-in the above examples, all of created functions only have ONE argument. some times our functions recives more than one arguments. how we can handle this?
-
-to handle this, you can use something like this:
-
-```bash
-func say_hi($args)
-    $first_name = $args[0]
-    $last_name = $args[1]
-    println('hello ' + $first_name + ' ' + $last_name)
-endfunc
-
-say_hi('parsa', 'shahmaleki')
-```
-
-in above example, all of our arguments are in `$args`. that variable is a python tuple/list. we can handle multiple arguments like this example.
+Like above example, keyword arguments allows you to set exactly value of a specify argument by name of argument.
 
 ### local variables & global variables
 
@@ -286,8 +289,8 @@ when you calling a function, that function may return a output. this value as ou
 look at this example:
 
 ```bash
-func add_two_nums($nums)
-    $sum = $nums[0] + $nums[1] # add two numbers
+func add_two_nums($num1, $num2)
+    $sum = $num1 + $num2 # add two numbers
     mem $sum # put result to mem
 endfunc
 
@@ -372,10 +375,124 @@ hello pashmak
 another example:
 
 ```bash
-func add_two_nums($nums)
-    return $nums[0] + $nums[1]
+func add_two_nums($num1, $num2)
+    return $num1 + $num2
 endfunc
 
 $result = add_two_nums(10, 5)
 println('sum is ' + str($result))
+```
+
+
+### Dynamic arguments
+You can get arguments dynamically as a list.
+
+For example:
+
+```bash
+func myfunc(*$args)
+    println($args)
+endfunc
+
+myfunc('foo', 'bar')
+myfunc('hello', 100, False)
+```
+
+output:
+
+```
+('foo', 'bar')
+('hello', 100, False)
+```
+
+If you put only a single variable as argument and put a `*` before variable name, like `*$args`, All of arguments will be passed as a tuple(list) to the function.
+
+For example:
+
+```bash
+func myfunc(*$args)
+    return $args[0] + $args[1]
+endfunc
+```
+
+The problem is that, when function has Only One Argument, `$args/etc` is not a Tuple(list). in the above example, this is show.
+
+But how to fix this? When i run `hello('hi')`, argument variable should be `('hi',)`(a tuple) but this is `'hi'`self of variable) I want to do something to always(With any argument count) arguments be a tuple.
+
+To do this, you can use `format_args` function.
+
+for example:
+
+```bash
+func hello(*$args)
+    $args = format_args($args)
+    # ...
+endfunc
+
+hello('hello') # output: ('hello',)
+```
+
+With this function, this problem will be solved.
+
+### Typed arguments
+Typed arguments, are arguments that type of them are declared.
+
+Normally, you can pass any type of value as arguments. for example:
+
+```bash
+func hello($something)
+    println($something)
+endfunc
+
+hello('hi')
+hello(100)
+hello(True)
+```
+
+But, sometimes you want get only a specify type of value as argument:
+
+```bash
+func hello(str $name, int $age)
+    println($name + ' ' + str($age))
+endfunc
+
+hello('parsa', 15)
+hello('pashmak', 1)
+```
+
+output:
+
+```
+parsa 15
+pashmak 1
+```
+
+But if you give something else of declared type, you will give error:
+
+```bash
+func hello(str $name, int $age)
+    println($name + ' ' + str($age))
+endfunc
+
+hello(100, 100) # first argument should be string, but int given
+```
+
+error output:
+
+```
+InvalidArgument: ....
+```
+
+Syntax of argument type defining:
+
+```bash
+func func_name(<type> $name, <type> $other...)
+```
+
+for example:
+
+```bash
+func hello(str $name, $age)
+    # ...
+endfunc
 ```

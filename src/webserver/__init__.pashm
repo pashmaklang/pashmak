@@ -22,13 +22,9 @@
 
 namespace webserver
     class WebServer
-        func __init__($args)
-            if typeof($args) != tuple
-                $args = $args,
-            endif
-
-            $this->host = $args[0]
-            $this->port = $args[1]
+        func __init__(str $host, int $port=8000)
+            $this->host = $host
+            $this->port = $port
 
             $this->do_get = null
             $this->do_post = null
@@ -115,11 +111,7 @@ if $__ismain__
     endfunc
 
     # a handler for POST and GET methods
-    func the_handler($args)
-        $args = format_args($args)
-        $handler = $args[0]
-        $request_method = $args[1]
-        free $args
+    func the_handler($handler, str $request_method)
         if os.path.isfile($dir + '/' + $handler->path) or $main != null
             $full_path = os.path.abspath($dir + '/' + $handler->path)
             $mime = mimetypes.guess_type($full_path)[0]

@@ -25,7 +25,7 @@ class init method can recive argument
 
 --file--
 class Hi
-    func __init__ $name
+    func __init__($name)
         println('hi ' + $name)
         $this->name = $name
     endfunc

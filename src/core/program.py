@@ -33,6 +33,13 @@ from .function import Function
 
 import hashlib, time, random, datetime, base64, json, http, http.cookies, http.server, http.client, http.cookiejar, socket, socketserver, math, pprint, subprocess, sqlite3, sqlite3.dump, sqlite3.dbapi2, urllib, urllib.error, urllib.parse, urllib.request, urllib.response, urllib.robotparser, platform, mimetypes, re
 
+def free(name):
+    from . import current_prog
+    try:
+        del current_prog.current_prog.all_vars()[name]
+    except KeyError:
+        pass
+
 class Program(helpers.Helpers):
     """ Pashmak program object """
     def __init__(self, is_test=False, args=[]):
@@ -404,7 +411,7 @@ class Program(helpers.Helpers):
             is_in_class = False
             if len(self.current_class) > 0:
                 is_in_class = True
-            parts = self.split_by_equals(op['str'].strip())
+            parts = parser.split_by_equals(op['str'].strip())
             if len(parts) <= 1:
                 if '->' in op['str'] or '(' in op['str'] or ')' in op['str']:
                     self.mem = self.eval(op['str'])
@@ -440,7 +447,7 @@ class Program(helpers.Helpers):
                         self.set_var(varname[1:], value)
             return
 
-        parts = self.split_by_equals(op['str'].strip())
+        parts = parser.split_by_equals(op['str'].strip())
         if len(parts) > 1:
             part1 = self.eval(parts[0], only_parse=True)
             part2 = self.eval(parts[1], only_parse=True)
@@ -456,22 +463,28 @@ class Program(helpers.Helpers):
 
         # run function
         try:
-            # put argument in the mem
-            if op['args_str'] != '' and op['args_str'].strip() != '()':
-                if op['command'] == 'rmem':
-                    self.eval(op['args_str'])
-                    return
-                else:
-                    func_arg = self.eval(op['args_str'])
-            else:
-                func_arg = None
-
             # execute function body
-            self.mem = func_arg
             if op_name in Function.BUILTIN_WITHOUT_FRAME_ISOLATION_FUNCTIONS:
+                # put argument in the mem
+                if op['args_str'] != '' and op['args_str'].strip() != '()':
+                    if op['command'] == 'rmem':
+                        self.eval(op['args_str'])
+                        return
+                    else:
+                        func_arg = self.eval(op['args_str'])
+                else:
+                    func_arg = None
+                self.mem = func_arg
                 self.exec_func(func_body.body, False)
             else:
-                self.mem = func_body(self.mem)
+                args_str = op['args_str'].strip()
+                if args_str:
+                    if args_str[0] != '(':
+                        args_str = '(' + args_str + ')'
+                else:
+                    args_str = '()'
+                
+                self.mem = self.eval(op['command'] + args_str)
             return
         except Exception as ex:
             raise

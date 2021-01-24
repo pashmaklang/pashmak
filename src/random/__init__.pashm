@@ -26,18 +26,16 @@ namespace random
     Generates a random number between x and y.\n\
     First and second arguments are x and y as number.\
     """
-    func randint($args)
-        $args = format_args($args)
-        python("self.mem = random.randint(self.get_var('args')[0], self.get_var('args')[1])")
+    func randint($a, $b)
+        python("self.mem = random.randint(self.get_var('a'), self.get_var('b'))")
     endfunc
 
     @doc """\
     Initializes Random number generator.\n\
     Gets seed as integer.\
     """
-    func seed($args)
-        $args = format_args($args)
-        python("random.seed(self.get_var('args')[0])")
+    func seed($a)
+        python("random.seed(self.get_var('a'))")
     endfunc
 
     @doc """\
@@ -47,49 +45,42 @@ namespace random
         python("self.mem = random.getstate()")
     endfunc
 
-    func setstate($args)
-        $args = format_args($args)
-        python("random.setstate(self.get_var('args')[0])")
+    func setstate($state)
+        python("random.setstate(self.get_var('state'))")
     endfunc
 
-    func getrandbits($args)
-        $args = format_args($args)
-        python("self.mem = random.getrandbits(self.get_var('args')[0])")
+    func getrandbits($a)
+        python("self.mem = random.getrandbits(self.get_var('a'))")
     endfunc
 
-    func randrange($args)
-        $args = format_args($args)
-        python("self.mem = random.randrange(self.get_var('args')[0], self.get_var('args')[1])")
+    func randrange($a, $b)
+        python("self.mem = random.randrange(self.get_var('a'), self.get_var('b'))")
     endfunc
 
-    func choice($args)
-        $args = format_args($args)
-        python("self.mem = random.choice(self.get_var('args')[0])")
-    endfunc
-
-    func choices($args)
-        $args = format_args($args)
-        python("self.mem = random.choices(self.get_var('args')[0] , self.get_var('args')[1] , self.get_var('args')[2] , self.get_var('args')[3])")
-    endfunc
+    ### TODO : fix bug of this functions
+    ### func choice($a)
+    ###     python("self.mem = random.choice(self.get_var('a'))")
+    ### endfunc
+    ###
+    ### func choices($a, $b, $c, $d)
+    ###     $args = format_args($args)
+    ###     python("self.mem = random.choices(self.get_var('a'), self.get_var('b'), self.get_var('c'), self.get_var('d'))")
+    ### endfunc
     
-    func shuffle($args)
-        $args = format_args($args)
-        python("random.shuffle(self.get_var('args')[0], self.get_var('args')[1])")
+    func shuffle($a, $b)
+        python("random.shuffle(self.get_var('a'), self.get_var('b'))")
     endfunc
 
-    func sample($args)
-        $args = format_args($args)
-        python("self.mem = random.sample(self.get_var('args')[0], self.get_var('args')[1])")
+    func sample($a, $b)
+        python("self.mem = random.sample(self.get_var('a'), self.get_var('b'))")
     endfunc
 
-    func uniform($args)
-        $args = format_args($args)
-        python("self.mem = random.uniform(self.get_var('args')[0], self.get_var('args')[1])")
+    func uniform($a, $b)
+        python("self.mem = random.uniform(self.get_var('a'), self.get_var('b'))")
     endfunc
 
-    func triangular($args)
-        $args = format_args($args)
-        python("self.mem = random.triangular(self.get_var('args')[0], self.get_var('args')[1], self.get_var('args')[2])")
+    func triangular($a $b, $c)
+        python("self.mem = random.triangular(self.get_var('a'), self.get_var('b'), self.get_var('c'))")
     endfunc
 
     @doc """\

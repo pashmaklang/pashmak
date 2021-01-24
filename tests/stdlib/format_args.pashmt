@@ -25,11 +25,11 @@ function format_args() works
 
 --file--
 
-func bye($args)
+func bye(*$args)
     println($args)
 endfunc
 
-func hello($args)
+func hello(*$args)
     $args = format_args($args)
     println($args)
 endfunc

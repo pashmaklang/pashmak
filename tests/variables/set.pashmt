@@ -38,7 +38,7 @@ $a2 = 'hello ' + $a1 + '\n'
 print $a2
 mem 'hi mem'
 $themem = ^
-func testfunc $n
+func testfunc($n)
     mem 'the func' + $n
 endfunc
 $s = testfunc('A')

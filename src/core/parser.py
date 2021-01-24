@@ -175,3 +175,40 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
         i += 1
 
     return commands
+
+def split_by_equals(string: str) -> list:
+    """ Parses `<something> = <something>` """
+    commands_parts = parse_string(string)
+    parts = ['']
+    i = 0
+    block_depth = 0
+    while i < len(commands_parts):
+        if commands_parts[i][0] == True:
+            parts[-1] += commands_parts[i][1]
+        else:
+            j = 0
+            while j < len(commands_parts[i][1]):
+                if j < len(commands_parts[i][1]) and j > 0:
+                    previous_char = ''
+                    next_char = ''
+                    try:
+                        previous_char = commands_parts[i][1][j-1]
+                    except IndexError:
+                        pass
+                    try:
+                        next_char = commands_parts[i][1][j+1]
+                    except IndexError:
+                        pass
+                    if commands_parts[i][1][j] == '=' and previous_char != '=' and next_char != '=' and len(parts) == 1 and block_depth <= 0:
+                        parts.append('')
+                    else:
+                        if commands_parts[i][1][j] == '(':
+                            block_depth += 1
+                        elif commands_parts[i][1][j] == ')':
+                            block_depth -= 1
+                        parts[-1] += commands_parts[i][1][j]
+                else:
+                    parts[-1] += commands_parts[i][1][j]
+                j += 1
+        i += 1
+    return parts

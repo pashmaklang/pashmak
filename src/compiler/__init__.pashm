@@ -29,16 +29,14 @@ Example:\
     println($mixer->total_content)\
 "
 class Mixer
-    func __init__($args)
-        $args = format_args($args)
-
+    func __init__(str $path)
         $this->total_content = ''
         $this->imported_files = []
         $this->last_is_main = 'True'
 
-        $this->crawl($args[0])
+        $this->crawl($path)
 
-        $parsed_code = parser.parse($this->total_content, filepath=$args[0], only_parse=True)
+        $parsed_code = parser.parse($this->total_content, filepath=$path, only_parse=True)
 
         $new_content = '#!/usr/bin/env pashmak\n'
 
@@ -56,14 +54,12 @@ class Mixer
     \n\
     This method is called recursively\
     "
-    func crawl($args)
-        $path = format_args($args)[0]
-
+    func crawl(str $path)
         $path = os.path.abspath($path)
 
-	if os.path.isdir($path)
-	    $path = $path + '/__init__.pashm'
-	endif
+	    if os.path.isdir($path)
+	        $path = $path + '/__init__.pashm'
+	    endif
 
         $f = open($path, 'r')
         $content = $f->read()

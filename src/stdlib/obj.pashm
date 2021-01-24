@@ -35,9 +35,7 @@ class Object
     Checks is this object instance of a class.\n\
     Gets that class as argument(You can pass class name as string or class object).\
     """
-    func isinstanceof($args)
-        $args = format_args($args)
-        $class = $args[0]
+    func isinstanceof($class)
         if typeof($class) != str
             $class = $class->__name__
         endif
@@ -47,26 +45,18 @@ class Object
 endclass
 
 @doc "Returns value of a variable by name of variable as string"
-func get($args)
-    $args = format_args($args)
-    python("self.mem = self.get_var(self.get_var('args')[0])")
+func get
+    python("self.mem = self.get_var(" + repr(^) + ")")
 endfunc
 
 @doc """\
 Sets value of a variable by name of variable as first argument as string\
 And value as second argument\
 """
-func set($args)
-    $args = format_args($args)
-    python("self.set_var(self.get_var('args')[0], self.get_var('args')[1])")
+func set($name, $value=null)
+    python("self.frames[-3]['vars'][self.get_var('name')] = self.get_var('value')")
 endfunc
 
-func isset($args)
-    $args = format_args($args)
-    python('self.mem = self.variable_exists(self.get_var("args")[0])')
-endfunc
-
-func free($args)
-    $args = format_args($args)
-    python('try:\n\tdel self.all_vars()[self.get_var("args")[0]]\nexcept KeyError:\n\tpass')
+func isset
+    python('self.mem = self.variable_exists(' + repr(^) + ')')
 endfunc
