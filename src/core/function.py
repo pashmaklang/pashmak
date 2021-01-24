@@ -35,11 +35,11 @@ class Function:
 
     def __call__(self, *args, **kwargs):
         from .current_prog import current_prog
-        tmp_args = copy.deepcopy(args)
-        tmp_args = list(tmp_args)
-        if len(tmp_args) == 1:
-            if type(tmp_args[0]) == tuple:
-                tmp_args = list(tmp_args[0])
+        if len(self.args) > 0:
+            tmp_args = list(args)
+            if len(tmp_args) == 1:
+                if type(tmp_args[0]) == tuple:
+                    tmp_args = list(tmp_args[0])
         tmp_is_in_class = False
         try:
             tmp_is_in_class = copy.deepcopy(current_prog.current_class)
