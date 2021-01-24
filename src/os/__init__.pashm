@@ -28,9 +28,8 @@ namespace os
     Changes program working directory to new path.\n\
     Gets path as string.\
     """
-    func chdir(*$args)
-        $args = format_args($args)
-        python("os.chdir(self.get_var('args')[0]")
+    func chdir($dirpath)
+        python("os.chdir(self.get_var('dirpath')")
     endfunc
 
     @doc """\
@@ -44,9 +43,8 @@ namespace os
     Makes a directory.\n\
     Gets directory path as string.\
     """
-    func mkdir(*$args)
-        $args = format_args($args)
-        python("os.mkdir(self.get_var('args')[0])")
+    func mkdir($dirpath)
+        python("os.mkdir(self.get_var('dirpath'))")
     endfunc
 
     $curdir = python("self.mem = os.curdir")
@@ -56,10 +54,7 @@ namespace os
     First argument is process ID as int.\n\
     Second argument is the signal.\
     """
-    func kill(*$args)
-        $args = format_args($args)
-        $pid = $args[0]
-        $signal = $args[1]
+    func kill($pid, $signal=1)
         python("os.kill(self.get_var('pid'), self.get_var('signal'))")
     endfunc
 
@@ -67,9 +62,8 @@ namespace os
     Removes a directory.\n\
     Gets directory path as string.\
     """
-    func rmdir(*$args)
-        $args = format_args($args)
-        python("os.rmdir(self.get_var('args')[0])")
+    func rmdir($dirpath)
+        python("os.rmdir(self.get_var('dirpath'))")
     endfunc
 
     $osname = python('self.mem = os.name')
@@ -81,9 +75,8 @@ namespace os
     Gets path as string.\n\
     Returns Boolean.\n\
     """
-    func isdir(*$args)
-        $args = format_args($args)
-        python("self.mem = os.path.isdir(self.get_var('args')[0])")
+    func isdir($dirpath)
+        python("self.mem = os.path.isdir(self.get_var('dirpath'))")
     endfunc
 
     @doc """\
@@ -91,9 +84,8 @@ namespace os
     Gets path as string.\n\
     Returns Boolean.\n\
     """
-    func isfile(*$args)
-        $args = format_args($args)
-        python("self.mem = os.path.isfile(self.get_var('args')[0])")
+    func isfile($path)
+        python("self.mem = os.path.isfile(self.get_var('path'))")
     endfunc
 
     @doc """\
@@ -101,9 +93,8 @@ namespace os
     Gets path as string.\n\
     Returns Boolean.\
     """
-    func exists(*$args)
-        $args = format_args($args)
-        python("self.mem = os.path.exists(self.get_var('args')[0])")
+    func exists($path)
+        python("self.mem = os.path.exists(self.get_var('path'))")
     endfunc
 
     @doc """\

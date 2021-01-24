@@ -25,9 +25,8 @@ namespace time
         python("self.mem = time.time()")
     endfunc
 
-    func sleep(*$args)
-        $args = format_args($args)
-        python("time.sleep(self.get_var('args')[0])")
+    func sleep($time_to_sleep)
+        python("time.sleep(self.get_var('time_to_sleep'))")
     endfunc
 
     func ctime

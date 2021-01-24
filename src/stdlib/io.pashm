@@ -102,15 +102,7 @@ endfunc
 Exits program.\n\
 The argument is the exit code(is optional, default is 0).\
 """
-func exit(*$args)
-    $args = format_args($args)
-    $code = 0
-    if len($args) > 0
-        $code = $args[0]
-        if typeof($code) != int
-        $code = 0
-    endif
-    endif
+func exit($code=0)
     python("self.exit_program(self.get_var('code'))")
 endfunc
 
@@ -133,16 +125,7 @@ Prints something and exits program.\n\
 The first argument is that thing you want to print(Optional,default is null).\n\
 The second argument is exit code(is optional, default is 1).\
 """
-func die(*$args)
-    $args = list(format_args($args))
-    if len($args) <= 0
-        $args = ['', 1]
-    elif len($args) <= 1
-        $args->append(1)
-    endif
-    if $args[0] == null
-        $args[0] = ''
-    endif
-    print($args[0])
-    exit($args[1])
+func die($message='', $exit_code=1)
+    print($message)
+    exit($exit_code)
 endfunc

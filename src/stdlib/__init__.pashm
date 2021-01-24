@@ -56,13 +56,6 @@ func import_run_once
 endfunc
 
 @doc """\
-Is a alias for `endnamespace` keyword.\
-"""
-func endns
-    endnamespace
-endfunc
-
-@doc """\
 Gets a Pashmak code as string and runs that.\
 """
 func eval
@@ -72,9 +65,7 @@ endfunc
 @doc """\
 Asserts a value, if it's not True, raises AssertError.\
 """
-func assert(*$args)
-    $args = format_args($args)
-    $value = $args[0]
+func assert($value)
     if not $value
         raise(Error('AssertError', 'asserting that false is true'))
     endif
@@ -84,17 +75,15 @@ endfunc
 Sets a global variable.\n\
 Gets variable name as first argument and value as second.\
 """
-func gset(*$args)
-    $args = format_args($args)
-	python('self.frames[0]["vars"][' + repr($args[0]) + '] = self.get_var("args")[1]')
+func gset($name, $value=null)
+	python('self.frames[0]["vars"][' + repr($name) + '] = self.get_var("value")')
 endfunc
 
 @doc """\
 Returns a global variable. Gets variable name as string.\
 """
-func gget(*$args)
-    $args = format_args($args)
-	python('self.mem = self.frames[0]["vars"][' + repr($args[0]) + ']')
+func gget($name)
+	python('self.mem = self.frames[0]["vars"][' + repr($name) + ']')
 endfunc
 
 @doc """\
@@ -108,9 +97,7 @@ endfunc
 Runs a system shell command and returns exit code.\n\
 Gets command as string and returns exit code as int.\
 """
-func system(*$args)
-    $args = format_args($args)
-    $cmd = $args[0]
+func system($cmd)
     python("self.mem = os.system(self.get_var('cmd'))")
 endfunc
 
@@ -118,24 +105,14 @@ endfunc
 Loads a python file script as a python module object.\n\
 Gets script file path as string and returns loaded object.\
 """
-func py_load_file(*$args)
-    $args = format_args($args)
-    $path = $args[0]
+func py_load_file($path)
 	python("import importlib.util; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path')); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); self.mem = m")
 endfunc
 
 @doc """\
 Is a alias for `open()` function.\
 """
-func fopen(*$args)
-    $args = format_args($args)
-    $path = $args[0]
-    if len($args) > 1
-        $type = $args[1]
-    else
-        $type = 'r'
-    endif
-
+func fopen($path, $type='r')
     python("self.mem = open(self.get_var('path'), self.get_var('type'))")
 endfunc
 
@@ -179,8 +156,7 @@ Adds a function to shutdown event.\n\
 Shutdown event functions will be run one by one in end of program.\n\
 Gets function object as argument.\
 """
-func register_shutdown(*$func)
-    $func = format_args($func)[0]
+func register_shutdown($func)
     python("self.shutdown_event.append(self.get_var('func'))")
 endfunc
 

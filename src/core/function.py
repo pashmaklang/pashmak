@@ -27,7 +27,7 @@ from . import parser
 
 class Function:
     """ the pashmak function object """
-    BUILTIN_WITHOUT_FRAME_ISOLATION_FUNCTIONS = ['import', 'import_once', 'import_run', 'import_run_once', 'mem', 'python', 'rmem', 'eval', 'set', 'get', 'free']
+    BUILTIN_WITHOUT_FRAME_ISOLATION_FUNCTIONS = ['import', 'import_once', 'import_run', 'import_run_once', 'mem', 'python', 'rmem', 'eval']
     def __init__(self, name):
         self.name = name
         self.body = []
