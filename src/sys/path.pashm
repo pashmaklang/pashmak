@@ -26,7 +26,7 @@ namespace sys
         Adds a new path to pashmakpath.\n\
         Gets new path as string.\
         """
-        func add($path)
+        func add(str $path)
             python('os.environ["PASHMAKPATH"] += ":' + str($path) + ':"')
             python("self.bootstrap_modules()")
         endfunc

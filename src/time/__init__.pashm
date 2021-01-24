@@ -25,7 +25,7 @@ namespace time
         python("self.mem = time.time()")
     endfunc
 
-    func sleep($time_to_sleep)
+    func sleep(float $time_to_sleep)
         python("time.sleep(self.get_var('time_to_sleep'))")
     endfunc
 

@@ -21,35 +21,15 @@
 #########################################################################
 
 namespace tengine
-	func include(*$args)
-		$args = format_args($args)
-
-		$path = $args[0]
-		$htmldata = {}
-
-		if len($args) > 1
-			$htmldata = $args[1]
-		endif
-
-		tengine.run_file($path, True, $htmldata)
+	func include(str $path, dict $htmldata={})
+		run_file($path, True, $htmldata)
 	endfunc
 
-	func run_file(*$args)
-		$args = format_args($args)
-		$realtime_run = False
-		$htmldata = {}
-		$path = $args[0]
-		if len($args) > 1
-			$realtime_run = $args[1]
-		endif
-		if len($args) > 2
-			$htmldata = $args[2]
-		endif
-
+	func run_file(str $path, bool $realtime_run=true, dict $htmldata={})
 		$f = fopen($path, 'r')
 		$content = $f->read()
 		$f->close()
-		return tengine.run($content, $realtime_run, $path, $htmldata)
+		return run($content, $realtime_run, $path, $htmldata)
 	endfunc
 
 	func run(*$args)

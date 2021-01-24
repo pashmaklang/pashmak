@@ -28,7 +28,7 @@ namespace os
     Changes program working directory to new path.\n\
     Gets path as string.\
     """
-    func chdir($dirpath)
+    func chdir(str $dirpath)
         python("os.chdir(self.get_var('dirpath')")
     endfunc
 
@@ -43,7 +43,7 @@ namespace os
     Makes a directory.\n\
     Gets directory path as string.\
     """
-    func mkdir($dirpath)
+    func mkdir(str $dirpath)
         python("os.mkdir(self.get_var('dirpath'))")
     endfunc
 
@@ -54,7 +54,7 @@ namespace os
     First argument is process ID as int.\n\
     Second argument is the signal.\
     """
-    func kill($pid, $signal=1)
+    func kill(int $pid, int $signal=1)
         python("os.kill(self.get_var('pid'), self.get_var('signal'))")
     endfunc
 
@@ -62,7 +62,7 @@ namespace os
     Removes a directory.\n\
     Gets directory path as string.\
     """
-    func rmdir($dirpath)
+    func rmdir(str $dirpath)
         python("os.rmdir(self.get_var('dirpath'))")
     endfunc
 
@@ -75,7 +75,7 @@ namespace os
     Gets path as string.\n\
     Returns Boolean.\n\
     """
-    func isdir($dirpath)
+    func isdir(str $dirpath)
         python("self.mem = os.path.isdir(self.get_var('dirpath'))")
     endfunc
 
@@ -84,7 +84,7 @@ namespace os
     Gets path as string.\n\
     Returns Boolean.\n\
     """
-    func isfile($path)
+    func isfile(str $path)
         python("self.mem = os.path.isfile(self.get_var('path'))")
     endfunc
 
@@ -93,7 +93,7 @@ namespace os
     Gets path as string.\n\
     Returns Boolean.\
     """
-    func exists($path)
+    func exists(str $path)
         python("self.mem = os.path.exists(self.get_var('path'))")
     endfunc
 

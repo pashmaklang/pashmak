@@ -22,7 +22,7 @@
 
 namespace webserver
     class WebServer
-        func __init__($host, $port=8000)
+        func __init__(str $host, int $port=8000)
             $this->host = $host
             $this->port = $port
 
@@ -111,7 +111,7 @@ if $__ismain__
     endfunc
 
     # a handler for POST and GET methods
-    func the_handler($handler, $request_method)
+    func the_handler($handler, str $request_method)
         if os.path.isfile($dir + '/' + $handler->path) or $main != null
             $full_path = os.path.abspath($dir + '/' + $handler->path)
             $mime = mimetypes.guess_type($full_path)[0]
