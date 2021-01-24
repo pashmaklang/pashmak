@@ -22,6 +22,8 @@
 - added `set` and `get` functions
 - added name define system and `define`, `is_defined`, `undefine`, `all_defines` and `redefine` functions
 - added `true` and `false` aliases for `True` and `False` keywords
+- added multiple arguments for functions
+- added keyword arguments for functions
 
 #### Changes
 
