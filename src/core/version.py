@@ -23,4 +23,4 @@
 """ Version of pashmak """
 
 # pashmak version
-version = 'v0.7-alpha3'
+version = 'v0.7-alpha4'
