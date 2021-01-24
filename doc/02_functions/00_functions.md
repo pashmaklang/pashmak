@@ -433,3 +433,66 @@ hello('hello') # output: ('hello',)
 ```
 
 With this function, this problem will be solved.
+
+### Typed arguments
+Typed arguments, are arguments that type of them are declared.
+
+Normally, you can pass any type of value as arguments. for example:
+
+```bash
+func hello($something)
+    println($something)
+endfunc
+
+hello('hi')
+hello(100)
+hello(True)
+```
+
+But, sometimes you want get only a specify type of value as argument:
+
+```bash
+func hello(str $name, int $age)
+    println($name + ' ' + str($age))
+endfunc
+
+hello('parsa', 15)
+hello('pashmak', 1)
+```
+
+output:
+
+```
+parsa 15
+pashmak 1
+```
+
+But if you give something else of declared type, you will give error:
+
+```bash
+func hello(str $name, int $age)
+    println($name + ' ' + str($age))
+endfunc
+
+hello(100, 100) # first argument should be string, but int given
+```
+
+error output:
+
+```
+InvalidArgument: ....
+```
+
+Syntax of argument type defining:
+
+```bash
+func func_name(<type> $name, <type> $other...)
+```
+
+for example:
+
+```bash
+func hello(str $name, $age)
+    # ...
+endfunc
+```

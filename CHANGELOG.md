@@ -24,6 +24,7 @@
 - added `true` and `false` aliases for `True` and `False` keywords
 - added multiple arguments for functions
 - added keyword arguments for functions
+- added typed arguments for functions
 
 #### Changes
 
