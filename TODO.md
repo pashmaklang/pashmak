@@ -1,6 +1,5 @@
 # TODO
 
-- handle multiple arguments for functions
 - complete web system
 - ide plugins (GH-76)
 - create a package manager (GH-50)
