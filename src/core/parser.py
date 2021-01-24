@@ -189,7 +189,17 @@ def split_by_equals(string: str) -> list:
             j = 0
             while j < len(commands_parts[i][1]):
                 if j < len(commands_parts[i][1]) and j > 0:
-                    if commands_parts[i][1][j] == '=' and commands_parts[i][1][j-1] != '=' and commands_parts[i][1][j+1] != '=' and len(parts) == 1 and block_depth <= 0:
+                    previous_char = ''
+                    next_char = ''
+                    try:
+                        previous_char = commands_parts[i][1][j-1]
+                    except IndexError:
+                        pass
+                    try:
+                        next_char = commands_parts[i][1][j+1]
+                    except IndexError:
+                        pass
+                    if commands_parts[i][1][j] == '=' and previous_char != '=' and next_char != '=' and len(parts) == 1 and block_depth <= 0:
                         parts.append('')
                     else:
                         if commands_parts[i][1][j] == '(':

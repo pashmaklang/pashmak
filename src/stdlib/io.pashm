@@ -104,9 +104,12 @@ The argument is the exit code(is optional, default is 0).\
 """
 func exit(*$args)
     $args = format_args($args)
-    $code = $args[0]
-    if typeof($code) != int
+    $code = 0
+    if len($args) > 0
+        $code = $args[0]
+        if typeof($code) != int
         $code = 0
+    endif
     endif
     python("self.exit_program(self.get_var('code'))")
 endfunc
