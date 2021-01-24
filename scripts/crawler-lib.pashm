@@ -1,26 +1,17 @@
 
 class Crawler
-    func __init__(*$args)
-        $args = format_args($args)
+    func __init__($path, $extension)
         $this->files_list = []
-        mem $this->get($args[0], $args[1])
+        mem $this->get($path, $extension)
     endfunc
 
-    func add_once(*$args)
-        $args = format_args($args)
-        $path = $args[0]
-        $extension = $args[1]
-
+    func add_once($path, $extension)
         if $path->endswith($extension)
             mem $this->files_list->append(os.path.abspath($path))
         endif
     endfunc
 
-    func get(*$args)
-        $args = format_args($args)
-        $path = $args[0]
-        $extension = $args[1]
-
+    func get($path, $extension)
         $files = os.listdir($path)
         $i = 0
         while $i < len($files)

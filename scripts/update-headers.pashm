@@ -20,9 +20,7 @@ The Pashmak Project\
 \n# You should have received a copy of the GNU General Public License\
 \n# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.\n'
 
-func set_once_header(*$args)
-    $args = format_args($args)
-    $path = $args[0]
+func set_once_header($path)
     $spliter = ('#' * 73) + '\n\n'
     
     # open file and add header
