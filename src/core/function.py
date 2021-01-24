@@ -92,7 +92,7 @@ class Function:
                     else:
                         default_vars[arg_name[1:]] = tmp_args[0]
                         tmp_args.pop(0)
-                    if arg_type != None:
+                    if arg_type != None and default_vars[arg_name[1:]] != None:
                         arg_type_obj = eval(arg_type)
                         if type(default_vars[arg_name[1:]]) != arg_type_obj:
                             current_prog.raise_error('InvalidArgument', 'invalid argument type passed to "' + self.name + '" as "' + arg_name + '", it should be ' + arg_type + ', but ' + str(type(default_vars[arg_name[1:]])) + ' given')
