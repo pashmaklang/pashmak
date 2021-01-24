@@ -25,9 +25,8 @@ the multiline syntax is working
 --skip--
 --file--
 
-func hello(*$args)
-	$args = format_args($args)
-	println($args[0] + ' ' + $args[1])
+func hello($a, $b)
+	println($a + ' ' + $b)
 endfunc
 
 hello(

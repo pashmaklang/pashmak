@@ -26,37 +26,36 @@ comparison magic methods working
 --file--
 
 class Person
-    func __init__(*$args)
-        $args = format_args($args)
-        $this->age = int($args[0])
+    func __init__($age)
+        $this->age = int($age)
     endfunc
 
-    func __eq__(*$other)
+    func __eq__($other)
         println('LOG: eq')
         return $this->age == $other->age
     endfunc
 
-    func __ne__(*$other)
+    func __ne__($other)
         println('LOG: ne')
         return $this->age != $other->age
     endfunc
 
-    func __lt__(*$other)
+    func __lt__($other)
         println('LOG: lt')
         return $this->age < $other->age
     endfunc
 
-    func __gt__(*$other)
+    func __gt__($other)
         println('LOG: gt')
         return $this->age > $other->age
     endfunc
 
-    func __le__(*$other)
+    func __le__($other)
         println('LOG: le')
         return $this->age <= $other->age
     endfunc
 
-    func __ge__(*$other)
+    func __ge__($other)
         println('LOG: ge')
         return $this->age >= $other->age
     endfunc

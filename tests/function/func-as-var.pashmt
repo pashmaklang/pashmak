@@ -24,7 +24,7 @@
 function can be used as variable
 
 --file--
-func hello(*$name)
+func hello($name)
     println 'hello ' + $name
 endfunc
 
@@ -41,7 +41,7 @@ endfunc
 $myfunc = somefunc
 $myfunc()
 
-func run_the_func(*$func)
+func run_the_func($func)
     println('start')
     $func()
     println('finish')

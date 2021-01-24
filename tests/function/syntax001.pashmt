@@ -28,7 +28,7 @@ func hello1
     println 'hello world'
 endfunc
 
-func hello2(*$name)
+func hello2($name)
     println('hello ' + $name)
 endfunc
 
@@ -36,7 +36,7 @@ func hello3 (   *$name        )
     println 'hello ' + $name
 endfunc
 
-func hello4(*$name)
+func hello4($name)
     println 'hello ' + $name
 endfunc
 

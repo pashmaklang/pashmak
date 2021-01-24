@@ -27,7 +27,7 @@ the $this variable is accessible in methods
 
 class Person
     $name
-    func set_name(*$name)
+    func set_name($name)
         $this->name = $name
     endfunc
 
