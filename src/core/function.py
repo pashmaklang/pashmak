@@ -61,14 +61,23 @@ class Function:
         # handle arguments
         if len(self.args) > 0:
             for arg in self.args:
-                if len(tmp_args) == 0:
-                    if len(arg) > 1:
-                        default_vars[arg[0][1:]] = current_prog.eval(arg[1])
+                if arg[0] != '':
+                    try:
+                        default_vars[arg[0][1:]] = kwargs[arg[0][1:]]
+                    except KeyError:
+                        if len(arg) > 1:
+                            default_vars[arg[0][1:]] = current_prog.eval(arg[1])
+            for arg in self.args:
+                if arg[0] != '':
+                    if len(tmp_args) == 0:
+                        try:
+                            default_vars[arg[0][1:]]
+                        except:
+                            current_prog.raise_error('ArgumentError', 'too few arguments passed to function "' + self.name + '"')
+                            return
                     else:
-                        current_prog.raise_error('ArgumentError', 'too few arguments passed to function "' + self.name + '"')
-                        return
-                default_vars[arg[0][1:]] = tmp_args[0]
-                tmp_args.pop(0)
+                        default_vars[arg[0][1:]] = tmp_args[0]
+                        tmp_args.pop(0)
 
         tmp_body = copy.deepcopy(self.body)
         tmp_func_parts = self.name.split('.')
