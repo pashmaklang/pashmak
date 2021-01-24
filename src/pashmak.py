@@ -26,7 +26,7 @@
 import sys
 import os
 import signal
-from core import program, version, jit, lexer
+from core import program, version, jit, parser
 
 def signal_handler(signal_code, frame):
     """ handle signal """
@@ -70,7 +70,7 @@ if __name__ == '__main__':
         if len(sys.argv) <= 2:
             print(sys.argv[0] + ': `-r` option requires code as argument: -r [code...]')
             sys.exit(1)
-        script_commands = lexer.parse(sys.argv[2], filepath='-')
+        script_commands = parser.parse(sys.argv[2], filepath='-')
         filename = '-r'
     else:
         filename = sys.argv[1]
@@ -79,12 +79,12 @@ if __name__ == '__main__':
             script_content = ''
             for line in sys.stdin.readlines():
                 script_content += line
-            script_commands = lexer.parse(script_content, filepath=filename)
+            script_commands = parser.parse(script_content, filepath=filename)
         elif not os.path.isfile(filename):
             print(sys.argv[0] + ': file "' + filename + '" not found')
             sys.exit(1)
         else:
-            # read content of file and parse it with the lexer
+            # read content of file and parse it with the parser
             script_commands = jit.load(filename, code_location=filename, ismain_default=True)
 
     # make pashmak program object

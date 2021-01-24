@@ -1,5 +1,5 @@
 #
-# free1.pashmt
+# arg-type.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,8 +21,21 @@
 #########################################################################
 
 --test--
-free command is working on mem
+error will be raised when argument type is invalid
+
 --file--
-mem 'some thing'; free ^
---mem--
-None
+
+func hello(str $name, int $age)
+    println($name + ' ' + str($age))
+endfunc
+
+hello('parsa', 15)
+
+hello(10, 10)
+
+--with-error--
+"InvalidArgument"
+
+--output--
+"""parsa 15
+"""

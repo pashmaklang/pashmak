@@ -1,5 +1,5 @@
 #
-# free3.pashmt
+# syntax-multiline-007.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,8 +21,37 @@
 #########################################################################
 
 --test--
-free command raises error when arguments syntax is not valid
+the multiline syntax is working
+--skip--
 --file--
-free $somevar gdhfg ^
---with-error--
-'SyntaxError'
+
+func hello($a, $b)
+	println($a + ' ' + $b)
+endfunc
+
+hello(
+	'foo',
+	'bar'
+)
+
+println('End')
+
+println(
+	'hello world')
+
+$dict = {
+	'foo': 'bar',
+	'baz': [
+		'a',
+		'b'
+	],
+}
+
+println($dict)
+
+--output--
+"""foo bar
+End
+hello world
+{'foo': 'bar', 'baz': ['a', 'b']}
+"""

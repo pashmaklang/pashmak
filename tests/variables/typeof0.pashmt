@@ -32,8 +32,6 @@ $type_str = typeof($mystr)
 $type_int = typeof($myint)
 $type_bool = typeof($mybool)
 
-free $mystr $myint $mybool
-
 println($type_str)
 println($type_int)
 println($type_bool)

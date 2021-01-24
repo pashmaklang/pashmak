@@ -21,11 +21,20 @@
 #########################################################################
 
 --test--
-free command is working
+free function is working
 --file--
-$somevar; $v1
-$hoho
-free $v1 $hoho
-println($v1, $hoho)
---with-error--
-"VariableError"
+
+$name = 'parsa'
+
+println(isset('name'))
+
+free('name')
+
+println(isset('name'))
+
+free('not_found')
+
+--output--
+"""True
+False
+"""

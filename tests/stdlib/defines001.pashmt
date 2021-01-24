@@ -1,5 +1,5 @@
 #
-# required2.pashmt
+# defines001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,8 +21,46 @@
 #########################################################################
 
 --test--
-required command raises error when arguments has syntax error
+name defining system works correctly
+
 --file--
-required $ffdggd, $sgdfg
+
+println('is defined: ' + str(is_defined('THE_NAME')))
+
+define('THE_NAME', 'parsa')
+
+println('is defined: ' + str(is_defined('THE_NAME')))
+
+println(all_defines())
+
+undefine('THE_NAME')
+
+println('is defined: ' + str(is_defined('THE_NAME')))
+
+println(all_defines())
+
+define('THE_NAME', 'parsa')
+
+println('is defined: ' + str(is_defined('THE_NAME')))
+
+println(all_defines())
+
+redefine('THE_NAME', 'new')
+
+println(THE_NAME)
+
+define('THE_NAME', 'new')
+
+--output--
+"""is defined: False
+is defined: True
+{'THE_NAME': 'parsa'}
+is defined: False
+{}
+is defined: True
+{'THE_NAME': 'parsa'}
+new
+"""
+
 --with-error--
-'VariableError'
+"DefineError"

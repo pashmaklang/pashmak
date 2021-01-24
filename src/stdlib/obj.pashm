@@ -35,9 +35,7 @@ class Object
     Checks is this object instance of a class.\n\
     Gets that class as argument(You can pass class name as string or class object).\
     """
-    func isinstanceof($args)
-        $args = format_args($args)
-        $class = $args[0]
+    func isinstanceof($class)
         if typeof($class) != str
             $class = $class->__name__
         endif
@@ -45,3 +43,20 @@ class Object
         return $class in $this->__inheritance_tree__
     endfunc
 endclass
+
+@doc "Returns value of a variable by name of variable as string"
+func get
+    python("self.mem = self.get_var(" + repr(^) + ")")
+endfunc
+
+@doc """\
+Sets value of a variable by name of variable as first argument as string\
+And value as second argument\
+"""
+func set($name, $value=null)
+    python("self.frames[-3]['vars'][self.get_var('name')] = self.get_var('value')")
+endfunc
+
+func isset
+    python('self.mem = self.variable_exists(' + repr(^) + ')')
+endfunc

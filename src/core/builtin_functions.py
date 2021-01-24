@@ -23,24 +23,12 @@
 """ Pashmak Builtin functions """
 
 from .class_system import Class
-from . import lexer
+from . import parser
 from .function import Function
+from . import lexer
 
 class BuiltinFunctions:
     """ Builtin functions """
-    def run_free(self, op: dict):
-        """ Deletes variables """
-        args = op['args']
-        for arg in args:
-            self.arg_should_be_variable_or_mem(arg, op)
-            if arg == '^':
-                self.mem = None
-            else:
-                try:
-                    del self.all_vars()[arg[1:]]
-                except KeyError:
-                    pass
-
     def run_endfunc(self, op: dict):
         """ Closes the functon declaration block """
         if len(self.current_func) > 0:
@@ -69,16 +57,6 @@ class BuiltinFunctions:
         if self.mem:
             self.frames[-1]['current_step'] = section_index-1
 
-    def run_isset(self, op: dict):
-        """ Checks variable(s) exists and puts result to mem """
-        args = op['args']
-        for arg in args:
-            self.arg_should_be_variable(arg, op)
-            if not self.variable_exists(arg[1:]):
-                self.mem = False
-                return
-        self.mem = True
-
     def run_try(self, op: dict):
         """ Starts the try-endtry block """
         self.require_one_argument(op, 'try command requires section name argument')
@@ -100,7 +78,7 @@ class BuiltinFunctions:
         """ Starts the namespace block """
         self.require_one_argument(op, 'namespace function requires namespace argument')
         arg = op['args'][0]
-        for ch in lexer.literals + '.':
+        for ch in parser.literals + '.':
             if ch in arg:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op
@@ -152,7 +130,7 @@ class BuiltinFunctions:
         if len(arg) > 1:
             parent = arg[1].strip()
         arg = arg[0].strip()
-        for ch in lexer.literals + '.':
+        for ch in parser.literals + '.':
             if ch in arg:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op
@@ -204,8 +182,8 @@ class BuiltinFunctions:
     def run_func(self, op: dict):
         """ Starts function declaration block """
         self.require_one_argument(op, 'missing function name')
-        arg = self.multi_char_split(op['args_str'], ' (', 1)[0]
-        for ch in lexer.literals + '.':
+        arg = lexer.multi_char_split(op['args_str'], ' (', 1)[0]
+        for ch in parser.literals + '.':
             if ch in arg:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op
@@ -224,14 +202,43 @@ class BuiltinFunctions:
             self.functions[self.current_func[-1]].__docstring__ = self.last_docstring
             self.last_docstring = ''
         # check for argument variable
-        if len(self.multi_char_split(op['args_str'], ' (', 1)) > 1:
-            arg_var = self.multi_char_split(op['args_str'], ' (', 1)[1].strip(')').strip('(').strip()
+        if len(op['args_str'].split('(', 1)) > 1:
+            arg_var = op['args_str'].split('(', 1)[-1].strip()
             if arg_var != '':
-                self.arg_should_be_variable(arg_var, op)
-                if is_method:
-                    self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].body.append(lexer.parse(arg_var + ' = ^', '<system>')[0])
+                if arg_var[-1] == ')':
+                    arg_var = arg_var[:len(arg_var)-1]
+            if arg_var != '':
+                if arg_var[0] == '*':
+                    arg_var = arg_var[1:]
+                    self.arg_should_be_variable(arg_var, op)
+                    if is_method:
+                        self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
+                    else:
+                        self.functions[self.current_func[-1]].body.append(parser.parse(arg_var + ' = ^', '<system>')[0])
                 else:
-                    self.functions[self.current_func[-1]].body.append(lexer.parse(arg_var + ' = ^', '<system>')[0])
+                    parsed_string = lexer.parse_string(arg_var)
+                    arg_parts = ['']
+                    for part in parsed_string:
+                        if part[0] == False:
+                            arg_parts = [*arg_parts, *part[1].split(',')]
+                        else:
+                            arg_parts[-1] += part[1]
+                    if arg_parts[0] == '':
+                        arg_parts.pop(0)
+                    if arg_parts:
+                        if arg_parts[-1] == '':
+                            arg_parts.pop(-1)
+                    i = 0
+                    while i < len(arg_parts):
+                        arg_parts[i] = arg_parts[i].strip().split('=', 1)
+                        arg_parts[i][0] = arg_parts[i][0].strip()
+                        if len(arg_parts[i]) > 1:
+                            arg_parts[i][1] = arg_parts[i][1].strip()
+                        i += 1
+                    if is_method:
+                        self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].args = arg_parts
+                    else:
+                        self.functions[self.current_func[-1]].args = arg_parts
 
     def run_return(self, op: dict):
         """ Returns a value in function """

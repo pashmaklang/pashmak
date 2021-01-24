@@ -11,3 +11,4 @@
 - [die()](08_function_die.md)
 - [Pashmiler compiler](09_compiler.md)
 - [Docstrings](10_docstring.md)
+- [Name Defines](11_name_defines.md)

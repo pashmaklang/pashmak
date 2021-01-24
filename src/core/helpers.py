@@ -25,7 +25,7 @@
 import os
 import sys
 from sys import exit
-from . import builtin_functions, modules, lexer
+from . import builtin_functions, modules, parser
 
 class VariableError(Exception):
     pass
@@ -121,21 +121,6 @@ class Helpers(builtin_functions.BuiltinFunctions):
         """ Returns list of all of variables """
         return self.frames[-1]['vars']
 
-    def multi_char_split(self, string, seprators, count=None):
-        """ Splits string by multi seprators """
-        result = ['']
-        i = 0
-        for char in string:
-            if char in seprators:
-                if count == None:
-                    result.append('')
-                elif i < count:
-                    result.append('')
-                i += 1
-            else:
-                result[-1] += char
-        return result
-
     def print(self, obj, file=sys.stdout):
         """ Prints a object """
         if self.out_started:
@@ -170,7 +155,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
     def pashmak_eval(self, code):
         """ Runs the pashmak code from string """
         # run the code
-        code_commands = lexer.parse(code, filepath='<eval>')
+        code_commands = parser.parse(code, filepath='<eval>')
         self.exec_func(code_commands, False)
 
     def current_namespace(self):
@@ -183,30 +168,3 @@ class Helpers(builtin_functions.BuiltinFunctions):
     def signal_handler(self, signal_code, frame):
         """ Raise error when signal exception raised """
         self.raise_error('Signal', str(signal_code), self.frames[-1]['commands'][self.frames[-1]['current_step']])
-
-    def split_by_equals(self, string: str) -> list:
-        """ Parses `<something> = <something>` """
-        commands_parts = self.eval(string, only_str_parse=True)
-        parts = ['']
-        i = 0
-        block_depth = 0
-        while i < len(commands_parts):
-            if commands_parts[i][0] == True:
-                parts[-1] += commands_parts[i][1]
-            else:
-                j = 0
-                while j < len(commands_parts[i][1]):
-                    if j < len(commands_parts[i][1]) and j > 0:
-                        if commands_parts[i][1][j] == '=' and commands_parts[i][1][j-1] != '=' and commands_parts[i][1][j+1] != '=' and len(parts) == 1 and block_depth <= 0:
-                            parts.append('')
-                        else:
-                            if commands_parts[i][1][j] == '(':
-                                block_depth += 1
-                            elif commands_parts[i][1][j] == ')':
-                                block_depth -= 1
-                            parts[-1] += commands_parts[i][1][j]
-                    else:
-                        parts[-1] += commands_parts[i][1][j]
-                    j += 1
-            i += 1
-        return parts

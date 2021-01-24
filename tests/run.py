@@ -30,7 +30,7 @@ import time
 # add `src/` folder to python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/' + 'src')
 
-from core import lexer
+from core import parser
 from core import program
 from core import modules
 
@@ -65,7 +65,7 @@ class TestCore:
 
     def run_script(self, script_content: str, read_inputs=[], args=[], want_argv=False, stop_after_error=True) -> dict:
         ''' Runs a script and returns result '''
-        script_commands = lexer.parse(script_content, filepath='<test>')
+        script_commands = parser.parse(script_content, filepath='<test>')
         prog = program.Program(is_test=self.is_test, args=args)
         prog.stop_after_error = stop_after_error
         prog.read_data = read_inputs

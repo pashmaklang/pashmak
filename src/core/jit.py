@@ -29,7 +29,7 @@ makes interpreter speed up
 import os
 import hashlib
 import pickle
-from . import lexer
+from . import parser
 
 def calc_file_sha256(filepath: str) -> str:
     """
@@ -75,7 +75,7 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain
             content += '\n$__file__ = ' + repr(self.get_var('__file__').replace('\\', '\\\\'))
             content += '\n$__dir__ = ' + repr(self.get_var('__dir__').replace('\\', '\\\\'))
             content += '\n$__ismain__ = ' + str(bool(self.get_var('__ismain__')))
-        return lexer.parse(content, filepath=code_location)
+        return parser.parse(content, filepath=code_location)
 
     try:
         file_hash = calc_file_sha256(path)
@@ -122,7 +122,7 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain
 
         # write the content on cache
         if is_new_cache:
-            content = lexer.parse(content, filepath=code_location)
+            content = parser.parse(content, filepath=code_location)
             cache_f = open(the_cache_file, 'wb')
             pickle.dump([file_hash, content], cache_f)
             cache_f.close()

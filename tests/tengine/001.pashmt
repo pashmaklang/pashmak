@@ -26,50 +26,53 @@ tengine engine working correct
 --file--
 import @tengine
 
-$output = tengine.run_file($__dir__ + '/tests/tengine/test.html')
+$output = tengine.run_file($__dir__ + '/tests/tengine/test.html', false)
 
-assert($output == '<html lang="en">\n\
-<head>\n\
-    <meta charset="UTF-8">\n\
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n\
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">\n\
-    <title>Document</title>\n\
-</head>\n\
-<body>\n\
-    hello parsa\n\
-    something: hi\n\
-    hello world\n\
-    hello {}\n\
-    the {}\n\
-\n\
-    \n\
-\n\
-    \n\
-    <div>test!</div>  \n\
-    \n\
-\n\
-    \n\
-    <h6>0</h6>\n\
-    \n\
-    <h6>1</h6>\n\
-    \n\
-    <h6>2</h6>\n\
-    \n\
-    <h6>3</h6>\n\
-    \n\
-    <h6>4</h6>\n\
-    \n\
-    <h6>5</h6>\n\
-    \n\
-    <h6>6</h6>\n\
-    \n\
-    <h6>7</h6>\n\
-    \n\
-    <h6>8</h6>\n\
-    \n\
-    <h6>9</h6>\n\
-    \n\
-    <h1>included {}</h1>\n\
-    <h1>included {\'foo\': \'bar\'}</h1>\n\
-</body>\n\
-</html>')
+print($output->strip())
+
+--output--
+"""<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    hello parsa
+    something: hi
+    hello world
+    hello {}
+    the {}
+
+    
+
+    
+    <div>test!</div>  
+    
+
+    
+    <h6>0</h6>
+    
+    <h6>1</h6>
+    
+    <h6>2</h6>
+    
+    <h6>3</h6>
+    
+    <h6>4</h6>
+    
+    <h6>5</h6>
+    
+    <h6>6</h6>
+    
+    <h6>7</h6>
+    
+    <h6>8</h6>
+    
+    <h6>9</h6>
+    
+    <h1>included {}</h1>
+    <h1>included {'foo': 'bar'}</h1>
+</body>
+</html>"""

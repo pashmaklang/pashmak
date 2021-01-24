@@ -22,58 +22,47 @@
 #########################################################################
 
 ns string
-	func concat($args)
-		$args = format_args($args)
-		return $args[0] + $args[1]
+	func concat(str $a, str $b)
+		return $a + $b
 	endfunc 
 	
-	func remove_last($str)
-		$str = format_args($str)[0]
+	func remove_last(str $str)
 		python("self.mem = self.get_var('str')[:-1] ")
 	endfunc
 
-	func remove_first($str)
-		$str = format_args($str)[0]
+	func remove_first(str $str)
 		python("self.mem = self.get_var('str')[1:]")
 	endfunc
 
-	func add_last($args)
-		$args = format_args($args)
-		python("self.mem = self.get_var('args')[0] + self.get_var('args')[1]")
+	func add_last(str $str, str $new)
+		python("self.mem = self.get_var('str') + self.get_var('new')")
 	endfunc
 
-	func add_first($args)
-		$args = format_args($args)
-		python("self.mem = self.get_var('args')[1] + self.get_var('args')[0]")
+	func add_first(str $str, str $new)
+		python("self.mem = self.get_var('new') + self.get_var('str')")
 	endfunc 
 
-	func length($str)
-		$str = format_args($str)[0]
+	func length(str $str)
 		python("self.mem = len(self.get_var('str'))")
 	endfunc
 
-	func cut($args)
-		$args = format_args($args)
-		python("self.mem = self.get_var('args')[0][self.get_var('args')[1]:self.get_var('args')[2]]")
+	func cut(str $str, int $a, int $b)
+		python("self.mem = self.get_var('str')[self.get_var('a'):self.get_var('b')]")
 	endfunc 
 
-	func upcase($str)
-		$str = format_args($str)[0]
+	func upcase(str $str)
 		python("self.mem = self.get_var('str').upper()")
 	endfunc
 
-	func lowcase($str)
-		$str = format_args($str)[0]
+	func lowcase(str $str)
 		python("self.mem = self.get_var('str').lower()")
 	endfunc
 
-	func reverse($str)
-		$str = format_args($str)[0]
+	func reverse(str $str)
 		python("self.mem = self.get_var('str')[::-1]")
 	endfunc
 
 	func to_str($var)
-		$var = format_args($var)[0]
 		python("self.mem = repr(self.get_var('var'))")
 	endfunc
 endns

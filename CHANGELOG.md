@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## (0.7-alpha3) next release
+## (0.7-alpha4) next release
 
 #### New Features
 - added `import_run` and `import_run_once` functions (GH-84)
@@ -19,9 +19,25 @@
 - added function `die`
 - moved `pashmiler` from a external library to a builtin module and renamed to `compiler` (GH-93)
 - added **Docstring** system (GH-94)
+- added `set` and `get` functions
+- added name define system and `define`, `is_defined`, `undefine`, `all_defines` and `redefine` functions
+- added `true` and `false` aliases for `True` and `False` keywords
+- added multiple arguments for functions (GH-95)
+- added keyword arguments for functions (GH-95)
+- added typed arguments for functions (GH-95)
+
+#### Changes
+
+- some optimizations in multiline syntax
+- changed syntax of `free` and `isset` functions
+- fixed some bugs and some optimizations in eval (GH-95)
 
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line
+
+#### Removed
+
+- removed unused function `required`
 
 ## 0.6.8 (2021-1-17)
 

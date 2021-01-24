@@ -22,10 +22,7 @@
 
 # Print an square
 
-func print_square($args)
-    $args = format_args($args)
-    $x = $args[0]
-    $y = $args[1]
+func print_square(int $x, int $y)
     $i = 0
     while $i < $x
         $j = 0

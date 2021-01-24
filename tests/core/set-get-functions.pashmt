@@ -1,5 +1,5 @@
 #
-# typeof2.pashmt
+# set-get-functions.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,8 +21,19 @@
 #########################################################################
 
 --test--
-typeof command raises error when arguments syntax is not valid
+`set()` and `get()` functions working correctly
+
 --file--
-typeof fdfdgdg
---with-error--
-'NameError'
+
+$name = 'parsa'
+
+println(get('name'))
+
+set('name', 'pashmak')
+
+println($name)
+
+--output--
+"""parsa
+pashmak
+"""

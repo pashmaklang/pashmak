@@ -27,18 +27,25 @@ import os
 import signal
 import copy
 from pathlib import Path
-from . import helpers, version, modules, jit, lexer, current_prog
+from . import helpers, version, modules, jit, parser, current_prog, lexer
 from .class_system import Class, ClassObject
 from .function import Function
 
 import hashlib, time, random, datetime, base64, json, http, http.cookies, http.server, http.client, http.cookiejar, socket, socketserver, math, pprint, subprocess, sqlite3, sqlite3.dump, sqlite3.dbapi2, urllib, urllib.error, urllib.parse, urllib.request, urllib.response, urllib.robotparser, platform, mimetypes, re
+
+def free(name):
+    from . import current_prog
+    try:
+        del current_prog.current_prog.all_vars()[name]
+    except KeyError:
+        pass
 
 class Program(helpers.Helpers):
     """ Pashmak program object """
     def __init__(self, is_test=False, args=[]):
         self.frames = [{
             'current_step': 0,
-            'commands': [lexer.parse('pass')[0]],
+            'commands': [parser.parse('pass')[0]],
             'used_namespaces': [],
             'imported_modules': [],
             'vars': {
@@ -80,6 +87,8 @@ class Program(helpers.Helpers):
 
         self.shutdown_event = []
 
+        self.defines = {}
+
         current_prog.current_prog = self
 
     def import_script(self, paths, import_once=False, ismain_default=False):
@@ -110,7 +119,7 @@ class Program(helpers.Helpers):
                     if not is_currently_imported:
                         try:
                             # search modules from builtin modules
-                            commands = lexer.parse('$__ismain__ = ' + str(ismain_default) + '\n' + modules.modules[module_name] + '\n$__ismain__ = ' + str(self.get_var('__ismain__')) + '\n', filepath='@' + module_name)
+                            commands = parser.parse('$__ismain__ = ' + str(ismain_default) + '\n' + modules.modules[module_name] + '\n$__ismain__ = ' + str(self.get_var('__ismain__')) + '\n', filepath='@' + module_name)
                         except KeyError:
                             # find modules from path
                             commands = False
@@ -312,69 +321,23 @@ class Program(helpers.Helpers):
 
     def eval(self, command, only_parse=False, only_str_parse=False, dont_check_vars=False):
         """ Runs eval on command """
-        command_parts = lexer.parse_string(command)
+        result, vars_to_check = lexer.parse_eval(command, only_str_parse=only_str_parse, self=self)
 
         if only_str_parse:
-            return command_parts
+            return result
 
-        null = None
-        full_op = ''
-        opened_inline_calls_count = 0
-        for code in command_parts:
-            if code[0] == False:
-                code = code[1]
-                # replace variable names with value of them
-                literals = lexer.literals
-                code_words = self.multi_char_split(code, literals)
-                for word in code_words:
-                    if word:
-                        if word[0] == '$':
-                            if dont_check_vars == False:
-                                self.variable_required(word[1:])
-                            code = code.replace('$' + word[1:], 'self.get_var("' + word[1:] + '")', 1)
-                        else:
-                            func_real_name = self.get_func_real_name(word)
-                            if func_real_name != False:
-                                tmp_counter = 0
-                                while tmp_counter < len(code):
-                                    tmp_index = code.find(word, tmp_counter)
-                                    if tmp_index < 0:
-                                        tmp_counter = (+tmp_counter) + 1
-                                    else:
-                                        tmp_counter = tmp_index + 1
-                                    if code[tmp_index-2:tmp_index] != '->':
-                                        if code[tmp_index-1:tmp_index] in literals:
-                                            if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
-                                                code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.functions["' + func_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
-                                                break
-                            else:
-                                # This is a class
-                                class_real_name = self.get_class_real_name(word)
-                                if class_real_name != False:
-                                    tmp_counter = 0
-                                    while tmp_counter < len(code):
-                                        tmp_index = code.find(word, tmp_counter)
-                                        if tmp_index < 0:
-                                            tmp_counter = (+tmp_counter) + 1
-                                        else:
-                                            tmp_counter = tmp_index + 1
-                                        if code[tmp_index-2:tmp_index] != '->':
-                                            if code[tmp_index-1:tmp_index] in literals:
-                                                if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
-                                                    code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.classes["' + class_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
-                                                    break
+        for var in vars_to_check:
+            self.variable_required(var)
 
-                code = code.replace('->', '.')
-                tmp = '<<<tempstrforxor' + str(time.time()) + str(random.random()) + '>>>'
-                code = code.replace('^^', tmp)
-                code = code.replace('^', 'self.get_mem()')
-                code = code.replace(tmp, '^')
-            else:
-                code = code[1]
-            full_op += code
         if only_parse:
-            return full_op
-        return eval(full_op)
+            return result
+
+        # set aliases
+        true = True
+        false = False
+        null = None
+
+        return eval(result)
 
     def run(self, op: dict):
         """ Run once command """
@@ -405,11 +368,9 @@ class Program(helpers.Helpers):
 
         # list of commands
         commands_dict = {
-            'free': self.run_free,
             'func': self.run_func,
             'goto': self.run_goto,
             'gotoif': self.run_gotoif,
-            'isset': self.run_isset,
             'try': self.run_try,
             'endtry': self.run_endtry,
             'namespace': self.run_namespace,
@@ -450,7 +411,7 @@ class Program(helpers.Helpers):
             is_in_class = False
             if len(self.current_class) > 0:
                 is_in_class = True
-            parts = self.split_by_equals(op['str'].strip())
+            parts = parser.split_by_equals(op['str'].strip())
             if len(parts) <= 1:
                 if '->' in op['str'] or '(' in op['str'] or ')' in op['str']:
                     self.mem = self.eval(op['str'])
@@ -486,7 +447,7 @@ class Program(helpers.Helpers):
                         self.set_var(varname[1:], value)
             return
 
-        parts = self.split_by_equals(op['str'].strip())
+        parts = parser.split_by_equals(op['str'].strip())
         if len(parts) > 1:
             part1 = self.eval(parts[0], only_parse=True)
             part2 = self.eval(parts[1], only_parse=True)
@@ -502,22 +463,28 @@ class Program(helpers.Helpers):
 
         # run function
         try:
-            # put argument in the mem
-            if op['args_str'] != '' and op['args_str'].strip() != '()':
-                if op['command'] == 'rmem':
-                    self.eval(op['args_str'])
-                    return
-                else:
-                    func_arg = self.eval(op['args_str'])
-            else:
-                func_arg = None
-
             # execute function body
-            self.mem = func_arg
-            if op_name in ['import', 'import_once', 'import_run', 'import_run_once', 'mem', 'python', 'rmem', 'eval']:
+            if op_name in Function.BUILTIN_WITHOUT_FRAME_ISOLATION_FUNCTIONS:
+                # put argument in the mem
+                if op['args_str'] != '' and op['args_str'].strip() != '()':
+                    if op['command'] == 'rmem':
+                        self.eval(op['args_str'])
+                        return
+                    else:
+                        func_arg = self.eval(op['args_str'])
+                else:
+                    func_arg = None
+                self.mem = func_arg
                 self.exec_func(func_body.body, False)
             else:
-                self.mem = func_body(self.mem)
+                args_str = op['args_str'].strip()
+                if args_str:
+                    if args_str[0] != '(':
+                        args_str = '(' + args_str + ')'
+                else:
+                    args_str = '()'
+                
+                self.mem = self.eval(op['command'] + args_str)
             return
         except Exception as ex:
             raise
@@ -548,7 +515,7 @@ class Program(helpers.Helpers):
                 if not is_in_func:
                     arg = current_op['args'][0]
                     self.sections[arg] = i+1
-                    self.frames[-1]['commands'][i] = lexer.parse('pass', filepath='<system>')[0]
+                    self.frames[-1]['commands'][i] = parser.parse('pass', filepath='<system>')[0]
             elif current_op['command'] == 'func':
                 is_in_func = True
             elif current_op['command'] == 'endfunc':
