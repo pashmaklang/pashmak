@@ -28,9 +28,9 @@
     <div>test!</div>  
     { endif }
 
-    { $i = 0; section loop1 }
+    { $i = 0; while $i < 10 }
     <h6>{{ $i }}</h6>
-    { $i = $i + 1; mem $i < 10; gotoif loop1 }
+    { $i = $i + 1; endwhile }
     { tengine.include($__htmldir__ + '/other.html') }
     { tengine.include($__htmldir__ + '/other.html', \{'foo': 'bar'\}) }
 </body>

@@ -88,7 +88,7 @@ namespace tengine
 		$parts = $content->split('{')
 		$i = 0
 		$new_parts = []
-		section tengine_loop1
+		while $i < len($parts)
 			$tmp = $parts[$i]->split('}', 1)
 			if len($tmp) > 1
 				$new_parts->append([True, $tmp[0]->replace($randstr_1, '{')->replace($randstr_2, '}')])
@@ -97,7 +97,7 @@ namespace tengine
 				$new_parts->append([False, $tmp[0]->replace($randstr_1, '{')->replace($randstr_2, '}')])
 			endif
 			$i = $i + 1
-		mem $i < len($parts); gotoif tengine_loop1
+		endwhile
 		
 		$tengine_i = 0
 		$tengine_parts = $new_parts
@@ -109,7 +109,7 @@ namespace tengine
 		free('randstr_1')
 		free('randstr_2')
 		free('tmp')
-		section tengine_loop2
+		while $tengine_i < len($tengine_parts)
 			if $tengine_parts[$tengine_i][0] == True
 				if $tengine_parts[$tengine_i][1]
 					if $tengine_parts[$tengine_i][1][0] == '='
@@ -122,7 +122,7 @@ namespace tengine
 				$tengine_code = $tengine_code + ('\nprint(base64.b64decode("' + base64.b64encode($tengine_parts[$tengine_i][1]->encode())->decode() + '")->decode())')
 			endif
 			$tengine_i = $tengine_i + 1
-		mem $tengine_i < len($tengine_parts); gotoif tengine_loop2
+		endwhile
 
 		free('tengine_i')
 		free('tengine_parts')
