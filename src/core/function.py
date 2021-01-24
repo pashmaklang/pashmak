@@ -31,9 +31,15 @@ class Function:
     def __init__(self, name):
         self.name = name
         self.body = []
+        self.args = []
 
     def __call__(self, *args, **kwargs):
         from .current_prog import current_prog
+        tmp_args = copy.deepcopy(args)
+        tmp_args = list(tmp_args)
+        if len(tmp_args) == 1:
+            if type(tmp_args[0]) == tuple:
+                tmp_args = list(tmp_args[0])
         tmp_is_in_class = False
         try:
             tmp_is_in_class = copy.deepcopy(current_prog.current_class)
@@ -51,6 +57,19 @@ class Function:
         except:
             if self.name in self.BUILTIN_WITHOUT_FRAME_ISOLATION_FUNCTIONS:
                 with_frame = False
+
+        # handle arguments
+        if len(self.args) > 0:
+            for arg in self.args:
+                if len(tmp_args) == 0:
+                    if len(arg) > 1:
+                        default_vars[arg[0][1:]] = current_prog.eval(arg[1])
+                    else:
+                        current_prog.raise_error('ArgumentError', 'too few arguments passed to function "' + self.name + '"')
+                        return
+                default_vars[arg[0][1:]] = tmp_args[0]
+                tmp_args.pop(0)
+
         tmp_body = copy.deepcopy(self.body)
         tmp_func_parts = self.name.split('.')
         if len(tmp_func_parts) > 1:
