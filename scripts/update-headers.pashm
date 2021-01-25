@@ -92,7 +92,7 @@ $total_paths = [*$total_paths, *$c->files_list]
 $c = Crawler($__dir__ + '/../scripts', '.pashm')
 $total_paths = [*$total_paths, *$c->files_list]
 
-mem $total_paths->sort()
+$total_paths->sort()
 
 $i = 0
 while $i < len($total_paths)
