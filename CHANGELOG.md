@@ -34,6 +34,7 @@
 
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line
+- fixed import command bug while writing something like `import(somefunc())`
 
 #### Removed
 
