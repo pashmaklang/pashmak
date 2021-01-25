@@ -52,6 +52,9 @@ Send **New/Change Features** to branch `master`(`master` is develop stage for ne
 
 Send **Bug Fixes** to branch `0.6.x`(older supported release).
 
+### Developer Guide
+If you want to undrestand structure of Pashmak project source code, Read [Developer Guide](/doc/13_dev_guide).
+
 ### Makefile scripts
 this scripts are helpful for development:
 
