@@ -2,6 +2,8 @@
 
 - some optimizations in eval parser
 - add doc for developer
+- handle class for typed arguments in functions
+- handle conditional typed in function arguments
 - complete web system
 - ide plugins (GH-76)
 - create a package manager (GH-50)
