@@ -8,4 +8,5 @@ If you want to undrestand structure of Pashmak interpreter Source code, This Sec
 - [Eval and Variables](04_eval_var.md)
 - [Class and Function](05_class_function.md)
 - [Jit Compiler](06_jit.md)
+- [Release Process](07_release_process.md)
 
