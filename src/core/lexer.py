@@ -20,6 +20,8 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
+""" Pashmak syntax lexer """
+
 import time
 import random
 
