@@ -234,7 +234,7 @@ class Program(helpers.Helpers):
             last_frame = frame
         print('\tin ' + op['file_path'] + ':' + str(op['line_number']) + ': ' + op['str'])
         if len(self.frames[1:]) > 0:
-            print(error_type + ': ' + message + ':')
+            print(error_type + ': ' + message + '.')
         sys.exit(1)
 
     def exec_func(self, func_body: list, with_frame=True, default_variables={}):
@@ -336,6 +336,9 @@ class Program(helpers.Helpers):
         true = True
         false = False
         null = None
+        string = str
+        integer = int
+        array = list
 
         return eval(result)
 
@@ -530,9 +533,13 @@ class Program(helpers.Helpers):
                     self.frames[-1]['commands'][self.frames[-1]['current_step']]
                 except:
                     break
+                if ex.__class__.__name__ == 'RecursionError':
+                    msg = 'maximum recursion depth ' + str(len(self.frames)) + ' exceeded'
+                else:
+                    msg = str(ex)
                 self.raise_error(
                     ex.__class__.__name__,
-                    str(ex),
+                    msg,
                     self.frames[-1]['commands'][self.frames[-1]['current_step']]
                 )
             self.frames[-1]['current_step'] += 1
