@@ -336,6 +336,9 @@ class Program(helpers.Helpers):
         true = True
         false = False
         null = None
+        string = str
+        integer = int
+        array = list
 
         return eval(result)
 

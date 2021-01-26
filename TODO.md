@@ -6,8 +6,4 @@
 - handle conditional typed in function arguments
 - create yield command for functions
 - customize RecursionError message
-- add alias string for str
 - complete web system
-- ide plugins (GH-76)
-- create a package manager (GH-50)
-- more work on builtin modules(for 0.7)
