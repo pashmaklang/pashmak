@@ -75,3 +75,20 @@ $foo = Foo()
 println($foo->isinstanceof('Foo')) # the `Foo` is a string
 #println($foo->isinstanceof(Foo))
 ```
+
+## Use classes for function typed arguments
+For example:
+
+```bash
+class Person
+    func __init__(str $name)
+        $this->name = $name
+    endfunc
+endclass
+
+func hello(Person $person)
+    println('Hello ' + $person->name)
+endfunc
+
+hello(Person('parsa'))
+```
