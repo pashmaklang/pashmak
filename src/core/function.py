@@ -33,6 +33,21 @@ class Function:
         self.body = []
         self.args = []
 
+    def __validate_argument_type__(self, value, arg_type: str) -> bool:
+        """ Gets a object and type defination string and validates object type """
+        from .current_prog import current_prog
+        the_class = current_prog.get_class_real_name(arg_type)
+        if the_class != False:
+            if type(value).__name__ != 'ClassObject':
+                return False
+            res = value.isinstanceof(the_class)
+            if res == True:
+                return True
+            else:
+                return None
+        arg_type_obj = current_prog.eval(arg_type)
+        return type(value) == arg_type_obj
+
     def __call__(self, *args, **kwargs):
         from .current_prog import current_prog
         if len(self.args) > 0:
@@ -92,10 +107,14 @@ class Function:
                     else:
                         default_vars[arg_name[1:]] = tmp_args[0]
                         tmp_args.pop(0)
-                    if arg_type != None:
-                        arg_type_obj = eval(arg_type)
-                        if type(default_vars[arg_name[1:]]) != arg_type_obj:
-                            current_prog.raise_error('InvalidArgument', 'invalid argument type passed to "' + self.name + '" as "' + arg_name + '", it should be ' + arg_type + ', but ' + str(type(default_vars[arg_name[1:]])) + ' given')
+                    if arg_type != None and default_vars[arg_name[1:]] != None:
+                        res = self.__validate_argument_type__(default_vars[arg_name[1:]], arg_type)
+                        if not res:
+                            if res == None:
+                                what_given = default_vars[arg_name[1:]].__theclass__.__name__
+                            else:
+                                what_given = str(type(default_vars[arg_name[1:]]))
+                            current_prog.raise_error('InvalidArgument', 'invalid argument type passed to "' + self.name + '" as "' + arg_name + '", it should be ' + arg_type + ', but ' + what_given + ' given')
                             return
 
         tmp_body = copy.deepcopy(self.body)

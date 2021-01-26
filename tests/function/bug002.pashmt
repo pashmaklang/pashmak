@@ -1,5 +1,5 @@
 #
-# version.py
+# bug002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,18 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+--test--
+function argument null value bug while type is defined is fixed
 
-# pashmak version
-version = 'v0.7-beta0'
+--file--
+
+func hello(str $name, str $family=null, int $age = 100)
+	println $name, $family, $age
+endfunc
+
+hello('parsa')
+
+--output--
+"""('parsa', None, 100)
+"""
+

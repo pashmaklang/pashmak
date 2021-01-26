@@ -1,5 +1,6 @@
+#!/usr/bin/env pashmak
 #
-# version.py
+# speed-test.pashm
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +21,40 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+import @time
 
-# pashmak version
-version = 'v0.7-beta0'
+func something(int $i)
+	return $i + 1
+endfunc
+
+$times = []
+
+$z = 0
+while $z < 10
+	$start = time.time()
+
+	$i = 0
+	while $i < 50
+		#println($i)
+		$i = something($i)
+	endwhile
+
+	$end = time.time()
+
+	$t = $end - $start
+	$times->append($t)
+
+	$z = $z + 1
+endwhile
+
+# check the average
+$sum = 0
+$i = 0
+while $i < len($times)
+	$sum = $sum + $times[$i]
+	$i = $i + 1
+endwhile
+
+$avg = $sum / len($times)
+println('Speed Average: ' + str($avg))
+

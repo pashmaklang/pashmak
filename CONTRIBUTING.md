@@ -96,6 +96,19 @@ this is very useful. this commands runs `module`, `update-headers`, `docs`, `tes
 make all
 ```
 
+##### make speed-test
+This is a simple script that tests interpreter speed.
+
+```bash
+make speed-test
+```
+
+You can also run:
+
+```bash
+./src/pashmak.py scripts/speed-test.pashm
+```
+
 #### On windows
 If you are developing on Windows, use `.\win-configure.bat` command instead of makefile scripts.
 

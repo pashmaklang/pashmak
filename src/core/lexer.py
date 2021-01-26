@@ -40,7 +40,7 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
     op_parts.pop(0)
     op['args_str'] = ''
     op['args'] = []
-    if op['command'] == 'import' or op['command'] == 'import_once':
+    if op['command'] in ['import', 'import_once', 'import_run', 'import_run_once']:
         new_op_parts = []
         i = 0
         while i < len(op_parts):
@@ -58,11 +58,16 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
                 new_op_parts.append(op_parts[i])
             i += 1
         op_parts = new_op_parts
+        if op_parts:
+            if op_parts[0].strip()[0] == '(':
+                op_parts[0] = op_parts[0].strip()[1:]
+                op_parts[-1] = op_parts[-1].strip()
+                op_parts[-1] = op_parts[-1][:len(op_parts[-1])-1]
     # set command arguments
     for op_part in op_parts:
         if op_part != '' or op['command'] == 'mem':
             if op['command'] in ['import', 'import_once', 'import_run', 'import_run_once']:
-                op_part = op_part.strip().strip(')').strip('(')
+                op_part = op_part.strip()
                 if op_part:
                     if op_part[0] == '@':
                         op_part = '"' + op_part

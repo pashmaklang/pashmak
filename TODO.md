@@ -1,7 +1,7 @@
 # TODO
 
-- handle multiple arguments for functions
+- add doc for developer
+- handle conditional typed in function arguments
+- some optimizations in eval parser
+- create yield command for functions
 - complete web system
-- ide plugins (GH-76)
-- create a package manager (GH-50)
-- more work on builtin modules(for 0.7)

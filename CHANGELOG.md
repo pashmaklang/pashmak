@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## (0.7-alpha4) next release
+## (0.7-beta0) next release
 
 #### New Features
 - added `import_run` and `import_run_once` functions (GH-84)
@@ -25,15 +25,19 @@
 - added multiple arguments for functions (GH-95)
 - added keyword arguments for functions (GH-95)
 - added typed arguments for functions (GH-95)
+- added some aliases for datatypes, `string` for `str`, `integer` for `int`, `array` for `list`
 
 #### Changes
 
 - some optimizations in multiline syntax
 - changed syntax of `free` and `isset` functions
 - fixed some bugs and some optimizations in eval (GH-95)
+- changed RecursionError message
 
 #### Bug Fixes
 - fixed bug cached `$__ismain__` while directly running a file in command line
+- fixed import command bug while writing something like `import(somefunc())`
+- fixed a small problem in error rendering
 
 #### Removed
 
