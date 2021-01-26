@@ -6,6 +6,8 @@
 - handle conditional typed in function arguments
 - create yield command for functions
 - customize RecursionError message
+- add speed test script
+- add alias string for str
 - complete web system
 - ide plugins (GH-76)
 - create a package manager (GH-50)
