@@ -4,7 +4,7 @@ SCRIPTS = $(PYTHON) ./src/pashmak.py scripts/
 INSTALLATION_PATH = /usr/bin/pashmak
 
 .DEFAULT_GOAL := main
-.PHONY := main compile clean update-headers test module all install uninstall pylint
+.PHONY := main compile clean update-headers test module all install uninstall pylint speed-test
 
 GIT_IS_INSTALLED = 0
 ifneq (,$(shell command -v git))
@@ -29,7 +29,7 @@ test:
 module:
 	@$(SCRIPTS)module-build.pashm
 
-all: module update-headers test
+all: module update-headers test speed-test
 ifeq ($(GIT_IS_INSTALLED),1)
 	-@git status
 endif
@@ -41,6 +41,10 @@ install: ./dist/pashmak
 uninstall: $(INSTALLATION_PATH)
 	@rm $(INSTALLATION_PATH)
 	@echo -e "\033[32mpashmak has been removed from your system successfuly\033[0m"
+
+speed-test:
+	@$(PYTHON) ./src/pashmak.py ./scripts/speed-test.pashm
+	@echo
 
 pylint: all
 	@$(PYTHON) -m pylint\
