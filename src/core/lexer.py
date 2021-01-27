@@ -128,7 +128,6 @@ def parse_string(command: str):
 
 def parse_eval(command, self=None, only_str_parse=False):
     """ This function parses the eval and converts it to the python eval """
-    # TODO : drop dependency to `self`
     command_parts = parse_string(command)
 
     if only_str_parse:
