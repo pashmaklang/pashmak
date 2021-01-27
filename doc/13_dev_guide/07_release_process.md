@@ -35,7 +35,7 @@ To make a release, we should do the following steps:
 ```bash
 git checkout -b release-x.y.z
 # OR if you are using git-flow
-git flow release start vx.y.z
+git flow release start vx.y.z <base>
 ```
 
 2. Bump the version number:
