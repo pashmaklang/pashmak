@@ -74,7 +74,7 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
                         if a_counter < 0:
                             a_counter = 0
                         j += 1
-            if p_counter > 0 or b_counter > 0 or a_counter > 0:
+            if (p_counter + b_counter + a_counter) > 0:
                 if lines[i][-1] != '\\':
                     lines[i] += '\\'
         i += 1

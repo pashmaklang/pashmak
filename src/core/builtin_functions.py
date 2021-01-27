@@ -302,4 +302,3 @@ class BuiltinFunctions:
         """ @doc sets last docstring """
         docstr = str(self.eval(op['args_str'])).strip()
         self.last_docstring = docstr
-

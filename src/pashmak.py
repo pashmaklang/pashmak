@@ -32,7 +32,8 @@ def signal_handler(signal_code, frame):
     """ handle signal """
     sys.exit(1)
 
-if __name__ == '__main__':
+def main():
+    """ The main entry point """
     # set signal handler
     signal.signal(signal.SIGINT, signal_handler)
 
@@ -41,7 +42,7 @@ if __name__ == '__main__':
         py_path = os.environ['PYTHONPATH'].split(':')
         py_path = [p for p in py_path if p != '']
         sys.path = [*py_path, *sys.path]
-    except:
+    except KeyError:
         pass
 
     # validate arguments
@@ -76,9 +77,7 @@ if __name__ == '__main__':
         filename = sys.argv[1]
 
         if sys.argv[1] == '-':
-            script_content = ''
-            for line in sys.stdin.readlines():
-                script_content += line
+            script_content = ''.join(sys.stdin.readlines())
             script_commands = parser.parse(script_content, filepath=filename)
         elif not os.path.isfile(filename):
             print(sys.argv[0] + ': file "' + filename + '" not found')
@@ -96,3 +95,6 @@ if __name__ == '__main__':
     prog.main_filename = filename
     prog.set_commands(script_commands)
     prog.start()
+
+if __name__ == '__main__':
+    main()

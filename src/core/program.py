@@ -184,7 +184,7 @@ class Program(helpers.Helpers):
 
     def raise_error(self, error_type: str, message: str, op=None):
         """ Raise error in program """
-        if op == None:
+        if op is None:
             op = self.frames[-1]['commands'][self.frames[-1]['current_step']]
         # check is in try
         if self.try_endtry:

@@ -26,7 +26,9 @@ keyword `null` working correct
 --file--
 
 println(null == None)
+println(null is None)
 
 --output--
 """True
+True
 """

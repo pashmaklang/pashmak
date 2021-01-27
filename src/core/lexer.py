@@ -213,7 +213,7 @@ def multi_char_split(string, seprators, count=None):
     i = 0
     for char in string:
         if char in seprators:
-            if count == None:
+            if count is None:
                 result.append('')
             elif i < count:
                 result.append('')
