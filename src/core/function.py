@@ -33,20 +33,47 @@ class Function:
         self.body = []
         self.args = []
 
-    def __validate_argument_type__(self, value, arg_type: str) -> bool:
+    def __validate_argument_type__(self, value, arg_type_full: str) -> bool:
         """ Gets a object and type defination string and validates object type """
         from .current_prog import current_prog
-        the_class = current_prog.get_class_real_name(arg_type)
-        if the_class != False:
-            if type(value).__name__ != 'ClassObject':
-                return False
-            res = value.isinstanceof(the_class)
-            if res == True:
-                return True
+        # split the arg_type_full string by `|`
+        bracket_counter = 0
+        arg_parts = ['']
+        for ch in arg_type_full:
+            if ch == '|' and bracket_counter <= 0:
+                arg_parts.append('')
             else:
-                return None
-        arg_type_obj = current_prog.eval(arg_type)
-        return type(value) == arg_type_obj
+                arg_parts[-1] += ch
+                if ch == '[': bracket_counter += 1
+                elif ch == ']': bracket_counter -= 1
+        arg_parts = [item for item in arg_parts if item != '']
+        for arg_type in arg_parts:
+            item_parts = arg_type.split('[', 1)
+            arg_type = item_parts[0]
+            if len(item_parts) > 1:
+                if item_parts[1][-1] == ']':
+                    item_parts[1] = item_parts[1][:-1]
+            the_class = current_prog.get_class_real_name(arg_type)
+            if the_class != False:
+                if type(value).__name__ != 'ClassObject':
+                    return False
+                res = value.isinstanceof(the_class)
+                if res == True:
+                    return True
+                else:
+                    return None
+            arg_type_obj = current_prog.eval(arg_type)
+            result =  type(value) == arg_type_obj
+            if result:
+                if len(item_parts) > 1:
+                    # check the items in the list
+                    for item in value:
+                        if not self.__validate_argument_type__(item, item_parts[-1]):
+                            result = False
+                            break
+                if result: # if still result is True, return True
+                    return result
+        return False
 
     def __call__(self, *args, **kwargs):
         from .current_prog import current_prog
