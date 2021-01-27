@@ -50,7 +50,7 @@ class Function:
 
     def __call__(self, *args, **kwargs):
         from .current_prog import current_prog
-        if len(self.args) > 0:
+        if self.args:
             tmp_args = list(args)
             if len(tmp_args) == 1:
                 if type(tmp_args[0]) == tuple:
@@ -74,7 +74,7 @@ class Function:
                 with_frame = False
 
         # handle arguments
-        if len(self.args) > 0:
+        if self.args:
             for arg in self.args:
                 arg_name = arg[0].split(' ', 1)
                 if len(arg_name) > 1:

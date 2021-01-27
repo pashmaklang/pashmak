@@ -31,7 +31,7 @@ class BuiltinFunctions:
     """ Builtin functions """
     def run_endfunc(self, op: dict):
         """ Closes the functon declaration block """
-        if len(self.current_func) > 0:
+        if self.current_func:
             self.current_func.pop()
         else:
             self.raise_error('SyntaxError', 'unexpected "endfunc" when function block is not opened', op)
@@ -116,7 +116,7 @@ class BuiltinFunctions:
 
     def run_endclass(self, op: dict):
         """ Closes the class declaration block """
-        if len(self.current_class) > 0:
+        if self.current_class:
             self.current_class.pop()
         else:
             self.raise_error('SyntaxError', 'unexpected "endclass" when class block is not opened', op)
@@ -190,7 +190,7 @@ class BuiltinFunctions:
                 )
         # declare function
         is_method = False
-        if len(self.current_class) > 0:
+        if self.current_class:
             self.current_func.append(arg)
             self.classes[self.current_class[-1]].__methods__[self.current_func[-1]] = Function(name=self.current_func[-1])
             self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].__docstring__ = self.last_docstring

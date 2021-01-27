@@ -96,7 +96,7 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain
                 the_hash = cache_f_content[0]
                 if the_hash == file_hash:
                     content = cache_f_content[1]
-                    if len(content) > 0:
+                    if content:
                         if content[0]['str'].startswith('$__ismain__ = '):
                             content[0]['str'] = '$__ismain__ = ' + str(ismain_default)
                             content[0]['args_str'] = '= ' + str(ismain_default)
