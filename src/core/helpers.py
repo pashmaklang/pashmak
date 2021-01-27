@@ -20,7 +20,17 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Partial of program object functions """
+"""Partial of program object methods
+
+The following methods in `Helpers` class are used in `program.Program`.
+Actually, `program.Program` extends this class.
+
+This is only for that to seprate this methods into other file to don't make `progra.Program` big.
+
+Also this class extends `builtin_functions.BuiltinFunctions`.
+Then, all of methods in `builtin_functions.BuiltinFunctions` and `helpers.Helpers`,
+will be accessible in `program.Program`.
+"""
 
 import os
 import sys

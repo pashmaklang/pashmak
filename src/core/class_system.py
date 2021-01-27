@@ -27,9 +27,11 @@ from . import parser
 from .function import Function
 
 class ClassConstError(Exception):
+    """ Will be raised when changing a const property """
     pass
 
 class SuperError(Exception):
+    """ Will be raised when trying to access a parent that does not in the inheritance tree """
     pass
 
 class Class:
@@ -75,7 +77,7 @@ class Class:
         return class_copy
 
     def __getattr__(self, attrname):
-        if attrname == '__props__' or attrname == '__methods__' or attrname == '__inheritance_tree__' or attrname == '__classname__':
+        if attrname in ['__props__', '__methods__', '__inheritance_tree__', '__classname__']:
             return super().__getattr__(attrname)
         try:
             return self.__props__[attrname]
@@ -86,11 +88,12 @@ class Class:
                 raise AttributeError(attrname)
 
     def __setattr__(self, attrname, value):
-        if attrname == '__props__' or attrname == '__methods__' or attrname == '__inheritance_tree__' or attrname == '__classname__':
+        if attrname in ['__props__', '__methods__', '__inheritance_tree__', '__classname__']:
             return super().__setattr__(attrname, value)
         self.__props__[attrname] = value
 
 class ClassPropAndMethodCollection:
+    """ Only a object to handle properties and methods (Used by `super`) """
     def __init__(self, *args):
         try:
             self.__methods__
@@ -102,7 +105,7 @@ class ClassPropAndMethodCollection:
         self.__props__ = args[1]
 
     def __getattr__(self, attrname):
-        if attrname == '__props__' or attrname == '__methods__':
+        if attrname in ['__props__', '__methods__']:
             return super().__getattr__(attrname)
         try:
             return self.__props__[attrname]
@@ -113,7 +116,7 @@ class ClassPropAndMethodCollection:
                 raise AttributeError(attrname)
 
     def __setattr__(self, attrname, value):
-        if attrname == '__props__' or attrname == '__methods__':
+        if attrname in ['__props__', '__methods__']:
             return super().__setattr__(attrname, value)
         self.__props__[attrname] = value
 
@@ -133,7 +136,7 @@ class ClassObject:
         i = 0
         while i < len(self.__props__):
             for k in self.__props__[i]:
-                if type(self.__props__[i][k]) == Function:
+                if isinstance(self.__props__[i][k], Function):
                     self.__props__[i][k].parent_object = self
             i += 1
 
@@ -172,7 +175,7 @@ class ClassObject:
 
     def __getattr__(self, attrname):
         from .current_prog import current_prog
-        if attrname == '__props__' or attrname == '__methods__' or attrname == '__theclass__' or attrname == '__inheritance_tree__':
+        if attrname in ['__props__', '__methods__', '__theclass__', '__inheritance_tree__']:
             return super().__getattr__(attrname)
         try:
             i = len(self.__props__)-1
@@ -195,7 +198,7 @@ class ClassObject:
                 raise AttributeError(attrname)
 
     def __setattr__(self, attrname, value):
-        if attrname == '__props__' or attrname == '__methods__' or attrname == '__theclass__' or attrname == '__inheritance_tree__':
+        if attrname in ['__props__', '__methods__', '__theclass__', '__inheritance_tree__']:
             return super().__setattr__(attrname, value)
         try:
             self.__props__[-1][attrname]
@@ -211,301 +214,301 @@ class ClassObject:
 
     def __str__(self):
         method = self.__get_method__('__str__')
-        if method == None:
+        if method is None:
             return super().__str__()
         return method()
 
     def __eq__(self, other):
         method = self.__get_method__('__eq__')
-        if method == None:
+        if method is None:
             return super().__eq__(other)
         return method(other)
 
     def __ne__(self, other):
         method = self.__get_method__('__ne__')
-        if method == None:
+        if method is None:
             return super().__ne__(other)
         return method(other)
 
     def __lt__(self, other):
         method = self.__get_method__('__lt__')
-        if method == None:
+        if method is None:
             return super().__lt__(other)
         return method(other)
 
     def __gt__(self, other):
         method = self.__get_method__('__gt__')
-        if method == None:
+        if method is None:
             return super().__gt__(other)
         return method(other)
 
     def __le__(self, other):
         method = self.__get_method__('__le__')
-        if method == None:
+        if method is None:
             return super().__le__(other)
         return method(other)
 
     def __ge__(self, other):
         method = self.__get_method__('__ge__')
-        if method == None:
+        if method is None:
             return super().__ge__(other)
         return method(other)
 
     def __pos__(self):
         method = self.__get_method__('__pos__')
-        if method == None:
+        if method is None:
             return super().__pos__()
         return method()
 
     def __neg__(self):
         method = self.__get_method__('__neg__')
-        if method == None:
+        if method is None:
             return super().__neg__()
         return method()
 
     def __abs__(self):
         method = self.__get_method__('__abs__')
-        if method == None:
+        if method is None:
             return super().__abs__()
         return method()
 
     def __invert__(self):
         method = self.__get_method__('__invert__')
-        if method == None:
+        if method is None:
             return super().__invert__()
         return method()
 
     def __round__(self, n):
         method = self.__get_method__('__round__')
-        if method == None:
+        if method is None:
             return super().__round__(n)
         return method(n)
 
     def __floor__(self):
         method = self.__get_method__('__floor__')
-        if method == None:
+        if method is None:
             return super().__floor__()
         return method()
 
     def __ceil__(self):
         method = self.__get_method__('__ceil__')
-        if method == None:
+        if method is None:
             return super().__ceil__()
         return method()
 
     def __trunc__(self):
         method = self.__get_method__('__trunc__')
-        if method == None:
+        if method is None:
             return super().__trunc__()
         return method()
 
     def __add__(self, other):
         method = self.__get_method__('__add__')
-        if method == None:
+        if method is None:
             return super().__add__(other)
         return method(other)
 
     def __sub__(self, other):
         method = self.__get_method__('__sub__')
-        if method == None:
+        if method is None:
             return super().__sub__(other)
         return method(other)
 
     def __mul__(self, other):
         method = self.__get_method__('__mul__')
-        if method == None:
+        if method is None:
             return super().__mul__(other)
         return method(other)
 
     def __floordiv__(self, other):
         method = self.__get_method__('__floordiv__')
-        if method == None:
+        if method is None:
             return super().__floordiv__(other)
         return method(other)
 
     def __div__(self, other):
         method = self.__get_method__('__div__')
-        if method == None:
+        if method is None:
             return super().__div__(other)
         return method(other)
 
     def __truediv__(self, other):
         method = self.__get_method__('__truediv__')
-        if method == None:
+        if method is None:
             return super().__truediv__(other)
         return method(other)
 
     def __mod__(self, other):
         method = self.__get_method__('__mod__')
-        if method == None:
+        if method is None:
             return super().__mod__(other)
         return method(other)
 
     def __divmod__(self, other):
         method = self.__get_method__('__divmod__')
-        if method == None:
+        if method is None:
             return super().__divmod__(other)
         return method(other)
 
     def __pow__(self):
         method = self.__get_method__('__pow__')
-        if method == None:
+        if method is None:
             return super().__pow__()
         return method()
 
     def __lshift__(self, other):
         method = self.__get_method__('__lshift__')
-        if method == None:
+        if method is None:
             return super().__lshift__(other)
         return method(other)
         
     def __rshift__(self, other):
         method = self.__get_method__('__rshift__')
-        if method == None:
+        if method is None:
             return super().__rshift__(other)
         return method(other)
         
     def __and__(self, other):
         method = self.__get_method__('__and__')
-        if method == None:
+        if method is None:
             return super().__and__(other)
         return method(other)
         
     def __or__(self, other):
         method = self.__get_method__('__or__')
-        if method == None:
+        if method is None:
             return super().__or__(other)
         return method(other)
         
     def __xor__(self, other):
         method = self.__get_method__('__xor__')
-        if method == None:
+        if method is None:
             return super().__xor__(other)
         return method(other)
 
     def __radd__(self, other):
         method = self.__get_method__('__radd__')
-        if method == None:
+        if method is None:
             return super().__radd__(other)
         return method(other)
 
     def __rsub__(self, other):
         method = self.__get_method__('__rsub__')
-        if method == None:
+        if method is None:
             return super().__rsub__(other)
         return method(other)
 
     def __rmul__(self, other):
         method = self.__get_method__('__rmul__')
-        if method == None:
+        if method is None:
             return super().__rmul__(other)
         return method(other)
 
     def __rfloordiv__(self, other):
         method = self.__get_method__('__rfloordiv__')
-        if method == None:
+        if method is None:
             return super().__rfloordiv__(other)
         return method(other)
 
     def __rdiv__(self, other):
         method = self.__get_method__('__rdiv__')
-        if method == None:
+        if method is None:
             return super().__rdiv__(other)
         return method(other)
 
     def __rtruediv__(self, other):
         method = self.__get_method__('__rtruediv__')
-        if method == None:
+        if method is None:
             return super().__rtruediv__(other)
         return method(other)
 
     def __rmod__(self, other):
         method = self.__get_method__('__rmod__')
-        if method == None:
+        if method is None:
             return super().__rmod__(other)
         return method(other)
 
     def __rdivmod__(self, other):
         method = self.__get_method__('__rdivmod__')
-        if method == None:
+        if method is None:
             return super().__rdivmod__(other)
         return method(other)
 
     def __rpow__(self):
         method = self.__get_method__('__rpow__')
-        if method == None:
+        if method is None:
             return super().__rpow__()
         return method()
 
     def __rlshift__(self, other):
         method = self.__get_method__('__rlshift__')
-        if method == None:
+        if method is None:
             return super().__rlshift__(other)
         return method(other)
 
     def __rrshift__(self, other):
         method = self.__get_method__('__rrshift__')
-        if method == None:
+        if method is None:
             return super().__rrshift__(other)
         return method(other)
 
     def __rand__(self, other):
         method = self.__get_method__('__rand__')
-        if method == None:
+        if method is None:
             return super().__rand__(other)
         return method(other)
 
     def __ror__(self, other):
         method = self.__get_method__('__ror__')
-        if method == None:
+        if method is None:
             return super().__ror__(other)
         return method(other)
 
     def __rxor__(self, other):
         method = self.__get_method__('__rxor__')
-        if method == None:
+        if method is None:
             return super().__rxor__(other)
         return method(other)
 
     def __repr__(self):
         method = self.__get_method__("__repr__")
-        if method == None:
+        if method is None:
             return super().__repr__()
         return method()
     
     def __unicode__(self):
         method = self.__get_method__("__unicode__")
-        if method == None:
+        if method is None:
             return super().__unicode__()
         return method()
     
     def __format__(self, formatstr):
         method = self.__get_method__("__format__")
-        if method == None:
+        if method is None:
             return super().__format__(formatstr)
         return method(formatstr)
     
     def __hash__(self):
         method = self.__get_method__("__hash__")
-        if method == None:
+        if method is None:
             return super().__hash__()
         return method()
     
     def __nonzero__(self):
         method = self.__get_method__("__nonzero__")
-        if method == None:
+        if method is None:
             return super().__nonzero__()
         return method()
     
     def __dir__(self):
         method = self.__get_method__("__dir__")
-        if method == None:
+        if method is None:
             return super().__dir__()
         return method()
     
     def __sizeof__(self):
         method = self.__get_method__("__sizeof__")
-        if method == None:
+        if method is None:
             return super().__sizeof__()
         return method()
 
