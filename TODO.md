@@ -1,5 +1,5 @@
 # TODO
 
-- add doc for developer
+- some optimizations in eval parser
 - complete web system
 - clean up the code
