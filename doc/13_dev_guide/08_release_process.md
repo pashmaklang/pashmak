@@ -22,10 +22,13 @@ for example, we have 3 releases(still supported):
 - `0.7`
 - `0.8`
 - `1.0`
+- `master`
 
-When we fix a bug in `0.7`, we should merge `0.7 to -> 0.8`. then merge `0.8 to -> 1.0`. In this process, we should fix conflicts.
+When we fix a bug in `0.7`, we should merge `0.7 to -> 0.8`. then merge `0.8 to -> 1.0` and `0.1 to -> master`. In this process, we should fix conflicts.
 
 Also we should handle `CHANGELOG.md` file.
+
+The `master` branch is the next minor/major release.
 
 ## Making a release
 To make a release, we should do the following steps:
