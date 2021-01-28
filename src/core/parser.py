@@ -27,7 +27,26 @@ import time
 from .lexer import literals, parse_op, parse_string
 
 def parse(content: str, filepath='<system>', only_parse=False) -> list:
-    ''' Parse code from text and return list of commands '''
+    """ Parse code from text and return list of commands
+
+    The main parser function.
+
+    Args:
+        content(str): The code you want to parse
+        filepath(str): The file path you loaded file from
+        only_parse(bool): if is True, do not parses `if` statement(default is False)
+
+    Return:
+        Returns a list:
+        [
+            {<output of lexer.parse_op>},
+            {<output of lexer.parse_op>},
+            {<output of lexer.parse_op>},
+            ...
+        ]
+    
+    Handles multiline and if statements.
+    """
     # split the lines
     lines = content.split('\n')
     # handle multiline
@@ -177,7 +196,19 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
     return commands
 
 def split_by_equals(string: str) -> list:
-    """ Parses `<something> = <something>` """
+    """ Parses `<something> = <something>`
+
+    Args:
+        string(str): The command
+
+    Return:
+        list
+        Example for `$name = 'pashmak'`: ['$name', "'pashmak'"]
+        Example for `println($name)`: ['println($name)']
+
+        If output is a list with 1 item, means this is a not `<a> = <b>`.
+        But if yes, first item is `<a>`(before `=`) and second it after `=`.
+    """
     commands_parts = parse_string(string)
     parts = ['']
     i = 0

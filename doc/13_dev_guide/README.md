@@ -10,4 +10,3 @@ If you want to undrestand structure of Pashmak interpreter Source code, This Sec
 - [Jit Compiler](06_jit.md)
 - [Program Executor API](07_executor_api.md)
 - [Release Process](08_release_process.md)
-
