@@ -436,7 +436,7 @@ class Program(helpers.Helpers):
             if True:
                 value = self.eval(parts[1].strip())
             if is_class_setting != False:
-                is_class_setting = self.eval(is_class_setting, only_parse=True)
+                is_class_setting = self.eval('->' + is_class_setting, only_parse=True)[1:]
                 tmp_real_var = self.eval(varname)
                 exec('tmp_real_var.' + is_class_setting + ' = value')
             else:
