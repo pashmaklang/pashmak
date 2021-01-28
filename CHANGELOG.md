@@ -26,7 +26,7 @@
 - added keyword arguments for functions (GH-95)
 - added typed arguments for functions (GH-95)
 - added some aliases for datatypes, `string` for `str`, `integer` for `int`, `array` for `list`
-- added Core Developer guide to Documentation
+- added Core Developer guide to Documentation (GH-96)
 
 #### Changes
 
