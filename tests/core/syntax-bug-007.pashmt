@@ -1,5 +1,5 @@
 #
-# null.pashmt
+# syntax-bug-007.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,14 +21,22 @@
 #########################################################################
 
 --test--
-keyword `null` working correct
+class property setting syntax bug is fixed
 
 --file--
 
-println(null == None)
-println(null is None)
+define('NAME', 'hello')
+
+class Person
+	$NAME = 'parsa'
+endclass
+
+$a = Person()
+
+$a->NAME = 'new'
+
+println $a->NAME
 
 --output--
-"""True
-True
+"""new
 """

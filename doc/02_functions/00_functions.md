@@ -496,3 +496,38 @@ func hello(str $name, $age)
     # ...
 endfunc
 ```
+
+### Advance typed arguments
+You can use `|` char for setting type of arguments with OR operation:
+
+```bash
+func hello(str|int $a)
+    println($a)
+endfunc
+
+hello('hello') # output: hello
+hello(12) # output: 12
+
+# something else of str and int
+hello(True) # error: Invalid argument
+```
+
+You can seprate them with `|`. type of argument should be One of them.
+
+Also you can use array item type:
+
+```bash
+func hello(str|list[int] $a)
+    println($a)
+endfunc
+
+hello('hello') # output: hello
+hello([]) # output: []
+hello([1, 2]) # output: [1, 2]
+
+hello([1, 2, '']) # error: InvalidArgument
+```
+
+when you write `list[int]`, means that argument should be a list that items should be `int`.
+Also you can write `list[int|str]` means you want a list that items should be `int` OR `int`.
+Also you can use this system complicated like `list[int|list[str|int]]`...

@@ -20,6 +20,17 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" This file only have a variable to keep current program object """
+""" This file only have a variable to keep current program object
+
+Actually, The current running program object should be accessbile in everywhere,
+Because of that, when a new Program object is initialized,
+Puts pointer of he's/she's self in here.
+then, other functions and classes in interpreter core can access to this:
+    from . import current_prog
+    current_prog.current_prog.<something>
+
+The `current_prog.current_prog` Should be a object from class `program.Program`
+"""
 
 current_prog = None
+""" The current program object(program.Program) """

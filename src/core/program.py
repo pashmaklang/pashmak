@@ -184,7 +184,7 @@ class Program(helpers.Helpers):
 
     def raise_error(self, error_type: str, message: str, op=None):
         """ Raise error in program """
-        if op == None:
+        if op is None:
             op = self.frames[-1]['commands'][self.frames[-1]['current_step']]
         # check is in try
         if self.try_endtry:
@@ -233,7 +233,7 @@ class Program(helpers.Helpers):
                 pass
             last_frame = frame
         print('\tin ' + op['file_path'] + ':' + str(op['line_number']) + ': ' + op['str'])
-        if len(self.frames[1:]) > 0:
+        if self.frames[1:]:
             print(error_type + ': ' + message + '.')
         sys.exit(1)
 
@@ -254,7 +254,7 @@ class Program(helpers.Helpers):
 
         for k in default_variables:
             frame_vars[k] = default_variables[k]
-        if len(func_body) > 0:
+        if func_body:
             frame_vars['__file__'] = os.path.abspath(func_body[0]['file_path'])
             if os.path.isfile(frame_vars['__file__']):
                 frame_vars['__dir__'] = os.path.dirname(frame_vars['__file__'])
@@ -358,8 +358,8 @@ class Program(helpers.Helpers):
             self.func_depth -= 1
 
         # if a function is started, append current command to the function body
-        if len(self.current_func) > 0:
-            if len(self.current_class) > 0:
+        if self.current_func:
+            if self.current_class:
                 self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].body.append(op)
             else:
                 self.functions[self.current_func[-1]].body.append(op)
@@ -412,7 +412,7 @@ class Program(helpers.Helpers):
         if op['str'][0] == '$':
             # if a class is started, append current command as a property to class
             is_in_class = False
-            if len(self.current_class) > 0:
+            if self.current_class:
                 is_in_class = True
             parts = parser.split_by_equals(op['str'].strip())
             if len(parts) <= 1:
@@ -436,7 +436,7 @@ class Program(helpers.Helpers):
             if True:
                 value = self.eval(parts[1].strip())
             if is_class_setting != False:
-                is_class_setting = self.eval(is_class_setting, only_parse=True)
+                is_class_setting = self.eval('->' + is_class_setting, only_parse=True)[1:]
                 tmp_real_var = self.eval(varname)
                 exec('tmp_real_var.' + is_class_setting + ' = value')
             else:

@@ -1,5 +1,5 @@
 #
-# null.pashmt
+# arg-type-002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,14 +21,22 @@
 #########################################################################
 
 --test--
-keyword `null` working correct
+typed arguments with `|` works
 
 --file--
 
-println(null == None)
-println(null is None)
+func hello(int|str $a)
+    println($a)
+endfunc
+
+hello(10)
+hello('hello')
+hello(True)
 
 --output--
-"""True
-True
+"""10
+hello
 """
+
+--with-error--
+"InvalidArgument"

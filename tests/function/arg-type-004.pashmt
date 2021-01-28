@@ -1,5 +1,5 @@
 #
-# null.pashmt
+# arg-type-004.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,14 +21,24 @@
 #########################################################################
 
 --test--
-keyword `null` working correct
+complicated function argument type for lists
 
 --file--
 
-println(null == None)
-println(null is None)
+func hello(str|list[str|list[bool]] $a)
+    println($a)
+endfunc
+
+hello('a')
+hello([])
+hello(['a', [True]])
+hello(['a', [True, 'b']])
 
 --output--
-"""True
-True
+"""a
+[]
+['a', [True]]
 """
+
+--with-error--
+"InvalidArgument"

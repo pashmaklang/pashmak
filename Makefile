@@ -46,11 +46,9 @@ speed-test:
 	@$(PYTHON) ./src/pashmak.py ./scripts/speed-test.pashm
 	@echo
 
-pylint: all
-	@$(PYTHON) -m pylint\
-		$(shell find src -type f -name '*.py') $(shell find tests -type f -name '*.py') |\
-		grep -v '(invalid-name)' |\
-		grep -v "Unused argument 'op' (unused-argument)" |\
-		grep -v "(too-many-public-methods)" |\
-		grep -v "(no-name-in-module)" > pylint.out
+pylint:
+	@$(PYTHON) -m pylint $(shell find src -type f -name '*.py') \
+	| grep -v '(no-member)' \
+	| grep -v '(relative-beyond-top-level)' \
+	| grep -v '(no-name-in-module)' > pylint.out
 	@echo -e "\033[32mpylint output was saved in pylint.out\033[0m"
