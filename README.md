@@ -29,6 +29,9 @@ Why this programming language is useful? Because:
 - Builtin code mixer(compiler)
 - Builtin web development support
 - Namespace system
+- Section(label and goto) system
+- Handling Stdout using `out_*` functions
+- Shutdown event system
 
 ### Pashmak problems
 
