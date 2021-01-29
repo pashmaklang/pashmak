@@ -60,3 +60,9 @@ endfunc
 func isset
     python('self.mem = self.variable_exists(' + repr(^) + ')')
 endfunc
+
+@doc "Makes a copy from an object and returns the copy"
+func clone($obj)
+    return copy.deepcopy($obj)
+endfunc
+
