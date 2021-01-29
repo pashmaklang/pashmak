@@ -69,11 +69,11 @@ if $os.env['REQUEST_METHOD'] == 'POST'
 endif
 ```
 
-## Using T-Engine
-You learned about Pashmak's T-Engine in the previous parts. You can use this in web:
+## Using Pit engine
+You learned about Pashmak's Pit engine in the previous parts. You can use this in web:
 
 ```html
-#!/usr/bin/pashmak @tengine
+#!/usr/bin/pashmak @pit
 {
 web_init()
 
@@ -86,7 +86,7 @@ Save the file with `.pashm.html` extension. for example: `hello.pashm.html`.
 
 Now, run the server and go to http://localhost:8000/hello.pashm.html and you will see `Hello parsa` in `h1` tag.
 
-REMEMBER to put `#!/usr/bin/pashmak @tengine` shebang in the first of your file. This is important(Also do this if your are in windows or non-UNIX like OS).
+REMEMBER to put `#!/usr/bin/pashmak @pit` shebang in the first of your file. This is important(Also do this if your are in windows or non-UNIX like OS).
 
 ## Webserver cli options
 You can use `pashmak @webserver --help` command to see the help:

@@ -116,7 +116,7 @@ if $__ismain__
             $full_path = os.path.abspath($dir + '/' + $handler->path)
             $mime = mimetypes.guess_type($full_path)[0]
 
-            if $full_path->endswith('.pashm') or $full_path->endswith('.tengine') or $full_path->endswith('.pashm.html') or $main != null
+            if $full_path->endswith('.pashm') or $full_path->endswith('.pit') or $full_path->endswith('.pashm.html') or $main != null
                 if $main != null
                     $full_path = $main
                 endif
@@ -124,8 +124,8 @@ if $__ismain__
                 $f = open($full_path, 'r')
                 $content = $f->read()
                 $f->close()
-                if $content->split('\n', 1)[0]->endswith('@tengine') and $content->split('\n', 1)[0]->startswith('#!/')
-                    $command->insert(1, '@tengine')
+                if $content->split('\n', 1)[0]->endswith('@pit') and $content->split('\n', 1)[0]->startswith('#!/')
+                    $command->insert(1, '@pit')
                 endif
                 # load request headers
                 $env = {"REQUEST_URI": $handler->path, "REQUEST_METHOD": $request_method, "REMOTE_ADDR": $handler->client_address[0], "REMOTE_PORT": str($handler->client_address[1])}
