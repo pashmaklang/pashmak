@@ -23,10 +23,12 @@ Why this programming language is useful? Because:
 - Loading Python scripts as object
 - Python standard modules
 - Name defines
-- OOP
+- Class and OOP
+- Dynamic behavior for class methods for static and non-static usage
 - PIT render engine to render pashmak code inside text formats
 - Builtin code mixer(compiler)
 - Builtin web development support
+- Namespace system
 
 ### Pashmak problems
 
