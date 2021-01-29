@@ -32,12 +32,9 @@ namespace tengine
 		return run($content, $realtime_run, $path, $htmldata)
 	endfunc
 
-	func run(*$args)
-		$args = format_args($args)
-		$realtime_run = False
+	func run(str $content, bool $realtime_run=false, str $path=null, dict $htmldata={})
 		$__htmldir__ = $__dir__
 		$__htmlfile__ = $__htmldir__ + '/-'
-		$content = $args[0]
 		$content = $content->split('\n', 1)
 		if len($content) > 1
 			if $content[0]->startswith('#!/')
@@ -48,15 +45,10 @@ namespace tengine
 		else
 			$content = $content[0]
 		endif
-		if len($args) > 1
-			$realtime_run = $args[1]
-		endif
-		if len($args) > 2
-			$__htmlfile__ = os.path.abspath($args[2])
+
+		if $path != null
+			$__htmlfile__ = os.path.abspath($path)
 			$__htmldir__ = os.path.dirname($__htmlfile__)
-		endif
-		if len($args) > 3
-			$htmldata = $args[3]
 		endif
 
 		$randstr_1 = '<<<therandomstringfortengine' + str(time.time()) + str(random.random()) + '>>>'
