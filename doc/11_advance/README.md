@@ -12,3 +12,4 @@
 - [Pashmiler compiler](09_compiler.md)
 - [Docstrings](10_docstring.md)
 - [Name Defines](11_name_defines.md)
+- [Cloning Objects](12_cloning_objects.md)
