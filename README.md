@@ -19,6 +19,9 @@ Why this programming language is useful? Because:
 - Safe Global variables
 - Python powered core
 - Python datatypes
+- Able to run Python code from string
+- Loading Python scripts as object
+- Python standard modules
 - Name defines
 - OOP
 - PIT render engine to render pashmak code inside text formats
