@@ -35,7 +35,7 @@ if $new_version[0] == 'v'
 endif
 
 # change version number
-$f = open('src/core/version.py', 'r')
+$f = open($__dir__ + '/../src/core/version.py', 'r')
 $content = $f->read()
 $content = $content->split('version = ')[0]
 $content = $content + 'version = \'v'
@@ -43,17 +43,17 @@ $content = $content + $new_version
 $content = $content + '\'\n'
 $f->close()
 
-$f = open('src/core/version.py', 'w')
+$f = open($__dir__ + '/../src/core/version.py', 'w')
 $f->write($content)
 $f->close()
 
-$f = open('CHANGELOG.md', 'r')
+$f = open($__dir__ + '/../CHANGELOG.md', 'r')
 $content = $f->read()
 $date_str = datetime->date->today()
 $date_str = str($date_str->year) + '-' + str($date_str->month) + '-' + str($date_str->day)
 $content = $content->replace('## next release', '## ' + $new_version + ' (' + $date_str + ')')
 $f->close()
 
-$f = open('CHANGELOG.md', 'w')
+$f = open($__dir__ + '/../CHANGELOG.md', 'w')
 $f->write($content)
 $f->close()
