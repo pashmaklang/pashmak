@@ -67,7 +67,7 @@ self.mem = serve(self.get_var("this").host, self.get_var("this").port, self.get_
 endns
 
 if $__ismain__
-    import @sys
+    import @sys, @os
 
     if '--help' in $argv
         println('Serve a simple webserver for development environment')
@@ -128,7 +128,14 @@ if $__ismain__
                     $command->insert(1, '@pit')
                 endif
                 # load request headers
-                $env = {"REQUEST_URI": $handler->path, "REQUEST_METHOD": $request_method, "REMOTE_ADDR": $handler->client_address[0], "REMOTE_PORT": str($handler->client_address[1])}
+                $env = {
+                    "PASHMAKPATH": $os.env['PASHMAKPATH'],
+                    "REQUEST_URI": $handler->path,
+                    "REQUEST_METHOD": $request_method,
+                    "REMOTE_ADDR": $handler->client_address[0],
+                    "REMOTE_PORT": str($handler->client_address[1]),
+                    "SERVER_PORT": str($handler->server->server_port),
+                }
                 $request_headers = str($handler->headers)->strip()->split('\n')
                 $i = 0
                 while $i < len($request_headers)
