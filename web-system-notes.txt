@@ -1,0 +1,26 @@
+*** Notes and TODO for web system ***
+
+- Handle the following envvars in builtin webserver:
+{
+SERVER_SIGNATURE --> Apache/2.4.29 (Ubuntu) Server at localhost Port 80
+SERVER_SOFTWARE --> Apache/2.4.29 (Ubuntu)
+SERVER_PORT --> 80
+DOCUMENT_ROOT --> /var/www/html
+CONTEXT_DOCUMENT_ROOT --> /var/www/html
+SCRIPT_FILENAME --> /var/www/html/test.pashm
+SCRIPT_NAME --> /test.pashm
+QUERY_STRING --> ?...
+
+SERVER_NAME --> localhost
+SERVER_ADDR --> 127.0.0.1
+REQUEST_SCHEME --> http
+CONTEXT_PREFIX --> ...
+GATEWAY_INTERFACE --> CGI/1.1
+SERVER_PROTOCOL --> HTTP/1.1
+}
+
+- Some changes in header handling
+- Handle post and get data
+- Fix parent directory bug
+- Fix subprocess bug in compiled mode
+
