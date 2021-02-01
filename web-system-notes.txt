@@ -21,6 +21,7 @@ SERVER_PROTOCOL
 
 - Some changes in header handling
 - Handle post and get data
+- Handle sessions
 - Fix parent directory bug
 - Fix subprocess bug in compiled mode
 
