@@ -148,7 +148,7 @@ if $__ismain__
                     'DOCUMENT_ROOT': $dir,
                     'CONTEXT_DOCUMENT_ROOT': $dir,
                     'SCRIPT_FILENAME': $full_path,
-                    'SCRIPT_NAME': $full_path,
+                    'SCRIPT_NAME': $path,
                     'QUERY_STRING': $query_string,
                     "SERVER_PROTOCOL": $handler->protocol_version,
                 }

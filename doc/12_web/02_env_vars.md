@@ -13,4 +13,5 @@ This envvars contain some informations.
 | `SERVER_PROTOCOL` | The server protocol | `HTTP/1.0` |
 | `DOCUMENT_ROOT` | The root of directory that web server serves that | `/var/www/html` |
 | `SCRIPT_FILENAME` | Real path of the current running Pashmak script | `/var/www/html/app.pashm` |
+| `SCRIPT_NAME` | Script name (not full path) | `/app.pashm` |
 | `QUERY_STRING` | Part of URL after `?` (The get data query string) | `foo=bar&hi=bye` |
