@@ -4,8 +4,6 @@
 {
 SERVER_NAME
 SERVER_ADDR
-CONTEXT_PREFIX
-GATEWAY_INTERFACE
 }
 
 - Some changes in header handling
