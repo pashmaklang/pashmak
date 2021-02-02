@@ -2,20 +2,11 @@
 
 - Handle the following envvars in builtin webserver:
 {
-SERVER_SIGNATURE
-SERVER_SOFTWARE
-DOCUMENT_ROOT
-CONTEXT_DOCUMENT_ROOT
-SCRIPT_FILENAME
-SCRIPT_NAME
-QUERY_STRING
-
 SERVER_NAME
 SERVER_ADDR
 REQUEST_SCHEME
 CONTEXT_PREFIX
 GATEWAY_INTERFACE
-SERVER_PROTOCOL
 }
 
 - Some changes in header handling
@@ -23,4 +14,3 @@ SERVER_PROTOCOL
 - Handle sessions
 - Fix parent directory bug
 - Fix subprocess bug in compiled mode
-

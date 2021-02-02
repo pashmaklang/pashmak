@@ -112,8 +112,15 @@ if $__ismain__
 
     # a handler for POST and GET methods
     func the_handler($handler, str $request_method)
-        if os.path.isfile($dir + '/' + $handler->path) or $main != null
-            $full_path = os.path.abspath($dir + '/' + $handler->path)
+        $path = str($handler->path)
+        $path = $path->split('?', 1)
+        $query_string = ''
+        if len($path) > 1
+            $query_string = $path[1]
+        endif
+        $path = $path[0]
+        if os.path.isfile($dir + '/' + $path) or $main != null
+            $full_path = os.path.abspath($dir + '/' + $path)
             $mime = mimetypes.guess_type($full_path)[0]
 
             if $full_path->endswith('.pashm') or $full_path->endswith('.pit') or $full_path->endswith('.pashm.html') or $main != null
@@ -127,7 +134,8 @@ if $__ismain__
                 if $content->split('\n', 1)[0]->endswith('@pit') and $content->split('\n', 1)[0]->startswith('#!/')
                     $command->insert(1, '@pit')
                 endif
-                # load request headers
+
+                # the envvars
                 $env = {
                     "PASHMAKPATH": $os.env['PASHMAKPATH'],
                     "REQUEST_URI": $handler->path,
@@ -135,7 +143,17 @@ if $__ismain__
                     "REMOTE_ADDR": $handler->client_address[0],
                     "REMOTE_PORT": str($handler->client_address[1]),
                     "SERVER_PORT": str($handler->server->server_port),
+                    "SERVER_SOFTWARE": 'Pashmak Builtin Web Server',
+                    "SERVER_SIGNATURE": 'Pashmak Builtin Web Server',
+                    'DOCUMENT_ROOT': $dir,
+                    'CONTEXT_DOCUMENT_ROOT': $dir,
+                    'SCRIPT_FILENAME': $full_path,
+                    'SCRIPT_NAME': $full_path,
+                    'QUERY_STRING': $query_string,
+                    "SERVER_PROTOCOL": $handler->protocol_version,
                 }
+
+                # load request headers
                 $request_headers = str($handler->headers)->strip()->split('\n')
                 $i = 0
                 while $i < len($request_headers)

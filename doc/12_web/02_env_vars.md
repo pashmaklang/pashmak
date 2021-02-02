@@ -10,3 +10,7 @@ This envvars contain some informations.
 | `REMOTE_ADDR` | The remote(client) address(ip) | `1.2.3.4` |
 | `REMOTE_PORT` | The remote port | `5674` |
 | `SERVER_PORT` | The server port | `80` or `8000` |
+| `SERVER_PROTOCOL` | The server protocol | `HTTP/1.0` |
+| `DOCUMENT_ROOT` | The root of directory that web server serves that | `/var/www/html` |
+| `SCRIPT_FILENAME` | Real path of the current running Pashmak script | `/var/www/html/app.pashm` |
+| `QUERY_STRING` | Part of URL after `?` (The get data query string) | `foo=bar&hi=bye` |
