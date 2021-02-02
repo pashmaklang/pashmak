@@ -1,11 +1,7 @@
 *** Notes and TODO for web system ***
 
-- Handle the following envvars in builtin webserver:
-{
-SERVER_NAME
-SERVER_ADDR
-}
-
+- Add SERVER_NAME
+- Add SERVER_ADDR
 - Some changes in header handling
 - Handle post and get data
 - Handle sessions
