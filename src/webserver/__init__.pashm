@@ -151,6 +151,7 @@ if $__ismain__
                     'SCRIPT_NAME': $path,
                     'QUERY_STRING': $query_string,
                     "SERVER_PROTOCOL": $handler->protocol_version,
+                    "REQUEST_SCHEME": 'http',
                 }
 
                 # load request headers
