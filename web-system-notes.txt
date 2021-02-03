@@ -3,6 +3,7 @@
 - Add SERVER_NAME
 - Add SERVER_ADDR
 - Some changes in header handling
+- Handle index file
 - Handle post and get data
 - Handle sessions
 - Fix subprocess bug in compiled mode
