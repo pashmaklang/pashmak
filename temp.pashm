@@ -1,0 +1,8 @@
+import @os
+
+web_init()
+
+web_set_header('Content-type', 'text/plain')
+
+var_dump(dict($os.env))
+
