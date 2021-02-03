@@ -28,6 +28,7 @@
 - added some aliases for datatypes, `string` for `str`, `integer` for `int`, `array` for `list`
 - added Core Developer guide to Documentation (GH-96)
 - added function `clone()` for copying objects (GH-97)
+- added message argument for function `read()`
 
 #### Changes
 

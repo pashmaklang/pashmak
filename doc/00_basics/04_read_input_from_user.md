@@ -50,6 +50,15 @@ enter second number: <input>2
 
 this example gets two numbers from user and shows sum of them.
 
+You can also pass a message argument to function `read`. This argument will be printed before input.
+
+For example:
+
+```bash
+$name = read('enter your name: ')
+println $name
+```
+
 ## Reading command line arguments
 To access command line arguments, you can use `$argv` variable.
 this variable is a public variable and is list contains command line arguments.
