@@ -1,7 +1,6 @@
 *** Notes and TODO for web system ***
 
 - Some changes in header handling
-- Handle index file
-- Handle post and get data
 - Handle sessions
+- Handle post and get data
 - Fix subprocess bug in compiled mode

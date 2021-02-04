@@ -119,8 +119,26 @@ if $__ismain__
             $query_string = $path[1]
         endif
         $path = $path[0]
-        if os.path.isfile($dir + '/' + $path) or $main != null
-            $full_path = os.path.abspath($dir + '/' + $path)
+        $has_index = false
+        if os.path.isdir($dir + '/' + $path)
+            $allowed_indexes = ['index.pashm', 'index.pit', 'index.pashm.html', 'html']
+            $z = 0
+            while $z < len($allowed_indexes)
+                if os.path.isfile($dir + '/' + $path + '/' + $allowed_indexes[$z])
+                    $has_index = $dir + '/' + $path + '/' + $allowed_indexes[$z]
+                    break
+                endif
+                $z = $z + 1
+            endwhile
+        endif
+        if os.path.isfile($dir + '/' + $path) or $main != null or $has_index
+            if $has_index
+                $full_path = $has_index
+            else
+                $full_path = os.path.abspath($dir + '/' + $path)
+            endif
+            $full_path = $full_path->replace('//', '/')
+            $full_path = $full_path->replace('//', '/')
             $mime = mimetypes.guess_type($full_path)[0]
 
             if $full_path->endswith('.pashm') or $full_path->endswith('.pit') or $full_path->endswith('.pashm.html') or $main != null
@@ -170,7 +188,7 @@ if $__ismain__
                 if $request_method == 'POST'
                     $env['HTTP_POST_DATA'] = $handler->rfile->read(int($env['HTTP_CONTENT_LENGTH']))
                 endif
-		$command_str = ' '.join($command)
+		        $command_str = ' '.join($command)
                 $result = subprocess.run($command_str, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=$env, shell=True)
                 if $result->stderr == null
                     $result->stderr = ''
