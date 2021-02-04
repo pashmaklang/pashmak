@@ -1,7 +1,5 @@
 *** Notes and TODO for web system ***
 
-- Add SERVER_NAME
-- Add SERVER_ADDR
 - Some changes in header handling
 - Handle index file
 - Handle post and get data

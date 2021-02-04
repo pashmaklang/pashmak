@@ -9,6 +9,7 @@ This envvars contain some informations.
 | `REQUEST_METHOD` | The http request method | `GET` or `POST` |
 | `REMOTE_ADDR` | The remote(client) address(ip) | `1.2.3.4` |
 | `REMOTE_PORT` | The remote port | `5674` |
+| `SERVER_ADDR` | Address of the server | `127.0.0.1` |
 | `SERVER_PORT` | The server port | `80` or `8000` |
 | `SERVER_PROTOCOL` | The server protocol | `HTTP/1.0` |
 | `DOCUMENT_ROOT` | The root of directory that web server serves that | `/var/www/html` |
