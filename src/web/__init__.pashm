@@ -43,6 +43,50 @@ func init
     else
         gset('web.cookies', {})
     endif
+
+    # parse the GET and POST raw data
+    $raw_get = $os.env['QUERY_STRING'] # load the get query string
+    $tmp_get = urllib.parse.parse_qsl($raw_get)
+    $get = {}
+
+    $i = 0
+    while $i < len($tmp_get)
+        $get[$tmp_get[$i][0]] = $tmp_get[$i][1]
+        $i = $i + 1
+    endwhile
+
+    $post = {}
+    if $os.env['REQUEST_METHOD'] == 'POST'
+        $raw_post = read() # load the post query string
+
+        # keep the raw data
+        $os.env['POST_RAW_DATA'] = $raw_post
+
+        # check is the raw post json format
+        $is_json = false
+        try web_init_check_json_error
+            json.loads($raw_post)
+            $is_json = true
+        endtry
+        goto after_web_init_check_json_error; section web_init_check_json_error
+            $is_json = false
+        section after_web_init_check_json_error
+
+        if $is_json
+            $post = json.loads($raw_post)
+        else
+            $tmp_post = urllib.parse.parse_qsl($raw_post)
+            $i = 0
+            while $i < len($tmp_post)
+                $post[$tmp_post[$i][0]] = $tmp_post[$i][1]
+                $i = $i + 1
+            endwhile
+        endif
+    endif
+
+    gset('web.get', $get)
+    gset('web.post', $post)
+
     define('WEB_INITED', true)
     set_header('Content-type', 'text/html')
 endfunc
