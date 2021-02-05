@@ -1,6 +1,5 @@
 *** Notes and TODO for web system ***
 
-- Change post data structure in server
 - Handle sessions
 - Handle post and get data
 - Fix subprocess bug in compiled mode
