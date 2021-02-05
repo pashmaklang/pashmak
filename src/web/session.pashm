@@ -25,6 +25,25 @@ namespace web
     Loads the session dictionary by unique id.\
     "
     func dict::load_session_by_id(string $id)
+        return {}
+    endfunc
 
+    @doc "\
+    Generates a random session Id and returns it.\
+    "
+    func string::generate_random_session_id()
+        return '...'
+    endfunc
+
+    @doc "\
+    Creates a new session and returns the ID.\n\
+    Also can get a optional custom ID.\
+    "
+    func string::create_session(string $custom_id=null)
+        if $custom_id is null
+            $custom_id = generate_random_session_id()
+        endif
+
+        return $custom_id
     endfunc
 endns
