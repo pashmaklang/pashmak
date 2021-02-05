@@ -1,17 +1,7 @@
-#!/home/parsa/p/pashmak/pashmak/src/pashmak.py @pit
-{
-import @os, @web
+import @web
 
 web.init()
 
-web.set_cookie(\{
-    'name': 'aaa',
-    'value': 'fg%$#^$&^tfguytu6557%^&%^&&^$#%^%$6==::gh'
-\})
-
 web.end_headers()
 
-var_dump($web.cookies)
-
-}
-
+println('Hello world!')
