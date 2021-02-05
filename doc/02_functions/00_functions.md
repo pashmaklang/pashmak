@@ -562,3 +562,5 @@ Another example:
 ```bash
 func list[int|str]::hello()...
 ```
+
+If you return a invalid data, error `InvalidReturnType` will be raised.
