@@ -20,7 +20,7 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-import @os
+import @os, @web.session
 
 namespace web
 
