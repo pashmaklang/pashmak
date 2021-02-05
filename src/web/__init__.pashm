@@ -86,7 +86,7 @@ func set_cookie(dict $options)
     endwhile
     $real_cookies = gget('web.cookies')
     $real_cookies[$options['name']] = $options['value']
-    perror($base_cookie->output())
+    print($base_cookie->output() + '\n')
 endfunc
 
 @doc "Ends the headers"
