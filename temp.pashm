@@ -1,15 +1,17 @@
+#!/home/parsa/p/pashmak/pashmak/src/pashmak.py @pit
+{
 import @os, @web
 
 web.init()
 
-web.set_header('Content-type', 'text/plain')
-
-web.set_cookie({
-    'name': 'foo',
-    'value': 'bar'
-})
+web.set_cookie(\{
+    'name': 'aaa',
+    'value': 'fg%$#^$&^tfguytu6557%^&%^&&^$#%^%$6==::gh'
+\})
 
 web.end_headers()
 
-var_dump(dict($os.env))
 var_dump($web.cookies)
+
+}
+

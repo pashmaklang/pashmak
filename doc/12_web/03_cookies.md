@@ -7,6 +7,7 @@ For example:
 import @web
 
 web.init()
+web.end_headers()
 
 println($web.cookies)
 ```
@@ -23,6 +24,7 @@ The `$web.cookies` variable is a dictonary. for example:
 import @web
 
 web.init()
+web.end_headers()
 
 println($web.cookies['cookie_name'])
 ```
@@ -41,6 +43,9 @@ web.set_cookie({
     'name': 'cookie_name',
     'value': 'value of cookie'
 })
+
+# remember to set the cookie BEFORE ending the headers
+web.end_headers()
 
 println($web.cookies)
 ```

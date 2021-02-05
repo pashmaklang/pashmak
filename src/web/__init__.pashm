@@ -30,13 +30,11 @@ Initializes the web environment.\
 func init
     # load the cookies
     if 'HTTP_COOKIE' in list($os.env->keys())
-        $base_cookie = http.cookies.BaseCookie()
-        $base_cookie->load($os.env['HTTP_COOKIE'])
+        $items = urllib.parse.parse_qsl($os.env['HTTP_COOKIE'])
         $i = 0
-        $items = list($base_cookie->items())
         $cookies = {}
         while $i < len($items)
-            $cookies[$items[$i][0]] = $items[$i][1]->value
+            $cookies[$items[$i][0]] = $items[$i][1]
             $i = $i + 1
         endwhile
         gset('web.cookies', $cookies)
@@ -118,6 +116,14 @@ Gets options as dictionary.\
 """
 func set_cookie(dict $options)
     $options->setdefault('value', '')
+
+    # format options
+    $tmp = urllib.parse.urlencode([
+        ($options['name'], $options['value'])
+    ])->split('=', 1)
+    $options['name'] = $tmp[0]
+    $options['value'] = $tmp[1]
+
     $base_cookie = http.cookies.BaseCookie()
     $base_cookie[$options['name']] = $options['value']
     $i = 0
@@ -128,9 +134,12 @@ func set_cookie(dict $options)
         endif
         $i = $i + 1
     endwhile
+    $output = $base_cookie->output()
+    $output = $output->split(':', 1)[-1]->strip()->split('=', 1)
+    set_header('Set-Cookie', $output[0]->strip() + '=' + $output[-1])
     $real_cookies = gget('web.cookies')
-    $real_cookies[$options['name']] = $options['value']
-    print($base_cookie->output() + '\n')
+    $tmp = urllib.parse.parse_qsl($output[0]->strip() + '=' + $output[-1])
+    $real_cookies[$tmp[0][0]] = $tmp[0][1]
 endfunc
 
 @doc "Ends the headers"

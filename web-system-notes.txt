@@ -1,5 +1,4 @@
 *** Notes and TODO for web system ***
 
 - Handle sessions
-- Fix some bugs in cookie system
 - Fix subprocess bug in compiled mode
