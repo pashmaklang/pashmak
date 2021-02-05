@@ -43,6 +43,7 @@
 - fixed import command bug while writing something like `import(somefunc())`
 - fixed a small problem in error rendering
 - fixed a bug in class property setting syntax, while running `$obj-><some-exists-name> = ...`
+- fixed syntax bug while using variables alongside `:`
 
 #### Removed
 
