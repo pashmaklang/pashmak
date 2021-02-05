@@ -2,7 +2,7 @@ import @os, @web
 
 web.init()
 
-#web.set_header('Content-type', 'text/plain')
+web.set_header('Content-type', 'text/plain')
 
 web.set_cookie({
     'name': 'foo',
