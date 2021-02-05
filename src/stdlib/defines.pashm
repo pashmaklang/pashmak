@@ -21,7 +21,7 @@
 #########################################################################
 
 @doc "Defines a name. First argument is the name and second argument is the value"
-func define($name, $value)
+func define(string $name, $value)
     if is_defined($name)
         raise Error('DefineError', 'name "' + $name + '" already defined')
         return
@@ -30,17 +30,17 @@ func define($name, $value)
 endfunc
 
 @doc "Returns all of defined names as a dictionary"
-func all_defines
-    python('self.mem = self.defines')
+func dict::all_defines
+    return python('self.mem = self.defines')
 endfunc
 
 @doc "Gets a name and checks is defined and return boolean"
-func is_defined($name)
+func bool::is_defined(string $name)
     return $name in list(all_defines()->keys())
 endfunc
 
 @doc "Deletes a defined name. Gets name as string"
-func undefine($name)
+func undefine(string $name)
     if not is_defined($name)
         raise Error('DefineError', 'name "' + $name + '" is not defined')
         return
@@ -49,7 +49,7 @@ func undefine($name)
 endfunc
 
 @doc "Re-Defines a name. If name exists, undefines that and defines new value, and if name currently not exists, defines new name"
-func redefine($name, $value)
+func redefine(string $name, $value)
     if is_defined($name)
         undefine($name)
     endif

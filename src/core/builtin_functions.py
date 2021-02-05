@@ -100,7 +100,6 @@ class BuiltinFunctions:
                 pass
             try:
                 del self.all_vars()[current_namespace + '__ismain__']
-                print('A')
             except KeyError:
                 pass
 
@@ -183,6 +182,16 @@ class BuiltinFunctions:
         """ Starts function declaration block """
         self.require_one_argument(op, 'missing function name')
         arg = lexer.multi_char_split(op['args_str'], ' (', 1)[0]
+
+        # sperate return type and name
+        return_type = None
+        tmp = arg.split('::', 1)
+        if len(tmp) > 1:
+            arg = tmp[1]
+            return_type = tmp[0]
+        else:
+            arg = tmp[0]
+
         for ch in parser.literals + '.':
             if ch in arg:
                 return self.raise_error(
@@ -194,12 +203,14 @@ class BuiltinFunctions:
             self.current_func.append(arg)
             self.classes[self.current_class[-1]].__methods__[self.current_func[-1]] = Function(name=self.current_func[-1])
             self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].__docstring__ = self.last_docstring
+            self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].return_type = return_type
             self.last_docstring = ''
             is_method = True
         else:
             self.current_func.append(self.current_namespace() + arg)
             self.functions[self.current_func[-1]] = Function(name=self.current_func[-1])
             self.functions[self.current_func[-1]].__docstring__ = self.last_docstring
+            self.functions[self.current_func[-1]].return_type = return_type
             self.last_docstring = ''
         # check for argument variable
         if len(op['args_str'].split('(', 1)) > 1:

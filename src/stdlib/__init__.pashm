@@ -110,17 +110,10 @@ func py_load_file($path)
 endfunc
 
 @doc """\
-Is a alias for `open()` function.\
-"""
-func fopen($path, $type='r')
-    python("self.mem = open(self.get_var('path'), self.get_var('type'))")
-endfunc
-
-@doc """\
 Returns current namespace as string.\
 """
-func __namespace__
-    python("self.mem = self.current_namespace()")
+func str::__namespace__
+    return python("self.mem = self.current_namespace()")
 endfunc
 
 namespace pashmak
@@ -167,3 +160,6 @@ import @stdlib.class
 import @stdlib.defines
 import @stdlib.exception
 import @stdlib.web
+
+func fopen; endfunc
+fopen = open
