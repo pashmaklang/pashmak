@@ -20,12 +20,15 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
+import @os
+
+namespace web
+
 @doc """\
 Initializes the web environment.\
 """
-func web_init
+func init
     # load the cookies
-    import @os
     if 'HTTP_COOKIE' in list($os.env->keys())
         $base_cookie = http.cookies.BaseCookie()
         $base_cookie->load($os.env['HTTP_COOKIE'])
@@ -36,9 +39,9 @@ func web_init
             $cookies[$items[$i][0]] = $items[$i][1]->value
             $i = $i + 1
         endwhile
-        gset('web_cookies', $cookies)
+        gset('web.cookies', $cookies)
     else
-        gset('web_cookies', {})
+        gset('web.cookies', {})
     endif
 endfunc
 
@@ -46,7 +49,7 @@ endfunc
 Sets a http header.\n\
 First argument is name of header and last is value(both string).\
 """
-func web_set_header(string $name, $value)
+func set_header(string $name, $value)
     perror(str($name) + ': ' + str($value) + '\n')
 endfunc
 
@@ -54,15 +57,15 @@ endfunc
 Sets http response code.\n\
 Gets code as int.\
 """
-func web_status(int $code)
-    web_set_header('Status', str($code))
+func status(int $code)
+    set_header('Status', str($code))
 endfunc
 
 @doc """\
 Sets a HTTP cookie.\n\
 Gets options as dictionary.\
 """
-func web_set_cookie(dict $options)
+func set_cookie(dict $options)
     $options->setdefault('value', '')
     $base_cookie = http.cookies.BaseCookie()
     $base_cookie[$options['name']] = $options['value']
@@ -74,7 +77,9 @@ func web_set_cookie(dict $options)
         endif
         $i = $i + 1
     endwhile
-    $real_cookies = gget('web_cookies')
+    $real_cookies = gget('web.cookies')
     $real_cookies[$options['name']] = $options['value']
     perror($base_cookie->output())
 endfunc
+
+endns

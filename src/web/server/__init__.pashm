@@ -1,5 +1,5 @@
 #
-# webserver.pashm
+# server.pashm
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,7 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-namespace webserver
+namespace web; namespace server
     class WebServer
         func __init__(str $host, int $port=8000)
             $this->host = $host
@@ -30,12 +30,12 @@ namespace webserver
             $this->do_post = null
         endfunc
 
-        func webserver.WebServer::set_get($func)
+        func web.server.WebServer::set_get($func)
             $this->do_get = $func
             return $this
         endfunc
 
-        func webserver.WebServer::set_post($func)
+        func web.server.WebServer::set_post($func)
             $this->do_post = $func
             return $this
         endfunc
@@ -64,7 +64,7 @@ self.mem = serve(self.get_var("this").host, self.get_var("this").port, self.get_
             $this->server->serve_forever()
         endfunc
     endclass
-endns
+endns; endns
 
 if $__ismain__
     import @sys, @os
@@ -72,14 +72,14 @@ if $__ismain__
     if '--help' in $argv
         println('Serve a simple webserver for development environment')
         println('')
-        println('Usage:   pashmak @webserver <port>')
-        println('         pashmak @webserver <host> <port>')
-        println('         pashmak @webserver <host> <port> <directory>')
-        println('         pashmak @webserver <host> <port> <directory> <main-script: main file is request handler>')
-        println('Example: pashmak @webserver 8080')
-        println('         pashmak @webserver 0.0.0.0 8080')
-        println('         pashmak @webserver 0.0.0.0 8080 path/to/public/html')
-        println('         pashmak @webserver 0.0.0.0 8080 path/to/public/html path/to/public/html/server.pashm')
+        println('Usage:   pashmak @serve <port>')
+        println('         pashmak @serve <host> <port>')
+        println('         pashmak @serve <host> <port> <directory>')
+        println('         pashmak @serve <host> <port> <directory> <main-script: main file is request handler>')
+        println('Example: pashmak @serve 8080')
+        println('         pashmak @serve 0.0.0.0 8080')
+        println('         pashmak @serve 0.0.0.0 8080 path/to/public/html')
+        println('         pashmak @serve 0.0.0.0 8080 path/to/public/html path/to/public/html/server.pashm')
         exit()
     endif
 
@@ -100,7 +100,7 @@ if $__ismain__
         $port = int($argv[1])
     endif
 
-    $server = webserver.WebServer($host, $port)
+    $server = web.server.WebServer($host, $port)
 
     func get_handler($handler)
         the_handler($handler, 'GET')

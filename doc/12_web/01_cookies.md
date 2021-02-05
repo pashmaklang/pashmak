@@ -1,12 +1,14 @@
 # Working with cookies
-In the pashmak web system, you can access cookies with `$web_cookies` global variable.
+In the pashmak web system, you can access cookies with `$web.cookies` global variable.
 
 For example:
 
 ```bash
-web_init()
+import @web
 
-println($web_cookies)
+web.init()
+
+println($web.cookies)
 ```
 
 output:
@@ -15,25 +17,32 @@ output:
 {'foo': 'bar', 'x': 'y'...}
 ```
 
-The `$web_cookies` variable is a dictonary. for example:
+The `$web.cookies` variable is a dictonary. for example:
 
 ```bash
-web_init()
+import @web
 
-println($web_cookies['cookie_name'])
+web.init()
+
+println($web.cookies['cookie_name'])
 ```
 
 ### Setting the cookies
-You cannot directly change items in `$web_cookies` variable. for setting cookies, you should use `web_set_cookie()` function.
+You cannot directly change items in `$web.cookies` variable. for setting cookies, you should use `web.set_cookie()` function.
 
 for example:
 
 ```bash
-web_init()
+import @web
 
-web_set_cookie({'name': 'cookie_name', 'value': 'value of cookie'})
+web.init()
 
-println($web_cookies)
+web.set_cookie({
+    'name': 'cookie_name',
+    'value': 'value of cookie'
+})
+
+println($web.cookies)
 ```
 
 You should pass a dictonar to this function and set the items. `name` is name of cookie and `value` is value of cookie.

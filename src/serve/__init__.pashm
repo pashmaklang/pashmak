@@ -1,5 +1,5 @@
 #
-# web_server.pashm
+# __init__.pashm
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,21 +20,7 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-import @web.server
-
-# create a new webserver
-$server = web.server.WebServer('localhost', 8000)
-
-func get_handler($handler)
-    $handler->send_response(200)
-    $handler->send_header("Content-type", "text/html")
-    $handler->end_headers()
-
-    $handler->wfile->write(bytes('Hello World!', "utf-8"))
+if $__ismain__
+    import_run @web.server
 endfunc
 
-# set GET request handler
-$server->set_get(get_handler)
-
-# start the server
-$server->serve()

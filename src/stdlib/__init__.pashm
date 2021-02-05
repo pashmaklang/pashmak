@@ -159,7 +159,6 @@ import @stdlib.func
 import @stdlib.class
 import @stdlib.defines
 import @stdlib.exception
-import @stdlib.web
 
 func fopen; endfunc
 fopen = open
