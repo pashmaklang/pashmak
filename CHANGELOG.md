@@ -25,7 +25,7 @@
 - added multiple arguments for functions (GH-95)
 - added keyword arguments for functions (GH-95)
 - added typed arguments for functions (GH-95)
-- added return type system for functions
+- added return type system for functions (GH-99)
 - added some aliases for datatypes, `string` for `str`, `integer` for `int`, `array` for `list`
 - added Core Developer guide to Documentation (GH-96)
 - added function `clone()` for copying objects (GH-97)
