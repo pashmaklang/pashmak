@@ -26,49 +26,49 @@ ns math
     Returns the arc cosine of a number. Recives a number between `1` and `-1`.\
     """
     func acos($num)
-        python("self.mem = math.acos(self.get_var('num'))")
+        return python("self.mem = math.acos(self.get_var('num'))")
     endfunc
 
     @doc """\
     Returns the inverse hyperbolic cosine of a number.\
     """
     func acosh($num)
-        python("self.mem = math.acosh(self.get_var('num'))")
+        return python("self.mem = math.acosh(self.get_var('num'))")
     endfunc
 
     @doc """\
     Rounds a number upward to its nearest integer.\
     """
     func ceil($num)
-        python("self.mem = math.ceil(self.get_var('num'))")
+        return python("self.mem = math.ceil(self.get_var('num'))")
     endfunc
 
     @doc """\
     Finds the cosine of a number.\
     """
     func cos($num)
-        python("self.mem = math.cos(self.get_var('num'))")
+        return python("self.mem = math.cos(self.get_var('num'))")
     endfunc
 
     @doc """\
     Converts angles from radians to degrees.\
     """
     func degrees($num)
-        python("self.mem = math.degrees(self.get_var('num'))")
+        return python("self.mem = math.degrees(self.get_var('num'))")
     endfunc
 
     @doc """\
     Finds the factorial of a number.\
     """
     func factorial($num)
-        python("self.mem = math.factorial(self.get_var('num'))")
+        return python("self.mem = math.factorial(self.get_var('num'))")
     endfunc
 
     @doc """\
     Rounds numbers down to the nearest integer.\
     """
     func floor($num)
-        python("self.mem = math.floor(self.get_var('num'))")
+        return python("self.mem = math.floor(self.get_var('num'))")
     endfunc
 
     $pi = python("self.mem = math.pi")
@@ -78,20 +78,20 @@ ns math
     Example: math.pow(9, 3)\
     """
     func pow($num, $nextnum)
-        python("self.mem = math.pow(self.get_var('num'), self.get_var('nextnum'))")
+        return python("self.mem = math.pow(self.get_var('num'), self.get_var('nextnum'))")
     endfunc
 
     @doc """\
     Finds the sine of a number.\
     """
     func sin($num)
-        python("self.mem = math.sin(self.get_var('num'))")
+        return python("self.mem = math.sin(self.get_var('num'))")
     endfunc
 
     @doc """\
     Finds the tangent of a number (angle).\
     """
     func tan($num)
-        python("self.mem = math.tan(self.get_var('num'))")
+        return python("self.mem = math.tan(self.get_var('num'))")
     endfunc
 endns

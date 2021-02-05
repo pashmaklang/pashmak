@@ -30,12 +30,12 @@ namespace webserver
             $this->do_post = null
         endfunc
 
-        func set_get($func)
+        func webserver.WebServer::set_get($func)
             $this->do_get = $func
             return $this
         endfunc
 
-        func set_post($func)
+        func webserver.WebServer::set_post($func)
             $this->do_post = $func
             return $this
         endfunc

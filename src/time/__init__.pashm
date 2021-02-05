@@ -21,8 +21,8 @@
 #########################################################################
 
 namespace time
-    func time
-        python("self.mem = time.time()")
+    func float::time()
+        return python("self.mem = time.time()")
     endfunc
 
     func sleep(float $time_to_sleep)
@@ -30,15 +30,15 @@ namespace time
     endfunc
 
     func ctime
-        python("self.mem = time.ctime()")
+        return python("self.mem = time.ctime()")
     endfunc
 
     func gmtime
-        python("self.mem = time.gmtime()")
+        return python("self.mem = time.gmtime()")
     endfunc
 
     func localtime
-        python("self.mem = time.localtime()")
+        return python("self.mem = time.localtime()")
     endfunc
 endnamespace
 

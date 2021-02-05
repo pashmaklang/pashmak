@@ -1,5 +1,5 @@
 #
-# exception.pashm
+# return-type-001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,29 +20,24 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-@doc """\
-A model for error exceptions.\n\
-Also is used by `raise` function.\n\
-Example: Error('ErrorType', 'message of error')\
-"""
-class Error
-    $type
-    $message
+--test--
+return type system works
 
-    func __init__($type, $message)
-        $this->type = $type
-        $this->message = $message
-    endfunc
+--file--
 
-    func str::__str__
-        return $this->type + ': ' + $this->message
-    endfunc
-endclass
-
-@doc """\
-Raises a error.\n\
-Gets a object from `Error` class as error.\
-"""
-func raise(Error $ex)
-	python("self.raise_error('" + str($ex->type) + "', '" + str($ex->message) + "')")
+func string::first(string $name)
+    return 'hello ' + $name
 endfunc
+
+func int::last(string $name)
+    return 'hello ' + $name
+endfunc
+
+println first('parsa')
+println last('parsa')
+
+--output--
+"hello parsa\nNone\n"
+
+--with-error--
+"InvalidReturnType"
