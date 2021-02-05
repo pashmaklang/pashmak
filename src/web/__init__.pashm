@@ -43,6 +43,8 @@ func init
     else
         gset('web.cookies', {})
     endif
+    define('WEB_INITED', true)
+    set_header('Content-type', 'text/html')
 endfunc
 
 @doc """\
@@ -50,7 +52,12 @@ Sets a http header.\n\
 First argument is name of header and last is value(both string).\
 """
 func set_header(string $name, $value)
-    perror(str($name) + ': ' + str($value) + '\n')
+    if is_defined('WEB_END_HEADERS')
+        raise(Error('HeaderError', 'headers already sent'))
+        return
+    endif
+
+    print(str($name) + ': ' + str($value) + '\n')
 endfunc
 
 @doc """\
@@ -80,6 +87,12 @@ func set_cookie(dict $options)
     $real_cookies = gget('web.cookies')
     $real_cookies[$options['name']] = $options['value']
     perror($base_cookie->output())
+endfunc
+
+@doc "Ends the headers"
+func end_headers()
+    println('')
+    define('WEB_END_HEADERS', true)
 endfunc
 
 endns

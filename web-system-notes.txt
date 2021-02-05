@@ -1,6 +1,6 @@
 *** Notes and TODO for web system ***
 
-- Some changes in header handling
+- Change post data structure in server
 - Handle sessions
 - Handle post and get data
 - Fix subprocess bug in compiled mode

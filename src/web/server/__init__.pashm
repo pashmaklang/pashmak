@@ -193,12 +193,12 @@ if $__ismain__
                 if $result->stderr == null
                     $result->stderr = ''
                 endif
-                $headers = [['Content-type', 'text/html']]
-                $tmp_stderr = str($result->stderr->decode())->strip()->split('\n')
+                $headers = []
+                $tmp_cookies = str($result->stdout->decode())->strip()->split('\n\n', 1)[0]->strip()->split('\n')
                 $i = 0
                 $res_code = 200
-                while $i < len($tmp_stderr)
-                    $key = $tmp_stderr[$i]->split(':', 1)
+                while $i < len($tmp_cookies)
+                    $key = $tmp_cookies[$i]->split(':', 1)
                     $value = $key[-1]
                     $key = $key[0]
                     if $key == 'Status'
@@ -215,7 +215,9 @@ if $__ismain__
                     $i = $i + 1
                 endwhile
                 $handler->end_headers()
-                $handler->wfile->write($result->stdout)
+                $handler->wfile->write(
+                    str($result->stdout->decode())->strip()->split('\n\n', 1)[-1]->encode()
+                )
                 return
             endif
 

@@ -9,6 +9,8 @@ import @web
 
 web.init()
 
+web.end_headers()
+
 println('Hello world!')
 ```
 
@@ -33,6 +35,9 @@ web.init()
 web.set_header('Content-type', 'application/json')
 web.set_header('Foo', 'Bar')
 # ...
+
+# surely call this function to end the headers
+web.end_headers()
 ```
 
 Now, you can go into http://localhost:8000/myfile.pashm (Write path of your script instead of `myfile.pashm`), and you will see `Hello world!` in the browser!
@@ -48,6 +53,8 @@ import @web
 web.init()
 
 web.status(404)
+
+web.end_headers()
 ```
 
 ## Request Method & Post data
@@ -57,6 +64,7 @@ The HTTP request method is accessible using key `REQUEST_METHOD` in envvars:
 import @web, @os
 
 web.init()
+web.end_headers()
 
 if $os.env['REQUEST_METHOD'] == 'POST'
     println('The post')
@@ -71,6 +79,7 @@ Accessing the Request POST data in HTTP is very important. To get the post data 
 import @web, @os
 
 web.init()
+web.end_headers()
 
 import @os # env vars are accessible in `os` module
 if $os.env['REQUEST_METHOD'] == 'POST'
@@ -86,6 +95,7 @@ You learned about Pashmak's Pit engine in the previous parts. You can use this i
 #!/usr/bin/pashmak @pit
 {
 web.init()
+web.end_headers()
 
 $name = 'parsa'
 }

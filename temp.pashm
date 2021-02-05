@@ -2,12 +2,14 @@ import @os, @web
 
 web.init()
 
-web.set_header('Content-type', 'text/plain')
+#web.set_header('Content-type', 'text/plain')
 
 web.set_cookie({
     'name': 'foo',
     'value': 'bar'
 })
+
+web.end_headers()
 
 var_dump(dict($os.env))
 var_dump($web.cookies)
