@@ -25,9 +25,9 @@ namespace func
     @doc """\
     Returns list of defined functions as list of strings(name of function).\
     """
-    func list
+    func list()
         # returns list of functions
-        python("self.mem = list(self.functions.keys())")
+        return python("self.mem = list(self.functions.keys())")
     endfunc
 
     @doc """\
@@ -35,7 +35,7 @@ namespace func
     Gets function name as string.\n\
     Returns boolean.\
     """
-    func exists($name)
+    func bool::exists(string $name)
         # checks a function exists or not
         $name = str($name)
         return $name in func.list()
@@ -46,7 +46,7 @@ namespace func
     Gets function name as string.\n\
     (This Cannot delete builtin functions).\
     """
-    func delete($name)
+    func delete(string $name)
         # deletes a function
         $name = str($name)
         if not func.exists($name)

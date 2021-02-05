@@ -25,7 +25,7 @@
 import time
 import random
 
-literals = '()+-/*%=}{<>[], '
+literals = '()+-/*%=}{<>[],: '
 """ The literal characters """
 
 def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
