@@ -8,6 +8,6 @@ AddHandler cgi-script .pashm .pashm.html .pit
 Options +ExecCGI
 ```
 
-And then, add the Shebang for your Pashmak scripts (`.pashm`, '.pashm.html', '.pit').
+And then, add the Shebang for your Pashmak scripts (`.pashm`, `.pashm.html`, `.pit`).
 And make them executable using `chmod +x filename.pashm` (If you are on UNIX systems).
 
