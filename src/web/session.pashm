@@ -21,6 +21,8 @@
 #########################################################################
 
 namespace web
+    $session_dir = '/tmp'
+
     @doc "\
     Loads the session dictionary by unique id.\
     "
@@ -32,7 +34,18 @@ namespace web
     Generates a random session Id and returns it.\
     "
     func string::generate_random_session_id()
-        return '...'
+        $uuid = py_load_module('uuid')
+        $abc = 'abcdefghijknmlopqrstuvwxyz'
+        $abc = $abc + $abc->upper()
+        $abc = $abc + '0123456789'
+        $a = str($uuid->uuid4())->replace('-', '')
+        $t = str(time.time()).replace('.', '')
+        $r = str(random.random())->replace('.', '')
+        $result = $a + $t + $r + $abc
+        $result = $result * 5
+        $result = ''->join(random.sample($result*3, len($result)*2))
+        $result = $result->replace(' ', '')->replace('<', '')->replace('>', '')->replace('-', '')
+        return 'pashmaksession' + $result[:1000]
     endfunc
 
     @doc "\
@@ -42,6 +55,10 @@ namespace web
     func string::create_session(string $custom_id=null)
         if $custom_id is null
             $custom_id = generate_random_session_id()
+
+            while os.path.isfile($session_dir + '/' + $custom_id)
+                $custom_id = generate_random_session_id()
+            endwhile
         endif
 
         return $custom_id
