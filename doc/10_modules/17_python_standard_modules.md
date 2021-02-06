@@ -20,6 +20,7 @@ you can use this python standard modules in pashmak directly in your code:
 - `platform`
 - `mimetypes`
 - `re`
+- `pickle`
 
 for example:
 
