@@ -3,7 +3,7 @@ Session is a data saved in the backend (like cookies but at server).
 This system allows you to save some variables in session with a user.
 
 The general structure of the session is that, the server makes a very strong and random id
-and gives that to the client as a cookie. also saves this id at server.
+and gives that to the client as a cookie (`PASHMAK_SESSION`). also saves this id at server.
 
 When browser sending requests to the server, server checks that cookie. if exists and is valid,
 loads the data that saved for that id and brings that to the memory (`$web.session`).
@@ -20,6 +20,8 @@ web.init()
 web.start_session()
 
 # you should start the session before ending headers
+# because cookie `PASHMAK_SESSION` should be set in this step
+# and cookies can be set before ending the headers
 web.end_headers()
 
 var_dump($web.session) # output: {}
