@@ -105,8 +105,12 @@ endfunc
 Loads a python file script as a python module object.\n\
 Gets script file path as string and returns loaded object.\
 """
-func py_load_file($path)
+func py_load_file(string $path)
 	python("import importlib.util; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path')); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); self.mem = m")
+endfunc
+
+func py_load_module(string $name)
+    return python("import " + $name + "; self.mem = " + $name)
 endfunc
 
 @doc """\
