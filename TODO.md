@@ -1,3 +1,3 @@
 # TODO
 
-- complete web system
+- fix `subprocess` bug in compiled mode

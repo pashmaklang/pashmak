@@ -1,3 +1,0 @@
-*** Notes and TODO for web system ***
-
-- Fix subprocess bug in compiled mode
