@@ -1,5 +1,5 @@
 #
-# webserver.pashm
+# server.pashm
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,7 +20,7 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-namespace webserver
+namespace web; namespace server
     class WebServer
         func __init__(str $host, int $port=8000)
             $this->host = $host
@@ -30,12 +30,12 @@ namespace webserver
             $this->do_post = null
         endfunc
 
-        func webserver.WebServer::set_get($func)
+        func web.server.WebServer::set_get($func)
             $this->do_get = $func
             return $this
         endfunc
 
-        func webserver.WebServer::set_post($func)
+        func web.server.WebServer::set_post($func)
             $this->do_post = $func
             return $this
         endfunc
@@ -64,22 +64,22 @@ self.mem = serve(self.get_var("this").host, self.get_var("this").port, self.get_
             $this->server->serve_forever()
         endfunc
     endclass
-endns
+endns; endns
 
 if $__ismain__
-    import @sys
+    import @sys, @os
 
     if '--help' in $argv
         println('Serve a simple webserver for development environment')
         println('')
-        println('Usage:   pashmak @webserver <port>')
-        println('         pashmak @webserver <host> <port>')
-        println('         pashmak @webserver <host> <port> <directory>')
-        println('         pashmak @webserver <host> <port> <directory> <main-script: main file is request handler>')
-        println('Example: pashmak @webserver 8080')
-        println('         pashmak @webserver 0.0.0.0 8080')
-        println('         pashmak @webserver 0.0.0.0 8080 path/to/public/html')
-        println('         pashmak @webserver 0.0.0.0 8080 path/to/public/html path/to/public/html/server.pashm')
+        println('Usage:   pashmak @serve <port>')
+        println('         pashmak @serve <host> <port>')
+        println('         pashmak @serve <host> <port> <directory>')
+        println('         pashmak @serve <host> <port> <directory> <main-script: main file is request handler>')
+        println('Example: pashmak @serve 8080')
+        println('         pashmak @serve 0.0.0.0 8080')
+        println('         pashmak @serve 0.0.0.0 8080 path/to/public/html')
+        println('         pashmak @serve 0.0.0.0 8080 path/to/public/html path/to/public/html/server.pashm')
         exit()
     endif
 
@@ -100,7 +100,7 @@ if $__ismain__
         $port = int($argv[1])
     endif
 
-    $server = webserver.WebServer($host, $port)
+    $server = web.server.WebServer($host, $port)
 
     func get_handler($handler)
         the_handler($handler, 'GET')
@@ -112,8 +112,33 @@ if $__ismain__
 
     # a handler for POST and GET methods
     func the_handler($handler, str $request_method)
-        if os.path.isfile($dir + '/' + $handler->path) or $main != null
-            $full_path = os.path.abspath($dir + '/' + $handler->path)
+        $path = str($handler->path)
+        $path = $path->split('?', 1)
+        $query_string = ''
+        if len($path) > 1
+            $query_string = $path[1]
+        endif
+        $path = $path[0]
+        $has_index = false
+        if os.path.isdir($dir + '/' + $path)
+            $allowed_indexes = ['index.pashm', 'index.pit', 'index.pashm.html', 'html']
+            $z = 0
+            while $z < len($allowed_indexes)
+                if os.path.isfile($dir + '/' + $path + '/' + $allowed_indexes[$z])
+                    $has_index = $dir + '/' + $path + '/' + $allowed_indexes[$z]
+                    break
+                endif
+                $z = $z + 1
+            endwhile
+        endif
+        if os.path.isfile($dir + '/' + $path) or $main != null or $has_index
+            if $has_index
+                $full_path = $has_index
+            else
+                $full_path = os.path.abspath($dir + '/' + $path)
+            endif
+            $full_path = $full_path->replace('//', '/')
+            $full_path = $full_path->replace('//', '/')
             $mime = mimetypes.guess_type($full_path)[0]
 
             if $full_path->endswith('.pashm') or $full_path->endswith('.pit') or $full_path->endswith('.pashm.html') or $main != null
@@ -127,8 +152,29 @@ if $__ismain__
                 if $content->split('\n', 1)[0]->endswith('@pit') and $content->split('\n', 1)[0]->startswith('#!/')
                     $command->insert(1, '@pit')
                 endif
+
+                # the envvars
+                $env = {
+                    "PASHMAKPATH": $os.env['PASHMAKPATH'],
+                    "REQUEST_URI": $handler->path,
+                    "REQUEST_METHOD": $request_method,
+                    "REMOTE_ADDR": $handler->client_address[0],
+                    "REMOTE_PORT": str($handler->client_address[1]),
+                    "SERVER_PORT": str($handler->server->server_port),
+                    "SERVER_SOFTWARE": 'Pashmak Builtin Web Server (' + $sys.pashmakinfo['version'] + ')',
+                    "SERVER_SIGNATURE": 'Pashmak Builtin Web Server (' + $sys.pashmakinfo['version'] + ')',
+                    'DOCUMENT_ROOT': $dir,
+                    'CONTEXT_DOCUMENT_ROOT': $dir,
+                    'SCRIPT_FILENAME': $full_path,
+                    'SCRIPT_NAME': $path,
+                    'QUERY_STRING': $query_string,
+                    "SERVER_PROTOCOL": $handler->protocol_version,
+                    "REQUEST_SCHEME": 'http',
+                    "SERVER_NAME": $host,
+                    "SERVER_ADDR": '127.0.0.1' if $host == 'localhost' else $host,
+                }
+
                 # load request headers
-                $env = {"REQUEST_URI": $handler->path, "REQUEST_METHOD": $request_method, "REMOTE_ADDR": $handler->client_address[0], "REMOTE_PORT": str($handler->client_address[1])}
                 $request_headers = str($handler->headers)->strip()->split('\n')
                 $i = 0
                 while $i < len($request_headers)
@@ -139,20 +185,19 @@ if $__ismain__
                     $env[$key] = $value->strip()
                     $i = $i + 1
                 endwhile
+                $post_data = ''
                 if $request_method == 'POST'
-                    $env['HTTP_POST_DATA'] = $handler->rfile->read(int($env['HTTP_CONTENT_LENGTH']))
+                    $post_data = $handler->rfile->read(int($env['HTTP_CONTENT_LENGTH']))
                 endif
-		$command_str = ' '.join($command)
-                $result = subprocess.run($command_str, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=$env, shell=True)
-                if $result->stderr == null
-                    $result->stderr = ''
-                endif
-                $headers = [['Content-type', 'text/html']]
-                $tmp_stderr = str($result->stderr->decode())->strip()->split('\n')
+                $result = subprocess.Popen(' '->join($command), stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE, env=$env, shell=true)
+                $result = $result->communicate(input=$post_data)
+                $result = $result[0]
+                $headers = []
+                $tmp_cookies = str($result->decode())->strip()->split('\n\n', 1)[0]->strip()->split('\n')
                 $i = 0
                 $res_code = 200
-                while $i < len($tmp_stderr)
-                    $key = $tmp_stderr[$i]->split(':', 1)
+                while $i < len($tmp_cookies)
+                    $key = $tmp_cookies[$i]->split(':', 1)
                     $value = $key[-1]
                     $key = $key[0]
                     if $key == 'Status'
@@ -169,7 +214,9 @@ if $__ismain__
                     $i = $i + 1
                 endwhile
                 $handler->end_headers()
-                $handler->wfile->write($result->stdout)
+                $handler->wfile->write(
+                    str($result->decode())->strip()->split('\n\n', 1)[-1]->encode()
+                )
                 return
             endif
 

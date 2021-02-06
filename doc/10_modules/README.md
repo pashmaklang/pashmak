@@ -7,7 +7,7 @@
 - [Module test](04_test.md)
 - [Module sys](05_sys.md)
 - [Module os](06_os.md)
-- [Module webserver](07_webserver.md)
+- [Module web.server](07_web.server.md)
 - [Module math](08_math.md)
 - [Module string](09_string.md)
 - [Python standard modules](17_python_standard_modules.md)
