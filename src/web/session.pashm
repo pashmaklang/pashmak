@@ -27,7 +27,15 @@ namespace web
     Loads the session dictionary by unique id.\
     "
     func dict::load_session_by_id(string $id)
-        return {}
+        if not os.path.isfile($session_dir + '/' + $id)
+            return {}
+        endif
+
+        $f = open($session_dir + '/' + $id, 'rb')
+        $content = pickle.load($f)
+        $f->close()
+
+        return $content
     endfunc
 
     @doc "\
@@ -45,14 +53,15 @@ namespace web
         $result = $result * 5
         $result = ''->join(random.sample($result*3, len($result)*2))
         $result = $result->replace(' ', '')->replace('<', '')->replace('>', '')->replace('-', '')
-        return 'pashmaksession' + $result[:1000]
+        return 'pashmaksession' + $result[:200]
     endfunc
 
     @doc "\
-    Creates a new session and returns the ID.\n\
+    Writes a new session and returns the ID.\n\
     Also can get a optional custom ID.\
+    Also can get a optional second argument named default value for session.\
     "
-    func string::create_session(string $custom_id=null)
+    func string::write_session(string $custom_id=null, dict $default_value={})
         if $custom_id is null
             $custom_id = generate_random_session_id()
 
@@ -60,6 +69,12 @@ namespace web
                 $custom_id = generate_random_session_id()
             endwhile
         endif
+
+        # write the file
+        $path = $session_dir + '/' + $custom_id
+        $f = open($path, 'wb')
+        pickle.dump($default_value, $f)
+        $f->close()
 
         return $custom_id
     endfunc
