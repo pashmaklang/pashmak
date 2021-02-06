@@ -1,7 +1,7 @@
-# T-engine render Engine
-The tengine is a engine to render pashmak code inside the Html/Text code(T-Engine: Text engine).
+# Pit render engine
+The Pit is a engine to render pashmak code inside the Html/Text code(PIT: Pashmak in Text).
 
-T-Engine is something like PHP's structure to write the code inside other formats(for example `Hello <?php echo $name; ?>`).
+Pit is something like PHP's structure to write the code inside other formats(for example `Hello <?php echo $name; ?>`).
 
 For example:
 
@@ -23,7 +23,7 @@ For example:
 then we can render this code using this command:
 
 ```bash
-$ pashmak @tengine myfile.html
+$ pashmak @pit myfile.html
 ```
 
 output:
@@ -90,7 +90,7 @@ output:
 You only need to run:
 
 ```bash
-$ pashmak @tengine /path/to/file.html
+$ pashmak @pit /path/to/file.html
 ```
 
 ## Use as library
@@ -99,24 +99,24 @@ Also you can use this system as a library in your pashmak code.
 Example:
 
 ```bash
-import @tengine
+import @pit
 
-$output = tengine.run_file('/path/to/file.html')
-$output = tengine.run('<code as string>')
+$output = pit.run_file('/path/to/file.html')
+$output = pit.run('<code as string>')
 ```
 
 The `run_file` function gets file path and runs that and returns the output.
 `run` function gets code as string and runs that and returns the output.
 
-Also you can pass a **Second Argument** to them. This argument should be a boolean. if this is `True`, this engine runs code directly and shows the output. but if this is `False`(default is false), tengine runs the code and returns output as string.
+Also you can pass a **Second Argument** to them. This argument should be a boolean. if this is `True`, this engine runs code directly and shows the output. but if this is `False`(default is false), pit runs the code and returns output as string.
 
 for example:
 
 ```bash
-import @tengine
+import @pits
 
-$output = tengine.run_file('/path/to/file.html', True)
-$output = tengine.run('<code as string>', True)
+$output = pit.run_file('/path/to/file.html', True)
+$output = pit.run('<code as string>', True)
 ```
 
 ## Using `{` and `}` characters inside code
@@ -196,7 +196,7 @@ for example, we have `foo.html` and `bar.html`:
 <h1>Hello world</h1>
 
 {
-    tengine.include($__htmldir__ + '/bar.html') # include the bar.html
+    pit.include($__htmldir__ + '/bar.html') # include the bar.html
 }
 
 <h3>Good bye</h3>
@@ -218,21 +218,21 @@ when we run `foo.html`, output is this:
 <h3>Good bye</h3>
 ```
 
-You can include other html files using `tengine.include` function and pass file path to that.
+You can include other html files using `pit.include` function and pass file path to that.
 
 Also you can send the data while including a file. for example:
 
 ```html
-{ tengine.include('other.html', \{'key1': 'value1', 'key2': 'value2'\}) }
+{ pit.include('other.html', \{'key1': 'value1', 'key2': 'value2'\}) }
 ```
 
 Then that data is accessible in `other.html` with `$htmldata` variable.
 
-## Make executable scripts with T-Engine format
+## Make executable scripts with Pit Engine format
 You can write your script and add a shebang for this and make it executable file. For example:
 
 ```html
-#!/usr/bin/pashmak @tengine
+#!/usr/bin/pashmak @pit
 {$name = 'parsa'}
 <h1>Hello {= $name }</h1>
 ```

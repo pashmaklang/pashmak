@@ -20,7 +20,7 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-namespace tengine
+namespace pit
 	func include(str $path, dict $htmldata={})
 		run_file($path, True, $htmldata)
 	endfunc
@@ -32,12 +32,9 @@ namespace tengine
 		return run($content, $realtime_run, $path, $htmldata)
 	endfunc
 
-	func run(*$args)
-		$args = format_args($args)
-		$realtime_run = False
+	func run(str $content, bool $realtime_run=false, str $path=null, dict $htmldata={})
 		$__htmldir__ = $__dir__
 		$__htmlfile__ = $__htmldir__ + '/-'
-		$content = $args[0]
 		$content = $content->split('\n', 1)
 		if len($content) > 1
 			if $content[0]->startswith('#!/')
@@ -48,19 +45,14 @@ namespace tengine
 		else
 			$content = $content[0]
 		endif
-		if len($args) > 1
-			$realtime_run = $args[1]
-		endif
-		if len($args) > 2
-			$__htmlfile__ = os.path.abspath($args[2])
+
+		if $path != null
+			$__htmlfile__ = os.path.abspath($path)
 			$__htmldir__ = os.path.dirname($__htmlfile__)
 		endif
-		if len($args) > 3
-			$htmldata = $args[3]
-		endif
 
-		$randstr_1 = '<<<therandomstringfortengine' + str(time.time()) + str(random.random()) + '>>>'
-		$randstr_2 = '<<<therandomstringfortengine' + str(time.time()) + str(random.random()) + '>>>'
+		$randstr_1 = '<<<therandomstringforpit' + str(time.time()) + str(random.random()) + '>>>'
+		$randstr_2 = '<<<therandomstringforpit' + str(time.time()) + str(random.random()) + '>>>'
 		$content = $content->replace('\{', $randstr_1)
 		$content = $content->replace('\}', $randstr_2)
 		$content = $content->replace('{{', '{=')
@@ -79,9 +71,9 @@ namespace tengine
 			$i = $i + 1
 		endwhile
 		
-		$tengine_i = 0
-		$tengine_parts = $new_parts
-		$tengine_code = ''
+		$pit_i = 0
+		$pit_parts = $new_parts
+		$pit_code = ''
 		free('i')
 		free('new_parts')
 		free('parts')
@@ -89,29 +81,29 @@ namespace tengine
 		free('randstr_1')
 		free('randstr_2')
 		free('tmp')
-		while $tengine_i < len($tengine_parts)
-			if $tengine_parts[$tengine_i][0] == True
-				if $tengine_parts[$tengine_i][1]
-					if $tengine_parts[$tengine_i][1][0] == '='
-						$tengine_code = $tengine_code + ('\nprint(' + $tengine_parts[$tengine_i][1][1:] + ')')
+		while $pit_i < len($pit_parts)
+			if $pit_parts[$pit_i][0] == True
+				if $pit_parts[$pit_i][1]
+					if $pit_parts[$pit_i][1][0] == '='
+						$pit_code = $pit_code + ('\nprint(' + $pit_parts[$pit_i][1][1:] + ')')
 					else
-						$tengine_code = $tengine_code + ('\n' + $tengine_parts[$tengine_i][1])
+						$pit_code = $pit_code + ('\n' + $pit_parts[$pit_i][1])
 					endif
 				endif
 			else
-				$tengine_code = $tengine_code + ('\nprint(base64.b64decode("' + base64.b64encode($tengine_parts[$tengine_i][1]->encode())->decode() + '")->decode())')
+				$pit_code = $pit_code + ('\nprint(base64.b64decode("' + base64.b64encode($pit_parts[$pit_i][1]->encode())->decode() + '")->decode())')
 			endif
-			$tengine_i = $tengine_i + 1
+			$pit_i = $pit_i + 1
 		endwhile
 
-		free('tengine_i')
-		free('tengine_parts')
+		free('pit_i')
+		free('pit_parts')
 
 		if $realtime_run
-			eval($tengine_code)
+			eval($pit_code)
 		else
 			out_start()
-			eval($tengine_code)
+			eval($pit_code)
 			out_end()
 			return out_get_clean()
 		endif
@@ -120,9 +112,9 @@ endns
 
 if $__ismain__
 	if len($argv) > 1
-        tengine.run_file($argv[1], True)
+        pit.run_file($argv[1], True)
 	else
-        println('tengine: File name is required')
+        println('pit: File name is required')
         exit(1)
 	endif
 endif

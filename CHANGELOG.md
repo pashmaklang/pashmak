@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## (0.7-beta1) next release
+## (0.7-beta2) next release
 
 #### New Features
 - added `import_run` and `import_run_once` functions (GH-84)
@@ -9,11 +9,11 @@
 - added python `mimetypes` module (GH-92)
 - added `gget` function (GH-92)
 - added `pashmakexe` variable to module `sys` (GH-92)
-- added a small internal web server for pashmak in module `webserver` (GH-92)
-- added base of web development features for backend with pashmak (GH-92)
+- added a small internal web server for pashmak in module `web.server` (GH-92)
+- added base of web development features for backend with pashmak (module `@web`) (GH-92)
 - added a cli behavior for `time` module to show current time (GH-89)
 - added `null` keyword as a alias for `None` (GH-90)
-- moved `tengine(pashmhtml)` engine from a external library to a builtin module (GH-85)
+- moved `pit(pashmhtml)` engine from a external library to a builtin module (GH-85)
 - added shutdown event system and function `register_shutdown()` (GH-91)
 - added `re` python regex library
 - added function `die`
@@ -25,8 +25,14 @@
 - added multiple arguments for functions (GH-95)
 - added keyword arguments for functions (GH-95)
 - added typed arguments for functions (GH-95)
+- added return type system for functions (GH-99)
 - added some aliases for datatypes, `string` for `str`, `integer` for `int`, `array` for `list`
 - added Core Developer guide to Documentation (GH-96)
+- added function `clone()` for copying objects (GH-97)
+- added message argument for function `read()`
+- added python `pickle` module
+- added function `match()` (GH-100)
+- added function `py_load_module` (GH-101)
 
 #### Changes
 
@@ -40,6 +46,7 @@
 - fixed import command bug while writing something like `import(somefunc())`
 - fixed a small problem in error rendering
 - fixed a bug in class property setting syntax, while running `$obj-><some-exists-name> = ...`
+- fixed syntax bug while using variables alongside `:`
 
 #### Removed
 

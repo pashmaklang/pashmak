@@ -22,47 +22,47 @@
 #########################################################################
 
 ns string
-	func concat(str $a, str $b)
+	func string::concat(str $a, str $b)
 		return $a + $b
 	endfunc 
-	
-	func remove_last(str $str)
-		python("self.mem = self.get_var('str')[:-1] ")
+
+	func string::remove_last(str $str)
+		return $str[:-1]
 	endfunc
 
-	func remove_first(str $str)
-		python("self.mem = self.get_var('str')[1:]")
+	func string::remove_first(str $str)
+		return $str[1:]
 	endfunc
 
-	func add_last(str $str, str $new)
-		python("self.mem = self.get_var('str') + self.get_var('new')")
+	func string::add_last(str $str, str $new)
+		return $str + $new
 	endfunc
 
-	func add_first(str $str, str $new)
-		python("self.mem = self.get_var('new') + self.get_var('str')")
+	func string::add_first(str $str, str $new)
+		return $new + $str
 	endfunc 
 
-	func length(str $str)
-		python("self.mem = len(self.get_var('str'))")
+	func int::length(str $str)
+		return len($str)
 	endfunc
 
-	func cut(str $str, int $a, int $b)
-		python("self.mem = self.get_var('str')[self.get_var('a'):self.get_var('b')]")
+	func string::cut(str $str, int $a, int $b)
+		return $str[$a:$b]
 	endfunc 
 
-	func upcase(str $str)
-		python("self.mem = self.get_var('str').upper()")
+	func string::upcase(str $str)
+		return $str->upper()
 	endfunc
 
-	func lowcase(str $str)
-		python("self.mem = self.get_var('str').lower()")
+	func string::lowcase(str $str)
+		return $str->lower()
 	endfunc
 
-	func reverse(str $str)
-		python("self.mem = self.get_var('str')[::-1]")
+	func string::reverse(str $str)
+		return $str[::-1]
 	endfunc
 
-	func to_str($var)
-		python("self.mem = repr(self.get_var('var'))")
+	func string::to_str($var)
+		return repr($var)
 	endfunc
 endns

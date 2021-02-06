@@ -32,6 +32,7 @@ class Function:
         self.name = name
         self.body = []
         self.args = []
+        self.return_type = None
 
     def __validate_argument_type__(self, value, arg_type_full: str) -> bool:
         """ Gets a object and type defination string and validates object type """
@@ -155,4 +156,12 @@ class Function:
         current_prog.exec_func(tmp_body, with_frame, default_vars)
         if tmp_is_in_class:
             current_prog.current_class = tmp_is_in_class
-        return current_prog.get_mem()
+        result = current_prog.get_mem()
+        if self.return_type != None:
+            if not self.__validate_argument_type__(result, self.return_type):
+                # return value type is not valid. raise the error
+                what_given = str(type(result))
+                return current_prog.raise_error('InvalidReturnType',
+                    'invalid value returned by "' + self.name + '", it should be ' + self.return_type + ', but ' + what_given + ' returned'
+                )
+        return result

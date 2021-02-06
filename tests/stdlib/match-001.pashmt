@@ -1,6 +1,5 @@
-#!/usr/bin/env pashmak
 #
-# speed-test.pashm
+# match-001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,48 +20,50 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-import @time
+--test--
+function match() works
 
-func something(int $i)
-	return $i + 1
-endfunc
+--file--
 
-$times = []
+println match('hi', [
+    ['hello', 'Hello!'],
+    ['bye', 'Bye!'],
+    ['hi', 'Hi!'],
+])
 
-$z = 0
-while $z < 10
-	$start = time.time()
+println match('hello', [
+    ['hello', 'Hello!'],
+    ['bye', 'Bye!'],
+    ['hi', 'Hi!'],
+])
 
-	$i = 0
-	while $i < 50
-		#println($i)
-		$i = something($i)
-	endwhile
+println match('bye', [
+    ['hello', 'Hello!'],
+    ['bye', 'Bye!'],
+    ['hi', 'Hi!'],
+])
 
-	$end = time.time()
+println match('other', [
+    ['hello', 'Hello!'],
+    ['bye', 'Bye!'],
+    ['hi', 'Hi!'],
+])
 
-	$t = $end - $start
-	$times->append($t)
+println match('other', [
+    ['hello', 'Hello!'],
+    ['bye', 'Bye!'],
+    ['hi', 'Hi!'],
+], default='The Default!')
 
-	$z = $z + 1
-endwhile
+println match([1, 2], [
+    [[1, 2], '1 and 2'],
+])
 
-# check the average
-$sum = 0
-$i = 0
-while $i < len($times)
-	$sum = $sum + $times[$i]
-	$i = $i + 1
-endwhile
-
-$avg = $sum / len($times)
-println('Speed Average: ' + str($avg))
-
-# handle the compiled mode
-if len($argv) <= 1
-    if os.path.isfile($__dir__ + '/../dist/pashmak')
-        println('\nCompiled mode:')
-        system('"' + $__dir__ + '/../dist/pashmak' + '" "' + $__file__ + '" 0')
-    endif
-endif
-
+--output--
+"""Hi!
+Hello!
+Bye!
+None
+The Default!
+1 and 2
+"""

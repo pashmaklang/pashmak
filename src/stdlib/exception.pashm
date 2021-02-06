@@ -34,7 +34,7 @@ class Error
         $this->message = $message
     endfunc
 
-    func __str__
+    func str::__str__
         return $this->type + ': ' + $this->message
     endfunc
 endclass
@@ -43,6 +43,6 @@ endclass
 Raises a error.\n\
 Gets a object from `Error` class as error.\
 """
-func raise($ex)
+func raise(Error $ex)
 	python("self.raise_error('" + str($ex->type) + "', '" + str($ex->message) + "')")
 endfunc

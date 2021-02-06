@@ -1,4 +1,4 @@
-# Module webserver
+# Module web.server
 This module is for serving HTTP. Core of this modules are using python's `http`.
 
 ## Simple usage
@@ -6,12 +6,12 @@ Example:
 
 ```bash
 # import the module
-import @webserver
+import @web.server
 
 # create a new webserver
-$server = webserver.WebServer('<host>', <port>)
+$server = web.server.WebServer('<host>', <port>)
 # for example
-$server = webserver.WebServer('localhost', 8000)
+$server = web.server.WebServer('localhost', 8000)
 
 # then, you need to set a handler for GET and POST requests
 # you should declare a function and pass it to $server object

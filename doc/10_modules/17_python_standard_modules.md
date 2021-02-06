@@ -20,6 +20,7 @@ you can use this python standard modules in pashmak directly in your code:
 - `platform`
 - `mimetypes`
 - `re`
+- `pickle`
 
 for example:
 
@@ -33,3 +34,15 @@ $time = time.time() - 100
 ```
 
 this is very useful!
+
+Also you can use `py_load_module` function.
+if you want to import a module that not imported by default, you can use this function.
+
+Example:
+
+```bash
+$module = py_load_module('module_name')
+$module->func_1()
+# ...
+```
+

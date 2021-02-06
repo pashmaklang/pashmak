@@ -27,7 +27,7 @@ class Object
     func __init__
     endfunc
 
-    func __str__
+    func str::__str__
         return '[PashmakObject name="' + $this->__name__ + '"]'
     endfunc
 
@@ -35,7 +35,7 @@ class Object
     Checks is this object instance of a class.\n\
     Gets that class as argument(You can pass class name as string or class object).\
     """
-    func isinstanceof($class)
+    func bool::isinstanceof($class)
         if typeof($class) != str
             $class = $class->__name__
         endif
@@ -45,18 +45,23 @@ class Object
 endclass
 
 @doc "Returns value of a variable by name of variable as string"
-func get
-    python("self.mem = self.get_var(" + repr(^) + ")")
+func get()
+    return python("self.mem = self.get_var(" + repr(^) + ")")
 endfunc
 
 @doc """\
 Sets value of a variable by name of variable as first argument as string\
 And value as second argument\
 """
-func set($name, $value=null)
+func set(string $name, $value=null)
     python("self.frames[-3]['vars'][self.get_var('name')] = self.get_var('value')")
 endfunc
 
-func isset
-    python('self.mem = self.variable_exists(' + repr(^) + ')')
+func bool::isset()
+    return python('self.mem = self.variable_exists(' + repr(^) + ')')
+endfunc
+
+@doc "Makes a copy from an object and returns the copy"
+func clone($obj)
+    return copy.deepcopy($obj)
 endfunc

@@ -1,0 +1,137 @@
+#
+# session.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+namespace web
+    $session_dir = '/tmp'
+
+    @doc "\
+    Generates a random session Id and returns it.\
+    "
+    func string::generate_random_session_id()
+        $uuid = py_load_module('uuid')
+        $abc = 'abcdefghijknmlopqrstuvwxyz'
+        $abc = $abc + $abc->upper()
+        $abc = $abc + '0123456789'
+        $a = str($uuid->uuid4())->replace('-', '')
+        $t = str(time.time()).replace('.', '')
+        $r = str(random.random())->replace('.', '')
+        $result = $a + $t + $r + $abc
+        $result = $result * 5
+        $result = ''->join(random.sample($result*3, len($result)*2))
+        $result = $result->replace(' ', '')->replace('<', '')->replace('>', '')->replace('-', '')
+        return 'pashmaksession' + $result[:200]
+    endfunc
+
+    @doc "Gets a session id and validates it. if it is valid, returns that.\n\
+    But if is not valid, returns a new id.\
+    "
+    func string::validate_session_id(string $id)
+        if (
+            len($id) != 214 or \
+            '.' in $id or \
+            '/' in $id or \
+            '\\' in $id or \
+            '\n' in $id
+        )
+            # invalid id
+            # generate a new id
+            return generate_random_session_id()
+        endif
+
+        # id is valid
+        return $id
+    endfunc
+
+    @doc "\
+    Writes a new session and returns the ID.\n\
+    Also can get a optional custom ID.\
+    Also can get a optional second argument named default value for session.\
+    "
+    func string::write_session(string $custom_id=null, dict $default_value={})
+        if $custom_id is null
+            $custom_id = generate_random_session_id()
+
+            while os.path.isfile($session_dir + '/' + $custom_id)
+                $custom_id = generate_random_session_id()
+            endwhile
+        endif
+
+        # write the file
+        $path = $session_dir + '/' + $custom_id
+        $f = open($path, 'wb')
+        pickle.dump($default_value, $f)
+        $f->close()
+
+        return $custom_id
+    endfunc
+
+    @doc "\
+    Loads the session dictionary by unique id.\
+    "
+    func dict::load_session_by_id(string $id)
+        $id = validate_session_id($id)
+
+        if not os.path.isfile($session_dir + '/' + $id)
+            write_session($id)
+        endif
+
+        $f = open($session_dir + '/' + $id, 'rb')
+        $content = pickle.load($f)
+        $f->close()
+
+        return $content
+    endfunc
+
+    @doc "\
+    Starts the session.\
+    "
+    func start_session()
+        if not is_defined('WEB_INITED')
+            gset('web.session', {})
+            return
+        endif
+
+        if 'PASHMAK_SESSION' in list($web.cookies->keys())
+            $id = $web.cookies['PASHMAK_SESSION']
+        else
+            $id = write_session()
+
+            set_cookie({
+                'name': 'PASHMAK_SESSION',
+                'value': $id,
+            })
+        endif
+
+        define('WEB_SESSION_ID', $id)
+
+        $session = load_session_by_id($id)
+
+        gset('web.session', $session)
+
+        register_shutdown(end_session)
+    endfunc
+
+    @doc "Re-Write the sessions"
+    func end_session()
+        write_session(WEB_SESSION_ID, gget('web.session'))
+    endfunc
+endns

@@ -531,3 +531,36 @@ hello([1, 2, '']) # error: InvalidArgument
 when you write `list[int]`, means that argument should be a list that items should be `int`.
 Also you can write `list[int|str]` means you want a list that items should be `int` OR `int`.
 Also you can use this system complicated like `list[int|list[str|int]]`...
+
+### Return types
+You can also declare return type of functions like arguments.
+
+for example:
+
+```bash
+func string::hello(string $name)
+    return 'hello ' + $name
+endfunc
+
+println hello('parsa')
+```
+
+output:
+
+```
+hello parsa
+```
+
+You should write return type before `::`:
+
+```bash
+func <type>::<name>...
+```
+
+Another example:
+
+```bash
+func list[int|str]::hello()...
+```
+
+If you return a invalid data, error `InvalidReturnType` will be raised.

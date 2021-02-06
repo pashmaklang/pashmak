@@ -21,12 +21,12 @@
 #########################################################################
 
 --test--
-tengine engine working correct
+pit engine working correct
 
 --file--
-import @tengine
+import @pit
 
-$output = tengine.run_file($__dir__ + '/tests/tengine/test.html', false)
+$output = pit.run_file($__dir__ + '/tests/pit/test.html', false)
 
 print($output->strip())
 

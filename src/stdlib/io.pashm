@@ -23,8 +23,8 @@
 @doc """\
 Prints a object on stdout.\
 """
-func print
-    mem self.print(^)
+func print(*$value)
+    mem self.print($value)
 endfunc
 
 @doc """\
@@ -102,14 +102,15 @@ endfunc
 Exits program.\n\
 The argument is the exit code(is optional, default is 0).\
 """
-func exit($code=0)
+func exit(int $code=0)
     python("self.exit_program(self.get_var('code'))")
 endfunc
 
 @doc """\
 Reads a input from user from stdin.\
 """
-func read
+func str::read(string $message='')
+    print($message)
     python("self.io_read()")
 endfunc
 
@@ -125,7 +126,7 @@ Prints something and exits program.\n\
 The first argument is that thing you want to print(Optional,default is null).\n\
 The second argument is exit code(is optional, default is 1).\
 """
-func die($message='', $exit_code=1)
+func die($message='', int $exit_code=1)
     print($message)
     exit($exit_code)
 endfunc

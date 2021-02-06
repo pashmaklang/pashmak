@@ -1,6 +1,5 @@
-#!/usr/bin/env pashmak
 #
-# speed-test.pashm
+# clone-001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,48 +20,31 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-import @time
+--test--
+the `clone()` function works
 
-func something(int $i)
-	return $i + 1
-endfunc
+--file--
 
-$times = []
+$a = {'foo': 'bar'}
+println($a['foo'])
+$b = $a
+println($b['foo'])
+$b['foo'] = 'new'
+println($a['foo'], $b['foo'])
 
-$z = 0
-while $z < 10
-	$start = time.time()
+$a = {'foo': 'bar'}
+println($a['foo'])
+$b = clone($a)
+println($b['foo'])
+$b['foo'] = 'new'
+println($a['foo'], $b['foo'])
 
-	$i = 0
-	while $i < 50
-		#println($i)
-		$i = something($i)
-	endwhile
-
-	$end = time.time()
-
-	$t = $end - $start
-	$times->append($t)
-
-	$z = $z + 1
-endwhile
-
-# check the average
-$sum = 0
-$i = 0
-while $i < len($times)
-	$sum = $sum + $times[$i]
-	$i = $i + 1
-endwhile
-
-$avg = $sum / len($times)
-println('Speed Average: ' + str($avg))
-
-# handle the compiled mode
-if len($argv) <= 1
-    if os.path.isfile($__dir__ + '/../dist/pashmak')
-        println('\nCompiled mode:')
-        system('"' + $__dir__ + '/../dist/pashmak' + '" "' + $__file__ + '" 0')
-    endif
-endif
+--output--
+"""bar
+bar
+('new', 'new')
+bar
+bar
+('bar', 'new')
+"""
 
