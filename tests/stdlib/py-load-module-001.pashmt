@@ -27,8 +27,8 @@ function py_load_module() works
 
 $uuid = py_load_module('uuid')
 
-println $uuid->libname
+println $uuid->UUID
 
 --output--
-"uuid\n"
+"<class 'uuid.UUID'>\n"
 
