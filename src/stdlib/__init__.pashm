@@ -153,6 +153,34 @@ func register_shutdown($func)
     python("self.shutdown_event.append(self.get_var('func'))")
 endfunc
 
+@doc "Gets a value and a list from lists. Then, works like if,\
+Example:\n\
+println match('hello', [\n\
+	['bye', 'the bye'],\n\
+	['hello', 'the hello']\n\
+])\n\
+\n\
+Output: `the hello`.\n\
+\n\
+Also you can set default option. That will be returned \
+when the passed value is not in the list (else). \
+Default value is `None`.\n\
+\n\
+Example:\n\
+println match($value, $list, default='the default value')\
+"
+func match($value, array[array] $list, $default=null)
+    $i = 0
+    while $i < len($list)
+        if $list[$i][0] == $value
+            return $list[$i][1]
+        endif
+        $i = $i + 1
+    endwhile
+
+    return $default
+endfunc
+
 import @stdlib.obj
 import @stdlib.io
 import @stdlib.func

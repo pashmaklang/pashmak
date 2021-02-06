@@ -31,6 +31,7 @@
 - added function `clone()` for copying objects (GH-97)
 - added message argument for function `read()`
 - added python `pickle` module
+- added function `match()` (GH-100)
 
 #### Changes
 
