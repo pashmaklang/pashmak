@@ -32,7 +32,7 @@
 - added message argument for function `read()`
 - added python `pickle` module
 - added function `match()` (GH-100)
-- added function `py_load_module`
+- added function `py_load_module` (GH-101)
 
 #### Changes
 
