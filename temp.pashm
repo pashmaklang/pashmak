@@ -2,6 +2,14 @@ import @web
 
 web.init()
 
+web.start_session()
+
+web.set_header('Content-type', 'text/plain')
+
 web.end_headers()
 
-println('Hello world!')
+#$web.session['foo'] = 'bar'
+
+var_dump($web.cookies)
+println '\n\n\n'
+var_dump($web.session)

@@ -95,10 +95,13 @@ First argument is name of header and last is value(both string).\
 """
 func set_header(string $name, $value)
     if is_defined('WEB_END_HEADERS')
+        # the headers already sent
+        # raise the error
         raise(Error('HeaderError', 'headers already sent'))
         return
     endif
 
+    # show the header
     print(str($name) + ': ' + str($value) + '\n')
 endfunc
 
@@ -107,6 +110,7 @@ Sets http response code.\n\
 Gets code as int.\
 """
 func status(int $code)
+    # set the status code in `Status` header
     set_header('Status', str($code))
 endfunc
 
@@ -117,13 +121,14 @@ Gets options as dictionary.\
 func set_cookie(dict $options)
     $options->setdefault('value', '')
 
-    # format options
+    # format the name and value
     $tmp = urllib.parse.urlencode([
         ($options['name'], $options['value'])
     ])->split('=', 1)
-    $options['name'] = $tmp[0]
+    $options['name'] = $tmp[0]->strip()
     $options['value'] = $tmp[1]
 
+    # set options for cookie
     $base_cookie = http.cookies.BaseCookie()
     $base_cookie[$options['name']] = $options['value']
     $i = 0
@@ -134,9 +139,15 @@ func set_cookie(dict $options)
         endif
         $i = $i + 1
     endwhile
+
+    # finally render the cookie output
     $output = $base_cookie->output()
     $output = $output->split(':', 1)[-1]->strip()->split('=', 1)
+
+    # send the set cookie header
     set_header('Set-Cookie', $output[0]->strip() + '=' + $output[-1])
+
+    # also set the cookie into $web.cookies variable in memory
     $real_cookies = gget('web.cookies')
     $tmp = urllib.parse.parse_qsl($output[0]->strip() + '=' + $output[-1])
     $real_cookies[$tmp[0][0]] = $tmp[0][1]
@@ -144,6 +155,7 @@ endfunc
 
 @doc "Ends the headers"
 func end_headers()
+    # ending the headers
     println('')
     define('WEB_END_HEADERS', true)
 endfunc

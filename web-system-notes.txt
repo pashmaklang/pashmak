@@ -1,4 +1,3 @@
 *** Notes and TODO for web system ***
 
-- Handle sessions
 - Fix subprocess bug in compiled mode
