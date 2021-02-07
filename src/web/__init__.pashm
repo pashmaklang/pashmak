@@ -42,6 +42,10 @@ func init()
         gset('web.cookies', {})
     endif
 
+    # handle required envvars
+    $os.env->setdefault('QUERY_STRING', '')
+    $os.env->setdefault('REQUEST_METHOD', 'GET')
+
     # parse the GET and POST raw data
     $raw_get = $os.env['QUERY_STRING'] # load the get query string
     $tmp_get = urllib.parse.parse_qsl($raw_get)
