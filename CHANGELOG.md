@@ -51,6 +51,7 @@
 #### Removed
 
 - removed unused function `required`
+- removed `format_args` function
 
 ## 0.6.8 (2021-1-17)
 
