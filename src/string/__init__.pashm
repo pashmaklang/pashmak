@@ -24,7 +24,7 @@
 ns string
 	func string::concat(str $a, str $b)
 		return $a + $b
-	endfunc 
+	endfunc
 
 	func string::remove_last(str $str)
 		return $str[:-1]
@@ -40,7 +40,7 @@ ns string
 
 	func string::add_first(str $str, str $new)
 		return $new + $str
-	endfunc 
+	endfunc
 
 	func int::length(str $str)
 		return len($str)
@@ -48,7 +48,7 @@ ns string
 
 	func string::cut(str $str, int $a, int $b)
 		return $str[$a:$b]
-	endfunc 
+	endfunc
 
 	func string::upcase(str $str)
 		return $str->upper()

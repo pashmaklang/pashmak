@@ -58,7 +58,7 @@ println(other->__docstring__)
 hello\n\
 \n\
 "
-func hi
+func hi()
 endfunc
 
 println(hi->__docstring__)

@@ -25,7 +25,7 @@ class method can be declared
 
 --file--
 class Person
-    func hello
+    func hello()
         println('Person > hello was runed')
     endfunc
 

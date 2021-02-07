@@ -27,7 +27,7 @@ the func.* super functions are working
 
 println('func hello exists? ' + str(func.exists('hello')))
 
-func hello
+func hello()
 endfunc
 
 println('func hello exists? ' + str(func.exists('hello')))

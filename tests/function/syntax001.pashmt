@@ -24,7 +24,7 @@
 function declaration syntax is not sensitive to whitespaces
 
 --file--
-func hello1
+func hello1()
     println 'hello world'
 endfunc
 

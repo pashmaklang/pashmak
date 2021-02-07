@@ -25,11 +25,11 @@ stdlib gset function working
 
 --file--
 $name = 'parsa'
-func myfunc
+func myfunc()
 	println $name
 	gset 'name', 'pashmak'
 endfunc
-myfunc
+myfunc()
 println $name
 
 --output--

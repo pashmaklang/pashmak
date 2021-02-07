@@ -23,11 +23,11 @@
 --test--
 functions argument will be set correctly
 --file--
-func myfunc
+func myfunc()
     print ^
 endfunc
-myfunc "hello world"
-myfunc 2*3
+myfunc("hello world")
+myfunc(2*3)
 
 $var = 'test'
 

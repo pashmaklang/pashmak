@@ -25,11 +25,11 @@ shutdown event system working
 
 --file--
 
-func end1
+func end1()
     println('the end 1')
 endfunc
 
-func end2
+func end2()
     println('the end 2')
 endfunc
 

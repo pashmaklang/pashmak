@@ -55,7 +55,7 @@ class Person
 
     @doc "this is a method"
     func some_method
-    endfunc 
+    endfunc
 
 endclass
 ```
