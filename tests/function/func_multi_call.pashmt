@@ -23,7 +23,7 @@
 --test--
 functions can be called more than 1 time
 --file--
-func myfunc
+func myfunc()
     println 'func runed'
 endfunc
 

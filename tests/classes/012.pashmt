@@ -28,7 +28,7 @@ overwriting methods and props in inheritance
 class Father
     $name = 'the Father'
 
-    func hello
+    func hello()
         println('Hello! i am Father')
     endfunc
 endclass
@@ -36,11 +36,11 @@ endclass
 class Child < Father
     $name = 'the Child'
 
-    func hello
+    func hello()
         println('Hello! i am Child')
     endfunc
 
-    func dosomething
+    func dosomething()
         $this->super('Father')->hello()
         println($this->super('Father')->name)
     endfunc

@@ -28,7 +28,7 @@ func sayhi($name)
     mem 'hello ' + $name
 endfunc
 
-func get_name
+func get_name()
     mem 'parsa'
 endfunc
 

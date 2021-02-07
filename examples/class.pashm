@@ -24,7 +24,7 @@ class Human
     $name
     $age = 12
 
-    func say_hi
+    func say_hi()
         println('hello. my name is ' + $this->name)
     endfunc
 

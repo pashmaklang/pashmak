@@ -23,7 +23,7 @@
 --test--
 return command working correct
 --file--
-func hello
+func hello()
     println 'hello'
     return 'good bye'
     println 'world'

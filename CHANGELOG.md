@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## (0.7-beta2) next release
+## (0.7-rc1) next release
 
 #### New Features
 - added `import_run` and `import_run_once` functions (GH-84)
@@ -33,6 +33,7 @@
 - added python `pickle` module
 - added function `match()` (GH-100)
 - added function `py_load_module` (GH-101)
+- added python `io` module
 
 #### Changes
 
@@ -51,6 +52,7 @@
 #### Removed
 
 - removed unused function `required`
+- removed `format_args` function
 
 ## 0.6.8 (2021-1-17)
 

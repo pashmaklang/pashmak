@@ -25,7 +25,7 @@ function inline calling bug from namespace is fixed
 
 --file--
 namespace app
-    func hello
+    func hello()
         println('hello world')
     endfunc
 endns

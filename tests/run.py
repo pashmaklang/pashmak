@@ -208,7 +208,7 @@ class TestRunner:
             print(tcolor.WARNING + 'Warninig: test "' + test + '" has not section "test"' + tcolor.ENDC)
             return
 
-        print('[' + str(test_counter) + '/' + str(len(self.tests)) + '] ' + sections['test'].strip() + ' (' + test.strip().replace('\n', ' ').strip() + ')', end='', flush=True)
+        print('\033[94m[' + str(test_counter) + '/' + str(len(self.tests)) + ']\033[0m ' + sections['test'].strip() + ' \033[93m(' + test.strip().replace('\n', ' ').strip() + ')\033[0m...', end='', flush=True)
 
         # run the test
         read_inputs = []

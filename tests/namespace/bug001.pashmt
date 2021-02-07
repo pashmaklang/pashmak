@@ -26,11 +26,11 @@ namespace function bug is fixed
 --file--
 
 namespace App
-    func foo
+    func foo()
         println 'the foo'
     endfunc
 
-    func bar
+    func bar()
         foo()
     endfunc
 endns

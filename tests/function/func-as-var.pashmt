@@ -47,7 +47,7 @@ func run_the_func($func)
     println('finish')
 endfunc
 
-func hi
+func hi()
     println 'hello world'
 endfunc
 

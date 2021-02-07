@@ -34,7 +34,7 @@ class Error
         $this->message = $message
     endfunc
 
-    func str::__str__
+    func str::__str__()
         return $this->type + ': ' + $this->message
     endfunc
 endclass

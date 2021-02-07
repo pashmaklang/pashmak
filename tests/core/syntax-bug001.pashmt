@@ -24,7 +24,7 @@
 inline function calling name conflicts bug is fixed
 
 --file--
-func hello
+func hello()
         println 'hello'
 endfunc
 

@@ -1,9 +1,9 @@
 println $__dir__, $__file__
 
-func empty_func
+func empty_func()
 endfunc
 
-func hello
+func hello()
     println $__dir__, $__file__
 endfunc
 

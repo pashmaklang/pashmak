@@ -26,13 +26,13 @@ Example test functions
 --file--
 
 $n = 'parsa'
-func myfunc
+func myfunc()
     println($n)
     $n = 'myfunc'
     println($n)
 endfunc
 
-func tststs
+func tststs()
     println($n)
     $n = 'tststs'
     myfunc()

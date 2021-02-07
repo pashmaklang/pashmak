@@ -25,16 +25,16 @@ complicated class and func
 
 --file--
 
-func hi
+func hi()
     println('start')
 
-    func bye
+    func bye()
         println('bye')
     endfunc
 
-    func foo
+    func foo()
         println('foo start')
-        func bar
+        func bar()
             println('bar')
         endfunc
         bar()
@@ -51,7 +51,7 @@ endfunc
 hi()
 bye()
 
-func do
+func do()
     class Person
         $name = 'someone'
     endclass
@@ -68,7 +68,7 @@ class First
         $last = 'the last'
     endclass
 
-    func do
+    func do()
         class DoClass
             $name = 'the do class'
         endclass
@@ -82,8 +82,8 @@ $a = First()
 $a->do()
 println(DoClass()->name)
 
-func one
-    func two
+func one()
+    func two()
         println('the two')
     endfunc
 

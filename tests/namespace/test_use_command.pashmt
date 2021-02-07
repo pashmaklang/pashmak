@@ -25,14 +25,14 @@ use command is working
 
 --file--
 namespace App
-    func dosomething
+    func dosomething()
         println 'hello world'
     endfunc
     $name = 'the app'
 endns
 
 namespace Second
-    func hello
+    func hello()
         println 'hello'
     endfunc
     $test = 'the second'

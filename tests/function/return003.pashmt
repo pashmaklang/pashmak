@@ -24,7 +24,7 @@
 --test--
 return command works when have not argument
 --file--
-func hello
+func hello()
     print 'first'
     return
     print 'last'

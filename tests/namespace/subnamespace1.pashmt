@@ -26,11 +26,11 @@ subnamespace is working correct
 
 namespace App
     $name = 'parsa'
-    func dosomething
+    func dosomething()
         print 'doing'
     endfunc
     namespace Core
-        func run
+        func run()
             print 'thecore'
         endfunc
         $corevar = 'corevar'

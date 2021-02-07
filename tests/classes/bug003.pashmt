@@ -26,7 +26,7 @@ $this variable exists while calling static method bug is fixed
 --file--
 
 class Person
-	func hello
+	func hello()
 		try the_error
 			println($this)
 		endtry

@@ -27,7 +27,7 @@ namespace web
 @doc """\
 Initializes the web environment.\
 """
-func init
+func init()
     # load the cookies
     if 'HTTP_COOKIE' in list($os.env->keys())
         $items = urllib.parse.parse_qsl($os.env['HTTP_COOKIE'])
@@ -41,6 +41,10 @@ func init
     else
         gset('web.cookies', {})
     endif
+
+    # handle required envvars
+    $os.env->setdefault('QUERY_STRING', '')
+    $os.env->setdefault('REQUEST_METHOD', 'GET')
 
     # parse the GET and POST raw data
     $raw_get = $os.env['QUERY_STRING'] # load the get query string

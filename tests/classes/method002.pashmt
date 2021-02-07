@@ -31,7 +31,7 @@ class Person
         $this->name = $name
     endfunc
 
-    func get_name
+    func get_name()
         mem $this->name
     endfunc
 endclass

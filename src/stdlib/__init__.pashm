@@ -21,7 +21,7 @@
 #########################################################################
 
 @doc "Runs a python code from string"
-func python
+func python()
     rmem exec(^)
 endfunc
 
@@ -29,7 +29,7 @@ endfunc
 Imports a script or a module.\n\
 Gets script/module name as string.\
 """
-func import
+func import()
     mem self.import_script(^)
 endfunc
 
@@ -37,28 +37,28 @@ endfunc
 Is like `import()`, but checks if module or script already is imported, do not imports again.\
 Gets module or script name as string.\
 """
-func import_once
+func import_once()
     mem self.import_script(^, True)
 endfunc
 
 @doc """\
 Is like `import()`, But sets `$__ismain__` to `True` for module(run mode).\
 """
-func import_run
+func import_run()
     mem self.import_script(^, False, ismain_default=True)
 endfunc
 
 @doc """\
 Is like `import_run` but checks script is already imported like `import_once`.\
 """
-func import_run_once
+func import_run_once()
     mem self.import_script(^, True, ismain_default=True)
 endfunc
 
 @doc """\
 Gets a Pashmak code as string and runs that.\
 """
-func eval
+func eval()
     mem self.pashmak_eval(^)
 endfunc
 
@@ -116,7 +116,7 @@ endfunc
 @doc """\
 Returns current namespace as string.\
 """
-func str::__namespace__
+func str::__namespace__()
     return python("self.mem = self.current_namespace()")
 endfunc
 
@@ -124,7 +124,7 @@ namespace pashmak
     @doc """\
     Prints zen of Pashmak.\
     """
-    func zen
+    func zen()
         println('Zen of Pashmak\n\
 \n\
 The Zen of Pashmak is a collection of "guiding principles" for writing computer programs that influence the design of the Pashmak programming language. (Like zen of python). This fucking list is written by Mohammad Esmaeili.\n\
@@ -192,5 +192,5 @@ import @stdlib.class
 import @stdlib.defines
 import @stdlib.exception
 
-func fopen; endfunc
+func fopen(); endfunc
 fopen = open

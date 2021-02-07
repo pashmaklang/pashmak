@@ -8,7 +8,7 @@ for example, we want to write some description for usage of a function. we can u
 # This function does something
 # other line
 # ...
-func something
+func something()
     # ...
 endfunc
 ```
@@ -55,7 +55,7 @@ class Person
 
     @doc "this is a method"
     func some_method
-    endfunc 
+    endfunc
 
 endclass
 ```

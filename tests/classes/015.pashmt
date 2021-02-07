@@ -30,7 +30,7 @@ class Test
         return $this->super('Object')->__str__() + '111'
     endfunc
 
-    func __init__
+    func __init__()
         $this->super('Object')->__init__()
         println('init runed')
     endfunc
