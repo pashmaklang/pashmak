@@ -50,7 +50,9 @@ if you haven't any idea for contributing, you can see [Issues](https://github.co
 ### Branch
 Send **New/Change Features** to branch `master`(`master` is develop stage for next release).
 
-Send **Bug Fixes** to branch `0.6.x`(older supported release).
+Send **Bug Fixes** to branch `0.7`(older supported release).
+
+([Read release process for more](/doc/13_dev_guide/07_release_process.md)).
 
 ### Developer Guide
 If you want to undrestand structure of Pashmak project source code, Read [Developer Guide](/doc/13_dev_guide).
