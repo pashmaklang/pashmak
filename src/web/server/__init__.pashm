@@ -40,7 +40,7 @@ namespace web; namespace server
             return $this
         endfunc
 
-        func serve
+        func serve()
             $py_code = '\
 def serve(host, port, do_get=None, do_post=None):\n\
     class TheServer(http.server.BaseHTTPRequestHandler):\n\

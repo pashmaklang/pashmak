@@ -405,7 +405,7 @@ output:
 ('hello', 100, False)
 ```
 
-If you put only a single variable as argument and put a `*` before variable name, like `*$args`, All of arguments will be passed as a tuple(list) to the function.
+If you put only a single variable as argument and put a `*` before variable name, like `*$args`, All of arguments will be passed as a tuple to the function.
 
 For example:
 
@@ -414,25 +414,6 @@ func myfunc(*$args)
     return $args[0] + $args[1]
 endfunc
 ```
-
-The problem is that, when function has Only One Argument, `$args/etc` is not a Tuple(list). in the above example, this is show.
-
-But how to fix this? When i run `hello('hi')`, argument variable should be `('hi',)`(a tuple) but this is `'hi'`self of variable) I want to do something to always(With any argument count) arguments be a tuple.
-
-To do this, you can use `format_args` function.
-
-for example:
-
-```bash
-func hello(*$args)
-    $args = format_args($args)
-    # ...
-endfunc
-
-hello('hello') # output: ('hello',)
-```
-
-With this function, this problem will be solved.
 
 ### Typed arguments
 Typed arguments, are arguments that type of them are declared.

@@ -8,7 +8,7 @@ for example, we want to write some description for usage of a function. we can u
 # This function does something
 # other line
 # ...
-func something
+func something()
     # ...
 endfunc
 ```

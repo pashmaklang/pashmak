@@ -27,12 +27,12 @@ namespace App
     $name = 'parsa'
     print $name
     print $App.name
-    func dosomething
+    func dosomething()
         print 'doing'
     endfunc
     dosomething
     namespace Core
-        func run
+        func run()
             print 'thecore'
         endfunc
         run

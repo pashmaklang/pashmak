@@ -27,7 +27,7 @@ namespace web
 @doc """\
 Initializes the web environment.\
 """
-func init
+func init()
     # load the cookies
     if 'HTTP_COOKIE' in list($os.env->keys())
         $items = urllib.parse.parse_qsl($os.env['HTTP_COOKIE'])

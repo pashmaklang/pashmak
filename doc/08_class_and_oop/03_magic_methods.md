@@ -8,7 +8,7 @@ look at this example:
 
 ```bash
 class Person
-    func __init__
+    func __init__()
         println('a new Person is created')
     endfunc
 endclass

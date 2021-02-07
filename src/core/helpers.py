@@ -133,13 +133,17 @@ class Helpers(builtin_functions.BuiltinFunctions):
 
     def print(self, obj, file=sys.stdout):
         """ Prints a object """
+        if type(obj) == tuple and len(obj) == 1:
+            obj_str = str(obj[0])
+        else:
+            obj_str = str(obj)
         if self.out_started:
-            self.out_content += str(obj)
+            self.out_content += obj_str
             return
         if not self.is_test:
-            print(obj, end='', flush=True, file=file)
+            print(obj_str, end='', flush=True, file=file)
         else:
-            self.output += str(obj)
+            self.output += obj_str
 
     def io_read(self):
         """ Reads input from stdin """

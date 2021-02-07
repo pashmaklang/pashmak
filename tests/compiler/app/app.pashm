@@ -3,7 +3,7 @@ println('hello')
 
 println($__ismain__)
 
-func something
+func something()
     println('The something func')
 endfunc
 

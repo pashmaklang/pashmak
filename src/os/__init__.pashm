@@ -35,7 +35,7 @@ namespace os
     @doc """\
     Returns CPU count.\
     """
-    func cpu_count
+    func cpu_count()
         python("self.mem = os.cpu_count()")
     endfunc
 
@@ -100,7 +100,7 @@ namespace os
     @doc """\
     Returns program current working directory as string.\
     """
-    func cwd
+    func cwd()
         python("self.mem = os.getcwd()")
     endfunc
 endnamespace

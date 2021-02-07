@@ -29,15 +29,15 @@ namespace time
         python("time.sleep(self.get_var('time_to_sleep'))")
     endfunc
 
-    func ctime
+    func ctime()
         return python("self.mem = time.ctime()")
     endfunc
 
-    func gmtime
+    func gmtime()
         return python("self.mem = time.gmtime()")
     endfunc
 
-    func localtime
+    func localtime()
         return python("self.mem = time.localtime()")
     endfunc
 endnamespace

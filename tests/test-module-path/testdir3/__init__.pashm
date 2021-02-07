@@ -1,3 +1,3 @@
-func the_test_in_init
+func the_test_in_init()
     println('Hello! i am a test')
 endfunc

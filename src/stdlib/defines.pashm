@@ -30,7 +30,7 @@ func define(string $name, $value)
 endfunc
 
 @doc "Returns all of defined names as a dictionary"
-func dict::all_defines
+func dict::all_defines()
     return python('self.mem = self.defines')
 endfunc
 

@@ -31,7 +31,8 @@ endfunc
 Prints a object on stdout and goes to next line.\
 """
 func println(*$value)
-    print(str($value) + '\n')
+    print($value)
+    print('\n')
 endfunc
 
 func printl(*$value)
@@ -50,49 +51,46 @@ Prints a object on a file.\n\
 First argument is the object that you want to print.\n\
 Second argument is the file that you want to print on, but is optional. default is stdout file.\
 """
-func printf(*$args)
-    $args = format_args($args)
-    $obj = $args[0]
-    $file = python("self.mem = sys.stdout")
-    if len($args) > 1
-        $file = $args[1]
+func printf($value, $file=null)
+    if $file is null
+        $file = python("self.mem = sys.stdout")
     endif
 
-    $file->write(str($obj))
+    $file->write(str($value))
 endfunc
 
 @doc """\
 Opens the output buffer.\
 """
-func out_start
+func out_start()
     python("self.out_started = True")
 endfunc
 
 @doc """\
 Closes the output buffer.\
 """
-func out_end
+func out_end()
     python("self.out_started = False")
 endfunc
 
 @doc """\
 Clears the output buffer.\
 """
-func out_clean
+func out_clean()
     python("self.out_content = ''")
 endfunc
 
 @doc """\
 Returns the output buffer as string.\
 """
-func out_get
+func out_get()
     python("self.mem = self.out_content")
 endfunc
 
 @doc """\
 Returns output buffer and clears that.\
 """
-func out_get_clean
+func out_get_clean()
     $content = out_get()
     out_clean()
     return $content
@@ -117,7 +115,7 @@ endfunc
 @doc """\
 Dumps a object.\
 """
-func var_dump(*$obj)
+func var_dump($obj)
     python("class Tmp:\n    def write(self, value):\n        current_prog.current_prog.print(str(value))\npprint.pprint(self.get_var('obj'), Tmp())")
 endfunc
 

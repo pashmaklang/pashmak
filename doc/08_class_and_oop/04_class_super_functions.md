@@ -47,7 +47,7 @@ class Person
         $this->name = $name
     endfunc
 
-    func say_hi
+    func say_hi()
         println('hello ' + $this->name)
     endfunc
 endclass

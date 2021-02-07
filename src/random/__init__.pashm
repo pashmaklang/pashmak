@@ -41,7 +41,7 @@ namespace random
     @doc """\
     Returns the current internal state of the random number generator.\
     """
-    func getstate
+    func getstate()
         python("self.mem = random.getstate()")
     endfunc
 
@@ -63,7 +63,6 @@ namespace random
     ### endfunc
     ###
     ### func choices($a, $b, $c, $d)
-    ###     $args = format_args($args)
     ###     python("self.mem = random.choices(self.get_var('a'), self.get_var('b'), self.get_var('c'), self.get_var('d'))")
     ### endfunc
     
@@ -86,7 +85,7 @@ namespace random
     @doc """\
     Generates a random float less that 1.\
     """
-    func random
+    func random()
         python("self.mem = random.random()")
     endfunc
 endns
