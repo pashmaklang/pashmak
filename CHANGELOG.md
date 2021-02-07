@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## (0.7-beta2) next release
+## (0.7-rc0) next release
 
 #### New Features
 - added `import_run` and `import_run_once` functions (GH-84)
