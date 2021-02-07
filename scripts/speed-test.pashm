@@ -62,7 +62,7 @@ println('Speed Average: ' + str($avg))
 if len($argv) <= 1
     if os.path.isfile($__dir__ + '/../dist/pashmak')
         println('\nCompiled mode:')
-        system('"' + $__dir__ + '/../dist/pashmak' + '" "' + $__file__ + '" 0')
+        system(repr($__dir__ + '/../dist/pashmak') + ' ' + repr($__file__) + ' 0')
     endif
 endif
 
