@@ -6,6 +6,7 @@ For running Pashmak in the Traditional webservers, You only need to write a `.ht
 ```htaccess
 AddHandler cgi-script .pashm .pashm.html .pit
 Options +ExecCGI
+DirectoryIndex .pashm
 ```
 
 And then, add the Shebang for your Pashmak scripts (`.pashm`, `.pashm.html`, `.pit`).
