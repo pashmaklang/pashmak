@@ -26,72 +26,72 @@ ns math
     Returns the arc cosine of a number. Recives a number between `1` and `-1`.\
     """
     func acos($num)
-        return python("self.mem = math.acos(self.get_var('num'))")
+        return py_load_module('math')->acos($num)
     endfunc
 
     @doc """\
     Returns the inverse hyperbolic cosine of a number.\
     """
     func acosh($num)
-        return python("self.mem = math.acosh(self.get_var('num'))")
+        return py_load_module('math')->acosh($num)
     endfunc
 
     @doc """\
     Rounds a number upward to its nearest integer.\
     """
     func ceil($num)
-        return python("self.mem = math.ceil(self.get_var('num'))")
+        return py_load_module('math')->ceil($num)
     endfunc
 
     @doc """\
     Finds the cosine of a number.\
     """
     func cos($num)
-        return python("self.mem = math.cos(self.get_var('num'))")
+        return py_load_module('math')->cos($num)
     endfunc
 
     @doc """\
     Converts angles from radians to degrees.\
     """
     func degrees($num)
-        return python("self.mem = math.degrees(self.get_var('num'))")
+        return py_load_module('math')->degrees($num)
     endfunc
 
     @doc """\
     Finds the factorial of a number.\
     """
     func factorial($num)
-        return python("self.mem = math.factorial(self.get_var('num'))")
+        return py_load_module('math')->factorial($num)
     endfunc
 
     @doc """\
     Rounds numbers down to the nearest integer.\
     """
     func floor($num)
-        return python("self.mem = math.floor(self.get_var('num'))")
+        return py_load_module('math')->floor($num)
     endfunc
 
-    $pi = python("self.mem = math.pi")
+    $pi = py_load_module('math')->pi
 
     @doc """\
     Finds the value of x raised to the power of y.\n\
     Example: math.pow(9, 3)\
     """
     func pow($num, $nextnum)
-        return python("self.mem = math.pow(self.get_var('num'), self.get_var('nextnum'))")
+        return py_load_module('math')->pow($num, self.get_var('nextnum'))
     endfunc
 
     @doc """\
     Finds the sine of a number.\
     """
     func sin($num)
-        return python("self.mem = math.sin(self.get_var('num'))")
+        return py_load_module('math')->sin($num)
     endfunc
 
     @doc """\
     Finds the tangent of a number (angle).\
     """
     func tan($num)
-        return python("self.mem = math.tan(self.get_var('num'))")
+        return py_load_module('math')->tan($num)
     endfunc
 endns

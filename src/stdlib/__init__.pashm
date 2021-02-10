@@ -97,8 +97,8 @@ endfunc
 Runs a system shell command and returns exit code.\n\
 Gets command as string and returns exit code as int.\
 """
-func system($cmd)
-    python("self.mem = os.system(self.get_var('cmd'))")
+func int::system(string $cmd)
+    return py_load_module('os')->system($cmd)
 endfunc
 
 @doc """\
