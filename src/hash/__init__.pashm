@@ -28,7 +28,7 @@ namespace hash
         0. value: value that you want to hash\
     """
 	func str::blake2b(str $value)
-		return python("self.mem = hashlib.blake2b(self.get_var('value').encode()).hexdigest()")
+		py_load_module('hashlib')->blake2b($value->encode())->hexdigest()
 	endfunc
 
     @doc """\
@@ -38,7 +38,7 @@ namespace hash
         0. value: value that you want to hash\
     """
 	func str::blake2s(str $value)
-		return python("self.mem = hashlib.blake2s(self.get_var('value').encode()).hexdigest()")
+		return py_load_module('hashlib')->blake2s($value->encode())->hexdigest()
 	endfunc
 
     @doc """\
@@ -48,7 +48,7 @@ namespace hash
         0. value: value that you want to hash\
     """
 	func str::md5(str $value)
-		return python("self.mem = hashlib.md5(self.get_var('value').encode()).hexdigest()")
+		return py_load_module('hashlib')->md5($value->encode())->hexdigest()
 	endfunc
 
     @doc """\
@@ -58,7 +58,7 @@ namespace hash
         0. value: value that you want to hash\
     """
 	func str::sha1(str $value)
-		return python("self.mem = hashlib.sha1(self.get_var('value').encode()).hexdigest()")
+		return py_load_module('hashlib')->sha1($value->encode())->hexdigest()
 	endfunc
 
     @doc """\
@@ -68,7 +68,7 @@ namespace hash
         0. value: value that you want to hash\
     """
 	func str::sha224(str $value)
-		return python("self.mem = hashlib.sha224(self.get_var('value').encode()).hexdigest()")
+		return py_load_module('hashlib')->sha224($value->encode())->hexdigest()
 	endfunc
 
     @doc """\
@@ -78,7 +78,7 @@ namespace hash
         0. value: value that you want to hash\
     """
 	func str::sha256(str $value)
-		return python("self.mem = hashlib.sha256(self.get_var('value').encode()).hexdigest()")
+		return py_load_module('hashlib')->sha256($value->encode())->hexdigest()
 	endfunc
 
     @doc """\
@@ -88,7 +88,7 @@ namespace hash
         0. value: value that you want to hash\
     """
 	func str::sha384(str $value)
-		return python("self.mem = hashlib.sha384(self.get_var('value').encode()).hexdigest()")
+		return py_load_module('hashlib')->sha384($value->encode())->hexdigest()
 	endfunc
 
     @doc """\
@@ -98,7 +98,7 @@ namespace hash
         0. value: value that you want to hash\
     """
 	func str::sha3_224(str $value)
-		return python("self.mem = hashlib.sha3_224(self.get_var('value').encode()).hexdigest()")
+		return py_load_module('hashlib')->sha3_224($value->encode())->hexdigest()
 	endfunc
 
     @doc """\
@@ -108,7 +108,7 @@ namespace hash
         0. value: value that you want to hash\
     """
 	func str::sha3_256(str $value)
-		return python("self.mem = hashlib.sha3_256(self.get_var('value').encode()).hexdigest()")
+		return py_load_module('hashlib')->sha3_256($value->encode())->hexdigest()
 	endfunc
 
     @doc """\
@@ -118,7 +118,7 @@ namespace hash
         0. value: value that you want to hash\
     """
 	func str::sha3_384(str $value)
-		return python("self.mem = hashlib.sha3_384(self.get_var('value').encode()).hexdigest()")
+		return py_load_module('hashlib')->sha3_384($value->encode())->hexdigest()
 	endfunc
 
     @doc """\
@@ -128,7 +128,7 @@ namespace hash
         0. value: value that you want to hash\
     """
 	func str::sha3_512(str $value)
-		return python("self.mem = hashlib.sha3_512(self.get_var('value').encode()).hexdigest()")
+		return py_load_module('hashlib')->sha3_512($value->encode())->hexdigest()
 	endfunc
 
     @doc """\
@@ -138,7 +138,7 @@ namespace hash
         0. value: value that you want to hash\
     """
 	func str::sha512(str $value)
-		return python("self.mem = hashlib.sha512(self.get_var('value').encode()).hexdigest()")
+		return py_load_module('hashlib')->sha512($value->encode())->hexdigest()
 	endfunc
 
     @doc """\
@@ -149,7 +149,7 @@ namespace hash
         1. length\
     """
 	func str::shake_128(str $value, int $length)
-		return python("self.mem = hashlib.shake_128(str(self.get_var('value')).encode()).hexdigest(self.get_var('length'))")
+		return py_load_module('hashlib')->shake_128(str($value).encode()).hexdigest($length)
 	endfunc
 
     @doc """\
@@ -160,6 +160,6 @@ namespace hash
         1. length\
     """
 	func str::shake_256(str $value, int $length)
-		return python("self.mem = hashlib.shake_256(str(self.get_var('value')).encode()).hexdigest(self.get_var('length'))")
+		return py_load_module('hashlib')->shake_256(str($value).encode()).hexdigest($length)
 	endfunc
 endns

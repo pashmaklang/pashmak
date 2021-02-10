@@ -26,8 +26,8 @@ namespace random
     Generates a random number between x and y.\n\
     First and second arguments are x and y as number.\
     """
-    func randint($a, $b)
-        python("self.mem = random.randint(self.get_var('a'), self.get_var('b'))")
+    func int::randint(int $a, int $b)
+        return py_load_module('random')->randint($a, $b)
     endfunc
 
     @doc """\
@@ -35,57 +35,38 @@ namespace random
     Gets seed as integer.\
     """
     func seed($a)
-        python("random.seed(self.get_var('a'))")
+        py_load_module('random')->seed($a)
     endfunc
 
     @doc """\
     Returns the current internal state of the random number generator.\
     """
     func getstate()
-        python("self.mem = random.getstate()")
+        return py_load_module('random')->getstate()
     endfunc
 
     func setstate($state)
-        python("random.setstate(self.get_var('state'))")
+        py_load_module('random')->setstate($state)
     endfunc
 
     func getrandbits($a)
-        python("self.mem = random.getrandbits(self.get_var('a'))")
+        return py_load_module('random')->getrandbits($a)
     endfunc
 
     func randrange($a, $b)
-        python("self.mem = random.randrange(self.get_var('a'), self.get_var('b'))")
+        return py_load_module('random')->randrange($a, $b)
     endfunc
 
-    ### TODO : fix bug of this functions
-    ### func choice($a)
-    ###     python("self.mem = random.choice(self.get_var('a'))")
-    ### endfunc
-    ###
-    ### func choices($a, $b, $c, $d)
-    ###     python("self.mem = random.choices(self.get_var('a'), self.get_var('b'), self.get_var('c'), self.get_var('d'))")
-    ### endfunc
-    
-    func shuffle($a, $b)
-        python("random.shuffle(self.get_var('a'), self.get_var('b'))")
-    endfunc
-
-    func sample($a, $b)
-        python("self.mem = random.sample(self.get_var('a'), self.get_var('b'))")
-    endfunc
-
-    func uniform($a, $b)
-        python("self.mem = random.uniform(self.get_var('a'), self.get_var('b'))")
-    endfunc
-
-    func triangular($a $b, $c)
-        python("self.mem = random.triangular(self.get_var('a'), self.get_var('b'), self.get_var('c'))")
+    @doc "Selects a random item in a list"
+    func choice(list $list)
+        $index = randint(0, len($list)-1)
+        return $list[$index]
     endfunc
 
     @doc """\
     Generates a random float less that 1.\
     """
     func random()
-        python("self.mem = random.random()")
+        return py_load_module('random')->random()
     endfunc
 endns
