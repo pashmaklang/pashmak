@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.7.1 (2021-2-10)
 
 - some optimizations in builtin modules
 - removed `shuffle`, `sample`, `triangular`, `choices` and `uniform` from module `random`
