@@ -90,3 +90,10 @@ now executable file is created in `dist\pashmak.exe`:
 ```bash
 dist\pashmak.exe -v
 ```
+
+## other tools
+
+### Syntax highlighters
+
+- [Pashmak on nano](https://github.com/sami2020pro/pashmak-nanorc)
+
