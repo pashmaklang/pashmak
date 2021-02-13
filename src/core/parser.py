@@ -24,7 +24,7 @@
 
 import random
 import time
-from .lexer import literals, parse_op, parse_string
+from .lexer import parse_op, parse_string
 
 def parse(content: str, filepath='<system>', only_parse=False) -> list:
     """ Parse code from text and return list of commands

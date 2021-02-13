@@ -31,11 +31,9 @@ Also this class extends `builtin_functions.BuiltinFunctions`.
 Then, all of methods in `builtin_functions.BuiltinFunctions` and `helpers.Helpers`,
 will be accessible in `program.Program`.
 """
-
-import os
 import sys
 from sys import exit
-from . import builtin_functions, modules, parser
+from . import builtin_functions, parser
 
 class VariableError(Exception):
     pass
