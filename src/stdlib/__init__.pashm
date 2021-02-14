@@ -109,6 +109,10 @@ func py_load_file(string $path)
 	python("import importlib.util; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path')); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); self.mem = m")
 endfunc
 
+@doc """\
+Loads a Python standard module. \
+Gets module name as string.\
+"""
 func py_load_module(string $name)
     return python("import " + $name + "; self.mem = " + $name)
 endfunc
