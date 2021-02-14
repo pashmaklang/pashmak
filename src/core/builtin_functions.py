@@ -78,7 +78,7 @@ class BuiltinFunctions:
         """ Starts the namespace block """
         self.require_one_argument(op, 'namespace function requires namespace argument')
         arg = op['args'][0]
-        for ch in parser.literals + '.':
+        for ch in lexer.literals + '.':
             if ch in arg:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op
@@ -129,7 +129,7 @@ class BuiltinFunctions:
         if len(arg) > 1:
             parent = arg[1].strip()
         arg = arg[0].strip()
-        for ch in parser.literals + '.':
+        for ch in lexer.literals + '.':
             if ch in arg:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op
@@ -192,7 +192,7 @@ class BuiltinFunctions:
         else:
             arg = tmp[0]
 
-        for ch in parser.literals + '.':
+        for ch in lexer.literals + '.':
             if ch in arg:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op
