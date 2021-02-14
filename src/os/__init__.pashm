@@ -28,7 +28,7 @@ namespace os
     Changes program working directory to new path.\n\
     Gets path as string.\
     """
-    func chdir(str $dirpath)
+    func chdir(string $dirpath)
         py_load_module('os')->chdir($dirpath)
     endfunc
 
@@ -43,7 +43,7 @@ namespace os
     Makes a directory.\n\
     Gets directory path as string.\
     """
-    func mkdir(str $dirpath)
+    func mkdir(string $dirpath)
         py_load_module('os')->mkdir($dirpath)
     endfunc
 
@@ -62,7 +62,7 @@ namespace os
     Removes a directory.\n\
     Gets directory path as string.\
     """
-    func rmdir(str $dirpath)
+    func rmdir(string $dirpath)
         return py_load_module('os')->rmdir($dirpath)
     endfunc
 
@@ -75,7 +75,7 @@ namespace os
     Gets path as string.\n\
     Returns Boolean.\n\
     """
-    func bool::isdir(str $dirpath)
+    func bool::isdir(string $dirpath)
         return py_load_module('os')->path->isdir($dirpath)
     endfunc
 
@@ -84,7 +84,7 @@ namespace os
     Gets path as string.\n\
     Returns Boolean.\n\
     """
-    func bool::isfile(str $path)
+    func bool::isfile(string $path)
         return py_load_module('os')->path->isfile($path)
     endfunc
 
@@ -93,7 +93,7 @@ namespace os
     Gets path as string.\n\
     Returns Boolean.\
     """
-    func bool::exists(str $path)
+    func bool::exists(string $path)
         return py_load_module('os')->path->exists($path)
     endfunc
 

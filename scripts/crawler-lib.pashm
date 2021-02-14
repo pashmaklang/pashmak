@@ -21,18 +21,18 @@
 #########################################################################
 
 class Crawler
-    func __init__(str $path, str $extension)
+    func __init__(string $path, string $extension)
         $this->files_list = []
         $this->get($path, $extension)
     endfunc
 
-    func add_once(str $path, str $extension)
+    func add_once(string $path, string $extension)
         if $path->endswith($extension)
             $this->files_list->append(os.path.abspath($path))
         endif
     endfunc
 
-    func get(str $path, str $extension)
+    func get(string $path, string $extension)
         $files = os.listdir($path)
         $i = 0
         while $i < len($files)

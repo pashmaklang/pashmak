@@ -28,7 +28,7 @@ class Human
         println('hello. my name is ' + $this->name)
     endfunc
 
-    func set_name(str $name)
+    func set_name(string $name)
         $this->name = $name
     endfunc
 endclass

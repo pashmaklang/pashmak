@@ -29,7 +29,7 @@ Example:\
     println($mixer->total_content)\
 "
 class Mixer
-    func __init__(str $path)
+    func __init__(string $path)
         $this->total_content = ''
         $this->imported_files = []
         $this->last_is_main = 'True'
@@ -54,7 +54,7 @@ class Mixer
     \n\
     This method is called recursively\
     "
-    func crawl(str $path)
+    func crawl(string $path)
         $path = os.path.abspath($path)
 
 	    if os.path.isdir($path)

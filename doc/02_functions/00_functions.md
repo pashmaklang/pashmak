@@ -433,7 +433,7 @@ hello(True)
 But, sometimes you want get only a specify type of value as argument:
 
 ```bash
-func hello(str $name, int $age)
+func hello(string $name, int $age)
     println($name + ' ' + str($age))
 endfunc
 
@@ -451,7 +451,7 @@ pashmak 1
 But if you give something else of declared type, you will give error:
 
 ```bash
-func hello(str $name, int $age)
+func hello(string $name, int $age)
     println($name + ' ' + str($age))
 endfunc
 
@@ -473,7 +473,7 @@ func func_name(<type> $name, <type> $other...)
 for example:
 
 ```bash
-func hello(str $name, $age)
+func hello(string $name, $age)
     # ...
 endfunc
 ```

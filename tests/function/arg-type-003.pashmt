@@ -25,7 +25,7 @@ function typed args with list item type
 
 --file--
 
-func hello(int|list|str $a)
+func hello(int|list|string $a)
     println($a)
 endfunc
 

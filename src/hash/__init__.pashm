@@ -27,7 +27,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func str::blake2b(str $value)
+	func string::blake2b(string $value)
 		py_load_module('hashlib')->blake2b($value->encode())->hexdigest()
 	endfunc
 
@@ -37,7 +37,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func str::blake2s(str $value)
+	func string::blake2s(string $value)
 		return py_load_module('hashlib')->blake2s($value->encode())->hexdigest()
 	endfunc
 
@@ -47,7 +47,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func str::md5(str $value)
+	func string::md5(string $value)
 		return py_load_module('hashlib')->md5($value->encode())->hexdigest()
 	endfunc
 
@@ -57,7 +57,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func str::sha1(str $value)
+	func string::sha1(string $value)
 		return py_load_module('hashlib')->sha1($value->encode())->hexdigest()
 	endfunc
 
@@ -67,7 +67,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func str::sha224(str $value)
+	func string::sha224(string $value)
 		return py_load_module('hashlib')->sha224($value->encode())->hexdigest()
 	endfunc
 
@@ -77,7 +77,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func str::sha256(str $value)
+	func string::sha256(string $value)
 		return py_load_module('hashlib')->sha256($value->encode())->hexdigest()
 	endfunc
 
@@ -87,7 +87,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func str::sha384(str $value)
+	func string::sha384(string $value)
 		return py_load_module('hashlib')->sha384($value->encode())->hexdigest()
 	endfunc
 
@@ -97,7 +97,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func str::sha3_224(str $value)
+	func string::sha3_224(string $value)
 		return py_load_module('hashlib')->sha3_224($value->encode())->hexdigest()
 	endfunc
 
@@ -107,7 +107,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func str::sha3_256(str $value)
+	func string::sha3_256(string $value)
 		return py_load_module('hashlib')->sha3_256($value->encode())->hexdigest()
 	endfunc
 
@@ -117,7 +117,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func str::sha3_384(str $value)
+	func string::sha3_384(string $value)
 		return py_load_module('hashlib')->sha3_384($value->encode())->hexdigest()
 	endfunc
 
@@ -127,7 +127,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func str::sha3_512(str $value)
+	func string::sha3_512(string $value)
 		return py_load_module('hashlib')->sha3_512($value->encode())->hexdigest()
 	endfunc
 
@@ -137,7 +137,7 @@ namespace hash
     Args:\
         0. value: value that you want to hash\
     """
-	func str::sha512(str $value)
+	func string::sha512(string $value)
 		return py_load_module('hashlib')->sha512($value->encode())->hexdigest()
 	endfunc
 
@@ -148,7 +148,7 @@ namespace hash
         0. value: value that you want to hash\
         1. length\
     """
-	func str::shake_128(str $value, int $length)
+	func string::shake_128(string $value, int $length)
 		return py_load_module('hashlib')->shake_128(str($value).encode()).hexdigest($length)
 	endfunc
 
@@ -159,7 +159,7 @@ namespace hash
         0. value: value that you want to hash\
         1. length\
     """
-	func str::shake_256(str $value, int $length)
+	func string::shake_256(string $value, int $length)
 		return py_load_module('hashlib')->shake_256(str($value).encode()).hexdigest($length)
 	endfunc
 endns

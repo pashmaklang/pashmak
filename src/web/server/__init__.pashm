@@ -22,7 +22,7 @@
 
 namespace web; namespace server
     class WebServer
-        func __init__(str $host, int $port=8000)
+        func __init__(string $host, int $port=8000)
             $this->host = $host
             $this->port = $port
 
@@ -111,7 +111,7 @@ if $__ismain__
     endfunc
 
     # a handler for POST and GET methods
-    func the_handler($handler, str $request_method)
+    func the_handler($handler, string $request_method)
         $path = str($handler->path)
         $path = $path->split('?', 1)
         $query_string = ''

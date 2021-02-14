@@ -120,7 +120,7 @@ endfunc
 @doc """\
 Returns current namespace as string.\
 """
-func str::__namespace__()
+func string::__namespace__()
     return python("self.mem = self.current_namespace()")
 endfunc
 
