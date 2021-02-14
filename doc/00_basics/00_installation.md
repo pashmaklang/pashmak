@@ -95,5 +95,6 @@ dist\pashmak.exe -v
 
 ### Syntax highlighters
 
-- [Pashmak on nano](https://github.com/sami2020pro/pashmak-nanorc)
+- [VSCode](https://github.com/sami2020pro/vscode-pashmak)
+- [Nano editor](https://github.com/sami2020pro/pashmak-nanorc)
 
