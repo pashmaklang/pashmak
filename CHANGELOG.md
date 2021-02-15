@@ -5,6 +5,9 @@
 #### Added
 - added docstring for function `py_load_module`
 
+#### Fixed
+- fixed shutdown events not running while using `exit()` bug
+
 ## 0.7.1 (2021-2-10)
 
 - some optimizations in builtin modules

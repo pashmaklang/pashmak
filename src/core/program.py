@@ -548,8 +548,7 @@ class Program(helpers.Helpers):
             self.frames.pop()
         else:
             # run shutdown events
-            for ev in self.shutdown_event:
-                ev()
+            self.run_shutdown_events()
 
     def start(self):
         """ Start running the program """
