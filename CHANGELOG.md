@@ -6,7 +6,7 @@
 - added docstring for function `py_load_module`
 
 #### Fixed
-- fixed shutdown events not running while using `exit()` bug
+- fixed shutdown events not running while using `exit()` bug (GH-105)
 
 ## 0.7.1 (2021-2-10)
 
