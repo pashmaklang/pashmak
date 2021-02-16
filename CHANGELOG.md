@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.7.2 (2021-2-16)
 
 #### New Features
 - Added docstring for function `py_load_module`
