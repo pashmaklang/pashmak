@@ -5,8 +5,9 @@
 #### New Features
 - Added docstring for function `py_load_module`
 
-#### Fixed
+#### Bug Fixes
 - Fixed shutdown events not running while using `exit()` bug (GH-105)
+- Fixed mulltiline syntax bug white writing empty lines
 
 ## 0.7.1 (2021-2-10)
 

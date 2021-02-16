@@ -107,8 +107,6 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
             else:
                 new_lines[-1] += line
                 new_lines.append('')
-        else:
-            new_lines.append(line)
     lines = new_lines
 
     line_counter = 1
