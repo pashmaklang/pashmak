@@ -9,7 +9,7 @@
 - Changed string of classes from default to `<class 'NameOfClass'>` (GH-108)
 
 #### New Features
-- Handle `return` in importing system by `import()` ([read the doc](doc/05_importing/02_return_value.md))
+- Handle `return` in importing system by `import()` ([read the doc](doc/05_importing/02_return_value.md)) (GH-109)
 
 ## 0.7.2 (2021-2-16)
 
