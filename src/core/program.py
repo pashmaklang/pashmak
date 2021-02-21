@@ -165,6 +165,7 @@ class Program(helpers.Helpers):
                     return self.raise_error('FileError', str(ex), op)
 
             self.exec_func(commands, False)
+        return self.get_mem()
 
     def set_commands(self, commands: list):
         """ Set commands list """
