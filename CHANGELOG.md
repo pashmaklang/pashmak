@@ -1,5 +1,13 @@
 # Pashmak Changelog
 
+## next release
+
+#### Bug Fixes
+- Fixed `typeof()` bug when checking type of a object from a class
+
+#### Changes
+- Changed string of classes from default to `<class 'NameOfClass'>`
+
 ## 0.7.2 (2021-2-16)
 
 #### New Features

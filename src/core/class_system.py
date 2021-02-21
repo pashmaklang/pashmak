@@ -41,6 +41,9 @@ class Class:
         self.__inheritance_tree__ = []
         self.__classname__ = name
 
+    def __str__(self):
+        return "<class '" + self.__classname__ + "'>"
+
     def __call__(self, *args, **kwargs):
         """ Make new object from class """
         from .current_prog import current_prog
@@ -50,7 +53,7 @@ class Class:
             the_props.append(current_prog.classes[item].__props__)
             the_methods.append(current_prog.classes[item].__methods__)
         class_copy = ClassObject(copy.deepcopy(the_props), copy.deepcopy(the_methods))
-        class_copy.__theclass__ = copy.deepcopy(self)
+        class_copy.__theclass__ = self
         class_copy.__name__
         class_copy.__inheritance_tree__ = self.__inheritance_tree__
         tmp_is_in_class = False
