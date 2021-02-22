@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.7.3 (2021-2-22)
 
 #### Bug Fixes
 - Fixed `typeof()` bug when checking type of a object from a class (GH-108)
