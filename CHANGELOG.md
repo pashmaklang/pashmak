@@ -6,7 +6,7 @@
 - Renamed `section` command to `label`, still `section` works and is backward compatible (GH-110)
 - Some optimizations in builtin modules and program bootstrap speed (GH-111)
 
-## (0.7.x) next release
+## 0.7.4 (2021-02-24)
 
 #### Changes
 - Changed `-` to `<stdin>` as file name while reading code from stdin
