@@ -67,7 +67,7 @@ while $i < len($keys)
     $new_module_content = $modules[$k]->replace('\n\n', '\n')
     $new_module_content = $new_module_content->replace('\n\n', '\n')
     $new_module_content = $new_module_content->strip()
-    $pycode = $pycode + '\nmodules["' + $k + '"] = ' + repr($new_module_content)
+    $pycode = $pycode + '\nmodules["' + $k + '"] = ' + repr(parser.parse($new_module_content, filepath='@' + $k, no_random=True))
 
     $i = $i + 1
 endwhile

@@ -70,9 +70,9 @@ func init()
             json.loads($raw_post)
             $is_json = true
         endtry
-        goto after_web_init_check_json_error; section web_init_check_json_error
+        goto after_web_init_check_json_error; label web_init_check_json_error
             $is_json = false
-        section after_web_init_check_json_error
+        label after_web_init_check_json_error
 
         if $is_json
             $post = json.loads($raw_post)

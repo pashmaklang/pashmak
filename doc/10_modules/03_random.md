@@ -35,3 +35,11 @@ import @random
 $rand = random.random()
 println($rand)
 ```
+
+### random.choice
+This function gets a list and returns a random item from that list:
+
+```bash
+import @random
+println random.choice([1, 2, 3])
+```

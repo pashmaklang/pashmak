@@ -22,7 +22,7 @@
 
 namespace web; namespace server
     class WebServer
-        func __init__(str $host, int $port=8000)
+        func __init__(string $host, int $port=8000)
             $this->host = $host
             $this->port = $port
 
@@ -111,7 +111,7 @@ if $__ismain__
     endfunc
 
     # a handler for POST and GET methods
-    func the_handler($handler, str $request_method)
+    func the_handler($handler, string $request_method)
         $path = str($handler->path)
         $path = $path->split('?', 1)
         $query_string = ''
@@ -225,13 +225,13 @@ if $__ismain__
                 $content = $f->read()
                 $f->read()
             endtry
-            goto after_handle_file_error; section handle_file_error
+            goto after_handle_file_error; label handle_file_error
                 $handler->send_response(403)
                 $handler->send_header("Content-type", "text/html")
                 $handler->end_headers()
                 $handler->wfile->write(bytes('403 - Access Denied', "utf-8"))
                 return
-            section after_handle_file_error
+            label after_handle_file_error
 
             $handler->send_response(200)
             if $mime == null

@@ -37,34 +37,34 @@ class BuiltinFunctions:
             self.raise_error('SyntaxError', 'unexpected "endfunc" when function block is not opened', op)
 
     def run_goto(self, op: dict):
-        """ Changes program current step to a specify section """
-        self.require_one_argument(op, 'goto function requires section name argument')
+        """ Changes program current step to a specify label """
+        self.require_one_argument(op, 'goto function requires label name argument')
         arg = op['args'][0]
         try:
-            section_index = self.sections[arg]
+            label_index = self.labels[arg]
         except KeyError:
-            return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
-        self.frames[-1]['current_step'] = section_index-1
+            return self.raise_error('LabelError', 'undefined label "' + str(arg) + '"', op)
+        self.frames[-1]['current_step'] = label_index-1
 
     def run_gotoif(self, op: dict):
-        """ Changes program current step to a specify section IF mem is True """
-        self.require_one_argument(op, 'gotoif function requires section name argument')
+        """ Changes program current step to a specify label IF mem is True """
+        self.require_one_argument(op, 'gotoif function requires label name argument')
         arg = op['args'][0]
         try:
-            section_index = self.sections[arg]
+            label_index = self.labels[arg]
         except KeyError:
-            return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
+            return self.raise_error('LabelError', 'undefined label "' + str(arg) + '"', op)
         if self.mem:
-            self.frames[-1]['current_step'] = section_index-1
+            self.frames[-1]['current_step'] = label_index-1
 
     def run_try(self, op: dict):
         """ Starts the try-endtry block """
-        self.require_one_argument(op, 'try command requires section name argument')
+        self.require_one_argument(op, 'try command requires label name argument')
         arg = op['args'][0]
         try:
-            self.sections[arg]
+            self.labels[arg]
         except KeyError:
-            return self.raise_error('SectionError', 'undefined section "' + str(arg) + '"', op)
+            return self.raise_error('LabelError', 'undefined label "' + str(arg) + '"', op)
         self.try_endtry.append(arg)
 
     def run_endtry(self, op: dict):
@@ -78,7 +78,7 @@ class BuiltinFunctions:
         """ Starts the namespace block """
         self.require_one_argument(op, 'namespace function requires namespace argument')
         arg = op['args'][0]
-        for ch in parser.literals + '.':
+        for ch in lexer.literals + '.':
             if ch in arg:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op
@@ -129,7 +129,7 @@ class BuiltinFunctions:
         if len(arg) > 1:
             parent = arg[1].strip()
         arg = arg[0].strip()
-        for ch in parser.literals + '.':
+        for ch in lexer.literals + '.':
             if ch in arg:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op
@@ -192,7 +192,7 @@ class BuiltinFunctions:
         else:
             arg = tmp[0]
 
-        for ch in parser.literals + '.':
+        for ch in lexer.literals + '.':
             if ch in arg:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op

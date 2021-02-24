@@ -25,7 +25,7 @@ typed arguments with `|` works
 
 --file--
 
-func hello(int|str $a)
+func hello(int|string $a)
     println($a)
 endfunc
 

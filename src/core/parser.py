@@ -24,9 +24,11 @@
 
 import random
 import time
-from .lexer import literals, parse_op, parse_string
+from .lexer import parse_op, parse_string
 
-def parse(content: str, filepath='<system>', only_parse=False) -> list:
+rand_counter = 0
+
+def parse(content: str, filepath='<system>', only_parse=False, no_random=False) -> list:
     """ Parse code from text and return list of commands
 
     The main parser function.
@@ -35,6 +37,7 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
         content(str): The code you want to parse
         filepath(str): The file path you loaded file from
         only_parse(bool): if is True, do not parses `if` statement(default is False)
+        no_random(bool): do not generate random names for if sections
 
     Return:
         Returns a list:
@@ -107,8 +110,6 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
             else:
                 new_lines[-1] += line
                 new_lines.append('')
-        else:
-            new_lines.append(line)
     lines = new_lines
 
     line_counter = 1
@@ -151,7 +152,7 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
                 op = parse_op(op)
                 op['line_number'] = line_counter
                 op['file_path'] = filepath
-                if op['command'] == 'section' and only_parse == False:
+                if op['command'] == 'label' and only_parse == False:
                     commands.append(parse_op('pass'))
                 commands.append(op)
         line_counter += 1
@@ -167,7 +168,13 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
         try:
             if commands[i]['command'] == 'if':
                 # init new if block
-                open_ifs.append('tmpsectionif' + str(random.random()).replace('.', '') + str(time.time()).replace('.', '') + '_')
+                if no_random:
+                    global rand_counter
+                    rand_name = str(rand_counter) + '_'
+                    rand_counter += 1
+                else:
+                    rand_name = str(random.random()).replace('.', '') + str(time.time()).replace('.', '') + '_'
+                open_ifs.append('tmplabelif' + rand_name)
                 open_ifs_counters.append(2)
 
                 commands.insert(i+1, parse_op('mem not (' + commands[i]['args_str'] + ')', file_path='<system>', line_number=i))
@@ -177,13 +184,13 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
                 if commands[i]['command'] == 'else':
                     cond = 'True'
                 commands.insert(i+1, parse_op('goto ' + open_ifs[-1] + 'end', file_path='<system>', line_number=i))
-                commands.insert(i+2, parse_op('section ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
+                commands.insert(i+2, parse_op('label ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
                 commands.insert(i+3, parse_op('mem not (' + cond + ')', file_path='<system>', line_number=i))
                 commands.insert(i+4, parse_op('gotoif ' + open_ifs[-1] + str(open_ifs_counters[-1]+1), file_path='<system>', line_number=i))
                 open_ifs_counters[-1] += 1
             elif commands[i]['command'] == 'endif':
-                commands.insert(i+1, parse_op('section ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
-                commands.insert(i+2, parse_op('section ' + open_ifs[-1] + 'end', file_path='<system>', line_number=i))
+                commands.insert(i+1, parse_op('label ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
+                commands.insert(i+2, parse_op('label ' + open_ifs[-1] + 'end', file_path='<system>', line_number=i))
                 open_ifs.pop()
                 open_ifs_counters.pop()
         except:

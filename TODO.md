@@ -1,3 +1,3 @@
-# TODO
+# TODO (for 0.8)
 
-> Nothing todo
+- [ ] Some optimizations in lexer and parser

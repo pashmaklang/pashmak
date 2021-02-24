@@ -22,43 +22,43 @@
 #########################################################################
 
 ns string
-	func string::concat(str $a, str $b)
+	func string::concat(string $a, string $b)
 		return $a + $b
 	endfunc
 
-	func string::remove_last(str $str)
+	func string::remove_last(string $str)
 		return $str[:-1]
 	endfunc
 
-	func string::remove_first(str $str)
+	func string::remove_first(string $str)
 		return $str[1:]
 	endfunc
 
-	func string::add_last(str $str, str $new)
+	func string::add_last(string $str, string $new)
 		return $str + $new
 	endfunc
 
-	func string::add_first(str $str, str $new)
+	func string::add_first(string $str, string $new)
 		return $new + $str
 	endfunc
 
-	func int::length(str $str)
+	func int::length(string $str)
 		return len($str)
 	endfunc
 
-	func string::cut(str $str, int $a, int $b)
+	func string::cut(string $str, int $a, int $b)
 		return $str[$a:$b]
 	endfunc
 
-	func string::upcase(str $str)
+	func string::upcase(string $str)
 		return $str->upper()
 	endfunc
 
-	func string::lowcase(str $str)
+	func string::lowcase(string $str)
 		return $str->lower()
 	endfunc
 
-	func string::reverse(str $str)
+	func string::reverse(string $str)
 		return $str[::-1]
 	endfunc
 

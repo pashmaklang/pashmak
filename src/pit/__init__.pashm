@@ -21,18 +21,18 @@
 #########################################################################
 
 namespace pit
-	func include(str $path, dict $htmldata={})
+	func include(string $path, dict $htmldata={})
 		run_file($path, True, $htmldata)
 	endfunc
 
-	func run_file(str $path, bool $realtime_run=true, dict $htmldata={})
+	func run_file(string $path, bool $realtime_run=true, dict $htmldata={})
 		$f = fopen($path, 'r')
 		$content = $f->read()
 		$f->close()
 		return run($content, $realtime_run, $path, $htmldata)
 	endfunc
 
-	func run(str $content, bool $realtime_run=false, str $path=null, dict $htmldata={})
+	func run(string $content, bool $realtime_run=false, string $path=null, dict $htmldata={})
 		$__htmldir__ = $__dir__
 		$__htmlfile__ = $__htmldir__ + '/-'
 		$content = $content->split('\n', 1)

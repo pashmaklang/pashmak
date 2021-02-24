@@ -7,7 +7,7 @@ This script gets the file name that user want to run. Then, loads content of thi
 
 ##### NOTE: actually, `src/pashmak.py` uses `Jit` to load and parse the file, but you learn about it in the next parts.
 
-The parser, gets the code as string. Splits the lines by `\n` and `;`(using new line and `;` for seprating operations is not different). Then, handles mutliline syntax and mixes that operations writen in mutliple lines in one line. Then, gives the lines one by one to the lexer(`src/core/lexer.py`'s `parse_op` function). Lexer splits some parts of the code and returns a `dict`. Then, parser makes ready a list from `dict`s. Also does something else on the output list(for example, converts `if..elif..else` statements to `section` system).
+The parser, gets the code as string. Splits the lines by `\n` and `;`(using new line and `;` for seprating operations is not different). Then, handles mutliline syntax and mixes that operations writen in mutliple lines in one line. Then, gives the lines one by one to the lexer(`src/core/lexer.py`'s `parse_op` function). Lexer splits some parts of the code and returns a `dict`. Then, parser makes ready a list from `dict`s. Also does something else on the output list(for example, converts `if..elif..else` statements to `label` system).
 
 Finally, parser returns the parsed code.
 

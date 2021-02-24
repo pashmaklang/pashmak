@@ -57,7 +57,7 @@ class Program(helpers.Helpers):
             "mem": Function(name='mem'), # mem is a empty function just for save mem in code
             "rmem": Function(name='rmem'),
         } # declared functions <function-name>:[<list-of-body-commands>]
-        self.sections = {} # list of declared sections <section-name>:<index-of-command-to-jump>
+        self.labels = {} # list of declared label <label-name>:<index-of-command-to-jump>
         self.classes = {} # list of declared classes
         self.imported_files = [] # list of imported files
         self.mem = None # memory temp value
@@ -119,7 +119,7 @@ class Program(helpers.Helpers):
                     if not is_currently_imported:
                         try:
                             # search modules from builtin modules
-                            commands = parser.parse('$__ismain__ = ' + str(ismain_default) + '\n' + modules.modules[module_name] + '\n$__ismain__ = ' + str(self.get_var('__ismain__')) + '\n', filepath='@' + module_name)
+                            commands = [parser.parse('$__ismain__ = ' + str(ismain_default), filepath='@' + module_name)[0], *modules.modules[module_name], parser.parse('$__ismain__ = ' + str(self.get_var('__ismain__')), filepath='@' + module_name)[0]]
                         except KeyError:
                             # find modules from path
                             commands = False
@@ -165,6 +165,7 @@ class Program(helpers.Helpers):
                     return self.raise_error('FileError', str(ex), op)
 
             self.exec_func(commands, False)
+        return self.get_mem()
 
     def set_commands(self, commands: list):
         """ Set commands list """
@@ -188,9 +189,9 @@ class Program(helpers.Helpers):
             op = self.frames[-1]['commands'][self.frames[-1]['current_step']]
         # check is in try
         if self.try_endtry:
-            section_index = self.try_endtry[-1]
+            label_index = self.try_endtry[-1]
             self.try_endtry.pop()
-            new_step = self.sections[str(section_index)]
+            new_step = self.labels[str(label_index)]
             while True:
                 try:
                     if self.frames[-1]['commands'][new_step-1]['command'] == 'pass':
@@ -510,14 +511,14 @@ class Program(helpers.Helpers):
         is_in_func = False
         self.frames[-1]['current_step'] = 0
 
-        # load the sections
+        # load the labels
         i = 0
         while i < len(self.frames[-1]['commands']):
             current_op = self.frames[-1]['commands'][i]
-            if current_op['command'] == 'section':
+            if current_op['command'] == 'label':
                 if not is_in_func:
                     arg = current_op['args'][0]
-                    self.sections[arg] = i+1
+                    self.labels[arg] = i+1
                     self.frames[-1]['commands'][i] = parser.parse('pass', filepath='<system>')[0]
             elif current_op['command'] == 'func':
                 is_in_func = True
@@ -548,8 +549,7 @@ class Program(helpers.Helpers):
             self.frames.pop()
         else:
             # run shutdown events
-            for ev in self.shutdown_event:
-                ev()
+            self.run_shutdown_events()
 
     def start(self):
         """ Start running the program """

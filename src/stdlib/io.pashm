@@ -107,7 +107,7 @@ endfunc
 @doc """\
 Reads a input from user from stdin.\
 """
-func str::read(string $message='')
+func string::read(string $message='')
     print($message)
     python("self.io_read()")
 endfunc

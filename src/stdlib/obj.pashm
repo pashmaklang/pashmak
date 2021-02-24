@@ -27,7 +27,7 @@ class Object
     func __init__()
     endfunc
 
-    func str::__str__()
+    func string::__str__()
         return '[PashmakObject name="' + $this->__name__ + '"]'
     endfunc
 

@@ -24,7 +24,7 @@ Means, `self.functions['func_name']()` runs the function. in the Eval process, f
 
 Function object properties:
 - `body`: Body of the function as a list
-- `args`: Arguments of function as a list: `[['$name'], ['str $msg'], ['$age', '30(default)']]`
+- `args`: Arguments of function as a list: `[['$name'], ['string $msg'], ['$age', '30(default)']]`
 
 ## Classes
 The class is exactly like function. They are stored at `self.classes`, will be handled by eval, and the code is in `src/core/class_system.py`.

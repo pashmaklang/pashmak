@@ -60,6 +60,11 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
     op_parts.pop(0)
     op['args_str'] = ''
     op['args'] = []
+
+    # handle backward compatiblity for `section` command
+    if op['command'] == 'section':
+        op['command'] = 'label'
+
     if op['command'] in ['import', 'import_once', 'import_run', 'import_run_once']:
         new_op_parts = []
         i = 0

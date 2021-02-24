@@ -39,7 +39,7 @@ output:
 10
 ```
 
-Also you learned about loops in the **Sections** part. The `while` loop makes the syntax easier.
+Also you learned about loops in the **labels** part. The `while` loop makes the syntax easier.
 
 Structure of while loop:
 

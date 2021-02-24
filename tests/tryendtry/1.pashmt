@@ -30,16 +30,16 @@ endtry
 
 goto 20
 
-section 10
+label 10
 
 $ex = ^
 print $ex->type + ':' + $ex->message
 goto 30
 
-section 20
+label 20
 
 print 'without error'
 
-section 30;
+label 30;
 --output--
 "NameError:name 'mmdgfgdhgfhjh' is not defined"

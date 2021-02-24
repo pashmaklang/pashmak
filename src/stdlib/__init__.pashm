@@ -90,15 +90,22 @@ endfunc
 Gets a object/variable and returns type of that.\
 """
 func typeof(*$obj)
-    python("self.mem = type(self.get_var('obj'))")
+    $type = python("self.mem = type(self.get_var('obj'))")
+
+    if $type is ClassObject
+        $type = $obj->__theclass__->__name__
+        $type = python('self.mem = self.classes[self.get_var("type")]')
+    endif
+
+    return $type
 endfunc
 
 @doc """\
 Runs a system shell command and returns exit code.\n\
 Gets command as string and returns exit code as int.\
 """
-func system($cmd)
-    python("self.mem = os.system(self.get_var('cmd'))")
+func int::system(string $cmd)
+    return py_load_module('os')->system($cmd)
 endfunc
 
 @doc """\
@@ -109,6 +116,10 @@ func py_load_file(string $path)
 	python("import importlib.util; spec = importlib.util.spec_from_file_location('pyloadedfile', self.get_var('path')); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); self.mem = m")
 endfunc
 
+@doc """\
+Loads a Python standard module. \
+Gets module name as string.\
+"""
 func py_load_module(string $name)
     return python("import " + $name + "; self.mem = " + $name)
 endfunc
@@ -116,7 +127,7 @@ endfunc
 @doc """\
 Returns current namespace as string.\
 """
-func str::__namespace__()
+func string::__namespace__()
     return python("self.mem = self.current_namespace()")
 endfunc
 

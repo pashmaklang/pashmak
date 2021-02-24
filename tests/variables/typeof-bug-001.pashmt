@@ -1,5 +1,5 @@
 #
-# error3.pashmt
+# typeof-bug-001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,8 +21,30 @@
 #########################################################################
 
 --test--
-section system raises error while trying to gotoif not founded section
+typeof() will return class for objects
+
 --file--
-gotoif not_found
---with-error--
-'SectionError'
+
+class Person
+endclass
+
+$p = Person()
+
+println typeof('hello')
+println typeof('hello') is string
+println typeof(10)
+println typeof(10) is int
+
+println typeof($p)
+println typeof($p) is Person
+println typeof(clone($p)) is Person
+
+--output--
+"""<class 'str'>
+True
+<class 'int'>
+True
+<class 'Person'>
+True
+True
+"""

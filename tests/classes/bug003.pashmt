@@ -31,9 +31,9 @@ class Person
 			println($this)
 		endtry
 
-		goto after_error; section the_error
+		goto after_error; label the_error
 			println('This not exists')
-		section after_error
+		label after_error
 	endfunc
 endclass
 

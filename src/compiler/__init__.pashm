@@ -29,7 +29,7 @@ Example:\
     println($mixer->total_content)\
 "
 class Mixer
-    func __init__(str $path)
+    func __init__(string $path)
         $this->total_content = ''
         $this->imported_files = []
         $this->last_is_main = 'True'
@@ -54,7 +54,7 @@ class Mixer
     \n\
     This method is called recursively\
     "
-    func crawl(str $path)
+    func crawl(string $path)
         $path = os.path.abspath($path)
 
 	    if os.path.isdir($path)
@@ -80,8 +80,8 @@ class Mixer
                     $import_cmd_arg = python('self.mem = self.eval(' + repr($parsed_code[$i]['args_str']) + ')')
                     $__dir__ = $__old_dir__
                     $__file__ = $__old_file__
-                endtry; goto after_error; section error
-                section after_error
+                endtry; goto after_error; label error
+                label after_error
                 if $import_cmd_arg != False
                     if typeof($import_cmd_arg) != tuple
                         $import_cmd_arg = $import_cmd_arg,

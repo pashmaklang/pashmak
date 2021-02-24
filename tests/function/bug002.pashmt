@@ -25,7 +25,7 @@ function argument null value bug while type is defined is fixed
 
 --file--
 
-func hello(str $name, str $family=null, int $age = 100)
+func hello(string $name, string $family=null, int $age = 100)
 	println $name, $family, $age
 endfunc
 

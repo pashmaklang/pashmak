@@ -31,11 +31,9 @@ Also this class extends `builtin_functions.BuiltinFunctions`.
 Then, all of methods in `builtin_functions.BuiltinFunctions` and `helpers.Helpers`,
 will be accessible in `program.Program`.
 """
-
-import os
 import sys
 from sys import exit
-from . import builtin_functions, modules, parser
+from . import builtin_functions, parser
 
 class VariableError(Exception):
     pass
@@ -154,8 +152,24 @@ class Helpers(builtin_functions.BuiltinFunctions):
             self.read_data.pop(0)
         self.mem = readed_data
 
+    def run_shutdown_events(self):
+        """ Runs the shutdown events """
+        try:
+            self.shutdown_events_done
+            return
+        except:
+            pass
+
+        # run shutdown events
+        for ev in self.shutdown_event:
+            ev()
+
+        self.shutdown_events_done = True
+
     def exit_program(self, exit_code):
         """ Exits the program """
+        self.run_shutdown_events()
+
         if not self.is_test:
             exit(exit_code)
         else:

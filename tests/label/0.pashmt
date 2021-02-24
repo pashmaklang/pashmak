@@ -1,5 +1,5 @@
 #
-# error2.pashmt
+# 0.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,8 +21,12 @@
 #########################################################################
 
 --test--
-section system raises error while trying to goto not founded section
+label system is working as If structure
 --file--
-goto not_found
---with-error--
-'SectionError'
+println 'before start'
+goto 10
+println 'it will not show'
+label 10
+println 'this is end'
+--output--
+'before start\nthis is end\n'

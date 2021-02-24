@@ -1,5 +1,5 @@
 #
-# error3.pashmt
+# 2-backward-compatible.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,8 +21,25 @@
 #########################################################################
 
 --test--
-try command raises error when argment label is not found
+command `section` still works
+
 --file--
-try somelabel; gfdhghgfhf; endtry
---with-error--
-'LabelError'
+
+$i = 0
+section loop
+	println $i
+	$i = $i + 1
+mem $i < 10; gotoif loop
+
+--output--
+"""0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+"""

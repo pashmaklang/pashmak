@@ -22,23 +22,23 @@
 
 namespace time
     func float::time()
-        return python("self.mem = time.time()")
+        return py_load_module('time')->time()
     endfunc
 
-    func sleep(float $time_to_sleep)
-        python("time.sleep(self.get_var('time_to_sleep'))")
+    func sleep(float|int $time_to_sleep)
+        py_load_module('time')->sleep($time_to_sleep)
     endfunc
 
     func ctime()
-        return python("self.mem = time.ctime()")
+        return py_load_module('time')->ctime()
     endfunc
 
     func gmtime()
-        return python("self.mem = time.gmtime()")
+        return py_load_module('time')->gmtime()
     endfunc
 
     func localtime()
-        return python("self.mem = time.localtime()")
+        return py_load_module('time')->localtime()
     endfunc
 endnamespace
 

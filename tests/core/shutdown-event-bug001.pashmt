@@ -1,5 +1,5 @@
 #
-# error3.pashmt
+# shutdown-event-bug001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,8 +21,17 @@
 #########################################################################
 
 --test--
-try command raises error when argment label is not found
+shutdown events will be called while using exit()
+
 --file--
-try somelabel; gfdhghgfhf; endtry
---with-error--
-'LabelError'
+
+func bye()
+    println 'bye'
+endfunc
+
+register_shutdown(bye)
+
+exit()
+
+--output--
+"bye\n"

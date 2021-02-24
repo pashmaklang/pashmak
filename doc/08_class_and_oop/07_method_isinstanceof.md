@@ -81,7 +81,7 @@ For example:
 
 ```bash
 class Person
-    func __init__(str $name)
+    func __init__(string $name)
         $this->name = $name
     endfunc
 endclass

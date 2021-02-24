@@ -57,14 +57,22 @@ class TestCore:
         ''' Enable program error rendering '''
         self.is_test = False
 
-    def run_without_error(self, script_content: str, read_inputs=[], args=[], want_argv=False, stop_after_error=True) -> dict:
+    def run_without_error(self, script_content: str, read_inputs=None, args=None, want_argv=False, stop_after_error=True) -> dict:
         ''' Runs a script and auto assert without error '''
+        if read_inputs is None:
+            read_inputs = []
+        if args is None:
+            args = []
         prog = self.run_script(script_content, read_inputs, args, want_argv, stop_after_error)
         self.assert_has_not_error(prog)
         return prog
 
-    def run_script(self, script_content: str, read_inputs=[], args=[], want_argv=False, stop_after_error=True) -> dict:
+    def run_script(self, script_content: str, read_inputs=None, args=None, want_argv=False, stop_after_error=True) -> dict:
         ''' Runs a script and returns result '''
+        if read_inputs is None:
+            read_inputs = []
+        if args is None:
+            args = []
         script_commands = parser.parse(script_content, filepath='<test>')
         prog = program.Program(is_test=self.is_test, args=args)
         prog.stop_after_error = stop_after_error
