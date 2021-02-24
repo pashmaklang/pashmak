@@ -4,6 +4,7 @@
 
 #### Changes
 - Renamed `section-goto` system to `label-goto` (GH-110)
+- A big optimization in builtin modules and program bootstrap speed
 
 ## 0.7.3 (2021-2-22)
 
