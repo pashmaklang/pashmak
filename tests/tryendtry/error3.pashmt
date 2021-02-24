@@ -21,8 +21,8 @@
 #########################################################################
 
 --test--
-try command raises error when argment section is not found
+try command raises error when argment label is not found
 --file--
-try somesection; gfdhghgfhf; endtry
+try somelabel; gfdhghgfhf; endtry
 --with-error--
-'SectionError'
+'LabelError'

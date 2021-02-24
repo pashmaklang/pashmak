@@ -21,12 +21,12 @@
 #########################################################################
 
 --test--
-section system is working as If structure
+label system is working as If structure
 --file--
 println 'before start'
 goto 10
 println 'it will not show'
-section 10
+label 10
 println 'this is end'
 --output--
 'before start\nthis is end\n'

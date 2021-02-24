@@ -41,14 +41,14 @@ endtry
 
 goto after_error
 
-section handle_error
+label handle_error
 
 println('some errors raised')
 
-section after_error
+label after_error
 ```
 
-when you write code between `try <section-name> ... endtry`, errors will not raised in them and if an error is raised, that section where passed to try command will run.
+when you write code between `try <label-name> ... endtry`, errors will not raised in them and if an error is raised, that label where passed to try command will run.
 actually, we say to the Pashmak to don't show error to user and do that thing I'm saying you instead of default error showing.
 
 ### how to access raised error data?
@@ -62,12 +62,12 @@ endtry
 
 goto after_error
 
-section handle_error
+label handle_error
 
 $ex = ^ # copy mem (^) to $ex variable (this includes information about raised error)
 println($ex) # output: VariableError: undefined variable $somevar
 
-section after_error
+label after_error
 ```
 
 The raised error data has more properties. This is a [Class object](#classes). You will learn about classes in next sections.
@@ -77,7 +77,7 @@ try error
     gfgdhf
 endtry
 
-section error
+label error
 
 $ex = ^ # raised error
 println($ex->type) # output: VariableError

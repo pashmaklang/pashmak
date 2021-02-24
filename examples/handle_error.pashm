@@ -26,6 +26,6 @@ try handle_error
     println('B')
 endtry
 
-goto after_handle_error; section handle_error
+goto after_handle_error; label handle_error
     println('the error!')
-section after_handle_error
+label after_handle_error

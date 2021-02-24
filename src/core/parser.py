@@ -149,7 +149,7 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
                 op = parse_op(op)
                 op['line_number'] = line_counter
                 op['file_path'] = filepath
-                if op['command'] == 'section' and only_parse == False:
+                if op['command'] == 'label' and only_parse == False:
                     commands.append(parse_op('pass'))
                 commands.append(op)
         line_counter += 1
@@ -165,7 +165,7 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
         try:
             if commands[i]['command'] == 'if':
                 # init new if block
-                open_ifs.append('tmpsectionif' + str(random.random()).replace('.', '') + str(time.time()).replace('.', '') + '_')
+                open_ifs.append('tmplabelif' + str(random.random()).replace('.', '') + str(time.time()).replace('.', '') + '_')
                 open_ifs_counters.append(2)
 
                 commands.insert(i+1, parse_op('mem not (' + commands[i]['args_str'] + ')', file_path='<system>', line_number=i))
@@ -175,13 +175,13 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
                 if commands[i]['command'] == 'else':
                     cond = 'True'
                 commands.insert(i+1, parse_op('goto ' + open_ifs[-1] + 'end', file_path='<system>', line_number=i))
-                commands.insert(i+2, parse_op('section ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
+                commands.insert(i+2, parse_op('label ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
                 commands.insert(i+3, parse_op('mem not (' + cond + ')', file_path='<system>', line_number=i))
                 commands.insert(i+4, parse_op('gotoif ' + open_ifs[-1] + str(open_ifs_counters[-1]+1), file_path='<system>', line_number=i))
                 open_ifs_counters[-1] += 1
             elif commands[i]['command'] == 'endif':
-                commands.insert(i+1, parse_op('section ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
-                commands.insert(i+2, parse_op('section ' + open_ifs[-1] + 'end', file_path='<system>', line_number=i))
+                commands.insert(i+1, parse_op('label ' + open_ifs[-1] + str(open_ifs_counters[-1]), file_path='<system>', line_number=i))
+                commands.insert(i+2, parse_op('label ' + open_ifs[-1] + 'end', file_path='<system>', line_number=i))
                 open_ifs.pop()
                 open_ifs_counters.pop()
         except:

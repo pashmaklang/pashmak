@@ -32,10 +32,10 @@ endtry
 
 goto 20
 
-section 10
+label 10
 
 print 'the Error!'
 
-section 20
+label 20
 --output--
 'hello pashmak'
