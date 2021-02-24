@@ -77,6 +77,7 @@ def main():
         filename = sys.argv[1]
 
         if sys.argv[1] == '-':
+            filename = '<stdin>'
             script_content = ''.join(sys.stdin.readlines())
             script_commands = parser.parse(script_content, filepath=filename)
         elif not os.path.isfile(filename):
