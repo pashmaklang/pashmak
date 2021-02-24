@@ -26,7 +26,9 @@ import random
 import time
 from .lexer import parse_op, parse_string
 
-def parse(content: str, filepath='<system>', only_parse=False) -> list:
+rand_counter = 0
+
+def parse(content: str, filepath='<system>', only_parse=False, no_random=False) -> list:
     """ Parse code from text and return list of commands
 
     The main parser function.
@@ -35,6 +37,7 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
         content(str): The code you want to parse
         filepath(str): The file path you loaded file from
         only_parse(bool): if is True, do not parses `if` statement(default is False)
+        no_random(bool): do not generate random names for if sections
 
     Return:
         Returns a list:
@@ -165,7 +168,13 @@ def parse(content: str, filepath='<system>', only_parse=False) -> list:
         try:
             if commands[i]['command'] == 'if':
                 # init new if block
-                open_ifs.append('tmplabelif' + str(random.random()).replace('.', '') + str(time.time()).replace('.', '') + '_')
+                if no_random:
+                    global rand_counter
+                    rand_name = str(rand_counter) + '_'
+                    rand_counter += 1
+                else:
+                    rand_name = str(random.random()).replace('.', '') + str(time.time()).replace('.', '') + '_'
+                open_ifs.append('tmplabelif' + rand_name)
                 open_ifs_counters.append(2)
 
                 commands.insert(i+1, parse_op('mem not (' + commands[i]['args_str'] + ')', file_path='<system>', line_number=i))
