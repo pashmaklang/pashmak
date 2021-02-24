@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## (0.7.x) next release
+## 0.7.4 (2021-02-24)
 
 #### Changes
 - Changed `-` to `<stdin>` as file name while reading code from stdin
