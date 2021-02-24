@@ -28,9 +28,9 @@ try endtry variable error bug is fixed
 try error
 	mem $not
 endtry
-goto after_error; section error
+goto after_error; label error
 	println('error')
-section after_error
+label after_error
 
 --output--
 "error\n"

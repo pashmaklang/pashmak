@@ -21,8 +21,8 @@
 #########################################################################
 
 --test--
-section system raises error while trying to gotoif not founded section
+label system raises error while trying to gotoif not found label
 --file--
 gotoif not_found
 --with-error--
-'SectionError'
+'LabelError'

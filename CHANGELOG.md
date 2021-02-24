@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## next release (0.8)
+
+#### Changes
+- Renamed `section-goto` system to `label-goto` (GH-110)
+
 ## 0.7.3 (2021-2-22)
 
 #### Bug Fixes

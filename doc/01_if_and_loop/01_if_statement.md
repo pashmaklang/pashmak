@@ -1,5 +1,5 @@
 # If elif else statement
-in the previous part, you learned how to use **sections** for creating **Conditions** and **Loops**.
+in the previous part, you learned how to use **labels** for creating **Conditions** and **Loops**.
 but there is a easy way to create **Conditions**, that is **If..elif..else** statement. this system is very easy for creating conditions and handling program flow.
 
 example:

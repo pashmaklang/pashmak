@@ -21,11 +21,11 @@
 #########################################################################
 
 --test--
-section system is working as Loop structure
+label system is working as Loop structure
 --file--
 println 'before start'
 $i = 0
-section 10
+label 10
 print str($i)
 $i = $i + 1
 mem $i < 10; gotoif 10
