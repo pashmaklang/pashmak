@@ -119,7 +119,7 @@ class Program(helpers.Helpers):
                     if not is_currently_imported:
                         try:
                             # search modules from builtin modules
-                            commands = parser.parse('$__ismain__ = ' + str(ismain_default) + '\n' + modules.modules[module_name] + '\n$__ismain__ = ' + str(self.get_var('__ismain__')) + '\n', filepath='@' + module_name)
+                            commands = [parser.parse('$__ismain__ = ' + str(ismain_default), filepath='@' + module_name)[0], *modules.modules[module_name], parser.parse('$__ismain__ = ' + str(self.get_var('__ismain__')), filepath='@' + module_name)[0]]
                         except KeyError:
                             # find modules from path
                             commands = False
