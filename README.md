@@ -32,6 +32,7 @@ Why this programming language is useful? Because:
 - Label and goto system
 - Handling Stdout using `out_*` functions
 - Shutdown event system
+- Builtin debugger
 
 ### Pashmak problems
 

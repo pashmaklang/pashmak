@@ -6,6 +6,9 @@
 - Renamed `section` command to `label`, still `section` works and is backward compatible (GH-110)
 - Some optimizations in builtin modules and program bootstrap speed (GH-111)
 
+#### New Features
+- Added `debug()` and debug system ([read the doc](doc/11_advance/14_debug_system.md)) (GH-112)
+
 ## 0.7.4 (2021-02-24)
 
 #### Changes

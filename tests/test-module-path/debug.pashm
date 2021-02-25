@@ -1,0 +1,4 @@
+define('DEBUG', true)
+$name = 'parsa'
+debug('something')
+println 'hello ' + $name
