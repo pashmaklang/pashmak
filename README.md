@@ -8,12 +8,7 @@ Pashmak scripts have cool and pashmaki syntax.
 
 Pashmak is:
 
-```
-Pashmak = 
-(Python - SpaceSensitiveSyntax) + 
-(Php.Syntax + Perl.Syntax) + 
-MoreFlexibilityAndFeatures
-```
+`Pashmak = (Python - SpaceSensitiveSyntax) + (Php.Syntax + Perl.Syntax) + MoreFlexibilityAndFeatures`
 
 ### Pashmak features
 Why this programming language is useful? Because:
