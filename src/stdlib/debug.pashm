@@ -35,7 +35,11 @@ func debug()
 	endif
 
 	# print the debug message
-	println 'Debug started (' + $tmp_pashmak_debug_message + ') at ' + python('self.mem = self.frames[-3]["commands"][self.frames[-3]["current_step"]]["file_path"]') + ':' + str(python('self.mem = self.frames[-3]["commands"][self.frames[-3]["current_step"]]["line_number"]'))
+	if is_defined('DEBUG_HEADER_TITLE')
+		println DEBUG_HEADER_TITLE
+	else
+		println 'Debug started (' + $tmp_pashmak_debug_message + ') at ' + python('self.mem = self.frames[-3]["commands"][self.frames[-3]["current_step"]]["file_path"]') + ':' + str(python('self.mem = self.frames[-3]["commands"][self.frames[-3]["current_step"]]["line_number"]'))
+	endif
 
 	# start getting commands from user
 	while true
@@ -53,5 +57,7 @@ func debug()
 		section after_tmp_pashmak_debug_error
 	endwhile
 
-	println 'Debug finished.'
+	if not is_defined('DEBUG_HEADER_TITLE')
+		println 'Debug finished.'
+	endif
 endfunc
