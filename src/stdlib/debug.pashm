@@ -1,0 +1,57 @@
+#
+# debug.pashm
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+@doc """\
+Starts the debug shell. \
+Gets a message as string"""
+func debug()
+	$tmp_pashmak_debug_message = str(^)
+
+	# check is debug enabled
+	if not is_defined('DEBUG')
+		return
+	endif
+	if not DEBUG
+		return
+	endif
+
+	# print the debug message
+	println 'Debug started (' + $tmp_pashmak_debug_message + ') at ' + python('self.mem = self.frames[-3]["commands"][self.frames[-3]["current_step"]]["file_path"]') + ':' + str(python('self.mem = self.frames[-3]["commands"][self.frames[-3]["current_step"]]["line_number"]'))
+
+	# start getting commands from user
+	while true
+		$tmp_pashmak_debug_cmd = read('> ')->strip()
+
+		if $tmp_pashmak_debug_cmd == 'n'
+			break
+		endif
+
+		try tmp_pashmak_debug_error
+			eval($tmp_pashmak_debug_cmd)
+		endtry
+		goto after_tmp_pashmak_debug_error; section tmp_pashmak_debug_error
+			println ^->message
+		section after_tmp_pashmak_debug_error
+	endwhile
+
+	println 'Debug finished.'
+endfunc
