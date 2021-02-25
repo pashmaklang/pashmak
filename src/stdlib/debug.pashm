@@ -53,7 +53,8 @@ func debug()
 			eval($tmp_pashmak_debug_cmd)
 		endtry
 		goto after_tmp_pashmak_debug_error; section tmp_pashmak_debug_error
-			println ^->message
+			$tmp_pashmak_debug_ex = ^
+			println $tmp_pashmak_debug_ex->type + ': ' + $tmp_pashmak_debug_ex->message
 		section after_tmp_pashmak_debug_error
 	endwhile
 
