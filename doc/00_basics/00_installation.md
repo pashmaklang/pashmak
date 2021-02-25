@@ -36,12 +36,16 @@ Above commands install latest (development) state of the program.
 Now you can run Interpreter in terminal:
 
 ```bash
-pashmak --info # shows info about Pashmak
-pashmak -v # --version, shows version of Pashmak
-pashmak app.pashm
-pashmak /path/to/script.pashm # runs file
-pashmak - # gets code from stdin and run that
-pashmak -r "<you code...>" # run code from cli arguments with `-r` option
+$ pashmak --info # shows info about Pashmak
+$ pashmak -v # --version, shows version of Pashmak
+$ pashmak app.pashm
+$ pashmak /path/to/script.pashm # runs file
+$ pashmak - # gets code from stdin and run that
+$ pashmak -r "<you code...>" # run code from cli arguments with `-r` option
+
+# interactive shell
+# to run your code in a interactive shell in terminal:
+$ pashmak @shell
 ```
 
 IF YOU DON'T WANT TO INSTALL IT, you can run this with python3 in terminal:

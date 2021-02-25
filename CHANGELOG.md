@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## (8.0-alpha1) next release
+## (8.0-alpha2) next release
 
 #### Changes
 - Renamed `section` command to `label`, still `section` works and is backward compatible (GH-110)
@@ -8,6 +8,7 @@
 
 #### New Features
 - Added `debug()` and debug system ([read the doc](doc/11_advance/14_debug_system.md)) (GH-112)
+- Added interactive builtin shell (command `pashmak @shell`) (GH-113)
 
 ## 0.7.4 (2021-02-24)
 
