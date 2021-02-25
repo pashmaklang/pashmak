@@ -8,6 +8,7 @@
 
 #### New Features
 - Added `debug()` and debug system ([read the doc](doc/11_advance/14_debug_system.md)) (GH-112)
+- Added interactive builtin shell (command `pashmak @shell`)
 
 ## 0.7.4 (2021-02-24)
 
