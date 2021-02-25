@@ -1,5 +1,5 @@
 #
-# version.py
+# 003.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,10 +20,19 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-""" Version of pashmak """
+--test--
+function `debug()` works
 
-# pashmak version
-# while you are releasing new version,
-# you should bump it
-# also this will put version into $sys.pashmakinfo['version']
-version = 'v8.0-alpha1'
+--file--
+
+import $__dir__ + '/tests/test-module-path/debug-1.pashm'
+
+--stdin--
+['println $name', '$name = "new"', 'n']
+
+--output--
+"""Debug started (something) at """ + os.path.abspath("tests/test-module-path/debug.pashm") + """:5
+> parsa
+> > Debug finished.
+hello new
+"""

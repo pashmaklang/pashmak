@@ -1,10 +1,18 @@
 # Pashmak Changelog
 
-## (8.0-alpha0) next release
+## (8.0-alpha1) next release
 
 #### Changes
 - Renamed `section` command to `label`, still `section` works and is backward compatible (GH-110)
 - Some optimizations in builtin modules and program bootstrap speed (GH-111)
+
+#### New Features
+- Added `debug()` and debug system ([read the doc](doc/11_advance/14_debug_system.md)) (GH-112)
+
+## 0.7.4 (2021-02-24)
+
+#### Changes
+- Changed `-` to `<stdin>` as file name while reading code from stdin
 
 ## 0.7.3 (2021-2-22)
 
