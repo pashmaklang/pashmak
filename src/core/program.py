@@ -322,7 +322,10 @@ class Program(helpers.Helpers):
 
     def eval(self, command, only_parse=False, dont_check_vars=False):
         """ Runs eval on command """
-        result = lexer.parse_eval(command)
+        if type(command) == str:
+            result = lexer.parse_eval(command)
+        else:
+            result = command
 
         for i in range(0, len(result)):
             if result[i][0] == 'o':
@@ -439,7 +442,7 @@ class Program(helpers.Helpers):
             parts = parser.split_by_equals(op['strings'])
             if len(parts) <= 1:
                 if '->' in op['str'] or '(' in op['str'] or ')' in op['str']:
-                    self.mem = self.eval(op['strings'])
+                    self.mem = self.eval(op['eval'])
                     return
             varname = parts[0].strip()
             full_varname = varname
@@ -482,7 +485,7 @@ class Program(helpers.Helpers):
         # check function exists
         func_real_name = self.get_func_real_name(op_name)
         if func_real_name == False:
-            self.mem = self.eval(op['strings'])
+            self.mem = self.eval(op['eval'])
             return
         func_body = self.functions[func_real_name]
 
@@ -493,10 +496,10 @@ class Program(helpers.Helpers):
                 # put argument in the mem
                 if op['args_str'] != '' and op['args_str'].strip() != '()':
                     if op['command'] == 'rmem':
-                        self.eval(op['arg_strings'])
+                        self.eval(op['args_eval'])
                         return
                     else:
-                        func_arg = self.eval(op['arg_strings'])
+                        func_arg = self.eval(op['args_eval'])
                 else:
                     func_arg = None
                 self.mem = func_arg

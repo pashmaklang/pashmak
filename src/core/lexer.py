@@ -109,6 +109,8 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
     op['line_number'] = line_number
     op['strings'] = parse_string(op['str'].strip())
     op['arg_strings'] = parse_string(op['args_str'].strip())
+    op['eval'] = parse_eval(op['str'].strip())
+    op['args_eval'] = parse_eval(op['args_str'].strip())
     return op
 
 def parse_string(command: str):
