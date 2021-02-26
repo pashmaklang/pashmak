@@ -320,18 +320,42 @@ class Program(helpers.Helpers):
                     real_name = False
         return real_name
 
-    def eval(self, command, only_parse=False, only_str_parse=False, dont_check_vars=False):
+    def eval(self, command, only_parse=False, dont_check_vars=False):
         """ Runs eval on command """
-        result, vars_to_check = lexer.parse_eval(command, only_str_parse=only_str_parse, self=self)
+        if type(command) == str:
+            result = lexer.parse_eval(command)
+        else:
+            result = command
 
-        if only_str_parse:
-            return result
+        for i in range(0, len(result)):
+            if result[i][0] == 'o':
+                func_name = self.get_func_real_name(result[i][-1])
+                if func_name != False:
+                    result[i][-1] = 'self.functions["' + func_name + '"]'
+                else:
+                    class_name = self.get_class_real_name(result[i][-1])
+                    if class_name != False:
+                        result[i][-1] = 'self.classes["' + class_name + '"]'
+                    else:
+                        try:
+                            self.defines[result[i][-1]]
+                            result[i][-1] = 'self.defines["' + result[i][-1] + '"]'
+                        except:
+                            pass
 
-        for var in vars_to_check:
-            self.variable_required(var)
+        py_op = ''
+        for item in result:
+            if item[0] in ('n', 'o', 'v'):
+                py_op += item[-1] + ' '
+            else:
+                py_op += item[-1]
 
         if only_parse:
-            return result
+            return py_op
+
+        for item in result:
+            if item[0] == 'v':
+                self.variable_required(item[1])
 
         # set aliases
         true = True
@@ -341,7 +365,7 @@ class Program(helpers.Helpers):
         integer = int
         array = list
 
-        return eval(result)
+        return eval(py_op)
 
     def run(self, op: dict):
         """ Run once command """
@@ -415,10 +439,10 @@ class Program(helpers.Helpers):
             is_in_class = False
             if self.current_class:
                 is_in_class = True
-            parts = parser.split_by_equals(op['str'].strip())
+            parts = parser.split_by_equals(op['strings'])
             if len(parts) <= 1:
                 if '->' in op['str'] or '(' in op['str'] or ')' in op['str']:
-                    self.mem = self.eval(op['str'])
+                    self.mem = self.eval(op['eval'])
                     return
             varname = parts[0].strip()
             full_varname = varname
@@ -451,7 +475,7 @@ class Program(helpers.Helpers):
                         self.set_var(varname[1:], value)
             return
 
-        parts = parser.split_by_equals(op['str'].strip())
+        parts = parser.split_by_equals(op['strings'])
         if len(parts) > 1:
             part1 = self.eval(parts[0], only_parse=True)
             part2 = self.eval(parts[1], only_parse=True)
@@ -461,7 +485,7 @@ class Program(helpers.Helpers):
         # check function exists
         func_real_name = self.get_func_real_name(op_name)
         if func_real_name == False:
-            self.mem = self.eval(op['str'])
+            self.mem = self.eval(op['eval'])
             return
         func_body = self.functions[func_real_name]
 
@@ -472,10 +496,10 @@ class Program(helpers.Helpers):
                 # put argument in the mem
                 if op['args_str'] != '' and op['args_str'].strip() != '()':
                     if op['command'] == 'rmem':
-                        self.eval(op['args_str'])
+                        self.eval(op['args_eval'])
                         return
                     else:
-                        func_arg = self.eval(op['args_str'])
+                        func_arg = self.eval(op['args_eval'])
                 else:
                     func_arg = None
                 self.mem = func_arg
@@ -487,7 +511,7 @@ class Program(helpers.Helpers):
                         args_str = '(' + args_str + ')'
                 else:
                     args_str = '()'
-                
+
                 self.mem = self.eval(op['command'] + args_str)
             return
         except Exception as ex:
