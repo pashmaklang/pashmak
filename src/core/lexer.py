@@ -191,16 +191,12 @@ def parse_eval(command: str, self=None, only_str_parse=False):
     if only_str_parse:
         return command_parts, []
 
-    global literals
-
     full_op = ''
-    opened_inline_calls_count = 0
     vars_to_check = []
     for code in command_parts:
         if code[0] == False:
             code = code[1]
             # replace variable names with value of them
-            literals = literals
             code_words = multi_char_split(code, literals)
             for word in code_words:
                 if word:
