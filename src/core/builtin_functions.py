@@ -303,7 +303,6 @@ class BuiltinFunctions:
         """ Breaks the loop """
         tmp_op = dict(op)
         op['args_str'] = 'False'
-        op['args_strings'] = [[False, 'False']]
         op['args_eval'] = [['n', 'False']]
         self.run_while(op)
 

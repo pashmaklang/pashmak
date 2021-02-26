@@ -142,7 +142,6 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain
                             content[0]['str'] = '$__ismain__ = ' + str(ismain_default)
                             content[0]['strings'] = parser.parse_string('$__ismain__ = ' + str(ismain_default))
                             content[0]['args_str'] = '= ' + str(ismain_default)
-                            content[0]['args_strings'] = parser.parse_string('= ' + str(ismain_default))
                             content[0]['args'] = ['=', str(ismain_default)]
                             if len(content) > 1 and self != None:
                                 if content[-1]['str'].startswith('$__ismain__ = '):
