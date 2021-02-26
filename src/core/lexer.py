@@ -107,8 +107,8 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
     op['str'] = op['command'] + ' ' + op['args_str']
     op['file_path'] = file_path
     op['line_number'] = line_number
-    #op['eval'] = parse_eval(op['str'])
-    #op['args_eval'] = parse_eval(op['args_str'])
+    op['strings'] = parse_string(op['str'])
+    op['arg_strings'] = parse_string(op['args_str'])
     return op
 
 def parse_string(command: str):
@@ -183,7 +183,10 @@ def parse_eval(command: str, self=None, only_str_parse=False):
         or
         `some_func($i + 1)` -> `self.functions['some_func'](self.get_var('i') + 1)`
     """
-    command_parts = parse_string(command)
+    if type(command) == str:
+        command_parts = parse_string(command)
+    else:
+        command_parts = command
 
     if only_str_parse:
         return command_parts, []

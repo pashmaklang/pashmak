@@ -418,7 +418,7 @@ class Program(helpers.Helpers):
             parts = parser.split_by_equals(op['str'].strip())
             if len(parts) <= 1:
                 if '->' in op['str'] or '(' in op['str'] or ')' in op['str']:
-                    self.mem = self.eval(op['str'])
+                    self.mem = self.eval(op['strings'])
                     return
             varname = parts[0].strip()
             full_varname = varname
@@ -461,7 +461,7 @@ class Program(helpers.Helpers):
         # check function exists
         func_real_name = self.get_func_real_name(op_name)
         if func_real_name == False:
-            self.mem = self.eval(op['str'])
+            self.mem = self.eval(op['strings'])
             return
         func_body = self.functions[func_real_name]
 
@@ -472,10 +472,10 @@ class Program(helpers.Helpers):
                 # put argument in the mem
                 if op['args_str'] != '' and op['args_str'].strip() != '()':
                     if op['command'] == 'rmem':
-                        self.eval(op['args_str'])
+                        self.eval(op['arg_strings'])
                         return
                     else:
-                        func_arg = self.eval(op['args_str'])
+                        func_arg = self.eval(op['arg_strings'])
                 else:
                     func_arg = None
                 self.mem = func_arg
@@ -487,7 +487,7 @@ class Program(helpers.Helpers):
                         args_str = '(' + args_str + ')'
                 else:
                     args_str = '()'
-                
+
                 self.mem = self.eval(op['command'] + args_str)
             return
         except Exception as ex:

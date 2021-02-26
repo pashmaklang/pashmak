@@ -266,7 +266,7 @@ class BuiltinFunctions:
 
     def run_while(self, op: dict):
         """ The while block start """
-        condition_result = self.eval(op['args_str'])
+        condition_result = self.eval(op['arg_strings'])
         if condition_result:
             return
         # condition is not True, loop should be breaked
@@ -303,6 +303,7 @@ class BuiltinFunctions:
         """ Breaks the loop """
         tmp_op = dict(op)
         op['args_str'] = 'False'
+        op['arg_strings'] = [[True, 'False']]
         self.run_while(op)
 
     def run_continue(self, op: dict):
@@ -311,5 +312,5 @@ class BuiltinFunctions:
 
     def run_atdoc(self, op: dict):
         """ @doc sets last docstring """
-        docstr = str(self.eval(op['args_str'])).strip()
+        docstr = str(self.eval(op['arg_strings'])).strip()
         self.last_docstring = docstr
