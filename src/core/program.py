@@ -320,12 +320,9 @@ class Program(helpers.Helpers):
                     real_name = False
         return real_name
 
-    def eval(self, command, only_parse=False, only_str_parse=False, dont_check_vars=False):
+    def eval(self, command, only_parse=False, dont_check_vars=False):
         """ Runs eval on command """
-        result, vars_to_check = lexer.parse_eval(command, only_str_parse=only_str_parse, self=self)
-
-        if only_str_parse:
-            return result
+        result, vars_to_check = lexer.parse_eval(command, self=self)
 
         for var in vars_to_check:
             self.variable_required(var)

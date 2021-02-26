@@ -168,7 +168,7 @@ def parse_string(command: str):
         i += 1
     return command_parts
 
-def parse_eval(command: str, self=None, only_str_parse=False):
+def parse_eval(command: str, self=None):
     """ This function parses the eval and converts it to the python eval
     
     Args:
@@ -187,9 +187,6 @@ def parse_eval(command: str, self=None, only_str_parse=False):
         command_parts = parse_string(command)
     else:
         command_parts = command
-
-    if only_str_parse:
-        return command_parts, []
 
     full_op = ''
     vars_to_check = []
