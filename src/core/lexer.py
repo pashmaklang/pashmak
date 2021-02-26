@@ -259,16 +259,15 @@ def parse_eval(command: str, self=None):
         full_op += code
     return full_op, vars_to_check
 
-def multi_char_split(string, seprators, count=None):
+def multi_char_split(string, seprators, count=None, keep_seprators=False):
     """ Splits string by multi seprators """
     result = ['']
     i = 0
     for char in string:
-        if char in seprators:
-            if count is None:
-                result.append('')
-            elif i < count:
-                result.append('')
+        if char in seprators and (count is None or i < count):
+            if keep_seprators:
+                result.append(char)
+            result.append('')
             i += 1
         else:
             result[-1] += char
