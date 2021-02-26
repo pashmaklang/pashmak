@@ -322,13 +322,21 @@ class Program(helpers.Helpers):
 
     def eval(self, command, only_parse=False, dont_check_vars=False):
         """ Runs eval on command """
-        result, vars_to_check = lexer.parse_eval(command, self=self)
+        result = lexer.parse_eval(command, self=self)
 
-        for var in vars_to_check:
-            self.variable_required(var)
+        py_op = ''
+        for item in result:
+            if item[0] in ('n', 'f', 'c', 'v'):
+                py_op += item[-1] + ' '
+            else:
+                py_op += item[-1]
 
         if only_parse:
-            return result
+            return py_op
+
+        for item in result:
+            if item[0] == 'v':
+                self.variable_required(item[1])
 
         # set aliases
         true = True
@@ -338,7 +346,7 @@ class Program(helpers.Helpers):
         integer = int
         array = list
 
-        return eval(result)
+        return eval(py_op)
 
     def run(self, op: dict):
         """ Run once command """

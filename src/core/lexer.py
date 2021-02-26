@@ -25,7 +25,7 @@
 import time
 import random
 
-literals = '()+-/*%=}{<>[],: '
+literals = '()+-/*%=}{<>[],:! '
 """ The literal characters """
 
 def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
@@ -188,76 +188,60 @@ def parse_eval(command: str, self=None):
     else:
         command_parts = command
 
-    full_op = ''
-    vars_to_check = []
+    output = []
     for code in command_parts:
         if code[0] == False:
             code = code[1]
             # replace variable names with value of them
-            code_words = multi_char_split(code, literals)
+            code_words = multi_char_split(code, literals, keep_seprators=True)
+            code_words = [w.strip() for w in code_words if w.strip() != '']
+            counter = 0
             for word in code_words:
-                if word:
-                    if word[0] == '$':
-                        vars_to_check.append(word[1:])
-                        code = code.replace('$' + word[1:], 'self.get_var("' + word[1:] + '")', 1)
-                    else:
+                if word in literals:
+                    output.append(['l', word])
+                elif word[0] == '$':
+                    output.append(['v', word[1:], 'self.get_var("' + word[1:] + '")'])
+                else:
+                    try:
+                        tmp = code_words[counter-2:counter]
+                    except:
+                        tmp = []
+                    if tmp == ['-', '>']:
+                        output.append(['n', word])
+                    elif self.get_func_real_name(word) != False:
                         func_real_name = self.get_func_real_name(word)
-                        if func_real_name != False:
-                            tmp_counter = 0
-                            while tmp_counter < len(code):
-                                tmp_index = code.find(word, tmp_counter)
-                                if tmp_index < 0:
-                                    tmp_counter = (+tmp_counter) + 1
-                                else:
-                                    tmp_counter = tmp_index + 1
-                                if code[tmp_index-2:tmp_index] != '->':
-                                    if code[tmp_index-1:tmp_index] in literals:
-                                        if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
-                                            code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.functions["' + func_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
-                                            break
-                        else:
-                            # This is a class
-                            class_real_name = self.get_class_real_name(word)
-                            if class_real_name != False:
-                                tmp_counter = 0
-                                while tmp_counter < len(code):
-                                    tmp_index = code.find(word, tmp_counter)
-                                    if tmp_index < 0:
-                                        tmp_counter = (+tmp_counter) + 1
-                                    else:
-                                        tmp_counter = tmp_index + 1
-                                    if code[tmp_index-2:tmp_index] != '->':
-                                        if code[tmp_index-1:tmp_index] in literals:
-                                            if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
-                                                code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.classes["' + class_real_name + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
-                                                break
-                            else:
-                                try:
-                                    self.defines[word]
-                                    tmp_counter = 0
-                                    while tmp_counter < len(code):
-                                        tmp_index = code.find(word, tmp_counter)
-                                        if tmp_index < 0:
-                                            tmp_counter = (+tmp_counter) + 1
-                                        else:
-                                            tmp_counter = tmp_index + 1
-                                        if code[tmp_index-2:tmp_index] != '->':
-                                            if code[tmp_index-1:tmp_index] in literals:
-                                                if code[tmp_index+len(word):tmp_index+len(word)+1] in literals:
-                                                    code = code.replace(code[tmp_index-2:tmp_index] + word + code[tmp_index+len(word):tmp_index+len(word)+1], code[tmp_index-2:tmp_index] + 'self.defines["' + word + '"]' + code[tmp_index+len(word):tmp_index+len(word)+1], 1)
-                                                    break
-                                except:
-                                    pass
-
-            code = code.replace('->', '.')
-            tmp = '<<<tempstrforxor' + str(time.time()) + str(random.random()) + '>>>'
-            code = code.replace('^^', tmp)
-            code = code.replace('^', 'self.get_mem()')
-            code = code.replace(tmp, '^')
+                        output.append(['f', func_real_name, 'self.functions["' + func_real_name + '"]'])
+                    elif self.get_class_real_name(word) != False:
+                        class_real_name = self.get_class_real_name(word)
+                        output.append(['c', class_real_name, 'self.classes["' + class_real_name + '"]'])
+                    else:
+                        try:
+                            self.defines[word]
+                            output.append(['d', word, 'self.defines["' + word + '"]'])
+                        except:
+                            output.append(['n', word])
+                counter += 1
         else:
-            code = code[1]
-        full_op += code
-    return full_op, vars_to_check
+            output.append(['s', code[1]])
+
+    i = 0
+    while i < len(output):
+        if output[i][-1] == '>':
+            try:
+                if output[i-1:i+1] == [['l', '-'], ['l', '>']]:
+                    output[i-1:i+1] = [['l', '.']]
+                    i -= 1
+            except:
+                pass
+        elif output[i][0] != 's':
+            output[i][-1] = output[i][-1].replace('^', 'self.get_mem()')
+        i += 1
+    # TODO : handle xor
+    #tmp = '<<<tempstrforxor' + str(time.time()) + str(random.random()) + '>>>'
+    #code = code.replace('^^', tmp)
+    #code = code.replace(tmp, '^')
+
+    return output
 
 def multi_char_split(string, seprators, count=None, keep_seprators=False):
     """ Splits string by multi seprators """
