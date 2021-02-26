@@ -168,12 +168,11 @@ def parse_string(command: str):
         i += 1
     return command_parts
 
-def parse_eval(command: str, self=None):
+def parse_eval(command: str):
     """ This function parses the eval and converts it to the python eval
     
     Args:
         command(str): The command
-        self(program.Program): The program object
 
     Return:
         Returns a string from generated python code
@@ -208,18 +207,8 @@ def parse_eval(command: str, self=None):
                         tmp = []
                     if tmp == ['-', '>']:
                         output.append(['n', word])
-                    elif self.get_func_real_name(word) != False:
-                        func_real_name = self.get_func_real_name(word)
-                        output.append(['f', func_real_name, 'self.functions["' + func_real_name + '"]'])
-                    elif self.get_class_real_name(word) != False:
-                        class_real_name = self.get_class_real_name(word)
-                        output.append(['c', class_real_name, 'self.classes["' + class_real_name + '"]'])
                     else:
-                        try:
-                            self.defines[word]
-                            output.append(['d', word, 'self.defines["' + word + '"]'])
-                        except:
-                            output.append(['n', word])
+                        output.append(['o', word])
                 counter += 1
         else:
             output.append(['s', code[1]])

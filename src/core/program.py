@@ -322,11 +322,27 @@ class Program(helpers.Helpers):
 
     def eval(self, command, only_parse=False, dont_check_vars=False):
         """ Runs eval on command """
-        result = lexer.parse_eval(command, self=self)
+        result = lexer.parse_eval(command)
+
+        for i in range(0, len(result)):
+            if result[i][0] == 'o':
+                func_name = self.get_func_real_name(result[i][-1])
+                if func_name != False:
+                    result[i][-1] = 'self.functions["' + func_name + '"]'
+                else:
+                    class_name = self.get_class_real_name(result[i][-1])
+                    if class_name != False:
+                        result[i][-1] = 'self.classes["' + class_name + '"]'
+                    else:
+                        try:
+                            self.defines[result[i][-1]]
+                            result[i][-1] = 'self.defines["' + result[i][-1] + '"]'
+                        except:
+                            pass
 
         py_op = ''
         for item in result:
-            if item[0] in ('n', 'f', 'c', 'v'):
+            if item[0] in ('n', 'o', 'v'):
                 py_op += item[-1] + ' '
             else:
                 py_op += item[-1]
