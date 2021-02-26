@@ -415,7 +415,7 @@ class Program(helpers.Helpers):
             is_in_class = False
             if self.current_class:
                 is_in_class = True
-            parts = parser.split_by_equals(op['str'].strip())
+            parts = parser.split_by_equals(op['strings'])
             if len(parts) <= 1:
                 if '->' in op['str'] or '(' in op['str'] or ')' in op['str']:
                     self.mem = self.eval(op['strings'])
@@ -451,7 +451,7 @@ class Program(helpers.Helpers):
                         self.set_var(varname[1:], value)
             return
 
-        parts = parser.split_by_equals(op['str'].strip())
+        parts = parser.split_by_equals(op['strings'])
         if len(parts) > 1:
             part1 = self.eval(parts[0], only_parse=True)
             part2 = self.eval(parts[1], only_parse=True)
