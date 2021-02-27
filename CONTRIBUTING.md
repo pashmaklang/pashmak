@@ -130,9 +130,18 @@ for example:
 ```markdown
 ## next release
 
+#### New Features
+- List of new features
+- Added x
 - ...
-- fixed bug x
-- added x
+
+#### Changes
+- List of changes
+- Changed x to y
+- ...
+
+#### Bug Fixes
+- Fixed bug x
 - ...
 ```
 
