@@ -216,7 +216,10 @@ def split_by_equals(string: str) -> list:
         If output is a list with 1 item, means this is a not `<a> = <b>`.
         But if yes, first item is `<a>`(before `=`) and second it after `=`.
     """
-    commands_parts = parse_string(string)
+    if type(string) == str:
+        commands_parts = parse_string(string)
+    else:
+        commands_parts = string
     parts = ['']
     i = 0
     block_depth = 0

@@ -15,3 +15,4 @@
 - [Cloning Objects](12_cloning_objects.md)
 - [match()](13_function_match.md)
 - [Debug system and function debug()](14_debug_system.md)
+- [Loading shared objects](15_loading_dll.md)

@@ -196,6 +196,11 @@ func match($value, array[array] $list, $default=null)
     return $default
 endfunc
 
+@doc "Loads a Shared object (DLL) by name as string."
+func load_so(string $name)
+    return py_load_module('ctypes')->CDLL($name)
+endfunc
+
 import @stdlib.obj
 import @stdlib.io
 import @stdlib.func
