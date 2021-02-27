@@ -18,6 +18,7 @@ Strructure:
     "str": "all of command as string",
     "args": ["arguments", "as", "list"], // seprated by ` ` space
     "file_path": "/path/to/file/that/this/line/loaded/from",
+    "strings": ["<output of `parse_string`>"],
     "line_number": 12
 }
 ```
@@ -38,6 +39,7 @@ output:
     "str": "println('hello world')",
     "args": ["('hello", "world')"], // seprated by ` ` space
     "file_path": "/path/to/file/that/this/line/loaded/from",
+    "strings": ["<output of `parse_string`>"],
     "line_number": 12
 }
 ```
@@ -67,17 +69,22 @@ But only in native code and not on strings.
 #### `parse_eval`: Converts the Pashmak eval code Python code
 Args:
 - `command(str)`: The command
-- `self(program.Program)`: The program object
 
 Returns a string from generated python code.
 
 Example:
-- `$name + '.'` -> `self.get_var('name') + '.'`
-- `some_func($i + 1)` -> `self.functions['some_func'](self.get_var('i') + 1)`
+- `$name + '.'` -> `[['v', 'name', 'self.get_var("name")'], ['l', '.'], ['s', "'.'"]]`
+- `some_func($i + 1)` -> `[]`
 
 ```python
-# inside class program.Program
-eval(lexer.parse_eval('$name + '.'', self))
+output = lexer.parse_eval('$name + "."')
+
+py_code = ''
+
+for item in output:
+    py_code += item[-1]
+
+eval(py_code)
 ```
 
 #### `multi_char_split`: Splits by more than 1 character
