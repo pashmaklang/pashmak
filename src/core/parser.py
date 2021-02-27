@@ -102,23 +102,32 @@ def parse(content: str, filepath='<system>', only_parse=False, no_random=False) 
         i += 1
 
     # check \ in end of line again
+    i = 0
     new_lines = ['']
+    empty_lines_counter = []
     for line in lines:
         if line:
             if line[-1] == '\\':
                 new_lines[-1] += line[:-1]
+                empty_lines_counter.append(i)
             else:
                 new_lines[-1] += line
                 new_lines.append('')
+        else:
+            empty_lines_counter.append(i)
+        i += 1
     lines = new_lines
 
     line_counter = 1
     commands = []
     for line in lines:
         # clean line, remove comments from that
+        while empty_lines_counter.count(line_counter-1) > 0:
+            line_counter += empty_lines_counter.count(line_counter-1)
         line = line.strip()
         if line:
             if line[0] == '#':
+                line_counter += 1
                 continue
         line_str_parts = parse_string(line)
         new_line = ''

@@ -227,13 +227,13 @@ class Program(helpers.Helpers):
                 else:
                     tmp_op = frame['commands'][0]
                 print(
-                    '\tin ' + tmp_op['file_path'] + ':' + str(tmp_op['line_number'])\
-                    + ': ' + tmp_op['str']
+                    '  in ' + tmp_op['file_path'] + ':' + str(tmp_op['line_number'])\
+                    + ':\n\t' + tmp_op['str']
                 )
             except KeyError:
                 pass
             last_frame = frame
-        print('\tin ' + op['file_path'] + ':' + str(op['line_number']) + ': ' + op['str'])
+        print('  in ' + op['file_path'] + ':' + str(op['line_number']) + ':\n\t' + op['str'])
         if self.frames[1:]:
             print(error_type + ': ' + message + '.')
         sys.exit(1)

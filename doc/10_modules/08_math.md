@@ -6,7 +6,7 @@ Return the arc cosine of different numbers. Recives a number between `1` and `-1
 ```bash
 import @math
 
-println(math.aocs(0.75))
+println(math.aocs(0.65))
 println(math.aocs(1))
 println(math.aocs(0.134))
 ```
