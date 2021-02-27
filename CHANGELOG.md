@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## (8.0-alpha2) next release
+## (8.0-beta0) next release
 
 #### Changes
 - Renamed `section` command to `label`, still `section` works and is backward compatible (GH-110)
