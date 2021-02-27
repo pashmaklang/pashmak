@@ -12,6 +12,9 @@
 - Added interactive builtin shell (command `pashmak @shell`) (GH-113)
 - Added function `load_so()` for loading shared objects (DLLs), ([read the doc](doc/11_advance/15_loading_dll.md)) (GH-117)
 
+#### Bug Fixes
+- Fixed invalid line number bug in parser and while raising errors (GH-119)
+
 ## 0.7.4 (2021-02-24)
 
 #### Changes
