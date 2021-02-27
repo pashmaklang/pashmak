@@ -218,6 +218,11 @@ class Program(helpers.Helpers):
             return
 
         # render error
+        try:
+            self.defines['WEB_INITED']
+            print('<pre style="background-color: #cdcdcd; padding: 10px; border-radius: 10px;">')
+        except:
+            pass
         print(error_type + ': ' + message + ':')
         last_frame = self.frames[0]
         for frame in self.frames[1:]:
@@ -236,6 +241,11 @@ class Program(helpers.Helpers):
         print('  in ' + op['file_path'] + ':' + str(op['line_number']) + ':\n\t' + op['str'])
         if self.frames[1:]:
             print(error_type + ': ' + message + '.')
+        try:
+            self.defines['WEB_INITED']
+            print('</pre>')
+        except:
+            pass
         sys.exit(1)
 
     def exec_func(self, func_body: list, with_frame=True, default_variables={}):
