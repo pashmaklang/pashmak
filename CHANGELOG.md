@@ -7,7 +7,7 @@
 - Some optimizations in builtin modules and program bootstrap speed (GH-111)
 - Improve base structure of lexer and parser and optimizations in speed (GH-118)
 - Some changes in error rendering style (GH-120)
-- Improve error rendering in web environment
+- Improve error rendering in web environment (GH-121)
 
 #### New Features
 - Added `debug()` and debug system ([read the doc](doc/11_advance/14_debug_system.md)) (GH-112)
