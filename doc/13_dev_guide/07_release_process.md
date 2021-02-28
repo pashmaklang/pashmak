@@ -83,9 +83,7 @@ git flow release finish x.y.z
 Now, new release is ready, push the changes and tags:
 
 ```bash
-git push
-# tags
-git push --tags
+git push --follow-tags
 ```
 
 Now, you can see the new version:
