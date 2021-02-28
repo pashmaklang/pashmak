@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## (0.8-beta2) next release
+## 0.8 (2021-2-28)
 
 #### NOTE: This release is fully backward compatible with `0.7`
 
