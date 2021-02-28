@@ -2,6 +2,8 @@
 
 ## (0.8-beta1) next release
 
+#### NOTE: This release is fully backward compatible with `0.7`
+
 #### New Features
 - Added `debug()` and debug system ([read the doc](doc/11_advance/14_debug_system.md)) (GH-112)
 - Added interactive builtin shell (command `pashmak @shell`) (GH-113)
