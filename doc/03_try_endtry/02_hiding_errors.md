@@ -1,7 +1,7 @@
 # Hiding Errors
 You can hide the error renders in the Pashmak.
 For doing this, you only need to define `HIDE_ERRORS`.
-([read name defining system](doc/11_advance/11_name_defines.md)).
+([read name defining system](/doc/11_advance/11_name_defines.md)).
 
 For example:
 
