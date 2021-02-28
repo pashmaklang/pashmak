@@ -13,6 +13,7 @@
 - Added `debug()` and debug system ([read the doc](doc/11_advance/14_debug_system.md)) (GH-112)
 - Added interactive builtin shell (command `pashmak @shell`) (GH-113)
 - Added function `load_so()` for loading shared objects (DLLs), ([read the doc](doc/11_advance/15_loading_dll.md)) (GH-117)
+- Added error hiding feature ([read the doc](doc/03_try_endtry/02_hiding_errors.md))
 
 #### Bug Fixes
 - Fixed invalid line number bug in parser and while raising errors (GH-119)
