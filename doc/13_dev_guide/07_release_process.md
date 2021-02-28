@@ -73,7 +73,7 @@ make all
 6. Merge the branch
 
 ```bash
-git checkout master && git merge release-x.y.z
+git checkout master && git merge release-x.y.z && git tag vx.y.z
 # OR if you are using git-flow
 git flow release finish x.y.z
 ```
