@@ -1,17 +1,21 @@
 # Pashmak Changelog
 
-## (8.0-beta1) next release
+## (0.8-beta2) next release
 
-#### Changes
-- Renamed `section` command to `label`, still `section` works and is backward compatible (GH-110)
-- Some optimizations in builtin modules and program bootstrap speed (GH-111)
-- Changes in base structure of lexer and parser and optimizations in speed (GH-118)
-- Some changes in error rendering style (GH-120)
+#### NOTE: This release is fully backward compatible with `0.7`
 
 #### New Features
 - Added `debug()` and debug system ([read the doc](doc/11_advance/14_debug_system.md)) (GH-112)
 - Added interactive builtin shell (command `pashmak @shell`) (GH-113)
 - Added function `load_so()` for loading shared objects (DLLs), ([read the doc](doc/11_advance/15_loading_dll.md)) (GH-117)
+- Added error hiding feature ([read the doc](doc/03_try_endtry/02_hiding_errors.md)) (GH-122)
+
+#### Changes
+- Renamed `section` command to `label`, still `section` works and is backward compatible (GH-110)
+- Some optimizations in builtin modules and program bootstrap speed (GH-111)
+- Improve base structure of lexer and parser and optimizations in speed (GH-118)
+- Some changes in error rendering style (GH-120)
+- Improve error rendering in web environment (GH-121)
 
 #### Bug Fixes
 - Fixed invalid line number bug in parser and while raising errors (GH-119)
@@ -23,14 +27,14 @@
 
 ## 0.7.3 (2021-2-22)
 
-#### Bug Fixes
-- Fixed `typeof()` bug when checking type of a object from a class (GH-108)
+#### New Features
+- Handle `return` in importing system by `import()` ([read the doc](doc/05_importing/02_return_value.md)) (GH-109)
 
 #### Changes
 - Changed string of classes from default to `<class 'NameOfClass'>` (GH-108)
 
-#### New Features
-- Handle `return` in importing system by `import()` ([read the doc](doc/05_importing/02_return_value.md)) (GH-109)
+#### Bug Fixes
+- Fixed `typeof()` bug when checking type of a object from a class (GH-108)
 
 ## 0.7.2 (2021-2-16)
 
@@ -132,11 +136,11 @@
 
 ## 0.6.4 (2021-1-10)
 
-#### Bug Fixes
-- Fixed import directory bug (GH-79)
-
 #### New Features
 - Added importing sub directories/files in modules loaded from module path system (GH-80)
+
+#### Bug Fixes
+- Fixed import directory bug (GH-79)
 
 #### Removed
 - Removed cli option `-m|--modules`
