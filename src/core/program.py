@@ -217,35 +217,44 @@ class Program(helpers.Helpers):
                 self.frames[-1]['current_step'] = len(self.frames[-1]['commands'])*2
             return
 
+        # check HIDE_ERRORS config
+        hide_errors = False
+        try:
+            if self.defines['HIDE_ERRORS']:
+                hide_errors = True
+        except:
+            pass
+
         # render error
-        try:
-            self.defines['WEB_INITED']
-            print('<pre style="background-color: #cdcdcd; padding: 10px; border-radius: 10px;">')
-        except:
-            pass
-        print(error_type + ': ' + message + ':')
-        last_frame = self.frames[0]
-        for frame in self.frames[1:]:
+        if not hide_errors:
             try:
-                if last_frame:
-                    tmp_op = last_frame['commands'][last_frame['current_step']]
-                else:
-                    tmp_op = frame['commands'][0]
-                print(
-                    '  in ' + tmp_op['file_path'] + ':' + str(tmp_op['line_number'])\
-                    + ':\n\t' + tmp_op['str']
-                )
-            except KeyError:
+                self.defines['WEB_INITED']
+                print('<pre style="background-color: #cdcdcd; padding: 10px; border-radius: 10px;">')
+            except:
                 pass
-            last_frame = frame
-        print('  in ' + op['file_path'] + ':' + str(op['line_number']) + ':\n\t' + op['str'])
-        if self.frames[1:]:
-            print(error_type + ': ' + message + '.')
-        try:
-            self.defines['WEB_INITED']
-            print('</pre>')
-        except:
-            pass
+            print(error_type + ': ' + message + ':')
+            last_frame = self.frames[0]
+            for frame in self.frames[1:]:
+                try:
+                    if last_frame:
+                        tmp_op = last_frame['commands'][last_frame['current_step']]
+                    else:
+                        tmp_op = frame['commands'][0]
+                    print(
+                        '  in ' + tmp_op['file_path'] + ':' + str(tmp_op['line_number'])\
+                        + ':\n\t' + tmp_op['str']
+                    )
+                except KeyError:
+                    pass
+                last_frame = frame
+            print('  in ' + op['file_path'] + ':' + str(op['line_number']) + ':\n\t' + op['str'])
+            if self.frames[1:]:
+                print(error_type + ': ' + message + '.')
+            try:
+                self.defines['WEB_INITED']
+                print('</pre>')
+            except:
+                pass
         sys.exit(1)
 
     def exec_func(self, func_body: list, with_frame=True, default_variables={}):
