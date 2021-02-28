@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## (0.8-beta1) next release
+## (0.8-beta2) next release
 
 #### NOTE: This release is fully backward compatible with `0.7`
 
