@@ -2,18 +2,18 @@
 
 ## (0.8-beta1) next release
 
+#### New Features
+- Added `debug()` and debug system ([read the doc](doc/11_advance/14_debug_system.md)) (GH-112)
+- Added interactive builtin shell (command `pashmak @shell`) (GH-113)
+- Added function `load_so()` for loading shared objects (DLLs), ([read the doc](doc/11_advance/15_loading_dll.md)) (GH-117)
+- Added error hiding feature ([read the doc](doc/03_try_endtry/02_hiding_errors.md)) (GH-122)
+
 #### Changes
 - Renamed `section` command to `label`, still `section` works and is backward compatible (GH-110)
 - Some optimizations in builtin modules and program bootstrap speed (GH-111)
 - Improve base structure of lexer and parser and optimizations in speed (GH-118)
 - Some changes in error rendering style (GH-120)
 - Improve error rendering in web environment (GH-121)
-
-#### New Features
-- Added `debug()` and debug system ([read the doc](doc/11_advance/14_debug_system.md)) (GH-112)
-- Added interactive builtin shell (command `pashmak @shell`) (GH-113)
-- Added function `load_so()` for loading shared objects (DLLs), ([read the doc](doc/11_advance/15_loading_dll.md)) (GH-117)
-- Added error hiding feature ([read the doc](doc/03_try_endtry/02_hiding_errors.md)) (GH-122)
 
 #### Bug Fixes
 - Fixed invalid line number bug in parser and while raising errors (GH-119)
