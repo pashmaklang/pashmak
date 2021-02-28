@@ -7,14 +7,14 @@
 
 ## 0.7.3 (2021-2-22)
 
-#### Bug Fixes
-- Fixed `typeof()` bug when checking type of a object from a class (GH-108)
+#### New Features
+- Handle `return` in importing system by `import()` ([read the doc](doc/05_importing/02_return_value.md)) (GH-109)
 
 #### Changes
 - Changed string of classes from default to `<class 'NameOfClass'>` (GH-108)
 
-#### New Features
-- Handle `return` in importing system by `import()` ([read the doc](doc/05_importing/02_return_value.md)) (GH-109)
+#### Bug Fixes
+- Fixed `typeof()` bug when checking type of a object from a class (GH-108)
 
 ## 0.7.2 (2021-2-16)
 
@@ -116,11 +116,11 @@
 
 ## 0.6.4 (2021-1-10)
 
-#### Bug Fixes
-- Fixed import directory bug (GH-79)
-
 #### New Features
 - Added importing sub directories/files in modules loaded from module path system (GH-80)
+
+#### Bug Fixes
+- Fixed import directory bug (GH-79)
 
 #### Removed
 - Removed cli option `-m|--modules`
