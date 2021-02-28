@@ -73,7 +73,7 @@ make all
 6. Merge the branch
 
 ```bash
-git checkout master && git merge release-x.y.z
+git checkout master && git merge release-x.y.z && git tag vx.y.z
 # OR if you are using git-flow
 git flow release finish x.y.z
 ```
@@ -83,9 +83,7 @@ git flow release finish x.y.z
 Now, new release is ready, push the changes and tags:
 
 ```bash
-git push
-# tags
-git push --tags
+git push --follow-tags
 ```
 
 Now, you can see the new version:

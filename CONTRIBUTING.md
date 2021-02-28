@@ -50,7 +50,7 @@ if you haven't any idea for contributing, you can see [Issues](https://github.co
 ### Branch
 Send **New/Change Features** to branch `master`(`master` is develop stage for next release).
 
-Send **Bug Fixes** to branch `0.7`(older supported release).
+Send **Bug Fixes** to branch `0.8` (older supported release).
 
 ([Read release process for more](/doc/13_dev_guide/07_release_process.md)).
 
