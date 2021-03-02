@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## next release
+
+#### New Features
+- Added command `clear` for shell
+
 ## 0.8 (2021-2-28)
 
 #### NOTE: This release is fully backward compatible with `0.7`
