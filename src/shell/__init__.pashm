@@ -21,10 +21,18 @@
 #########################################################################
 
 import_once @sys
+import_once @os
+
+func clear()
+    if $os.osname == 'nt'
+        system('cls')
+    else
+        system('clear')
+    endif
+endfunc
 
 if $__ismain__
     define('DEBUG', true)
     define('DEBUG_HEADER_TITLE', 'Welcome to the Pashmak [' + $sys.pashmakinfo['version'] + '] Interactive Shell')
-
     debug()
 endif
