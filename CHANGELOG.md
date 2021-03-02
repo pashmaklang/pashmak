@@ -3,7 +3,7 @@
 ## next release
 
 #### New Features
-- Added command `clear` for shell
+- Added command `clear` for shell (GH-123)
 
 #### Bug Fixes
 - Fixed shared frame variables bug (accessiblity of parent frame variables in child frame).
