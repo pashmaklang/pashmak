@@ -25,7 +25,10 @@ variables of parent un-global frame is not accessible in child frame (bug fixed)
 
 --file--
 
+$g = 'hello'
+
 func bar()
+    println $g
     println $name
 endfunc
 
@@ -35,6 +38,9 @@ func foo()
 endfunc
 
 foo()
+
+--output--
+"hello\n"
 
 --with-error--
 "VariableError"
