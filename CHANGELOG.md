@@ -3,7 +3,7 @@
 ## next release
 
 #### New Features
-- Added command `clear` for shell
+- Added command `clear` for shell (GH-123)
 
 ## 0.8 (2021-2-28)
 
