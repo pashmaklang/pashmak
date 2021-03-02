@@ -6,7 +6,7 @@
 - Added command `clear` for shell (GH-123)
 
 #### Bug Fixes
-- Fixed shared frame variables bug (accessiblity of parent frame variables in child frame).
+- Fixed shared frame variables bug (accessiblity of parent frame variables in child frame). (GH-124)
 
 ## 0.8 (2021-2-28)
 
