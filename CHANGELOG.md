@@ -5,6 +5,9 @@
 #### New Features
 - Added command `clear` for shell
 
+#### Bug Fixes
+- Fixed shared frame variables bug (accessiblity of parent frame variables in child frame).
+
 ## 0.8 (2021-2-28)
 
 #### NOTE: This release is fully backward compatible with `0.7`
