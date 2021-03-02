@@ -26,4 +26,4 @@
 # while you are releasing new version,
 # you should bump it
 # also this will put version into $sys.pashmakinfo['version']
-version = 'v0.8'
+version = 'v0.8.1'

@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.8.1 (2021-3-2)
 
 #### New Features
 - Added command `clear` for shell (GH-123)
