@@ -88,7 +88,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
 
     def get_var(self, varname: str, do_not_raise_error=False):
         """ Gets a variable name and returns value of that """
-        for frame in list(reversed(self.frames)):
+        for frame in [self.frames[-1], self.frames[0]]:
             try:
                 return frame['vars'][self.current_namespace() + varname]
             except KeyError:
