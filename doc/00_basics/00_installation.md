@@ -85,7 +85,7 @@ Compile:
 pip install pyinstaller
 
 # configure & compile
-.\win-configure.bat
+win-configure
 python -m PyInstaller src\pashmak.py --onefile
 ```
 
