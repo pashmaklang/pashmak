@@ -67,4 +67,4 @@ to see pashmak versions changelog, read [Changelog](CHANGELOG.md)
 if you detected an bug or vulnearability, read [Pashmak Security Policy](/SECURITY.md).
 
 ## Documentation
-read the Documentation to learn pashmak in [`doc folder`](/doc).
+read the Documentation to learn pashmak in [`doc folder`](doc).
