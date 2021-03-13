@@ -1,4 +1,4 @@
-<img src="/logo.svg" />
+<img src="logo.svg" />
 
 ###### Logo by [sami](https://github.com/sami2020pro)
 
