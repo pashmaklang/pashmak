@@ -29,6 +29,10 @@ from . import lexer
 
 class BuiltinFunctions:
     """ Builtin functions """
+    def raise_error(err:"Error Type",text:str,into):
+        """ This Method created Because other methods have dependency to raise_error """
+        print("{err_type} : Error created #in {code_sec} \n {txt}".format(err_type=err,code_sec=into,txt=text))
+        
     def run_endfunc(self, op: dict):
         """ Closes the functon declaration block """
         if self.current_func:
