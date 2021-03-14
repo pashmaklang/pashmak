@@ -3,7 +3,7 @@
 Structure of Pashmak project directories:
 
 - `src/`: The Main Source Code
-- `tests/`: Tests folder ([You can learn testing system of Pashmak Here](/CONTRIBUTING.md))
+- `tests/`: Tests folder ([You can learn testing system of Pashmak Here](../../CONTRIBUTING.md))
 - `doc/`: Documentation
 
 In the `src/` folder, We have some subdirectories. **Core Interpreter** is in `src/core/`. Other folders are builtin modules(you learn in next).
