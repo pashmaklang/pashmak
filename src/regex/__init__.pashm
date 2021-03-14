@@ -1,0 +1,7 @@
+# regular expersion
+
+namespace regex
+  func isMatch($pattern , $string )
+    return py_load_module('re')->findall($pattern , $string )
+  endfunc
+endnamespace regex
