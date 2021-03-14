@@ -145,6 +145,13 @@ for example:
 - ...
 ```
 
+If you need to describe more information about a item in changelog, you can create a file directory
+`doc/changelog/<version>/some-thing.md` and add a link to this file in `CHANGELOG.md`:
+
+```markdown
+- Fixed bug X ([read more](doc/changelog/<version>/some-thing.md))
+```
+
 ## Testing
 you can run Pashmak project tests via 5 ways:
 
