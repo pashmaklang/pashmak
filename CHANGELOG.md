@@ -3,7 +3,7 @@
 ## (0.9) next release
 
 #### New Features
-- Added module `regex`
+- Added module `regex` (GH-129)
 
 ## 0.8.1 (2021-3-2)
 
