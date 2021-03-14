@@ -23,7 +23,7 @@
 # regular expersion
 
 namespace regex
-    func isMatch($pattern, $string)
+    func is_match(string $pattern, string $string)
         return py_load_module('re')->findall($pattern, $string)
     endfunc
 endns
