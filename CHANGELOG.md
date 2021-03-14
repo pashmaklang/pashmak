@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## next release
+
+#### Bug Fixes
+- Fixed a critical bug in windows while importing scripts in non-relative mode like `$__dir__ + '/something...'` ([read more](doc/changelog/0.8/bug-windows-non-relative-import.md), GH-132)
+
 ## 0.8.1 (2021-3-2)
 
 #### New Features

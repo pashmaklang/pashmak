@@ -141,8 +141,6 @@ class Program(helpers.Helpers):
                 except KeyError:
                     return self.raise_error('ModuleError', 'undefined module "' + module_name + '"', op)
             else:
-                if path[0] != '/':
-                    path = os.path.dirname(os.path.abspath(self.main_filename)) + '/' + path
                 namespaces_prefix = self.current_namespace() + '@'
                 is_currently_imported = False
                 z = len(self.frames) - 1
