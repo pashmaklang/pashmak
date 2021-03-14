@@ -1,5 +1,10 @@
 # Pashmak Changelog
 
+## (0.9) next release
+
+#### New Features
+- Added module `regex`
+
 ## 0.8.1 (2021-3-2)
 
 #### New Features
