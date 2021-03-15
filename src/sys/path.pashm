@@ -27,7 +27,7 @@ namespace sys
         Gets new path as string.\
         """
         func add(string $path)
-            python('os.environ["PASHMAKPATH"] += ":' + str($path) + ':"')
+            python('os.environ["PASHMAKPATH"] += ";' + str($path) + ';"')
             python("self.bootstrap_modules()")
         endfunc
 
@@ -35,7 +35,7 @@ namespace sys
         Returns pashmakpath as list of strings.\
         """
         func array[string]::list()
-            $paths_list = py_load_module('os')->environ['PASHMAKPATH']->strip()->split(':')
+            $paths_list = py_load_module('os')->environ['PASHMAKPATH']->strip()->split(';')
             $paths_list = [item.strip() for item in $paths_list if item != '']
             return $paths_list
         endfunc
