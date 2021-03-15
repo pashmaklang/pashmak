@@ -4,7 +4,7 @@
 
 #### Bug Fixes
 - Fixed windows path spliter bug and changed from `:` to `;` ([read more](doc/changelog/0.8/bug-windows-path-spliter.md), GH-133)
-s
+
 ## 0.8.2 (2021-3-14)
 
 #### Bug Fixes
