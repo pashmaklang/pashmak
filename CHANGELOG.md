@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.8.3 (2021-3-15)
 
 #### Bug Fixes
 - Fixed windows path spliter bug and changed from `:` to `;` ([read more](doc/changelog/0.8/bug-windows-path-spliter.md), GH-133)
