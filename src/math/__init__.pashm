@@ -70,7 +70,9 @@ ns math
     func floor($num)
         return py_load_module('math')->floor($num)
     endfunc
-
+    @doc """\
+    This variable has placed pi number in it.\
+    """
     $pi = py_load_module('math')->pi
 
     @doc """\
