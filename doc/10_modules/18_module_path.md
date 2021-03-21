@@ -16,10 +16,10 @@ PASHMAKPATH=/var/lib/pashmak_modules pashmak my_program.pashm
 to add an directory to pashmak path, you have to set that directory to environment variable `PASHMAKPATH`:
 
 ```
-PASHMAKPATH=/path/to/first/dir:/path/to/another/dir:/another/dir2...
+PASHMAKPATH=/path/to/first/dir;/path/to/another/dir;/another/dir2...
 ```
 
-you can seprate paths with `:`.
+you can seprate paths with `;`.
 
 next, pashmak interpreter loads modules from that directories. how? pashmak loads pashmak files with `.pashm` extension as module. for example, if name of file is `my_module.pashm`, you can import that with `import "@my_module"`.
 

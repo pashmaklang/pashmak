@@ -64,7 +64,7 @@ if you want to contribute to this project, read [Contributing Guide](CONTRIBUTIN
 to see pashmak versions changelog, read [Changelog](CHANGELOG.md)
 
 ## Security Policy
-if you detected an bug or vulnearability, read [Pashmak Security Policy](/SECURITY.md).
+if you detected an bug or vulnearability, read [Pashmak Security Policy](SECURITY.md).
 
 ## Documentation
 read the Documentation to learn pashmak in [`doc folder`](doc).

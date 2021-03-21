@@ -39,7 +39,7 @@ def main():
 
     # set the python path
     try:
-        py_path = os.environ['PYTHONPATH'].split(':')
+        py_path = os.environ['PYTHONPATH'].split(';') if os.name.lower() == "nt" else os.environ['PYTHONPATH'].split(':')
         py_path = [p for p in py_path if p != '']
         sys.path = [*py_path, *sys.path]
     except KeyError:

@@ -5,6 +5,16 @@
 #### New Features
 - Added module `regex` (GH-129)
 
+## 0.8.3 (2021-3-15)
+
+#### Bug Fixes
+- Fixed windows path spliter bug and changed from `:` to `;` ([read more](doc/changelog/0.8/bug-windows-path-spliter.md), GH-133)
+
+## 0.8.2 (2021-3-14)
+
+#### Bug Fixes
+- Fixed a critical bug in windows while importing scripts in non-relative mode like `$__dir__ + '/something...'` ([read more](doc/changelog/0.8/bug-windows-non-relative-import.md), GH-132)
+
 ## 0.8.1 (2021-3-2)
 
 #### New Features

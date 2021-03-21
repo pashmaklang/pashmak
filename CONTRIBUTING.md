@@ -45,17 +45,17 @@ git push origin some-name-for-branch
 and then make pull request from your branch to `master`
 
 ### Idea
-if you haven't any idea for contributing, you can see [Issues](https://github.com/pashmaklang/pashmak/issues) and [TODO File](/TODO.md)
+if you haven't any idea for contributing, you can see [Issues](https://github.com/pashmaklang/pashmak/issues) and [TODO File](TODO.md)
 
 ### Branch
 Send **New/Change Features** to branch `master`(`master` is develop stage for next release).
 
 Send **Bug Fixes** to branch `0.8` (older supported release).
 
-([Read release process for more](/doc/13_dev_guide/07_release_process.md)).
+([Read release process for more](doc/13_dev_guide/07_release_process.md)).
 
 ### Developer Guide
-If you want to undrestand structure of Pashmak project source code, Read [Developer Guide](/doc/13_dev_guide).
+If you want to undrestand structure of Pashmak project source code, Read [Developer Guide](doc/13_dev_guide).
 
 ### Makefile scripts
 this scripts are helpful for development:
@@ -143,6 +143,13 @@ for example:
 #### Bug Fixes
 - Fixed bug x
 - ...
+```
+
+If you need to describe more information about a item in changelog, you can create a file directory
+`doc/changelog/<version>/some-thing.md` and add a link to this file in `CHANGELOG.md`:
+
+```markdown
+- Fixed bug X ([read more](doc/changelog/<version>/some-thing.md))
 ```
 
 ## Testing

@@ -1,5 +1,5 @@
 #
-# path.pashm
+# bug-win-001.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -20,24 +20,13 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-namespace sys
-    namespace path
-        @doc """\
-        Adds a new path to pashmakpath.\n\
-        Gets new path as string.\
-        """
-        func add(string $path)
-            python('os.environ["PASHMAKPATH"] += ";' + str($path) + ';"')
-            python("self.bootstrap_modules()")
-        endfunc
+--test--
+the windows non-relative import bug is fixed
 
-        @doc """\
-        Returns pashmakpath as list of strings.\
-        """
-        func array[string]::list()
-            $paths_list = py_load_module('os')->environ['PASHMAKPATH']->strip()->split(';')
-            $paths_list = [item.strip() for item in $paths_list if item != '']
-            return $paths_list
-        endfunc
-    endns
-endns
+--file--
+
+import @os
+
+if $os.osname == 'nt'
+    import $__dir__ + '/examples/array.pashm'
+endif

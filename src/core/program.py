@@ -141,8 +141,6 @@ class Program(helpers.Helpers):
                 except KeyError:
                     return self.raise_error('ModuleError', 'undefined module "' + module_name + '"', op)
             else:
-                if path[0] != '/':
-                    path = os.path.dirname(os.path.abspath(self.main_filename)) + '/' + path
                 namespaces_prefix = self.current_namespace() + '@'
                 is_currently_imported = False
                 z = len(self.frames) - 1
@@ -543,9 +541,9 @@ class Program(helpers.Helpers):
         except:
             os.environ['PASHMAKPATH'] = ''
         home_directory = str(Path.home())
-        os.environ['PASHMAKPATH'] = '/usr/lib/pashmak_modules:' + home_directory + '/.local/lib/pashmak_modules:' + os.environ['PASHMAKPATH']
+        os.environ['PASHMAKPATH'] = '/usr/lib/pashmak_modules;' + home_directory + '/.local/lib/pashmak_modules;' + os.environ['PASHMAKPATH']
         pashmak_module_paths = os.environ['PASHMAKPATH']
-        paths = pashmak_module_paths.strip().split(':')
+        paths = pashmak_module_paths.strip().split(';')
         paths = [path.strip() for path in paths if path.strip() != '']
         self.module_path = paths
 
