@@ -42,6 +42,7 @@ Why this programming language is useful? Because:
 ### Pashmak problems
 
 - Low speed
+- No multi threading
 - ...
 
 ### hello world!
