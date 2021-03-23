@@ -1,0 +1,161 @@
+#
+# cmdline.pashm
+#
+# The Pashmak Project
+# Copyright 2021 pashmak development team,
+#           2021 Mehan alavimajd<mehan.alavi.88.majd@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+ns parham; ns cmdline
+
+@doc """\
+Contains the parsed arguments.\
+"""
+class ParsedArgs
+    func __init__(array[string] $arguments=[], dict $options={})
+        $this->arguments = $arguments
+        $this->options = $options
+    endfunc
+
+    @doc "Gets a option name and returns boolean that is option inserted or not"
+    func bool::has_option(string $name)
+        return $name in list($this->options->keys())
+    endfunc
+
+    @doc """Gets name of a option and returns value of that. \
+    Also you can pass a second argument named `default`. if option not inserted, returns default. \
+    The default value of this argument is `null`.\
+    """
+    func get_option_value(string $name, $default = null)
+        if not $this->has_option($name)
+            return $default
+        endif
+
+        return $this->options[$name]
+    endfunc
+
+    @doc """\
+    Validates the inserted options. \
+    Gets configuration as a dictionary.\
+    """
+    func validate(dict $config)
+        $config->setdefault('options', {})
+        $config->setdefault('only_known_options', true)
+        $config->setdefault('min_args', null)
+        $config->setdefault('max_args', null)
+        $options = $config['options']
+
+        $options_keys = list($options->keys())
+
+        $result = true
+
+        $i = 0
+        while $i < len($options_keys)
+            $name = $options_keys[$i]
+            $option = $options[$name]
+
+            if typeof($option) == dict
+                $option->setdefault('required', false)
+                $option->setdefault('default_value', null)
+                $option->setdefault('value_required', false)
+
+                if $option['required']
+                    if not $this->has_option($name)
+                        $result = 'option ' + $name + ' is required'
+                        break
+                    endif
+                endif
+
+                if $option['value_required']
+                    if $this->get_option_value($name) is null
+                        $result = 'option ' + $name + ' required parameter'
+                        break
+                    endif
+                endif
+
+                if $option['default_value'] is not null
+                    $this->options->setdefault($name, $option['default_value'])
+                endif
+            endif
+
+            $i = $i + 1
+        endwhile
+
+        # check unknow options
+        if $config['only_known_options']
+            $i = 0
+            $inserted_options_keys = list($this->options->keys())
+            while $i < len($inserted_options_keys)
+                if $inserted_options_keys[$i] not in $options_keys
+                    $result = 'unknow option ' + $inserted_options_keys[$i]
+                    break
+                endif
+
+                $i = $i + 1
+            endwhile
+        endif
+
+        # check argument count
+        if $config['min_args'] is not null
+            if len($this->arguments) < $config['min_args']
+                $result = 'this command requires minimum ' + str($config['min_args']) + ' arguments'
+            endif
+        endif
+        
+        if $config['max_args'] is not null
+            if len($this->arguments) > $config['max_args']
+                $result = 'this command requires maximum ' + str($config['max_args']) + ' arguments'
+            endif
+        endif
+
+        return $result
+    endfunc
+endclass
+
+@doc """\
+Gets command line arguments as a list and parses them. \
+Returns a ParsedArgs object.\
+"""
+func parse_args(array[string] $args)
+    $arguments = []
+    $options = {}
+
+    $i = 0
+    while $i < len($args)
+        if $args[$i]
+            if $args[$i]->startswith('-')
+                $op_name = $args[$i]->split('=', 1)
+                $op_value = null
+                if len($op_name) > 1
+                    $op_value = $op_name[1]
+                endif
+                $op_name = $op_name[0]
+
+                $options[$op_name] = $op_value
+            else
+                $arguments->append($args[$i])
+            endif
+        endif
+
+        $i = $i + 1
+    endwhile
+
+    return ParsedArgs($arguments, $options)
+endfunc
+
+endns; endns
