@@ -1,6 +1,6 @@
 <img src="logo.svg" />
 
-###### Logo by [sami](https://github.com/sami2020pro)
+###### Logo by [mehan](https://github.com/mehanalavimajd)
 
 # Pashmak Programming Language
 Hi there. this is Pashmak programming language. Pashmak is an interpreter written in Python.
