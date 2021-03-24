@@ -49,7 +49,7 @@ Why this programming language is useful? Because:
 this is a simple hello world script in pashmak:
 
 ```bash
-println('hello world')
+println 'hello world'
 ```
 
 ## Online interpreter
