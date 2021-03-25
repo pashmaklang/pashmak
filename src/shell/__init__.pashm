@@ -31,6 +31,10 @@ func clear()
     endif
 endfunc
 
+func echo($txt)
+     system($txt)
+endfunc
+
 if $__ismain__
     define('DEBUG', true)
     define('DEBUG_HEADER_TITLE', 'Welcome to the Pashmak [' + $sys.pashmakinfo['version'] + '] Interactive Shell')
