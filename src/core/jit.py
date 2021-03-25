@@ -75,9 +75,9 @@ def calc_file_sha256(filepath: str) -> str:
         str: calculated hash
     """
     sha256_hash = hashlib.sha256()
-    f = open(filepath, 'rb')
-    for byte_block in iter(lambda: f.read(4096),b""):
-        sha256_hash.update(byte_block)
+    with open(filepath, 'rb') as f:
+        for byte_block in iter(lambda: f.read(4096),b""):
+            sha256_hash.update(byte_block)
     return sha256_hash.hexdigest()
 
 def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain_default=False) -> list:
