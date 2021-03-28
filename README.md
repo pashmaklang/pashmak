@@ -8,8 +8,6 @@
 Hi there. this is Pashmak programming language. Pashmak is an interpreter written in Python.
 Pashmak scripts have cool and pashmaki syntax.
 
-Pashmak is:
-
 ```
 Pashmak = 
 (Python - SpaceSensitiveSyntax) + 
