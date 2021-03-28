@@ -1,4 +1,6 @@
-<img src="logo.svg" />
+<div align="center">
+  <img width="200" src="logo.svg" alt="Pashmak" />
+</div>
 
 ###### Logo by [sami](https://github.com/sami2020pro)
 
