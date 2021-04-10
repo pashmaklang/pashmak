@@ -108,8 +108,8 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain
         except:
             is_jit_disabled = True
     if is_jit_disabled:
-        f = open(path, 'r')
-        content = f.read()
+        with open(path, 'r') as f:
+             content = f.read()
         f.close()
         if self != None:
             content = '$__ismain__ = ' + str(ismain_default) + '; $__file__ = ' + repr(path.replace('\\', '\\\\')) + '\n$__dir__ = ' + repr(os.path.dirname(path).replace('\\', '\\\\')) + '\n' + content
