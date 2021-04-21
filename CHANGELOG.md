@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## next release
+## 0.8.4 (2021-4-21)
 
 #### Improvements
 - Only some improvements in the interpreter core
