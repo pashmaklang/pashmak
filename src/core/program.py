@@ -31,7 +31,11 @@ from . import helpers, version, modules, jit, parser, current_prog, lexer
 from .class_system import Class, ClassObject
 from .function import Function
 
-import hashlib, time, random, datetime, base64, json, http, http.cookies, http.server, http.client, http.cookiejar, socket, socketserver, math, pprint, subprocess, sqlite3, sqlite3.dump, sqlite3.dbapi2, urllib, urllib.error, urllib.parse, urllib.request, urllib.response, urllib.robotparser, platform, mimetypes, re, pickle, io
+import hashlib, time, random, datetime, base64, json
+import http, http.cookies, http.server, http.client, http.cookiejar, socket, socketserver
+import math, pprint, subprocess, sqlite3, sqlite3.dump, sqlite3.dbapi2
+import urllib, urllib.error, urllib.parse, urllib.request, urllib.response
+import urllib.robotparser, platform, mimetypes, re, pickle, io
 
 def free(name):
     from . import current_prog
@@ -119,7 +123,11 @@ class Program(helpers.Helpers):
                     if not is_currently_imported:
                         try:
                             # search modules from builtin modules
-                            commands = [parser.parse('$__ismain__ = ' + str(ismain_default), filepath='@' + module_name)[0], *modules.modules[module_name], parser.parse('$__ismain__ = ' + str(self.get_var('__ismain__')), filepath='@' + module_name)[0]]
+                            commands = [parser.parse('$__ismain__ = ' + str(ismain_default),
+                                                     filepath='@' + module_name)[0], 
+                                                    *modules.modules[module_name],
+                                                     parser.parse('$__ismain__ = ' + str(self.get_var('__ismain__')),
+                                                     filepath='@' + module_name)[0]]
                         except KeyError:
                             # find modules from path
                             commands = False
