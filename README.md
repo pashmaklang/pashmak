@@ -1,12 +1,12 @@
-<img src="logo.svg" />
+<div align="center">
+  <img width="200" src="logo.svg" alt="Pashmak" />
+</div>
 
 ###### Logo by [sami](https://github.com/sami2020pro)
 
 # Pashmak Programming Language
 Hi there. this is Pashmak programming language. Pashmak is an interpreter written in Python.
 Pashmak scripts have cool and pashmaki syntax.
-
-Pashmak is:
 
 ```
 Pashmak = 
@@ -42,13 +42,14 @@ Why this programming language is useful? Because:
 ### Pashmak problems
 
 - Low speed
+- No multi threading
 - ...
 
 ### hello world!
 this is a simple hello world script in pashmak:
 
 ```bash
-println('hello world')
+println 'hello world'
 ```
 
 ## Online interpreter

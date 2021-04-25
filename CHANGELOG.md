@@ -5,6 +5,11 @@
 #### New Features
 - Added module `regex` (GH-129)
 
+## 0.8.4 (2021-4-21)
+
+#### Improvements
+- Only some improvements in the interpreter core
+
 ## 0.8.3 (2021-3-15)
 
 #### Bug Fixes
