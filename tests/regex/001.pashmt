@@ -32,8 +32,8 @@ println(regex.is_match('s','P','Hello ,' World Pashmak'))
 
 --output--
 
-"
+"""
 ['s']
-"
 
+"""
 
