@@ -27,7 +27,7 @@ regex module works
 
 import @regex
 
-println(regex.is_match('s','Hello , World Pashmak')_
+println(regex.is_match('s','Hello , World Pashmak'))
 
 --output--
 
