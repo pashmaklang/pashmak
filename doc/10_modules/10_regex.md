@@ -1,3 +1,5 @@
 # Module regex
 
-. Function isMatch
+. Function is_match
+
+This function search f
