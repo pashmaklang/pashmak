@@ -2,4 +2,5 @@
 
 . Function is_match
 
-This function search f
+This function search for a regex in pattern and return all things match with regex 
+Or re.findall in python
