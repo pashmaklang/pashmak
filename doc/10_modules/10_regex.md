@@ -1,2 +1,3 @@
 # Module regex
 
+. Function isMatch
