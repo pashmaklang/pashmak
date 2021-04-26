@@ -26,4 +26,4 @@ namespace regex
     func is_match(string $pattern, string $string)
         return py_load_module('re')->findall($pattern, $string)
     endfunc
-endns
+endnamespace
