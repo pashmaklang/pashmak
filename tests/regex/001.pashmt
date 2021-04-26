@@ -34,6 +34,6 @@ println(regex.is_match('s','P','Hello ,' World Pashmak'))
 
 """
 ['s']
-
+['P','s']
 """
 
