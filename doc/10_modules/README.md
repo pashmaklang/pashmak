@@ -10,6 +10,7 @@
 - [Module web.server](07_web.server.md)
 - [Module math](08_math.md)
 - [Module string](09_string.md)
+- [Module regex](10_regex.md)
 - [Python standard modules](17_python_standard_modules.md)
 - [Module Path system](18_module_path.md)
 - [Running modules in cli](19_running_modules_in_cli.md)
