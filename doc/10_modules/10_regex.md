@@ -1,18 +1,23 @@
 # Module regex
 
-. Function is_match
+### Function `is_match($pattern, $string)`
 
-This function search for a regex in pattern and return all things match with regex 
-Or re.findall in python
+This function searches for a regex pattern in a string and returns all things match with regex 
+(Interface of re.findall in Python)
 
-this function take two arguments : first argument named pattern and second argument called string
+First argument named `pattern` is the regex pattern and
+the second argument named `string` is the string that you want to search in.
 
-function search for $pattern in $string
-
-**examples**
+An example:
 
 ```
 import @regex
 
-regex.is_match('s','Hello , World Pashmak')
+println regex.is_match('[0-9]', 'Hello 123 World')
+```
+
+output:
+
+```
+
 ```
