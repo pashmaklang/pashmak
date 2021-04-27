@@ -24,3 +24,10 @@
 regex module works
 
 --file--
+
+import @regex
+
+println regex.find('[0-9]', 'Hello 123 World')
+
+--output--
+"['1', '2', '3']\n"
