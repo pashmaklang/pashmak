@@ -1,6 +1,6 @@
 # Module regex
 
-### Function `is_match($pattern, $string)`
+### Function `find($pattern, $string)`
 
 This function searches for a regex pattern in a string and returns all things match with regex 
 (Interface of re.findall in Python)
@@ -13,11 +13,11 @@ An example:
 ```
 import @regex
 
-println regex.is_match('[0-9]', 'Hello 123 World')
+println regex.find('[0-9]', 'Hello 123 World')
 ```
 
 output:
 
 ```
-
+['1', '2', '3']
 ```

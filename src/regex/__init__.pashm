@@ -23,7 +23,8 @@
 # regular expersion
 
 namespace regex
-    func is_match(string $pattern, string $string)
+    @doc "Gets a regex pattern and a string and returns the found items as list"
+    func array::find(string $pattern, string $string)
         return py_load_module('re')->findall($pattern, $string)
     endfunc
 endnamespace
