@@ -17,7 +17,9 @@ you expect for this path:
 C:\my-app\some/file.pashm
 ```
 
-but the path is `C:\my-app\C:\my-app\some/file.pashm`. actually, the `C:\my-app` is repeated 2 times.
+but the path is <br>
+`C:\my-app\C:\my-app\some/file.pashm`. 
+actually, the `C:\my-app` is repeated 2 times.
 
 Now, the import path is relative with current working directory instead of the main file directory.
 The bug was related to checking relative/non-relative paths. this check was checking first
