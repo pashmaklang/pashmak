@@ -101,7 +101,7 @@ class Program(helpers.Helpers):
 
         if type(paths) == str:
             paths = [paths]
-        elif type(paths) != tuple:
+        elif type(paths) != tuple and type(paths) != list:
             return self.raise_error('ArgumentError', 'invalid argument type', op)
 
         for path in paths:
