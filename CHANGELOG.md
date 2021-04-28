@@ -3,7 +3,7 @@
 ## (0.8) next release
 
 #### New Features
-- Added support for `list` datatype for `import` syntax
+- Added support for `list` datatype for `import` syntax (GH-155)
 
 ## 0.8.4 (2021-4-21)
 
