@@ -5,6 +5,11 @@
 #### New Features
 - Added module `regex` (GH-129)
 
+## (0.8) next release
+
+#### New Features
+- Added support for `list` datatype for `import` syntax (GH-155)
+
 ## 0.8.4 (2021-4-21)
 
 #### Improvements
