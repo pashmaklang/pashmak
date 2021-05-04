@@ -400,7 +400,7 @@ class Program(helpers.Helpers):
         if op_name == 'func':
             self.func_depth += 1
 
-        if op_name == 'endfunc' or op_name = 'end':
+        if op_name == 'endfunc' or op_name == 'end':
             if self.func_depth <= 1:
                 self.run_endfunc(op)
                 self.func_depth -= 1
@@ -415,7 +415,7 @@ class Program(helpers.Helpers):
                 self.functions[self.current_func[-1]].body.append(op)
             return
 
-        if op_name == 'endclass' or op_name = 'end':
+        if op_name == 'endclass' or op_name == 'end':
             self.run_endclass(op)
             return
 
