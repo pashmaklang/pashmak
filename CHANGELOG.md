@@ -5,7 +5,7 @@
 #### New Features
 - Added module `regex` (GH-129)
 
-## (0.8) next release
+## 0.8.5 (2021-5-31)
 
 #### New Features
 - Added support for `list` datatype for `import` syntax (GH-155)
