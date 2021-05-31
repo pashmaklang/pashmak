@@ -1,7 +1,7 @@
 # `$__ismain__` variable
-the `$__ismain__` variable, is a general Boolean variable. this variable is used to check the current file, is the **Main runed file** or not.
+the `$__ismain__` variable, is a general Boolean variable. this variable is used to check the current file, is the **Main ran file** or not.
 
-for example, we have two files, `my_program.pashm` and `lib.pashm`. we want to know that in our scripts **Is the current script main directly runed file?**.
+for example, we have two files, `my_program.pashm` and `lib.pashm`. we want to know that in our scripts **Is the current script main directly ran file?**.
 
 when you run in terminal:
 
@@ -9,7 +9,7 @@ when you run in terminal:
 pashmak my_program.pashm
 ```
 
-the `my_program.pashm` file is runed directly.
+the `my_program.pashm` file is ran directly.
 
 #### my_program.pashm:
 
@@ -38,9 +38,9 @@ actually, value of this variable in `my_program.pashm` is `True`, but in `lib.pa
 
 now, when i run `pashmak lib.pashm`, output is `True`.
 
-**The `$__ismain__` variable says that the current file is main runed file or not and you can check this**.
+**The `$__ismain__` variable says that the current file is main ran file or not and you can check this**.
 
-for example, if we want to run a code only if our script is directly runed and is not imported from other script:
+for example, if we want to run a code only if our script is directly ran and is not imported from other script:
 
 ```bash
 if $__ismain__

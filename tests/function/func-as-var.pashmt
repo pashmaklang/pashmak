@@ -35,7 +35,7 @@ $myfunc = hello
 $myfunc('pashmak')
 
 func somefunc()
-    println 'hello. I was runed'
+    println 'hello. I has been ran'
 endfunc
 
 $myfunc = somefunc
@@ -56,7 +56,7 @@ run_the_func(hi)
 --output--
 """hello parsa
 hello pashmak
-hello. I was runed
+hello. I has been ran
 start
 hello world
 finish

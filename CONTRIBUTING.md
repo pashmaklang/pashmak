@@ -65,7 +65,7 @@ this command makes file `src/core/modules.py`.
 
 this command loads Pashmak modules from `src/` folder and put them in `src/core/modules.py` file.
 
-if you maked changes in modules in `src/`'s `.pashm` files, run this command.
+if you made changes in modules in `src/`'s `.pashm` files, run this command.
 
 ```bash
 make module
@@ -202,7 +202,7 @@ if you adding a feature or changing feature, change/add test for that feature
 - `--stdin--`: sets program stdin arguments (list)
 - `--exit-code--`: asserts program exit code
 - `--with-error--`: asserts program has error. value is optional, but you can assert error type as value
-- `--pyinit--`: this can be a python code to be runed before running test code
+- `--pyinit--`: this can be a python code to be ran before running test code
 - `--skip--`: this option says that to test runner, if this was faild, ignore this and skip
 
 example:

@@ -6,13 +6,13 @@ For example, `2 + 2` is a eval. `400*(20-10)` is a eval. This is not only math e
 But how this eval is handled by Pashmak Core executor?
 
 You can see `parse_eval` function in prevoius part in lexer.
-This function gets a Pashmak eval string and **Converts it to python code**. Then, that python code will be runed by executor.
+This function gets a Pashmak eval string and **Converts it to python code**. Then, that python code will be ran by executor.
 
 For example, `"Hello " + $name` will be converted to `"Hello " + self.get_var('name')`. The `$name` was replaced with `self.get_var('name')`.
 
 Also this handles functions and classes. for example `some_func($name)` will be converted to `self.functions["some_func"](self.get_var('name'))`.
 
-The output Python code will be runed using Python's `eval` function **Inside program.Program object**, means that the `self` points to program object(`src/core/program.py`).
+The output Python code will be ran using Python's `eval` function **Inside program.Program object**, means that the `self` points to program object(`src/core/program.py`).
 
 There is a method named `eval` in `program.Program` object, this method gets code and converts that to python code using lexer, then, runs that as a python code.
 

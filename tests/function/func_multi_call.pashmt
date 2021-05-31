@@ -24,11 +24,11 @@
 functions can be called more than 1 time
 --file--
 func myfunc()
-    println 'func runed'
+    println 'func ran'
 endfunc
 
 myfunc
 myfunc()
 
 --output--
-'func runed\nfunc runed\n'
+'func ran\nfunc ran\n'

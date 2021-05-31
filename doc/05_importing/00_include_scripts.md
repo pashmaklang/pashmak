@@ -31,7 +31,7 @@ import 'fib.pashm'
 fib()
 ```
 
-when we run `import` function and pass a file path to that, content of that file will be included in our code and will be runed. for example, here we used a function from the `fib.pashm` file.
+when we run `import` function and pass a file path to that, content of that file will be included in our code and will be ran. for example, here we used a function from the `fib.pashm` file.
 
 also you can import more than 1 scripts in one command:
 
