@@ -1,10 +1,10 @@
 # Shutdown event
-Shutdown event is a system to set some functions to be runed in end of program.
+Shutdown event is a system to set some functions to be ran in end of program.
 
 For example:
 
 ```bash
-# this function will be runed in the end of program
+# this function will be ran in the end of program
 func the_end
     println('The end')
 endfunc
@@ -24,7 +24,7 @@ world
 the end
 ```
 
-In the above example, we used `register_shutdown` function to set function `the_end` as shutdown event. this function will be runed in the end of program.
+In the above example, we used `register_shutdown` function to set function `the_end` as shutdown event. this function will be ran in the end of program.
 
 Also you can set more than 1 function:
 

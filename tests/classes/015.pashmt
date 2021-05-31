@@ -32,7 +32,7 @@ class Test
 
     func __init__()
         $this->super('Object')->__init__()
-        println('init runed')
+        println('init ran')
     endfunc
 endclass
 
@@ -40,6 +40,6 @@ $f = Test()
 println($f)
 
 --output--
-"""init runed
+"""init ran
 [PashmakObject name="Test"]111
 """

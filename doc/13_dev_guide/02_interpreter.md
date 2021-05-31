@@ -42,7 +42,7 @@ println($sum)
 
 when executor is running this code line by line, what about calling `get_sum` and `println` functions?
 
-This is the frame system: When a function is called, a new frame will be created and the body of the function will be runed in the new frame, when this frame was finished, program backs to run previous frame.
+This is the frame system: When a function is called, a new frame will be created and the body of the function will be ran in the new frame, when this frame was finished, program backs to run previous frame.
 
 Also frames help to isolate variables, used namespaces, etc.
 In the `Program` class, frames are accessible in:

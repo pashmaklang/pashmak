@@ -28,7 +28,7 @@ another example:
 
 ```bash
 func somefunc()
-    println('hello. I was runed')
+    println('hello. I has been ran')
 endfunc
 
 $myfunc = somefunc

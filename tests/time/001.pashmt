@@ -29,4 +29,4 @@ time.sleep 0.01
 time.ctime
 time.gmtime
 time.localtime
-# ONLY NEEDS TO BE RUNED WITHOUT ERROR
+# ONLY NEEDS TO BE ran WITHOUT ERROR

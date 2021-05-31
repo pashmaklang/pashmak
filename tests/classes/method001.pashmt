@@ -26,7 +26,7 @@ class method can be declared
 --file--
 class Person
     func hello()
-        println('Person > hello was runed')
+        println('Person > hello was ran')
     endfunc
 
     func with_arg($arg)
@@ -44,7 +44,7 @@ mem $p->with_arg('parsa')
 
 --output--
 
-'''Person > hello was runed
+'''Person > hello was ran
 hello parsa
 hello parsa
 '''

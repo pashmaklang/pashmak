@@ -68,7 +68,7 @@ else
 endif
 ```
 
-if condition of `if` is not true, `else` block will be runed.
+if condition of `if` is not true, `else` block will be ran.
 
 also there is other keyword `elif`:
 

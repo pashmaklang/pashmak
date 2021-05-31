@@ -14,7 +14,7 @@ output:
 hello world from string
 ```
 
-this code is runed from a string.
+this code is ran from a string.
 
 look at this example:
 

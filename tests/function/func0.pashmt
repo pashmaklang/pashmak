@@ -27,7 +27,7 @@ functions working
 println 'starting'
 
 func myfunc()
-    println 'func runed'
+    println 'func ran'
     println 'func finished'
 endfunc
 
@@ -36,4 +36,4 @@ myfunc
 println 'finished'
 
 --output--
-'starting\nfunc runed\nfunc finished\nfinished\n'
+'starting\nfunc ran\nfunc finished\nfinished\n'

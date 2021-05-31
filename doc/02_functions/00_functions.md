@@ -34,7 +34,7 @@ hello world
 ```
 
 
-You can declare a function and call it from everywhere. when you call a function, all of codes inside that function will be runed.
+You can declare a function and call it from everywhere. when you call a function, all of codes inside that function will be ran.
 
 for declare a function you have to write `func <name-of-function>` and write codes. then for close function write `endfunc` after codes.
 
@@ -239,7 +239,7 @@ there is a note. why when we changed `$name` variable in `myfunc` function, this
 
 the `$name` where was set in `myfunc`, is local. means that do not points to global `$name` in out program.
 
-the seted variables in Functions, are local. also Functions cannot change global variables
+the set variables in Functions, are local. also Functions cannot change global variables
 
 the variable environment in Functions are isolated.
 
@@ -314,7 +314,7 @@ for example:
 func get_data
     println('start')
     return 'the data'
-    println('end') # this will not be runed
+    println('end') # this will not be ran
 endfunc
 
 println(get_data())
@@ -327,7 +327,7 @@ start
 the data
 ```
 
-actually, in `return` command, value will be put in the mem as output and function will be finished(commands after return will not be runed).
+actually, in `return` command, value will be put in the mem as output and function will be finished(commands after return will not be ran).
 
 ### inline calling functions
 you can call a function as argument of another function.
