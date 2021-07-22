@@ -49,6 +49,7 @@ println(os.isdir($__dir__ + '/tests/tmpdir'))
 println($os.env)
 
 println(os.cwd())
+println($os.pwd)
 
 --output--
 str(os.cpu_count()) + """
@@ -62,4 +63,4 @@ True
 False
 True
 False
-""" + str(os.environ) + '\n' + os.getcwd() + '\n'
+""" + str(os.environ) + '\n' + os.getcwd() + '\n' + os.getcwd() + '\n'
