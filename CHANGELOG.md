@@ -4,6 +4,7 @@
 
 #### New Features
 - Added module `regex` (GH-129)
+- Added `$os.pwd` variable in `os` module (GH-158)
 
 ## 0.8.5 (2021-5-31)
 

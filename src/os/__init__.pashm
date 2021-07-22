@@ -48,7 +48,7 @@ namespace os
     endfunc
 
     $curdir = py_load_module('os')->curdir
-
+    $pwd = py_load_module("os")->getcwd()
     @doc """\
     Kills a process.\n\
     First argument is process ID as int.\n\
