@@ -47,7 +47,8 @@ namespace os
         py_load_module('os')->mkdir($dirpath)
     endfunc
 
-    $pwd = py_load_module('os')->curdir
+    $curdir = py_load_module('os')->curdir
+    $pwd = py_load_module("os")->pwd
 
     @doc """\
     Kills a process.\n\
