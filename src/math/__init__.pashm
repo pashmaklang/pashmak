@@ -61,7 +61,10 @@ ns math
     Finds the factorial of a number.\
     """
     func factorial($num)
-        return py_load_module('math')->factorial($num)
+        if $num == 0 
+            return 1
+        endif
+        return n * factorial(n-1)
     endfunc
 
     @doc """\
