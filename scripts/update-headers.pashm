@@ -100,4 +100,4 @@ while $i < len($total_paths)
     $i = $i + 1
 endwhile
 
-println('\033[32mHeaders updated successfully\033[0m')
+println('\033[32mHeaders has been updated successfully\033[0m')
