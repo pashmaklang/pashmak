@@ -1,0 +1,106 @@
+#
+# trait000.pashmt
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+Trait system for classes works correctly
+
+--file--
+
+class MyTrait
+    func from_my_trait()
+        println 'my trait: ' + $this->name
+    endfunc
+endclass
+
+class SecondTrait
+    func hello(string $last_name)
+        println 'second trait: ' + $this->name + ' ' + $last_name
+    endfunc
+endclass
+
+class Foo + SecondTrait
+    $name = "Parsa"
+endclass
+
+class Bar + MyTrait, SecondTrait
+    $name = "Mammad"
+endclass
+
+
+$a = Foo()
+$b = Bar()
+
+$a->hello('shah')
+$b->from_my_trait()
+$b->hello('mmdi')
+
+
+
+class Trait3
+    func tst()
+        println "Trait 3"
+    endfunc
+endclass
+
+class Trait4
+    func tst()
+        println "Trait 4"
+    endfunc
+endclass
+
+class A < Bar + Trait3, Trait4
+endclass
+
+$b = A()
+$b->from_my_trait()
+$b->hello('mmdi')
+$b->tst()
+
+# ..
+
+
+class T1
+    func a()
+        println 'a'
+    endfunc
+endclass
+
+class T2 < T1
+    func b()
+        println 'b'
+    endfunc
+endclass
+
+class Person + T2
+endclass
+
+println list(Person->__methods__->keys())
+
+--output--
+"""second trait: Parsa shah
+my trait: Mammad
+second trait: Mammad mmdi
+my trait: Mammad
+second trait: Mammad mmdi
+Trait 3
+['b']
+"""
