@@ -124,7 +124,14 @@ class BuiltinFunctions:
         """ Starts the class declaration block """
         self.require_one_argument(op, 'missing class name')
         arg = op['args_str']
-        arg = arg.split('<', 1)
+        traits = arg.split('+', 1)
+        arg = traits[0].split('<', 1)
+        if len(traits) > 1:
+            traits = self.eval(traits[1])
+            if type(traits) is not tuple:
+                traits = traits,
+        else:
+            traits = ()
         parent = None
         if len(arg) > 1:
             parent = arg[1].strip()
@@ -177,6 +184,22 @@ class BuiltinFunctions:
                 self.classes[self.current_namespace() + arg].__docstring__ = self.last_docstring
                 self.last_docstring = ''
         self.current_class.append(self.current_namespace() + arg)
+
+        # bind the traits to the class
+        # reverse the traits list
+        # because the priority is with first declared traits
+        # and in this process, each trait will overwrite methods on props on the previous ones
+        # so we reverse them to keep priority ASC
+        traits = traits[::-1]
+        for trait in traits:
+            # check type of the object
+            if type(trait) is not Class:
+                self.raise_error('TypeError', 'the passed object as a trait to the class signature is not a class object', op)
+                return
+            else:
+                # add the contents of the trait to the class
+                self.classes[self.current_namespace() + arg].__props__ = {**self.classes[self.current_namespace() + arg].__props__, **trait.__props__}
+                self.classes[self.current_namespace() + arg].__methods__ = {**self.classes[self.current_namespace() + arg].__methods__, **trait.__methods__}
 
     def run_func(self, op: dict):
         """ Starts function declaration block """
