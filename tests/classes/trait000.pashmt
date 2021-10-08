@@ -35,6 +35,8 @@ class SecondTrait
     func hello(string $last_name)
         println 'second trait: ' + $this->name + ' ' + $last_name
     endfunc
+
+    $trait_prop = 100
 endclass
 
 class Foo + SecondTrait
@@ -53,7 +55,8 @@ $a->hello('shah')
 $b->from_my_trait()
 $b->hello('mmdi')
 
-
+println $a->trait_prop
+println $b->trait_prop
 
 class Trait3
     func tst()
@@ -74,6 +77,15 @@ $b = A()
 $b->from_my_trait()
 $b->hello('mmdi')
 $b->tst()
+
+class Temp + Trait3, Trait4
+    func tst()
+        println 'my own tst'
+    endfunc
+endclass
+
+$tmp = Temp()
+$tmp->tst()
 
 # ..
 
@@ -99,8 +111,11 @@ println list(Person->__methods__->keys())
 """second trait: Parsa shah
 my trait: Mammad
 second trait: Mammad mmdi
+100
+100
 my trait: Mammad
 second trait: Mammad mmdi
 Trait 3
+my own tst
 ['b']
 """
