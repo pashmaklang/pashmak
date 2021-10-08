@@ -5,6 +5,7 @@
 #### New Features
 - Added module `regex` (GH-129)
 - Added `$os.pwd` variable in `os` module (GH-158)
+- Added *Traits* for OOP system
 
 ## 0.8.5 (2021-5-31)
 
