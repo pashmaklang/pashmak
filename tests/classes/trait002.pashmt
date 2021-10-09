@@ -1,5 +1,5 @@
 #
-# bug001.pashmt
+# trait002.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,26 +21,25 @@
 #########################################################################
 
 --test--
-tests "linked class self to instances" bug
+Traits will be handled in `isinstanceof` method
 
 --file--
 
-class Person
-    $name; $age = 10
+class T1
 endclass
 
-$p1 = Person()
-$p1->age = 20
+class T2
+endclass
 
-$p2 = Person()
-$p2->age = 77
+class MyClass + T1
+endclass
 
-println(self.classes['Person'].__props__)
-println($p1->age)
-println($p2->age)
+$a = MyClass()
+
+println $a->isinstanceof(T1)
+println $a->isinstanceof(T2)
 
 --output--
-"""{'__traits__': [], '__parent__': 'Object', '__name__': 'Person', '__docstring__': '', 'name': None, 'age': 10}
-20
-77
+"""True
+False
 """

@@ -105,3 +105,49 @@ As you can see, both of the used traits have method `hello`.
 But when we called it on our object, method `hello` in trait `T2` has been called.
 Why?
 Because of the priority of the traits. Priority is with first used traits.
+
+### `__traits__` attribute
+This attribute in classes contains list of binded traits to a class.
+
+Look at this example:
+
+```bash
+class T1
+endclass
+
+class T2
+endclass
+
+class MyClass + T1, T2
+endclass
+
+println MyClass->__traits__
+```
+
+output:
+
+```
+['T1', 'T2']
+```
+
+### `isinstanceof`
+The Traits will be handled in method `isinstanceof`.
+
+Look at this example:
+
+```bash
+class Trait
+endclass
+
+class MyClass + Trait
+endclass
+
+$a = MyClass()
+println $a->isinstanceof(Trait)
+```
+
+output:
+
+```
+True
+```

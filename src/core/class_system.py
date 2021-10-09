@@ -39,6 +39,7 @@ class Class:
         self.__props__ = {}
         self.__methods__ = {}
         self.__inheritance_tree__ = []
+        self.__traits__ = []
         self.__classname__ = name
 
     def __str__(self):

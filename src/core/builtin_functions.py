@@ -191,6 +191,7 @@ class BuiltinFunctions:
         # and in this process, each trait will overwrite methods on props on the previous ones
         # so we reverse them to keep priority ASC
         traits = traits[::-1]
+        traits_names = []
         for trait in traits:
             # check type of the object
             if type(trait) is not Class:
@@ -200,6 +201,8 @@ class BuiltinFunctions:
                 # add the contents of the trait to the class
                 self.classes[self.current_namespace() + arg].__props__ = {**self.classes[self.current_namespace() + arg].__props__, **trait.__props__}
                 self.classes[self.current_namespace() + arg].__methods__ = {**self.classes[self.current_namespace() + arg].__methods__, **trait.__methods__}
+                traits_names.append(trait.__classname__)
+        self.classes[self.current_namespace() + arg].__traits__ = traits_names[::-1]
 
     def run_func(self, op: dict):
         """ Starts function declaration block """

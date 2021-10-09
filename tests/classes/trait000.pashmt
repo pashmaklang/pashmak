@@ -105,7 +105,12 @@ endclass
 class Person + T2
 endclass
 
+class Final + T1, T2
+endclass
+
 println list(Person->__methods__->keys())
+
+println Final->__traits__
 
 --output--
 """second trait: Parsa shah
@@ -118,4 +123,5 @@ second trait: Mammad mmdi
 Trait 3
 my own tst
 ['b']
+['T1', 'T2']
 """
