@@ -40,7 +40,7 @@ class Object
             $class = $class->__name__
         endif
 
-        return $class in $this->__inheritance_tree__
+        return $class in $this->__inheritance_tree__ or $class in $this->__traits__
     endfunc
 endclass
 
