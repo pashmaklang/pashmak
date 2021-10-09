@@ -40,7 +40,7 @@ println($p1->age)
 println($p2->age)
 
 --output--
-"""{'__parent__': 'Object', '__name__': 'Person', '__docstring__': '', 'name': None, 'age': 10}
+"""{'__traits__': [], '__parent__': 'Object', '__name__': 'Person', '__docstring__': '', 'name': None, 'age': 10}
 20
 77
 """

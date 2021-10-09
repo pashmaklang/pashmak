@@ -29,5 +29,5 @@ println(list(self.classes.keys()))
 println(self.classes['Person'].__props__)
 --output--
 """["""+self.default_classes_list_str+""", 'Person']
-{'__parent__': 'Object', '__name__': 'Person', '__docstring__': ''}
+{'__traits__': [], '__parent__': 'Object', '__name__': 'Person', '__docstring__': ''}
 """
