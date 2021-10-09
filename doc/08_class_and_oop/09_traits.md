@@ -129,3 +129,25 @@ output:
 ```
 ['T1', 'T2']
 ```
+
+### `isinstanceof`
+The Traits will be handled in method `isinstanceof`.
+
+Look at this example:
+
+```bash
+class Trait
+endclass
+
+class MyClass + Trait
+endclass
+
+$a = MyClass()
+println $a->isinstanceof(Trait)
+```
+
+output:
+
+```
+True
+```
