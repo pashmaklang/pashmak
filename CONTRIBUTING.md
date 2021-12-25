@@ -45,7 +45,7 @@ git push origin some-name-for-branch
 and then make pull request from your branch to `master`
 
 ### Idea
-if you haven't any idea for contributing, you can see [Issues](https://github.com/pashmaklang/pashmak/issues) and [TODO File](TODO.md)
+if you haven't any idea for contributing, you can see [Issues](https://github.com/pashmaklang/pashmak/issues)
 
 ### Branch
 Send **New/Change Features** to branch `master`(`master` is develop stage for next release).
