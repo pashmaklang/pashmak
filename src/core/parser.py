@@ -169,6 +169,22 @@ def parse(content: str, filepath='<system>', only_parse=False, no_random=False) 
     if only_parse:
         return commands
 
+    # handle the "end" keyword
+    i = 0
+    started_blocks = []
+    while i < len(commands):
+        if commands[i]['command'] in ('if', 'while', 'try', 'namespace', 'class', 'func', 'ns'):
+            started_blocks.append(commands[i]['command'])
+        elif commands[i]['command'] in ('endif', 'endwhile', 'endtry', 'endnamespace', 'endclass', 'endfunc'):
+            start_command = commands[i]['command'][3:]
+            if started_blocks and started_blocks[-1] == start_command:
+                started_blocks.pop(-1)
+        elif commands[i]['command'] == 'end':
+            if started_blocks:
+                started_block = started_blocks.pop(-1)
+                commands[i]['command'] = 'end' + started_block
+        i += 1
+
     # handle the if statement
     open_ifs = []
     open_ifs_counters = []
