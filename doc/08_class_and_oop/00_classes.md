@@ -10,6 +10,8 @@ class Car
 endclass
 ```
 
+Note: you can use keyword `end` instead of `endclass`. It is not different.
+
 in above example, we declared a class named `Car` with `name` and `color` properties.
 
 let's use this:

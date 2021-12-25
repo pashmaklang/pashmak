@@ -51,6 +51,8 @@ label after_error
 when you write code between `try <label-name> ... endtry`, errors will not raised in them and if an error is raised, that label where passed to try command will run.
 actually, we say to the Pashmak to don't show error to user and do that thing I'm saying you instead of default error showing.
 
+Note: you can ue keyword `end` instead of `endtry`. It is not different.
+
 ### how to access raised error data?
 
 when error is raised in try statement, error data will put in mem (^):

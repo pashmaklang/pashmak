@@ -56,6 +56,16 @@ endif
 # above code haven't output
 ```
 
+Also you can use keyword `end` instead of `endif`:
+
+```bash
+$age = 12
+
+if $age > 18
+    println('Welcome!')
+end
+```
+
 also you can use `else`:
 
 ```bash
