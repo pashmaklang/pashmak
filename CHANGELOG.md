@@ -6,6 +6,7 @@
 - Added module `regex` (GH-129)
 - Added `$os.pwd` variable in `os` module (GH-158)
 - Added *Traits* for OOP system (GH-164, GH-165)
+- Added keyword `end` to close blocks instead of `endif`, `endwhile`... previous keywords still work (GH-171)
 
 ## 0.8.5 (2021-5-31)
 
