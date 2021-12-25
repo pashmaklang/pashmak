@@ -444,6 +444,7 @@ class Program(helpers.Helpers):
             'elif': None,
             'else': None,
             'endif': None,
+            'end': None,
         }
 
         # check op_name is a valid command

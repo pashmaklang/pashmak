@@ -16,6 +16,8 @@ endnamespace
 App.say_hello
 ```
 
+Note: you can use keyword `end` instead of `endnamespace`. It is not different.
+
 output:
 
 ```

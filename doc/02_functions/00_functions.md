@@ -10,6 +10,8 @@ endfunc
 say_hello()
 ```
 
+Note: you can use keyword `end` instead of `endif`. It is not different.
+
 output:
 
 ```

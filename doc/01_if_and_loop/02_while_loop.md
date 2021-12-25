@@ -39,6 +39,8 @@ output:
 10
 ```
 
+Note: you can use keyword `end` instead of `endwhile`. It is not different.
+
 Also you learned about loops in the **labels** part. The `while` loop makes the syntax easier.
 
 Structure of while loop:

@@ -1,0 +1,137 @@
+#
+# test.pashmt
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+Keyword "end" works correctly for all types of started blocks
+
+--file--
+
+$i = 20
+$x = 10
+
+if $i < $x
+    println 'yes'
+else
+    println 'no'
+
+    if $i == 2001
+        println 'A'
+    else
+        if $x == 9
+            println 'B'
+        else
+            println 'C'
+        end
+    endif
+end
+
+func hello($x, $i)
+    while $x < $i
+        println $x
+
+        $x = $x + 1
+
+        $z = 0
+        while $z < 3
+            println 'z' + str($z)
+            $z = $z + 1
+        end
+    endwhile
+end
+
+hello($x, $i)
+
+class Person
+    func hi()
+        println 'hello'
+    end
+
+    func bye()
+        println 'bye'
+    endfunc
+end
+
+if true
+    if true
+        $p = Person()
+        $p->hi()
+        $p->bye()
+    end
+endif
+
+namespace A
+    ns B
+        func tst()
+            println 'tst'
+        endfunc
+    end
+end
+
+A.B.tst()
+
+--output--
+"""no
+C
+10
+z0
+z1
+z2
+11
+z0
+z1
+z2
+12
+z0
+z1
+z2
+13
+z0
+z1
+z2
+14
+z0
+z1
+z2
+15
+z0
+z1
+z2
+16
+z0
+z1
+z2
+17
+z0
+z1
+z2
+18
+z0
+z1
+z2
+19
+z0
+z1
+z2
+hello
+bye
+tst
+"""
