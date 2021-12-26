@@ -78,4 +78,4 @@ $f = open($__dir__ + '/../src/core/modules.py', 'w')
 $f->write($pycode)
 $f->close()
 
-println("\033[32mAll of the modules has been mixed in 'src/core/modules.py' successfuly\033[0m")
+println("\033[32mAll of the modules have been mixed in 'src/core/modules.py' successfuly\033[0m")
