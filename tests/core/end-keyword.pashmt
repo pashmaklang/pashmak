@@ -83,10 +83,17 @@ namespace A
         func tst()
             println 'tst'
         endfunc
+
+        ns C
+            func foo()
+                println 'foo'
+            end
+        endns
     end
 end
 
 A.B.tst()
+A.B.C.foo()
 
 --output--
 """no
@@ -134,4 +141,5 @@ z2
 hello
 bye
 tst
+foo
 """

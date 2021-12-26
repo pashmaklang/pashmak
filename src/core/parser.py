@@ -175,7 +175,7 @@ def parse(content: str, filepath='<system>', only_parse=False, no_random=False) 
     while i < len(commands):
         if commands[i]['command'] in ('if', 'while', 'try', 'namespace', 'class', 'func', 'ns'):
             started_blocks.append(commands[i]['command'])
-        elif commands[i]['command'] in ('endif', 'endwhile', 'endtry', 'endnamespace', 'endclass', 'endfunc'):
+        elif commands[i]['command'] in ('endif', 'endwhile', 'endtry', 'endnamespace', 'endclass', 'endfunc', 'endns'):
             start_command = commands[i]['command'][3:]
             if started_blocks and started_blocks[-1] == start_command:
                 started_blocks.pop(-1)
