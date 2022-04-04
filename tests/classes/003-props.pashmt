@@ -31,4 +31,4 @@ endclass
 print(self.classes['Car'].__props__)
 
 --output--
-"{'__traits__': [], '__parent__': 'Object', '__name__': 'Car', '__docstring__': '', 'name': None, 'price': 100}"
+"{'__traits__': [], '__private_props__': [], '__protected_props__': [], '__parent__': 'Object', '__name__': 'Car', '__docstring__': '', 'name': None, 'price': 100}"
