@@ -340,3 +340,30 @@ class BuiltinFunctions:
         """ @doc sets last docstring """
         docstr = str(self.eval(op['args_eval'])).strip()
         self.last_docstring = docstr
+
+    def run_private(self, op: dict, private=True):
+        """ Handles command `private` which sets private attributes for a class """
+        if not self.current_class:
+            keyword = 'private' if private else 'protected'
+            self.raise_error('SyntaxError', 'Unexpected keyword "' + keyword + '" outside of a class declaration', op)
+            return
+
+        # these would be list of the properties (or just one) that must be protected/private
+        props_list = self.eval(op['args_eval'])
+
+        if type(props_list) not in (list, tuple):
+            # single item, converting it to a tuple with a single item
+            props_list = props_list,
+
+        for prop in props_list:
+            prop = str(prop)
+            if private:
+                if prop not in self.classes[self.current_class[-1]].__private_props__:
+                    self.classes[self.current_class[-1]].__private_props__.append(prop)
+            else:
+                if prop not in self.classes[self.current_class[-1]].__protected_props__:
+                    self.classes[self.current_class[-1]].__protected_props__.append(prop)
+
+    def run_protected(self, op: dict):
+        """ Handles command `protected` which sets protected attributes for a class """
+        return self.run_private(op, False)

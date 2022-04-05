@@ -1,5 +1,5 @@
 #
-# 001.pashmt
+# 016-access-levels.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,13 +21,42 @@
 #########################################################################
 
 --test--
-class can be declared
+Private and protected properties can be set
+
 --file--
+
 class Person
+    $a = 1
+    $b = 2
+    $c = 3
+    $d = 4
+    $e = 5
+    $f = 6
+    $g = 7
+
+    private 'b'
+    private 'c', 'd'
+
+    protected 'e'
+    protected ['f', 'g']
+
+    class Subclass
+        $a = 1
+        $b = 2
+        private 'a'
+    end
 endclass
-println(list(self.classes.keys()))
-println(self.classes['Person'].__props__)
+
+$p = Person()
+
+println $p->__protected_props__
+println $p->__private_props__
+
+$s = Subclass()
+println $s->__private_props__
+
 --output--
-"""["""+self.default_classes_list_str+""", 'Person']
-{'__traits__': [], '__private_props__': [], '__protected_props__': [], '__parent__': 'Object', '__name__': 'Person', '__docstring__': ''}
+"""['e', 'f', 'g']
+['b', 'c', 'd']
+['a']
 """

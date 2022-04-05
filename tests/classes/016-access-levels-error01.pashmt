@@ -1,5 +1,5 @@
 #
-# 001.pashmt
+# 016-access-levels-error01.pashmt
 #
 # The Pashmak Project
 # Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
@@ -21,13 +21,14 @@
 #########################################################################
 
 --test--
-class can be declared
+Private or protected keywords outside of the class declaration will raise error
+
 --file--
+
 class Person
 endclass
-println(list(self.classes.keys()))
-println(self.classes['Person'].__props__)
---output--
-"""["""+self.default_classes_list_str+""", 'Person']
-{'__traits__': [], '__private_props__': [], '__protected_props__': [], '__parent__': 'Object', '__name__': 'Person', '__docstring__': ''}
-"""
+
+protected
+
+--with-error--
+"SyntaxError"

@@ -7,6 +7,7 @@
 - Added `$os.pwd` variable in `os` module (GH-158)
 - Added *Traits* for OOP system (GH-164, GH-165)
 - Added keyword `end` to close blocks instead of `endif`, `endwhile`... previous keywords still work (GH-171)
+- Added **OOP attribute access levels**. [Read the doc](doc/08_class_and_oop/03_attribute_access_level.md) (GH-N)
 
 ## 0.8.5 (2021-5-31)
 
