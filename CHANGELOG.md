@@ -1,6 +1,6 @@
 # Pashmak Changelog
 
-## (0.9) next release
+## 0.9 (2025-12-7)
 
 #### New Features
 - Added module `regex` (GH-129)
