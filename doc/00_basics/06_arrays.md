@@ -1,7 +1,7 @@
 # Arrays
-arrays are a list from variables.
+Arrays are a list of variables.
 
-look at this example:
+Look at this example:
 
 ```bash
 $names = ['parsa', 'pashmak', 'jack']
@@ -12,7 +12,7 @@ println($names[1]) # output: pashmak
 println($names[2]) # output: jack
 ```
 
-this is a example about array and loop:
+This is an example about array and loop:
 
 ```bash
 $names = ['parsa', 'pashmak', 'jack']
@@ -33,10 +33,10 @@ pashmak
 jack
 ```
 
-the above code prints names one by one
+The above code prints names one by one
 
-## adding new item to array
-you can add new item to an array by using python `append` and `insert` methods:
+## Adding new item to array
+You can add new item to an array by using python `append` and `insert` methods:
 
 ```bash
 $myarray = ['first', 'second']
@@ -53,7 +53,7 @@ output:
 ['first', 'second', 'new item']
 ```
 
-also with `insert` method you can set the location of new item:
+Also with `insert` method you can set the location of new item:
 
 ```bash
 $myarray = ['one', 'two', 'four']
@@ -70,8 +70,8 @@ output:
 ['one', 'two', 'three', 'four']
 ```
 
-## removing an item from array
-you can delete an item from array by using python `pop` method:
+## Removing an item from array
+You can delete an item from array by using python `pop` method:
 
 ```bash
 $myarray = ['first', 'second']
@@ -88,10 +88,10 @@ output:
 ['first']
 ```
 
-also `pop` method without argument removes last item by default.
+Also `pop` method without argument removes last item by default.
 
-## setting value of an item in array
-look at this example:
+## Setting value of an item in array
+Look at this example:
 
 ```bash
 $abc = ['a', 'b', 'c']
@@ -101,9 +101,9 @@ $abc[0] = '000'
 println($abc) # output: ['000', 'b', 'c']
 ```
 
-like above example, we can set a specify item of array with a syntax like this: `$my_list[<index>] = <value>`.
+Like above example, we can set a specify item of array with a syntax like this: `$my_list[<index>] = <value>`.
 
-also you can do this on a subitem. look at this example:
+Also you can do this on a subitem. Look at this example:
 
 ```bash
 $my_list = []
@@ -116,10 +116,10 @@ $my_list[0][0] = 'AAA'
 println($my_list[0]) # output: ['AAA']
 ```
 
-## Dictonaries
-dictonaries are like lists, but in dicts you can set a string as key instead of index number.
+## Dictionaries
+Dictionaries are like lists, but in dicts you can set a string as key instead of index number.
 
-look at this example:
+Look at this example:
 
 ```bash
 $my_dict = {'hello': "Hello world", 'bye': 'Good bye!'}
@@ -129,9 +129,9 @@ println($my_dict) # output: {'hello': "Hello world", 'bye': 'Good bye!'}
 println($my_dict['hello']) # output: Hello world
 ```
 
-like above example, we can use string as key instead of index number. in the above example, `hello` is the key.
+Like above example, we can use string as key instead of index number. In the above example, `hello` is the key.
 
-also you can set the keys like lists(arrays):
+Also you can set the keys like lists(arrays):
 
 ```bash
 $my_dict = {'hello': "Hello world", 'bye': 'Good bye!'}

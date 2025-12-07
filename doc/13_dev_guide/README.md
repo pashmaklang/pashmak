@@ -1,7 +1,7 @@
 # A Guide for Pashmak Core developers
-If you want to undrestand structure of Pashmak interpreter Source code, This Section is helpful.
+If you want to understand structure of Pashmak interpreter Source code, This Section is helpful.
 
-#### NOTE: this guide will not help you to FULL understand structure of pashmak core, You should also read the source code for full understand
+#### NOTE: this guide will not help you to FULL understand structure of pashmak core, You should also read the source code for full understanding
 
 - [Structure of source code](00_structure.md)
 - [Builtin Modules](01_modules.md)

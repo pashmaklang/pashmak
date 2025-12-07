@@ -1,8 +1,8 @@
 # Contributing
-if you want to contribute to the Pashmak project, this contributing guide is helpful.
+If you want to contribute to the Pashmak project, this contributing guide is helpful.
 
 ### run/build
-to run program, do following steps:
+To run program, do following steps:
 
 ```bash
 cd /path/to/project/folder
@@ -24,7 +24,7 @@ then run built executable:
 
 ### start contributing
 
-to start contributing:
+To start contributing:
 - fork this project
 - clone your fork
 - create a branch
@@ -45,7 +45,7 @@ git push origin some-name-for-branch
 and then make pull request from your branch to `master`
 
 ### Idea
-if you haven't any idea for contributing, you can see [Issues](https://github.com/pashmaklang/pashmak/issues)
+If you haven't any idea for contributing, you can see [Issues](https://github.com/pashmaklang/pashmak/issues)
 
 ### Branch
 Send **New/Change Features** to branch `master`(`master` is develop stage for next release).
@@ -55,10 +55,10 @@ Send **Bug Fixes** to branch `0.8` (older supported release).
 ([Read release process for more](doc/13_dev_guide/07_release_process.md)).
 
 ### Developer Guide
-If you want to undrestand structure of Pashmak project source code, Read [Developer Guide](doc/13_dev_guide).
+If you want to understand structure of Pashmak project source code, read [Developer Guide](doc/13_dev_guide).
 
 ### Makefile scripts
-this scripts are helpful for development:
+These scripts are helpful for development:
 
 ##### make module
 this command makes file `src/core/modules.py`.
@@ -166,7 +166,7 @@ python3 ./tests/run.py
 #### create new test
 to create new test, you should create a file with `.pashmt` extension in `tests` folder. also you can create that in any subdirectory. for example `tests/foo/bar/test.pashmt` or `tests/hello.pashmt`, etc.
 
-the strcuture of `.pashmt` files is so easy. test runner reads them and runs code and runs assertions on result of the code.
+The structure of `.pashmt` files is so easy. Test runner reads them and runs code and runs assertions on result of the code.
 
 for example `tests/example/test_something.pashmt`
 
@@ -182,17 +182,17 @@ print('hello world')
 "hello world"
 ```
 
-in above example, we are asserting output of that code is `hello world`.
+In above example, we are asserting output of that code is `hello world`.
 
-syntax of this files is very easy.
-you have to write `--<section-name>--` in a line and write value in next lines.
+Syntax of this files is very easy.
+You have to write `--<section-name>--` in a line and write value in next lines.
 
-for example, `--test--` option sets a short description for the test.
-and `--file--` set the code. and `--output--` asserts output.
+For example, `--test--` option sets a short description for the test.
+And `--file--` set the code. And `--output--` asserts output.
 
-totally, the above test runs `print("hello world")` code and asserts output of that code is `"hello world"`
+Totally, the above test runs `print("hello world")` code and asserts output of that code is `"hello world"`
 
-if you adding a feature or changing feature, change/add test for that feature
+If you adding a feature or changing feature, change/add test for that feature
 
 #### Another test options
 - `--vars--`: asserts variables
@@ -203,7 +203,7 @@ if you adding a feature or changing feature, change/add test for that feature
 - `--exit-code--`: asserts program exit code
 - `--with-error--`: asserts program has error. value is optional, but you can assert error type as value
 - `--pyinit--`: this can be a python code to be ran before running test code
-- `--skip--`: this option says that to test runner, if this was faild, ignore this and skip
+- `--skip--`: this option says that to test runner, if this was failed, ignore this and skip
 
 example:
 
@@ -233,21 +233,21 @@ exit 5
 
 REMEMBER, always put values in `--mem--`, `--output--` and... as python syntax!
 
-for example, if you want to assert output is `hello world`, DO NOT WRITE THIS:
+For example, if you want to assert output is `hello world`, do not write this:
 
 ```
 --output--
 hello world
 ```
 
-above test is wrong, but this is value:
+Above test is wrong, but this is correct:
 
 ```
 --output--
 "hello world"
 ```
 
-actually, you have to write `"` and... assert values.
+Actually, you have to write `"` and assert values.
 
 ## Other notes
 If you are adding/changing **Features**, please add/change **Documentation** and **Tests** for that Feature.

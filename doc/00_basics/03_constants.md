@@ -1,7 +1,7 @@
 # Constants
 Constants (consts) are even like variables, but one thing is different in constants, **Constant value cannot be changed**.
 
-for example:
+For example:
 
 ```bash
 # declare the const
@@ -38,9 +38,9 @@ output:
 ConstError: "$&name" is const and cannot be changed...
 ```
 
-also you can **declare** a constant, but set value of that later.
+Also you can **declare** a constant, but set value of that later.
 
-for example:
+For example:
 
 ```bash
 $&name # only declare constant, default value is `None`

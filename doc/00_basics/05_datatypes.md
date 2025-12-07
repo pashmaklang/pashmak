@@ -1,10 +1,10 @@
 # Datatypes
-ALL of Pashmak variable datatypes system is handled by python. Python is a programming language Pashmak written with that.
+All of Pashmak variable datatypes system is handled by python. Python is a programming language Pashmak written with that.
 
 ### What is datatype
-In the prevoius parts, you learned about **Variables**.
+In the previous parts, you learned about **Variables**.
 
-for example:
+For example:
 
 ```bash
 $name = 'hello'
@@ -13,7 +13,7 @@ $gender = False
 # ...
 ```
 
-**Value of variables has diffrent types.**
+**Values of variables have different types.**
 
 For example, Numbers, Strings(text), Boolean(True or False), Float...
 
@@ -21,7 +21,7 @@ This is table of all of datatypes:
 
 |Name|Description|Example|
 |----|-----------|-------|
-|`str`|The string(text) is a list of characters|for example `"hello world"`, `'parsa'`... you should write them between `""` or `''`(not diffrent)|
+|`str`|The string(text) is a list of characters|For example `"hello world"`, `'parsa'`... You should write them between `""` or `''`(not different)|
 |`int`|The integer numbers|`12`, `146433`...|
 |`float`|The float numbers|`124.345`, `1.543657`...|
 |`list`, `tuple`, `dict`|List of variables|Learn about them in next part [Arrays](06_arrays.md)
@@ -30,13 +30,13 @@ This is table of all of datatypes:
 [You can see FULL Documentation of python datatypes in here](https://docs.python.org/3/library/stdtypes.html).
 
 ### null(None)
-null or None is type of a value. They mean Empty.
+null or None is a type of value. They mean empty.
 
-for example:
+For example:
 
 ```bash
 $something = None
 $something = null
 ```
 
-The `None` and `null` keywords are Exactly like together and are not diffrent(`null` is a alias for `None`).
+The `None` and `null` keywords are exactly the same and are not different(`null` is an alias for `None`).

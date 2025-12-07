@@ -34,7 +34,7 @@
 - Added command `clear` for shell (GH-123)
 
 #### Bug Fixes
-- Fixed shared frame variables bug (accessiblity of parent frame variables in child frame). (GH-124)
+- Fixed shared frame variables bug (accessibility of parent frame variables in child frame). (GH-124)
 
 ## 0.8 (2021-2-28)
 
@@ -79,7 +79,7 @@
 
 #### Bug Fixes
 - Fixed shutdown events not running while using `exit()` bug (GH-105)
-- Fixed mulltiline syntax bug white writing empty lines
+- Fixed multiline syntax bug while writing empty lines
 
 ## 0.7.1 (2021-2-10)
 
@@ -188,7 +188,7 @@
 
 #### Bug Fixes
 - Fixed a bug in importing scripts related to file path contains `"` or `'` (GH-78)
-- Fixed `$__ismain__` alwasy is True bug (GH-78)
+- Fixed `$__ismain__` always is True bug (GH-78)
 
 ## 0.6.2 (2021-1-7)
 

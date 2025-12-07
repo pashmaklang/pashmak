@@ -1,10 +1,10 @@
 # Internal Modules
-pashmak has some internal libraries to use. that modules are helpful for you.
+Pashmak has some internal libraries to use. That modules are helpful for you.
 
-## how to import module
-you can import modules with `import` function.
+## How to import module
+You can import modules with `import` function.
 
-look at this example:
+Look at this example:
 
 ```bash
 import '@hash'
@@ -23,4 +23,4 @@ endns
 # ...
 ```
 
-you have to give name of module with a `@` before that to the include command.
+You have to give name of module with a `@` before that to the include command.

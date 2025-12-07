@@ -1,8 +1,8 @@
 # If elif else statement
-in the previous part, you learned how to use **labels** for creating **Conditions** and **Loops**.
-but there is a easy way to create **Conditions**, that is **If..elif..else** statement. this system is very easy for creating conditions and handling program flow.
+In the previous part, you learned how to use **labels** for creating **Conditions** and **Loops**.
+But there is an easy way to create **Conditions**, that is **If..elif..else** statement. This system is very easy for creating conditions and handling program flow.
 
-example:
+Example:
 
 ```bash
 if 2 == 2
@@ -20,7 +20,7 @@ else
 endif
 ```
 
-in this part, we learn how to use this system.
+In this part, we learn how to use this system.
 
 The if syntax is this:
 
@@ -30,7 +30,7 @@ if <condition>
 endif
 ```
 
-for example:
+For example:
 
 ```bash
 $age = 30
@@ -53,7 +53,7 @@ if $age > 18
     println('Welcome!')
 endif
 
-# above code haven't output
+# above code has no output
 ```
 
 Also you can use keyword `end` instead of `endif`:
@@ -66,7 +66,7 @@ if $age > 18
 end
 ```
 
-also you can use `else`:
+Also you can use `else`:
 
 ```bash
 $age = 12
@@ -78,9 +78,9 @@ else
 endif
 ```
 
-if condition of `if` is not true, `else` block will be ran.
+If condition of `if` is not true, `else` block will be ran.
 
-also there is other keyword `elif`:
+Also there is another keyword `elif`:
 
 ```bash
 $num = 17
@@ -102,12 +102,12 @@ output:
 num is 17
 ```
 
-actually, `elif` block will be checked one by one. `elif` means `else if`.
+Actually, `elif` block will be checked one by one. `elif` means `else if`.
 
 ## If in If
-you can write ifs in ifs.
+You can write ifs in ifs.
 
-look at this example:
+Look at this example:
 
 ```bash
 $num = 15

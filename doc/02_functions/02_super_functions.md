@@ -1,5 +1,5 @@
 # Function super functions
-there is some **Super functions** to handle functions at runtime.
+There are some **Super functions** to handle functions at runtime.
 
 ## Checking function exists
 You can check a function exists with `func.exists` function:
@@ -10,7 +10,7 @@ if func.exists('some_func')
 endif
 ```
 
-## Geting list of all of functions
+## Getting list of all of functions
 You can get list of all of functions with `func.list` function:
 
 ```bash

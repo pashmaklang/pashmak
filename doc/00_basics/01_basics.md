@@ -12,7 +12,7 @@ or
 print('something to print\n')
 ```
 
-### how it works?
+### How it works?
 
 First, we go through Pashmak syntax structure.
 The base structure of Pashmak syntax is this:
@@ -37,7 +37,7 @@ Here, `mem` is an command and `'something to print\n'` is the argument of that, 
 
 But what is the function of this code?
 
-when you run the script in terminal:
+When you run the script in terminal:
 
 ```bash
 pashmak myscript.pashm # or any filename you saved code in that
@@ -45,19 +45,19 @@ pashmak myscript.pashm # or any filename you saved code in that
 
 ##### NOTE: the `.pashm` extension for Pashmak scripts is not required. you can run any file with any name as Pashmak script
 
-you will get this output:
+You will get this output:
 
 ```
 something to print
 ```
 
 This code, prints `'some thing to print'` on the stdout.
-but how?
+But how?
 
 First, `mem` command brings the string `'some thing to print'` in memory, and next `print` command prints the memory value on screen.
 
-## what is `mem`?
-mem is a temp place to make and calculate values.
+## What is `mem`?
+Mem is a temp place to make and calculate values.
 
 ```bash
 mem 'hello world'
@@ -74,7 +74,7 @@ mem 'hello world\n'; print(^)
 
 ###### NOTE: remember to put \n when you want to go to the next line
 
-### mem is temp
+### Mem is temp
 
 Look at this example:
 
@@ -86,9 +86,9 @@ print(^) # output: some thing
 print(^) # output: None
 ```
 
-Why in the first time when mem value was read, the value correctly was printed on screen, but in the second time, the `None` was printed?
+Why the first time when mem value was read, the value correctly was printed on screen, but the second time, the `None` was printed?
 
-Because memory is a temp place. When you read the memory, that will be empty after read automaticly.
+Because memory is a temp place. When you read the memory, that will be empty after read automatically.
 
 Look at this example:
 
@@ -109,10 +109,10 @@ second value
 
 ###### NOTE: the # character is comment symbol. you can put comment in your code after # character. comments have not any effect in program
 
-### more about mem
-You can calculate every thing in the `mem`.
+### More about mem
+You can calculate everything in the `mem`.
 
-For undrestanding this, look at the following examples:
+For understanding this, look at the following examples:
 
 ```bash
 mem 'hi there'; print(^) # output: hi there
@@ -133,7 +133,7 @@ mem str(7*7) + ' is sum'; print(^) # output: 49 is sum
 **The mem structure, is handled by Python(eval function) and you can use all of python features in the mem calculation**
 
 ### Printing without using mem
-this is a easier syntax for printing:
+This is an easier syntax for printing:
 
 ```bash
 mem 'hello world\n'; print(^)
@@ -148,15 +148,15 @@ print('hello ' + 'parsa\n')
 print('num is ' + str(100+7))
 ```
 
-you can use all of features of `mem` in the argument of commands like above example.
+You can use all of features of `mem` in the argument of commands like above example.
 
-after this, we never use `mem <something>; print(^)` pattern for printing, and we just use `print` command.
+After this, we never use `mem <something>; print(^)` pattern for printing, and we just use `print` command.
 
 ### println
 
 If you want to print something and go next line, you have to put `\n` in the end of string.
 
-But with `println` function, you don't need to use `\n` and that will put automaticaly:
+But with `println` function, you don't need to use `\n` and that will put automatically:
 
 ```bash
 println('hello world')
@@ -188,7 +188,7 @@ println(
 ```
 
 #### Writing multiline string
-multiline syntax for String(text) is different. you should put a `\` in end of lines.
+Multiline syntax for String(text) is different. You should put a `\` in end of lines.
 
 For example:
 

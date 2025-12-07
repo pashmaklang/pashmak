@@ -9,7 +9,7 @@ For example, we have `foo.pashm`:
 return 'hello world'
 ```
 
-Now, if i import this file:
+Now, if I import this file:
 
 ```bash
 $output = import('foo.pashm')

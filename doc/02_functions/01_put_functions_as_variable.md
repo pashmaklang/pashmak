@@ -1,7 +1,7 @@
-# Puting functions into variables
+# Putting functions into variables
 Functions are like variables, you can put them into variables and use them.
 
-look at this example:
+Look at this example:
 
 ```bash
 func hello($name)
@@ -24,7 +24,7 @@ hello parsa
 hello pashmak
 ```
 
-another example:
+Another example:
 
 ```bash
 func somefunc()
@@ -36,7 +36,7 @@ $myfunc()
 ```
 
 
-also look at this example:
+Also look at this example:
 
 ```bash
 func run_the_func($func)
@@ -76,7 +76,7 @@ Hi
 Bye
 ```
 
-Now We can change value of this functions:
+Now we can change value of this functions:
 
 ```bash
 hi = bye
@@ -89,4 +89,4 @@ output:
 Bye
 ```
 
-Actually, in above example, We are setting `bye` into `hi`.
+Actually, in the above example, we are setting `bye` into `hi`.

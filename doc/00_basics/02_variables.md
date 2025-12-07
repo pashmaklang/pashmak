@@ -40,9 +40,9 @@ $num2 = 4
 println($num * $num2 + 1) # output: 49
 ```
 
-### copy variables in other variables
+### Copy variables in other variables
 
-look at this example:
+Look at this example:
 
 ```bash
 $var1 = 'hi'
@@ -87,8 +87,8 @@ mem 10
 println((^ + 5) * 2) # output: 30
 ```
 
-### free(delete) variables
-When you set a variable, that var is in memory. you can delete that var with `free` command:
+### Free (delete) variables
+When you set a variable, that var is in memory. You can delete that var with `free` command:
 
 ```bash
 $somevar = 'some value'
@@ -105,10 +105,10 @@ Also you can make free more than one variables with `free` command:
 free('var_name')
 ```
 
-### Checking a variable isset
-You can check a variable existens with `isset` command.
+### Checking if a variable is set
+You can check a variable existence with `isset` command.
 
-look at this example:
+Look at this example:
 
 ```bash
 $somevar; $v # set `somevar` and `v` variables
@@ -120,15 +120,15 @@ println(isset('not_found')) # False
 
 (The `True` and `False` are Python booleans).
 
-#### how it works?
+#### How it works?
 
-The isset command gets one or more variable names and if all of that vars exist, it will put `True` in  memory and if all or one/more of them are not exists, it will put `False` in memory
+The isset command gets one or more variable names and if all of those vars exist, it will put `True` in memory and if all or one/more of them are not exists, it will put `False` in memory
 
 ### typeof command
 
 You can get the data type of a variable with `typeof` function.
 
-look at this example:
+Look at this example:
 
 ```bash
 $mystr = 'hi'
@@ -148,10 +148,10 @@ This command puts the typeof variable in mem.
 
 (All of Pashmak datatypes are handled by python and you can use all of python variables features).
 
-### python datatype methods
-datatype of the Pashmak variables, is handled by python. this means you can use all python methods on them.
+### Python datatype methods
+The datatype of the Pashmak variables, is handled by python. This means you can use all python methods on them.
 
-for example:
+For example:
 
 ```bash
 $mystring = '  hello world          '

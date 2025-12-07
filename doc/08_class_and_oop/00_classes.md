@@ -1,7 +1,7 @@
 # Classes
-class is a system to declare a structure of data. actually, class is a model with some fields.
+Class is a system to declare a structure of data. Actually, class is a model with some fields.
 
-for example, we want to declare a model from **Car**. we can declare a class:
+For example, we want to declare a model from **Car**. We can declare a class:
 
 ```bash
 class Car
@@ -10,11 +10,11 @@ class Car
 endclass
 ```
 
-Note: you can use keyword `end` instead of `endclass`. It is not different.
+Note: You can use keyword `end` instead of `endclass`. It is not different.
 
-in above example, we declared a class named `Car` with `name` and `color` properties.
+In above example, we declared a class named `Car` with `name` and `color` properties.
 
-let's use this:
+Let's use this:
 
 ```bash
 class Car
@@ -33,7 +33,7 @@ output:
 [PashmakObject name="Car"]
 ```
 
-now, we want to set the properties:
+Now, we want to set the properties:
 
 ```bash
 class Car
@@ -54,7 +54,7 @@ output:
 BMW white
 ```
 
-so, let's review the classes. for declaring the classes, we have to use `class` and `endclass` commands:
+So, let's review the classes. For declaring the classes, we have to use `class` and `endclass` commands:
 
 ```bash
 class TheClassName
@@ -62,7 +62,7 @@ class TheClassName
 endclass
 ```
 
-between them, you have to declare properties like normal variables:
+Between them, you have to declare properties like normal variables:
 
 ```bash
 class TheClassName
@@ -73,9 +73,9 @@ class TheClassName
 endclass
 ```
 
-default value for that properties is `null`(`None`).
+Default value for that properties is `null`(`None`).
 
-also you can set the default value:
+Also you can set the default value:
 
 ```bash
 class TheClassName
@@ -86,7 +86,7 @@ class TheClassName
 endclass
 ```
 
-now, we declared our class, how to create a instance from that? actually, we can create infinitivly object from that. for example we have a thing named `Car`, this is a class and we have much many objects with `Car` class.
+Now, we declared our class, how to create an instance from that? Actually, we can create infinitely object from that. For example we have a thing named `Car`, this is a class and we have much many objects with `Car` class.
 
 ```bash
 class TheClassName
@@ -99,7 +99,7 @@ endclass
 $my_object = TheClassName()
 ```
 
-now, we can create object from a class. how to access to the properties? look at this example:
+Now, we can create object from a class. How to access to the properties? Look at this example:
 
 ```bash
 class Car
@@ -112,11 +112,11 @@ $my_car = Car()
 println($my_car->name) # output: default name
 ```
 
-we can access to the object properties by writing `$varname->property_name`
+We can access to the object properties by writing `$varname->property_name`
 
-the `->` symbol is important.
+The `->` symbol is important.
 
-also you can set the value with this syntax:
+Also you can set the value with this syntax:
 
 ```bash
 class Car
@@ -135,10 +135,10 @@ println($my_car->name) # output: new name
 
 ##### NOTE: class name should not contains `()+-/*%=}{<>[],. ` chars(literal chars)
 
-## classes in namespaces
-you can declare classes inside the namespaces like variables and functions.
+## Classes in namespaces
+You can declare classes inside the namespaces like variables and functions.
 
-for example:
+For example:
 
 ```bash
 namespace Models
@@ -151,12 +151,12 @@ endns
 $my_car = Models.Car()
 ```
 
-all of laws for **classes in namespaces** is like `functions` and `variables`.
+All of laws for **classes in namespaces** is like `functions` and `variables`.
 
-## Advance property usage
-you can use more features of the properties. actually, you can create any structure in your properties.
+## Advanced property usage
+You can use more features of the properties. Actually, you can create any structure in your properties.
 
-look at this example:
+Look at this example:
 
 ```bash
 class Brand
@@ -186,16 +186,16 @@ my car
 BMW
 ```
 
-actually, your property value can be a object from other property and this process can be continued recursivly.
+Actually, your property value can be an object from other property and this process can be continued recursively.
 
-you can access to properties by `->` symbol:
+You can access to properties by `->` symbol:
 
 ```bash
 # access to `prop3` of `prop2` of `prop1` of $obj
 $obj->prop1->prop2->prop3
 ```
 
-also you can set new properties on a object:
+Also you can set new properties on an object:
 
 
 ```bash
@@ -219,11 +219,11 @@ output:
 the value
 ```
 
-in the above example, property `the_new_prop` is not declared in class by default, but you can add props without any problem in objects.
+In the above example, property `the_new_prop` is not declared in class by default, but you can add props without any problem in objects.
 
-also you can use **Consts** in classes.
+Also you can use **Consts** in classes.
 
-for example:
+For example:
 
 ```bash
 class Person
@@ -242,12 +242,12 @@ output:
 ClassConstError:...
 ```
 
-if you want to set a peoperty as constant, you have to put a `_` in the start of that name.
+If you want to set a property as constant, you have to put a `_` in the start of that name.
 
 ## Class methods
-you can declare function inside classes. the class's function is named **Method**.
+You can declare function inside classes. The class's function is named **Method**.
 
-look at this example:
+Look at this example:
 
 ```bash
 class Cat
@@ -270,9 +270,9 @@ output:
 miooo...
 ```
 
-actually, you can call functions of a class.
+Actually, you can call functions of a class.
 
-another example:
+Another example:
 
 ```bash
 class Cat
@@ -295,9 +295,9 @@ output:
 miooo... my name is gerdoo
 ```
 
-in above example, we used a variable named `$this`. this variable is a pointer to self of object.
+In above example, we used a variable named `$this`. This variable is a pointer to self of object.
 
-another example:
+Another example:
 
 ```bash
 class Person
@@ -333,14 +333,14 @@ total syntax:
 $object->method_name('arguments...', 'arg2...')
 ```
 
-also all of classes extends parent methods.
+Also all of classes extends parent methods.
 
-for example:
+For example:
 
 ```bash
 class Father
     func hi
-        # returnns this string
+        # returns this string
         return 'hello world'
     endfunc
 endclass

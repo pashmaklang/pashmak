@@ -1,5 +1,5 @@
 # Web Development with Pashmak
-Pashmak is a general programming language. means that this language is not for a specific work and you can use it anywhere. But Pashmak has potential of web development. You can run pashmak at server to develop website backend.
+Pashmak is a general programming language. This means that this language is not for a specific work and you can use it anywhere. But Pashmak has potential of web development. You can run pashmak at server to develop website backend.
 
 ## Get started
 This is a very basic example:
@@ -23,9 +23,9 @@ $ pashmak @serve 8000
 Now, you can go into http://localhost:8000/myfile.pashm (Write path of your script instead of `myfile.pashm`), and you will see `Hello world!` in the browser.
 
 ## Headers
-The headers in HTTP are important things(You should now about them before reading this guide). In pashmak, for setting the headers, you should use `web.set_header($name, $value)` function. This function sets the header.
+The headers in HTTP are important things(You should know about them before reading this guide). In pashmak, for setting the headers, you should use `web.set_header($name, $value)` function. This function sets the header.
 
-for example:
+For example:
 
 ```bash
 import @web
@@ -87,11 +87,11 @@ $name = 'parsa'
 <h1>Hello {{ $name }}</h1>
 ```
 
-Save the file with `.pashm.html` extension. for example: `hello.pashm.html`.
+Save the file with `.pashm.html` extension. For example: `hello.pashm.html`.
 
 Now, run the server and go to http://localhost:8000/hello.pashm.html and you will see `Hello parsa` in `h1` tag.
 
-REMEMBER to put `#!/usr/bin/pashmak @pit` shebang in the first of your file. This is important(Also do this if your are in windows or non-UNIX like OS).
+REMEMBER to put `#!/usr/bin/pashmak @pit` shebang in the first of your file. This is important(Also do this if you are in windows or non-UNIX like OS).
 
 ## Webserver cli options
 You can use `pashmak @serve --help` command to see the help:
@@ -108,7 +108,7 @@ Example: pashmak @serve 8080
 ```
 
 ## Request handler
-When you serve a server in a directory, if request of user is `/some/dir/and/file.pashm`, webserver searches for `/some/dir/and/file.pashm` in that directory. But sometimes you want to set webserver to send All of requests to a specify file.
+When you serve a server in a directory, if request of user is `/some/dir/and/file.pashm`, webserver searches for `/some/dir/and/file.pashm` in that directory. But sometimes you want to set webserver to send all of requests to a specific file.
 
 You can use the 4th argument for webserver cli:
 
@@ -116,4 +116,4 @@ You can use the 4th argument for webserver cli:
 $ pashmak @serve localhost 8080 . ./server.pashm
 ```
 
-Now, all of requests will be send to `server.pashm` and youself can handle them by this script. for example, you can handle routing with this feature.
+Now, all of requests will be sent to `server.pashm` and you yourself can handle them by this script. For example, you can handle routing with this feature.

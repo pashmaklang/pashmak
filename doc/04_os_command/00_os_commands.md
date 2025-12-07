@@ -1,9 +1,9 @@
 # OS Commands
 
-here is some commands about OS.
+Here are some commands about OS.
 
 ### cwd
-get current working directory.
+Get current working directory.
 
 ```bash
 cwd()
@@ -29,16 +29,16 @@ or:
 println(cwd())
 ```
 
-this command puts current working directory path into the mem.
+This command puts current working directory path into the mem.
 
 ### system
-you can run shell commands by this command:
+You can run shell commands by this command:
 
 ```bash
 system('ls /tmp')
 ```
 
-also after run `system` function, exit code will put in `mem`:
+Also after run `system` function, exit code will put in `mem`:
 
 ```bash
 system('ls /')
@@ -52,9 +52,9 @@ println(system('ls /'))
 ```
 
 ### exit
-this command exits program
+This command exits program
 
-look at this example:
+Look at this example:
 
 ```bash
 println('first print')
@@ -77,4 +77,4 @@ println('hello world')
 exit(1)
 ```
 
-exit code of program will be `1`
+Exit code of program will be `1`

@@ -1,7 +1,7 @@
-# raising errors
-Your self can raise errors in the program.
+# Raising errors
+You yourself can raise errors in the program.
 
-for example:
+For example:
 
 ```bash
 println('program started')
@@ -14,7 +14,7 @@ println('this will not print')
 output:
 
 ```
-progrma started
+program started
 MyError: this is my error
 ```
 

@@ -2,7 +2,7 @@
 
 You can read input from user in stdin.
 
-look at this example:
+Look at this example:
 
 ```bash
 print('what is your name? ')
@@ -17,13 +17,13 @@ what is your name? <input>parsa
 hello parsa
 ```
 
-after print `what is your name? ` program waits for input, and when you type something and press enter, program prints `hello <your-input>`.
+After print `what is your name? ` program waits for input, and when you type something and press enter, program prints `hello <your-input>`.
 
-for example here I entered `parsa` as input and program printed `hello parsa`.
+For example, here I entered `parsa` as input and program printed `hello parsa`.
 
 We can get input from user like above example.
 
-also look at this example:
+Also look at this example:
 
 ```bash
 $num1; $num2
@@ -48,7 +48,7 @@ enter second number: <input>2
 14
 ```
 
-this example gets two numbers from user and shows sum of them.
+This example gets two numbers from user and shows sum of them.
 
 You can also pass a message argument to function `read`. This argument will be printed before input.
 
@@ -61,15 +61,15 @@ println $name
 
 ## Reading command line arguments
 To access command line arguments, you can use `$argv` variable.
-this variable is a public variable and is list contains command line arguments.
+This variable is a public variable and is list contains command line arguments.
 
-look at this example:
+Look at this example:
 
 ```bash
 println($argv[1])
 ```
 
-we run above code:
+We run above code:
 
 ```bash
 pashmak mycode.pashm hello

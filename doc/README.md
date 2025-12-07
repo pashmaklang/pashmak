@@ -2,7 +2,7 @@
 
 ---
 
-## Table of content
+## Table of contents
 
 - [basics and variables](00_basics)
 - [If and Loop](01_if_and_loop)

@@ -48,7 +48,7 @@ $ pashmak -r "<you code...>" # run code from cli arguments with `-r` option
 $ pashmak @shell
 ```
 
-IF YOU DON'T WANT TO INSTALL IT, you can run this with python3 in terminal:
+If you don't want to install it, you can run this with python3 in terminal:
 
 ```bash
 cd /path/to/project/folder
@@ -66,7 +66,7 @@ sudo make uninstall
 
 Or manually remove `/usr/bin/pashmak`.
 
-Pashmak will be remove from your system.
+Pashmak will be removed from your system.
 
 ## Windows
 In Windows, you can run program with python interpreter without compiling:

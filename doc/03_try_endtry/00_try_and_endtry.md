@@ -1,6 +1,6 @@
 # Try and Endtry statement
 
-we may recive some errors in our program. for example:
+We may receive some errors in our program. For example:
 
 ```bash
 println($this_var_not_found)
@@ -26,13 +26,13 @@ output:
 NameError: undefined "printlgdfgfd"
 ```
 
-they are errors.
+They are errors.
 
-### but how to handle errors?
+### But how to handle errors?
 
-we can handle errors with `try-endtry` statement.
+We can handle errors with `try-endtry` statement.
 
-look at this example:
+Look at this example:
 
 ```bash
 try handle_error
@@ -48,14 +48,14 @@ println('some errors raised')
 label after_error
 ```
 
-when you write code between `try <label-name> ... endtry`, errors will not raised in them and if an error is raised, that label where passed to try command will run.
-actually, we say to the Pashmak to don't show error to user and do that thing I'm saying you instead of default error showing.
+When you write code between `try <label-name> ... endtry`, errors will not raised in them and if an error is raised, that label where passed to try command will run.
+Actually, we say to the Pashmak to don't show error to user and do that thing I'm saying you instead of default error showing.
 
-Note: you can ue keyword `end` instead of `endtry`. It is not different.
+Note: You can use keyword `end` instead of `endtry`. It is not different.
 
-### how to access raised error data?
+### How to access raised error data?
 
-when error is raised in try statement, error data will put in mem (^):
+When error is raised in try statement, error data will put in mem (^):
 
 ```bash
 try handle_error

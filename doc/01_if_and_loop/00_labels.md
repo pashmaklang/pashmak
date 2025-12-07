@@ -1,23 +1,23 @@
 # Labels
-Labels is a system to make pointer to a part of code. this is useful to create loop, if and... and is used to handle program flow.
+Labels are a system to make pointer to a part of code. This is useful to create loop, if and... and is used to handle program flow.
 
 Actually, programs flow maybe changed by conditions and loop...
-the label system is used to control program flow.
+The label system is used to control program flow.
 
-look at this example:
+Look at this example:
 ```bash
 label my_loop
     println('hello world')
 goto my_loop
 ```
 
-this code prints `hello world` non-stop.
+This code prints `hello world` non-stop.
 
 Actually when my code starts, prints hello world and then `goto` commands directs program step to the `my_loop` label and it will repeat again and again.
 
-###### NOTE: that TAB before `println('hello world')...` line is not required. this is writen only to have beautiful code
+###### NOTE: that TAB before `println('hello world')...` line is not required. This is written only to have beautiful code
 
-look at this example:
+Look at this example:
 
 ```bash
 $i = 1
@@ -28,7 +28,7 @@ label loop
 mem $i < 10; gotoif loop # check the condition in `mem` and use gotoif command
 ```
 
-the output of this code is:
+The output of this code is:
 
 ```
 1
@@ -42,7 +42,7 @@ the output of this code is:
 9
 ```
 
-we have 3 functions about label system:
+We have 3 functions about label system:
 - label
 - goto
 - gotoif
@@ -54,9 +54,9 @@ This command gets name of label as parameter like above examples. This is for de
 goto command gets a name as label name and sets program current step to that label.
 
 ### gotoif
-gotoif checks `mem` and if mem is True, will go to wanted label. if not, does nothing and continue.
+gotoif checks `mem` and if mem is True, will go to wanted label. If not, does nothing and continue.
 
-look at this example:
+Look at this example:
 
 ```bash
 # read age from user
@@ -85,7 +85,7 @@ label after_if
 println('program ends')
 ```
 
-we run the program:
+We run the program:
 
 ```bash
 enter your age: <input>22
@@ -93,7 +93,7 @@ you are more than 18
 program ends
 ```
 
-run again:
+Run again:
 ```bash
 enter your age: <input>14
 you are less than 18
