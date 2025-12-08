@@ -1,7 +1,7 @@
 # Installation
 
 ## GNU/Linux/Unix
-This installation guide is for GNU/Linux/UNIX systems. Also compile process needs `pyinstaller` pip library.
+This installation guide is for GNU/Linux/UNIX systems and requires Python >= 3.8. Also compile process needs `pyinstaller` pip library.
 If you don't have Pyinstaller, run `pip3 install pyinstaller` command in terminal.
 
 Compile & Install:
