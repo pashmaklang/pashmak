@@ -41,6 +41,8 @@ class Class:
         self.__inheritance_tree__ = []
         self.__traits__ = []
         self.__classname__ = name
+        self.__private_props__ = []
+        self.__protected_props__ = []
 
     def __str__(self):
         return "<class '" + self.__classname__ + "'>"

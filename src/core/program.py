@@ -439,6 +439,8 @@ class Program(helpers.Helpers):
             'break': self.run_break,
             'continue': self.run_continue,
             '@doc': self.run_atdoc,
+            'private': self.run_private,
+            'protected': self.run_protected,
             'pass': None,
             'if': None,
             'elif': None,

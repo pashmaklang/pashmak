@@ -1,0 +1,62 @@
+#
+# 016-access-levels.pashmt
+#
+# The Pashmak Project
+# Copyright 2020-2021 parsa shahmaleki <parsampsh@gmail.com>
+#
+# This file is part of Pashmak.
+#
+# Pashmak is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pashmak is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
+#########################################################################
+
+--test--
+Private and protected properties can be set
+
+--file--
+
+class Person
+    $a = 1
+    $b = 2
+    $c = 3
+    $d = 4
+    $e = 5
+    $f = 6
+    $g = 7
+
+    private 'b'
+    private 'c', 'd'
+
+    protected 'e'
+    protected ['f', 'g']
+
+    class Subclass
+        $a = 1
+        $b = 2
+        private 'a'
+    end
+endclass
+
+$p = Person()
+
+println $p->__protected_props__
+println $p->__private_props__
+
+$s = Subclass()
+println $s->__private_props__
+
+--output--
+"""['e', 'f', 'g']
+['b', 'c', 'd']
+['a']
+"""
