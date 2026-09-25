@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-command `section` still works
+The `section` command still works
 
 --file--
 

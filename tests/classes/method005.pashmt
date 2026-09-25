@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-method calling syntax is working
+Method call syntax works
 
 --file--
 class Foo

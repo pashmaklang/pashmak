@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-module string working correct
+The string module works correctly
 
 --file--
 

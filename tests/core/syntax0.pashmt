@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-syntax space handling working
+Whitespace in syntax is handled correctly
 --file--
 
 print 'hello  world'

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-stdlib exit function exits with default exit code
+The stdlib `exit` function uses the default exit code
 
 --file--
 

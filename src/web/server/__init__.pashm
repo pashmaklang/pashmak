@@ -110,7 +110,7 @@ if $__ismain__
         the_handler($handler, 'POST')
     endfunc
 
-    # a handler for POST and GET methods
+# A handler for POST and GET requests.
     func the_handler($handler, string $request_method)
         $path = str($handler->path)
         $path = $path->split('?', 1)
@@ -153,7 +153,7 @@ if $__ismain__
                     $command->insert(1, '@pit')
                 endif
 
-                # the envvars
+# The environment variables.
                 $env = {
                     "PASHMAKPATH": $os.env['PASHMAKPATH'],
                     "REQUEST_URI": $handler->path,
@@ -174,7 +174,7 @@ if $__ismain__
                     "SERVER_ADDR": '127.0.0.1' if $host == 'localhost' else $host,
                 }
 
-                # load request headers
+# Load the request headers.
                 $request_headers = str($handler->headers)->strip()->split('\n')
                 $i = 0
                 while $i < len($request_headers)
@@ -250,11 +250,11 @@ if $__ismain__
         endif
     endfunc
 
-    # set request handlers
+# Set the request handlers.
     $server->set_get(get_handler)
     $server->set_post(post_handler)
 
-    # start the server
+# Start the server.
     println('Serving the development server on http://' + $host + ':' + str($port) + ' - Do not use this on production')
     $server->serve()
 endif

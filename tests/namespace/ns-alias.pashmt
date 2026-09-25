@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-alias ns for namespace works
+The `ns` alias for `namespace` works
 
 --file--
 

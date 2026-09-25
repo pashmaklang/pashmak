@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-function argument null value bug while type is defined is fixed
+Null function arguments work when a type is specified
 
 --file--
 

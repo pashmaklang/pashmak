@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-label system is working as If structure
+The label system works as an `if` structure
 --file--
 println 'before start'
 goto 10

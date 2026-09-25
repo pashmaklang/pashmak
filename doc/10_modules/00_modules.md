@@ -1,5 +1,5 @@
 # Internal Modules
-Pashmak has some internal libraries to use. That modules are helpful for you.
+Pashmak includes several built-in modules that provide useful functionality.
 
 ## How to import module
 You can import modules with `import` function.
@@ -23,4 +23,4 @@ endns
 # ...
 ```
 
-You have to give name of module with a `@` before that to the include command.
+Pass the module name to the `import` command with `@` before it.

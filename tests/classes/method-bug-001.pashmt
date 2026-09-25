@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-method not found error bug is fixed
+The method-not-found error bug is fixed
 
 --file--
 

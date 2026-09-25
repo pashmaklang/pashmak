@@ -1,6 +1,6 @@
 # Namespaces
 
-Namespace is a very useful system to split sections of program.
+A namespace is a very useful system to split the sections of a program.
 
 Look at this example:
 
@@ -16,7 +16,7 @@ endnamespace
 App.say_hello
 ```
 
-Note: You can use keyword `end` instead of `endnamespace`. It is not different.
+Note: You can use the keyword `end` instead of `endnamespace`. There is no difference.
 
 Output:
 
@@ -25,28 +25,28 @@ hello world
 hello world
 ```
 
-Actually, everything which is declared between `namespace <something>` and `endnamespace` will be under this.
+Actually, everything which is declared between `namespace <something>` and `endnamespace` will be under it.
 
-In above example, we declared a namespace named `App`. And we declared `say_hello` function in that.
+In the above example, we declared a namespace named `App`. And we declared the `say_hello` function in it.
 
 Next, we called `say_hello` inside the namespace, and one time we called `say_hello` outside the namespace.
 
-When we are calling a member of namespace from outside of that namespace, we have to put name of namespace with a `.` before name of that function
+When we are calling a member of a namespace from outside of that namespace, we have to put the name of the namespace with a `.` before the name of that function.
 
-For example here, our namespace name is `App` and out function name is `say_hello`. We can write only `say_hello` inside the namespace but for call it from outside of namespace, we have to write `App.say_hello`.
+For example here, our namespace name is `App` and our function name is `say_hello`. We can write only `say_hello` inside the namespace, but to call it from outside of the namespace, we have to write `App.say_hello`.
 
 Also look at this example:
 
 ```bash
 namespace First
     func dosomething
-        println('i am from First')
+        println('I am from First')
     endfunc
 endnamespace
 
 namespace Last
     func dosomething
-        println('i am from Last')
+        println('I am from Last')
     endfunc
 endnamespace
 
@@ -57,11 +57,11 @@ Last.dosomething()
 output:
 
 ```
-i am from First
-i am from Last
+I am from First
+I am from Last
 ```
 
-Also you can use `endns` keyword instead of `endnamespace`:
+Also you can use the `endns` keyword instead of `endnamespace`:
 
 ```bash
 namespace App
@@ -75,7 +75,7 @@ endns
 App.say_hello()
 ```
 
-Also namespace system is sync with variables:
+Also the namespace system is in sync with variables:
 
 ```bash
 namespace App
@@ -90,7 +90,7 @@ println($App.name) # output: parsa
 println($name) # VariableError: undefined variable $name, because it is in App namespace and is accessible with `$App.name`
 ```
 
-Also you can use `ns` alias instead of `namespace` keyword. For example:
+Also you can use the `ns` alias instead of the `namespace` keyword. For example:
 
 ```bash
 ns app
@@ -98,4 +98,4 @@ ns app
 endns
 ```
 
-##### NOTE: variable name should not contains `()+-/*%=}{<>[],. ` chars(literal chars)
+##### NOTE: a variable name should not contain the `()+-/*%=}{<>[],. ` characters (literal characters)

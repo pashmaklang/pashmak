@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-import command can import sub dirs/files from module path
+The `import` command can load subdirectories and files from the module path
 
 --file--
 

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-eval function do not creates new frame and runs on current frame
+The `eval` function runs in the current frame without creating a new frame
 
 --file--
 $name = 'hi'

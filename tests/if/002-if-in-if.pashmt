@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-if in if working correct
+Nested `if` statements work correctly
 
 --file--
 

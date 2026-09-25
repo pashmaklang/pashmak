@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-consts working with namespaces
+Constants work in namespaces
 --file--
 namespace app
     $&thevar = 'hello world'

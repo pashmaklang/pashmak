@@ -1,5 +1,5 @@
 # Classes
-Class is a system to declare a structure of data. Actually, class is a model with some fields.
+A class is a way to declare a data structure. It acts as a model with fields.
 
 For example, we want to declare a model from **Car**. We can declare a class:
 
@@ -10,9 +10,9 @@ class Car
 endclass
 ```
 
-Note: You can use keyword `end` instead of `endclass`. It is not different.
+Note: You can use the keyword `end` instead of `endclass`. They are equivalent.
 
-In above example, we declared a class named `Car` with `name` and `color` properties.
+In the above example, we declared a class named `Car` with `name` and `color` properties.
 
 Let's use this:
 
@@ -73,9 +73,9 @@ class TheClassName
 endclass
 ```
 
-Default value for that properties is `null`(`None`).
+The default value for these properties is `null` (`None`).
 
-Also you can set the default value:
+You can also set default values:
 
 ```bash
 class TheClassName
@@ -86,7 +86,7 @@ class TheClassName
 endclass
 ```
 
-Now, we declared our class, how to create an instance from that? Actually, we can create infinitely object from that. For example we have a thing named `Car`, this is a class and we have much many objects with `Car` class.
+Now that we have declared our class, how do we create an instance of it? We can create any number of objects from a class. For example, `Car` is a class, and we can create many objects of the `Car` class.
 
 ```bash
 class TheClassName
@@ -99,7 +99,7 @@ endclass
 $my_object = TheClassName()
 ```
 
-Now, we can create object from a class. How to access to the properties? Look at this example:
+Now we can create an object from a class. To access its properties, look at this example:
 
 ```bash
 class Car
@@ -112,11 +112,11 @@ $my_car = Car()
 println($my_car->name) # output: default name
 ```
 
-We can access to the object properties by writing `$varname->property_name`
+We can access object properties by writing `$varname->property_name`.
 
 The `->` symbol is important.
 
-Also you can set the value with this syntax:
+You can also set a property's value with this syntax:
 
 ```bash
 class Car
@@ -133,7 +133,7 @@ $my_car->name = 'new name'
 println($my_car->name) # output: new name
 ```
 
-##### NOTE: class name should not contains `()+-/*%=}{<>[],. ` chars(literal chars)
+##### NOTE: A class name must not contain any of these literal characters: `()+-/*%=}{<>[],. `.
 
 ## Classes in namespaces
 You can declare classes inside the namespaces like variables and functions.
@@ -186,7 +186,7 @@ my car
 BMW
 ```
 
-Actually, your property value can be an object from other property and this process can be continued recursively.
+Property values can be objects, and this structure can be nested recursively.
 
 You can access to properties by `->` symbol:
 
@@ -195,7 +195,7 @@ You can access to properties by `->` symbol:
 $obj->prop1->prop2->prop3
 ```
 
-Also you can set new properties on an object:
+You can also add new properties to an object:
 
 
 ```bash
@@ -219,9 +219,9 @@ output:
 the value
 ```
 
-In the above example, property `the_new_prop` is not declared in class by default, but you can add props without any problem in objects.
+In the above example, `the_new_prop` is not declared in the class, but you can add properties to objects.
 
-Also you can use **Consts** in classes.
+You can also use **constants** in classes.
 
 For example:
 
@@ -242,10 +242,10 @@ output:
 ClassConstError:...
 ```
 
-If you want to set a property as constant, you have to put a `_` in the start of that name.
+To make a property constant, put `_` at the start of its name.
 
 ## Class methods
-You can declare function inside classes. The class's function is named **Method**.
+You can declare functions inside classes. A function in a class is called a **method**.
 
 Look at this example:
 
@@ -258,7 +258,7 @@ class Cat
     endfunc
 endclass
 
-# create a object from Cat
+# create an object from Cat
 $my_cat = Cat()
 
 $my_cat->mio()
@@ -270,7 +270,7 @@ output:
 miooo...
 ```
 
-Actually, you can call functions of a class.
+You can call a class's functions as methods.
 
 Another example:
 
@@ -295,7 +295,7 @@ output:
 miooo... my name is gerdoo
 ```
 
-In above example, we used a variable named `$this`. This variable is a pointer to self of object.
+In the above example, we used a variable named `$this`. It refers to the current object.
 
 Another example:
 
@@ -325,7 +325,7 @@ output:
 hello. my name is parsa
 ```
 
-**You can set object self properties by using $this variable like above examples**
+**You can set an object's properties by using the `$this` variable, as in the examples above.**
 
 total syntax:
 
@@ -333,7 +333,7 @@ total syntax:
 $object->method_name('arguments...', 'arg2...')
 ```
 
-Also all of classes extends parent methods.
+Classes also inherit their parent classes' methods.
 
 For example:
 

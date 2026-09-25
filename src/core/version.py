@@ -22,8 +22,7 @@
 
 """ Version of pashmak """
 
-# pashmak version
-# while you are releasing new version,
-# you should bump it
-# also this will put version into $sys.pashmakinfo['version']
+# Pashmak version.
+# Bump this value when releasing a new version.
+# It is also exposed as `$sys.pashmakinfo['version']`.
 version = 'v0.9'

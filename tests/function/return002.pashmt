@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-return command exits program when is used in main program frame
+The `return` command exits the program when used in the main frame
 
 --file--
 print 'first'

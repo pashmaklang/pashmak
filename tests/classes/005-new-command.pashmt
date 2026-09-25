@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-the new command can make an object from class
+The `new` command creates an object from a class
 --file--
 class Car
     $name

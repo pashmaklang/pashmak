@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Keyword "end" works correctly for all types of started blocks
+The `end` keyword works correctly with all block types
 
 --file--
 

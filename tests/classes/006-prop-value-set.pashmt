@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class object props can recive the value
+Class object properties can be assigned values
 --file--
 
 class Foo

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-bug ignoring const error is fixed
+The bug that ignored constant errors is fixed
 --file--
 $&a = 'the var'
 

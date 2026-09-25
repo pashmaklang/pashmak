@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-stdlib exit function exits with specify exit code
+The stdlib `exit` function exits with the specified exit code
 
 --file--
 

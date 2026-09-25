@@ -21,7 +21,7 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-# Mixes the static pashmak internal modules from `src/` directory to `src/core/modules.py` file
+# Combine the static Pashmak modules from `src/` into `src/core/modules.py`.
 
 import $__dir__ + '/crawler-lib.pashm'
 

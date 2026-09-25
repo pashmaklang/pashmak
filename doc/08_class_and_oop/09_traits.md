@@ -42,7 +42,7 @@ Hello Parsa
 
 You see, the methods and properties are included from two classes!
 
-Also you can keep normal inheriting type:
+You can also use regular inheritance:
 
 ```bash
 class Child < Parent + Trait1, Trait2...
@@ -70,7 +70,7 @@ $a->b() # ok
 $a->a() # ERROR!
 ```
 
-In the above example calling method `a` in that object raised an error.
+In the above example, calling method `a` on that object raises an error.
 But why?
 
 Because `MyClass` included only trait `Trait2`.
@@ -104,7 +104,7 @@ $a->hello() # output: T2: hello
 As you can see, both of the used traits have method `hello`.
 But when we called it on our object, method `hello` in trait `T2` has been called.
 Why?
-Because of the priority of the traits. Priority is with first used traits.
+This is because traits have a priority: the first trait used has the highest priority.
 
 ### `__traits__` attribute
 This attribute in classes contains list of binded traits to a class.

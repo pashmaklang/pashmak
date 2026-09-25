@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-import command is working
+The `import` command works
 
 --file--
 println 'before include'

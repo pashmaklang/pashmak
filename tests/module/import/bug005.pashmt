@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-import frame conflicting bug is fixed
+The import frame conflict is fixed
 
 --file--
 

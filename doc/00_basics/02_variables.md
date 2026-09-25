@@ -1,6 +1,6 @@
 # Variables
 
-Variables are like a pot which you can save data in them.
+Variables are like pots which you can save data in.
 
 Look at this example:
 
@@ -10,18 +10,18 @@ $myvar = 'this is data'
 println($myvar) # output: this is data
 ```
 
-##### NOTE: always put $ before name of variable everywhere
+##### NOTE: always put $ before the name of a variable everywhere
 
-Declaring variables is so easy, only you have to write `$<name_of_variable>`.
+Declaring variables is very easy; you only have to write `$<name_of_variable>`.
 
-Also you can set variables without value like this example:
+Also you can declare variables without a value like in this example:
 
 ```bash
 $var1
 $var2; $var3 # default value is null
 ```
 
-##### NOTE: variable name should not contains `()+-/*%=}{<>[], ` chars(literal chars)
+##### NOTE: a variable name should not contain the `()+-/*%=}{<>[], ` characters (literal characters)
 
 ## Using variables in mem calculation
 
@@ -40,7 +40,7 @@ $num2 = 4
 println($num * $num2 + 1) # output: 49
 ```
 
-### Copy variables in other variables
+### Copying variables into other variables
 
 Look at this example:
 
@@ -57,24 +57,24 @@ println($var1) # output: hi
 println($var2) # output: hi
 
 $name = 'parsa'
-$message = 'hello' + $parsa # you can use all of mem calculation features in here
+$message = 'hello ' + $name # you can use all of the mem calculation features here
 println($message) # output: hello parsa
 ```
 
-#### NOTE: allowed characters for variable name are `A-Za-z`(or any alpha-bet characters in other languages), `&._` characters.
+#### NOTE: the allowed characters for a variable name are `A-Za-z` (or any alphabet characters in other languages) and the `&._` characters.
 
-### Put `mem` value to variable
+### Put the `mem` value into a variable
 
-We can set value of mem to variables with this code:
+We can set the value of the mem into variables with this code:
 
 ```bash
 mem 'something'
 $myvar = ^
 ```
 
-If you put `^` (mem symbol) as value, memory value will put in the variable.
+If you put `^` (the mem symbol) as the value, the memory value will be put in the variable.
 
-Also you can use that mem alongside another values.
+Also you can use that mem alongside other values.
 
 for example:
 
@@ -88,7 +88,7 @@ println((^ + 5) * 2) # output: 30
 ```
 
 ### Free (delete) variables
-When you set a variable, that var is in memory. You can delete that var with `free` command:
+When you set a variable, that var is in memory. You can delete that var with the `free` command:
 
 ```bash
 $somevar = 'some value'
@@ -96,17 +96,17 @@ println($somevar) # output: some value
 
 free('somevar')
 
-println($somevar) # you will get VariableError: undefined variable $somevar (because it was deleted by free command)
+println($somevar) # you will get VariableError: undefined variable $somevar (because it was deleted by the free command)
 ```
 
-Also you can make free more than one variables with `free` command:
+Also you can free more than one variable with the `free` command:
 
 ```bash
 free('var_name')
 ```
 
 ### Checking if a variable is set
-You can check a variable existence with `isset` command.
+You can check a variable's existence with the `isset` command.
 
 Look at this example:
 
@@ -120,13 +120,13 @@ println(isset('not_found')) # False
 
 (The `True` and `False` are Python booleans).
 
-#### How it works?
+#### How does it work?
 
-The isset command gets one or more variable names and if all of those vars exist, it will put `True` in memory and if all or one/more of them are not exists, it will put `False` in memory
+The isset command gets one or more variable names, and if all of those vars exist, it will put `True` in memory, and if one or more of them do not exist, it will put `False` in memory
 
 ### typeof command
 
-You can get the data type of a variable with `typeof` function.
+You can get the data type of a variable with the `typeof` function.
 
 Look at this example:
 
@@ -140,16 +140,16 @@ typeof($mystr); println(^) # output: <class 'str'>
 typeof($myint); println(^) # output: <class 'int'>
 typeof($myfloat); println(^) # output: <class 'float'>
 typeof($mybool); println(^) # output: <class 'bool'>
-# also you can use this syntax and use function directly
+# also you can use this syntax and use the function directly
 println(typeof($myint))
 ```
 
-This command puts the typeof variable in mem.
+This command puts the type of the variable in the mem.
 
-(All of Pashmak datatypes are handled by python and you can use all of python variables features).
+(All Pashmak datatypes are handled by Python and you can use all of Python's variable features).
 
 ### Python datatype methods
-The datatype of the Pashmak variables, is handled by python. This means you can use all python methods on them.
+The datatypes of Pashmak variables are handled by Python. This means you can use all Python methods on them.
 
 For example:
 
@@ -158,10 +158,10 @@ $mystring = '  hello world          '
 println($mystring->strip()) # output: `hello world`
 ```
 
-#### NOTE: in python, for calling function or access to property of a object, we use `.` character, but in Pashmak we use `->` symbol(like php)
+#### NOTE: in Python, for calling a function or accessing a property of an object, we use the `.` character, but in Pashmak we use the `->` symbol (like PHP)
 
 ### `get()` and `set()` functions
-`get()` function can return value of a variable by name as string.
+The `get()` function can return the value of a variable by its name as a string.
 
 For example:
 
@@ -177,7 +177,7 @@ output:
 parsa
 ```
 
-Also `set` function sets value of a variable by name and value:
+Also the `set` function sets the value of a variable by name and value:
 
 ```bash
 $name = 'parsa'

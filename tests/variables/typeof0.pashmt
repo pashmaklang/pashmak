@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-typeof command is working
+The `typeof` command works
 
 --file--
 $mystr = 'the string'

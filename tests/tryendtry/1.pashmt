@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-raised error data is put into mem
+Raised error data is stored in `mem`
 --file--
 try 10
 # a code with error

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-using empty () while declaring function bug
+Empty parentheses in function declarations work correctly
 
 --file--
 func hi()

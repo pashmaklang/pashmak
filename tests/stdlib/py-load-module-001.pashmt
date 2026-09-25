@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-function py_load_module() works
+The `py_load_module()` function works
 
 --file--
 

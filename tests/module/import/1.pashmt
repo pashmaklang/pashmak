@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-import command is working with variable as argument
+The `import` command accepts a variable as its argument
 
 --file--
 $path = 'examples/will_be_include.pashm'

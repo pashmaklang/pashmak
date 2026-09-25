@@ -1,5 +1,5 @@
 # Cloning objects
-If you put a object into other variables, that will be pointer to original variable.
+When you assign an object to another variable, the new variable refers to the original object.
 
 Look at this example:
 
@@ -18,9 +18,9 @@ println($b['foo']) # `new`
 println($a['foo']) # `new`!
 ```
 
-In the above example, why after changing `$b`, also `$a` was changed? Because we put `$a` into `$b`. now, `$b` points to real `$a`.(means it is not a copy).
+In the example above, changing `$b` also changes `$a` because both variables refer to the same object. Assigning `$a` to `$b` does not create a copy.
 
-But how to clone objects? We should use `clone` function:
+To create a separate copy of an object, use the `clone` function:
 
 
 ```bash
@@ -39,4 +39,3 @@ println($b['foo']) # `new`
 
 println($a['foo']) # `bar` (the old value)
 ```
-

@@ -1,5 +1,5 @@
 # Python standard modules
-you can use this python standard modules in pashmak directly in your code:
+You can use these Python standard modules directly in your Pashmak code:
 
 - `os`
 - `sys`
@@ -33,10 +33,10 @@ $time = time.time() - 100
 # ...
 ```
 
-this is very useful!
+This can be useful when you need functionality from Python's standard library.
 
 Also you can use `py_load_module` function.
-if you want to import a module that not imported by default, you can use this function.
+If you want to import a module that is not imported by default, you can use this function.
 
 Example:
 
@@ -45,4 +45,3 @@ $module = py_load_module('module_name')
 $module->func_1()
 # ...
 ```
-

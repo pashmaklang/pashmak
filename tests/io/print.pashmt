@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-print functions working
+Print functions work
 
 --file--
 println 'hello'

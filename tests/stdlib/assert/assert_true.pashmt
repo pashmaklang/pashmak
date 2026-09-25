@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-assert function is ok when values are True
+The `assert` function succeeds when the values are `True`
 --file--
 assert True
 assert 2 == 2

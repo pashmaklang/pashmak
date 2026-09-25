@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class properties can be declared
+Class properties can be declared
 --file--
 class Car
     $name

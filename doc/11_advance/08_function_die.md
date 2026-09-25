@@ -7,13 +7,13 @@ For example:
 die("Good bye")
 ```
 
-Also you can use this without argument:
+You can also call it without an argument:
 
 ```bash
 die()
 ```
 
-By default, this function exits with `1` exit code. You can change exit code by passing second argument:
+By default, this function exits with exit code `1`. You can change the exit code by passing a second argument:
 
 ```bash
 die("good bye", 100)

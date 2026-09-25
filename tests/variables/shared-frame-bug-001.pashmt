@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-variables of parent un-global frame is not accessible in child frame (bug fixed)
+Variables in a parent non-global frame are accessible in a child frame
 
 --file--
 

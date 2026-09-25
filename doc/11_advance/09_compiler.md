@@ -1,9 +1,9 @@
-# The Pashmak Compiler(Mixer)
-This program is a compiler/mixer for pashmak programming language.
+# The Pashmak compiler (mixer)
+This program compiles or mixes Pashmak scripts.
 
-This helps you, to mix lot of scripts in your project to One file.
+It can combine many scripts in your project into one file.
 
-Maybe your project has lot of files which them importing together. This tool helps you to mix and build them to ONE file.
+If your project has many files that import one another, this tool can combine them into a single file.
 
 ## Get started
 Let's get started:
@@ -12,13 +12,13 @@ Let's get started:
 $ pashmak @compiler /path/to/my-program/main.pashm out.pashm
 ```
 
-then, you can run `out.pashm`:
+Then you can run `out.pashm`:
 
 ```bash
 $ pashmak out.pashm
 ```
 
-Let's look at an example. we have 3 files: `app.pashm`, `lib.pashm`, `core.pashm`.
+Consider an example with three files: `app.pashm`, `lib.pashm`, and `core.pashm`.
 
 ##### `app.pashm`:
 
@@ -47,7 +47,7 @@ println('Core: end')
 println('Lib: hello')
 ```
 
-When i run `app.pashm` normally, output is this:
+When I run `app.pashm` normally, the output is:
 
 ```
 App: start
@@ -57,13 +57,13 @@ Core: end
 App: end
 ```
 
-now, i can mix this 3 files to one file:
+Now I can mix these three files into one file:
 
 ```bash
 $ pashmak @compiler app.pashm out.pashm
 ```
 
-now, when i run generated `out.pashm` output is:
+When I run the generated `out.pashm`, the output is:
 
 ```
 App: start
@@ -73,6 +73,6 @@ Core: end
 App: end
 ```
 
-Excatly even the normal run output.
+This is exactly the same as the output from a normal run.
 
-This helps you to build you project from lot of files to one file(Mix them).
+This helps you build your project from many files into one file.

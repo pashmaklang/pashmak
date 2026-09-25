@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-dictonary item can get value
+Dictionary item values can be retrieved
 
 --file--
 $my_dict = {'first': 1}

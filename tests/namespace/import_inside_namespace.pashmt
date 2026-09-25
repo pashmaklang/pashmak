@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-import inside namespace is working
+Importing inside a namespace works
 --file--
 import '@hash'
 hash.sha256 'hello'; print ^

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-multiple import is working with parentheses
+Multiple imports work with parentheses
 --file--
 import ('@hash', 'examples/will_be_include.pashm')
 hash.sha256 'hello'; print ^

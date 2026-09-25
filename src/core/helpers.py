@@ -160,7 +160,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
         except:
             pass
 
-        # run shutdown events
+        # Run the shutdown events.
         for ev in self.shutdown_event:
             ev()
 
@@ -182,7 +182,7 @@ class Helpers(builtin_functions.BuiltinFunctions):
 
     def pashmak_eval(self, code):
         """ Runs the pashmak code from string """
-        # run the code
+    # Run the code.
         code_commands = parser.parse(code, filepath='<eval>')
         self.exec_func(code_commands, False)
 

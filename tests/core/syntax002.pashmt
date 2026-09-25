@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-literal chars can be used in strings
+Literal characters can be used in strings
 
 --file--
 

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-functions can be called more than 1 time
+Functions can be called more than once
 --file--
 func myfunc()
     println 'func ran'

@@ -1,9 +1,9 @@
 # Working with files
-Working with files in Pashmak is so easy.
+Working with files in Pashmak is very easy.
 
-We have 4 main operations on files: Open, Read, Write, Close
+We have 4 main operations on files: open, read, write and close.
 
-Look at this example for reading content of a file:
+Look at this example for reading the content of a file:
 
 ```bash
 $my_file = open('/path/to/some/file.txt', 'r')
@@ -11,9 +11,9 @@ println($my_file->read())
 $my_file->close()
 ```
 
-In above example, we opened our file, read content and then we closed that.
+In the above example, we opened our file, read the content and then closed it.
 
-The `$file->read()`, the `read` method reads content of file and returns that.
+In `$file->read()`, the `read` method reads the content of the file and returns it.
 
 You can put that in a variable:
 
@@ -21,7 +21,7 @@ You can put that in a variable:
 $content = $file->read()
 ```
 
-To write content of a file, we can use `write` method:
+To write the content of a file, we can use the `write` method:
 
 ```bash
 $my_file = open('/path/to/some/file.txt', 'w')
@@ -29,8 +29,8 @@ $my_file->write('new content')
 $my_file->close()
 ```
 
-The second argument for opening file is type of opening. `r` means Read and `w` means write.
+The second argument for opening a file is the type of opening. `r` means read and `w` means write.
 
-Also you can use `fopen` function instead of `open`. This is not different, just is an alias.
+Also you can use the `fopen` function instead of `open`. There is no difference; it is just an alias.
 
-The file objects in Pashmak are handled by python you can use all of python file features in Pashmak like python.
+The file objects in Pashmak are handled by Python, so you can use all of the Python file features in Pashmak just like in Python.

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-super() raises error when parent not exists
+`super()` raises an error when the parent does not exist
 
 --file--
 

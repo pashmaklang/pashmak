@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-parser parses import_once command like import command
+The parser handles `import_once` like `import`
 
 --file--
 

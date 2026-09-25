@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-$array->pop() works
+`$array->pop()` works
 --file--
 $names = ['pashmak', 'parsa']
 $names->pop(1)

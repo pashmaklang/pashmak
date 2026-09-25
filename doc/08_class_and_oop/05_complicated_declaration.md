@@ -1,5 +1,5 @@
 # Complicated class declaration
-You can declare class-in-class (like functions).
+You can declare a class inside another class, just as you can declare nested functions.
 
 Look at this example:
 
@@ -23,7 +23,7 @@ the foo
 the bar
 ```
 
-Also look at this example:
+Here is another example:
 
 ```bash
 class First

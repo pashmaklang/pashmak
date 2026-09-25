@@ -1,5 +1,5 @@
-# class Static methods & properties
-Classes can have **Static** methods or properties. The static means that for using them we not need to create a object from them and we can use them directly on class.
+# Static methods and properties
+Classes can have **static** methods or properties. You can use them directly on the class without creating an object.
 
 For example:
 
@@ -23,9 +23,9 @@ the static prop
 the static method
 ```
 
-The static properties and functions are EVENT LIKE normal declaration of them.
+Static properties and functions are declared just like regular properties and functions.
 
-Also they can recive the value:
+You can also assign values to static properties:
 
 ```bash
 class Person
@@ -46,7 +46,7 @@ hello world
 new value
 ```
 
-Also they are accessible in objects:
+They are also accessible through objects:
 
 ```bash
 class Person

@@ -2,13 +2,12 @@
 
 ### Function `find($pattern, $string)`
 
-This function searches for a regex pattern in a string and returns all things match with regex 
-(Interface of re.findall in Python)
+This function searches a string for a regular expression pattern and returns all matches.
+It provides an interface similar to Python's `re.findall`.
 
-First argument named `pattern` is the regex pattern and
-the second argument named `string` is the string that you want to search in.
+The first argument, `pattern`, is the regular expression. The second argument, `string`, is the text to search.
 
-An example:
+For example:
 
 ```
 import @regex

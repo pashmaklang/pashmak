@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-$array->append() works
+`$array->append()` works
 
 --file--
 $names = ['pashmak', 'parsa']

@@ -1,21 +1,21 @@
 # Structure of Pashmak Project source code
 
-Structure of Pashmak project directories:
+The Pashmak project has this directory structure:
 
-- `src/`: The Main Source Code
-- `tests/`: Tests folder ([You can learn testing system of Pashmak Here](../../CONTRIBUTING.md))
+- `src/`: the main source code
+- `tests/`: the test suite ([read about the testing system](../../CONTRIBUTING.md))
 - `doc/`: Documentation
 
-In the `src/` folder, We have some subdirectories. **Core Interpreter** is in `src/core/`. Other folders are builtin modules(you learn in next).
+The `src/` directory contains several subdirectories. The **interpreter core** is in `src/core/`; the other directories contain built-in modules, which are covered in the next section.
 
-Also there is a file named `src/pashmak.py`. This file is Pashmak interpreter main command line entry point.
+The `src/pashmak.py` file is the Pashmak interpreter's main command-line entry point.
 
-Also there is other folders:
+Other project directories include:
 
-- `scripts/`: Project Automation scripts
-- `examples/`: Only some examples for Pashmak
+- `scripts/`: project automation scripts
+- `examples/`: Pashmak examples
 
-In the `doc/` Folder, Structure of documentation is this:
+The `doc/` directory contains the documentation, arranged as follows:
 
 ```
 doc/

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-$this variable exists while calling static method bug is fixed
+The `$this` variable is available when calling a static method
 
 --file--
 

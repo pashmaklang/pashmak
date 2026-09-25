@@ -1,4 +1,4 @@
-# Documentation > If and loop
+# Documentation > If and loops
 
 - [Labels](00_labels.md)
 - [If statement](01_if_statement.md)

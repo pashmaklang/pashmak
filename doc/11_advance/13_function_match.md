@@ -22,7 +22,7 @@ $result = match($value, [
 ])
 ```
 
-Also you can use `default` argument for set the `else`:
+You can also use the `default` argument to set the `else` value:
 
 ```bash
 $result = match($value, [
@@ -30,4 +30,3 @@ $result = match($value, [
     ['B', 'The B'],
 ], default='Other')
 ```
-

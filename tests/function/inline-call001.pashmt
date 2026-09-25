@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-inline function calling working
+Inline function calls work
 
 --file--
 func sayhi($name)

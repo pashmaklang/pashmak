@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class constants working with default none value
+Class constants work with a default `None` value
 
 --file--
 class Test

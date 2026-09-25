@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-overwriting methods and props in inheritance
+Methods and properties can be overridden in inheritance
 
 --file--
 

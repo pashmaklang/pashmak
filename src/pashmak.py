@@ -34,10 +34,10 @@ def signal_handler(signal_code, frame):
 
 def main():
     """ The main entry point """
-    # set signal handler
+    # Set the signal handler.
     signal.signal(signal.SIGINT, signal_handler)
 
-    # set the python path
+    # Set the Python path.
     try:
         py_path = os.environ['PYTHONPATH'].split(os.pathsep)
         py_path = [p for p in py_path if p != '']
@@ -45,7 +45,7 @@ def main():
     except KeyError:
         pass
 
-    # validate arguments
+    # Validate the arguments.
     if len(sys.argv) <= 1:
         print(sys.argv[0] + ': script file name is required: pashmak [filename]')
         sys.exit(1)
@@ -84,10 +84,10 @@ def main():
             print(sys.argv[0] + ': file "' + filename + '" not found')
             sys.exit(1)
         else:
-            # read content of file and parse it with the parser
+            # Read the file contents and parse them.
             script_commands = jit.load(filename, code_location=filename, ismain_default=True)
 
-    # make pashmak program object
+    # Create the Pashmak program object.
     if is_module_run:
         sys.argv[2] = is_module_run
         prog = program.Program(args=sys.argv[2:])

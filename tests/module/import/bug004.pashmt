@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-module variable conflicting bug is fixed
+The module variable conflict is fixed
 
 --file--
 

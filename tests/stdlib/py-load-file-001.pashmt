@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-py_load_file function is working
+The `py_load_file` function works
 --file--
 
 $pyobj = py_load_file($__dir__ + '/tests/test-module-path/testpyfile.py')

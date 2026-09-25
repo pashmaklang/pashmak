@@ -1,20 +1,20 @@
 # Loops
-Loops allow you to run a code more than one times.
+Loops allow you to run code more than one time.
 
-For example, you want to print numbers from `1` to `10`.
+For example, you want to print the numbers from `1` to `10`.
 
 The bad way is this:
 
 ```bash
 println(1)
 println(2)
-println(2)
+println(3)
 # ...
 println(9)
 println(10)
 ```
 
-But the best way is using loops:
+But the better way is using loops:
 
 ```bash
 $i = 1
@@ -39,11 +39,11 @@ output:
 10
 ```
 
-Note: You can use keyword `end` instead of `endwhile`. It is not different.
+Note: You can use the keyword `end` instead of `endwhile`. There is no difference.
 
 Also you learned about loops in the **labels** part. The `while` loop makes the syntax easier.
 
-Structure of while loop:
+The structure of a while loop:
 
 ```bash
 while <condition>
@@ -64,7 +64,7 @@ while $i < len($names)
     # print the current name
     println($names[$i])
 
-    # add one to counter
+    # add one to the counter
     $i = $i + 1
 endwhile
 ```
@@ -77,8 +77,8 @@ pashmak
 jack
 ```
 
-### Loop in loop
-You can use loops in loops.
+### Loop inside loop
+You can use loops inside loops.
 
 
 In this example, we print a square using the loops:
@@ -112,9 +112,9 @@ output:
 ```
 
 ### `break` keyword
-There is a keyword named `break`. You can use this keyword between the loop and that breaks the loop.
+There is a keyword named `break`. You can use this keyword inside a loop and it breaks the loop.
 
-For example, we have a loop and we want to handle that if counter is `5`, finish the loop:
+For example, we have a loop and we want to handle it so that if the counter is `5`, the loop finishes:
 
 ```bash
 $i = 0
@@ -122,7 +122,7 @@ while $i < 10
     println($i)
 
     if $i == 5
-        println('counter was 5. loop breaked.')
+        println('counter was 5. loop broken.')
         break
     endif
 
@@ -139,13 +139,13 @@ output:
 3
 4
 5
-counter was 5. loop breaked.
+counter was 5. loop broken.
 ```
 
-This keyword helps you to finish the loop in some exceptions.
+This keyword helps you to finish the loop in some special cases.
 
 ### `continue` keyword
-There is a keyword named `continue`. This command backs to first of loop and continues the loop. You can use this in exceptions.
+There is a keyword named `continue`. This command goes back to the start of the loop and continues the loop. You can use this in special cases.
 
 ```bash
 $i = 0
@@ -159,4 +159,4 @@ while $i < 10
 endwhile
 ```
 
-In the above example, odd numbers ignored.
+In the above example, the even numbers are ignored.

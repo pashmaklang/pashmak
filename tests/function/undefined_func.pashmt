@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-program raises error while calling undefined function
+The program raises an error when calling an undefined function
 --file--
 undefined_func
 --with-error--

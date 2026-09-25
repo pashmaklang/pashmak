@@ -1,9 +1,9 @@
 # Name Defines
-Name defining system is like variable system. but in name defines, something is different:
-- defines are global and accessible in everywhere and are not isolated in function frames
-- defines are not sync with namespace
-- defines are constant and cannot be changed
-- in the syntax, you don't need to put `$` before name of defines for access to them
+The name define system is similar to variables, but defines have some differences:
+- Defines are global, accessible everywhere, and are not isolated in function frames.
+- Defines are not synchronized with namespaces.
+- Defines are constants and cannot be changed.
+- You do not need to put `$` before a define's name to access it.
 
 Look at this example:
 
@@ -19,12 +19,12 @@ output:
 parsa
 ```
 
-In the above example, i defined `THE_NAME` and put `parsa` as value of that.
+In the example above, I defined `THE_NAME` and assigned it the value `parsa`.
 
-##### NOTE: we suggest you to write name of defines fully capitalized
+##### NOTE: We recommend writing define names in uppercase.
 
 ### `is_defined()`
-This function checks a name is defined and returns boolean.
+This function checks whether a name is defined and returns a boolean.
 
 ```bash
 println(is_defined('SOMETHING'))
@@ -42,7 +42,7 @@ True
 ```
 
 ### `undefine()`
-This function deletes a define.
+This function removes a define.
 
 ```bash
 define('SOMETHING', 'the value')
@@ -62,7 +62,7 @@ False
 ```
 
 ### `all_defines()`
-This function returns all of defines as a dictionary.
+This function returns all defines as a dictionary.
 
 ```bash
 println(all_defines())
@@ -75,7 +75,7 @@ output:
 ```
 
 ### `redefine()`
-Defines cannot be defined again. for example:
+Defines cannot be defined again. For example:
 
 ```bash
 define('NAME', 'parsa')
@@ -88,11 +88,11 @@ output:
 DefineError: name "NAME" already defined...
 ```
 
-RE-Defining something is easy:
+To redefine a name:
 
-- check is the name currently defined
-- if name is defined, undefine it
-- then, define new value
+- Check whether the name is currently defined.
+- If it is defined, undefine it.
+- Define the new value.
 
 The above steps are provided as a function named `redefine()`:
 

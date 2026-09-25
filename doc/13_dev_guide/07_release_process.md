@@ -13,7 +13,7 @@ We have `alpha`, `beta` and `rc` pre releases. pre releases are only for minor a
 for example `1.0-alpha1`, `0.7-beta5`, `0.9-rc6`... are pre releases.
 
 ### Branches
-Branching is so easy. We have seprated branches in minor and major releases. for example, `0.7` or `1.0`.
+Branching is straightforward. We keep separate branches for minor and major releases, such as `0.7` or `1.0`.
 
 When we make some changes in `0.7` branch(example), we should merge this to forward branches.
 
@@ -91,4 +91,3 @@ Now, you can see the new version:
 ```bash
 ./src/pashmak.py -v
 ```
-

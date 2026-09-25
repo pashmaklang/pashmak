@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-module path system without any path working
+The module path system works when no paths are configured
 --pyinit--
 import os
 os.environ['PASHMAKINFO'] = ''

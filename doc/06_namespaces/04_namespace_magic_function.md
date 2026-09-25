@@ -1,5 +1,5 @@
 # `__namespace__()` function
-There is function named `__namespace__`. this function returns the current namespace as string.
+There is a function named `__namespace__`. This function returns the current namespace as a string.
 
 Look at this example:
 

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-func.delete function raises error when function not found
+`func.delete` raises an error when the function is not found
 
 --file--
 

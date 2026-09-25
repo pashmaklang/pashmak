@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class can be declared inside namespaces
+Classes can be declared inside namespaces
 --file--
 namespace Models
     class Car

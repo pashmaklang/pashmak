@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-return command working correct
+The `return` command works correctly
 --file--
 func hello()
     println 'hello'

@@ -26,7 +26,7 @@ Gets a message as string"""
 func debug()
 	$tmp_pashmak_debug_message = str(^)
 
-	# check is debug enabled
+	# Check whether debugging is enabled.
 	if not is_defined('DEBUG')
 		return
 	endif
@@ -34,14 +34,14 @@ func debug()
 		return
 	endif
 
-	# print the debug message
+	# Print the debug message.
 	if is_defined('DEBUG_HEADER_TITLE')
 		println DEBUG_HEADER_TITLE
 	else
 		println 'Debug started (' + $tmp_pashmak_debug_message + ') at ' + python('self.mem = self.frames[-3]["commands"][self.frames[-3]["current_step"]]["file_path"]') + ':' + str(python('self.mem = self.frames[-3]["commands"][self.frames[-3]["current_step"]]["line_number"]'))
 	endif
 
-	# start getting commands from user
+	# Start reading commands from the user.
 	while true
 		$tmp_pashmak_debug_cmd = read('> ')->strip()
 

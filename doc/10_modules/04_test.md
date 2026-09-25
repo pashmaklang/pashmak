@@ -1,8 +1,8 @@
 # test module
-the `test` module has some assertion functions to testing.
+The `test` module provides assertion functions for testing.
 
 ### default `assert` function
-this function is a function in the pashmak. this function gets a value and asserts that is true:
+The built-in `assert` function takes a value and asserts that it is true:
 
 ```bash
 # NOTE: you don't need to import anything for use this function
@@ -23,9 +23,9 @@ test.assertTrue(5 == 5)
 test.assertTrue(10 > 5)
 ```
 
-above code will be run without error.
+The code above runs without an error.
 
-this code will get `AssertError`:
+This code raises an `AssertError`:
 
 ```bash
 test.assertTrue(False)
@@ -33,7 +33,7 @@ test.assertTrue(3 == 2)
 ```
 
 ### test.assertFalse
-this function is reverse of `test.assertTrue`.
+This function is the inverse of `test.assertTrue`.
 
 ```bash
 test.assertFalse(False) # run be run without error
@@ -42,7 +42,7 @@ test.assertFalse(2 == 2) # AssertionError
 ```
 
 ### test.assertEquals
-this function asserts two values equals.
+This function asserts that two values are equal.
 
 ```bash
 # two arguments should be passed:
@@ -52,7 +52,7 @@ test.assertEquals('foo', 'bar') # AssertionError
 ```
 
 ### test.assertNotEquals
-this function is reverse of `test.assertEquals`.
+This function is the inverse of `test.assertEquals`.
 
 ```bash
 test.assertNotEquals('foo', 'bar') # successful
@@ -61,7 +61,7 @@ test.assertNotEquals(2, 2) # AssertionError
 ```
 
 ### test.assertEmpty
-asserts the value is empty(null).
+Asserts that a value is empty (`null`).
 
 ```bash
 test.assertEmpty(null)
@@ -69,7 +69,7 @@ test.assertEmpty('hello') # error
 ```
 
 ### test.assertNotEmpty
-asserts value is not empty(null).
+Asserts that a value is not empty (`null`).
 
 ```bash
 test.assertNotEmpty('hello')

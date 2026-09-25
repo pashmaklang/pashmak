@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-use command is working
+The `use` command works
 
 --file--
 namespace App

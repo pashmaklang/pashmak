@@ -1,7 +1,7 @@
-# inheritance
-the inheritance in classes means classes can be child of another classes. this means the child class has all of he's/she's parent properties.
+# Inheritance
+Inheritance allows a class to be a child of another class. A child class has all of its parent class's properties.
 
-look at this example:
+Look at this example:
 
 ```bash
 class Thing
@@ -24,7 +24,7 @@ class Human<Animal
 endclass
 ```
 
-in the above example, we used `<` symbol to make a class child of another class:
+In the above example, we used the `<` symbol to make one class a child of another:
 
 ```bash
 class Parent
@@ -37,7 +37,7 @@ class Child < Parent
 endclass
 ```
 
-the child class, has all of properties of the parent.
+A child class has all of the parent's properties.
 
 for example:
 
@@ -56,11 +56,11 @@ println($child->name) # output: hello world
 println($child->age) # output: 100
 ```
 
-actually, the parent class has not properties of he's childs, but childs has all of parent's props.
+The parent class does not have its children's properties, but each child has all of its parent's properties.
 
 Also this system works for methods.
 
-for example:
+For example:
 
 ```bash
 class Father
@@ -77,5 +77,4 @@ $a->hello()
 ```
 
 ### All of classes extends `Object` class
-all of classes by default extedns from a class named `Object`. this class is a internal Pashmak class.
-all of classes are child of this class.
+All classes extend a class named `Object` by default. This is an internal Pashmak class, and every class is a child of it.

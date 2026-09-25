@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-stdlib gset function working
+The stdlib `gset` function works
 
 --file--
 $name = 'parsa'

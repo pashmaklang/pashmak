@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-inline function calling name conflicts bug is fixed
+Inline function name conflict is fixed
 
 --file--
 func hello()

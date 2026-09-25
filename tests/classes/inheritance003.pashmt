@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-child class has all of parent methods
+A child class inherits all parent methods
 
 --file--
 

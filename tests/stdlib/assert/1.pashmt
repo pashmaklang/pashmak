@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-assert function raises error when value is False (2)
+The `assert` function raises an error when the value is `False` (2)
 --file--
 assert 1 > 10
 --with-error--

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-undefined class error will be raised when parent class not found
+An undefined-class error is raised when the parent class is not found
 
 --file--
 

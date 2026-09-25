@@ -1,5 +1,5 @@
 # Module web.server
-This module is for serving HTTP. Core of this modules are using python's `http`.
+This module provides an HTTP server. It uses Python's `http` module internally.
 
 ## Simple usage
 Example:
@@ -31,9 +31,9 @@ $server->set_get(get_handler)
 $server->serve()
 ```
 
-Then, if you see the http://localhost:8000, you can see `Hello World!` as response.
+Visit `http://localhost:8000` to see `Hello World!` in the response.
 
-Also you can use `set_post` to set handler for POST requests:
+You can also use `set_post` to set a handler for POST requests:
 
 ```bash
 func post_handler($handler)
@@ -44,4 +44,4 @@ $server->set_post(post_handler)
 ```
 
 ### More features
-All of the `$handler` object is handled by python `http` module. This object is a instance from python's `http.server.BaseHTTPRequestHandler` class. [Read the python documentation to learn more methods and properties on the handler](https://docs.python.org/3/library/http.server.html).
+The `$handler` object is provided by Python's `http` module. It is an instance of Python's `http.server.BaseHTTPRequestHandler` class. [Read the Python documentation to learn more about its methods and properties](https://docs.python.org/3/library/http.server.html).

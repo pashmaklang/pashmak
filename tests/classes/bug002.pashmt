@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class can be initiated in the namespace
+A class can be instantiated inside a namespace
 
 --file--
 

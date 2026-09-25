@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-the func.* super functions are working
+The `func.*` super functions work
 
 --file--
 println('class Person exists? ' + str(class.exists('Person')))

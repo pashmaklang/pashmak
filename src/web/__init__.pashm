@@ -28,7 +28,7 @@ namespace web
 Initializes the web environment.\
 """
 func init()
-    # load the cookies
+    # Load the cookies.
     if 'HTTP_COOKIE' in list($os.env->keys())
         $items = urllib.parse.parse_qsl($os.env['HTTP_COOKIE'])
         $i = 0
@@ -42,12 +42,12 @@ func init()
         gset('web.cookies', {})
     endif
 
-    # handle required envvars
+    # Handle the required environment variables.
     $os.env->setdefault('QUERY_STRING', '')
     $os.env->setdefault('REQUEST_METHOD', 'GET')
 
-    # parse the GET and POST raw data
-    $raw_get = $os.env['QUERY_STRING'] # load the get query string
+    # Parse the raw GET and POST data.
+    $raw_get = $os.env['QUERY_STRING'] # Load the raw GET query string.
     $tmp_get = urllib.parse.parse_qsl($raw_get)
     $get = {}
 
@@ -59,12 +59,12 @@ func init()
 
     $post = {}
     if $os.env['REQUEST_METHOD'] == 'POST'
-        $raw_post = read() # load the post query string
+        $raw_post = read() # Load the raw POST data.
 
-        # keep the raw data
+        # Keep the raw data.
         $os.env['POST_RAW_DATA'] = $raw_post
 
-        # check is the raw post json format
+        # Check whether the raw POST data is in JSON format.
         $is_json = false
         try web_init_check_json_error
             json.loads($raw_post)
@@ -99,13 +99,12 @@ First argument is name of header and last is value(both string).\
 """
 func set_header(string $name, $value)
     if is_defined('WEB_END_HEADERS')
-        # the headers already sent
-        # raise the error
+        # The headers have already been sent; raise an error.
         raise(Error('HeaderError', 'headers already sent'))
         return
     endif
 
-    # show the header
+    # Send the header.
     print(str($name) + ': ' + str($value) + '\n')
 endfunc
 
@@ -114,7 +113,7 @@ Sets http response code.\n\
 Gets code as int.\
 """
 func status(int $code)
-    # set the status code in `Status` header
+    # Set the status code in the `Status` header.
     set_header('Status', str($code))
 endfunc
 
@@ -125,14 +124,14 @@ Gets options as dictionary.\
 func set_cookie(dict $options)
     $options->setdefault('value', '')
 
-    # format the name and value
+    # Format the name and value.
     $tmp = urllib.parse.urlencode([
         ($options['name'], $options['value'])
     ])->split('=', 1)
     $options['name'] = $tmp[0]->strip()
     $options['value'] = $tmp[1]
 
-    # set options for cookie
+    # Set the cookie options.
     $base_cookie = http.cookies.BaseCookie()
     $base_cookie[$options['name']] = $options['value']
     $i = 0
@@ -144,14 +143,14 @@ func set_cookie(dict $options)
         $i = $i + 1
     endwhile
 
-    # finally render the cookie output
+    # Render the cookie output.
     $output = $base_cookie->output()
     $output = $output->split(':', 1)[-1]->strip()->split('=', 1)
 
-    # send the set cookie header
+    # Send the `Set-Cookie` header.
     set_header('Set-Cookie', $output[0]->strip() + '=' + $output[-1])
 
-    # also set the cookie into $web.cookies variable in memory
+    # Also store the cookie in the in-memory `$web.cookies` variable.
     $real_cookies = gget('web.cookies')
     $tmp = urllib.parse.parse_qsl($output[0]->strip() + '=' + $output[-1])
     $real_cookies[$tmp[0][0]] = $tmp[0][1]
@@ -159,7 +158,7 @@ endfunc
 
 @doc "Ends the headers"
 func end_headers()
-    # ending the headers
+    # End the headers.
     println('')
     define('WEB_END_HEADERS', true)
 endfunc

@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: If you have a idea about new feature, tell us
+about: If you have an idea about a new feature, tell us
 title: ''
 labels: enhancement
 assignees: ''
@@ -8,9 +8,9 @@ assignees: ''
 ---
 
 **Fillable**
-you are suggesting **New feature** or **Changing feature**? new/changing
-- [ ] did you read the Pashmak documentation?
-- [ ] are you sure this feature already not exists?
+Are you suggesting a **New feature** or **Changing a feature**? new/changing
+- [ ] Did you read the Pashmak documentation?
+- [ ] Are you sure this feature does not already exist?
 
 **The title**
 Please describe your idea or feature request here...

@@ -1,7 +1,7 @@
 # WebServer Configuration
 You can run Pashmak in Apache or other webservers.
 
-For running Pashmak in the Traditional webservers, You only need to write a `.htaccess` file with the following contents:
+To run Pashmak with a traditional web server, add a `.htaccess` file with the following contents:
 
 ```htaccess
 AddHandler cgi-script .pashm .pashm.html .pit
@@ -9,6 +9,5 @@ Options +ExecCGI
 DirectoryIndex .pashm
 ```
 
-And then, add the Shebang for your Pashmak scripts (`.pashm`, `.pashm.html`, `.pit`).
-And make them executable using `chmod +x filename.pashm` (If you are on UNIX systems).
-
+Then add a shebang to your Pashmak scripts (`.pashm`, `.pashm.html`, or `.pit`).
+On Unix systems, make them executable with `chmod +x filename.pashm`.

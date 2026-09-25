@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-endnamespace without opened block raises error
+`endnamespace` without an open block raises an error
 
 --file--
 endnamespace

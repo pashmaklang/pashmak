@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-test module assertEquals function raises error when condition is False
+The test module `assertEquals` function raises an error when the condition is `False`
 --file--
 import '@test'
 test.assertEquals 2, 8

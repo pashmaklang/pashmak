@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-import_run and import_run_once works
+`import_run` and `import_run_once` work
 
 --file--
 

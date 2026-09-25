@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-docstring will be set for items
+Docstrings are assigned to items
 
 --file--
 

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-stdlib eval function working
+The stdlib `eval` function works
 --file--
 
 eval "print 'output from eval'"

@@ -34,7 +34,7 @@ if $new_version[0] == 'v'
     $new_version = $new_version[1:]
 endif
 
-# change version number
+# Change the version number.
 $f = open($__dir__ + '/../src/core/version.py', 'r')
 $content = $f->read()
 $content = $content->split('version = ')[0]

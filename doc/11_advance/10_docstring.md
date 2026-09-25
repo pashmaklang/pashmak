@@ -1,8 +1,8 @@
 # Docstrings
-Docstring is a system to write description for classes, functions and methods. This is something like comments,
-but docstring is like a property and is accessible at runtime!
+A docstring lets you write descriptions for classes, functions, and methods. Like a comment, it documents code,
+but it is stored as a property and is accessible at runtime.
 
-for example, we want to write some description for usage of a function. we can use comments:
+For example, we can use comments to describe how to use a function:
 
 ```bash
 # This function does something
@@ -13,7 +13,7 @@ func something()
 endfunc
 ```
 
-But this comment is not touchable in the code and interpreter will ignore this. But docstring, is like a property.
+The interpreter ignores these comments at runtime. A docstring, on the other hand, is available as a property.
 
 Look at this example:
 
@@ -28,7 +28,7 @@ func calc_sum($a, $b)
 endfunc
 ```
 
-now, this description is accessible like a variable:
+Now this description is accessible like a variable:
 
 ```bash
 println(calc_sum->__docstring__)
@@ -44,10 +44,9 @@ somefunc(2, 10) -> returns 12
 
 ```
 
-This system is very helpful, specially while you are writing a library. you can write docstring to tell others
-what does this function/class/method.
+This is useful when writing a library: you can use docstrings to explain what a function, class, or method does.
 
-also you can use this for classes and methods:
+You can also use docstrings for classes and methods:
 
 ```bash
 @doc "a model for Person"
@@ -60,6 +59,6 @@ class Person
 endclass
 ```
 
-general syntax, is that write `@doc` and a string on forward. also you can use multi line.
+In general, write `@doc` followed by a string before the declaration. The string can span multiple lines.
 
-and the docstring is accessible with `__docstring__` property.
+The docstring is accessible through the `__docstring__` property.

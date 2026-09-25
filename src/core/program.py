@@ -56,21 +56,21 @@ class Program(helpers.Helpers):
                 'argv': args,
                 'argc': len(args)
             }
-        }] # list of frames
+        }]  # Stack of frames.
         self.functions = {
-            "mem": Function(name='mem'), # mem is a empty function just for save mem in code
+            "mem": Function(name='mem'),  # Empty function used to store the temporary value.
             "rmem": Function(name='rmem'),
-        } # declared functions <function-name>:[<list-of-body-commands>]
-        self.labels = {} # list of declared label <label-name>:<index-of-command-to-jump>
-        self.classes = {} # list of declared classes
-        self.imported_files = [] # list of imported files
-        self.mem = None # memory temp value
-        self.is_test = is_test # program is in testing state
-        self.output = '' # program output (for testing state)
-        self.runtime_error = None # program raised error (for testing state)
-        self.try_endtry = [] # says program is in try-endtry block
-        self.namespaces_tree = [] # namespaces tree
-        self.included_modules = [] # list of included modules to stop repeating imports
+        }  # Maps function names to their command bodies.
+        self.labels = {}  # Maps label names to command indices.
+        self.classes = {}  # Declared classes.
+        self.imported_files = []  # Imported files.
+        self.mem = None  # Temporary memory value.
+        self.is_test = is_test  # Whether the program is running in test mode.
+        self.output = ''  # Program output in test mode.
+        self.runtime_error = None  # Runtime error raised in test mode.
+        self.try_endtry = []  # Active try-endtry blocks.
+        self.namespaces_tree = []  # Namespace tree.
+        self.included_modules = []  # Imported modules, used to prevent repeated imports.
 
         self.allowed_pashmak_extensions = ['pashm']
 
@@ -122,14 +122,14 @@ class Program(helpers.Helpers):
                         z -= 1
                     if not is_currently_imported:
                         try:
-                            # search modules from builtin modules
+        # Search the built-in modules.
                             commands = [parser.parse('$__ismain__ = ' + str(ismain_default),
                                                      filepath='@' + module_name)[0], 
                                                     *modules.modules[module_name],
                                                      parser.parse('$__ismain__ = ' + str(self.get_var('__ismain__')),
                                                      filepath='@' + module_name)[0]]
                         except KeyError:
-                            # find modules from path
+        # Search for modules in the module path.
                             commands = False
                             for path in self.module_path:
                                 path = os.path.abspath(path)
@@ -142,7 +142,7 @@ class Program(helpers.Helpers):
                                         commands = jit.load(os.path.abspath(full_path + '/__init__.pashm'), os.path.abspath(full_path + '/__init__.pashm'), self, ismain_default=ismain_default)
                             if commands == False:
                                 raise KeyError()
-                        # add this module to imported modules
+        # Add this module to the imported modules.
                         self.frames[-1]['imported_modules'].append(namespaces_prefix + module_name)
                     else:
                         return
@@ -175,12 +175,12 @@ class Program(helpers.Helpers):
 
     def set_commands(self, commands: list):
         """ Set commands list """
-        # setup environment
+        # Set up the environment.
         self.set_var('__file__', os.path.abspath(self.main_filename))
         self.set_var('__dir__', os.path.dirname(os.path.abspath(self.main_filename)))
         self.set_var('__ismain__', True)
         self.import_script('@stdlib')
-        # set commands on program object
+        # Set the commands on the program object.
         self.frames[-1]['commands'] = commands
 
     def get_mem(self):
@@ -193,7 +193,7 @@ class Program(helpers.Helpers):
         """ Raise error in program """
         if op is None:
             op = self.frames[-1]['commands'][self.frames[-1]['current_step']]
-        # check is in try
+        # Check whether execution is inside a `try` block.
         if self.try_endtry:
             label_index = self.try_endtry[-1]
             self.try_endtry.pop()
@@ -208,14 +208,14 @@ class Program(helpers.Helpers):
                 except:
                     self.frames.pop()
 
-            # put error data in mem
+        # Store the error data in `mem`.
             self.mem = copy.deepcopy(self.classes['Error'])
             self.mem.type = error_type
             self.mem.message = message
             self.mem.file_path = op['file_path']
             self.mem.line_number = op['line_number']
             return
-        # raise error
+        # Raise the error.
         if self.is_test:
             self.runtime_error = {'type': error_type, 'message': message}
             if self.stop_after_error:
@@ -223,7 +223,7 @@ class Program(helpers.Helpers):
                 self.frames[-1]['current_step'] = len(self.frames[-1]['commands'])*2
             return
 
-        # check HIDE_ERRORS config
+        # Check the `HIDE_ERRORS` configuration.
         hide_errors = False
         try:
             if self.defines['HIDE_ERRORS']:
@@ -231,7 +231,7 @@ class Program(helpers.Helpers):
         except:
             pass
 
-        # render error
+        # Render the error.
         if not hide_errors:
             try:
                 self.defines['WEB_INITED']
@@ -267,7 +267,7 @@ class Program(helpers.Helpers):
         """ Gets a list from commands and runs them as function or included script """
         old_dir = self.get_var('__dir__')
         old_file = self.get_var('__file__')
-        # create new frame for this call
+        # Create a new frame for this call.
         if with_frame:
             frame_vars = dict(self.frames[0]['vars'])
             for k in self.all_vars():
@@ -295,7 +295,7 @@ class Program(helpers.Helpers):
             'imported_modules': imported_modules,
         })
 
-        # run function
+        # Run the function.
         self.start_frame()
 
         self.set_var('__dir__', old_dir)
@@ -382,7 +382,7 @@ class Program(helpers.Helpers):
             if item[0] == 'v':
                 self.variable_required(item[1])
 
-        # set aliases
+        # Set aliases.
         true = True
         false = False
         null = None
@@ -407,7 +407,7 @@ class Program(helpers.Helpers):
                 return
             self.func_depth -= 1
 
-        # if a function is started, append current command to the function body
+        # If a function has started, append the current command to its body.
         if self.current_func:
             if self.current_class:
                 self.classes[self.current_class[-1]].__methods__[self.current_func[-1]].body.append(op)
@@ -419,7 +419,7 @@ class Program(helpers.Helpers):
             self.run_endclass(op)
             return
 
-        # list of commands
+        # List of commands.
         commands_dict = {
             'func': self.run_func,
             'goto': self.run_goto,
@@ -447,21 +447,21 @@ class Program(helpers.Helpers):
             'end': None,
         }
 
-        # check op_name is a valid command
+        # Check whether `op_name` is a valid command.
         op_func = 0
         try:
             op_func = commands_dict[op_name]
         except:
             pass
 
-        # if op_name is a valid command, run the function
+        # If `op_name` is valid, run its function.
         if op_func != 0:
             if op_func != None:
                 op_func(op)
             return
 
         if op['str'][0] == '$':
-            # if a class is started, append current command as a property to class
+        # If a class has started, append the current command as a class property.
             is_in_class = False
             if self.current_class:
                 is_in_class = True
@@ -508,18 +508,18 @@ class Program(helpers.Helpers):
             exec(part1 + ' = ' + part2)
             return
 
-        # check function exists
+        # Check whether the function exists.
         func_real_name = self.get_func_real_name(op_name)
         if func_real_name == False:
             self.mem = self.eval(op['eval'])
             return
         func_body = self.functions[func_real_name]
 
-        # run function
+        # Run the function.
         try:
-            # execute function body
+        # Execute the function body.
             if op_name in Function.BUILTIN_WITHOUT_FRAME_ISOLATION_FUNCTIONS:
-                # put argument in the mem
+        # Store the argument in `mem`.
                 if op['args_str'] != '' and op['args_str'].strip() != '()':
                     if op['command'] == 'rmem':
                         self.eval(op['args_eval'])
@@ -561,7 +561,7 @@ class Program(helpers.Helpers):
         is_in_func = False
         self.frames[-1]['current_step'] = 0
 
-        # load the labels
+        # Load the labels.
         i = 0
         while i < len(self.frames[-1]['commands']):
             current_op = self.frames[-1]['commands'][i]
@@ -598,7 +598,7 @@ class Program(helpers.Helpers):
         if len(self.frames) > 1:
             self.frames.pop()
         else:
-            # run shutdown events
+        # Run the shutdown events.
             self.run_shutdown_events()
 
     def start(self):

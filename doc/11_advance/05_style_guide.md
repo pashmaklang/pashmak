@@ -1,9 +1,9 @@
 # Pashmak Style Guide
-Naming variables, functions, classes... Is a important thing in style of you codes.
+Consistent naming for variables, functions, and classes is an important part of writing clear code.
 
-We suggest **snake_case** naming style for Functions, Methods and Variables. And **PascalCase** naming style for Classes. For namespaces, we suggest both of them
+We recommend **snake_case** for functions, methods, and variables, and **PascalCase** for classes. For namespaces, either style is acceptable.
 
-for example:
+For example:
 
 ```bash
 namespace SomeNamespace

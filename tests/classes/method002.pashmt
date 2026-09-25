@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-the $this variable is accessible in methods
+The `$this` variable is accessible in methods
 
 --file--
 

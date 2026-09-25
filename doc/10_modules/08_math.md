@@ -1,7 +1,7 @@
 # Module math
 
 ### math.acos
-Return the arc cosine of different numbers. Recives a number between `1` and `-1`.
+Returns the arc cosine of a number. The input must be between `-1` and `1`.
 
 ```bash
 import @math

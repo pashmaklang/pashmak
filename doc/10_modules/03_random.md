@@ -1,5 +1,5 @@
 # random module
-this module makes random numbers
+This module generates random numbers.
 
 ### random.randint
 
@@ -11,7 +11,7 @@ println(random.randint(1, 10))
 ```
 
 ### random.seed
-Initialize the random number generator
+Initializes the random number generator.
 
 ```bash
 import @random
@@ -19,7 +19,7 @@ random.seed(1000)
 ```
 
 ### random.getstate
-Returns the current internal state of the random number generator
+Returns the current internal state of the random number generator.
 
 ```bash
 import @random
@@ -31,7 +31,7 @@ print(random.getstate())
 ```bash
 import @random
 
-# generates a random float less that 1
+# generates a random float less than 1
 $rand = random.random()
 println($rand)
 ```

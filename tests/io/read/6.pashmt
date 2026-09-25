@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-read command can read multiple values in one command
+The `read` command can read multiple values at once
 
 --file--
 $var = read()

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-functions working
+Functions work
 
 --file--
 println 'starting'

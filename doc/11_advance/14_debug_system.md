@@ -1,17 +1,16 @@
 # Debug system
-Pashmak has a builtin debug system. This system helps you to put **Break point** at your code
-and run code inside your code or see value of variables while debuging.
+Pashmak has a built-in debugging system. It lets you add a **breakpoint** to your code,
+run code while debugging, and inspect variable values.
 
-For debuging, you should use function `debug()`:
+To start debugging, use the `debug()` function:
 
 ```bash
-# this line enables the debug mode
-# if you dont define `DEBUG` to `true`, debug will not work
+# enable debug mode; debugging will not work unless DEBUG is set to true
 define('DEBUG', true)
 
 $name = 'parsa'
 
-# start debuging here
+# start debugging here
 debug()
 
 println $name
@@ -21,7 +20,7 @@ You will see something like this:
 
 ```
 Debug started (None) at <file-name>:<line-number>
-> ... enter you commands here
+> ... enter your commands here
 ```
 
 For example:
@@ -37,21 +36,21 @@ Or you can change the value of `$name`:
 > $name = 'new'
 ```
 
-For ending the debug, you should enter `n`:
+To end the debug session, enter `n`:
 
 ```
 > n
 ```
 
-then, your program continues:
+Your program then continues:
 
 ```
 hello new
 ```
 
-(`$name` is changed to `new` at debug).
+(`$name` was changed to `new` during debugging.)
 
-Also you can set a helper message for your debug:
+You can also provide a message for the debug session:
 
 ```bash
 # ...
@@ -59,13 +58,13 @@ debug('some message')
 # ...
 ```
 
-then you will see:
+Then you will see:
 
 ```
 Debug started (some message) ...
 ```
 
-Also you can call `debug()` several times:
+You can call `debug()` several times:
 
 ```bash
 define('DEBUG', true)

@@ -1,5 +1,5 @@
 # `py_load_file`
-The `py_load_file` is a function to load python scripts as object in pashmak.
+`py_load_file` is a function to load Python scripts as objects in Pashmak.
 
 for example, we have `myscript.py`:
 
@@ -11,7 +11,7 @@ the_var = 'the value'
 
 ```
 
-and our pashmak script:
+And our Pashmak script:
 
 ```bash
 $pyobj = py_load_file('/path/to/myscript.py')
@@ -27,7 +27,7 @@ the value
 hello world
 ```
 
-also if your python script imports another python module, you should add path of that module to `PYTHONPATH` env var. for example:
+Also, if your Python script imports another Python module, you should add the path of that module to the `PYTHONPATH` env var. For example:
 
 ```bash
 PYTHONPATH=/path/to/pypath pashmak myapp.pashm

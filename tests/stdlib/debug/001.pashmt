@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-debug is disabled when `DEBUG` is not defined
+Debugging is disabled when `DEBUG` is undefined
 
 --file--
 

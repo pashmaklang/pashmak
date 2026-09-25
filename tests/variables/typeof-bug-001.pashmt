@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-typeof() will return class for objects
+`typeof()` returns the class of objects
 
 --file--
 

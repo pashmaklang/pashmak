@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-function var_dump() works correct
+The `var_dump()` function works correctly
 
 --file--
 

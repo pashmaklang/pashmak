@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-consts working correct
+Constants work correctly
 
 --file--
 $&name = 'hello world'

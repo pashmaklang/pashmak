@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-return type system works (2)
+The return type system works (2)
 
 --file--
 

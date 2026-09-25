@@ -20,7 +20,7 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-# This is a simple loop printing numbers from 1 to 99
+# Print the numbers from 1 to 99 with a simple loop.
 
 func myfunc(int $n)
     println('starting...')

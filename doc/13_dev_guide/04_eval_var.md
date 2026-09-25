@@ -1,22 +1,21 @@
 # Variables and Eval Structure
-What is "Eval"? The eval, is a calculation on variables(int, str,...).
+What is "eval"? An eval is an expression that operates on values such as integers and strings.
 
-For example, `2 + 2` is a eval. `400*(20-10)` is a eval. This is not only math eval. For example, `"hello " + "world"` is a eval. also this can contain variables, `"Hello " + $name` is a eval. Also this can contain function call, `say_hello($name) + '.'` is a eval.
+For example, `2 + 2` and `400*(20-10)` are evals. An eval is not limited to arithmetic: `"hello " + "world"` is also an eval. It can contain variables, as in `"Hello " + $name`, and function calls, as in `say_hello($name) + '.'`.
 
 But how this eval is handled by Pashmak Core executor?
 
-You can see `parse_eval` function in prevoius part in lexer.
-This function gets a Pashmak eval string and **Converts it to python code**. Then, that python code will be ran by executor.
+You can see the `parse_eval` function in the previous section about the lexer.
+It takes a Pashmak eval string and **converts it to Python code**, which the executor then runs.
 
 For example, `"Hello " + $name` will be converted to `"Hello " + self.get_var('name')`. The `$name` was replaced with `self.get_var('name')`.
 
-Also this handles functions and classes. for example `some_func($name)` will be converted to `self.functions["some_func"](self.get_var('name'))`.
+This also handles functions and classes. For example, `some_func($name)` is converted to `self.functions["some_func"](self.get_var('name'))`.
 
-The output Python code will be ran using Python's `eval` function **Inside program.Program object**, means that the `self` points to program object(`src/core/program.py`).
+The generated Python code is run using Python's `eval` function **inside a `program.Program` object**. This means that `self` refers to the program object in `src/core/program.py`.
 
-There is a method named `eval` in `program.Program` object, this method gets code and converts that to python code using lexer, then, runs that as a python code.
+The `program.Program` object has an `eval` method. It takes code, converts it to Python using the lexer, and runs the result.
 
-There is a important method named `get_var` in program object. This method gets name of a variable and returns value of that, but if variable does not exists, raises variable error.
+The program object also has an important method named `get_var`. It takes a variable name and returns its value, or raises a variable error if the variable does not exist.
 
 You will learn more about `program.Program` object features.
-

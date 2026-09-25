@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-functions argument will be set correctly
+Function arguments are assigned correctly
 --file--
 func myfunc()
     print ^

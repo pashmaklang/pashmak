@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-multi import is working with brackets
+Multiple imports work with brackets
 --file--
 import('@hash', 'examples/will_be_include.pashm')
 hash.sha256 'hello'; print ^

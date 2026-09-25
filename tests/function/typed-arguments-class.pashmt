@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-function argument type can be set to a class
+A function argument can be typed as a class
 
 --file--
 

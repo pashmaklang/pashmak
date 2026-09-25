@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-import command with () and @module without quotes
+The `import` command accepts `()` and unquoted `@module` syntax
 
 --file--
 import (@sys,@test, @hash ,@time)

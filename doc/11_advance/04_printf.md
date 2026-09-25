@@ -1,7 +1,7 @@
 # function `printf()`
-This function prints on a specify FILE.
+This function prints to a specified file.
 
-By default, this works like normal `print` function. for example:
+By default, it works like the regular `print` function. For example:
 
 ```bash
 printf('hello world\n')
@@ -13,7 +13,7 @@ output:
 hello world
 ```
 
-But you can pass a Second argument as file. for example:
+You can also pass a file as the second argument. For example:
 
 ```bash
 $file = open('/path/to/file.txt', 'a') # append mode
@@ -21,5 +21,4 @@ $file = open('/path/to/file.txt', 'a') # append mode
 printf('hello', $file)
 ```
 
-Now, string `hello` is appended to content of the file.
-
+The string `hello` is appended to the file's contents.

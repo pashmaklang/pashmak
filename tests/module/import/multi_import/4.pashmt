@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-multiple import with list is working
+Multiple imports work with a list
 --file--
 import ['@hash', 'examples/will_be_include.pashm']
 print hash.sha256('hello')

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class raises error when body codes has syntax error
+A class raises an error when its body contains a syntax error
 --file--
 class Foo
     $name

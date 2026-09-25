@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-system raises error when trying to call a method on non-class object
+Calling a method on a non-class object raises an error
 
 --file--
 

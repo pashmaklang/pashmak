@@ -1,7 +1,7 @@
 # Pit render engine
-The Pit is a engine to render pashmak code inside the Html/Text code(PIT: Pashmak in Text).
+Pit is an engine for rendering Pashmak code embedded in HTML or other text formats (PIT means "Pashmak in Text").
 
-Pit is something like PHP's structure to write the code inside other formats(for example `Hello <?php echo $name; ?>`).
+It is similar to PHP's syntax for embedding code in another format, such as `Hello <?php echo $name; ?>`.
 
 For example:
 
@@ -40,9 +40,9 @@ output:
 </html>
 ```
 
-this system can be used in web development.
+This system can be used for web development.
 
-Also you can use it in every text format, not only html.
+You can also use it with any text format, not only HTML.
 
 for example:
 
@@ -105,10 +105,10 @@ $output = pit.run_file('/path/to/file.html')
 $output = pit.run('<code as string>')
 ```
 
-The `run_file` function gets file path and runs that and returns the output.
-`run` function gets code as string and runs that and returns the output.
+The `run_file` function takes a file path, renders the file, and returns the output.
+The `run` function takes code as a string, renders it, and returns the output.
 
-Also you can pass a **Second Argument** to them. This argument should be a boolean. if this is `True`, this engine runs code directly and shows the output. but if this is `False`(default is false), pit runs the code and returns output as string.
+You can also pass them a second argument, which must be a boolean. If it is `True`, the engine prints the output directly. If it is `False` (the default), Pit returns the output as a string.
 
 for example:
 
@@ -120,7 +120,7 @@ $output = pit.run('<code as string>', True)
 ```
 
 ## Using `{` and `}` characters inside code
-The `{` and `}` chars are special chars that this system do not prints them like normal characters. If you want to use them as a normal character, you should put a `\` before them.
+The `{` and `}` characters are special in this system and are not printed as regular characters. To include them as regular characters, put a `\` before each one.
 
 For example:
 
@@ -208,7 +208,7 @@ for example, we have `foo.html` and `bar.html`:
 <div>I am bar</div>
 ```
 
-when we run `foo.html`, output is this:
+When we run `foo.html`, the output is:
 
 ```html
 <h1>Hello world</h1>
@@ -220,7 +220,7 @@ when we run `foo.html`, output is this:
 
 You can include other html files using `pit.include` function and pass file path to that.
 
-Also you can send the data while including a file. for example:
+You can also pass data when including a file. For example:
 
 ```html
 { pit.include('other.html', \{'key1': 'value1', 'key2': 'value2'\}) }
@@ -229,7 +229,7 @@ Also you can send the data while including a file. for example:
 Then that data is accessible in `other.html` with `$htmldata` variable.
 
 ## Make executable scripts with Pit Engine format
-You can write your script and add a shebang for this and make it executable file. For example:
+You can write a script in this format, add a shebang, and make the file executable. For example:
 
 ```html
 #!/usr/bin/pashmak @pit

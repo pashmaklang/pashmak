@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-script returned value will be returned by import()
+The `import()` function returns the script return value
 
 --file--
 

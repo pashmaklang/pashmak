@@ -1,27 +1,27 @@
 # Read Input From User
 
-You can read input from user in stdin.
+You can read input from the user on stdin.
 
 Look at this example:
 
 ```bash
 print('what is your name? ')
-$name = read() # read a input and put that in $name variable
+$name = read() # read an input and put it in the $name variable
 println('hello ' + $name) # say hello to $name :)
 ```
 
-When we run this code, output is this:
+When we run this code, the output is this:
 
 ```
 what is your name? <input>parsa
 hello parsa
 ```
 
-After print `what is your name? ` program waits for input, and when you type something and press enter, program prints `hello <your-input>`.
+After printing `what is your name? ` the program waits for input, and when you type something and press enter, the program prints `hello <your-input>`.
 
-For example, here I entered `parsa` as input and program printed `hello parsa`.
+For example, here I entered `parsa` as the input and the program printed `hello parsa`.
 
-We can get input from user like above example.
+We can get input from the user like in the above example.
 
 Also look at this example:
 
@@ -34,7 +34,7 @@ $num1 = int(read())
 print('enter second number: ')
 $num2 = int(read())
 
-# now we want to plus them
+# now we want to add them together
 $sum = $num1 + $num2
 
 println(str($sum))
@@ -48,9 +48,9 @@ enter second number: <input>2
 14
 ```
 
-This example gets two numbers from user and shows sum of them.
+This example gets two numbers from the user and shows their sum.
 
-You can also pass a message argument to function `read`. This argument will be printed before input.
+You can also pass a message argument to the function `read`. This argument will be printed before the input.
 
 For example:
 
@@ -61,7 +61,7 @@ println $name
 
 ## Reading command line arguments
 To access command line arguments, you can use `$argv` variable.
-This variable is a public variable and is list contains command line arguments.
+This variable is a public variable and is a list containing the command line arguments.
 
 Look at this example:
 
@@ -69,7 +69,7 @@ Look at this example:
 println($argv[1])
 ```
 
-We run above code:
+We run the above code:
 
 ```bash
 pashmak mycode.pashm hello
@@ -81,4 +81,4 @@ output:
 hello
 ```
 
-Type of `$argv` is the python `list`.
+The type of `$argv` is the Python `list`.

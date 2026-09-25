@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-using super() for magic methods
+Magic methods can use `super()`
 
 --file--
 

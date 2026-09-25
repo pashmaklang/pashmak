@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-import command raises error when argument syntax is not valid
+The `import` command raises an error for invalid argument syntax
 --file--
 import hhghgjghj
 --with-error--

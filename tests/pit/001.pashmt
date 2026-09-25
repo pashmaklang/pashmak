@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-pit engine working correct
+Pit engine works correctly
 
 --file--
 import @pit

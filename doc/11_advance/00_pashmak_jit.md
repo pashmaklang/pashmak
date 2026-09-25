@@ -1,14 +1,13 @@
 # The Pashmak Jit Compiler
-The **Jit** or **Just in time** compiler, is a system to cache the code and compress that to speed up the interpreter.
+The **JIT** (or **just-in-time**) compiler caches and compresses code to speed up the interpreter.
 
-this system, compresses the content of scripts and saves them to `__pashmam__` directory. then, when file is ran again, jit system loads compressed content from that cache.
+This system compresses scripts and saves them in the `__pashmam__` directory. When a file is run again, the JIT loads the compressed content from the cache.
 
-you can see `__pashmam__` directory alongside your scripts. this directory contains cached codes.
+You can find the `__pashmam__` directory alongside your scripts. It contains cached code.
 
-Also, make sure to add `__pashmam__` file to your **gitignore**.
+Also, make sure to add the `__pashmam__` directory to your `.gitignore` file.
 
-To disable the jit, you can use `PASHMAK_DISABLE_JIT` environment variable with value `1` while running the pashmak interpreter.
-for example:
+To disable the JIT, set the `PASHMAK_DISABLE_JIT` environment variable to `1` when running the Pashmak interpreter. For example:
 
 ```bash
 $ PASHMAK_DISABLE_JIT=1 pashmak somefile.pashm

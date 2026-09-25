@@ -25,7 +25,7 @@ The Mixer class gets a file path and crawls in that, finds imports and mixes the
 \n\
 Example:\
     $mixer = Mixer('/path/to/file.pashm')\
-    # then, finally generated code is accessible:\
+    # The generated code is then available:\
     println($mixer->total_content)\
 "
 class Mixer
@@ -67,7 +67,7 @@ class Mixer
 
         $parsed_code = parser.parse($content, filepath=$path, only_parse=True)
 
-        # find the import commands
+        # Find the import commands.
         $i = 0
         while $i < len($parsed_code)
             if $parsed_code[$i]['command'] == 'import' or $parsed_code[$i]['command'] == 'import_once'

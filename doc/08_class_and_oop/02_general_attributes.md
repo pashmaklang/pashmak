@@ -1,13 +1,13 @@
 # Classes general attributes
-classes has some general properties:
+Classes have several general properties:
 
 - `__name__`: name of the class
 - `__parent__`: name of parent of class
-- `__props__`: all of object properties as Dictonary
-- `__methods__`: all of object methods as Dictonary
+- `__props__`: all object properties as a dictionary
+- `__methods__`: all object methods as a dictionary
 - `__theclass__`: the object class type
 
-for example:
+For example:
 
 ```bash
 class Person

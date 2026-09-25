@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-tests const can be declared but get value later
+A constant can be declared and assigned a value later
 
 --file--
 

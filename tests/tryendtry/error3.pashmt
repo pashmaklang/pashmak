@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-try command raises error when argment label is not found
+`try` raises an error when its label argument is not found
 --file--
 try somelabel; gfdhghgfhf; endtry
 --with-error--

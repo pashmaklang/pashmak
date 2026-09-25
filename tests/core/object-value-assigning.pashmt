@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-objects(functions and classes) values can be changed
+Object values (functions and classes) can be reassigned
 
 --file--
 

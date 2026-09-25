@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-variable defining system is working
+The variable definition system works
 
 --file--
 $myvar

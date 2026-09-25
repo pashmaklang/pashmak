@@ -56,7 +56,7 @@ second end
 first end
 ```
 
-**The declared function in function is accessible from outside.**
+**A function declared inside a function is accessible from outside.**
 
 For example:
 
@@ -72,9 +72,9 @@ foo()
 bar()
 ```
 
-**How to make a function in function local?**
+**How to make a function inside a function local?**
 
-You should delete the function in end of parent function:
+You should delete the function at the end of the parent function:
 
 ```bash
 func foo
@@ -98,4 +98,4 @@ output:
 NameError: undefined 'bar'...
 ```
 
-> You will learn about `__namespace__()` function in next sections...
+> You will learn about the `__namespace__()` function in the next sections...

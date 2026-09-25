@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class __str__ method working
+The class `__str__` method works
 
 --file--
 

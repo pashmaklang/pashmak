@@ -88,7 +88,7 @@ class BuiltinFunctions:
     def run_endnamespace(self, op: dict):
         """ Closes the namespace block """
         if self.namespaces_tree:
-            # delete unused variables before end namespace
+        # Delete unused variables before ending the namespace.
             current_namespace = self.current_namespace()
             try:
                 del self.all_vars()[current_namespace + '__dir__']
@@ -141,7 +141,7 @@ class BuiltinFunctions:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op
                 )
-        # check parent exists
+        # Check whether the parent class exists.
         parent_real_name = None
         if parent != None:
             try:
@@ -185,20 +185,19 @@ class BuiltinFunctions:
                 self.last_docstring = ''
         self.current_class.append(self.current_namespace() + arg)
 
-        # bind the traits to the class
-        # reverse the traits list
-        # because the priority is with first declared traits
-        # and in this process, each trait will overwrite methods on props on the previous ones
-        # so we reverse them to keep priority ASC
+        # Bind the traits to the class.
+        # Reverse the trait list because the first declared trait has priority.
+        # Each trait overwrites methods and properties from the previous traits,
+        # so reversing the list preserves the intended priority order.
         traits = traits[::-1]
         traits_names = []
         for trait in traits:
-            # check type of the object
+        # Check the object's type.
             if type(trait) is not Class:
                 self.raise_error('TypeError', 'the passed object as a trait to the class signature is not a class object', op)
                 return
             else:
-                # add the contents of the trait to the class
+        # Add the trait's contents to the class.
                 self.classes[self.current_namespace() + arg].__props__ = {**self.classes[self.current_namespace() + arg].__props__, **trait.__props__}
                 self.classes[self.current_namespace() + arg].__methods__ = {**self.classes[self.current_namespace() + arg].__methods__, **trait.__methods__}
                 traits_names.append(trait.__classname__)
@@ -209,7 +208,7 @@ class BuiltinFunctions:
         self.require_one_argument(op, 'missing function name')
         arg = lexer.multi_char_split(op['args_str'], ' (', 1)[0]
 
-        # sperate return type and name
+        # Separate the return type and function name.
         return_type = None
         tmp = arg.split('::', 1)
         if len(tmp) > 1:
@@ -223,7 +222,7 @@ class BuiltinFunctions:
                 return self.raise_error(
                     'SyntaxError', 'unexpected "' + ch + '"', op
                 )
-        # declare function
+        # Declare the function.
         is_method = False
         if self.current_class:
             self.current_func.append(arg)
@@ -238,7 +237,7 @@ class BuiltinFunctions:
             self.functions[self.current_func[-1]].__docstring__ = self.last_docstring
             self.functions[self.current_func[-1]].return_type = return_type
             self.last_docstring = ''
-        # check for argument variable
+        # Check for an argument variable.
         if len(op['args_str'].split('(', 1)) > 1:
             arg_var = op['args_str'].split('(', 1)[-1].strip()
             if arg_var != '':
@@ -295,7 +294,7 @@ class BuiltinFunctions:
         condition_result = self.eval(op['args_eval'])
         if condition_result:
             return
-        # condition is not True, loop should be breaked
+        # If the condition is not true, break out of the loop.
         i = self.frames[-1]['current_step']+1
         loop_depth = 0
         while i < len(self.frames[-1]['commands']):
@@ -311,7 +310,7 @@ class BuiltinFunctions:
 
     def run_endwhile(self, op: dict):
         """ The While block end """
-        # Back to first of loop
+        # Return to the start of the loop.
         i = self.frames[-1]['current_step']-1
         loop_depth = 0
         while i >= 0:

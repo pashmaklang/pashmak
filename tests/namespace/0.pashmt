@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-namespaces can be declared and called
+Namespaces can be declared and called
 --file--
 namespace MySpace
     func dosomething()

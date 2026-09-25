@@ -1,7 +1,7 @@
-# Handling parent/self propeties/methods
-In inheritance system, Maybe we need to use some properties/methods in parent/other classes.
+# Handling parent and self properties and methods
+With inheritance, you may need to use properties or methods from parent or other classes.
 
-to undrestand this, look at this example:
+To understand this, look at this example:
 
 ```bash
 class Father
@@ -22,7 +22,7 @@ output:
 the child
 ```
 
-In the above example, the `name` property points to `Child` class name. But how we can access to `Father` name? We should use `super` method:
+In the above example, the `name` property refers to the `Child` class's value. To access the `Father` value, use the `super` method:
 
 ```bash
 class Father
@@ -45,7 +45,7 @@ the child
 the father
 ```
 
-Also this is useful for methods:
+This is also useful for methods:
 
 ```bash
 class Father
@@ -72,7 +72,7 @@ Child: hello!
 Father: hello!
 ```
 
-Also you can use this for MORE THAN ONE LAYER:
+You can also use this across multiple levels of inheritance:
 
 ```bash
 class A
@@ -109,7 +109,7 @@ C: hello
 
 Also sometimes we are using some methods in parent classes which they need to use self methods/props.
 
-for understand it, look at this example:
+To understand this, look at this example:
 
 ```bash
 class Father

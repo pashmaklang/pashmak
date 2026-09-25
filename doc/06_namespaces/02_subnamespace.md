@@ -1,5 +1,5 @@
-# namespace in namespace (subnamespace)
-you can declare a namespace in a namespace
+# Namespace in namespace (subnamespace)
+You can declare a namespace inside a namespace.
 
 look at this example:
 

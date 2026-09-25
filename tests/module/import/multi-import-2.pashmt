@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-multi import syntax works
+Multiple import syntax works
 --file--
 import @sys,@time ,@test, @hash
 import @sys,@time,@test,@hash

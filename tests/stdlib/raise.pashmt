@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-stdlib raise function raises error
+The stdlib `raise` function raises an error
 
 --file--
 

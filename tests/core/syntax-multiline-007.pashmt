@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-the multiline syntax is working
+Multiline syntax works
 --skip--
 --file--
 

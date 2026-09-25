@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-read command can read more that one argument
+The `read` command accepts more than one argument
 
 --file--
 $input = read()

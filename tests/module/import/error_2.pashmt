@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-import command raises error when variable not found
+The `import` command raises an error when a variable is not found
 --file--
 import $not_found
 --with-error--

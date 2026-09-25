@@ -20,13 +20,13 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-# The function super tools
+# Super functions for working with functions.
 namespace func
     @doc """\
     Returns list of defined functions as list of strings(name of function).\
     """
     func list()
-        # returns list of functions
+        # Return the list of functions.
         return python("self.mem = list(self.functions.keys())")
     endfunc
 
@@ -36,7 +36,7 @@ namespace func
     Returns boolean.\
     """
     func bool::exists(string $name)
-        # checks a function exists or not
+        # Check whether a function exists.
         $name = str($name)
         return $name in func.list()
     endfunc
@@ -47,19 +47,19 @@ namespace func
     (This Cannot delete builtin functions).\
     """
     func delete(string $name)
-        # deletes a function
+        # Delete a function.
         $name = str($name)
         if not func.exists($name)
             raise(Error('FunctionNotFound', 'function "' + $name + '" not found'))
             return
         endif
 
-        $undeletable_functions = ['func.list', 'func.delete', 'func.exists', 'gset', 'py_load_file', 'system', 'typeof', 'required', 'print', 'import', 'println', 'printl', 'import_once', 'mem', 'rmem', 'python', 'endns', 'exit', 'eval', 'raise', 'assert', 'read'] # list of undeletable functions
+        $undeletable_functions = ['func.list', 'func.delete', 'func.exists', 'gset', 'py_load_file', 'system', 'typeof', 'required', 'print', 'import', 'println', 'printl', 'import_once', 'mem', 'rmem', 'python', 'endns', 'exit', 'eval', 'raise', 'assert', 'read'] # Functions that cannot be deleted.
         if $name in $undeletable_functions
             raise(Error('FunctionCannotBeDeleted', 'function "' + $name + '" is a builtin function and cannot be deleted'))
         endif
 
-        # delete the function
+        # Delete the function.
         python("del self.functions[self.get_var('name')]")
     endfunc
 endns

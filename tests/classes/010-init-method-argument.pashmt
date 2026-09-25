@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class init method can recive argument
+The class initialization method accepts arguments
 
 --file--
 class Hi

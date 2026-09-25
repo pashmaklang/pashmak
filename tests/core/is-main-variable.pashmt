@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-$__ismain__ variable has valid value
+The `$__ismain__` variable has the expected value
 
 --file--
 println $__ismain__

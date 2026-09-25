@@ -1,5 +1,5 @@
 # Hiding Errors
-You can hide the error renders in the Pashmak.
+You can hide the error output in Pashmak.
 To do this, you only need to define `HIDE_ERRORS`.
 ([read name defining system](../11_advance/11_name_defines.md)).
 
@@ -28,4 +28,4 @@ println $not_found
 
 The above code has no output.
 
-You only need to set `HIDE_ERRORS` to `true`
+You only need to set `HIDE_ERRORS` to `true`.

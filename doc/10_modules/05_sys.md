@@ -22,8 +22,8 @@ output is something like this:
 {'version': 'vx.y.z', 'pythoninfo': 'x.y.z (default, Jul x y, a:b:c) [GCC x.y.x]'}
 ```
 
-this variable is a dictonary.
-for example, to access pashmak version:
+This variable is a dictionary.
+For example, to access the Pashmak version:
 
 ```bash
 import @sys

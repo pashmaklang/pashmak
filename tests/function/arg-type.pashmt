@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-error will be raised when argument type is invalid
+An error is raised when an argument has an invalid type
 
 --file--
 

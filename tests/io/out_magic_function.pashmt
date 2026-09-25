@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-out_* magic functions working
+The `out_*` magic functions work
 
 --file--
 println('first')

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-namespace name cannot have literal chars
+Namespace names cannot contain literal characters
 
 --file--
 namespace Hel.%h{lo

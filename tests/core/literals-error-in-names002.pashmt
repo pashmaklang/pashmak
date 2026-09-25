@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class name cannot have literal chars
+Class names cannot contain literal characters
 
 --file--
 class Pe[rs)o*n

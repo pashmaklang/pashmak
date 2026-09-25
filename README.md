@@ -5,7 +5,7 @@
 ###### Logo by [sami](https://github.com/sami2020pro)
 
 # Pashmak Programming Language
-Hi there. This is Pashmak programming language. Pashmak is an interpreter written in Python.
+Hi there. This is the Pashmak programming language. Pashmak is an interpreter written in Python.
 Pashmak scripts have a cool and pashmaki syntax.
 
 ```
@@ -16,12 +16,12 @@ MoreFlexibilityAndFeatures
 ```
 
 ### Pashmak features
-Why this programming language is useful? Because:
+Why is this programming language useful? Because:
 
 - Space insensitive and clean syntax
-- Much flexibility
+- A lot of flexibility
 - Flexible and powerful function typed arguments
-- Safe Global variables
+- Safe global variables
 - Python powered core
 - Python datatypes
 - Able to run Python code from string
@@ -31,7 +31,7 @@ Why this programming language is useful? Because:
 - Class and OOP
 - Dynamic behavior for class methods for static and non-static usage
 - PIT render engine to render pashmak code inside text formats
-- Builtin code mixer(compiler)
+- Builtin code mixer (compiler)
 - Builtin web development support
 - Namespace system
 - Label and goto system
@@ -42,30 +42,30 @@ Why this programming language is useful? Because:
 ### Pashmak problems
 
 - Low speed
-- No multi threading
+- No multithreading
 - ...
 
-### hello world!
-This is a simple hello world script in pashmak:
+### Hello world!
+This is a simple hello world script in Pashmak:
 
 ```bash
 println 'hello world'
 ```
 
 ## Online interpreter
-If you want to test pashmak without installing and/or if you need to run it online, use [Pashmak online interpreter](https://github.com/pashmaklang/online-interpreter)
+If you want to test Pashmak without installing it and/or you need to run it online, use [Pashmak online interpreter](https://github.com/pashmaklang/online-interpreter)
 
 ## Authors
-pashmak is written by [parsampsh](https://github.com/parsampsh) and [contributors](https://github.com/pashmaklang/pashmak/graphs/contributors)
+Pashmak is written by [parsampsh](https://github.com/parsampsh) and [contributors](https://github.com/pashmaklang/pashmak/graphs/contributors)
 
 ## Contributing
 If you want to contribute to this project, read [Contributing Guide](CONTRIBUTING.md)
 
 ## Changelog
-To see pashmak versions changelog, read [Changelog](CHANGELOG.md)
+To see the Pashmak version changelog, read [Changelog](CHANGELOG.md)
 
 ## Security Policy
 If you detected a bug or vulnerability, read [Pashmak Security Policy](SECURITY.md).
 
 ## Documentation
-Read the Documentation to learn pashmak in [`doc` folder](doc).
+Read the documentation to learn Pashmak in the [`doc` folder](doc).

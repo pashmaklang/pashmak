@@ -1,7 +1,7 @@
 # `$__ismain__` variable
-The `$__ismain__` variable, is a general Boolean variable. This variable is used to check the current file, is the **Main ran file** or not.
+The `$__ismain__` variable is a general boolean variable. This variable is used to check whether the current file is the **main run file** or not.
 
-For example, we have two files, `my_program.pashm` and `lib.pashm`. We want to know that in our scripts **Is the current script main directly ran file?**.
+For example, we have two files, `my_program.pashm` and `lib.pashm`. We want to know in our scripts **whether the current script is the main, directly run file**.
 
 When you run in terminal:
 
@@ -9,7 +9,7 @@ When you run in terminal:
 pashmak my_program.pashm
 ```
 
-the `my_program.pashm` file is ran directly.
+the `my_program.pashm` file is run directly.
 
 #### my_program.pashm:
 
@@ -19,7 +19,7 @@ println($__ismain__)
 import('lib.pashm')
 ```
 
-The above code, prints value of this variable and also imports `lib.pashm` file.
+The above code prints the value of this variable and also imports the `lib.pashm` file.
 
 #### lib.pashm:
 
@@ -27,20 +27,20 @@ The above code, prints value of this variable and also imports `lib.pashm` file.
 println($__ismain__)
 ```
 
-When I run `my_program.pashm`, output is this:
+When I run `my_program.pashm`, the output is this:
 
 ```
 True
 False
 ```
 
-Actually, value of this variable in `my_program.pashm` is `True`, but in `lib.pashm` is `False`.
+Actually, the value of this variable in `my_program.pashm` is `True`, but in `lib.pashm` it is `False`.
 
-Now, when I run `pashmak lib.pashm`, output is `True`.
+Now, when I run `pashmak lib.pashm`, the output is `True`.
 
-**The `$__ismain__` variable says that the current file is main ran file or not and you can check this**.
+**The `$__ismain__` variable tells you whether the current file is the main run file or not, and you can check this**.
 
-For example, if we want to run a code only if our script is directly ran and is not imported from other script:
+For example, if we want to run code only if our script is run directly and is not imported from another script:
 
 ```bash
 if $__ismain__
@@ -49,27 +49,27 @@ endif
 ```
 
 ### `import_run` and `import_run_once` functions
-Now, you understand the `$__ismain__` variable, But sometimes you need to run a file with `True` value for `$__ismain__`! This is too easy, you should use `import_run` instead of `import` and `import_run_once` instead of `import_once`.
+Now you understand the `$__ismain__` variable, but sometimes you need to run a file with a `True` value for `$__ismain__`! This is very easy: you should use `import_run` instead of `import` and `import_run_once` instead of `import_once`.
 
 For example, in `main.pashm`:
 
 ```bash
-println('i am main program')
+println('I am the main program')
 import $__dir__ + '/other.pashm'
 import_run $__dir__ + '/other.pashm'
 ```
 
-content of `other.pashm`:
+The content of `other.pashm`:
 
 ```bash
 println($__ismain__)
 ```
 
-output of `main.pashm`:
+The output of `main.pashm`:
 
 ```
 False
 True
 ```
 
-Why? Because in second import we used `import_run` instead of `import`, so, value of `$__ismain__` is `True`.
+Why? Because in the second import we used `import_run` instead of `import`, so the value of `$__ismain__` is `True`.

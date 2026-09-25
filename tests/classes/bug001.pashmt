@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-tests "linked class self to instances" bug
+Class `self` is linked to instances correctly
 
 --file--
 

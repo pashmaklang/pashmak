@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-import_once function works and only imports a file one time
+`import_once` imports a file only once
 
 --file--
 import_once 'examples/will_be_include.pashm'

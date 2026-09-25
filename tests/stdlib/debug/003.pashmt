@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-function `debug()` works
+The `debug()` function works
 
 --file--
 

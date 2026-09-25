@@ -213,7 +213,7 @@ class ClassObject:
             pass
         self.__props__[-1][attrname] = value
 
-    # Magic methods start #
+# Magic methods start here.
 
     def __str__(self):
         method = self.__get_method__('__str__')
@@ -515,4 +515,4 @@ class ClassObject:
             return super().__sizeof__()
         return method()
 
-    # Magic methods end #
+# Magic methods end here.

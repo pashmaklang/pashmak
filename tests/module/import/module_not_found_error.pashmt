@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-include command raises error when module not found
+The `include` command raises an error when a module is not found
 --file--
 import '@notfound233445'
 --with-error--

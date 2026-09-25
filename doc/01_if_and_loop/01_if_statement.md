@@ -1,6 +1,6 @@
 # If elif else statement
 In the previous part, you learned how to use **labels** for creating **Conditions** and **Loops**.
-But there is an easy way to create **Conditions**, that is **If..elif..else** statement. This system is very easy for creating conditions and handling program flow.
+But there is an easier way to create **Conditions**: the **if..elif..else** statement. This system is very easy for creating conditions and handling the program flow.
 
 Example:
 
@@ -53,10 +53,10 @@ if $age > 18
     println('Welcome!')
 endif
 
-# above code has no output
+# the above code has no output
 ```
 
-Also you can use keyword `end` instead of `endif`:
+Also you can use the keyword `end` instead of `endif`:
 
 ```bash
 $age = 12
@@ -78,7 +78,7 @@ else
 endif
 ```
 
-If condition of `if` is not true, `else` block will be ran.
+If the condition of the `if` is not true, the `else` block will be run.
 
 Also there is another keyword `elif`:
 
@@ -102,10 +102,10 @@ output:
 num is 17
 ```
 
-Actually, `elif` block will be checked one by one. `elif` means `else if`.
+Actually, the `elif` blocks will be checked one by one. `elif` means `else if`.
 
-## If in If
-You can write ifs in ifs.
+## If inside if
+You can write ifs inside ifs.
 
 Look at this example:
 
@@ -122,7 +122,7 @@ elif $num == 15
     if $test
         println('this is a test')
     else
-        println('this is not test')
+        println('this is not a test')
     endif
 endif
 ```

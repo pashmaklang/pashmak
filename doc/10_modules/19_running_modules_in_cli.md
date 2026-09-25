@@ -1,7 +1,7 @@
 # Running modules in command line
-Some of modules maybe have a behavior like a application. You can run them directly from command line.
+Some modules behave like applications and can be run directly from the command line.
 
-for example:
+For example:
 
 ```bash
 $ pashmak @helloworld
@@ -15,7 +15,7 @@ output:
 Hello world!
 ```
 
-Actually, running above command is like that to import `helloworld` with `import_run` command:
+Running the command above is equivalent to importing `helloworld` with `import_run`:
 
 ```bash
 import_run @helloworld

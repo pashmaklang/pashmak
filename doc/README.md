@@ -1,20 +1,20 @@
-# Welcome to pashmak documentation
+# Welcome to the Pashmak documentation
 
 ---
 
 ## Table of contents
 
-- [basics and variables](00_basics)
-- [If and Loop](01_if_and_loop)
-- [functions](02_functions)
-- [try-endtry statement](03_try_endtry)
-- [os commands](04_os_commands)
-- [importing](05_importing)
-- [namespaces](06_namespaces)
-- [files](07_files)
-- [classes and OOP](08_class_and_oop)
-- [eval](09_eval)
-- [modules](10_modules)
-- [advance](11_advance)
-- [web development](12_web)
-- [developer guide](13_dev_guide)
+- [Basics and variables](00_basics)
+- [If and loop](01_if_and_loop)
+- [Functions](02_functions)
+- [Try-endtry statement](03_try_endtry)
+- [OS commands](04_os_command)
+- [Importing](05_importing)
+- [Namespaces](06_namespaces)
+- [Files](07_files)
+- [Classes and OOP](08_class_and_oop)
+- [Eval](09_eval)
+- [Modules](10_modules)
+- [Advanced](11_advance)
+- [Web development](12_web)
+- [Developer guide](13_dev_guide)

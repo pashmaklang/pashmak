@@ -1,5 +1,5 @@
 # Class super functions
-there is some **Super functions** to handle classes at runtime.
+There are several **super functions** for handling classes at runtime.
 
 ### Checking class exists
 You can check a class exists with `class.exists` function:
@@ -10,8 +10,8 @@ if class.exists('some_class')
 endif
 ```
 
-### Geting list of all of classes
-You can get list of all of classes with `class.list` function:
+### Getting a list of all classes
+You can get a list of all classes with the `class.list` function:
 
 ```bash
 $classes = class.list()
@@ -28,16 +28,16 @@ output:
 The output is a list.
 
 ### Deleting a class
-You can delete a class at runtime with `func.delete` function:
+You can delete a class at runtime with the `class.delete` function:
 
 ```bash
 class.delete('some_class')
 ```
 
-### Puting classes into variables
-Classes are like variables, you can put them into variables and use them.
+### Putting classes into variables
+Classes are like variables: you can store them in variables and use them.
 
-look at this example:
+Look at this example:
 
 ```bash
 class Person
@@ -52,7 +52,7 @@ class Person
     endfunc
 endclass
 
-# puting the class into the variable
+# putting the class into a variable
 $myclass = Person
 
 # calling the variable
@@ -66,7 +66,7 @@ output:
 hello pashmak
 ```
 
-Also you can change value of classes. classes are like variables and can be changed.
+You can also change the value of a class. Classes are like variables and can be reassigned.
 
 For example:
 

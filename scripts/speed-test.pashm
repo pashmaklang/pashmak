@@ -47,7 +47,7 @@ while $z < 10
 	$z = $z + 1
 endwhile
 
-# check the average
+# Check the average.
 $sum = 0
 $i = 0
 while $i < len($times)
@@ -58,11 +58,10 @@ endwhile
 $avg = $sum / len($times)
 println('Speed Average: ' + str($avg))
 
-# handle the compiled mode
+# Handle compiled mode.
 if len($argv) <= 1
     if os.path.isfile($__dir__ + '/../dist/pashmak')
         println('\nCompiled mode:')
         system(repr($__dir__ + '/../dist/pashmak') + ' ' + repr($__file__) + ' 0')
     endif
 endif
-

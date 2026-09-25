@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-try endtry is working when code has not any error
+`try`/`endtry` works when the code has no errors
 --file--
 $name = 'pashmak'
 

@@ -1,19 +1,19 @@
 # hash module
-with hash module, you can calculate hash sum of values:
+With the `hash` module, you can calculate the hash of a value:
 
 ```bash
 import @hash
 
-hash.sha256("hello") # also you can use hash.md5 and...
+hash.sha256("hello") # You can also use hash.md5 and other algorithms.
 println(^) # output: 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
 # OR
 println(hash.sha256("hello"))
 ```
 
 ### how it works?
-first, we call `hash.sha256` and pass `hello` string as argument (or put it in mem) to calculate sha256 hash. then, this function calculates hash sum of mem value and puts that into the mem. now you can access sum of that from mem.
+First, we call `hash.sha256` and pass the string `hello` as an argument (or put it in `mem`). The function calculates the SHA-256 hash and stores the result in `mem`, where it can then be accessed.
 
-### another hash algos
+### Other hash algorithms
 - hash.blake2b(string)
 - hash.blake2s(string)
 - hash.md5(string)

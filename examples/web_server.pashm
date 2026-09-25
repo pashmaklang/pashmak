@@ -22,7 +22,7 @@
 
 import @web.server
 
-# create a new webserver
+# Create a new web server.
 $server = web.server.WebServer('localhost', 8000)
 
 func get_handler($handler)
@@ -33,8 +33,8 @@ func get_handler($handler)
     $handler->wfile->write(bytes('Hello World!', "utf-8"))
 endfunc
 
-# set GET request handler
+# Set the GET request handler.
 $server->set_get(get_handler)
 
-# start the server
+# Start the server.
 $server->serve()

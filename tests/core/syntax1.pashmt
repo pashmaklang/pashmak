@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-syntax comments working
+Comments in syntax are handled correctly
 
 --file--
 

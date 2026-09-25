@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-method `isinstanceof` working correct
+The `isinstanceof` method works correctly
 
 --file--
 

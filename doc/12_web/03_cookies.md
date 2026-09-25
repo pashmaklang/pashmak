@@ -18,7 +18,7 @@ output:
 {'foo': 'bar', 'x': 'y'...}
 ```
 
-The `$web.cookies` variable is a dictonary. for example:
+The `$web.cookies` variable is a dictionary. For example:
 
 ```bash
 import @web
@@ -30,9 +30,9 @@ println($web.cookies['cookie_name'])
 ```
 
 ### Setting the cookies
-You cannot directly change items in `$web.cookies` variable. for setting cookies, you should use `web.set_cookie()` function.
+You cannot change items in the `$web.cookies` variable directly. To set cookies, use the `web.set_cookie()` function.
 
-for example:
+For example:
 
 ```bash
 import @web
@@ -50,6 +50,6 @@ web.end_headers()
 println($web.cookies)
 ```
 
-You should pass a dictonar to this function and set the items. `name` is name of cookie and `value` is value of cookie.
+Pass a dictionary to this function with the cookie options. `name` is the cookie name, and `value` is its value.
 
-Also you can set more options. for example `expire`, `path`, `domain`...(All of cookie general options are available).
+You can also set other options, such as `expire`, `path`, and `domain`. All standard cookie options are available.

@@ -3,20 +3,19 @@
 ## Lexer
 Lexer is in `src/core/lexer.py`.
 
-#### `parse_op`: Parses one operation
+#### `parse_op`: Parse one operation
 Args:
 - `op_str(str)`: The command as string
 - `file_path(str)`: Which file this line is loaded from
 - `line_number(int)`: Which line number this code loaded from
 
-returns a dict.
-Strructure:
+Returns a dictionary with this structure:
 ```json
 {
     "command": "<the command>",
     "args_str": "arguments of command as string",
     "str": "all of command as string",
-    "args": ["arguments", "as", "list"], // seprated by ` ` space
+    "args": ["arguments", "as", "list"], // separated by spaces
     "file_path": "/path/to/file/that/this/line/loaded/from",
     "strings": ["<output of `parse_string`>"],
     "line_number": 12
@@ -37,7 +36,7 @@ output:
     "command": "println",
     "args_str": "('hello world')",
     "str": "println('hello world')",
-    "args": ["('hello", "world')"], // seprated by ` ` space
+    "args": ["('hello", "world')"], // separated by spaces
     "file_path": "/path/to/file/that/this/line/loaded/from",
     "strings": ["<output of `parse_string`>"],
     "line_number": 12
@@ -48,7 +47,7 @@ output:
 Args:
 - `command(str)`: That thing you want to parse
 
-Returns a list from other lists:
+Returns a list of lists:
 
 ```json
 [
@@ -59,14 +58,13 @@ Returns a list from other lists:
 ```
 
 (the above output is for `println('hello world')`).
-The first boolean item, if is True, means that this part is a string,
-But if is False, means this is a native code.
-And the second item is the code as string.
+If the first boolean item is `True`, this part is a string; if it is `False`, this part is native code.
+The second item contains the code as a string.
 
 This function is useful when you want to replace/etc something on a code,
 But only in native code and not on strings.
 
-#### `parse_eval`: Converts the Pashmak eval code Python code
+#### `parse_eval`: Convert Pashmak eval code to Python code
 Args:
 - `command(str)`: The command
 
@@ -101,7 +99,7 @@ output:
 ['12', '19', '14']
 ```
 
-Also you can give the count:
+You can also specify the count:
 
 ```python
 print(lexer.multi_char_split('12+19*14', '+*'), 1)
@@ -117,12 +115,12 @@ output:
 Parser is in `src/core/parser.py`.
 
 #### `parse`: Parses a code
-This is The main parser function.
+This is the main parser function.
 
 Args:
 - `content(str)`: The code you want to parse
 - `filepath(str)`: The file path you loaded file from
-- `only_parse(bool)`: if is True, do not parses `if` statement(default is False)
+- `only_parse(bool)`: if `True`, do not parse `if` statements (defaults to `False`)
 
 Returns a list:
 
@@ -147,8 +145,8 @@ Example for `$name = 'pashmak'`: ['$name', "'pashmak'"]
 
 Example for `println($name)`: ['println($name)']
 
-If output is a list with 1 item, means this is a not `<a> = <b>`.
-But if yes, first item is `<a>`(before `=`) and second it after `=`.
+If the output is a one-item list, the command is not in the form `<a> = <b>`.
+Otherwise, the first item is `<a>` (before `=`), and the second is `<b>` (after `=`).
 
 Other example:
 

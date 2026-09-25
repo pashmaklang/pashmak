@@ -37,7 +37,7 @@ class Function:
     def __validate_argument_type__(self, value, arg_type_full: str) -> bool:
         """ Gets a object and type defination string and validates object type """
         from .current_prog import current_prog
-        # split the arg_type_full string by `|`
+            # Split `arg_type_full` on `|`.
         bracket_counter = 0
         arg_parts = ['']
         for ch in arg_type_full:
@@ -67,12 +67,12 @@ class Function:
             result =  type(value) == arg_type_obj
             if result:
                 if len(item_parts) > 1:
-                    # check the items in the list
+            # Check each item in the list.
                     for item in value:
                         if not self.__validate_argument_type__(item, item_parts[-1]):
                             result = False
                             break
-                if result: # if still result is True, return True
+                if result:  # If the result is still true, return True.
                     return result
         return False
 
@@ -101,7 +101,7 @@ class Function:
             if self.name in self.BUILTIN_WITHOUT_FRAME_ISOLATION_FUNCTIONS:
                 with_frame = False
 
-        # handle arguments
+        # Process the arguments.
         if self.args:
             for arg in self.args:
                 arg_name = arg[0].split(' ', 1)
@@ -159,7 +159,7 @@ class Function:
         result = current_prog.get_mem()
         if self.return_type != None:
             if not self.__validate_argument_type__(result, self.return_type):
-                # return value type is not valid. raise the error
+                # The return value has the wrong type, so raise an error.
                 what_given = str(type(result))
                 return current_prog.raise_error('InvalidReturnType',
                     'invalid value returned by "' + self.name + '", it should be ' + self.return_type + ', but ' + what_given + ' returned'

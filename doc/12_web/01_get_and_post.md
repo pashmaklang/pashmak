@@ -1,5 +1,5 @@
 # GET and POST data
-You can access to the GET and POSt data using `$web.get` and `$web.post` variables. they are dictionary.
+You can access GET and POST data through the `$web.get` and `$web.post` variables. They are dictionaries.
 
 For example, if you open `/app.pashm?foo=bar&name=parsa`, and print content of `$web.get`:
 
@@ -20,7 +20,7 @@ You will see:
 }
 ```
 
-Means you can access the keys like this:
+You can access the keys like this:
 
 ```bash
 # ...
@@ -28,7 +28,7 @@ Means you can access the keys like this:
 println $web.get['name']
 ```
 
-Also the `$web.post` is even like `$web.get`:
+The `$web.post` variable works like `$web.get`:
 
 ```bash
 # ...
@@ -36,4 +36,4 @@ Also the `$web.post` is even like `$web.get`:
 println $web.post['some_key']
 ```
 
-(If the request method is not POST, `$web.post` is a empty dictionary by default).
+(If the request method is not POST, `$web.post` is an empty dictionary by default.)

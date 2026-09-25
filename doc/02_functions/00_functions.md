@@ -1,5 +1,5 @@
 # Functions
-Function is a system to make alias for some codes (function).
+A function is a system to make an alias for some code.
 
 Look at this example:
 ```bash
@@ -10,7 +10,7 @@ endfunc
 say_hello()
 ```
 
-Note: You can use keyword `end` instead of `endfunc`. It is not different.
+Note: You can use the keyword `end` instead of `endfunc`. There is no difference.
 
 output:
 
@@ -36,33 +36,33 @@ hello world
 ```
 
 
-You can declare a function and call it from everywhere. When you call a function, all of codes inside that function will be ran.
+You can declare a function and call it from anywhere. When you call a function, all of the code inside that function will be run.
 
-To declare a function you have to write `func <name-of-function>` and write codes. Then to close function write `endfunc` after codes.
+To declare a function you have to write `func <name-of-function>` and write the code. Then, to close the function, write `endfunc` after the code.
 
 Look at this smarter function:
 ```bash
 mem 'program started\n'; print(^)
 
 func say_hello
-    $name = ^ # copy mem to $name
+    $name = ^ # copy the mem to $name
     println('hello ' + $name)
 endfunc
 
 mem 'parsa'; say_hello()
 ```
 
-program output:
+The program output:
 
 ```
 program started
 hello parsa
 ```
 
-##### NOTE: function name should not contains `()+-/*%=}{<>[],. ` chars(literal chars)
+##### NOTE: a function name should not contain the `()+-/*%=}{<>[],. ` characters (literal characters)
 
-## Passing argument to Functions
-To pass argument to the Functions, you can put value after name of function:
+## Passing arguments to functions
+To pass an argument to a function, you can put the value after the name of the function:
 
 ```bash
 func myfunc
@@ -84,16 +84,16 @@ This is exactly like
 mem 'something'; some_func()
 ```
 
-But with better syntax, you only need to run `some_func('something')`.
+But with a better syntax, you only need to run `some_func('something')`.
 
-### How it works?
-You can put a value after name of function. This value will put in mem and you can access this argument from mem.
+### How does it work?
+You can put a value after the name of the function. This value will be put in the mem and you can access this argument from the mem.
 
 Look at this example:
 
 ```bash
 func say_hello
-    $name = ^ # copy mem(the passed argument to function) to $name
+    $name = ^ # copy the mem (the argument passed to the function) to $name
     println('hello ' + $name)
 endfunc
 
@@ -110,7 +110,7 @@ Also you can pass more than 1 argument to functions:
 
 ```bash
 func say_hello
-    $args = ^ # copy mem to $args
+    $args = ^ # copy the mem to $args
     $first_name = $args[0]
     $last_name = $args[1]
     println('hello ' + $first_name + ' ' + $last_name)
@@ -119,9 +119,9 @@ endfunc
 say_hello('parsa', 'shahmaleki')
 ```
 
-Arguments should be split with `,` and this will make a array in mem and function can access that array and use arguments.
+Arguments should be separated with `,`. This will make an array in the mem and the function can access that array and use the arguments.
 
-To copy function argument (in mem) to a variable, using this syntax:
+To copy the function argument (in the mem) to a variable, use this syntax:
 
 ```bash
 func say_hello
@@ -132,7 +132,7 @@ endfunc
 say_hello('parsa')
 ```
 
-But also we can use this syntax to copy function argument to variable with better syntax:
+But we can also use this syntax to copy the function argument to a variable more easily:
 
 ```bash
 func say_hello ($name)
@@ -142,9 +142,9 @@ endfunc
 say_hello('parsa')
 ```
 
-#### NOTE: that space between `hello` and `($name)` is not required.
+#### NOTE: the space between `hello` and `($name)` is not required.
 
-We can put `($varname)` after name of function (with a space between them) and mem will copy automatically in that variable.
+We can put `($varname)` after the name of the function (with a space between them) and the mem will be copied automatically into that variable.
 
 Also you can pass more than 1 argument to functions:
 
@@ -156,9 +156,9 @@ endfunc
 say_hello('parsa', 'shahmaleki')
 ```
 
-You should split them with `,`.
+You should separate them with `,`.
 
-### Arguments default values
+### Argument default values
 You can set some default values for arguments:
 
 ```bash
@@ -175,7 +175,7 @@ output:
 Hello parsa!
 ```
 
-Also we can change default:
+Also we can change the default:
 
 ```bash
 func hello($name, $end='!')
@@ -209,7 +209,7 @@ hello('parsa', 'Hi', '.') # output: Hi parsa.
 hello('parsa', end='.') # output: Hello parsa.
 ```
 
-Like above example, keyword arguments allows you to set exactly value of a specify argument by name of argument.
+Like in the above example, keyword arguments allow you to set the exact value of a specific argument by the name of the argument.
 
 ### Local variables & global variables
 
@@ -237,13 +237,13 @@ new name
 parsa
 ```
 
-There is a note. Why when we changed `$name` variable in `myfunc` function, this was the old value after function?
+There is a note here. Why, when we changed the `$name` variable in the `myfunc` function, was it still the old value after the function?
 
-The `$name` where was set in `myfunc`, is local. Means that do not points to global `$name` in out program.
+The `$name` that was set in `myfunc` is local. This means that it does not point to the global `$name` in our program.
 
-The set variables in Functions, are local. Also Functions cannot change global variables
+The variables set in functions are local. Also functions cannot change global variables.
 
-The variable environment in Functions are isolated.
+The variable environment in functions is isolated.
 
 So, how to change a global variable from a function?
 
@@ -272,33 +272,33 @@ new name
 new name
 ```
 
-Here, `gset` function gets two parameters: first, global variable name and second, new value for that
+Here, the `gset` function gets two parameters: first, the global variable name and second, the new value for it.
 
-This command sets value of that variable globally.
+This command sets the value of that variable globally.
 
-Also you can get a global variable using `gget` function:
+Also you can get a global variable using the `gget` function:
 
 ```bash
 println(gget('var_name'))
 ```
 
-##### NOTE: after running gset, new value will set for global variable but it will not set also localy. so, after use gset, also use copy to update value localy (if you want)
+##### NOTE: after running gset, the new value will be set for the global variable, but it will not be set locally. So, after using gset, also update the local value if you want
 
-### Handle functions output
+### Handling the output of functions
 
-When you call a function, that function may return a output. This value as output should be save in mem
+When you call a function, that function may return an output. This output value should be saved in the mem.
 
 Look at this example:
 
 ```bash
 func add_two_nums($num1, $num2)
     $sum = $num1 + $num2 # add two numbers
-    mem $sum # put result to mem
+    mem $sum # put the result into the mem
 endfunc
 
 # now we call this function
 add_two_nums(10, 5)
-$result = ^ # function output is in mem and we copy mem to variable $result
+$result = ^ # the function output is in the mem and we copy the mem to the $result variable
 println($result)
 ```
 
@@ -308,7 +308,7 @@ output:
 15
 ```
 
-Also you can use `return` command instead of above method.
+Also you can use the `return` command instead of the above method.
 
 For example:
 
@@ -316,7 +316,7 @@ For example:
 func get_data
     println('start')
     return 'the data'
-    println('end') # this will not be ran
+    println('end') # this will not be run
 endfunc
 
 println(get_data())
@@ -329,20 +329,20 @@ start
 the data
 ```
 
-Actually, in `return` command, value will be put in the mem as output and function will be finished(commands after return will not be ran).
+Actually, with the `return` command, the value will be put in the mem as the output and the function will be finished (commands after return will not be run).
 
-### Inline calling functions
-You can call a function as argument of another function.
+### Calling functions inline
+You can call a function as an argument of another function.
 
 Look at this example:
 
 ```bash
-# the say_hi function returns string `hello <$name>`
+# the say_hi function returns the string `hello <$name>`
 func say_hi($name)
     return 'hello ' + $name
 endfunc
 
-# we want to call this function and print the output of that
+# we want to call this function and print its output
 println(say_hi("parsa"))
 ```
 
@@ -352,7 +352,7 @@ output:
 hello parsa
 ```
 
-In the above example, we directly called a function and passed the output of that as argument of `println` function.
+In the above example, we directly called a function and passed its output as an argument of the `println` function.
 
 Another example:
 
@@ -407,7 +407,7 @@ output:
 ('hello', 100, False)
 ```
 
-If you put only a single variable as argument and put a `*` before variable name, like `*$args`, All of arguments will be passed as a tuple to the function.
+If you put only a single variable as the argument and put a `*` before the variable name, like `*$args`, all of the arguments will be passed to the function as a tuple.
 
 For example:
 
@@ -418,7 +418,7 @@ endfunc
 ```
 
 ### Typed arguments
-Typed arguments, are arguments that type of them are declared.
+Typed arguments are arguments whose type is declared.
 
 Normally, you can pass any type of value as arguments. For example:
 
@@ -432,7 +432,7 @@ hello(100)
 hello(True)
 ```
 
-But, sometimes you want get only a specific type of value as argument:
+But sometimes you want to get only a specific type of value as an argument:
 
 ```bash
 func hello(string $name, int $age)
@@ -450,14 +450,14 @@ parsa 15
 pashmak 1
 ```
 
-But if you give something else of declared type, you will give error:
+But if you give something other than the declared type, you will get an error:
 
 ```bash
 func hello(string $name, int $age)
     println($name + ' ' + str($age))
 endfunc
 
-hello(100, 100) # first argument should be string, but int given
+hello(100, 100) # the first argument should be string, but int given
 ```
 
 Error output:
@@ -466,7 +466,7 @@ Error output:
 InvalidArgument: ....
 ```
 
-Syntax of argument type defining:
+The syntax of argument type declaration:
 
 ```bash
 func func_name(<type> $name, <type> $other...)
@@ -481,7 +481,7 @@ endfunc
 ```
 
 ### Advanced typed arguments
-You can use `|` char for setting type of arguments with OR operation:
+You can use the `|` character for setting the type of arguments with an OR operation:
 
 ```bash
 func hello(str|int $a)
@@ -491,13 +491,13 @@ endfunc
 hello('hello') # output: hello
 hello(12) # output: 12
 
-# something else of str and int
+# something other than str and int
 hello(True) # error: Invalid argument
 ```
 
-You can separate them with `|`. Type of argument should be one of them.
+You can separate them with `|`. The type of the argument should be one of them.
 
-Also you can use array item type:
+Also you can use the array item type:
 
 ```bash
 func hello(str|list[int] $a)
@@ -511,12 +511,12 @@ hello([1, 2]) # output: [1, 2]
 hello([1, 2, '']) # error: InvalidArgument
 ```
 
-When you write `list[int]`, means that argument should be a list that items should be `int`.
-Also you can write `list[int|str]` means you want a list that items should be `int` OR `str`.
-Also you can use this system complicated like `list[int|list[str|int]]`...
+When you write `list[int]`, it means that the argument should be a list whose items are `int`.
+Also you can write `list[int|str]`, which means you want a list whose items are `int` OR `str`.
+Also you can use this system in a complicated way like `list[int|list[str|int]]`...
 
 ### Return types
-You can also declare return type of functions like arguments.
+You can also declare the return type of functions like the arguments.
 
 For example:
 
@@ -546,4 +546,4 @@ Another example:
 func list[int|str]::hello()...
 ```
 
-If you return a invalid data, error `InvalidReturnType` will be raised.
+If you return invalid data, the error `InvalidReturnType` will be raised.

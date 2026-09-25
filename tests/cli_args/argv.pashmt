@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-The $argv variable has correct value
+The `$argv` variable has the expected value
 
 --file--
 print($argv[0])

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-isset command is working
+The `isset` command works
 
 --file--
 

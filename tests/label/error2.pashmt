@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-label system raises error while trying to goto not found label
+The label system raises an error when `goto` targets a missing label
 --file--
 goto not_found
 --with-error--

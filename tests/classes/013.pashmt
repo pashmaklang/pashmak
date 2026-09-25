@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class inheritance system can handle parent/child/self prop and method using
+The inheritance system handles parent, child, and self properties and methods
 
 --file--
 

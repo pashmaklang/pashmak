@@ -1,21 +1,17 @@
 # The Jit Compiler
-What does Jit compiler?
-Jit means `Just in time`.
-This system is for speed up interpreting process.
+What does the JIT compiler do? JIT means `Just in time`.
+This system speeds up the interpretation process.
 
-While you running a code at First time,
-Jit loads source code and parses and lexes this,
-Then caches the parsed code.
+The first time you run code, the JIT loads, parses, and lexes the source,
+then caches the parsed code.
 
-Then, at the second, third... time you run the same code,
-Jit checks that is any cache available for that code.
-If yes, do not parse the code again and load the cache
-Also jit checks file change. Jit stores sha256 hash of the script in the cache
-In the next times, checks that is file changed(using sha256), if yes, parses code again.
+On later runs, the JIT checks whether a cache is available for the code.
+If so, it loads the cache instead of parsing the code again.
+The JIT also checks whether the file has changed. It stores a SHA-256 hash of the script in the cache
+and parses the code again if the hash changes.
 
-How to use it?
-The jit is in `src/core/jit.py`.
-Instead of parsing code directly using parser, use the jit.
+How do you use it? The JIT is in `src/core/jit.py`.
+Use it instead of parsing code directly with the parser.
 
 While you are using parser directly:
 
@@ -34,18 +30,16 @@ from . import jit
 parsed_code = jit.load('/path/to/script.pashm', '/path/to/script.pashm', program_object)
 ```
 
-The first and second argument are one thing, but why they are seprated?
-The first argument is the real file path that you want to load.
-But the second argument is a path to set on parsed core result(code_location).
-The second will be used by error raiser system to show that this line of code is loaded from which file.
-But usually, both of them are one thing.
+The first and second arguments may be the same, but they serve different purposes.
+The first is the actual file path to load. The second is the path recorded in the parsed result (`code_location`).
+The error reporting system uses it to show which file a line of code came from. Usually, both arguments are the same.
 
-Also there is other arguments for `jit.load` function:
+The `jit.load` function also accepts these arguments:
 
 ```
-path(str): the real file path
-code_location(str): that file path you want to set on parsed code commands(will be passed to parser)
+path(str): the actual file path
+code_location(str): the path to record on parsed commands (passed to the parser)
 self(Program): the current program object
-is_jit_disabled(bool): If Jit should be disabled, put True on this and then this function will parse code and do not uses the cache
-ismain_default(bool): default value of $__ismain__ variable
+is_jit_disabled(bool): set to True to parse the code without using the cache
+ismain_default(bool): the default value of the `$__ismain__` variable
 ```

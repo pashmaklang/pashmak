@@ -52,12 +52,11 @@ namespace web
             '\\' in $id or \
             '\n' in $id
         )
-            # invalid id
-            # generate a new id
+        # The ID is invalid, so generate a new one.
             return generate_random_session_id()
         endif
 
-        # id is valid
+        # The ID is valid.
         return $id
     endfunc
 
@@ -75,7 +74,7 @@ namespace web
             endwhile
         endif
 
-        # write the file
+    # Write the file.
         $path = $session_dir + '/' + $custom_id
         $f = open($path, 'wb')
         pickle.dump($default_value, $f)

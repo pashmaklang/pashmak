@@ -1,5 +1,5 @@
 # Loading shared objects (DLLs)
-You can load DLLs (`.so` files on linux/other and `.dll` in windows) using function `load_so`.
+You can load shared libraries with the `load_so` function. These files use the `.so` extension on Linux and other Unix-like systems, and `.dll` on Windows.
 
 ```bash
 $dll = load_so('/path/to/file.so')

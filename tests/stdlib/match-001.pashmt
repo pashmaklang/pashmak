@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-function match() works
+The `match()` function works
 
 --file--
 

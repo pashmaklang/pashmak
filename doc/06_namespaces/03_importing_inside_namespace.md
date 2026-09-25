@@ -1,5 +1,5 @@
-# importing inside namespaces
-you can import an script inside an namespace.
+# Importing inside namespaces
+You can import a script inside a namespace.
 
 for example, we have `foo.pashm` and `bar.pashm` scripts.
 
@@ -33,4 +33,4 @@ App.foo.hello() # output: hello world
 App.bye() # output: good bye
 ```
 
-in above example, we imported `foo.pashm` inside an namespace and content of `foo.pashm` is loaded under that namespace. for example, `foo.hello` function is loaded under `App` namespace, so finally will be set as `App.foo.hello`.
+In the above example, we imported `foo.pashm` inside a namespace and the content of `foo.pashm` is loaded under that namespace. For example, the `foo.hello` function is loaded under the `App` namespace, so finally it will be set as `App.foo.hello`.

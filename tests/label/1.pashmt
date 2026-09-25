@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-label system is working as Loop structure
+The label system works as a loop structure
 --file--
 println 'before start'
 $i = 0

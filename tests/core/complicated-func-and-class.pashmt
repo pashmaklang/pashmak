@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-complicated class and func
+Nested classes and functions work
 
 --file--
 

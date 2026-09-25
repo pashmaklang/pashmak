@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-while loop working correct
+The `while` loop works correctly
 
 --file--
 

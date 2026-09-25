@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-function declaration syntax is not sensitive to whitespaces
+Function declaration syntax is not sensitive to whitespace
 
 --file--
 func hello1()

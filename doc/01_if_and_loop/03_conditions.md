@@ -1,7 +1,7 @@
 # Conditions
 In the previous parts, you learned about `if` and program control flow methods.
 
-All of them are using **Conditions**. Conditions help you to handle program flow.
+All of them use **Conditions**. Conditions help you to handle the program flow.
 
 For example:
 
@@ -11,12 +11,12 @@ if <this is condition>
 endif
 ```
 
-Here, you can learn all of condition features.
+Here, you can learn all of the condition features.
 
 ## Operators
 
 ### `<`: less than operator
-This operator checks **Is a value less than other value**.
+This operator checks **whether a value is less than another value**.
 
 For example:
 
@@ -33,7 +33,7 @@ endif
 ```
 
 ### `>`: greater than operator
-This operator checks **Is a value greater than other value**.
+This operator checks **whether a value is greater than another value**.
 
 For example:
 
@@ -50,7 +50,7 @@ endif
 ```
 
 ### `<=` less or equals operator, `>=` greater or equals operator
-This operator checks **is a value less/greater or equals another value**.
+These operators check **whether a value is less than/greater than or equal to another value**.
 
 For example:
 
@@ -70,7 +70,7 @@ println($age >= 100) # False
 ```
 
 ### `==` equals operator, `!=` not equals operator
-This operator checks that **Is a value equals/not equals another value**.
+These operators check **whether a value is equal/not equal to another value**.
 
 For example:
 
@@ -85,7 +85,7 @@ endif
 ```
 
 ### `and` & `or`
-This is a very important and useful logic. This helps you to combination conditions.
+This is a very important and useful logic. This helps you to combine conditions.
 
 For example:
 
@@ -96,7 +96,7 @@ if $age >= 18 and $country == 'somecountry'
 endif
 ```
 
-In the above example, both of conditions should be `True` to result of all of condition return `True`. If one or both of them are false, result is false.
+In the above example, both of the conditions should be `True` for the result of the whole condition to be `True`. If one or both of them are false, the result is false.
 
 ```bash
 $age = 18
@@ -105,9 +105,9 @@ if $age >= 18 or $country == 'somecountry'
 endif
 ```
 
-In the above example, if ONE OR BOTH of the conditions separated with `or` are True, result is True.
+In the above example, if ONE OR BOTH of the conditions separated with `or` are True, the result is True.
 
-Also you can use both of `and` and `or`:
+Also you can use both `and` and `or`:
 
 ```bash
 if $age > 18 and $age < 50 or $name == 'manager'
@@ -115,7 +115,7 @@ endif
 ```
 
 ### `not` keyword
-The `not` keyword in the first of condition, reverses that.
+The `not` keyword at the beginning of a condition reverses it.
 
 For example:
 
@@ -125,7 +125,7 @@ endif
 ```
 
 ### Condition order
-To set order of conditions(Like math operators), you should use `()`.
+To set the order of conditions (like math operators), you should use `()`.
 
 For example:
 

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-hash module is working
+The hash module works
 --file--
 import '@hash'
 use hash;

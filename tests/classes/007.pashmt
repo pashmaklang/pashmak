@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-constant property can be changed
+Class object properties can be changed
 
 --file--
 

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-classes can be child of another classes
+Classes can inherit from other classes
 
 --file--
 class GrandMother

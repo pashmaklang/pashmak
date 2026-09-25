@@ -1,8 +1,8 @@
 # Function super functions
 There are some **Super functions** to handle functions at runtime.
 
-## Checking function exists
-You can check a function exists with `func.exists` function:
+## Checking whether a function exists
+You can check whether a function exists with the `func.exists` function:
 
 ```bash
 if func.exists('some_func')
@@ -10,8 +10,8 @@ if func.exists('some_func')
 endif
 ```
 
-## Getting list of all of functions
-You can get list of all of functions with `func.list` function:
+## Getting a list of all functions
+You can get a list of all functions with the `func.list` function:
 
 ```bash
 $funcs = func.list()
@@ -28,7 +28,7 @@ output:
 The output is a list.
 
 ## Deleting a function
-You can delete a function at runtime with `func.delete` function:
+You can delete a function at runtime with the `func.delete` function:
 
 ```bash
 func.delete('some_func')

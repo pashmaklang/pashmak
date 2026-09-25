@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-test module functions working when value is True
+The test module functions work when the value is `True`
 --file--
 import '@test';
 test.assertTrue True;

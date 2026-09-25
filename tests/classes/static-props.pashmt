@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class static properties working
+Class static properties work
 
 --file--
 

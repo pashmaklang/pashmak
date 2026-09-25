@@ -1,8 +1,8 @@
 # Installation
 
 ## GNU/Linux/Unix
-This installation guide is for GNU/Linux/UNIX systems and requires Python >= 3.8. Also compile process needs `pyinstaller` pip library.
-If you don't have Pyinstaller, run `pip3 install pyinstaller` command in terminal.
+This installation guide is for GNU/Linux/UNIX systems and requires Python >= 3.8. Also the compile process needs the `pyinstaller` pip library.
+If you don't have PyInstaller, run the `pip3 install pyinstaller` command in the terminal.
 
 Compile & Install:
 
@@ -16,14 +16,14 @@ make all
 make
 sudo make install
 
-# back to master branch and delete installation branch
+# go back to the master branch and delete the installation branch
 git checkout master
 git branch -D installation
 ```
 
-Run above commands in terminal to install Pashmak interpreter on your GNU/Linux/UNIX system.
+Run the above commands in the terminal to install the Pashmak interpreter on your GNU/Linux/UNIX system.
 
-Also if you want install latest version(development state), do not run above git commands and just run it:
+Also if you want to install the latest version (development state), do not run the above git commands and just run this:
 
 ```bash
 make all
@@ -31,24 +31,24 @@ make
 sudo make install
 ```
 
-Above commands install latest (development) state of the program.
+The above commands install the latest (development) state of the program.
 
-Now you can run Interpreter in terminal:
+Now you can run the interpreter in the terminal:
 
 ```bash
 $ pashmak --info # shows info about Pashmak
 $ pashmak -v # --version, shows version of Pashmak
 $ pashmak app.pashm
 $ pashmak /path/to/script.pashm # runs file
-$ pashmak - # gets code from stdin and run that
-$ pashmak -r "<you code...>" # run code from cli arguments with `-r` option
+$ pashmak - # gets code from stdin and runs it
+$ pashmak -r "<your code...>" # runs code from cli arguments with the `-r` option
 
 # interactive shell
-# to run your code in a interactive shell in terminal:
+# to run your code in an interactive shell in the terminal:
 $ pashmak @shell
 ```
 
-If you don't want to install it, you can run this with python3 in terminal:
+If you don't want to install it, you can run it with python3 in the terminal:
 
 ```bash
 cd /path/to/project/folder
@@ -57,8 +57,8 @@ python3 src/pashmak.py
 ./src/pashmak.py
 ```
 
-### uninstallation
-To uninstall Pashmak, run this make command in terminal:
+### Uninstallation
+To uninstall Pashmak, run this make command in the terminal:
 
 ```bash
 sudo make uninstall
@@ -69,14 +69,14 @@ Or manually remove `/usr/bin/pashmak`.
 Pashmak will be removed from your system.
 
 ## Windows
-In Windows, you can run program with python interpreter without compiling:
+On Windows, you can run the program with the Python interpreter without compiling:
 
 ```bash
 cd \path\to\project
 python src\pashmak.py
 ```
 
-But also you can compile it with `pyinstaller`. If you don't have Pyinstaller, run `pip install pyinstaller` in command line.
+But also you can compile it with `pyinstaller`. If you don't have PyInstaller, run `pip install pyinstaller` on the command line.
 
 Compile:
 
@@ -89,13 +89,13 @@ pip install pyinstaller
 python -m PyInstaller src\pashmak.py --onefile
 ```
 
-now executable file is created in `dist\pashmak.exe`:
+Now the executable file is created in `dist\pashmak.exe`:
 
 ```bash
 dist\pashmak.exe -v
 ```
 
-## other tools
+## Other tools
 
 ### Syntax highlighters
 

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class can be declared
+Classes can be declared
 --file--
 class Person
 endclass

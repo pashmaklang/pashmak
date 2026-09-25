@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-read command can read value on mem
+The `read` command can store a value in `mem`
 
 --file--
 read

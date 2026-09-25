@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-modules can be imported
+Modules can be imported
 --file--
 import @hash
 hash.sha256 'hello'; print ^

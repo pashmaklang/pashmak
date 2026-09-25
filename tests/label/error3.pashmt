@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-label system raises error while trying to gotoif not found label
+The label system raises an error when `gotoif` targets a missing label
 --file--
 gotoif not_found
 --with-error--

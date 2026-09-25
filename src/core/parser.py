@@ -50,9 +50,9 @@ def parse(content: str, filepath='<system>', only_parse=False, no_random=False) 
     
     Handles multiline and if statements.
     """
-    # split the lines
+    # Split the input into lines.
     lines = content.split('\n')
-    # handle multiline
+    # Handle multiline syntax.
     new_lines = ['']
     for line in lines:
         if line:
@@ -65,7 +65,7 @@ def parse(content: str, filepath='<system>', only_parse=False, no_random=False) 
             new_lines.append(line)
     lines = new_lines
 
-    # handle `([{` and `}])` chars
+    # Handle the `([{` and `}])` characters.
     p_counter = 0
     b_counter = 0
     a_counter = 0
@@ -101,7 +101,7 @@ def parse(content: str, filepath='<system>', only_parse=False, no_random=False) 
                     lines[i] += '\\'
         i += 1
 
-    # check \ in end of line again
+    # Check again for a trailing backslash.
     i = 0
     new_lines = ['']
     empty_lines_counter = []
@@ -121,7 +121,7 @@ def parse(content: str, filepath='<system>', only_parse=False, no_random=False) 
     line_counter = 1
     commands = []
     for line in lines:
-        # clean line, remove comments from that
+    # Remove comments from the line.
         while empty_lines_counter.count(line_counter-1) > 0:
             line_counter += empty_lines_counter.count(line_counter-1)
         line = line.strip()
@@ -140,7 +140,7 @@ def parse(content: str, filepath='<system>', only_parse=False, no_random=False) 
                     break
         line = new_line
 
-        # get commands by spliting line by ;
+    # Split the line on semicolons to get commands.
         line_str_parts = parse_string(line)
         new_lines = ['']
         for line_part in line_str_parts:
@@ -157,7 +157,7 @@ def parse(content: str, filepath='<system>', only_parse=False, no_random=False) 
             op = op.strip()
             #op = op.replace(clean_semicolon, ';')
             if op != '':
-                # parse once command and append it to the list
+    # Parse the command and append it to the list.
                 op = parse_op(op)
                 op['line_number'] = line_counter
                 op['file_path'] = filepath
@@ -169,7 +169,7 @@ def parse(content: str, filepath='<system>', only_parse=False, no_random=False) 
     if only_parse:
         return commands
 
-    # handle the "end" keyword
+    # Handle the `end` keyword.
     i = 0
     started_blocks = []
     while i < len(commands):
@@ -185,14 +185,14 @@ def parse(content: str, filepath='<system>', only_parse=False, no_random=False) 
                 commands[i]['command'] = 'end' + started_block
         i += 1
 
-    # handle the if statement
+    # Handle the `if` statement.
     open_ifs = []
     open_ifs_counters = []
     i = 0
     while i < len(commands):
         try:
             if commands[i]['command'] == 'if':
-                # init new if block
+                # Initialize a new `if` block.
                 if no_random:
                     global rand_counter
                     rand_name = str(rand_counter) + '_'

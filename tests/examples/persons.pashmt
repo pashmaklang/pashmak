@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-an example to get information of 3 persons
+Example: retrieve information about three people
 
 --file--
 import 'examples/get_persons_information.pashm'

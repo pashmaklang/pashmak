@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-namespace function bug is fixed
+The namespace function bug is fixed
 
 --file--
 

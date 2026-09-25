@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-special characters can be printed
+Special characters can be printed
 --file--
 
 print 'this is ; semicolon'

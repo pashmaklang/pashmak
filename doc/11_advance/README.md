@@ -1,8 +1,8 @@
 # Documentation > Advanced
 
-- [Jit](00_pashmak_jit.md)
-- [Advance Stdout handling](01_advance_stdout_handling.md)
-- [var_dump()](02_var_dump.md)
+- [JIT](00_pashmak_jit.md)
+- [Advanced stdout handling](01_advance_stdout_handling.md)
+- [`var_dump()`](02_var_dump.md)
 - [perror()](03_perror.md)
 - [printf()](04_printf.md)
 - [Style guide](05_style_guide.md)
@@ -11,8 +11,8 @@
 - [die()](08_function_die.md)
 - [Pashmiler compiler](09_compiler.md)
 - [Docstrings](10_docstring.md)
-- [Name Defines](11_name_defines.md)
-- [Cloning Objects](12_cloning_objects.md)
+- [Name defines](11_name_defines.md)
+- [Cloning objects](12_cloning_objects.md)
 - [match()](13_function_match.md)
 - [Debug system and function debug()](14_debug_system.md)
 - [Loading shared objects](15_loading_dll.md)

@@ -20,7 +20,7 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-# regular expersion
+# Regular expression utilities.
 
 namespace regex
     @doc "Gets a regex pattern and a string and returns the found items as list"

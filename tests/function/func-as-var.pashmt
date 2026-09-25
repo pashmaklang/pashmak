@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-function can be used as variable
+Functions can be used as variables
 
 --file--
 func hello($name)

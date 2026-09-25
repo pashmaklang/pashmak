@@ -20,12 +20,12 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-# We have a array from names. we in here print them one by one
+# We have an array of names. Print them one by one.
 
-# declare $names array
+# Declare the `$names` array.
 $names = ['parsa', 'pashmak', 'something']
 
-# set a counter for loop
+# Set a counter for the loop.
 $i = 0
 
 while $i < len($names)

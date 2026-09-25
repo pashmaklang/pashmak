@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-function typed args with list item type
+Typed function arguments support list item types
 
 --file--
 

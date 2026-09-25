@@ -1,5 +1,5 @@
 # `isinstanceof` method
-The `isinstanceof` method is a general method for all of classes. this method can check that an object is in instanceof a class.
+The `isinstanceof` method is available on all classes. It checks whether an object is an instance of a class.
 
 For example:
 
@@ -18,7 +18,7 @@ output:
 True
 ```
 
-the above output(True) means that the `$a` object is a instance from class `Hi`.
+The output above (`True`) means that `$a` is an instance of the `Hi` class.
 
 Another example:
 
@@ -41,7 +41,7 @@ output:
 True
 ```
 
-The above output means that the `$a` object is instance of class `Father`.
+The output above means that `$a` is an instance of the `Father` class.
 
 But in this example:
 
@@ -63,9 +63,9 @@ output:
 False
 ```
 
-Because class `Bar` haven't any relation with class `Foo`.
+This is because the `Bar` class has no relation to the `Foo` class.
 
-Also you can pass argument of this method as string:
+You can also pass the class name to this method as a string:
 
 ```bash
 class Foo

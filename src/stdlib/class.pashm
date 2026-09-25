@@ -20,13 +20,13 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-# The class super tools
+# Super functions for working with classes.
 namespace class
     @doc """\
     Returns list of defined classes as list of strings(name of class).\
     """
     func list()
-        # returns list of classes
+        # Return the list of classes.
         return python("self.mem = list(self.classes.keys())")
     endfunc
 
@@ -36,7 +36,7 @@ namespace class
     Returns boolean.\
     """
     func bool::exists(string $name)
-        # checks a class exists or not
+        # Check whether a class exists.
         $name = str($name)
         return $name in class.list()
     endfunc
@@ -47,7 +47,7 @@ namespace class
     (This Cannot delete builtin classes).\
     """
     func delete(string $name)
-        # deletes a class
+        # Delete a class.
         $name = str($name)
         if not class.exists($name)
             raise(Error('ClassNotFound', 'class "' + $name + '" not found'))
@@ -59,7 +59,7 @@ namespace class
             raise(Error('ClassCannotBeDeleted', 'class "' + $name + '" is a builtin class and cannot be deleted'))
         endif
 
-        # delete the class
+        # Delete the class.
         python("del self.classes[self.get_var('name')]")
     endfunc
 endns

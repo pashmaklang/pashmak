@@ -45,7 +45,7 @@ The Pashmak Project\
 func set_once_header(string $path)
     $spliter = ('#' * 73) + '\n\n'
     
-    # open file and add header
+    # Open the file and add the header.
     $f = open($path, 'r')
     $content = $f->read()
     $f->close()
@@ -56,11 +56,11 @@ func set_once_header(string $path)
     if len($parts) == 1
         $new_content = $header_text + $spliter + $parts[0]
     else
-	# already has the header
+	# The file already has the header.
         return
     endif
 
-    # add current filename to header
+    # Add the current filename to the header.
     $only_file_name = $path->replace('\\', '/')->split('/')[-1]
     $new_content = '#\n# ' + $only_file_name + '\n' + $new_content
 

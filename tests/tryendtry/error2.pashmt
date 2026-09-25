@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-try command raises syntax error correctly
+`try` raises a syntax error correctly
 
 --file--
 try; gfdhghgfhf; endtry

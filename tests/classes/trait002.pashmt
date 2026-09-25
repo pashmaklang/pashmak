@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-Traits will be handled in `isinstanceof` method
+Traits are handled by the `isinstanceof` method
 
 --file--
 

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-test module assertTrue function raises error when value is False
+The test module `assertTrue` function raises an error when the value is `False`
 --file--
 import '@test'
 test.assertTrue 3 == 7

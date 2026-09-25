@@ -49,7 +49,7 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
         }
     """
     op = {}
-    op['str'] = op_str # command plain string
+    op['str'] = op_str  # The command as a plain string.
     op_parts = op_str.split(' ')
     op['command'] = op_parts[0]
     op['command'] = op['command'].split('(', 1)
@@ -61,7 +61,7 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
     op['args_str'] = ''
     op['args'] = []
 
-    # handle backward compatiblity for `section` command
+        # Preserve backward compatibility for the `section` command.
     if op['command'] == 'section':
         op['command'] = 'label'
 
@@ -88,7 +88,7 @@ def parse_op(op_str: str, file_path='<system>', line_number=0) -> dict:
                 op_parts[0] = op_parts[0].strip()[1:]
                 op_parts[-1] = op_parts[-1].strip()
                 op_parts[-1] = op_parts[-1][:len(op_parts[-1])-1]
-    # set command arguments
+        # Set the command arguments.
     for op_part in op_parts:
         if op_part != '' or op['command'] == 'mem':
             if op['command'] in ['import', 'import_once', 'import_run', 'import_run_once']:
@@ -192,7 +192,7 @@ def parse_eval(command: str):
     for code in command_parts:
         if code[0] == False:
             code = code[1]
-            # replace variable names with value of them
+        # Replace variable names with their values.
             code_words = multi_char_split(code, literals, keep_seprators=True)
             code_words = [w.strip() for w in code_words if w.strip() != '']
             counter = 0

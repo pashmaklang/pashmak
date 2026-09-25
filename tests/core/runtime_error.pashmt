@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-runtime error is raising when there is syntax error
+A runtime error is raised when there is a syntax error
 
 --file--
 

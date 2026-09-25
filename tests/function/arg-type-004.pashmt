@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-complicated function argument type for lists
+Complex list argument types work
 
 --file--
 

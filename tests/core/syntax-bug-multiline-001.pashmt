@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-bug whitespace in multiline is fixed
+Whitespace handling in multiline syntax is fixed
 
 --file--
 

@@ -20,7 +20,7 @@
 # along with Pashmak.  If not, see <https://www.gnu.org/licenses/>.
 #########################################################################
 
-# Printing the fibonacci pattern
+# Print the Fibonacci sequence.
 
 func fib(int $n=1000)
     $a = 1

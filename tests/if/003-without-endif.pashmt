@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-program will not be crashed when if block is not close
+The program does not crash when an `if` block is not closed
 
 --file--
 if True

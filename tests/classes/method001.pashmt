@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class method can be declared
+Class methods can be declared
 
 --file--
 class Person

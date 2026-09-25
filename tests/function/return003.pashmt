@@ -22,7 +22,7 @@
 
 
 --test--
-return command works when have not argument
+The `return` command works without an argument
 --file--
 func hello()
     print 'first'

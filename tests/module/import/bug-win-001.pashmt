@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-the windows non-relative import bug is fixed
+The Windows non-relative import bug is fixed
 
 --file--
 

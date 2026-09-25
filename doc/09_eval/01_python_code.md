@@ -1,5 +1,5 @@
-# run python code
-you can run python code like `eval` with `python` command:
+# Run Python code
+You can run Python code like `eval` with the `python` command:
 
 ```bash
 $code = 'print("hello world from python")'

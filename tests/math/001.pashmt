@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-module math working correct
+The math module works correctly
 
 --skip--
 

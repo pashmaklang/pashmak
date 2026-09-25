@@ -32,4 +32,4 @@ enter some code: <input>mem 'hi\n'; print(^);
 hi
 ```
 
-The above code gets a string from user and runs that as pashmak code.
+The above code gets a string from the user and runs it as Pashmak code.

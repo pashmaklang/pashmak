@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-endtry without opened block raises error
+`endtry` without an open block raises an error
 
 --file--
 endtry

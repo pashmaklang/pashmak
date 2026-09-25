@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-calling function insdie class block bug is fixed
+Calling a function inside a class block works correctly
 
 --file--
 

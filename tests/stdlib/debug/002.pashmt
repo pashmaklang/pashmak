@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-debug is disabled when `DEBUG` is not true
+Debugging is disabled when `DEBUG` is not `True`
 
 --file--
 

@@ -1,7 +1,7 @@
 # function `var_dump()`
-This function can get a object and dump that.
+This function takes an object and prints a representation of it.
 
-for example:
+For example:
 
 ```bash
 var_dump('hello')

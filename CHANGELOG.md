@@ -3,15 +3,15 @@
 ## 0.9 (2025-12-7)
 
 #### New Features
-- Added module `regex` (GH-129)
-- Added `$os.pwd` variable in `os` module (GH-158)
+- Added the module `regex` (GH-129)
+- Added the `$os.pwd` variable in the `os` module (GH-158)
 - Added *Traits* for OOP system (GH-164, GH-165)
-- Added keyword `end` to close blocks instead of `endif`, `endwhile`... previous keywords still work (GH-171)
+- Added the keyword `end` to close blocks instead of `endif`, `endwhile`... the previous keywords still work (GH-171)
 
 ## 0.8.5 (2021-5-31)
 
 #### New Features
-- Added support for `list` datatype for `import` syntax (GH-155)
+- Added support for the `list` datatype for the `import` syntax (GH-155)
 
 ## 0.8.4 (2021-4-21)
 
@@ -21,65 +21,65 @@
 ## 0.8.3 (2021-3-15)
 
 #### Bug Fixes
-- Fixed windows path spliter bug and changed from `:` to `;` ([read more](doc/changelog/0.8/bug-windows-path-spliter.md), GH-133)
+- Fixed the Windows path splitter bug and changed it from `:` to `;` ([read more](doc/changelog/0.8/bug-windows-path-spliter.md), GH-133)
 
 ## 0.8.2 (2021-3-14)
 
 #### Bug Fixes
-- Fixed a critical bug in windows while importing scripts in non-relative mode like `$__dir__ + '/something...'` ([read more](doc/changelog/0.8/bug-windows-non-relative-import.md), GH-132)
+- Fixed a critical bug in Windows while importing scripts in non-relative mode like `$__dir__ + '/something...'` ([read more](doc/changelog/0.8/bug-windows-non-relative-import.md), GH-132)
 
 ## 0.8.1 (2021-3-2)
 
 #### New Features
-- Added command `clear` for shell (GH-123)
+- Added the command `clear` for the shell (GH-123)
 
 #### Bug Fixes
-- Fixed shared frame variables bug (accessibility of parent frame variables in child frame). (GH-124)
+- Fixed the shared frame variables bug (accessibility of parent frame variables in a child frame). (GH-124)
 
 ## 0.8 (2021-2-28)
 
 #### NOTE: This release is fully backward compatible with `0.7`
 
 #### New Features
-- Added `debug()` and debug system ([read the doc](doc/11_advance/14_debug_system.md)) (GH-112)
-- Added interactive builtin shell (command `pashmak @shell`) (GH-113)
-- Added function `load_so()` for loading shared objects (DLLs), ([read the doc](doc/11_advance/15_loading_dll.md)) (GH-117)
-- Added error hiding feature ([read the doc](doc/03_try_endtry/02_hiding_errors.md)) (GH-122)
+- Added `debug()` and the debug system ([read the doc](doc/11_advance/14_debug_system.md)) (GH-112)
+- Added an interactive builtin shell (command `pashmak @shell`) (GH-113)
+- Added the function `load_so()` for loading shared objects (DLLs) ([read the doc](doc/11_advance/15_loading_dll.md)) (GH-117)
+- Added an error hiding feature ([read the doc](doc/03_try_endtry/02_hiding_errors.md)) (GH-122)
 
 #### Changes
-- Renamed `section` command to `label`, still `section` works and is backward compatible (GH-110)
+- Renamed the `section` command to `label`; `section` still works and is backward compatible (GH-110)
 - Some optimizations in builtin modules and program bootstrap speed (GH-111)
-- Improve base structure of lexer and parser and optimizations in speed (GH-118)
+- Improved the base structure of the lexer and parser, and optimizations in speed (GH-118)
 - Some changes in error rendering style (GH-120)
-- Improve error rendering in web environment (GH-121)
+- Improved error rendering in the web environment (GH-121)
 
 #### Bug Fixes
-- Fixed invalid line number bug in parser and while raising errors (GH-119)
+- Fixed the invalid line number bug in the parser and while raising errors (GH-119)
 
 ## 0.7.4 (2021-02-24)
 
 #### Changes
-- Changed `-` to `<stdin>` as file name while reading code from stdin
+- Changed `-` to `<stdin>` as the file name while reading code from stdin
 
 ## 0.7.3 (2021-2-22)
 
 #### New Features
-- Handle `return` in importing system by `import()` ([read the doc](doc/05_importing/02_return_value.md)) (GH-109)
+- Handle `return` in the importing system via `import()` ([read the doc](doc/05_importing/02_return_value.md)) (GH-109)
 
 #### Changes
-- Changed string of classes from default to `<class 'NameOfClass'>` (GH-108)
+- Changed the string of classes from the default to `<class 'NameOfClass'>` (GH-108)
 
 #### Bug Fixes
-- Fixed `typeof()` bug when checking type of a object from a class (GH-108)
+- Fixed the `typeof()` bug when checking the type of an object from a class (GH-108)
 
 ## 0.7.2 (2021-2-16)
 
 #### New Features
-- Added docstring for function `py_load_module`
+- Added a docstring for the function `py_load_module`
 
 #### Bug Fixes
-- Fixed shutdown events not running while using `exit()` bug (GH-105)
-- Fixed multiline syntax bug while writing empty lines
+- Fixed the bug where shutdown events did not run while using `exit()` (GH-105)
+- Fixed the multiline syntax bug while writing empty lines
 
 ## 0.7.1 (2021-2-10)
 
@@ -92,117 +92,117 @@
 ## 0.7 (2021-02-09)
 
 #### New Features
-- Added `import_run` and `import_run_once` functions (GH-84)
-- Added cli feature to run modules (GH-84)
-- Added new functions to module `string` (GH-86)
-- Added python `mimetypes` module (GH-92)
-- Added `gget` function (GH-92)
-- Added `pashmakexe` variable to module `sys` (GH-92)
-- Added a small internal web server for pashmak in module `web.server` (GH-92)
-- Added base of web development features for backend with pashmak (module `@web`) (GH-92)
-- Added a cli behavior for `time` module to show current time (GH-89)
-- Added `null` keyword as a alias for `None` (GH-90)
-- Moved `pit(pashmhtml)` engine from a external library to a builtin module (GH-85)
-- Added shutdown event system and function `register_shutdown()` (GH-91)
-- Added `re` python regex library
-- Added function `die`
-- Moved `pashmiler` from a external library to a builtin module and renamed to `compiler` (GH-93)
-- Added **Docstring** system (GH-94)
-- Added `set` and `get` functions
-- Added name define system and `define`, `is_defined`, `undefine`, `all_defines` and `redefine` functions
+- Added the `import_run` and `import_run_once` functions (GH-84)
+- Added a cli feature to run modules (GH-84)
+- Added new functions to the module `string` (GH-86)
+- Added the Python `mimetypes` module (GH-92)
+- Added the `gget` function (GH-92)
+- Added the `pashmakexe` variable to the module `sys` (GH-92)
+- Added a small internal web server for Pashmak in the module `web.server` (GH-92)
+- Added the base of the web development features for the backend with Pashmak (module `@web`) (GH-92)
+- Added a cli behavior for the `time` module to show the current time (GH-89)
+- Added the `null` keyword as an alias for `None` (GH-90)
+- Moved the `pit(pashmhtml)` engine from an external library to a builtin module (GH-85)
+- Added the shutdown event system and the function `register_shutdown()` (GH-91)
+- Added the `re` Python regex library
+- Added the function `die`
+- Moved `pashmiler` from an external library to a builtin module and renamed it to `compiler` (GH-93)
+- Added the **Docstring** system (GH-94)
+- Added the `set` and `get` functions
+- Added the name define system and the `define`, `is_defined`, `undefine`, `all_defines` and `redefine` functions
 - Added `true` and `false` aliases for `True` and `False` keywords
 - Added multiple arguments for functions (GH-95)
 - Added keyword arguments for functions (GH-95)
 - Added typed arguments for functions (GH-95)
-- Added return type system for functions (GH-99)
+- Added the return type system for functions (GH-99)
 - Added some aliases for datatypes, `string` for `str`, `integer` for `int`, `array` for `list`
-- Added Core Developer guide to Documentation (GH-96)
-- Added function `clone()` for copying objects (GH-97)
-- Added message argument for function `read()`
-- Added python `pickle` module
-- Added function `match()` (GH-100)
-- Added function `py_load_module` (GH-101)
-- Added python `io` module
+- Added the Core Developer guide to the documentation (GH-96)
+- Added the function `clone()` for copying objects (GH-97)
+- Added a message argument for the function `read()`
+- Added the Python `pickle` module
+- Added the function `match()` (GH-100)
+- Added the function `py_load_module` (GH-101)
+- Added the Python `io` module
 
 #### Changes
 
 - Some optimizations in multiline syntax
-- Changed syntax of `free` and `isset` functions
+- Changed the syntax of the `free` and `isset` functions
 - Fixed some bugs and some optimizations in eval (GH-95)
-- Changed RecursionError message
+- Changed the RecursionError message
 
 #### Bug Fixes
-- Fixed bug cached `$__ismain__` while directly running a file in command line
-- Fixed import command bug while writing something like `import(somefunc())`
+- Fixed the cached `$__ismain__` bug while directly running a file on the command line
+- Fixed the import command bug while writing something like `import(somefunc())`
 - Fixed a small problem in error rendering
-- Fixed a bug in class property setting syntax, while running `$obj-><some-exists-name> = ...`
-- Fixed syntax bug while using variables alongside `:`
+- Fixed a bug in the class property setting syntax while running `$obj-><some-existing-name> = ...`
+- Fixed a syntax bug while using variables alongside `:`
 
 #### Removed
 
-- Removed unused function `required`
-- Removed `format_args` function
+- Removed the unused function `required`
+- Removed the `format_args` function
 
 ## 0.6.8 (2021-1-17)
 
 #### Bug Fixes
-- Fixed a bug in importing modules environment conflicting
-- Fixed a bug in `import_once`, `import_run` and `import_run_once` functions
-- Fixed calling function in class block bug
-- Fixed `$__dir__`, `$__file__` and `$__ismain__` variables bug in namespace block
+- Fixed a bug in module importing environment conflicts
+- Fixed a bug in the `import_once`, `import_run` and `import_run_once` functions
+- Fixed the bug when calling a function in a class block
+- Fixed the bug with the `$__dir__`, `$__file__` and `$__ismain__` variables in a namespace block
 
 ## 0.6.7 (2021-1-15)
 
 #### Bug Fixes
-- Fixed class property setting syntax bug (GH-88)
+- Fixed the class property setting syntax bug (GH-88)
 - Fixed a bug in variable frame handling
 
 ## 0.6.6 (2021-1-11)
 
 #### Bug Fixes
-- Fixed a bug in `$__ismain__` variable for builtin modules
+- Fixed a bug in the `$__ismain__` variable for builtin modules
 
 ## 0.6.5 (2021-1-11)
 
 #### New Features
-- Added module `string` (GH-82)
+- Added the module `string` (GH-82)
 
 #### Bug Fixes
-- Fixed a bug in module path system about `$__dir__` and `$__file__`
+- Fixed a bug in the module path system related to `$__dir__` and `$__file__`
 
 ## 0.6.4 (2021-1-10)
 
 #### New Features
-- Added importing sub directories/files in modules loaded from module path system (GH-80)
+- Added importing subdirectories/files in modules loaded from the module path system (GH-80)
 
 #### Bug Fixes
-- Fixed import directory bug (GH-79)
+- Fixed the import directory bug (GH-79)
 
 #### Removed
-- Removed cli option `-m|--modules`
+- Removed the cli option `-m|--modules`
 
 ## 0.6.3 (2021-1-9)
 
 #### Changes
-- Some optimizations in module importing system (GH-78)
+- Some optimizations in the module importing system (GH-78)
 
 #### Bug Fixes
-- Fixed a bug in importing scripts related to file path contains `"` or `'` (GH-78)
-- Fixed `$__ismain__` always is True bug (GH-78)
+- Fixed a bug in importing scripts related to file paths containing `"` or `'` (GH-78)
+- Fixed the bug where `$__ismain__` was always True (GH-78)
 
 ## 0.6.2 (2021-1-7)
 
 #### New Features
-- Added `urllib` to imported python standard modules (GH-75)
-- Added `platform`, `sqlite3.dump`, `sqlite3.dbapi2` to imported python standard modules
+- Added `urllib` to the imported Python standard modules (GH-75)
+- Added `platform`, `sqlite3.dump`, `sqlite3.dbapi2` to the imported Python standard modules
 - Added `pashmak.zen()` (GH-77)
 
 ## 0.6.1 (2021-1-5)
 
 #### Changes
-- Also show error type and message in end of rendered error frames
-- Imported `sqlite3` python module (GH-69)
+- Also show the error type and message at the end of rendered error frames
+- Imported the `sqlite3` Python module (GH-69)
 
 #### Bug Fixes
-- $this variable exists while calling static method bug in class is fixed (GH-71)
-- Fixed try-endtry variable error handling bug (GH-73)
+- Fixed the bug where the $this variable existed while calling a static method in a class (GH-71)
+- Fixed the try-endtry variable error handling bug (GH-73)

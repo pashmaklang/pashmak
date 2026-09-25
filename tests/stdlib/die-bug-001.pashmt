@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-die() message can be non string
+The `die()` function accepts a non-string message
 
 --file--
 

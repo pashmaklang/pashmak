@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-eval command working
+The `eval` command works
 
 --file--
 eval 'print "hello from eval"'

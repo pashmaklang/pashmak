@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-directory without `__init__.pashm` cannot be imported
+A directory without `__init__.pashm` cannot be imported
 
 --file--
 

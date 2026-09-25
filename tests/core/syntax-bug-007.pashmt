@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class property setting syntax bug is fixed
+Class property assignment syntax bug is fixed
 
 --file--
 

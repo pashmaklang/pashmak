@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class numeric magic methods working
+Class numeric magic methods work
 
 --file--
 

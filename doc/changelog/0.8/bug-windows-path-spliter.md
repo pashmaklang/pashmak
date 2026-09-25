@@ -1,9 +1,8 @@
 # Windows path splitter bug (0.8)
-Before the patch for this bug, paths were split by `:` character.
-For both `PYTHONPATH` and `PASHMAKPATH` environment variables.
+Before this bug was fixed, paths in both the `PYTHONPATH` and `PASHMAKPATH` environment variables were split on `:`.
 
 Windows uses `:` for determining drives (`C:/...`).
 
-Now, the splitter is changed to `;` and bug is fixed for windows.
+The separator is now `;`, fixing the issue on Windows.
 
 > Patch: GH-133

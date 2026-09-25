@@ -1,7 +1,7 @@
-# output handling magic functions
-There is some magic functions in pashmak to handle program output dynamically.
+# Output handling magic functions
+Pashmak provides magic functions for handling program output dynamically.
 
-For example, we want to write a program to run a function and return that thing that function is printed.
+For example, suppose we want a program to run a function and capture the text it prints.
 
 Look at this example:
 
@@ -33,17 +33,17 @@ function printed "this is something"
 program ends
 ```
 
-In the above example, we handled program stdout output in advance level.
+In the example above, we handled the program's standard output.
 
 List of `out_*` functions:
 
-- `out_start`: says to pashmak that from here do not print directly and save printed values
-- `out_end`: says to pashmak to end saving printed values and enable print from here
-- `out_get`: returns printed values
+- `out_start`: stops printing directly and begins saving printed values
+- `out_end`: stops saving printed values and resumes printing directly
+- `out_get`: returns the saved printed values
 - `out_clean`: clears the buffer of printed values
-- `out_get_clean`: clears the buffer and returns printed values
+- `out_get_clean`: clears the buffer and returns the printed values
 
-Also this system is useful to disabling print:
+This system is also useful for suppressing output:
 
 ```bash
 println('start')

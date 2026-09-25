@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-read command working without argument
+The `read` command works without an argument
 
 --file--
 read

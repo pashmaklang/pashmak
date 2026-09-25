@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-function inline calling bug from namespace is fixed
+Inline function calls from namespaces work correctly
 
 --file--
 namespace app

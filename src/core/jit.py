@@ -94,7 +94,7 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain
                                put True on this and then this function will parse code and do not uses the cache
         ismain_default(bool): default value of $__ismain__ variable
     """
-    # check is jit disabled
+        # Check whether the JIT is disabled.
     try:
         is_jit_disabled = bool(os.environ['PASHMAK_DISABLE_JIT'])
     except:
@@ -127,7 +127,7 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain
         content = False
         is_new_cache = False
         try:
-            # check cache exists
+        # Check whether the cache exists.
             if not os.path.isdir(the_cache_dir):
                 os.mkdir(the_cache_dir)
             if os.path.isfile(the_cache_file):
@@ -162,7 +162,7 @@ def load(path: str, code_location: str, self=None, is_jit_disabled=False, ismain
                 content += '\n$__dir__ = ' + repr(self.get_var('__dir__').replace('\\', '\\\\'))
                 content += '\n$__ismain__ = ' + str(bool(self.get_var('__ismain__')))
 
-        # write the content on cache
+        # Write the content to the cache.
         if is_new_cache:
             content = parser.parse(content, filepath=code_location)
             cache_f = open(the_cache_file, 'wb')

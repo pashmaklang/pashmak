@@ -1,5 +1,5 @@
 # Constants
-Constants (consts) are even like variables, but one thing is different in constants, **Constant value cannot be changed**.
+Constants (consts) are like variables, but one thing is different in constants: **the value of a constant cannot be changed**.
 
 For example:
 
@@ -16,7 +16,7 @@ output:
 the value
 ```
 
-To declare consts, you only need to put a `&` in the name of variable(location of that is not important).
+To declare consts, you only need to put a `&` in the name of the variable (its location is not important).
 
 ```bash
 $&const1 = 123
@@ -24,7 +24,7 @@ $&const2 = 'fsgdf'
 # ...
 ```
 
-When we try to change value of the const, we will get error:
+When we try to change the value of the const, we will get an error:
 
 ```bash
 $&name = 'the name'
@@ -38,7 +38,7 @@ output:
 ConstError: "$&name" is const and cannot be changed...
 ```
 
-Also you can **declare** a constant, but set value of that later.
+Also you can **declare** a constant but set its value later.
 
 For example:
 
@@ -57,4 +57,4 @@ output:
 parsa
 ```
 
-But in the second time, error will be raised.
+But the second time, an error will be raised.

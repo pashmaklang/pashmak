@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-try endtry variable error bug is fixed
+The variable error in `try`/`endtry` is fixed
 
 --file--
 

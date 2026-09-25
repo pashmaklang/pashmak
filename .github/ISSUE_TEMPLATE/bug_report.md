@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: If you detected a bug in the Pashmak, you can report it to help us
+about: If you detected a bug in Pashmak, you can report it to help us
 title: ''
 labels: bug
 assignees: ''
@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **Description**
-Please describe the bug in here...
+Please describe the bug here...
 
 **Code**
 ```
@@ -16,14 +16,14 @@ Please describe the bug in here...
 ```
 
 **The error message**
-If an error message is releated to the code, write it here...
+If an error message is related to the code, write it here...
 
 **Platform**
 - OS: e.g. GNU/Linux Ubuntu 18.04
 - Python version: e.g. 3.9
 - Pashmak version: e.g. 0.1
 
-(also you can run `pashmak --info` and write output here)
+(Also you can run `pashmak --info` and write the output here)
 
 **Additional context**
-If there is any more thing, write here
+If there is anything else, write it here

@@ -30,7 +30,7 @@ They are errors.
 
 ### But how to handle errors?
 
-We can handle errors with `try-endtry` statement.
+We can handle errors with the `try-endtry` statement.
 
 Look at this example:
 
@@ -48,14 +48,14 @@ println('some errors raised')
 label after_error
 ```
 
-When you write code between `try <label-name> ... endtry`, errors will not raised in them and if an error is raised, that label where passed to try command will run.
-Actually, we say to the Pashmak to don't show error to user and do that thing I'm saying you instead of default error showing.
+When you write code between `try <label-name> ... endtry`, errors will not be raised in it, and if an error is raised, the label that was passed to the try command will run.
+Actually, we are telling Pashmak not to show the error to the user and to do what we say instead of the default error output.
 
-Note: You can use keyword `end` instead of `endtry`. It is not different.
+Note: You can use the keyword `end` instead of `endtry`. There is no difference.
 
-### How to access raised error data?
+### How to access the raised error data?
 
-When error is raised in try statement, error data will put in mem (^):
+When an error is raised in a try statement, the error data will be put in the mem (^):
 
 ```bash
 try handle_error
@@ -66,13 +66,13 @@ goto after_error
 
 label handle_error
 
-$ex = ^ # copy mem (^) to $ex variable (this includes information about raised error)
+$ex = ^ # copy the mem (^) to the $ex variable (this includes information about the raised error)
 println($ex) # output: VariableError: undefined variable $somevar
 
 label after_error
 ```
 
-The raised error data has more properties. This is a [Class object](#classes). You will learn about classes in next sections.
+The raised error data has more properties. This is a [Class object](#classes). You will learn about classes in the next sections.
 
 ```bash
 try error

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-endfunc without opened block raises error
+`endfunc` without an open block raises an error
 
 --file--
 endfunc

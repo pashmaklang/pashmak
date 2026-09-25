@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class objects have __parent__ and __name__ properties
+Class objects have `__parent__` and `__name__` properties
 
 --file--
 

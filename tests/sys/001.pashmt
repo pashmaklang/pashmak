@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-sys module works
+The sys module works
 
 --file--
 import @sys

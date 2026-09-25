@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-class init method is working
+The class initialization method works
 
 --file--
 

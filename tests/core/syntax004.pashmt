@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-endclass without opened block raises error
+`endclass` without an open block raises an error
 
 --file--
 endclass

@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-copy command is working
+The `copy` command works
 --file--
 $name; $family; $age
 $name = 'parsa'

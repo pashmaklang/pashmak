@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-stdlib print/println/printl functions working
+The stdlib `print`, `println`, and `printl` functions work
 --file--
 
 print "hello world"

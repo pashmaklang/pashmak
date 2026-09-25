@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-shutdown events will be called while using exit()
+Shutdown events run when `exit()` is called
 
 --file--
 

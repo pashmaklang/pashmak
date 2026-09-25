@@ -23,5 +23,5 @@ Output:
 output: hello world
 ```
 
-As you can see, function `import` (or `import_once`, `import_run`...) will return the returned value
-by command `return` in the script. By this feature, we can return values by scripts like functions.
+As you can see, the `import` function (or `import_once`, `import_run`...) will return the value returned
+by the `return` command in the script. With this feature, we can return values from scripts, just like from functions.

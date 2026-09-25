@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-import command () syntax bug is fixed
+The `import()` syntax bug is fixed
 
 --file--
 

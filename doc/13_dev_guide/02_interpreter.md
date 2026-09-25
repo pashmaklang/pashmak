@@ -7,7 +7,7 @@ This script gets the file name that user want to run. Then, loads content of thi
 
 ##### NOTE: actually, `src/pashmak.py` uses `Jit` to load and parse the file, but you learn about it in the next parts.
 
-The parser, gets the code as string. Splits the lines by `\n` and `;`(using new line and `;` for seprating operations is not different). Then, handles mutliline syntax and mixes that operations writen in mutliple lines in one line. Then, gives the lines one by one to the lexer(`src/core/lexer.py`'s `parse_op` function). Lexer splits some parts of the code and returns a `dict`. Then, parser makes ready a list from `dict`s. Also does something else on the output list(for example, converts `if..elif..else` statements to `label` system).
+The parser receives the code as a string and splits it on `\n` and `;` (using a newline or `;` to separate operations is equivalent). It then handles multiline syntax, combining operations written across multiple lines into one line. Next, it passes each line to the lexer's `parse_op` function in `src/core/lexer.py`. The lexer splits parts of the code and returns a dictionary. The parser then builds a list from these dictionaries and processes the list further, for example, converting `if..elif..else` statements to a `label` system.
 
 Finally, parser returns the parsed code.
 
@@ -27,7 +27,7 @@ prog.start()
 the `start` method starts running commands one by one.
 
 ## Frames
-Frame system is very very important thing. This system is related to importing other scripts or calling functions. for example, this is my Pashmak code:
+The frame system is important for importing scripts and calling functions. For example, consider this Pashmak code:
 
 ```bash
 func get_sum($a, $b)
@@ -42,9 +42,9 @@ println($sum)
 
 when executor is running this code line by line, what about calling `get_sum` and `println` functions?
 
-This is the frame system: When a function is called, a new frame will be created and the body of the function will be ran in the new frame, when this frame was finished, program backs to run previous frame.
+This is how the frame system works: when a function is called, a new frame is created and the function body runs in it. When that frame finishes, the program returns to the previous frame.
 
-Also frames help to isolate variables, used namespaces, etc.
+Frames also help isolate variables, namespaces in use, and other state.
 In the `Program` class, frames are accessible in:
 
 ```python
@@ -65,7 +65,7 @@ self.frames: [<main-frame>, <inner-frame>, <other>...]
 
 This is the general structure.
 
-When program is running code line by line, if there is a function call, creates a new frame and starts running new frame. when the new frame running was finished, backs to running previous frame.
+When the program runs code line by line and encounters a function call, it creates a new frame and starts running it. When that frame finishes, execution returns to the previous frame.
 
 Structure of `self.frames` variable is a `list[dict]`.
 

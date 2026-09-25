@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-`set()` and `get()` functions working correctly
+The `set()` and `get()` functions work correctly
 
 --file--
 

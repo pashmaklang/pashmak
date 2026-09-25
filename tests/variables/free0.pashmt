@@ -21,7 +21,7 @@
 #########################################################################
 
 --test--
-free function is working
+The `free` function works
 --file--
 
 $name = 'parsa'

@@ -1,10 +1,10 @@
 # Class magic methods
-now, you know what is the class methods. some methods in classes are special.
+Some methods in classes are special.
 
 ### `__init__`
-the `__init__` method, will be ran when an object is created from a class.
+The `__init__` method runs when an object is created from a class.
 
-look at this example:
+Look at this example:
 
 ```bash
 class Person
@@ -22,7 +22,7 @@ output:
 a new Person is created
 ```
 
-also you can pass argument to `__init__` method. look at this example:
+You can also pass arguments to the `__init__` method. Look at this example:
 
 ```bash
 class Person
@@ -44,7 +44,7 @@ parsa
 ```
 
 ### `__str__`
-the `__str__` method, is a method to customize object string value.
+The `__str__` method customizes an object's string value.
 
 look at this example:
 
@@ -66,9 +66,9 @@ output:
 [PashmakObject name="Person"]
 ```
 
-in the above example, when we print a object, default string value is the above output.
+In the above example, when we print an object, its default string value is the output shown above.
 
-but we can customize this string with `__str__` method.
+We can customize this string with the `__str__` method.
 
 look at this example:
 
@@ -92,9 +92,9 @@ output:
 hello. my name is parsa
 ```
 
-in the above example, we declared `__str__` method for the class. then, when class is printed, output of `__str__` method will be used instead of that default string.
+In the above example, we declared the `__str__` method for the class. When an object of this class is printed, the method's output is used instead of the default string.
 
-### Comparsion magic methods
+### Comparison magic methods
 
 - `__eq__($other)`: Handles the equality operator, `==`
 - `__ne__($other)`: Handles the inequality operator, `!=`
